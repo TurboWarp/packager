@@ -1,0 +1,177 @@
+<!--
+Copyright (c) 2020 Thomas Weber
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <https://www.gnu.org/licenses/>.
+-->
+
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <style>
+      body {
+        font-family: sans-serif;
+      }
+    </style>
+  </head>
+
+  <body>
+    <h1>p3 - beta</h1>
+
+    <div class="section">
+      <h2>Select project</h2>
+
+      <div>
+        <label>
+          <input name="projectSource" type="radio" value="id" checked>
+          Project ID
+        </label>
+        <label>
+          <input name="projectSource" type="radio" value="file">
+          Project File
+        </label>
+      </div>
+
+      <div if="O.projectSource === 'id'">
+        Project ID or URL: <input name="projectId" type="text">
+      </div>
+
+      <div if="O.projectSource === 'file'">
+        Project File: <input name="projectFile" type="file" accept=".sb,.sb2,.sb3">
+      </div>
+
+    </div>
+
+    <div class="section">
+      <h2>Environment</h2>
+
+      <div>
+        <label>
+          Runtime
+          <select name="environmentRuntime">
+            <option value="turbowarp">TurboWarp</option>
+            <option value="forkphorus">forkphorus</option>
+          </select>
+        </label>
+      </div>
+
+      <div>
+        <label>
+          Target Environment
+          <select name="environmentTarget">
+            <option value="html">Plain HTML</option>
+          </select>
+        </label>
+      </div>
+    </div>
+
+    <div if="O.environmentRuntime === 'forkphorus'" class="section">
+      <h2>forkphorus options</h2>
+
+      <div>
+        <label>
+          Turbo Mode
+          <input name="forkphorusTurboMode" type="checkbox">
+        </label>
+      </div>
+      <div>
+        <label>
+          Show Controls
+          <input name="forkphorusControls" type="checkbox">
+        </label>
+      </div>
+      <div>
+        <label>
+          Username
+          <input name="forkphorusUsername" type="text">
+        </label>
+      </div>
+      <div>
+        <label>
+          Autoplay
+          <select name="forkphorusAutoplay">
+            <option>Always</option>
+            <option>Never</option>
+            <option>If audio can be played</option>
+          </select>
+        </label>
+      </div>
+      <div>
+        <label>
+          Framerate
+          <input name="forkphorusFramerate" value="30" type="number">
+        </label>
+      </div>
+      <div>
+        <label>
+          Loading Screen Text
+          <input name="forkphorusLoadingText" value="forkphorus">
+        </label>
+      </div>
+    </div>
+
+    <div>
+      <button id="package">Package</button>
+    </div>
+
+    <script src="jszip.min.js"></script>
+    <script src="templater.js"></script>
+    <script src="downloader.js"></script>
+    <script src="parseoptions.js"></script>
+    <script src="runtimes.js"></script>
+
+    <script>
+      O.onchange = function() {
+        Templater.update();
+      };
+      Templater.update();
+
+      const loadProject = () => {
+        if (O.projectSource === 'file') {
+          return SBDownloader.readAsArrayBuffer(O.projectFile);
+        } else {
+          return new SBDownloader(O.projectId.match(/\d+/)[0]).download();
+        }
+      };
+
+      function addDownloadLink(blob, fileName) {
+        const link = document.createElement('a');
+        const size = blob.size / 1024 / 1024;
+        link.href = URL.createObjectURL(blob);
+        link.textContent = `Download ${fileName} (${size.toFixed(2)} MiB)`;
+        link.download = fileName;
+        document.body.appendChild(link);
+        link.click();
+      }
+
+      document.getElementById('package').addEventListener('click', async function() {
+        const projectData = await loadProject();
+        const blob = new Blob([projectData]);
+
+        const fr = new FileReader();
+        fr.onload = () => {
+          const tw = new Runtime.TurboWarp();
+          tw.p(fr.result)
+            .then((t) => {
+              addDownloadLink(new Blob([new TextEncoder().encode(t)]))
+            })
+        }
+        fr.readAsDataURL(blob);
+        // console.log(blob);
+      });
+    </script>
+
+  </body>
+
+</html>
