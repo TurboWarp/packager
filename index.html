@@ -195,15 +195,21 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
       };
 
       const getRuntime = () => {
-        if (Packager.runtimes[O.environment.runtime]) {
-          return Packager.runtimes[O.environment.runtime];
+        switch (O.environment.runtime) {
+          case 'turbowarp': return new Packager.runtimes.TurboWarp();
+          case 'forkphorus': return new Packager.runtimes.Forkphorus({
+            playerOptions: O.forkphorus.playerOptions,
+            controlsOptions: O.forkphorus.showControls ? { enableFullscreen: false } : null,
+            loadingScreenText: O.forkphorus.loadingScreenText,
+          });
         }
         throw new Error('unknown environment');
       };
 
       const getEnvironment = () => {
-        if (Packager.environments[O.environment.target]) {
-          return Packager.environments[O.environment.target];
+        switch (O.environment.target) {
+          case 'html': return new Packager.environments.HTML();
+          case 'zip': return new Packager.environments.Zip();
         }
         throw new Error('unknown environment');
       };
