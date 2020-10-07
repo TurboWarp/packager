@@ -295,7 +295,10 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
             const environment = getEnvironment();
             const projectData = await loadProject();
             const result = await environment.package(runtime, projectData);
-            addDownloadLink(new Blob([result.data]), result.filename);
+            if (!(result.data instanceof Blob)) {
+              result.data = new Blob([result.data]);
+            }
+            addDownloadLink(result.data, result.filename);
           } catch (e) {
             console.error(e);
             alert(e);
