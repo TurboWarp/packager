@@ -28,11 +28,10 @@ window.Packager = (function() {
     });
   };
 
-  class FileLoader {
-    constructor() {
-      this.files = [];
-      this.assets = [];
-      this.pathPrefix = 'forkphorus/';
+  class ScriptOrStyleLoader {
+    constructor(files, pathPrefix = '') {
+      this.files = files;
+      this.pathPrefix = pathPrefix;
     }
 
     async _loadInlineSource(source) {
@@ -60,6 +59,21 @@ window.Packager = (function() {
       file.content = body;
     }
 
+    async load() {
+      const missingFiles = this.files.filter((i) => !i.loaded);
+      if (missingFiles.length > 0) {
+        await Promise.all(missingFiles.map((i) => this._loadFile(i)));
+      }
+      return this.files.map((i) => i.content).join('\n');
+    }
+  }
+
+  class AssetLoader {
+    constructor(files, pathPrefix = '') {
+      this.files = files;
+      this.pathPrefix = pathPrefix;
+    }
+
     async _loadAsset(asset) {
       const response = await fetch(this.pathPrefix + asset.src);
       const blob = await response.blob();
@@ -69,134 +83,26 @@ window.Packager = (function() {
       asset.data = data;
     }
 
-    _concatenateFiles(files) {
-      return files.map((i) => i.content).join('\n');
-    }
-
-    async loadMissingAssets() {
-      const missingFiles = this.files.filter((i) => !i.loaded);
-      const missingAssets = this.assets.filter((i) => !i.loaded);
-
-      if (missingFiles.length > 0 || missingAssets.length > 0) {
-        await Promise.all([
-          ...missingFiles.map((i) => this._loadFile(i)),
-          ...missingAssets.map((i) => this._loadAsset(i)),
-        ]);
+    async load() {
+      const missing = this.files.filter((i) => !i.loaded);
+      if (missing.length > 0) {
+        await Promise.all(missing.map((i) => this._loadAsset(i)));
       }
-
-      return {
-        scripts: this._concatenateFiles(this.files.filter((i) => i.type === 'script')),
-        styles: this._concatenateFiles(this.files.filter((i) => i.type === 'style')),
-        assets: this.assets,
-      };
+      return this.files;
     }
   }
 
-  const fileLoader = new FileLoader();
-
-  fileLoader.files = [
-    { type: 'style', src: 'phosphorus.css', inlineSources: [
-      'icons.svg',
-      'icons/click-to-play.svg',
-      'fonts/DonegalOne-Regular.woff',
-      'fonts/GloriaHallelujah.woff',
-      'fonts/MysteryQuest-Regular.woff',
-      'fonts/PermanentMarker-Regular.woff',
-    ]},
-    { type: 'script', src: 'lib/scratch-sb1-converter.js', },
-    { type: 'script', src: 'lib/canvg.min.js', },
-    { type: 'script', src: 'lib/fontfaceobserver.standalone.js', },
-    { type: 'script', src: 'lib/jszip.min.js', },
-    { type: 'script', src: 'lib/rgbcolor.js', },
-    { type: 'script', src: 'lib/stackblur.min.js', },
-    { type: 'script', src: 'phosphorus.dist.js', inlineSources: ['icons.svg'] },
-  ];
-
-  fileLoader.assets = [
-    { src: 'soundbank/sb2/instruments/AcousticGuitar_F3_22k.wav', },
-    { src: 'soundbank/sb2/instruments/AcousticPiano(5)_A%233_22k.wav', },
-    { src: 'soundbank/sb2/instruments/AcousticPiano(5)_C4_22k.wav', },
-    { src: 'soundbank/sb2/instruments/AcousticPiano(5)_G4_22k.wav', },
-    { src: 'soundbank/sb2/instruments/AcousticPiano(5)_F5_22k.wav', },
-    { src: 'soundbank/sb2/instruments/AcousticPiano(5)_C6_22k.wav', },
-    { src: 'soundbank/sb2/instruments/AcousticPiano(5)_D%236_22k.wav', },
-    { src: 'soundbank/sb2/instruments/AcousticPiano(5)_D7_22k.wav', },
-    { src: 'soundbank/sb2/instruments/AltoSax_A3_22K.wav', },
-    { src: 'soundbank/sb2/instruments/AltoSax(3)_C6_22k.wav', },
-    { src: 'soundbank/sb2/instruments/Bassoon_C3_22k.wav', },
-    { src: 'soundbank/sb2/instruments/BassTrombone_A2(2)_22k.wav', },
-    { src: 'soundbank/sb2/instruments/BassTrombone_A2(3)_22k.wav', },
-    { src: 'soundbank/sb2/instruments/Cello(3b)_C2_22k.wav', },
-    { src: 'soundbank/sb2/instruments/Cello(3)_A%232_22k.wav', },
-    { src: 'soundbank/sb2/instruments/Choir(4)_F3_22k.wav', },
-    { src: 'soundbank/sb2/instruments/Choir(4)_F4_22k.wav', },
-    { src: 'soundbank/sb2/instruments/Choir(4)_F5_22k.wav', },
-    { src: 'soundbank/sb2/instruments/Clarinet_C4_22k.wav', },
-    { src: 'soundbank/sb2/instruments/ElectricBass(2)_G1_22k.wav', },
-    { src: 'soundbank/sb2/instruments/ElectricGuitar(2)_F3(1)_22k.wav', },
-    { src: 'soundbank/sb2/instruments/ElectricPiano_C2_22k.wav', },
-    { src: 'soundbank/sb2/instruments/ElectricPiano_C4_22k.wav', },
-    { src: 'soundbank/sb2/instruments/EnglishHorn(1)_D4_22k.wav', },
-    { src: 'soundbank/sb2/instruments/EnglishHorn(1)_F3_22k.wav', },
-    { src: 'soundbank/sb2/instruments/Flute(3)_B5(1)_22k.wav', },
-    { src: 'soundbank/sb2/instruments/Flute(3)_B5(2)_22k.wav', },
-    { src: 'soundbank/sb2/instruments/Marimba_C4_22k.wav', },
-    { src: 'soundbank/sb2/instruments/MusicBox_C4_22k.wav', },
-    { src: 'soundbank/sb2/instruments/Organ(2)_G2_22k.wav', },
-    { src: 'soundbank/sb2/instruments/Pizz(2)_A3_22k.wav', },
-    { src: 'soundbank/sb2/instruments/Pizz(2)_E4_22k.wav', },
-    { src: 'soundbank/sb2/instruments/Pizz(2)_G2_22k.wav', },
-    { src: 'soundbank/sb2/instruments/SteelDrum_D5_22k.wav', },
-    { src: 'soundbank/sb2/instruments/SynthLead(6)_C4_22k.wav', },
-    { src: 'soundbank/sb2/instruments/SynthLead(6)_C6_22k.wav', },
-    { src: 'soundbank/sb2/instruments/SynthPad(2)_A3_22k.wav', },
-    { src: 'soundbank/sb2/instruments/SynthPad(2)_C6_22k.wav', },
-    { src: 'soundbank/sb2/instruments/TenorSax(1)_C3_22k.wav', },
-    { src: 'soundbank/sb2/instruments/Trombone_B3_22k.wav', },
-    { src: 'soundbank/sb2/instruments/Trumpet_E5_22k.wav', },
-    { src: 'soundbank/sb2/instruments/Vibraphone_C3_22k.wav', },
-    { src: 'soundbank/sb2/instruments/Violin(2)_D4_22K.wav', },
-    { src: 'soundbank/sb2/instruments/Violin(3)_A4_22k.wav', },
-    { src: 'soundbank/sb2/instruments/Violin(3b)_E5_22k.wav', },
-    { src: 'soundbank/sb2/instruments/WoodenFlute_C5_22k.wav', },
-    { src: 'soundbank/sb2/drums/BassDrum(1b)_22k.wav', },
-    { src: 'soundbank/sb2/drums/Bongo_22k.wav', },
-    { src: 'soundbank/sb2/drums/Cabasa(1)_22k.wav', },
-    { src: 'soundbank/sb2/drums/Clap(1)_22k.wav', },
-    { src: 'soundbank/sb2/drums/Claves(1)_22k.wav', },
-    { src: 'soundbank/sb2/drums/Conga(1)_22k.wav', },
-    { src: 'soundbank/sb2/drums/Cowbell(3)_22k.wav', },
-    { src: 'soundbank/sb2/drums/Crash(2)_22k.wav', },
-    { src: 'soundbank/sb2/drums/Cuica(2)_22k.wav', },
-    { src: 'soundbank/sb2/drums/GuiroLong(1)_22k.wav', },
-    { src: 'soundbank/sb2/drums/GuiroShort(1)_22k.wav', },
-    { src: 'soundbank/sb2/drums/HiHatClosed(1)_22k.wav', },
-    { src: 'soundbank/sb2/drums/HiHatOpen(2)_22k.wav', },
-    { src: 'soundbank/sb2/drums/HiHatPedal(1)_22k.wav', },
-    { src: 'soundbank/sb2/drums/Maracas(1)_22k.wav', },
-    { src: 'soundbank/sb2/drums/SideStick(1)_22k.wav', },
-    { src: 'soundbank/sb2/drums/SnareDrum(1)_22k.wav', },
-    { src: 'soundbank/sb2/drums/Tambourine(3)_22k.wav', },
-    { src: 'soundbank/sb2/drums/Tom(1)_22k.wav', },
-    { src: 'soundbank/sb2/drums/Triangle(1)_22k.wav', },
-    { src: 'soundbank/sb2/drums/Vibraslap(1)_22k.wav', },
-    { src: 'soundbank/sb2/drums/WoodBlock(1)_22k.wav', },
-    { src: 'fonts/Knewave-Regular.woff', },
-    { src: 'fonts/Handlee-Regular.woff', },
-    { src: 'fonts/Grand9K-Pixel.ttf', },
-    { src: 'fonts/Griffy-Regular.woff', },
-    { src: 'fonts/SourceSerifPro-Regular.woff', },
-    { src: 'fonts/NotoSans-Regular.woff', },
-  ];
-
   runtimes.turbowarp = {
-    async package(projectSource) {
+    async package({projectSource}) {
       const res = await fetch('_tw.js');
       const text = await res.text();
       return `<!DOCTYPE html>
 <html>
 
 <head>
+  <meta charset="utf-8">
+  <!-- TODO: determine CSP -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <style>
     #splash {
       user-select: none;
@@ -206,7 +112,7 @@ window.Packager = (function() {
     }
     #splash h1 { font-size: 2rem; font-weight: bold; }
     .tw-loaded #splash { display: none; }
-    @media (prefers-color-scheme: dark) { #splash { background-color: #333; color: #ddd; } }</style>
+    @media (prefers-color-scheme: dark) { #splash { background-color: #333; color: #ddd; } }
   </style>
 </head>
 
@@ -232,11 +138,112 @@ window.Packager = (function() {
   };
 
   runtimes.forkphorus = {
+    scriptLoader: new ScriptOrStyleLoader([
+      { type: 'script', src: 'lib/scratch-sb1-converter.js', },
+      { type: 'script', src: 'lib/canvg.min.js', },
+      { type: 'script', src: 'lib/fontfaceobserver.standalone.js', },
+      { type: 'script', src: 'lib/jszip.min.js', },
+      { type: 'script', src: 'lib/rgbcolor.js', },
+      { type: 'script', src: 'lib/stackblur.min.js', },
+      { type: 'script', src: 'phosphorus.dist.js', inlineSources: ['icons.svg'] },  
+    ], 'forkphorus/'),
+    styleLoader: new ScriptOrStyleLoader([
+      {
+        src: 'phosphorus.css',
+        inlineSources: [
+          'icons.svg',
+          'icons/click-to-play.svg',
+          'fonts/DonegalOne-Regular.woff',
+          'fonts/GloriaHallelujah.woff',
+          'fonts/MysteryQuest-Regular.woff',
+          'fonts/PermanentMarker-Regular.woff',
+        ]    
+      }
+    ], 'forkphorus/'),
+    assetLoader: new AssetLoader([
+      { src: 'soundbank/sb2/instruments/AcousticGuitar_F3_22k.wav', },
+      { src: 'soundbank/sb2/instruments/AcousticPiano(5)_A%233_22k.wav', },
+      { src: 'soundbank/sb2/instruments/AcousticPiano(5)_C4_22k.wav', },
+      { src: 'soundbank/sb2/instruments/AcousticPiano(5)_G4_22k.wav', },
+      { src: 'soundbank/sb2/instruments/AcousticPiano(5)_F5_22k.wav', },
+      { src: 'soundbank/sb2/instruments/AcousticPiano(5)_C6_22k.wav', },
+      { src: 'soundbank/sb2/instruments/AcousticPiano(5)_D%236_22k.wav', },
+      { src: 'soundbank/sb2/instruments/AcousticPiano(5)_D7_22k.wav', },
+      { src: 'soundbank/sb2/instruments/AltoSax_A3_22K.wav', },
+      { src: 'soundbank/sb2/instruments/AltoSax(3)_C6_22k.wav', },
+      { src: 'soundbank/sb2/instruments/Bassoon_C3_22k.wav', },
+      { src: 'soundbank/sb2/instruments/BassTrombone_A2(2)_22k.wav', },
+      { src: 'soundbank/sb2/instruments/BassTrombone_A2(3)_22k.wav', },
+      { src: 'soundbank/sb2/instruments/Cello(3b)_C2_22k.wav', },
+      { src: 'soundbank/sb2/instruments/Cello(3)_A%232_22k.wav', },
+      { src: 'soundbank/sb2/instruments/Choir(4)_F3_22k.wav', },
+      { src: 'soundbank/sb2/instruments/Choir(4)_F4_22k.wav', },
+      { src: 'soundbank/sb2/instruments/Choir(4)_F5_22k.wav', },
+      { src: 'soundbank/sb2/instruments/Clarinet_C4_22k.wav', },
+      { src: 'soundbank/sb2/instruments/ElectricBass(2)_G1_22k.wav', },
+      { src: 'soundbank/sb2/instruments/ElectricGuitar(2)_F3(1)_22k.wav', },
+      { src: 'soundbank/sb2/instruments/ElectricPiano_C2_22k.wav', },
+      { src: 'soundbank/sb2/instruments/ElectricPiano_C4_22k.wav', },
+      { src: 'soundbank/sb2/instruments/EnglishHorn(1)_D4_22k.wav', },
+      { src: 'soundbank/sb2/instruments/EnglishHorn(1)_F3_22k.wav', },
+      { src: 'soundbank/sb2/instruments/Flute(3)_B5(1)_22k.wav', },
+      { src: 'soundbank/sb2/instruments/Flute(3)_B5(2)_22k.wav', },
+      { src: 'soundbank/sb2/instruments/Marimba_C4_22k.wav', },
+      { src: 'soundbank/sb2/instruments/MusicBox_C4_22k.wav', },
+      { src: 'soundbank/sb2/instruments/Organ(2)_G2_22k.wav', },
+      { src: 'soundbank/sb2/instruments/Pizz(2)_A3_22k.wav', },
+      { src: 'soundbank/sb2/instruments/Pizz(2)_E4_22k.wav', },
+      { src: 'soundbank/sb2/instruments/Pizz(2)_G2_22k.wav', },
+      { src: 'soundbank/sb2/instruments/SteelDrum_D5_22k.wav', },
+      { src: 'soundbank/sb2/instruments/SynthLead(6)_C4_22k.wav', },
+      { src: 'soundbank/sb2/instruments/SynthLead(6)_C6_22k.wav', },
+      { src: 'soundbank/sb2/instruments/SynthPad(2)_A3_22k.wav', },
+      { src: 'soundbank/sb2/instruments/SynthPad(2)_C6_22k.wav', },
+      { src: 'soundbank/sb2/instruments/TenorSax(1)_C3_22k.wav', },
+      { src: 'soundbank/sb2/instruments/Trombone_B3_22k.wav', },
+      { src: 'soundbank/sb2/instruments/Trumpet_E5_22k.wav', },
+      { src: 'soundbank/sb2/instruments/Vibraphone_C3_22k.wav', },
+      { src: 'soundbank/sb2/instruments/Violin(2)_D4_22K.wav', },
+      { src: 'soundbank/sb2/instruments/Violin(3)_A4_22k.wav', },
+      { src: 'soundbank/sb2/instruments/Violin(3b)_E5_22k.wav', },
+      { src: 'soundbank/sb2/instruments/WoodenFlute_C5_22k.wav', },
+      { src: 'soundbank/sb2/drums/BassDrum(1b)_22k.wav', },
+      { src: 'soundbank/sb2/drums/Bongo_22k.wav', },
+      { src: 'soundbank/sb2/drums/Cabasa(1)_22k.wav', },
+      { src: 'soundbank/sb2/drums/Clap(1)_22k.wav', },
+      { src: 'soundbank/sb2/drums/Claves(1)_22k.wav', },
+      { src: 'soundbank/sb2/drums/Conga(1)_22k.wav', },
+      { src: 'soundbank/sb2/drums/Cowbell(3)_22k.wav', },
+      { src: 'soundbank/sb2/drums/Crash(2)_22k.wav', },
+      { src: 'soundbank/sb2/drums/Cuica(2)_22k.wav', },
+      { src: 'soundbank/sb2/drums/GuiroLong(1)_22k.wav', },
+      { src: 'soundbank/sb2/drums/GuiroShort(1)_22k.wav', },
+      { src: 'soundbank/sb2/drums/HiHatClosed(1)_22k.wav', },
+      { src: 'soundbank/sb2/drums/HiHatOpen(2)_22k.wav', },
+      { src: 'soundbank/sb2/drums/HiHatPedal(1)_22k.wav', },
+      { src: 'soundbank/sb2/drums/Maracas(1)_22k.wav', },
+      { src: 'soundbank/sb2/drums/SideStick(1)_22k.wav', },
+      { src: 'soundbank/sb2/drums/SnareDrum(1)_22k.wav', },
+      { src: 'soundbank/sb2/drums/Tambourine(3)_22k.wav', },
+      { src: 'soundbank/sb2/drums/Tom(1)_22k.wav', },
+      { src: 'soundbank/sb2/drums/Triangle(1)_22k.wav', },
+      { src: 'soundbank/sb2/drums/Vibraslap(1)_22k.wav', },
+      { src: 'soundbank/sb2/drums/WoodBlock(1)_22k.wav', },
+      { src: 'fonts/Knewave-Regular.woff', },
+      { src: 'fonts/Handlee-Regular.woff', },
+      { src: 'fonts/Grand9K-Pixel.ttf', },
+      { src: 'fonts/Griffy-Regular.woff', },
+      { src: 'fonts/SourceSerifPro-Regular.woff', },
+      { src: 'fonts/NotoSans-Regular.woff', },
+    ], 'forkphorus/'),
     async package(projectSource) {
-      const { scripts, styles, assets } = await fileLoader.loadMissingAssets();
+      const [ scripts, styles, assets ] = await Promise.all([
+        runtimes.forkphorus.scriptLoader.load(),
+        runtimes.forkphorus.styleLoader.load(),
+        runtimes.forkphorus.assetLoader.load(),
+      ]);
       const assetManagerData = '{' + assets.map((asset) => `"${asset.src}": "${asset.data}"`).join(', ') + '}';
       return `<!DOCTYPE html>
-<!-- Generated by the forkphorus packager: https://forkphorus.github.io/packager/ (MIT Licensed) -->
 <html>
 <head>
   <meta charset="utf-8">
