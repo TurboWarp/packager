@@ -25,6 +25,27 @@ window.Packager = (function() {
     });
   };
 
+  class Project {
+    constructor(blob, type) {
+      this.blob = blob;
+      this.type = type;
+    }
+
+    async asDataURL() {
+      return {
+        data: await readAsDataURL(this.blob),
+        type: this.type
+      };
+    }
+
+    async asFetchedFrom(path) {
+      return {
+        data: path,
+        type: this.type
+      };
+    }
+  }
+
   class ScriptOrStyleLoader {
     constructor(files, pathPrefix = '') {
       this.files = files;
@@ -90,9 +111,8 @@ window.Packager = (function() {
   }
 
   class TurboWarp {
-    async package(projectSource) {
-      const res = await fetch('_tw.js'); // tood: move somewhere else
-      const text = await res.text();
+    async package(projectData) {
+      const script = await TurboWarp.scriptLoader.load();
       return `<!DOCTYPE html>
 <html>
 
@@ -123,16 +143,19 @@ window.Packager = (function() {
   </div>
 
   <script>
-  window.__PROJECT_DATA__ = "${projectSource}";
+  window.__PROJECT_DATA__ = "${projectData.data}";
   </script>
   <script>
-  ${text.replace(/<\/script>/g,"</scri'+'pt>")}
+  ${script.replace(/<\/script>/g,"</scri'+'pt>")}
   </script>
 </body>
 
 </html>`;
     }
   }
+  TurboWarp.scriptLoader = new ScriptOrStyleLoader([
+    { src: 'player.js' }
+  ], 'https://packagerdata.turbowarp.org/');
 
   class Forkphorus {
     constructor(options) {
@@ -140,7 +163,7 @@ window.Packager = (function() {
       this.controlsOptions = options.controlsOptions;
       this.loadingScreenText = options.loadingScreenText;
     }
-    async package(projectSource) {
+    async package(projectData) {
       const [ scripts, styles, assets ] = await Promise.all([
         Forkphorus.scriptLoader.load(),
         Forkphorus.styleLoader.load(),
@@ -303,10 +326,10 @@ ${scripts}
   });
 
   // Project type...
-  var type = 'sb3';
+  var type = '${projectData.type}';
   // Project data...
   // Attribution Notice:
-  var project = '${projectSource}';
+  var project = '${projectData.data}';
 
   // Player options...
   var playerOptions = ${JSON.stringify(this.playerOptions)};
@@ -336,14 +359,14 @@ ${scripts}
   }
 
   Forkphorus.scriptLoader = new ScriptOrStyleLoader([
-    { type: 'script', src: 'lib/scratch-sb1-converter.js', },
-    { type: 'script', src: 'lib/canvg.min.js', },
-    { type: 'script', src: 'lib/fontfaceobserver.standalone.js', },
-    { type: 'script', src: 'lib/jszip.min.js', },
-    { type: 'script', src: 'lib/rgbcolor.js', },
-    { type: 'script', src: 'lib/stackblur.min.js', },
-    { type: 'script', src: 'phosphorus.dist.js', inlineSources: ['icons.svg'] },  
-  ], 'forkphorus/'); // todo: move somewhere else
+    { src: 'lib/scratch-sb1-converter.js', },
+    { src: 'lib/canvg.min.js', },
+    { src: 'lib/fontfaceobserver.standalone.js', },
+    { src: 'lib/jszip.min.js', },
+    { src: 'lib/rgbcolor.js', },
+    { src: 'lib/stackblur.min.js', },
+    { src: 'phosphorus.dist.js', inlineSources: ['icons.svg'] },  
+  ], 'https://forkphorus.github.io/');
   Forkphorus.styleLoader = new ScriptOrStyleLoader([
     {
       src: 'phosphorus.css',
@@ -356,7 +379,7 @@ ${scripts}
         'fonts/PermanentMarker-Regular.woff',
       ]    
     }
-  ], 'forkphorus/'); // todo: move somewhere else
+  ], 'https://forkphorus.github.io/');
   Forkphorus.assetLoader = new AssetLoader([
     { src: 'soundbank/sb2/instruments/AcousticGuitar_F3_22k.wav', },
     { src: 'soundbank/sb2/instruments/AcousticPiano(5)_A%233_22k.wav', },
@@ -432,11 +455,11 @@ ${scripts}
     { src: 'fonts/Griffy-Regular.woff', },
     { src: 'fonts/SourceSerifPro-Regular.woff', },
     { src: 'fonts/NotoSans-Regular.woff', },
-  ], 'forkphorus/'); // todo: move somewhere else
+  ], 'https://forkphorus.github.io/');
 
   class HTML {
     async package(runtime, projectData) {
-      const packagerData = await runtime.package(await readAsDataURL(projectData));
+      const packagerData = await runtime.package(await projectData.asDataURL());
       return {
         data: packagerData,
         filename: 'project.html',
@@ -447,7 +470,7 @@ ${scripts}
   class Zip {
     async package(runtime, projectData) {
       const zip = new JSZip();
-      const packagerData = await runtime.package('project.zip');
+      const packagerData = await runtime.package(await projectData.asFetchedFrom('project.zip'));
       zip.file('index.html', packagerData);
       zip.file('project.zip', projectData);
       return {
@@ -461,13 +484,14 @@ ${scripts}
   }
 
   return {
+    Project,
     runtimes: {
       TurboWarp,
-      Forkphorus
+      Forkphorus,
     },
     environments: {
       HTML,
-      Zip
+      Zip,
     },
   };
 }());

@@ -183,24 +183,27 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
           if (!O.project.file) {
             throw new Error('No file selected');
           }
-          return new Blob([await SBDownloader.readAsArrayBuffer(O.project.file)]);
+          // File is a Blob
+          return new Packager.Project(O.project.file, await SBDownloader.identifyProjectType(O.project.file));
         } else if (O.project.source === 'id') {
           const match = O.project.id.match(/\d+/);
           if (!match) {
             throw new Error('Invalid project ID');
           }
-          return new Blob([await new SBDownloader(match[0]).download()]);
+          const project = await SBDownloader.download(match[0]);
+          return new Packager.Project(await project.asBlob(), project.type);
         }
         throw new Error('unknown project source');
       };
 
-      const getRuntime = () => {
+      const getRuntime = (projectType) => {
         switch (O.environment.runtime) {
           case 'turbowarp': return new Packager.runtimes.TurboWarp();
           case 'forkphorus': return new Packager.runtimes.Forkphorus({
             playerOptions: O.forkphorus.playerOptions,
             controlsOptions: O.forkphorus.showControls ? { enableFullscreen: false } : null,
             loadingScreenText: O.forkphorus.loadingScreenText,
+            projectType: projectType,
           });
         }
         throw new Error('unknown environment');
@@ -238,6 +241,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
           const result = await environment.package(runtime, projectData);
           addDownloadLink(new Blob([result.data]), result.filename);
         } catch (e) {
+          console.error(e);
           alert(e);
         }
       });
