@@ -101,7 +101,12 @@ window.SBDownloader = (function() {
   const identifyProjectType = async (projectData) => {
     // If the data is a full project file, parse the file.
     if (projectData instanceof Blob || projectData instanceof ArrayBuffer) {
-      const zip = await JSZip.loadAsync(projectData);
+      let zip;
+      try {
+        zip = await JSZip.loadAsync(projectData);
+      } catch (e) {
+        return null;
+      }
       const projectDataFile = zip.file('project.json');
       if (!projectDataFile) {
         return null;
