@@ -197,16 +197,34 @@ window.Packager = (function() {
 <html>
 
 <head>
+  <style>
+    #splash {
+      user-select: none;
+      background-color: hsla(0, 100%, 65%, 1); color: white; font-family: sans-serif;
+      position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+      display: flex; align-items: center; justify-content: center; text-align: center;
+    }
+    #splash h1 { font-size: 2rem; font-weight: bold; }
+    .tw-loaded #splash { display: none; }
+    @media (prefers-color-scheme: dark) { #splash { background-color: #333; color: #ddd; } }</style>
+  </style>
 </head>
 
 <body>
 
-<script>
-window.__PROJECT_DATA__ = "${projectSource}";
-</script>
-<script>
-${text.replace(/<\/script>/g,"</scri'+'pt>")}
-</script>
+  <div id="splash" aria-hidden="true">
+    <div>
+      <h1>Loading scripts</h1>
+      <p>This may take a while …</p>
+    </div>
+  </div>
+
+  <script>
+  window.__PROJECT_DATA__ = "${projectSource}";
+  </script>
+  <script>
+  ${text.replace(/<\/script>/g,"</scri'+'pt>")}
+  </script>
 </body>
 
 </html>`;
