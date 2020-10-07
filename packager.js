@@ -16,14 +16,36 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
 window.Packager = (function() {
-  const readAsDataURL = (blob) => {
-    return new Promise((resolve, reject) => {
-      const fr = new FileReader();
-      fr.onload = () => resolve(fr.result);
-      fr.onerror = () => reject('could not read');
-      fr.readAsDataURL(blob);
-    });
-  };
+  const readAsDataURL = (blob) => new Promise((resolve, reject) => {
+    const fr = new FileReader();
+    fr.onload = () => resolve(fr.result);
+    fr.onerror = () => reject('could not read as data url');
+    fr.readAsDataURL(blob);
+  });
+
+  const readAsArrayBuffer = (blob) => new Promise((resolve, reject) => {
+    const fr = new FileReader();
+    fr.onload = () => resolve(fr.result);
+    fr.onerror = () => reject('could not read as arraybuffer');
+    fr.readAsArrayBuffer(blob);
+  });
+
+  const loadImage = (src) => new Promise((resolve, reject) => {
+    const image = new Image();
+    image.onload = () => resolve(image);
+    image.onerror = () => reject(new Error(`Could not load image: ${src}`));
+    image.src = src;
+  });
+
+  const canvasToBlob = (canvas) => new Promise((resolve, reject) => {
+    canvas.toBlob((blob) => {
+      if (blob) {
+        resolve(blob);
+      } else {
+        reject('Could not read <canvas> as blob');
+      }
+    }); // png is default type, quality is ignored
+  });
 
   class Project {
     constructor(blob, type) {
@@ -169,7 +191,6 @@ window.Packager = (function() {
         Forkphorus.styleLoader.load(),
         Forkphorus.assetLoader.load(),
       ]);
-      const assetManagerData = '{' + assets.map((asset) => `"${asset.src}": "${asset.data}"`).join(', ') + '}';
       return `<!DOCTYPE html>
 <html>
 <head>
@@ -309,7 +330,7 @@ ${scripts}
   P.io.setAssetManager(new class {
     constructor() {
       // Assets...
-      this.data = ${assetManagerData};
+      this.data = {${assets.map((asset) => `"${asset.src}": "${asset.data}"`).join(', ')}};
     }
 
     loadSoundbankFile(src) {
@@ -357,7 +378,6 @@ ${scripts}
 </html>`;
     }
   }
-
   Forkphorus.scriptLoader = new ScriptOrStyleLoader([
     { src: 'lib/scratch-sb1-converter.js', },
     { src: 'lib/canvg.min.js', },
@@ -472,13 +492,115 @@ ${scripts}
       const zip = new JSZip();
       const packagerData = await runtime.package(await projectData.asFetchedFrom('project.zip'));
       zip.file('index.html', packagerData);
-      zip.file('project.zip', projectData);
+      zip.file('project.zip', projectData.blob);
       return {
         data: await zip.generateAsync({
           type: 'arraybuffer',
           compression: 'DEFLATE'
         }),
         filename: 'project.zip',
+      };
+    }
+  }
+
+  const pngToAppleICNS = async (pngData) => {
+    // Read the Image.
+    const url = URL.createObjectURL(pngData);
+    const image = await loadImage(url);
+    if (image.width !== image.height) {
+      throw new Error('Image width and height do not match');
+    }
+    const size = image.width;
+
+    // Determine the formats to create
+    const eligibleFormats = pngToAppleICNS.formats.filter((format) => {
+      // Always include the smallest size so that tiny images will get at least 1 image.
+      if (format.size === 16) {
+        return true;
+      }
+      return size >= format.size;
+    });
+
+    // Create a single canvas to be used for conversion
+    // Creating many canvases is prone to error in Safari
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
+    if (!ctx) {
+      throw new Error('cannot get canvas rendering context');
+    }
+
+    const icns = new Icns.Icns();
+    for (const format of eligibleFormats) {
+      // Use the canvas to scale the image.
+      const formatSize = format.size;
+      canvas.width = formatSize;
+      canvas.height = formatSize;
+      ctx.drawImage(image, 0, 0, formatSize, formatSize);
+
+      // Read the data off of the canvas
+      const blob = await canvasToBlob(canvas);
+      const arrayBuffer = await readAsArrayBuffer(blob);
+
+      // The Icns library wants a Node Buffer, not an ArrayBuffer, so use the exposed Buffer to convert.
+      const buffer = Icns.Buffer.from(arrayBuffer);
+      const icnsImage = await Icns.IcnsImage.fromPNG(buffer, format.type);
+      icns.append(icnsImage);
+    }
+
+    return icns.data;
+  };
+  pngToAppleICNS.formats = [
+    { type: 'ic04', size: 16 },
+    { type: 'ic07', size: 128 },
+    { type: 'ic08', size: 256 },
+    { type: 'ic09', size: 512 },
+    { type: 'ic10', size: 1024 },
+    { type: 'ic11', size: 32 },
+    { type: 'ic12', size: 64 },
+    { type: 'ic13', size: 256 },
+    { type: 'ic14', size: 512 },
+  ];
+
+  class NWjs {
+    constructor({ platform, manifest, icon }) {
+      this.platform = platform;
+      this.manifest = manifest;
+      this.icon = icon;
+    }
+    async package(runtime, projectData) {
+      const packagerData = await runtime.package(await projectData.asFetchedFrom('project.zip'));
+
+      const response = await fetch(`https://packagerdata.turbowarp.org/nwjs-v0.49.0-${this.platform === 'windows' ? 'win' : 'osx'}-x64.zip`);
+      const nwjsData = await response.arrayBuffer();
+      const nwjsZip = await JSZip.loadAsync(nwjsData);
+
+      // Inside the nw.js zip is another folder called something like nwjs-v0.48.2-win-x64
+      // The data we care about is inside this folder
+      // To extract it, we'll take a file name and grab the first part of the path.
+      const nwjsPrefix = Object.keys(nwjsZip.files)[0].split('/')[0];
+      const zip = nwjsZip.folder(nwjsPrefix);
+
+      let dataPrefix = '';
+      if (this.platform === 'mac') {
+        dataPrefix = 'nwjs.app/Contents/resources/app.nw/';
+        const icnsData = await pngToAppleICNS(this.icon);
+        zip.file('nwjs.app/Contents/Resources/app.icns', icnsData);
+        // TODO: rename nwjs.app and such to reflect the app's name
+      }
+
+      zip.file(dataPrefix + 'project.html', packagerData);
+      zip.file(dataPrefix + 'project.zip', projectData.blob);
+      zip.file(dataPrefix + 'icon.png', this.icon);
+      zip.file(dataPrefix + 'package.json', this.manifest);
+
+      return {
+        data: await zip.generateAsync({
+          type: 'arraybuffer',
+          compression: 'DEFLATE',
+          // Use UNIX permissions so that executable bits are properly set, which matters for macOS
+          platform: 'UNIX',
+        }),
+        filename: 'nwjs.zip',
       };
     }
   }
@@ -492,6 +614,7 @@ ${scripts}
     environments: {
       HTML,
       Zip,
+      NWjs,
     },
   };
 }());

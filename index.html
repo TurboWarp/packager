@@ -92,6 +92,8 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
           <select name="environment.target">
             <option value="html">Plain HTML (Standalone)</option>
             <option value="zip">Zip</option>
+            <option value="nwjs-win64">NW.js (Windows x64)</option>
+            <option value="nwjs-mac">NW.js (Mac)</option>
           </select>
         </label>
       </div>
@@ -158,6 +160,34 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
       </div>
     </section>
 
+    <section if="O.environment.target.startsWith('nw')">
+      <h2>NW.js Options</h2>
+
+      <div>
+        <label>
+          Icon
+          <input name="nwjs.icon" type="file" accept=".png">
+        </label>
+      </div>
+      <div>
+        <label>
+          package.json
+          <br>
+          <textarea name="nwjs.manifest">{
+  "name": "Name of the project",
+  "main": "project.html",
+  "window": {
+    "title": "The title of the window",
+    "width": 480,
+    "height": 360,
+    "resizable": true,
+    "icon": "icon.png"
+  }
+}</textarea>
+        </label>
+      </div>
+    </section>
+
     <section>
       <button id="package">Package</button>
     </section>
@@ -167,6 +197,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
     </section>
 
     <script src="lib/jszip.min.js"></script>
+    <script src="lib/icns.js"></script>
     <script src="templater.js"></script>
     <script src="downloader.js"></script>
     <script src="parseoptions.js"></script>
@@ -213,6 +244,16 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
         switch (O.environment.target) {
           case 'html': return new Packager.environments.HTML();
           case 'zip': return new Packager.environments.Zip();
+          case 'nwjs-win64': return new Packager.environments.NWjs({
+            icon: O.nwjs.icon,
+            manifest: O.nwjs.manifest,
+            platform: 'windows',
+          });
+          case 'nwjs-mac': return new Packager.environments.NWjs({
+            icon: O.nwjs.icon,
+            manifest: O.nwjs.manifest,
+            platform: 'mac',
+          })
         }
         throw new Error('unknown environment');
       };
