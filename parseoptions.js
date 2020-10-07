@@ -144,7 +144,7 @@ window.O = (function() {
     const possibleValues = getPossibleValues(input);
 
     let value = defaultValue;
-    if (typeof value !== 'object' && localValue !== null) {
+    if (typeof value !== 'object' && localValue !== null && typeof localValue === typeof value) {
       if (possibleValues === null || possibleValues.includes(localValue)) {
         value = localValue;
         setValue(input, value);
