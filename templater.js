@@ -18,12 +18,12 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 window.Templater = (function() {
   const conditionals = document.querySelectorAll('[if]');
   for (const el of conditionals) {
-    el._condition = new Function('return ' + el.getAttribute('if') + ';');
+    el.templaterCondition = new Function('return ' + el.getAttribute('if') + ';');
   }
 
   const update = () => {
     for (const el of conditionals) {
-      el.hidden = !el._condition();
+      el.hidden = !el.templaterCondition();
     }
   };
 

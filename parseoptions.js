@@ -46,9 +46,6 @@ window.O = (function() {
       case 'checkbox':
         return el.checked;
       case 'file':
-        if (el.multiple) {
-          return el.files;
-        }
         return el.files[0] || null;
       }
     }
@@ -128,7 +125,7 @@ window.O = (function() {
     const possibleValues = getPossibleValues(input);
 
     let value = defaultValue;
-    if (localValue !== null) {
+    if (typeof value !== 'object' && localValue !== null) {
       if (possibleValues === null || possibleValues.includes(localValue)) {
         value = localValue;
         setValue(input, value);

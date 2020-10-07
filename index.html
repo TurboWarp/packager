@@ -27,7 +27,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
   </head>
 
   <body>
-    <h1>p3 - beta</h1>
+    <h1>The new packager</h1>
 
     <div class="section">
       <h2>Select project</h2>
@@ -44,11 +44,17 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
       </div>
 
       <div if="O.projectSource === 'id'">
-        Project ID or URL: <input name="projectId" type="text">
+        <label>
+          Project ID or URL:
+          <input name="projectId" type="text">
+        </label>
       </div>
 
       <div if="O.projectSource === 'file'">
-        Project File: <input name="projectFile" type="file" accept=".sb,.sb2,.sb3">
+        <label>
+          Project File:
+          <input name="projectFile" type="file" accept=".sb,.sb2,.sb3">
+        </label>
       </div>
 
     </div>
@@ -71,6 +77,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
           Target Environment
           <select name="environmentTarget">
             <option value="html">Plain HTML</option>
+            <option value="zip">Zip</option>
           </select>
         </label>
       </div>
@@ -125,27 +132,49 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
       <button id="package">Package</button>
     </div>
 
-    <script src="jszip.min.js"></script>
+    <script src="lib/jszip.min.js"></script>
     <script src="templater.js"></script>
     <script src="downloader.js"></script>
     <script src="parseoptions.js"></script>
-    <script src="runtimes.js"></script>
+    <script src="packager.js"></script>
 
     <script>
-      O.onchange = function() {
+      O.onchange = () => {
         Templater.update();
       };
       Templater.update();
 
-      const loadProject = () => {
+      const loadProject = async () => {
         if (O.projectSource === 'file') {
-          return SBDownloader.readAsArrayBuffer(O.projectFile);
+          return new Blob([await SBDownloader.readAsArrayBuffer(O.projectFile)]);
+        } else if (O.projectSource === 'id') {
+          return new Blob([await new SBDownloader(O.projectId.match(/\d+/)[0]).download()]);
         } else {
-          return new SBDownloader(O.projectId.match(/\d+/)[0]).download();
+          throw new Error('unknown project source');
         }
       };
 
-      function addDownloadLink(blob, fileName) {
+      const getRuntime = () => {
+        if (O.environmentRuntime === 'turbowarp') {
+          return new Runtimes.TurboWarp();
+        } else if (O.environmentRuntime === 'forkphorus') {
+          return new Runtimes.Forkphorus();
+        } else {
+          throw new Error('unknown runtime');
+        }
+      };
+
+      const getEnvironment = () => {
+        if (O.environmentTarget === 'html') {
+          return new Environments.HTML();
+        } else if (O.environmentTarget === 'zip') {
+          return new Environments.Zip();
+        } else {
+          throw new Error('unknown environment');
+        }
+      };
+
+      const addDownloadLink = (blob, fileName) => {
         const link = document.createElement('a');
         const size = blob.size / 1024 / 1024;
         link.href = URL.createObjectURL(blob);
@@ -153,22 +182,14 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
         link.download = fileName;
         document.body.appendChild(link);
         link.click();
-      }
+      };
 
       document.getElementById('package').addEventListener('click', async function() {
         const projectData = await loadProject();
-        const blob = new Blob([projectData]);
-
-        const fr = new FileReader();
-        fr.onload = () => {
-          const tw = new Runtime.TurboWarp();
-          tw.p(fr.result)
-            .then((t) => {
-              addDownloadLink(new Blob([new TextEncoder().encode(t)]))
-            })
-        }
-        fr.readAsDataURL(blob);
-        // console.log(blob);
+        const runtime = getRuntime();
+        const environment = getEnvironment();
+        const result = await environment.package(runtime, projectData);
+        addDownloadLink(new Blob([result.data]), result.filename);
       });
     </script>
 
