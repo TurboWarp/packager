@@ -246,7 +246,11 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
           switch (O.environment.runtime) {
             case 'turbowarp': return new Packager.runtimes.TurboWarp();
             case 'forkphorus': return new Packager.runtimes.Forkphorus({
-              playerOptions: O.forkphorus.playerOptions,
+              playerOptions: {
+                ...O.forkphorus.playerOptions,
+                fullscreenMode: 'window',
+                fullscreenPadding: 0,
+              },
               controlsOptions: O.forkphorus.showControls ? { enableFullscreen: false } : null,
               loadingScreenText: O.forkphorus.loadingScreenText,
               projectType: projectType,
