@@ -145,7 +145,14 @@ window.O = (function() {
 
     input.addEventListener('change', onchange);
 
-    setOption(name, value);
+    const isRadio = input.tagName.toLowerCase() === 'input' && input.type === 'radio';
+    if (isRadio) {
+      if (input.checked) {
+        setOption(name, value);
+      }
+    } else {
+      setOption(name, value);
+    }
   };
 
   return options;
