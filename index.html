@@ -22,6 +22,15 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
     <style>
       body {
         font-family: sans-serif;
+        padding: 2px;
+        max-width: 480px;
+        margin: auto;
+      }
+      @media (prefers-color-scheme: dark) {
+        body {
+          background: #111;
+          color: #ddd;
+        }
       }
     </style>
   </head>
@@ -29,43 +38,45 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
   <body>
     <h1>The new packager</h1>
 
-    <div class="section">
+    <p>This is the new packager for forkphorus & TurboWarp. If anyone has some ideas on how to make this site look pretty, send them on GitHub. p3 is a temporary name until something better can be thought of.</p>
+
+    <section>
       <h2>Select project</h2>
 
       <div>
         <label>
-          <input name="projectSource" type="radio" value="id" checked>
+          <input name="project.source" type="radio" value="id" checked>
           Project ID
         </label>
         <label>
-          <input name="projectSource" type="radio" value="file">
+          <input name="project.source" type="radio" value="file">
           Project File
         </label>
       </div>
 
-      <div if="O.projectSource === 'id'">
+      <div if="O.project.source === 'id'">
         <label>
           Project ID or URL:
-          <input name="projectId" type="text">
+          <input name="project.id" type="text">
         </label>
       </div>
 
-      <div if="O.projectSource === 'file'">
+      <div if="O.project.source === 'file'">
         <label>
           Project File:
-          <input name="projectFile" type="file" accept=".sb,.sb2,.sb3">
+          <input name="project.file" type="file" accept=".sb,.sb2,.sb3">
         </label>
       </div>
 
-    </div>
+    </section>
 
-    <div class="section">
+    <section>
       <h2>Environment</h2>
 
       <div>
         <label>
           Runtime
-          <select name="environmentRuntime">
+          <select name="environment.runtime">
             <option value="turbowarp">TurboWarp</option>
             <option value="forkphorus">forkphorus</option>
           </select>
@@ -75,62 +86,82 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
       <div>
         <label>
           Target Environment
-          <select name="environmentTarget">
-            <option value="html">Plain HTML</option>
+          <select name="environment.target">
+            <option value="html">Plain HTML (Standalone)</option>
             <option value="zip">Zip</option>
           </select>
         </label>
       </div>
-    </div>
+    </section>
 
-    <div if="O.environmentRuntime === 'forkphorus'" class="section">
+    <section if="O.environment.runtime === 'turbowarp'">
+      <h2>TurboWarp options</h2>
+
+      <p>TurboWarp currently does not support any options.</p>
+    </section>
+
+    <section if="O.environment.runtime === 'forkphorus'">
       <h2>forkphorus options</h2>
 
       <div>
         <label>
           Turbo Mode
-          <input name="forkphorusTurboMode" type="checkbox">
+          <input name="forkphorus.playerOptions.turbo" type="checkbox">
         </label>
       </div>
       <div>
         <label>
           Show Controls
-          <input name="forkphorusControls" type="checkbox">
+          <input name="forkphorus.showControls" type="checkbox" checked>
         </label>
       </div>
       <div>
         <label>
           Username
-          <input name="forkphorusUsername" type="text">
+          <input name="forkphorus.playerOptions.username" type="text">
         </label>
       </div>
       <div>
         <label>
           Autoplay
-          <select name="forkphorusAutoplay">
-            <option>Always</option>
-            <option>Never</option>
-            <option>If audio can be played</option>
+          <select name="forkphorus.playerOptions.autoplayPolicy">
+            <option value="always" selected>Always</option>
+            <option value="never">Never</option>
+            <option value="if-audio-playable">If audio can be played</option>
           </select>
         </label>
       </div>
       <div>
         <label>
           Framerate
-          <input name="forkphorusFramerate" value="30" type="number">
+          <input name="forkphorus.playerOptions.framerate" value="30" type="number">
         </label>
       </div>
       <div>
         <label>
           Loading Screen Text
-          <input name="forkphorusLoadingText" value="forkphorus">
+          <input name="forkphorus.loadingScreenText" value="forkphorus">
         </label>
       </div>
-    </div>
+      <div>
+        <label>
+          Cloud Variables
+          <select name="forkphorus.playerOptions.cloudVariables">
+            <option value="off">Off</option>
+            <option value="ws" disabled>Connect to forkphorus clouddata server</option>
+            <option value="localStorage" selected>Store locally</option>
+          </select>
+        </label>
+      </div>
+    </section>
 
-    <div>
+    <section>
       <button id="package">Package</button>
-    </div>
+    </section>
+
+    <section id="downloads">
+
+    </section>
 
     <script src="lib/jszip.min.js"></script>
     <script src="templater.js"></script>
@@ -145,51 +176,61 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
       Templater.update();
 
       const loadProject = async () => {
-        if (O.projectSource === 'file') {
-          return new Blob([await SBDownloader.readAsArrayBuffer(O.projectFile)]);
-        } else if (O.projectSource === 'id') {
-          return new Blob([await new SBDownloader(O.projectId.match(/\d+/)[0]).download()]);
-        } else {
-          throw new Error('unknown project source');
+        if (O.project.source === 'file') {
+          if (!O.project.file) {
+            throw new Error('No file selected');
+          }
+          return new Blob([await SBDownloader.readAsArrayBuffer(O.project.file)]);
+        } else if (O.project.source === 'id') {
+          const match = O.project.id.match(/\d+/);
+          if (!match) {
+            throw new Error('Invalid project ID');
+          }
+          return new Blob([await new SBDownloader(match[0]).download()]);
         }
+        throw new Error('unknown project source');
       };
 
       const getRuntime = () => {
-        if (O.environmentRuntime === 'turbowarp') {
-          return new Runtimes.TurboWarp();
-        } else if (O.environmentRuntime === 'forkphorus') {
-          return new Runtimes.Forkphorus();
-        } else {
-          throw new Error('unknown runtime');
+        if (Packager.runtimes[O.environment.runtime]) {
+          return Packager.runtimes[O.environment.runtime];
         }
+        throw new Error('unknown environment');
       };
 
       const getEnvironment = () => {
-        if (O.environmentTarget === 'html') {
-          return new Environments.HTML();
-        } else if (O.environmentTarget === 'zip') {
-          return new Environments.Zip();
-        } else {
-          throw new Error('unknown environment');
+        if (Packager.environments[O.environment.target]) {
+          return Packager.environments[O.environment.target];
         }
+        throw new Error('unknown environment');
       };
 
       const addDownloadLink = (blob, fileName) => {
         const link = document.createElement('a');
         const size = blob.size / 1024 / 1024;
-        link.href = URL.createObjectURL(blob);
+        link.href = URL.createObjectURL(blob); // TODO: should we delete these after creating them?
         link.textContent = `Download ${fileName} (${size.toFixed(2)} MiB)`;
         link.download = fileName;
-        document.body.appendChild(link);
+        document.querySelector('#downloads').appendChild(link);
         link.click();
       };
 
+      const removeDownloadsLinks = () => {
+        const el = document.querySelector('#downloads');
+        while (el.firstChild) el.removeChild(el.firstChild);
+      };
+
       document.getElementById('package').addEventListener('click', async function() {
-        const projectData = await loadProject();
-        const runtime = getRuntime();
-        const environment = getEnvironment();
-        const result = await environment.package(runtime, projectData);
-        addDownloadLink(new Blob([result.data]), result.filename);
+        try {
+          removeDownloadsLinks();
+          const runtime = getRuntime();
+          const environment = getEnvironment();
+          const projectData = await loadProject();
+          const result = await environment.package(runtime, projectData);
+          addDownloadLink(new Blob([result.data]), result.filename);
+        } catch (e) {
+          alert(e);
+        }
       });
     </script>
 

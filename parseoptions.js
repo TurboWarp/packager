@@ -18,11 +18,25 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 window.O = (function() {
   const options = Object.create(null);
 
+  const setOption = (name, value) => {
+    // name supports "a.b.c" syntax
+    const parts = name.split('.');
+    const last = parts.pop();
+    let target = options;
+    for (const part of parts) {
+      if (typeof target[part] === 'undefined') {
+        target[part] = Object.create(null);
+      }
+      target = target[part];
+    }
+    target[last] = value;
+  };
+
   const onchange = (e) => {
     const target = e.target;
     const name = target.name;
     const value = getValue(target);
-    options[name] = value;
+    setOption(name, value);
     setLocalValue(name, value);
 
     if (options.onchange) {
@@ -86,8 +100,7 @@ window.O = (function() {
     }
 
     if (tag === 'input' && el.type === 'radio') {
-      const allChoices = Array.from(document.getElementsByName(el.name));
-      return allChoices.map(i => i.value);
+      return Array.from(document.getElementsByName(el.name)).map(i => i.value);
     }
 
     return null;
@@ -95,7 +108,7 @@ window.O = (function() {
 
   const setLocalValue = (name, value) => {
     try {
-      localStorage.setItem(name, JSON.stringify(value));
+      localStorage.setItem(`opt:${name}`, JSON.stringify(value));
     } catch (e) {
       // ignore
     }
@@ -103,7 +116,7 @@ window.O = (function() {
 
   const getLocalValue = (name) => {
     try {
-      const v = localStorage.getItem(name);
+      const v = localStorage.getItem(`opt:${name}`);
       if (v !== null) {
         return JSON.parse(v);
       }
@@ -118,8 +131,6 @@ window.O = (function() {
     const name = input.name;
     if (!name) continue;
 
-    input.addEventListener('change', onchange);
-
     const defaultValue = getValue(input);
     const localValue = getLocalValue(name);
     const possibleValues = getPossibleValues(input);
@@ -132,7 +143,9 @@ window.O = (function() {
       }
     }
 
-    options[name] = value;
+    input.addEventListener('change', onchange);
+
+    setOption(name, value);
   };
 
   return options;
