@@ -198,17 +198,25 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
     <script src="lib/jszip.min.js"></script>
     <script src="lib/icns.js"></script>
-    <script src="templater.js"></script>
     <script src="downloader.js"></script>
     <script src="parseoptions.js"></script>
     <script src="packager.js"></script>
 
     <script>
       (function() {
-        O.onchange = () => {
-          Templater.update();
+        const conditionals = document.querySelectorAll('[if]');
+        for (const el of conditionals) {
+          el.visibleIf = new Function('return ' + el.getAttribute('if') + ';');
+        }
+
+        const updateConditionals = () => {
+          for (const el of conditionals) {
+            el.hidden = !el.visibleIf();
+          }
         };
-        Templater.update();
+
+        O.onchange = updateConditionals;
+        updateConditionals();
   
         const loadProject = async () => {
           if (O.project.source === 'file') {
