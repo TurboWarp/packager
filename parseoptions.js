@@ -51,6 +51,10 @@ window.O = (function() {
       return el.value;
     }
 
+    if (tag === 'textarea') {
+      return el.value;
+    }
+
     if (tag === 'input') {
       switch (el.type) {
       case 'text':
@@ -69,6 +73,10 @@ window.O = (function() {
     const tag = el.tagName.toLowerCase();
 
     if (tag === 'select') {
+      el.value = value;
+    }
+
+    if (tag === 'textarea') {
       el.value = value;
     }
 
