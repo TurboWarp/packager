@@ -495,7 +495,7 @@ ${scripts}
       zip.file('project.zip', projectData.blob);
       return {
         data: await zip.generateAsync({
-          type: 'arraybuffer',
+          type: 'blob',
           compression: 'DEFLATE'
         }),
         filename: 'project.zip',
@@ -595,7 +595,7 @@ ${scripts}
 
       return {
         data: await zip.generateAsync({
-          type: 'arraybuffer',
+          type: 'blob',
           compression: 'DEFLATE',
           // Use UNIX permissions so that executable bits are properly set, which matters for macOS
           platform: 'UNIX',
