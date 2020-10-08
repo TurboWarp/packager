@@ -1,0 +1,49 @@
+:root {
+  --primary-accent: #1976d2;
+  --primary-bg: #fff;
+  --secondary-bg: #eee;
+  --text: #000;
+}
+
+* {
+  transition: 0.3s;
+}
+
+body {
+  text-align: center;
+  font-family: sans-serif;
+  background: var(--secondary-bg);
+  color: var(--text);
+}
+
+input[type='text'] {
+  background: transparent;
+  border-color: transparent;
+  border-bottom-color: #777;
+  border-bottom-width: 0.2em;
+  transition: 0.2s;
+}
+
+.input-div {
+  margin-bottom: 1em;
+}
+
+.mat-box {
+  background: var(--primary-bg);
+  padding: 1em;
+  margin: auto;
+  margin-bottom: 1.2em;
+  text-align: left;
+  max-width: 500px;
+  box-shadow: rgba(0, 0, 0, 0.4) 0 0.3em 0.5em;
+  border-radius: 0.3em;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --primary-accent: #1976d2;
+    --primary-bg: #1e1e1e;
+    --secondary-bg: #121212;
+    --text: #fff;
+  }
+}

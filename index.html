@@ -18,35 +18,22 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 <!DOCTYPE html>
 <html>
 
-  <head>
-    <style>
-      body {
-        font-family: sans-serif;
-        padding: 2px;
-        max-width: 480px;
-        margin: auto;
-      }
-      @media (prefers-color-scheme: dark) {
-        body {
-          background: #111;
-          color: #ddd;
-        }
-        a {
-          color: #4af;
-        }
-      }
-    </style>
-  </head>
+<head>
+  <link rel="stylesheet" href="./style.css" />
+</head>
 
-  <body>
+<body>
+  <div class="mat-box">
     <h1>The new packager</h1>
 
     <p>This is the new packager for forkphorus & TurboWarp. If anyone has some ideas on how to make this site look pretty, send them on GitHub. p3 is a temporary name until something better can be thought of.</p>
+  </div>
 
+  <div class="mat-box">
     <section>
       <h2>Select project</h2>
 
-      <div>
+      <div class="input-div">
         <label>
           <input name="project.source" type="radio" value="id" checked>
           Project ID
@@ -116,7 +103,8 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
       </div>
       <div>
         <label>
-          Show Controls <!-- TODO fix -->
+          Show Controls
+          <!-- TODO fix -->
           <input name="forkphorus.showControls" type="checkbox" checked>
         </label>
       </div>
@@ -145,7 +133,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
       <div>
         <label>
           Loading Screen Text
-          <input name="forkphorus.loadingScreenText" value="forkphorus">
+          <input name="forkphorus.loadingScreenText" type="text" value="forkphorus">
         </label>
       </div>
       <div>
@@ -197,120 +185,129 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
     <section>
       <button id="package">Package</button>
     </section>
+  </div>
 
-    <section id="downloads">
+  <section id="downloads">
 
-    </section>
+  </section>
 
-    <script src="lib/jszip.min.js"></script>
-    <script src="lib/icns.js"></script>
-    <script src="downloader.js"></script>
-    <script src="parseoptions.js"></script>
-    <script src="packager.js"></script>
+  <script src="lib/jszip.min.js"></script>
+  <script src="lib/icns.js"></script>
+  <script src="downloader.js"></script>
+  <script src="parseoptions.js"></script>
+  <script src="packager.js"></script>
 
-    <script>
-      (function() {
-        const conditionals = document.querySelectorAll('[if]');
+  <script>
+    (function() {
+      const conditionals = document.querySelectorAll('[if]');
+      for (const el of conditionals) {
+        el.visibleIf = new Function('return ' + el.getAttribute('if') + ';');
+      }
+
+      const updateConditionals = () => {
         for (const el of conditionals) {
-          el.visibleIf = new Function('return ' + el.getAttribute('if') + ';');
+          el.hidden = !el.visibleIf();
         }
+      };
 
-        const updateConditionals = () => {
-          for (const el of conditionals) {
-            el.hidden = !el.visibleIf();
-          }
-        };
+      O.onchange = updateConditionals;
+      updateConditionals();
 
-        O.onchange = updateConditionals;
-        updateConditionals();
-  
-        const loadProject = async () => {
-          if (O.project.source === 'file') {
-            if (!O.project.file) {
-              throw new Error('No file selected');
-            }
-            // File is a Blob
-            return new Packager.Project(O.project.file, await SBDownloader.identifyProjectType(O.project.file));
-          } else if (O.project.source === 'id') {
-            const match = O.project.id.match(/\d+/);
-            if (!match) {
-              throw new Error('Invalid project ID');
-            }
-            const project = await SBDownloader.download(match[0]);
-            return new Packager.Project(await project.asBlob(), project.type);
+      const loadProject = async () => {
+        if (O.project.source === 'file') {
+          if (!O.project.file) {
+            throw new Error('No file selected');
           }
-          throw new Error('unknown project source');
-        };
-  
-        const getRuntime = (projectType) => {
-          switch (O.environment.runtime) {
-            case 'turbowarp': return new Packager.runtimes.TurboWarp();
-            case 'forkphorus': return new Packager.runtimes.Forkphorus({
+          // File is a Blob
+          return new Packager.Project(O.project.file, await SBDownloader.identifyProjectType(O.project.file));
+        } else if (O.project.source === 'id') {
+          const match = O.project.id.match(/\d+/);
+          if (!match) {
+            throw new Error('Invalid project ID');
+          }
+          const project = await SBDownloader.download(match[0]);
+          return new Packager.Project(await project.asBlob(), project.type);
+        }
+        throw new Error('unknown project source');
+      };
+
+      const getRuntime = (projectType) => {
+        switch (O.environment.runtime) {
+          case 'turbowarp':
+            return new Packager.runtimes.TurboWarp();
+          case 'forkphorus':
+            return new Packager.runtimes.Forkphorus({
               playerOptions: {
                 ...O.forkphorus.playerOptions,
                 fullscreenMode: 'window',
                 fullscreenPadding: 0,
               },
-              controlsOptions: O.forkphorus.showControls ? { enableFullscreen: false } : null,
+              controlsOptions: O.forkphorus.showControls ? {
+                enableFullscreen: false
+              } : null,
               loadingScreenText: O.forkphorus.loadingScreenText,
               projectType: projectType,
             });
-          }
-          throw new Error('unknown environment');
-        };
-  
-        const getEnvironment = () => {
-          switch (O.environment.target) {
-            case 'html': return new Packager.environments.HTML();
-            case 'zip': return new Packager.environments.Zip();
-            case 'nwjs-win64': return new Packager.environments.NWjs({
+        }
+        throw new Error('unknown environment');
+      };
+
+      const getEnvironment = () => {
+        switch (O.environment.target) {
+          case 'html':
+            return new Packager.environments.HTML();
+          case 'zip':
+            return new Packager.environments.Zip();
+          case 'nwjs-win64':
+            return new Packager.environments.NWjs({
               icon: O.nwjs.icon,
               manifest: O.nwjs.manifest,
               platform: 'windows',
             });
-            case 'nwjs-mac': return new Packager.environments.NWjs({
+          case 'nwjs-mac':
+            return new Packager.environments.NWjs({
               icon: O.nwjs.icon,
               manifest: O.nwjs.manifest,
               platform: 'mac',
             })
-          }
-          throw new Error('unknown environment');
-        };
-  
-        const addDownloadLink = (blob, fileName) => {
-          const link = document.createElement('a');
-          const size = blob.size / 1024 / 1024;
-          link.href = URL.createObjectURL(blob); // TODO: should we delete these after creating them?
-          link.textContent = `Download ${fileName} (${size.toFixed(2)} MiB)`;
-          link.download = fileName;
-          document.querySelector('#downloads').appendChild(link);
-          link.click();
-        };
-  
-        const removeDownloadsLinks = () => {
-          const el = document.querySelector('#downloads');
-          while (el.firstChild) el.removeChild(el.firstChild);
-        };
-  
-        document.getElementById('package').addEventListener('click', async function() {
-          try {
-            removeDownloadsLinks();
-            const runtime = getRuntime();
-            const environment = getEnvironment();
-            const projectData = await loadProject();
-            const result = await environment.package(runtime, projectData);
-            if (!(result.data instanceof Blob)) {
-              result.data = new Blob([result.data]);
-            }
-            addDownloadLink(result.data, result.filename);
-          } catch (e) {
-            console.error(e);
-            alert(e);
-          }
-        });
-      }());
-    </script>
+        }
+        throw new Error('unknown environment');
+      };
 
-  </body>
+      const addDownloadLink = (blob, fileName) => {
+        const link = document.createElement('a');
+        const size = blob.size / 1024 / 1024;
+        link.href = URL.createObjectURL(blob); // TODO: should we delete these after creating them?
+        link.textContent = `Download ${fileName} (${size.toFixed(2)} MiB)`;
+        link.download = fileName;
+        document.querySelector('#downloads').appendChild(link);
+        link.click();
+      };
+
+      const removeDownloadsLinks = () => {
+        const el = document.querySelector('#downloads');
+        while (el.firstChild) el.removeChild(el.firstChild);
+      };
+
+      document.getElementById('package').addEventListener('click', async function() {
+        try {
+          removeDownloadsLinks();
+          const runtime = getRuntime();
+          const environment = getEnvironment();
+          const projectData = await loadProject();
+          const result = await environment.package(runtime, projectData);
+          if (!(result.data instanceof Blob)) {
+            result.data = new Blob([result.data]);
+          }
+          addDownloadLink(result.data, result.filename);
+        } catch (e) {
+          console.error(e);
+          alert(e);
+        }
+      });
+    }());
+  </script>
+
+</body>
 
 </html>
