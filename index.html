@@ -20,6 +20,11 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 <head>
   <link rel="stylesheet" href="./style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Mukta:wght@400;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
 </head>
 
 <body>
@@ -35,25 +40,25 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
       <div class="input-div">
         <label>
-          <input name="project.source" type="radio" value="id" checked>
-          Project ID
+          <input name="project.source" type="radio" value="id" class="with-gap" checked>
+          <span>Project ID</span>
         </label>
         <label>
-          <input name="project.source" type="radio" value="file">
-          Project File
+          <input name="project.source" type="radio" value="file" class="with-gap">
+          <span>Project File</span>
         </label>
       </div>
 
       <div if="O.project.source === 'id'">
         <label>
-          Project ID or URL:
+          Project ID or URL
           <input name="project.id" type="text">
         </label>
       </div>
 
       <div if="O.project.source === 'file'">
-        <label>
-          Project File:
+        <label class="waves-effect waves-teal btn-flat">
+          Upload Project
           <input name="project.file" type="file" accept=".sb,.sb2,.sb3">
         </label>
       </div>
@@ -97,15 +102,15 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
       <div>
         <label>
-          Turbo Mode
-          <input name="forkphorus.playerOptions.turbo" type="checkbox">
+          <input name="forkphorus.playerOptions.turbo" type="checkbox" class="filled-in">
+          <span>Turbo Mode</span>
         </label>
       </div>
       <div>
         <label>
-          Show Controls
           <!-- TODO fix -->
-          <input name="forkphorus.showControls" type="checkbox" checked>
+          <input name="forkphorus.showControls" type="checkbox" checked class="filled-in">
+          <span>Show Controls</span>
         </label>
       </div>
       <div>
@@ -148,8 +153,8 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
       </div>
       <div>
         <label>
-          Sprite Fencing
-          <input name="forkphorus.playerOptions.spriteFencing" type="checkbox">
+          <input name="forkphorus.playerOptions.spriteFencing" type="checkbox" class="filled-in">
+          <span>Sprite Fencing</span>
         </label>
       </div>
     </section>
@@ -158,9 +163,9 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
       <h2>NW.js Options</h2>
 
       <div>
-        <label>
-          Icon
-          <input name="nwjs.icon" type="file" accept=".png">
+        <label class="waves-effect waves-teal btn-flat">
+          Upload Icon
+          <input name="nwjs.icon" type="file" accept=".png"=>
         </label>
       </div>
       <div>
@@ -183,13 +188,23 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
     </section>
 
     <section>
-      <button id="package">Package</button>
+      <button id="package" class="waves-effect waves-light btn">Package</button>
     </section>
   </div>
 
   <section id="downloads">
 
   </section>
+
+  <div id="alert-modal" class="modal">
+    <div class="modal-content">
+      <h4>Error</h4>
+      <p>Invalid project ID.</p>
+    </div>
+    <div class="modal-footer">
+      <a href="#!" class="modal-close waves-effect waves-teal btn-flat">Okay</a>
+    </div>
+  </div>
 
   <script src="lib/jszip.min.js"></script>
   <script src="lib/icns.js"></script>
@@ -198,6 +213,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
   <script src="packager.js"></script>
 
   <script>
+    M.AutoInit();
     (function() {
       const conditionals = document.querySelectorAll('[if]');
       for (const el of conditionals) {
@@ -302,7 +318,11 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
           addDownloadLink(result.data, result.filename);
         } catch (e) {
           console.error(e);
-          alert(e);
+          var elems = document.querySelectorAll('.modal');
+          var instances = M.Modal.init(elems);
+          var errorMsg = instances[0].el.getElementsByTagName('p');
+          errorMsg[0].innerText = e;
+          instances[0].open();
         }
       });
     }());

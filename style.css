@@ -5,15 +5,15 @@
   --text: #000;
 }
 
-* {
-  transition: 0.3s;
-}
-
 body {
   text-align: center;
-  font-family: sans-serif;
   background: var(--secondary-bg);
   color: var(--text);
+}
+
+h1, h2 {
+  font-size: 2.3rem !important;
+  margin-top: 1.2rem !important;
 }
 
 input[type='text'] {
@@ -22,6 +22,15 @@ input[type='text'] {
   border-bottom-color: #777;
   border-bottom-width: 0.2em;
   transition: 0.2s;
+  color: var(--text) !important;
+}
+
+input[type='number'], textarea {
+  color: var(--text) !important;
+}
+
+input[type='file'] {
+  display: none;
 }
 
 .input-div {
@@ -32,11 +41,38 @@ input[type='text'] {
   background: var(--primary-bg);
   padding: 1em;
   margin: auto;
+  margin-top: 1em;
   margin-bottom: 1.2em;
   text-align: left;
   max-width: 500px;
   box-shadow: rgba(0, 0, 0, 0.4) 0 0.3em 0.5em;
   border-radius: 0.3em;
+}
+
+.input-div label {
+  margin-right: 1em;
+}
+
+.modal-content, .modal-footer {
+  background: var(--secondary-bg) !important;
+}
+
+.btn-flat {
+  box-shadow: rgba(0, 0, 0, 0.3) 0 0.1em 0.4em !important;
+  color: var(--text) !important;
+}
+
+.caret {
+  fill: var(--text) !important;
+}
+
+.select-wrapper li {
+  background: var(--primary-bg) !important;
+}
+
+.select-wrapper li:hover {
+  transition: 0.2s;
+  background: var(--secondary-bg) !important;
 }
 
 @media (prefers-color-scheme: dark) {
