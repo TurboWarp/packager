@@ -77,8 +77,12 @@ window.Packager = (function() {
       const xhr = new XMLHttpRequest();
       xhr.responseType = 'blob';
       xhr.onload = () => {
-        manifestEntry._data = xhr.response;
-        resolve(xhr.response);
+        if (xhr.status === 200) {
+          manifestEntry._data = xhr.response;
+          resolve(xhr.response);
+        } else {
+          reject(new Error(`Unexpected status code ${xhr.status} while downloading ${src}`));
+        }
       };
       xhr.onerror = () => reject(new Error('XHR failed'));
       xhr.onprogress = (e) => {
@@ -89,6 +93,16 @@ window.Packager = (function() {
       xhr.send();
     });
   };
+
+  const fetch = (url) => {
+    return window.fetch(url)
+      .then((response) => {
+        if (response.status !== 200) {
+          throw new Error(`Unexpected status code ${response.status} while fetching ${url}`);
+        }
+        return response;
+      });
+  }
 
   class Project {
     constructor(blob, type) {
