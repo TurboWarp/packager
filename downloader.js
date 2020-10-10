@@ -111,7 +111,12 @@ window.SBDownloader = (function() {
             detail: progress
           }));
         }
-      }
+      };
+      xhr.onloadend = () => {
+        progressTarget.dispatchEvent(new CustomEvent('data-progress', {
+          detail: 1
+        }));
+      };
       xhr.open('GET', PROJECT_HOST.replace('$id', projectId));
       xhr.send();
     });
