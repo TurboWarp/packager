@@ -630,6 +630,12 @@ ${scripts}
       this.icon = icon;
     }
     async package(runtime, projectData, progressTarget) {
+      const isWindows = this.platform === 'win64';
+      const isMac = this.platform === 'mac';
+      if (!(isWindows || isMac)) {
+        throw new Error('invalid platform');
+      }
+
       const packagerData = await runtime.package(await projectData.asFetchedFrom('project.zip'));
 
       const nwjsData = await fetchManifestAsset(`nwjs-${this.platform}`, (progress) => {
@@ -638,19 +644,55 @@ ${scripts}
         }));
       })
       const nwjsZip = await JSZip.loadAsync(nwjsData);
+      // NW.jS Windows folder structure:
+      // * (root)
+      // +-- nwjs-v0.49.0-win-x64
+      //   +-- nw.exe (executable)
+      //   +-- credits.html
+      //   +-- (project data)
+      //
+      // NW.js macOS folder structure:
+      // * (root)
+      // +-- nwjs-v0.49.0-osx-64
+      //   +-- credits.html
+      //   +-- nwjs.app
+      //     +-- Contents
+      //       +-- Resources
+      //         +-- app.icns (icon)
+      //         +-- app.nw
+      //           +-- (project data)
+      //       +-- MacOS
+      //         +-- nwjs (executable)
+      //       +-- ...
 
-      // Inside the nw.js zip is another folder called something like nwjs-v0.48.2-win-x64
-      // The data we care about is inside this folder
-      // To extract it, we'll take a file name and grab the first part of the path.
+      // the first folder, something like "nwjs-v0.49.0-win-64"
       const nwjsPrefix = Object.keys(nwjsZip.files)[0].split('/')[0];
-      const zip = nwjsZip.folder(nwjsPrefix);
+      const appName = this.manifest.name;
 
-      let dataPrefix = '';
-      if (this.platform === 'mac') {
-        dataPrefix = 'nwjs.app/Contents/resources/app.nw/';
+      const zip = new JSZip();
+      for (const path of Object.keys(nwjsZip.files)) {
+        const file = nwjsZip.files[path];
+
+        let newPath = path.replace(nwjsPrefix, appName);
+
+        if (isMac) {
+          newPath = newPath.replace('nwjs.app', `${appName}.app`);
+        } else if (isWindows) {
+          newPath = newPath.replace('nw.exe', `${appName}.exe`);
+        }
+
+        // This internal hackery improves performance.
+        // Without this, generating the zip would take a very long time.
+        zip.files[newPath] = file;
+      }
+
+      let dataPrefix;
+      if (isMac) {
         const icnsData = await pngToAppleICNS(this.icon);
-        zip.file('nwjs.app/Contents/Resources/app.icns', icnsData);
-        // TODO: rename nwjs.app and such to reflect the app's name
+        zip.file(`${appName}/${appName}.app/Contents/Resources/app.icns`, icnsData);
+        dataPrefix = `${appName}/${appName}.app/Contents/Resources/app.nw/`;
+      } else {
+        dataPrefix = `${appName}/`;
       }
 
       zip.file(dataPrefix + this.manifest.main, packagerData);
@@ -665,7 +707,7 @@ ${scripts}
           // Use UNIX permissions so that executable bits are properly set, which matters for macOS
           platform: 'UNIX',
         }),
-        filename: 'nwjs.zip',
+        filename: `${appName}.zip`,
       };
     }
   }
