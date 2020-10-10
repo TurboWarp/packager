@@ -19,14 +19,14 @@ window.Packager = (function() {
   const readAsDataURL = (blob) => new Promise((resolve, reject) => {
     const fr = new FileReader();
     fr.onload = () => resolve(fr.result);
-    fr.onerror = () => reject('could not read as data url');
+    fr.onerror = () => reject(new Error('could not read as data url'));
     fr.readAsDataURL(blob);
   });
 
   const readAsArrayBuffer = (blob) => new Promise((resolve, reject) => {
     const fr = new FileReader();
     fr.onload = () => resolve(fr.result);
-    fr.onerror = () => reject('could not read as arraybuffer');
+    fr.onerror = () => reject(new Error('could not read as arraybuffer'));
     fr.readAsArrayBuffer(blob);
   });
 
@@ -37,17 +37,52 @@ window.Packager = (function() {
     image.src = src;
   });
 
-  const isObject = (obj) => typeof obj === 'object' && obj !== null;
-
   const canvasToBlob = (canvas) => new Promise((resolve, reject) => {
     canvas.toBlob((blob) => {
       if (blob) {
         resolve(blob);
       } else {
-        reject('Could not read <canvas> as blob');
+        reject(new Error('Could not read <canvas> as blob'));
       }
     }); // png is default type, quality is ignored
   });
+
+  const isObject = (obj) => typeof obj === 'object' && obj !== null;
+
+  // TODO: load dynamically
+  const assetManifest = {
+    'nwjs-win64': {
+      src: 'https://packagerdata.turbowarp.org/nwjs-v0.49.0-win-x64.zip',
+      size: 97406745
+    },
+    'nwjs-mac': {
+      src: 'https://packagerdata.turbowarp.org/nwjs-v0.49.0-osx-x64.zip',
+      size: 128684835
+    }
+  };
+
+  const fetchManifestAsset = (assetName, progressCallback) => {
+    const manifestEntry = assetManifest[assetName];
+    if (manifestEntry._data) {
+      return Promise.resolve(manifestEntry._data);
+    }
+    return new Promise((resolve, reject) => {
+      const {src, size} = manifestEntry;
+      const xhr = new XMLHttpRequest();
+      xhr.responseType = 'blob';
+      xhr.onload = () => {
+        manifestEntry._data = xhr.response;
+        resolve(xhr.response);
+      };
+      xhr.onerror = () => reject(new Error('XHR failed'));
+      xhr.onprogress = (e) => {
+        progressCallback(e.loaded / size);
+      };
+      xhr.onloadend = () => progressCallback(1);
+      xhr.open('GET', src);
+      xhr.send();
+    });
+  };
 
   class Project {
     constructor(blob, type) {
@@ -588,11 +623,14 @@ ${scripts}
       this.platform = platform;
       this.icon = icon;
     }
-    async package(runtime, projectData) {
+    async package(runtime, projectData, progressTarget) {
       const packagerData = await runtime.package(await projectData.asFetchedFrom('project.zip'));
 
-      const response = await fetch(`https://packagerdata.turbowarp.org/nwjs-v0.49.0-${this.platform === 'windows' ? 'win' : 'osx'}-x64.zip`);
-      const nwjsData = await response.arrayBuffer();
+      const nwjsData = await fetchManifestAsset(`nwjs-${this.platform}`, (progress) => {
+        progressTarget.dispatchEvent(new CustomEvent('nwjs-progress', {
+          detail: progress
+        }));
+      })
       const nwjsZip = await JSZip.loadAsync(nwjsData);
 
       // Inside the nw.js zip is another folder called something like nwjs-v0.48.2-win-x64

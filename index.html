@@ -226,7 +226,13 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
         O.onchange = updateConditionals;
         updateConditionals();
-  
+
+        const progressTarget = new EventTarget();
+        progressTarget.addEventListener('data-progress', (e) => console.log(e.detail));
+        // progressTarget.addEventListener('asset-fetch', (e) => console.log(e.detail));
+        // progressTarget.addEventListener('asset-fetched', (e) => console.log(e.detail));
+        progressTarget.addEventListener('nwjs-progress', (e) => console.log(e.detail));
+
         const loadProject = async () => {
           if (O.project.source === 'file') {
             if (!O.project.file) {
@@ -239,7 +245,9 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
             if (!match) {
               throw new Error('Invalid project ID');
             }
-            const project = await SBDownloader.download(match[0]);
+            const project = await SBDownloader.download(match[0], {
+              progressTarget
+            });
             return new Packager.Project(await project.asBlob(), project.type);
           }
           throw new Error('unknown project source');
@@ -269,16 +277,13 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
           switch (O.environment.target) {
             case 'html': return new Packager.environments.HTML();
             case 'zip': return new Packager.environments.Zip();
-            case 'nwjs-win64': return new Packager.environments.NWjs({
-              icon: O.nwjs.icon || getDefaultIcon(),
-              manifest: O.nwjs.manifest,
-              platform: 'windows',
-            });
-            case 'nwjs-mac': return new Packager.environments.NWjs({
-              icon: O.nwjs.icon || getDefaultIcon(),
-              manifest: O.nwjs.manifest,
-              platform: 'mac',
-            })
+            case 'nwjs-win64':
+            case 'nwjs-mac':
+              return new Packager.environments.NWjs({
+                icon: O.nwjs.icon || getDefaultIcon(),
+                manifest: O.nwjs.manifest,
+                platform: O.environment.target.substr('nwjs-'.length),
+              });
           }
           throw new Error('unknown environment');
         };
@@ -313,7 +318,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
             const runtime = getRuntime();
             const environment = getEnvironment();
             const projectData = await loadProject();
-            const result = await environment.package(runtime, projectData);
+            const result = await environment.package(runtime, projectData, progressTarget);
             if (!(result.data instanceof Blob)) {
               result.data = new Blob([result.data]);
             }
