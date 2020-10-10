@@ -19,6 +19,8 @@ window.Conditionals = (function() {
   /** @type {Conditional[]} */
   const conditionals = [];
 
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion)');
+
   class Conditional {
     isVisible() {
       return false;
@@ -63,7 +65,7 @@ window.Conditionals = (function() {
       const isVisible = new Function('return ' + el.getAttribute('if') + ';');
 
       let conditional;
-      if (el.classList.contains('fold')) {
+      if (el.classList.contains('fold') && !prefersReducedMotion.matches) {
         conditional = new Animated(el);
       } else {
         conditional = new Regular(el);
