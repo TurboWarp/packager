@@ -37,6 +37,8 @@ window.Packager = (function() {
     image.src = src;
   });
 
+  const isObject = (obj) => typeof obj === 'object' && obj !== null;
+
   const canvasToBlob = (canvas) => new Promise((resolve, reject) => {
     canvas.toBlob((blob) => {
       if (blob) {
@@ -564,12 +566,26 @@ ${scripts}
   class NWjs {
     constructor({ platform, manifest, icon }) {
       try {
-        JSON.parse(manifest);
+        this.manifest = JSON.parse(manifest);
       } catch (e) {
-        throw new Error(`NW.js package.json is invalid JSON (${e}}`);
+        throw new Error(`NW.js manifest is invalid JSON (${e}}`);
+      }
+      if (!isObject(this.manifest)) {
+        throw new Error('NW.js manifest not an object');
+      }
+      if (typeof this.manifest.name !== 'string') {
+        throw new Error('NW.js manifest is missing or has incorrect type for field: name');
+      }
+      if (typeof this.manifest.main !== 'string') {
+        throw new Error('NW.js manifest is missing or has incorrect type for field: main');
+      }
+      if (!isObject(this.manifest.window)) {
+        throw new Error('NW.js manifest is missing or has incorrect type for field: window');
+      }
+      if (typeof this.manifest.window.icon !== 'string') {
+        throw new Error('NW.js manifest is missing or has incorrect type for field: window.icon');
       }
       this.platform = platform;
-      this.manifest = manifest;
       this.icon = icon;
     }
     async package(runtime, projectData) {
@@ -593,10 +609,10 @@ ${scripts}
         // TODO: rename nwjs.app and such to reflect the app's name
       }
 
-      zip.file(dataPrefix + 'project.html', packagerData);
+      zip.file(dataPrefix + this.manifest.main, packagerData);
       zip.file(dataPrefix + 'project.zip', projectData.blob);
-      zip.file(dataPrefix + 'icon.png', this.icon);
-      zip.file(dataPrefix + 'package.json', this.manifest);
+      zip.file(dataPrefix + this.manifest.window.icon, this.icon);
+      zip.file(dataPrefix + 'package.json', JSON.stringify(this.manifest));
 
       return {
         data: await zip.generateAsync({
