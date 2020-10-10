@@ -90,12 +90,31 @@ window.SBDownloader = (function() {
     return true;
   };
 
-  const fetchProject = async (projectId) => {
-    const request = await fetch(PROJECT_HOST.replace('$id', projectId));
-    if (request.status !== 200) {
-      throw new Error(`Cannot fetch project: unexpected status code ${request.status}`);
-    }
-    return await request.blob();
+  const fetchProject = (projectId, progressTarget) => {
+    return new Promise((resolve, reject) => {
+      const xhr = new XMLHttpRequest();
+      xhr.responseType = 'blob';
+      xhr.onload = () => {
+        if (xhr.status === 200) {
+          resolve(xhr.response);
+        } else {
+          reject(new Error(`Unexpected status code: ${xhr.status}`));
+        }
+      };
+      xhr.onerror = () => {
+        reject(new Error('XHR failed'));
+      };
+      xhr.onprogress = (e) => {
+        if (e.lengthComputable) {
+          const progress = e.loaded / e.total;
+          progressTarget.dispatchEvent(new CustomEvent('data-progress', {
+            detail: progress
+          }));
+        }
+      }
+      xhr.open('GET', PROJECT_HOST.replace('$id', projectId));
+      xhr.send();
+    });
   };
 
   const identifyProjectType = async (projectData) => {
@@ -130,7 +149,7 @@ window.SBDownloader = (function() {
     return null;
   };
 
-  const loadScratch2 = (projectData) => {
+  const loadScratch2 = (projectData, progressTarget) => {
     const zip = new JSZip();
   
     const IMAGE_EXTENSIONS = ['svg', 'png'];
@@ -177,11 +196,18 @@ window.SBDownloader = (function() {
           reference.penLayerID = accumulator;
         }
       }
-  
+ 
+      progressTarget.dispatchEvent(new CustomEvent('fetch-asset', {
+        detail: md5
+      }));
+
       return fetch(ASSET_HOST.replace('$path', md5))
         .then((request) => request.arrayBuffer())
         .then((buffer) => {
           zip.file(path, buffer);
+          progressTarget.dispatchEvent(new CustomEvent('fetched-asset', {
+            detail: md5
+          }));
         });
     }
   
@@ -222,15 +248,21 @@ window.SBDownloader = (function() {
       });
   };
 
-  const loadScratch3 = (projectData) => {
+  const loadScratch3 = (projectData, progressTarget) => {
     const zip = new JSZip();
   
     function addFile(data) {
       const path = data.md5ext || data.assetId + '.' + data.dataFormat;
+      progressTarget.dispatchEvent(new CustomEvent('fetch-asset', {
+        detail: path
+      }));
       return fetch(ASSET_HOST.replace('$path', path))
         .then((request) => request.arrayBuffer())
         .then((buffer) => {
           zip.file(path, buffer);
+          progressTarget.dispatchEvent(new CustomEvent('fetched-asset', {
+            detail: path
+          }));
         });
     }
   
@@ -262,8 +294,8 @@ window.SBDownloader = (function() {
       .then(() => zip);
   };  
 
-  const download = async (projectId) => {
-    const blob = await fetchProject(projectId);
+  const download = async (projectId, progressTarget = new EventTarget()) => {
+    const blob = await fetchProject(projectId, progressTarget);
     const asText = await readAsText(blob);
 
     if (checkMagic(asText, SB_MAGIC)) {
@@ -282,9 +314,9 @@ window.SBDownloader = (function() {
 
     const projectType = await identifyProjectType(projectData);
     if (projectType === 'sb3') {
-      return new ZipProject(await loadScratch3(projectData), 'sb3');
+      return new ZipProject(await loadScratch3(projectData, progressTarget), 'sb3');
     } else if (projectType === 'sb2') {
-      return new ZipProject(await loadScratch2(projectData), 'sb2');
+      return new ZipProject(await loadScratch2(projectData, progressTarget), 'sb2');
     } else {
       throw new Error('Project JSON is valid, but of unknown type');
     }
