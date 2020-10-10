@@ -21,13 +21,41 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
   <head>
     <style>
       body {
-        font-family: sans-serif;
-        padding: 2px;
-        max-width: 480px;
-        margin: auto;
+        font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif;
+        background-color: #eee;
+      }
+      h1, h2, h3, h4, h5, h6 {
+        font-weight: 400;
+      }
+      h1 {
+        font-size: 2em;
+      }
+      h2 {
+        font-size: 1.5em;
+        margin: 0.5em 0 1em 0;
+      }
+      body.loaded .show-loading {
+        display: none;
       }
       body:not(.loaded) .hide-loading {
         display: none;
+      }
+      .card {
+        max-width: 500px;
+        margin: auto;
+        border-radius: 0.3em;
+        background-color: #fff;
+        padding: 1em;
+        margin-top: 1em;
+        margin-bottom: 1.2em;
+        box-shadow: 0 0 0.5em 0.1em rgba(0, 0, 0, 0.4);
+      }
+      .center {
+        text-align: center;
+      }
+      textarea {
+        width: 100%;
+        height: 100px;
       }
       @media (prefers-color-scheme: dark) {
         body {
@@ -37,16 +65,26 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
         a {
           color: #4af;
         }
+        .card {
+          background-color: rgb(29, 29, 29);
+        }
       }
     </style>
   </head>
 
   <body>
-    <h1>The new packager</h1>
 
-    <p>This is the new packager for forkphorus & TurboWarp. p3 is a temporary name until something better can be thought of.</p>
+    <section class="card">
+      <h1>The new packager</h1>
 
-    <section class="hide-loading">
+      <p>This is the new packager for forkphorus & TurboWarp. p3 is a temporary name until something better can be thought of.</p>
+    </section>
+
+    <section class="show-loading card center">
+      <i>Loading...</i>
+    </section>
+
+    <section class="hide-loading card">
       <h2>Select project</h2>
 
       <div>
@@ -76,7 +114,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
     </section>
 
-    <section class="hide-loading">
+    <section class="hide-loading card">
       <h2>Environment</h2>
 
       <div>
@@ -102,13 +140,13 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
       </div>
     </section>
 
-    <section if="O.environment.runtime === 'turbowarp'" class="hide-loading">
+    <section if="O.environment.runtime === 'turbowarp'" class="hide-loading card">
       <h2>TurboWarp options</h2>
 
       <p>TurboWarp currently does not support any options.</p>
     </section>
 
-    <section if="O.environment.runtime === 'forkphorus'" class="hide-loading">
+    <section if="O.environment.runtime === 'forkphorus'" class="hide-loading card">
       <h2>forkphorus options</h2>
 
       <div>
@@ -169,7 +207,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
       </div>
     </section>
 
-    <section if="O.environment.target.startsWith('nw')" class="hide-loading">
+    <section if="O.environment.target.startsWith('nw')" class="hide-loading card">
       <h2>NW.js Options</h2>
 
       <div>
@@ -197,12 +235,12 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
       </div>
     </section>
 
-    <section class="hide-loading">
+    <section class="hide-loading card">
       <button id="package">Package</button>
     </section>
 
-    <section id="downloads" class="hide-loading">
-
+    <section id="downloads" class="hide-loading card center">
+      <i>Downloads will appear here.</i>
     </section>
 
     <script src="lib/jszip.min.js"></script>
