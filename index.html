@@ -140,13 +140,13 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
       </div>
     </section>
 
-    <section if="O.environment.runtime === 'turbowarp'" class="hide-loading card">
+    <section if="O.environment.runtime === 'turbowarp'" class="hide-loading card fold">
       <h2>TurboWarp options</h2>
 
       <p>TurboWarp currently does not support any options.</p>
     </section>
 
-    <section if="O.environment.runtime === 'forkphorus'" class="hide-loading card">
+    <section if="O.environment.runtime === 'forkphorus'" class="hide-loading card fold">
       <h2>forkphorus options</h2>
 
       <div>
@@ -207,7 +207,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
       </div>
     </section>
 
-    <section if="O.environment.target.startsWith('nw')" class="hide-loading card">
+    <section if="O.environment.target.startsWith('nw')" class="hide-loading card fold">
       <h2>NW.js Options</h2>
 
       <div>
@@ -245,25 +245,19 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
     <script src="lib/jszip.min.js"></script>
     <script src="lib/icns.js"></script>
+    <script src="conditionals.js"></script>
     <script src="downloader.js"></script>
     <script src="parseoptions.js"></script>
     <script src="packager.js"></script>
 
     <script>
       (function() {
-        const conditionals = document.querySelectorAll('[if]');
-        for (const el of conditionals) {
-          el.visibleIf = new Function('return ' + el.getAttribute('if') + ';');
-        }
+        document.body.classList.add('loaded');
 
-        const updateConditionals = () => {
-          for (const el of conditionals) {
-            el.hidden = !el.visibleIf();
-          }
+        O.onchange = () => {
+          Conditionals.update();
         };
-
-        O.onchange = updateConditionals;
-        updateConditionals();
+        Conditionals.setup();
 
         const progressTarget = new EventTarget();
         progressTarget.addEventListener('data-progress', (e) => console.log(e.detail));
@@ -366,8 +360,6 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
             alert(e);
           }
         });
-
-        document.body.classList.add('loaded');
       }());
     </script>
 
