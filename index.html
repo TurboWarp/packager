@@ -253,7 +253,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
           throw new Error('unknown project source');
         };
   
-        const getRuntime = (projectType) => {
+        const getRuntime = async (projectType) => {
           switch (O.environment.runtime) {
             case 'turbowarp': return new Packager.runtimes.TurboWarp();
             case 'forkphorus': return new Packager.runtimes.Forkphorus({
@@ -273,14 +273,14 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
         const getDefaultIcon = () => fetch('default-icon.png')
           .then((r) => r.blob());
   
-        const getEnvironment = () => {
+        const getEnvironment = async () => {
           switch (O.environment.target) {
             case 'html': return new Packager.environments.HTML();
             case 'zip': return new Packager.environments.Zip();
             case 'nwjs-win64':
             case 'nwjs-mac':
               return new Packager.environments.NWjs({
-                icon: O.nwjs.icon || getDefaultIcon(),
+                icon: O.nwjs.icon || await getDefaultIcon(),
                 manifest: O.nwjs.manifest,
                 platform: O.environment.target.substr('nwjs-'.length),
               });
@@ -315,8 +315,8 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
         document.getElementById('package').addEventListener('click', async function() {
           try {
             removeDownloadsLinks();
-            const runtime = getRuntime();
-            const environment = getEnvironment();
+            const runtime = await getRuntime();
+            const environment = await getEnvironment();
             const projectData = await loadProject();
             const result = await environment.package(runtime, projectData, progressTarget);
             if (!(result.data instanceof Blob)) {
