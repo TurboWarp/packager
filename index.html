@@ -261,18 +261,21 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
           }
           throw new Error('unknown environment');
         };
+
+        const getDefaultIcon = () => fetch('default-icon.png')
+          .then((r) => r.blob());
   
         const getEnvironment = () => {
           switch (O.environment.target) {
             case 'html': return new Packager.environments.HTML();
             case 'zip': return new Packager.environments.Zip();
             case 'nwjs-win64': return new Packager.environments.NWjs({
-              icon: O.nwjs.icon,
+              icon: O.nwjs.icon || getDefaultIcon(),
               manifest: O.nwjs.manifest,
               platform: 'windows',
             });
             case 'nwjs-mac': return new Packager.environments.NWjs({
-              icon: O.nwjs.icon,
+              icon: O.nwjs.icon || getDefaultIcon(),
               manifest: O.nwjs.manifest,
               platform: 'mac',
             })
