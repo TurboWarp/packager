@@ -280,7 +280,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
         const addDownloadLink = (blob, fileName) => {
           const link = document.createElement('a');
           const size = blob.size / 1024 / 1024;
-          link.href = URL.createObjectURL(blob); // TODO: should we delete these after creating them?
+          link.href = URL.createObjectURL(blob);
           link.textContent = `Download ${fileName} (${size.toFixed(2)} MiB)`;
           link.download = fileName;
           document.querySelector('#downloads').appendChild(link);
@@ -289,7 +289,16 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
   
         const removeDownloadsLinks = () => {
           const el = document.querySelector('#downloads');
-          while (el.firstChild) el.removeChild(el.firstChild);
+          let link = el.firstChild;
+          while (link) {
+            const href = link.href;
+            // Revoke the URLs so that the browser knows it can delete them as our blobs can be large.
+            if (href) {
+              URL.revokeObjectURL(href);
+            }
+            el.removeChild(link);
+            link = el.firstChild;
+          }
         };
   
         document.getElementById('package').addEventListener('click', async function() {
