@@ -98,14 +98,14 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
         </label>
       </div>
 
-      <div if="O.project.source === 'id'">
+      <div if="O.project.source === 'id'" class="fold">
         <label>
           Project ID or URL:
           <input name="project.id" type="text">
         </label>
       </div>
 
-      <div if="O.project.source === 'file'">
+      <div if="O.project.source === 'file'" class="fold">
         <label>
           Project File:
           <input name="project.file" type="file" accept=".sb,.sb2,.sb3">
@@ -140,87 +140,100 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
       </div>
     </section>
 
-    <section if="O.environment.runtime === 'turbowarp'" class="hide-loading card fold">
-      <h2>TurboWarp options</h2>
+    <section class="hide-loading card">
+      <div if="O.environment.runtime === 'turbowarp'" class="fold">
+        <h2>TurboWarp options</h2>
+  
+        <p>TurboWarp currently does not support any options.</p>
+      </div>
 
-      <p>TurboWarp currently does not support any options.</p>
+      <div if="O.environment.runtime === 'forkphorus'" class="fold">
+        <h2>forkphorus options</h2>
+
+        <div>
+          <label>
+            Turbo Mode
+            <input name="forkphorus.playerOptions.turbo" type="checkbox">
+          </label>
+        </div>
+        <div>
+          <label>
+            Show Controls
+            <input name="forkphorus.showControls" type="checkbox" checked>
+          </label>
+        </div>
+        <div>
+          <label>
+            Username
+            <input name="forkphorus.playerOptions.username" type="text">
+          </label>
+        </div>
+        <div>
+          <label>
+            Autoplay
+            <select name="forkphorus.playerOptions.autoplayPolicy">
+              <option value="always" selected>Always</option>
+              <option value="never">Never</option>
+              <option value="if-audio-playable">If audio can be played</option>
+            </select>
+          </label>
+        </div>
+        <div>
+          <label>
+            Framerate
+            <input name="forkphorus.playerOptions.framerate" value="30" type="number">
+          </label>
+        </div>
+        <div>
+          <label>
+            Loading Screen Text
+            <input name="forkphorus.loadingScreenText" value="forkphorus">
+          </label>
+        </div>
+        <div>
+          <label>
+            Cloud Variables
+            <select name="forkphorus.playerOptions.cloudVariables">
+              <option value="off">Off</option>
+              <option value="ws" disabled>Connect to forkphorus clouddata server</option>
+              <option value="localStorage" selected>Store locally</option>
+            </select>
+          </label>
+        </div>
+        <div>
+          <label>
+            Sprite Fencing
+            <input name="forkphorus.playerOptions.spriteFencing" type="checkbox">
+          </label>
+        </div>
+      </div>
     </section>
 
-    <section if="O.environment.runtime === 'forkphorus'" class="hide-loading card fold">
-      <h2>forkphorus options</h2>
+    <section class="hide-loading card">
+      <div if="O.environment.target === 'html'" class="fold">
+        <h2>Plain HTML Options</h2>
+        <p>No options.</p>
+      </div>
 
-      <div>
-        <label>
-          Turbo Mode
-          <input name="forkphorus.playerOptions.turbo" type="checkbox">
-        </label>
+      <div if="O.environment.target === 'zip'" class="fold">
+        <h2>Zip Options</h2>
+        <p>No options.</p>
       </div>
-      <div>
-        <label>
-          Show Controls
-          <input name="forkphorus.showControls" type="checkbox" checked>
-        </label>
-      </div>
-      <div>
-        <label>
-          Username
-          <input name="forkphorus.playerOptions.username" type="text">
-        </label>
-      </div>
-      <div>
-        <label>
-          Autoplay
-          <select name="forkphorus.playerOptions.autoplayPolicy">
-            <option value="always" selected>Always</option>
-            <option value="never">Never</option>
-            <option value="if-audio-playable">If audio can be played</option>
-          </select>
-        </label>
-      </div>
-      <div>
-        <label>
-          Framerate
-          <input name="forkphorus.playerOptions.framerate" value="30" type="number">
-        </label>
-      </div>
-      <div>
-        <label>
-          Loading Screen Text
-          <input name="forkphorus.loadingScreenText" value="forkphorus">
-        </label>
-      </div>
-      <div>
-        <label>
-          Cloud Variables
-          <select name="forkphorus.playerOptions.cloudVariables">
-            <option value="off">Off</option>
-            <option value="ws" disabled>Connect to forkphorus clouddata server</option>
-            <option value="localStorage" selected>Store locally</option>
-          </select>
-        </label>
-      </div>
-      <div>
-        <label>
-          Sprite Fencing
-          <input name="forkphorus.playerOptions.spriteFencing" type="checkbox">
-        </label>
-      </div>
-    </section>
 
-    <section if="O.environment.target.startsWith('nw')" class="hide-loading card fold">
-      <h2>NW.js Options</h2>
+      <div if="O.environment.target.startsWith('nw')" class="fold">
+        <h2>NW.js Options</h2>
 
-      <div>
-        <label>
-          Icon
-          <input name="nwjs.icon" type="file" accept=".png">
-        </label>
-      </div>
-      <div>
-        <label>
-          package.json
-          <br>
-          <textarea name="nwjs.manifest">{
+        <div>
+          <label>
+            Icon
+            <input name="nwjs.icon" type="file" accept=".png">
+          </label>
+        </div>
+        <div>
+          <label>
+            package.json
+            <br>
+            <textarea name="nwjs.manifest">{
   "name": "Name of the project",
   "main": "project.html",
   "window": {
@@ -231,7 +244,8 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
     "icon": "icon.png"
   }
 }</textarea>
-        </label>
+          </label>
+        </div>
       </div>
     </section>
 
