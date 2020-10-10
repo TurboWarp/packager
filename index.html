@@ -26,6 +26,9 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
         max-width: 480px;
         margin: auto;
       }
+      body:not(.loaded) .hide-loading {
+        display: none;
+      }
       @media (prefers-color-scheme: dark) {
         body {
           background: #111;
@@ -43,7 +46,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
     <p>This is the new packager for forkphorus & TurboWarp. p3 is a temporary name until something better can be thought of.</p>
 
-    <section>
+    <section class="hide-loading">
       <h2>Select project</h2>
 
       <div>
@@ -73,7 +76,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
     </section>
 
-    <section>
+    <section class="hide-loading">
       <h2>Environment</h2>
 
       <div>
@@ -99,13 +102,13 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
       </div>
     </section>
 
-    <section if="O.environment.runtime === 'turbowarp'">
+    <section if="O.environment.runtime === 'turbowarp'" class="hide-loading">
       <h2>TurboWarp options</h2>
 
       <p>TurboWarp currently does not support any options.</p>
     </section>
 
-    <section if="O.environment.runtime === 'forkphorus'">
+    <section if="O.environment.runtime === 'forkphorus'" class="hide-loading">
       <h2>forkphorus options</h2>
 
       <div>
@@ -166,7 +169,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
       </div>
     </section>
 
-    <section if="O.environment.target.startsWith('nw')">
+    <section if="O.environment.target.startsWith('nw')" class="hide-loading">
       <h2>NW.js Options</h2>
 
       <div>
@@ -194,11 +197,11 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
       </div>
     </section>
 
-    <section>
+    <section class="hide-loading">
       <button id="package">Package</button>
     </section>
 
-    <section id="downloads">
+    <section id="downloads" class="hide-loading">
 
     </section>
 
@@ -317,6 +320,8 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
             alert(e);
           }
         });
+
+        document.body.classList.add('loaded');
       }());
     </script>
 
