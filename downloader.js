@@ -197,7 +197,7 @@ window.SBDownloader = (function() {
         }
       }
  
-      progressTarget.dispatchEvent(new CustomEvent('fetch-asset', {
+      progressTarget.dispatchEvent(new CustomEvent('asset-fetch', {
         detail: md5
       }));
 
@@ -205,7 +205,7 @@ window.SBDownloader = (function() {
         .then((request) => request.arrayBuffer())
         .then((buffer) => {
           zip.file(path, buffer);
-          progressTarget.dispatchEvent(new CustomEvent('fetched-asset', {
+          progressTarget.dispatchEvent(new CustomEvent('asset-fetched', {
             detail: md5
           }));
         });
