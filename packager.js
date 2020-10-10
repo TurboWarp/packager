@@ -563,6 +563,11 @@ ${scripts}
 
   class NWjs {
     constructor({ platform, manifest, icon }) {
+      try {
+        JSON.parse(manifest);
+      } catch (e) {
+        throw new Error(`NW.js package.json is invalid JSON (${e}}`);
+      }
       this.platform = platform;
       this.manifest = manifest;
       this.icon = icon;
