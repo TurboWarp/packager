@@ -294,7 +294,9 @@ window.SBDownloader = (function() {
       .then(() => zip);
   };  
 
-  const download = async (projectId, progressTarget = new EventTarget()) => {
+  const download = async (projectId, options = {}) => {
+    const progressTarget = options.progressTarget || new EventTarget();
+
     const blob = await fetchProject(projectId, progressTarget);
     const asText = await readAsText(blob);
 
