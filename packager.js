@@ -61,13 +61,19 @@ window.Packager = (function() {
     }
   };
 
+  const LOAD_ASSETS_FROM_LOCALHOST = false;
+
   const fetchManifestAsset = (assetName, progressCallback) => {
     const manifestEntry = assetManifest[assetName];
     if (manifestEntry._data) {
       return Promise.resolve(manifestEntry._data);
     }
     return new Promise((resolve, reject) => {
-      const {src, size} = manifestEntry;
+      let {src, size} = manifestEntry;
+      if (LOAD_ASSETS_FROM_LOCALHOST) {
+        const srcURL = new URL(src);
+        src = srcURL.pathname;
+      }
       const xhr = new XMLHttpRequest();
       xhr.responseType = 'blob';
       xhr.onload = () => {
