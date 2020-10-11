@@ -450,6 +450,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
             alert(e);
           } finally {
             document.body.classList.remove('running');
+            resetProgress();
           }
         });
       }());
