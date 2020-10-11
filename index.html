@@ -150,39 +150,25 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
     </section>
 
     <section class="hide-loading card">
-      <h2>Environment</h2>
+      <h2>Runtime</h2>
 
       <div>
         <label>
           Runtime
-          <select name="environment.runtime">
+          <select name="runtime.name">
             <option value="turbowarp">TurboWarp</option>
             <option value="forkphorus">forkphorus</option>
           </select>
         </label>
       </div>
 
-      <div>
-        <label>
-          Target Environment
-          <select name="environment.target">
-            <option value="html">Plain HTML (Standalone)</option>
-            <option value="zip">Zip</option>
-            <option value="nwjs-win64">NW.js (Windows x64)</option>
-            <option value="nwjs-mac">NW.js (Mac)</option>
-          </select>
-        </label>
-      </div>
-    </section>
-
-    <section class="hide-loading card">
-      <div if="O.environment.runtime === 'turbowarp'" class="fold">
+      <div if="O.runtime.name === 'turbowarp'" class="fold">
         <h2>TurboWarp options</h2>
   
         <p>TurboWarp currently does not support any options.</p>
       </div>
 
-      <div if="O.environment.runtime === 'forkphorus'" class="fold">
+      <div if="O.runtime.name === 'forkphorus'" class="fold">
         <h2>forkphorus options</h2>
 
         <div>
@@ -245,17 +231,31 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
     </section>
 
     <section class="hide-loading card">
-      <div if="O.environment.target === 'html'" class="fold">
+      <h2>Environment</h2>
+
+      <div>
+        <label>
+          Environment
+          <select name="environment.name">
+            <option value="html">Plain HTML (Standalone)</option>
+            <option value="zip">Zip</option>
+            <option value="nwjs-win64">NW.js (Windows x64)</option>
+            <option value="nwjs-mac">NW.js (Mac)</option>
+          </select>
+        </label>
+      </div>
+
+      <div if="O.environment.name === 'html'" class="fold">
         <h2>Plain HTML Options</h2>
         <p>No options.</p>
       </div>
 
-      <div if="O.environment.target === 'zip'" class="fold">
+      <div if="O.environment.name === 'zip'" class="fold">
         <h2>Zip Options</h2>
         <p>No options.</p>
       </div>
 
-      <div if="O.environment.target.startsWith('nw')" class="fold">
+      <div if="O.environment.name.startsWith('nw')" class="fold">
         <h2>NW.js Options</h2>
 
         <div>
@@ -362,7 +362,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
         };
   
         const getRuntime = async (projectType) => {
-          switch (O.environment.runtime) {
+          switch (O.runtime.name) {
             case 'turbowarp': return new Packager.runtimes.TurboWarp();
             case 'forkphorus': return new Packager.runtimes.Forkphorus({
               playerOptions: {
@@ -382,7 +382,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
           .then((r) => r.blob());
   
         const getEnvironment = async () => {
-          switch (O.environment.target) {
+          switch (O.environment.name) {
             case 'html': return new Packager.environments.HTML();
             case 'zip': return new Packager.environments.Zip();
             case 'nwjs-win64':
@@ -390,7 +390,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
               return new Packager.environments.NWjs({
                 icon: O.nwjs.icon || await getDefaultIcon(),
                 manifest: O.nwjs.manifest,
-                platform: O.environment.target.substr('nwjs-'.length),
+                platform: O.environment.name.substr('nwjs-'.length),
               });
           }
           throw new Error('unknown environment');
