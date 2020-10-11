@@ -38,7 +38,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
         display: none;
       }
       body:not(.loaded) .hide-loading {
-        display: none;
+        display: none !important;
       }
       .card {
         max-width: 500px;
@@ -53,10 +53,44 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
       .center {
         text-align: center;
       }
+
       textarea {
         width: 100%;
         height: 100px;
       }
+
+      #progress-container {
+        margin: auto;
+        position: relative;
+        width: 250px;
+        height: 7px;
+        border: 1px solid currentColor;
+      }
+      #progress-bar {
+        position: absolute;
+        background-color: currentColor;
+        top: 0;
+        left: 0;
+        height: 100%;
+      }
+      body:not(.running) #progress-container {
+        display: none;
+      }
+      #status, #download {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 40px;
+        text-align: center;
+      }
+      #status-text {
+        font-style: italic;
+      }
+
+      [hidden] {
+        display: none !important;
+      }
+
       @media (prefers-color-scheme: dark) {
         body {
           background: #111;
@@ -73,7 +107,6 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
   </head>
 
   <body>
-
     <section class="card">
       <h1>The new packager</h1>
 
@@ -253,8 +286,17 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
       <button id="package">Package</button>
     </section>
 
-    <section id="downloads" class="hide-loading card center">
-      <i>Downloads will appear here.</i>
+    <section id="download" if="O.showDownload" class="hide-loading card">
+      <!-- Download links will be inserted here -->
+    </section>
+
+    <section id="status" if="!O.showDownload" class="hide-loading card">
+      <div>
+        <div id="progress-container">
+          <div id="progress-bar"></div>
+        </div>
+        <div id="status-text">Status updates will appear here.</div>
+      </div>
     </section>
 
     <script src="lib/jszip.min.js"></script>
@@ -273,11 +315,29 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
         };
         Conditionals.setup();
 
+        let totalAssets = 0;
+        let finishedAssets = 0;
+
         const progressTarget = new EventTarget();
-        progressTarget.addEventListener('data-progress', (e) => console.log(e.detail));
-        // progressTarget.addEventListener('asset-fetch', (e) => console.log(e.detail));
-        // progressTarget.addEventListener('asset-fetched', (e) => console.log(e.detail));
-        progressTarget.addEventListener('nwjs-progress', (e) => console.log(e.detail));
+        progressTarget.addEventListener('data-progress', (e) => {
+          totalAssets = 0;
+          finishedAssets = 0;
+          setProgress('Loading project data', e.detail);
+        });
+        progressTarget.addEventListener('asset-fetch', (e) => {
+          totalAssets++;
+          setProgress('Loading assets', finishedAssets / totalAssets);
+        });
+        progressTarget.addEventListener('asset-fetched', (e) => {
+          finishedAssets++;
+          setProgress('Loading assets', finishedAssets / totalAssets);
+        });
+        progressTarget.addEventListener('nwjs-progress', (e) => setProgress('Loading NW.js', e.detail));
+
+        const statusText = document.querySelector('#status-text');
+        statusText.initialText = statusText.textContent;
+        const downloadContainer = document.querySelector('#download');
+        const progressBar = document.querySelector('#progress-bar');
 
         const loadProject = async () => {
           if (O.project.source === 'file') {
@@ -335,32 +395,47 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
         };
   
         const addDownloadLink = (blob, fileName) => {
+          O.showDownload = true;
           const link = document.createElement('a');
           const size = blob.size / 1024 / 1024;
           link.href = URL.createObjectURL(blob);
           link.textContent = `Download ${fileName} (${size.toFixed(2)} MiB)`;
           link.download = fileName;
-          document.querySelector('#downloads').appendChild(link);
+          downloadContainer.appendChild(link);
           link.click();
+          Conditionals.update();
         };
   
-        const removeDownloadsLinks = () => {
-          const el = document.querySelector('#downloads');
-          let link = el.firstChild;
+        const resetDownloads = () => {
+          O.showDownload = false;
+          let link = downloadContainer.firstChild;
           while (link) {
-            const href = link.href;
-            // Revoke the URLs so that the browser knows it can delete them as our blobs can be large.
-            if (href) {
-              URL.revokeObjectURL(href);
+            if (link.href) {
+              URL.revokeObjectURL(link.href);
             }
-            el.removeChild(link);
-            link = el.firstChild;
+            downloadContainer.removeChild(link);
+            link = downloadContainer.firstChild;
           }
+          Conditionals.update();
         };
-  
+
+        const setProgress = (status, progress) => {
+          if (status !== setProgress.lastStatus) {
+            statusText.textContent = status;
+          }
+          progressBar.style.width = `${progress * 100}%`;
+        };
+        setProgress.lastStatus = statusText.initialText;
+
+        const resetProgress = () => {
+          setProgress(statusText.initialText, 0);
+        };
+
         document.getElementById('package').addEventListener('click', async function() {
           try {
-            removeDownloadsLinks();
+            document.body.classList.add('running');
+            resetDownloads();
+            setProgress('Loading', 0);
             const runtime = await getRuntime();
             const environment = await getEnvironment();
             const projectData = await loadProject();
@@ -372,6 +447,8 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
           } catch (e) {
             console.error(e);
             alert(e);
+          } finally {
+            document.body.classList.remove('running');
           }
         });
       }());
