@@ -22,12 +22,25 @@ window.Conditionals = (function() {
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion)');
 
   class Conditional {
+    constructor() {
+      this._lastVisible = null;
+    }
+
     isVisible() {
       return false;
     }
 
-    update() {
+    onchange(visible) {
 
+    }
+
+    update() {
+      const visible = this.isVisible();
+      if (visible === this._lastVisible) {
+        return;
+      }
+      this._lastVisible = visible;
+      this.onchange(visible);
     }
   }
 
@@ -37,8 +50,8 @@ window.Conditionals = (function() {
       this.el = el;
     }
 
-    update() {
-      this.el.hidden = !this.isVisible();
+    onchange(visible) {
+      this.el.hidden = !visible;
     }
   }
 
@@ -51,11 +64,25 @@ window.Conditionals = (function() {
       this.height = getComputedStyle(el).height;
     }
 
-    update() {
-      if (this.isVisible()) {
+    onchange(visible) {
+      // Because the element isn't actually hidden or removed from the DOM, we have to do some extra work to make sure that
+      // inputs and such won't upset accessibility tools or tab index
+      if (visible) {
         this.el.style.height = this.height;
+        this.el.removeAttribute('aria-hidden');
+        for (const input of this.el.querySelectorAll('input')) {
+          input.disabled = input._disabled;
+          input.tabIndex = input._tabIndex;
+        }
       } else {
-        this.el.style.height = `0`;
+        this.el.style.height = '0';
+        this.el.setAttribute('aria-hidden', 'true');
+        for (const input of this.el.querySelectorAll('input')) {
+          input._disabled = input.disabled;
+          input._tabIndex = input.tabIndex;
+          input.tabIndex = -1;
+          input.disabled = true;
+        }
       }
     }
   }
