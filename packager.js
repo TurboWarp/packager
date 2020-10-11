@@ -53,16 +53,12 @@ window.Packager = (function() {
   const assetManifest = {
     'nwjs-win64': {
       src: 'https://packagerdata.turbowarp.org/nwjs-v0.49.0-win-x64.zip',
-      size: 97406745,
+      size: 97406745
     },
     'nwjs-mac': {
       src: 'https://packagerdata.turbowarp.org/nwjs-v0.49.0-osx-x64.zip',
-      size: 128684835,
-    },
-    'turbowarp': {
-      src: 'https://packagerdata.turbowarp.org/player.js',
-      size: 15476819,
-    },
+      size: 128684835
+    }
   };
 
   const LOAD_ASSETS_FROM_LOCALHOST = false;
@@ -195,9 +191,7 @@ window.Packager = (function() {
 
   class TurboWarp {
     async package(projectData) {
-      const script = await fetchManifestAsset('turbowarp', (progress) => {
-        // TODO
-      });
+      const script = await TurboWarp.scriptLoader.load();
       return `<!DOCTYPE html>
 <html>
 
@@ -238,6 +232,9 @@ window.Packager = (function() {
 </html>`;
     }
   }
+  TurboWarp.scriptLoader = new ScriptOrStyleLoader([
+    { src: 'player.js' }
+  ], 'https://packagerdata.turbowarp.org/');
 
   class Forkphorus {
     constructor(options) {
