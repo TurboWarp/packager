@@ -560,7 +560,23 @@ ${scripts}
     }
   }
 
+  /**
+   * Convert a PNG to an Apple Icon Image (ICNS) file
+   * @param {Blob} pngData PNG image data.
+   */
   const pngToAppleICNS = async (pngData) => {
+    const FORMATS = [
+      { type: 'ic04', size: 16 },
+      { type: 'ic07', size: 128 },
+      { type: 'ic08', size: 256 },
+      { type: 'ic09', size: 512 },
+      { type: 'ic10', size: 1024 },
+      { type: 'ic11', size: 32 },
+      { type: 'ic12', size: 64 },
+      { type: 'ic13', size: 256 },
+      { type: 'ic14', size: 512 },
+    ];
+
     // Read the Image.
     const url = URL.createObjectURL(pngData);
     const image = await loadImage(url);
@@ -570,7 +586,7 @@ ${scripts}
     const size = image.width;
 
     // Determine the formats to create
-    const eligibleFormats = pngToAppleICNS.formats.filter((format) => {
+    const eligibleFormats = FORMATS.filter((format) => {
       // Always include the smallest size so that tiny images will get at least 1 image.
       if (format.size === 16) {
         return true;
@@ -606,17 +622,6 @@ ${scripts}
 
     return icns.data;
   };
-  pngToAppleICNS.formats = [
-    { type: 'ic04', size: 16 },
-    { type: 'ic07', size: 128 },
-    { type: 'ic08', size: 256 },
-    { type: 'ic09', size: 512 },
-    { type: 'ic10', size: 1024 },
-    { type: 'ic11', size: 32 },
-    { type: 'ic12', size: 64 },
-    { type: 'ic13', size: 256 },
-    { type: 'ic14', size: 512 },
-  ];
 
   class NWjs {
     constructor({ platform, manifest, icon }) {
