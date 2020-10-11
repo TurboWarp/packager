@@ -258,14 +258,14 @@ window.SBDownloader = (function() {
   
     function addFile(data) {
       const path = data.md5ext || data.assetId + '.' + data.dataFormat;
-      progressTarget.dispatchEvent(new CustomEvent('fetch-asset', {
+      progressTarget.dispatchEvent(new CustomEvent('asset-fetch', {
         detail: path
       }));
       return fetch(ASSET_HOST.replace('$path', path))
         .then((request) => request.arrayBuffer())
         .then((buffer) => {
           zip.file(path, buffer);
-          progressTarget.dispatchEvent(new CustomEvent('fetched-asset', {
+          progressTarget.dispatchEvent(new CustomEvent('asset-fetched', {
             detail: path
           }));
         });
