@@ -441,7 +441,10 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
             const runtime = await getRuntime();
             const environment = await getEnvironment();
             const projectData = await loadProject();
-            const result = await environment.package(runtime, projectData, progressTarget);
+            environment.setRuntime(runtime);
+            environment.setProgressTarget(progressTarget);
+            environment.setProjectData(projectData);
+            const result = await environment.package();
             if (!(result.data instanceof Blob)) {
               result.data = new Blob([result.data]);
             }

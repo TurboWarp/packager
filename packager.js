@@ -16,6 +16,11 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
 window.Packager = (function() {
+  // @ts-ignore
+  const JSZip = window.JSZip;
+  // @ts-ignore
+  const Icns = window.ICNS;
+
   const readAsDataURL = (blob) => new Promise((resolve, reject) => {
     const fr = new FileReader();
     fr.onload = () => resolve(fr.result);
@@ -94,15 +99,19 @@ window.Packager = (function() {
     });
   };
 
-  const fetch = (url) => {
-    return window.fetch(url)
-      .then((response) => {
-        if (response.status !== 200) {
-          throw new Error(`Unexpected status code ${response.status} while fetching ${url}`);
-        }
-        return response;
-      });
-  }
+  const fetch = (url) => window.fetch(url)
+    .then((response) => {
+      if (response.status !== 200) {
+        throw new Error(`Unexpected status code ${response.status} while fetching ${url}`);
+      }
+      return response;
+    });
+
+  /**
+   * @typedef {object} ProjectReference
+   * @property {string} data
+   * @property {string} type
+   */
 
   class Project {
     constructor(blob, type) {
@@ -110,6 +119,9 @@ window.Packager = (function() {
       this.type = type;
     }
 
+    /**
+     * @returns {Promise<ProjectReference>}
+     */
     async asDataURL() {
       return {
         data: await readAsDataURL(this.blob),
@@ -117,7 +129,11 @@ window.Packager = (function() {
       };
     }
 
+    /**
+     * @returns {Promise<ProjectReference>}
+     */
     async asFetchedFrom(path) {
+      // Environment is responsible for making sure the file will be available at the given path.
       return {
         data: path,
         type: this.type
@@ -165,6 +181,41 @@ window.Packager = (function() {
     }
   }
 
+  class Runtime {
+    setProgressTarget(progressTarget) {
+      /** @type {EventTarget} */
+      this.progressTarget = progressTarget;
+    }
+    /**
+     * @param {ProjectReference} projectReference
+     */
+    package(projectReference) {
+      throw new Error('Not implemented');
+    }
+  }
+
+  class Environment {
+    setRuntime(runtime) {
+      /** @type {Runtime} */
+      this.runtime = runtime;
+    }
+    setProgressTarget(progressTarget) {
+      if (!this.runtime) {
+        throw new Error('setRuntime should be run before setProgressTarget');
+      }
+      /** @type {EventTarget} */
+      this.progressTarget = progressTarget;
+      this.runtime.setProgressTarget(progressTarget);
+    }
+    setProjectData(projectData) {
+      /** @type {Project} */
+      this.projectData = projectData;
+    }
+    package() {
+      throw new Error('Not implemented');
+    }
+  }
+
   class AssetLoader {
     constructor(files, pathPrefix = '') {
       this.files = files;
@@ -189,8 +240,8 @@ window.Packager = (function() {
     }
   }
 
-  class TurboWarp {
-    async package(projectData) {
+  class TurboWarp extends Runtime {
+    async package(projectReference) {
       const script = await TurboWarp.scriptLoader.load();
       return `<!DOCTYPE html>
 <html>
@@ -222,7 +273,7 @@ window.Packager = (function() {
   </div>
 
   <script>
-  window.__PROJECT_DATA__ = "${projectData.data}";
+  window.__PROJECT_DATA__ = "${projectReference.data}";
   </script>
   <script>
   ${script.replace(/<\/script>/g,"</scri'+'pt>")}
@@ -236,13 +287,14 @@ window.Packager = (function() {
     { src: 'player.js' }
   ], 'https://packagerdata.turbowarp.org/');
 
-  class Forkphorus {
+  class Forkphorus extends Runtime {
     constructor(options) {
+      super();
       this.playerOptions = options.playerOptions;
       this.controlsOptions = options.controlsOptions;
       this.loadingScreenText = options.loadingScreenText;
     }
-    async package(projectData) {
+    async package(projectReference) {
       const [ scripts, styles, assets ] = await Promise.all([
         Forkphorus.scriptLoader.load(),
         Forkphorus.styleLoader.load(),
@@ -404,10 +456,10 @@ ${scripts}
   });
 
   // Project type...
-  var type = '${projectData.type}';
+  var type = '${projectReference.type}';
   // Project data...
   // Attribution Notice:
-  var project = '${projectData.data}';
+  var project = '${projectReference.data}';
 
   // Player options...
   var playerOptions = ${JSON.stringify(this.playerOptions)};
@@ -534,9 +586,9 @@ ${scripts}
     { src: 'fonts/NotoSans-Regular.woff', },
   ], 'https://forkphorus.github.io/');
 
-  class HTML {
-    async package(runtime, projectData) {
-      const packagerData = await runtime.package(await projectData.asDataURL());
+  class HTML extends Environment {
+    async package() {
+      const packagerData = await this.runtime.package(await this.projectData.asDataURL());
       return {
         data: packagerData,
         filename: 'project.html',
@@ -544,12 +596,12 @@ ${scripts}
     }
   }
 
-  class Zip {
-    async package(runtime, projectData) {
+  class Zip extends Environment {
+    async package() {
       const zip = new JSZip();
-      const packagerData = await runtime.package(await projectData.asFetchedFrom('project.zip'));
+      const packagerData = await this.runtime.package(await this.projectData.asFetchedFrom('project.zip'));
       zip.file('index.html', packagerData);
-      zip.file('project.zip', projectData.blob);
+      zip.file('project.zip', this.projectData.blob);
       return {
         data: await zip.generateAsync({
           type: 'blob',
@@ -623,8 +675,9 @@ ${scripts}
     return icns.data;
   };
 
-  class NWjs {
+  class NWjs extends Environment {
     constructor({ platform, manifest, icon }) {
+      super();
       try {
         this.manifest = JSON.parse(manifest);
       } catch (e) {
@@ -651,22 +704,22 @@ ${scripts}
       this.platform = platform;
       this.icon = icon;
     }
-    async package(runtime, projectData, progressTarget) {
+    async package() {
       const isWindows = this.platform === 'win64';
       const isMac = this.platform === 'mac';
       if (!(isWindows || isMac)) {
         throw new Error('invalid platform');
       }
 
-      const packagerData = await runtime.package(await projectData.asFetchedFrom('project.zip'));
+      const packagerData = await this.runtime.package(await this.projectData.asFetchedFrom('project.zip'));
 
       const nwjsData = await fetchManifestAsset(`nwjs-${this.platform}`, (progress) => {
-        progressTarget.dispatchEvent(new CustomEvent('nwjs-progress', {
+        this.progressTarget.dispatchEvent(new CustomEvent('nwjs-progress', {
           detail: progress
         }));
-      })
+      });
       const nwjsZip = await JSZip.loadAsync(nwjsData);
-      // NW.jS Windows folder structure:
+      // NW.js Windows folder structure:
       // * (root)
       // +-- nwjs-v0.49.0-win-x64
       //   +-- nw.exe (executable)
@@ -720,7 +773,7 @@ ${scripts}
       }
 
       zip.file(dataPrefix + this.manifest.main, packagerData);
-      zip.file(dataPrefix + 'project.zip', projectData.blob);
+      zip.file(dataPrefix + 'project.zip', this.projectData.blob);
       zip.file(dataPrefix + this.manifest.window.icon, this.icon);
       zip.file(dataPrefix + 'package.json', JSON.stringify(this.manifest));
 
