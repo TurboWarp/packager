@@ -631,6 +631,9 @@ ${scripts}
       if (typeof this.manifest.name !== 'string') {
         throw new Error('NW.js manifest is missing or has incorrect type for field: name');
       }
+      if (/[\/\\]/g.test(this.manifest.name)) {
+        throw new Error('NW.js manifest name contains invalid characters');
+      }
       if (typeof this.manifest.main !== 'string') {
         throw new Error('NW.js manifest is missing or has incorrect type for field: main');
       }
@@ -681,6 +684,8 @@ ${scripts}
 
       // the first folder, something like "nwjs-v0.49.0-win-64"
       const nwjsPrefix = Object.keys(nwjsZip.files)[0].split('/')[0];
+
+      // constructor checks to make this is reasonably safe
       const appName = this.manifest.name;
 
       const zip = new JSZip();
