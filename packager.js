@@ -241,6 +241,10 @@ window.Packager = (function() {
   }
 
   class TurboWarp extends Runtime {
+    constructor(options) {
+      super();
+      this.options = options;
+    }
     async package(projectReference) {
       const script = await TurboWarp.scriptLoader.load();
       return `<!DOCTYPE html>
@@ -273,6 +277,7 @@ window.Packager = (function() {
   </div>
 
   <script>
+  window.__OPTIONS__ = ${JSON.stringify(this.options)}
   window.__PROJECT_DATA__ = "${projectReference.data}";
   </script>
   <script>

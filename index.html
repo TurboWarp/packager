@@ -168,7 +168,36 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
       <div if="O.runtime.name === 'turbowarp'" class="fold">
         <h2>TurboWarp options</h2>
   
-        <p>TurboWarp currently does not support any options.</p>
+        <div>
+          <div>
+            <label>
+              Turbo Mode
+              <input name="turbowarp.turbo" type="checkbox">
+            </label>
+          </div>
+          <label>
+            Enable compiler
+            <input name="turbowarp.compilerOptions.enabled" type="checkbox" checked>
+          </label>
+        </div>
+        <div>
+          <label>
+            Warp timer
+            <input name="turbowarp.compilerOptions.warpTimer" type="checkbox">
+          </label>
+        </div>
+        <div>
+          <label>
+            Framerate
+            <input name="turbowarp.framerate" type="number" value="30">
+          </label>
+        </div>
+        <div>
+          <label>
+            High quality pen
+            <input name="turbowarp.highQualityPen" type="checkbox">
+          </label>
+        </div>
       </div>
 
       <div if="O.runtime.name === 'forkphorus'" class="fold">
@@ -366,7 +395,12 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
   
         const getRuntime = async (projectType) => {
           switch (O.runtime.name) {
-            case 'turbowarp': return new Packager.runtimes.TurboWarp();
+            case 'turbowarp': return new Packager.runtimes.TurboWarp({
+              compilerOptions: O.turbowarp.compilerOptions,
+              framerate: O.turbowarp.framerate,
+              highQualityPen: O.turbowarp.highQualityPen,
+              turbo: O.turbowarp.turbo,
+            });
             case 'forkphorus': return new Packager.runtimes.Forkphorus({
               playerOptions: {
                 ...O.forkphorus.playerOptions,
