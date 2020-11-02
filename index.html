@@ -514,7 +514,9 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
             environment.setProjectData(projectData);
             const result = await environment.package();
             if (!(result.data instanceof Blob)) {
-              result.data = new Blob([result.data]);
+              result.data = new Blob([result.data], {
+                type: 'text/html'
+              });
             }
             addDownloadLink(result.data, result.filename);
           } catch (e) {
