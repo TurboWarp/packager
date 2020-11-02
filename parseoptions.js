@@ -57,8 +57,9 @@ window.O = (function() {
 
     if (tag === 'input') {
       switch (el.type) {
-      case 'text':
       case 'number':
+        return +el.value;
+      case 'text':
       case 'radio':
         return el.value;
       case 'checkbox':
