@@ -323,6 +323,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
     <section class="hide-loading card">
       <button id="package">Package</button>
+      <button id="preview">Preview</button>
     </section>
 
     <section id="download" if="O.showDownload" class="hide-loading card">
@@ -385,6 +386,10 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
         const downloadContainer = document.querySelector('#download');
         const progressBar = document.querySelector('#progress-bar');
 
+        const packagerOptions = {
+          preview: false
+        };
+
         const loadProject = async () => {
           if (O.project.source === 'file') {
             if (!O.project.file) {
@@ -431,6 +436,10 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
           .then((r) => r.blob());
   
         const getEnvironment = async () => {
+          // In preview mode, the only possible format is standalone HTML
+          if (packagerOptions.preview) {
+            return new Packager.environments.HTML();
+          }
           switch (O.environment.name) {
             case 'html': return new Packager.environments.HTML();
             case 'zip': return new Packager.environments.Zip();
@@ -447,13 +456,22 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
   
         const addDownloadLink = (blob, fileName) => {
           O.showDownload = true;
-          const link = document.createElement('a');
           const size = blob.size / 1024 / 1024;
-          link.href = URL.createObjectURL(blob);
-          link.textContent = `Download ${fileName} (${size.toFixed(2)} MiB)`;
-          link.download = fileName;
-          downloadContainer.appendChild(link);
-          link.click();
+          const url = URL.createObjectURL(blob);
+
+          const downloadLink = document.createElement('a');
+          downloadLink.href = url;
+          downloadLink.textContent = `Download ${fileName} (${size.toFixed(2)} MiB)`;
+          downloadContainer.appendChild(downloadLink);
+          downloadLink.download = fileName;
+
+          // In preview mode, we open the file in a new window.
+          if (packagerOptions.preview) {
+            window.open(url);
+          } else {
+            downloadLink.click();
+          }
+
           Conditionals.update();
         };
   
@@ -483,7 +501,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
           setProgress(statusText.initialText, 0);
         };
 
-        document.getElementById('package').addEventListener('click', async function() {
+        const package = async () => {
           try {
             document.body.classList.add('running');
             resetDownloads();
@@ -506,6 +524,15 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
             document.body.classList.remove('running');
             resetProgress();
           }
+        };
+
+        document.getElementById('package').addEventListener('click', () => {
+          packagerOptions.preview = false;
+          package();
+        });
+        document.getElementById('preview').addEventListener('click', () => {
+          packagerOptions.preview = true;
+          package();
         });
       }());
     </script>
