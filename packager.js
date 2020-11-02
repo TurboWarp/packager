@@ -497,8 +497,7 @@ ${scripts}
     { src: 'lib/canvg.min.js', },
     { src: 'lib/fontfaceobserver.standalone.js', },
     { src: 'lib/jszip.min.js', },
-    { src: 'lib/rgbcolor.js', },
-    { src: 'lib/stackblur.min.js', },
+    { src: 'lib/purify.min.js', },
     { src: 'phosphorus.dist.js', inlineSources: ['icons.svg'] },  
   ], 'https://forkphorus.github.io/');
   Forkphorus.styleLoader = new ScriptOrStyleLoader([
