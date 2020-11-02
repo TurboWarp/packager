@@ -473,6 +473,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
         const setProgress = (status, progress) => {
           if (status !== setProgress.lastStatus) {
             statusText.textContent = status;
+            setProgress.lastStatus = status;
           }
           progressBar.style.width = `${progress * 100}%`;
         };
