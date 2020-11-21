@@ -289,7 +289,7 @@ window.Packager = (function() {
     }
   }
   TurboWarp.scriptLoader = new ScriptOrStyleLoader([
-    { src: 'player.js' }
+    { src: 'packager.b02a7cf3581c50757339.js' }
   ], 'https://packagerdata.turbowarp.org/');
 
   class Forkphorus extends Runtime {
