@@ -390,6 +390,17 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
           preview: false
         };
 
+        const getProjectId = () => {
+          if (O.project.source !== 'id') {
+            return '';
+          }
+          const match = O.project.id.match(/\d+/);
+          if (!match) {
+            return '';
+          }
+          return match[0];
+        };
+
         const loadProject = async () => {
           if (O.project.source === 'file') {
             if (!O.project.file) {
@@ -398,11 +409,8 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
             // File is a Blob
             return new Packager.Project(O.project.file, await SBDownloader.identifyProjectType(O.project.file));
           } else if (O.project.source === 'id') {
-            const match = O.project.id.match(/\d+/);
-            if (!match) {
-              throw new Error('Invalid project ID');
-            }
-            const project = await SBDownloader.download(match[0], {
+            const projectId = getProjectId();
+            const project = await SBDownloader.download(projectId, {
               progressTarget
             });
             return new Packager.Project(await project.asBlob(), project.type);
@@ -413,6 +421,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
         const getRuntime = async (projectType) => {
           switch (O.runtime.name) {
             case 'turbowarp': return new Packager.runtimes.TurboWarp({
+              projectId: getProjectId(),
               compilerOptions: O.turbowarp.compilerOptions,
               framerate: O.turbowarp.framerate,
               highQualityPen: O.turbowarp.highQualityPen,
