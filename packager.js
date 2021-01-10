@@ -19,7 +19,7 @@ window.Packager = (function() {
   // @ts-ignore
   const JSZip = window.JSZip;
   // @ts-ignore
-  const Icns = window.ICNS;
+  const Icns = window.Icns;
 
   const readAsDataURL = (blob) => new Promise((resolve, reject) => {
     const fr = new FileReader();
