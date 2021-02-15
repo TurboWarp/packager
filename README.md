@@ -1,5 +1,5 @@
-# p3
+# TurboWarp Packager
 
-https://garbomuffin.github.io/p3/
+https://packager.turbowarp.org/
 
-The new packager for forkphorus & TurboWarp.
+A packager for Scratch projects.
