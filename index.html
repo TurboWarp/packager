@@ -51,7 +51,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
         padding: 1em;
         margin-top: 1em;
         margin-bottom: 1.2em;
-        box-shadow: 0 2px 0.5em 0.1em rgba(0, 0, 0, 0.4);
+        box-shadow: 0 2px 0.5em 0.1em rgba(0, 0, 0, 0.2);
       }
       .center {
         text-align: center;
@@ -157,24 +157,12 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
     </section>
 
     <section class="hide-loading card">
-      <h2>TurboWarp options</h2>
+      <h2>Runtime</h2>
 
       <div>
-        <div>
-          <label>
-            Turbo Mode
-            <input name="turbowarp.turbo" type="checkbox">
-          </label>
-        </div>
         <label>
-          Enable compiler
-          <input name="turbowarp.compilerOptions.enabled" type="checkbox" checked>
-        </label>
-      </div>
-      <div>
-        <label>
-          Warp timer
-          <input name="turbowarp.compilerOptions.warpTimer" type="checkbox">
+          Turbo Mode
+          <input name="turbowarp.turbo" type="checkbox">
         </label>
       </div>
       <div>
@@ -197,7 +185,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
       </div>
       <div>
         <label>
-          Username (will randomly generate if empty)
+          Username (will generate random if left empty)
           <input name="turbowarp.username" type="text" value="">
         </label>
       </div>
@@ -209,19 +197,45 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
       </div>
       <div>
         <label>
-          No controls
-          <input name="turbowarp.noControls" type="checkbox">
-        </label>
-      </div>
-      <div>
-        <label>
           Autoplay
           <input name="turbowarp.autoplay" type="checkbox">
         </label>
       </div>
+    </section>
+
+    <section class="hide-loading card">
+      <h2>Appearance</h2>
+
       <div>
-        TurboWarp will automatically connect to its cloud variable server if packaging a project from an ID.
+        <label>
+          No controls
+          <input name="turbowarp.noControls" type="checkbox">
+        </label>
       </div>
+    </section>
+    
+    <section class="hide-loading card">
+      <h2>Compiler</h2>
+      <p>You probably don't want to change these.</p>
+
+      <div>
+        <label>
+          Enable compiler
+          <input name="turbowarp.compilerOptions.enabled" type="checkbox" checked>
+        </label>
+      </div>
+      <div>
+        <label>
+          Warp timer
+          <input name="turbowarp.compilerOptions.warpTimer" type="checkbox">
+        </label>
+      </div>
+    </section>
+
+    <section class="hide-loading card">
+      <h2>Cloud variables</h2>
+
+      <p>TurboWarp will automatically connect to its cloud variable server if packaging a project from an ID. More options will be added later.</p>
     </section>
 
     <section class="hide-loading card">
