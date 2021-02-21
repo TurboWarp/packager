@@ -182,7 +182,7 @@ window.Packager = (function() {
       this.options = options;
     }
     async getJS () {
-      const res = await fetch('https://packagerdata.turbowarp.org/packager.4ad979aa88298563f439.js');
+      const res = await fetch('https://packagerdata.turbowarp.org/packager.701add854b00e534261c.js');
       const src = await res.text();
       return src;
     }
