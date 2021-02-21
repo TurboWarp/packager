@@ -224,15 +224,21 @@ window.Packager = (function() {
   </div>
 
   <script>
+  var vm = null;
   window.__PACKAGER__ = {
     projectData: ${stringify(projectReference.data)},
     id: ${stringify(this.options.projectId)},
     username: ${stringify(this.options.username)},
-    handleVmInit: function (vm) {
+    handleVmInit: function (_vm) {
+      vm = _vm;
       vm.setCompilerOptions(${stringify(this.options.compilerOptions)});
       vm.setFramerate(${stringify(this.options.framerate)});
       if (${stringify(this.options.highQualityPen)}) vm.renderer.setUseHighQualityRender(true);
       if (${stringify(this.options.turbo)}) vm.setTurboMode(true);
+      if (${stringify(this.options.interpolation)}) vm.setInterpolation(true);
+    },
+    handleProjectLoaded: function () {
+      if (${stringify(this.options.autoplay)}) { vm.start(); vm.greenFlag(); }
     },
     stageWidth: ${stringify(this.options.stageSize.width)},
     stageHeight: ${stringify(this.options.stageSize.height)},
