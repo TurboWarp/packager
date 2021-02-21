@@ -196,6 +196,18 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
         </label>
       </div>
       <div>
+        Stage size
+        <input name="turbowarp.stageSize.width" type="number" value="480">
+        &times;
+        <input name="turbowarp.stageSize.height" type="number" value="360">
+      </div>
+      <div>
+        <label>
+          No controls
+          <input name="turbowarp.noControls" type="checkbox">
+        </label>
+      </div>
+      <div>
         TurboWarp will automatically connect to its cloud variable server if packaging a project from an ID.
       </div>
     </section>
@@ -359,6 +371,8 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
             highQualityPen: O.turbowarp.highQualityPen,
             turbo: O.turbowarp.turbo,
             username: O.turbowarp.username,
+            stageSize: O.turbowarp.stageSize,
+            noControls: O.turbowarp.noControls
           });
         };
 

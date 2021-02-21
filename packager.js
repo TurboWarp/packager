@@ -234,9 +234,9 @@ window.Packager = (function() {
       if (${stringify(this.options.highQualityPen)}) vm.renderer.setUseHighQualityRender(true);
       if (${stringify(this.options.turbo)}) vm.setTurboMode(true);
     },
-    stageWidth: 480, // TODO
-    stageHeight: 360, // TODO
-    noControls: false, // TODO
+    stageWidth: ${stringify(this.options.stageSize.width)},
+    stageHeight: ${stringify(this.options.stageSize.height)},
+    noControls: ${stringify(this.options.noControls)},
   };
   </script>
   <script>
