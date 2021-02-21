@@ -269,6 +269,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
     <section class="hide-loading card">
       <button id="package">Package</button>
       <button id="preview">Preview</button>
+      <button id="reset">Reset</button>
     </section>
 
     <section id="download" if="O.showDownload" class="hide-loading card">
@@ -366,13 +367,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
         const getRuntime = async (projectType) => {
           return new Packager.runtimes.TurboWarp({
             projectId: getProjectId(),
-            compilerOptions: O.turbowarp.compilerOptions,
-            framerate: O.turbowarp.framerate,
-            highQualityPen: O.turbowarp.highQualityPen,
-            turbo: O.turbowarp.turbo,
-            username: O.turbowarp.username,
-            stageSize: O.turbowarp.stageSize,
-            noControls: O.turbowarp.noControls
+            ...O.turbowarp
           });
         };
 
@@ -492,6 +487,16 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
           packagerOptions.preview = true;
           package();
         });
+        document.getElementById('reset').addEventListener('click', () => {
+          if (confirm('Reset all preferences and reload?')) {
+            try {
+              localStorage.clear();
+            } catch (e) {
+              // ignore
+            }
+            location.reload();
+          }
+        })
       }());
     </script>
 
