@@ -431,9 +431,19 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
           setProgress(statusText.initialText, 0);
         };
 
+        let isRunning = false;
+        const setIsRunning = _isRunning => {
+          isRunning = _isRunning;
+          if (isRunning) {
+            document.body.classList.add('running');
+          } else {
+            document.body.classList.remove('running');
+          }
+        };
+
         const package = async () => {
           try {
-            document.body.classList.add('running');
+            setIsRunning(true);
             resetDownloads();
             setProgress('Loading', 0);
             const runtime = await getRuntime();
@@ -453,16 +463,18 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
             console.error(e);
             alert(e);
           } finally {
-            document.body.classList.remove('running');
             resetProgress();
+            setIsRunning(false);
           }
         };
 
         document.getElementById('package').addEventListener('click', () => {
+          if (isRunning) return;
           packagerOptions.preview = false;
           package();
         });
         document.getElementById('preview').addEventListener('click', () => {
+          if (isRunning) return;
           packagerOptions.preview = true;
           package();
         });
