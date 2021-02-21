@@ -369,6 +369,9 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
             return new Packager.Project(O.project.file, await SBDownloader.identifyProjectType(O.project.file));
           } else if (O.project.source === 'id') {
             const projectId = getProjectId();
+            if (!projectId) {
+              throw new Error('No project selected');
+            }
             const project = await SBDownloader.download(projectId, {
               progressTarget
             });
