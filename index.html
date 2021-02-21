@@ -445,6 +445,8 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
             statusText.textContent = status;
             setProgress.lastStatus = status;
           }
+          if (progress < 0) progress = 0;
+          if (progress > 1) progress = 1;
           progressBar.style.width = `${progress * 100}%`;
         };
         setProgress.lastStatus = statusText.initialText;
