@@ -141,46 +141,6 @@ window.Packager = (function() {
     }
   }
 
-  class ScriptOrStyleLoader {
-    constructor(files, pathPrefix = '') {
-      this.files = files;
-      this.pathPrefix = pathPrefix;
-    }
-
-    async _loadInlineSource(source) {
-      const response = await fetch(this.pathPrefix + source);
-      const blob = await response.blob();
-      const url = await readAsDataURL(blob);
-      return url;
-    }
-
-    async _loadFile(file) {
-      const response = await fetch(this.pathPrefix + file.src);
-      let body = await response.text();
-
-      if (file.inlineSources) {
-        for (const source of file.inlineSources) {
-          const sourceData = await this._loadInlineSource(source);
-          // string.replace only does the first occurrence, but a source may appear multiple times in the file
-          while (body.includes(source)) {
-            body = body.replace(source, sourceData);
-          }
-        }
-      }
-
-      file.loaded = true;
-      file.content = body;
-    }
-
-    async load() {
-      const missingFiles = this.files.filter((i) => !i.loaded);
-      if (missingFiles.length > 0) {
-        await Promise.all(missingFiles.map((i) => this._loadFile(i)));
-      }
-      return this.files.map((i) => i.content).join('\n');
-    }
-  }
-
   class Runtime {
     setProgressTarget(progressTarget) {
       /** @type {EventTarget} */
@@ -216,37 +176,25 @@ window.Packager = (function() {
     }
   }
 
-  class AssetLoader {
-    constructor(files, pathPrefix = '') {
-      this.files = files;
-      this.pathPrefix = pathPrefix;
-    }
-
-    async _loadAsset(asset) {
-      const response = await fetch(this.pathPrefix + asset.src);
-      const blob = await response.blob();
-      const data = await readAsDataURL(blob);
-      asset.loaded = true;
-      asset.blob = blob;
-      asset.data = data;
-    }
-
-    async load() {
-      const missing = this.files.filter((i) => !i.loaded);
-      if (missing.length > 0) {
-        await Promise.all(missing.map((i) => this._loadAsset(i)));
-      }
-      return this.files;
-    }
-  }
-
   class TurboWarp extends Runtime {
     constructor(options) {
       super();
       this.options = options;
     }
+    async getJS () {
+      const res = await fetch('https://packagerdata.turbowarp.org/packager.4ad979aa88298563f439.js');
+      const src = await res.text();
+      return src;
+    }
     async package(projectReference) {
-      const script = await TurboWarp.scriptLoader.load();
+      const stringify = (v) => {
+        if (typeof v === 'undefined') {
+          throw new Error('undefined value');
+        }
+        return JSON.stringify(v);
+      };
+      const script = await this.getJS();
+      // While this project is generally licensed under the GPLv3.0, the following text is an exception.
       return `<!DOCTYPE html>
 <html>
 
@@ -263,7 +211,6 @@ window.Packager = (function() {
     }
     #splash h1 { font-size: 2rem; font-weight: bold; }
     .tw-loaded #splash { display: none; }
-    @media (prefers-color-scheme: dark) { #splash { background-color: #333; color: #ddd; } }
   </style>
 </head>
 
@@ -277,8 +224,20 @@ window.Packager = (function() {
   </div>
 
   <script>
-  window.__OPTIONS__ = ${JSON.stringify(this.options)}
-  window.__PROJECT_DATA__ = "${projectReference.data}";
+  window.__PACKAGER__ = {
+    projectData: ${stringify(projectReference.data)},
+    id: ${stringify(this.options.projectId)},
+    username: ${stringify(this.options.username)},
+    handleVmInit: function (vm) {
+      vm.setCompilerOptions(${stringify(this.options.compilerOptions)});
+      vm.setFramerate(${stringify(this.options.framerate)});
+      if (${stringify(this.options.highQualityPen)}) vm.renderer.setUseHighQualityRender(true);
+      if (${stringify(this.options.turbo)}) vm.setTurboMode(true);
+    },
+    stageWidth: 480, // TODO
+    stageHeight: 360, // TODO
+    noControls: false, // TODO
+  };
   </script>
   <script>
   ${script.replace(/<\/script>/g,"</scri'+'pt>")}
@@ -288,9 +247,6 @@ window.Packager = (function() {
 </html>`;
     }
   }
-  TurboWarp.scriptLoader = new ScriptOrStyleLoader([
-    { src: 'packager.92652c889f5cabfad27d.js' }
-  ], 'https://packagerdata.turbowarp.org/');
 
   class HTML extends Environment {
     async package() {
