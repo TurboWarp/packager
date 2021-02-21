@@ -54,8 +54,11 @@ window.Packager = (function() {
 
   const isObject = (obj) => typeof obj === 'object' && obj !== null;
 
-  // TODO: load dynamically
   const assetManifest = {
+    'turbowarp': {
+      src: 'https://packagerdata.turbowarp.org/packager.701add854b00e534261c.js',
+      size: 8808348 // TODO: this is inaccurate because of gzip
+    },
     'nwjs-win64': {
       src: 'https://packagerdata.turbowarp.org/nwjs-v0.49.0-win-x64.zip',
       size: 97406745
@@ -182,7 +185,11 @@ window.Packager = (function() {
       this.options = options;
     }
     async getJS () {
-      const res = await fetch('https://packagerdata.turbowarp.org/packager.701add854b00e534261c.js');
+      const res = await fetchManifestAsset('turbowarp', (progress) => {
+        this.progressTarget.dispatchEvent(new CustomEvent('turbowarp-progress', {
+          detail: progress
+        }));
+      });
       const src = await res.text();
       return src;
     }

@@ -338,6 +338,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
           setProgress('Loading assets', finishedAssets / totalAssets);
         });
         progressTarget.addEventListener('nwjs-progress', (e) => setProgress('Loading NW.js', e.detail));
+        progressTarget.addEventListener('turbowarp-progress', (e) => setProgress('Loading TurboWarp', e.detail));
 
         const statusText = document.querySelector('#status-text');
         statusText.initialText = statusText.textContent;
