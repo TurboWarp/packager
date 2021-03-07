@@ -196,7 +196,7 @@ window.Packager = (function() {
     async package(projectReference) {
       const stringify = (v) => {
         if (typeof v === 'undefined') {
-          throw new Error('undefined value');
+          throw new Error('Undefined value');
         }
         return JSON.stringify(v);
       };
@@ -204,7 +204,7 @@ window.Packager = (function() {
       // While this project is generally licensed under the GPLv3.0, the following text is an exception.
       // It is instead licensed under the GPL-compatible MIT license.
       // This is important so that the output of this program (which could be considered a derivative work) is not encumbered by the GPL.
-      // People ought to be allowed to package nonfree and distribute non-free projects with this program.
+      // People ought to be allowed to package and distribute non-free projects with this program.
       return `<!DOCTYPE html>
 <html>
 
