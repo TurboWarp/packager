@@ -272,6 +272,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
     handleProjectLoaded: function () {
       vm.setCompilerOptions(${stringify(this.options.compilerOptions)});
       vm.setFramerate(${stringify(this.options.framerate)});
+      if (${stringify(this.options.infiniteClones)}) vm.setRuntimeOptions({ maxClones: Infinity });
       if (${stringify(this.options.highQualityPen)}) vm.renderer.setUseHighQualityRender(true);
       if (${stringify(this.options.turbo)}) vm.setTurboMode(true);
       if (${stringify(this.options.interpolation)}) vm.setInterpolation(true);
