@@ -268,13 +268,13 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
     username: ${stringify(this.options.username)},
     handleVmInit: function (_vm) {
       vm = _vm;
+    },
+    handleProjectLoaded: function () {
       vm.setCompilerOptions(${stringify(this.options.compilerOptions)});
       vm.setFramerate(${stringify(this.options.framerate)});
       if (${stringify(this.options.highQualityPen)}) vm.renderer.setUseHighQualityRender(true);
       if (${stringify(this.options.turbo)}) vm.setTurboMode(true);
       if (${stringify(this.options.interpolation)}) vm.setInterpolation(true);
-    },
-    handleProjectLoaded: function () {
       if (${stringify(this.options.autoplay)}) { vm.start(); vm.greenFlag(); }
     },
     stageWidth: ${stringify(this.options.stageSize.width)},
