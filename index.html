@@ -254,7 +254,13 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
     <section class="hide-loading card">
       <h2>Cloud variables</h2>
 
-      <p>TurboWarp will automatically connect to its cloud variable server if packaging a project from an ID. More options will be added later.</p>
+      <select name="turbowarp.cloudHost">
+        <option value="wss://clouddata.turbowarp.org/">Connect to TurboWarp cloud variable server</option>
+        <option value="_local_">Store variables in local storage</option>
+        <option value="">Do nothing</option>
+      </select>
+
+      <p>The option to connect to cloud variable server is only available when packaging projects from IDs, not from files.</p>
     </section>
 
     <section class="hide-loading card">
