@@ -232,24 +232,6 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
         </label>
       </div>
     </section>
-    
-    <section class="hide-loading card">
-      <h2>Compiler</h2>
-      <p>You probably don't want to change these.</p>
-
-      <div>
-        <label>
-          Enable compiler
-          <input name="turbowarp.compilerOptions.enabled" type="checkbox" checked>
-        </label>
-      </div>
-      <div>
-        <label>
-          Warp timer
-          <input name="turbowarp.compilerOptions.warpTimer" type="checkbox" checked>
-        </label>
-      </div>
-    </section>
 
     <section class="hide-loading card">
       <h2>Cloud variables</h2>
@@ -314,6 +296,31 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 }</textarea>
           </label>
         </div>
+      </div>
+    </section>
+
+    <section class="hide-loading card">
+      <h2>Advanced</h2>
+      <p>You probably don't want to change these.</p>
+
+      <div>
+        <label>
+          Enable compiler
+          <input name="turbowarp.compilerOptions.enabled" type="checkbox" checked>
+        </label>
+      </div>
+      <div>
+        <label>
+          Warp timer
+          <input name="turbowarp.compilerOptions.warpTimer" type="checkbox" checked>
+        </label>
+      </div>
+      <div>
+        <label>
+          Custom JS
+          <textarea name="turbowarp.customJS">// Very dangerous feature. Use with care. Syntax errors will break output. DO NOT edit if you don't know what you're doing.
+</textarea>
+        </label>
       </div>
     </section>
 
