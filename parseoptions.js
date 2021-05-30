@@ -61,11 +61,14 @@ window.O = (function() {
         return +el.value;
       case 'text':
       case 'radio':
+      case 'color':
         return el.value;
       case 'checkbox':
         return el.checked;
       case 'file':
         return el.files[0] || null;
+      default:
+        console.warn('Unknown type', el);
       }
     }
   };
@@ -85,6 +88,7 @@ window.O = (function() {
       switch (el.type) {
       case 'text':
       case 'number':
+      case 'color':
         el.value = value;
         break;
       case 'radio':
@@ -93,6 +97,8 @@ window.O = (function() {
       case 'checkbox':
         el.checked = value;
         break;
+      default:
+        console.warn('Unknown type', el);  
       }
     }
   };
