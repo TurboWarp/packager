@@ -26,6 +26,7 @@ class Scaffolding {
     this._canvas.addEventListener('mousemove', this._onmousemove.bind(this));
     this._canvas.addEventListener('mousedown', this._onmousedown.bind(this));
     this._canvas.addEventListener('mouseup', this._onmouseup.bind(this));
+    this._canvas.addEventListener('wheel', this._onwheel.bind(this));
     this._addLayer(this._canvas);
 
     this._overlays = document.createElement('div');
@@ -70,6 +71,14 @@ class Scaffolding {
       isDown: false
     };
     this.vm.postIOData('mouse', data);
+  }
+
+  _onwheel (e) {
+    const data = {
+      deltaX: e.deltaX,
+      deltaY: e.deltaY
+    };
+    this.vm.postIOData('mouseWheel', data);
   }
 
   _onkeydown (e) {
