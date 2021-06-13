@@ -1,0 +1,121 @@
+<html>
+  <head>
+    <meta charset="utf8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+      body {
+        background-color: black;
+        color: white;
+        font-family: sans-serif;
+      }
+      [hidden] {
+        display: none !important;
+      }
+      h1 {
+        font-weight: normal;
+      }
+
+      #app, #loading, #error, #flag {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+      }
+      #loading, #error, #flag {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        cursor: default;
+        user-select: none;
+      }
+      #loading, #error {
+        background-color: black;
+      }
+      #flag {
+        background-color: rgba(0, 0, 0, 0.7);
+        cursor: pointer;
+      }
+      .progress-bar-outer {
+        border: 1px solid currentColor;
+        height: 10px;
+        width: 200px;
+        max-width: 200px;
+      }
+      .progress-bar-inner {
+        height: 100%;
+        width: 0;
+        background-color: currentColor;
+      }
+    </style>
+  </head>
+  <body>
+    <noscript>Enable JavaScript</noscript>
+
+    <div id="app"></div>
+
+    <div id="flag" hidden>
+      <div>
+        <p>Click to play</p>
+      </div>
+    </div>
+
+    <div id="loading">
+      <div>
+        <h1>Loading</h1>
+        <div class="progress-bar-outer"><div class="progress-bar-inner" id="loading-inner"></div></div>
+      </div>
+    </div>
+
+    <div id="error" hidden>
+      <div>
+        <h1>Error</h1>
+      </div>
+    </div>
+
+    <script src="dist/index.js"></script>
+    <script>
+      const appElement = document.getElementById('app');
+      const flagScreen = document.getElementById('flag');
+      const loadingScreen = document.getElementById('loading');
+      const loadingInner = document.getElementById('loading-inner');
+      const errorScreen = document.getElementById('error');
+
+      const scaffolding = new Scaffolding.Scaffolding();
+      scaffolding.setup();
+      scaffolding.appendTo(appElement);
+
+      const {storage} = scaffolding;
+      storage.addWebStore(
+        [storage.AssetType.Project],
+        (asset) => `https://projects.scratch.mit.edu/${asset.assetId}`
+      );
+      storage.addWebStore(
+        [storage.AssetType.ImageVector, storage.AssetType.ImageBitmap, storage.AssetType.Sound],
+        (asset) => `https://assets.scratch.mit.edu/${asset.assetId}.${asset.dataFormat}`
+      );
+
+      storage.onprogress = (total, loaded) => {
+        loadingInner.style.width = `${(loaded / total) * 100}%`;
+      };
+
+      storage.load(Scaffolding.Storage.AssetType.Project, '60917032')
+        .then(asset => {
+          return scaffolding.loadProject(asset.data);
+        })
+        .then(() => {
+          flagScreen.hidden = false;
+          flagScreen.addEventListener('click', () => {
+            flagScreen.hidden = true;
+            scaffolding.start();
+          });
+          loadingScreen.hidden = true;
+        })
+        .catch((err) => {
+          console.error(err);
+          errorScreen.hidden = false;
+        });
+    </script>
+  </body>
+</html>
