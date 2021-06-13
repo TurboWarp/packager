@@ -5,12 +5,15 @@ import AudioEngine from 'scratch-audio';
 import {BitmapAdapter} from 'scratch-svg-renderer';
 
 import Question from './question';
+import {VariableMonitor} from './monitor';
 import styles from './style.css';
 
 class Scaffolding {
   constructor () {
     this.width = 480;
     this.height = 360;
+
+    this._monitors = new Map();
     this._createDOM();
   }
 
@@ -31,6 +34,10 @@ class Scaffolding {
 
     this._overlays = document.createElement('div');
     this._addLayer(this._overlays);
+
+    this._monitorOverlay = document.createElement('div');
+    this._monitorOverlay.className = styles.monitorOverlay;
+    this._overlays.appendChild(this._monitorOverlay);
 
     document.addEventListener('keydown', this._onkeydown.bind(this));
     document.addEventListener('keyup', this._onkeyup.bind(this));
@@ -128,12 +135,33 @@ class Scaffolding {
   setup () {
     this.vm = new VM();
     this.vm.setCompatibilityMode(true);
+    this.vm.on('MONITORS_UPDATE', this._onmonitorsupdate.bind(this));
     this.vm.runtime.on('QUESTION', this._onquestion.bind(this));
 
     this._attachRenderer();
     this._attachStorage();
     this._attachAudioEngine();
     this._attachBitmapAdapter();
+  }
+
+  _onmonitorsupdate (monitors) {
+    // for (const key of this._monitors.keys()) {
+    //   if (!monitors.has(key)) {
+    //     console.log("remove", key);
+    //     const monitor = this._monitors.get(key);
+    //     monitor.destroy();
+    //     this._monitors.delete(key);
+    //   }
+    // }
+
+    for (const monitor of monitors.valueSeq()) {
+      const id = monitor.get('id');
+      if (!this._monitors.has(id)) {
+        this._monitors.set(id, new VariableMonitor(this, monitor));
+      }
+      const mon = this._monitors.get(id);
+      mon.update(monitor);
+    }
   }
 
   ask (text) {

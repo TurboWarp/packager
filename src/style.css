@@ -53,3 +53,48 @@
 .question-input:hover {
   border-color: hsla(215, 100%, 65%, 1);
 }
+
+.monitor-overlay {
+
+}
+.monitor-root {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: hsla(215, 100%, 95%, 1);
+  color: #575e75;
+  border: 1px solid hsla(0, 0%, 0%, 0.15);
+  border-radius: 4px;
+  font-size: 12px;
+  user-select: none;
+  overflow: hidden;
+}
+.monitor-inner {
+  display: flex;
+  flex-direction: column;
+  padding: 3px;
+}
+.monitor-row {
+  display: flex;
+  flex-direction: row;
+}
+.monitor-label {
+  font-weight: bold;
+  text-align: center;
+  margin: 0 5px;
+}
+.monitor-value {
+  min-width: 40px;
+  text-align: center;
+  color: white;
+  margin: 0 5px;
+  border-radius: 4px;
+  padding: 0 2px;
+  white-space: pre-wrap;
+}
+.monitor-root[opcode^="sensing_"] .monitor-value {
+  background-color: rgb(92, 177, 214);
+}
+.monitor-root[opcode^="data_"] .monitor-value {
+  background-color: rgb(255, 140, 26);
+}
