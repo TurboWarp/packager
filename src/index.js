@@ -17,14 +17,9 @@ class Scaffolding {
   _createDOM () {
     this._root = document.createElement('div');
     this._root.className = styles.root;
-    this._root.style.width = '100%';
-    this._root.style.height = '100%';
-    this._root.style.display = 'flex';
-    this._root.style.alignItems = 'center';
-    this._root.style.justifyContent = 'center';
 
     this._layers = document.createElement('div');
-    this._layers.style.position = 'relative';
+    this._layers.className = styles.layers;
     this._root.appendChild(this._layers);
 
     this._canvas = document.createElement('canvas');
@@ -42,7 +37,6 @@ class Scaffolding {
   }
 
   _addLayer (el) {
-    el.style.position = 'absolute';
     this._layers.appendChild(el);
   }
 
