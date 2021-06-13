@@ -2,6 +2,7 @@
   <head>
     <meta charset="utf8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Scaffolding Demo</title>
     <style>
       body {
         background-color: black;
@@ -15,14 +16,14 @@
         font-weight: normal;
       }
 
-      #app, #loading, #error, #flag {
+      #app, #loading, #error, #launch {
         position: absolute;
         top: 0;
         left: 0;
         width: 100%;
         height: 100%;
       }
-      #loading, #error, #flag {
+      #loading, #error, #launch {
         display: flex;
         align-items: center;
         justify-content: center;
@@ -33,9 +34,21 @@
       #loading, #error {
         background-color: black;
       }
-      #flag {
+      #launch {
         background-color: rgba(0, 0, 0, 0.7);
         cursor: pointer;
+      }
+      .green-flag {
+        width: 80px;
+        height: 80px;
+        padding: 16px;
+        border-radius: 100%;
+        background: rgba(255,255,255,0.75);
+        border: 3px solid hsla(0, 100%, 100%, 1);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        box-sizing: border-box;
       }
       .progress-bar-outer {
         border: 1px solid currentColor;
@@ -55,15 +68,20 @@
 
     <div id="app"></div>
 
-    <div id="flag" hidden>
+    <div id="launch" hidden title="Click to start" tabindex="0">
       <div>
-        <p>Click to play</p>
+        <div class="green-flag">
+          <svg viewBox="0 0 16.63 17.5">
+            <defs><style>.cls-1,.cls-2{fill:#4cbf56;stroke:#45993d;stroke-linecap:round;stroke-linejoin:round;}.cls-2{stroke-width:1.5px;}</style></defs>
+            <path class="cls-1" d="M.75,2A6.44,6.44,0,0,1,8.44,2h0a6.44,6.44,0,0,0,7.69,0V12.4a6.44,6.44,0,0,1-7.69,0h0a6.44,6.44,0,0,0-7.69,0"/>
+            <line class="cls-2" x1="0.75" y1="16.75" x2="0.75" y2="0.75"/>
+          </svg>
+        </div>
       </div>
     </div>
 
     <div id="loading">
       <div>
-        <h1>Loading</h1>
         <div class="progress-bar-outer"><div class="progress-bar-inner" id="loading-inner"></div></div>
       </div>
     </div>
@@ -77,7 +95,7 @@
     <script src="dist/index.js"></script>
     <script>
       const appElement = document.getElementById('app');
-      const flagScreen = document.getElementById('flag');
+      const launchScreen = document.getElementById('launch');
       const loadingScreen = document.getElementById('loading');
       const loadingInner = document.getElementById('loading-inner');
       const errorScreen = document.getElementById('error');
@@ -95,27 +113,39 @@
         [storage.AssetType.ImageVector, storage.AssetType.ImageBitmap, storage.AssetType.Sound],
         (asset) => `https://assets.scratch.mit.edu/${asset.assetId}.${asset.dataFormat}`
       );
-
+      const setProgress = (progress) => {
+        loadingInner.style.width = `${progress * 100}%`;
+      }
       storage.onprogress = (total, loaded) => {
-        loadingInner.style.width = `${(loaded / total) * 100}%`;
+        setProgress(0.2 + (loaded / total) * 0.8)
+      };
+      setProgress(0.1);
+
+      const getProjectJSON = async () => {
+        const PROJECT_ID = '60917032';
+        const asset = await storage.load(Scaffolding.Storage.AssetType.Project, PROJECT_ID);
+        return asset.data;
       };
 
-      storage.load(Scaffolding.Storage.AssetType.Project, '60917032')
-        .then(asset => {
-          return scaffolding.loadProject(asset.data);
-        })
-        .then(() => {
-          flagScreen.hidden = false;
-          flagScreen.addEventListener('click', () => {
-            flagScreen.hidden = true;
-            scaffolding.start();
-          });
-          loadingScreen.hidden = true;
-        })
-        .catch((err) => {
-          console.error(err);
-          errorScreen.hidden = false;
+      const run = async () => {
+        const projectJSON = await getProjectJSON();
+        setProgress(0.1);
+        await scaffolding.loadProject(projectJSON);
+        loadingScreen.hidden = true;
+        launchScreen.hidden = false;
+        launchScreen.addEventListener('click', () => {
+          launchScreen.hidden = true;
+          scaffolding.start();
         });
+        launchScreen.focus();
+      };
+
+      const handleError = (error) => {
+        console.error(error);
+        errorScreen.hidden = false;  
+      };
+
+      run().catch(handleError);
     </script>
   </body>
 </html>

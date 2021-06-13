@@ -8,11 +8,10 @@ class Scaffolding {
   constructor () {
     this.width = 480;
     this.height = 360;
-
-    this.createDOM();
+    this._createDOM();
   }
 
-  createDOM () {
+  _createDOM () {
     this._root = document.createElement('div');
     this._root.style.width = '100%';
     this._root.style.height = '100%';
@@ -34,7 +33,6 @@ class Scaffolding {
 
     document.addEventListener('keydown', this._onkeydown.bind(this));
     document.addEventListener('keyup', this._onkeyup.bind(this));
-
     window.addEventListener('resize', this._onresize.bind(this));
   }
 
