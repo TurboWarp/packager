@@ -132,6 +132,7 @@
         const projectJSON = await getProjectJSON();
         setProgress(0.1);
         await scaffolding.loadProject(projectJSON);
+        setProgress(1);
         loadingScreen.hidden = true;
         launchScreen.hidden = false;
         launchScreen.addEventListener('click', () => {
