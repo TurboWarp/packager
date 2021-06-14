@@ -33,11 +33,11 @@ class Monitor {
 
   update (monitor) {
     // TODO: don't touch if not changed
-    const x = monitor.get('x');
-    const y = monitor.get('y');
-    const visible = monitor.get('visible');
-    this.root.style.transform = `translate(${x}px, ${y}px)`;
-    this.root.style.display = visible ? '' : 'none';
+    this.x = monitor.get('x');
+    this.y = monitor.get('y');
+    this.visible = monitor.get('visible');
+    this.root.style.transform = `translate(${this.x}px, ${this.y}px)`;
+    this.root.style.display = this.visible ? '' : 'none';
   }
 }
 
@@ -66,6 +66,10 @@ class VariableMonitor extends Monitor {
   }
 
   update (monitor) {
+    if (!this.visible) {
+      return;
+    }
+
     const value = monitor.get('value');
     this.value.textContent = value;
   }
@@ -160,6 +164,10 @@ class ListMonitor extends Monitor {
 
   update (monitor) {
     super.update(monitor);
+
+    if (!this.visible) {
+      return;
+    }
 
     this.width = monitor.get('width') || 100;
     this.height = monitor.get('height') || 200;
