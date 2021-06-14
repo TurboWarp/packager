@@ -211,6 +211,10 @@ class Scaffolding {
     return this.vm.loadProject(data)
       .then(() => {
         this.renderer.draw();
+        // Render again after a short delay because some costumes are loaded async
+        setTimeout(() => {
+          this.renderer.draw();
+        });
       });
   }
 
