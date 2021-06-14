@@ -16,7 +16,10 @@ module.exports = {
         test: /\.(mp3|svg|png)$/i,
         use: [
           {
-            loader: 'url-loader'
+            loader: 'url-loader',
+            options: {
+              esModule: false
+            }
           }
         ]
       },
