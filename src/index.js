@@ -5,7 +5,7 @@ import AudioEngine from 'scratch-audio';
 import {BitmapAdapter} from 'scratch-svg-renderer';
 
 import Question from './question';
-import {VariableMonitor} from './monitor';
+import {ListMonitor, VariableMonitor} from './monitor';
 import styles from './style.css';
 
 class Scaffolding {
@@ -154,22 +154,24 @@ class Scaffolding {
   }
 
   _onmonitorsupdate (monitors) {
-    // for (const key of this._monitors.keys()) {
-    //   if (!monitors.has(key)) {
-    //     console.log("remove", key);
-    //     const monitor = this._monitors.get(key);
-    //     monitor.destroy();
-    //     this._monitors.delete(key);
-    //   }
-    // }
-
-    for (const monitor of monitors.valueSeq()) {
-      const id = monitor.get('id');
+    for (const monitorData of monitors.valueSeq()) {
+      const id = monitorData.get('id');
       if (!this._monitors.has(id)) {
-        this._monitors.set(id, new VariableMonitor(this, monitor));
+        const visible = monitorData.get('visible');
+        if (!visible) {
+          // Would be a waste to make it now
+          continue;
+        }
+        // TODO: add to DOM in same order as appears in list
+        const mode = monitorData.get('mode');
+        if (mode === 'list') {
+          this._monitors.set(id, new ListMonitor(this, monitorData));
+        } else {
+          this._monitors.set(id, new VariableMonitor(this, monitorData));
+        }
       }
-      const mon = this._monitors.get(id);
-      mon.update(monitor);
+      const monitorObject = this._monitors.get(id);
+      monitorObject.update(monitorData);
     }
   }
 
