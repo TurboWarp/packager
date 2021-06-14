@@ -89,12 +89,18 @@ class Scaffolding {
   }
 
   _onkeydown (e) {
+    if (e.target !== document && e.target !== document.body) {
+      return;
+    }  
     const data = {
       key: e.key,
       keyCode: e.keyCode,
       isDown: true
     };
     this.vm.postIOData('keyboard', data);
+    if (e.keyCode === 32 || (e.keyCode >= 37 && e.keyCode <= 40) || e.keyCode === 8 || e.keyCode === 222 || e.keyCode === 191) {
+      e.preventDefault();
+    }
   }
 
   _onkeyup (e) {
@@ -104,6 +110,9 @@ class Scaffolding {
       isDown: false
     };
     this.vm.postIOData('keyboard', data);
+    if (e.target !== document && e.target !== document.body) {
+      e.preventDefault();
+    }  
   }
 
   _onresize () {

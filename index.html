@@ -16,6 +16,11 @@
       h1 {
         font-weight: normal;
       }
+      a {
+        color: inherit;
+        text-decoration: underline;
+        cursor: pointer;
+      }
 
       #app, #loading, #error, #launch {
         position: absolute;
@@ -24,15 +29,14 @@
         width: 100%;
         height: 100%;
       }
-      #loading, #error, #launch {
+      .screen {
         display: flex;
+        flex-direction: column;
         align-items: center;
         justify-content: center;
         text-align: center;
         cursor: default;
         user-select: none;
-      }
-      #loading, #error {
         background-color: black;
       }
       #launch {
@@ -69,28 +73,23 @@
 
     <div id="app"></div>
 
-    <div id="launch" hidden title="Click to start" tabindex="0">
-      <div>
-        <div class="green-flag">
-          <svg viewBox="0 0 16.63 17.5">
-            <defs><style>.cls-1,.cls-2{fill:#4cbf56;stroke:#45993d;stroke-linecap:round;stroke-linejoin:round;}.cls-2{stroke-width:1.5px;}</style></defs>
-            <path class="cls-1" d="M.75,2A6.44,6.44,0,0,1,8.44,2h0a6.44,6.44,0,0,0,7.69,0V12.4a6.44,6.44,0,0,1-7.69,0h0a6.44,6.44,0,0,0-7.69,0"/>
-            <line class="cls-2" x1="0.75" y1="16.75" x2="0.75" y2="0.75"/>
-          </svg>
-        </div>
+    <div id="launch" class="screen" hidden title="Click to start" tabindex="0">
+      <div class="green-flag">
+        <svg viewBox="0 0 16.63 17.5">
+          <defs><style>.cls-1,.cls-2{fill:#4cbf56;stroke:#45993d;stroke-linecap:round;stroke-linejoin:round;}.cls-2{stroke-width:1.5px;}</style></defs>
+          <path class="cls-1" d="M.75,2A6.44,6.44,0,0,1,8.44,2h0a6.44,6.44,0,0,0,7.69,0V12.4a6.44,6.44,0,0,1-7.69,0h0a6.44,6.44,0,0,0-7.69,0"/>
+          <line class="cls-2" x1="0.75" y1="16.75" x2="0.75" y2="0.75"/>
+        </svg>
       </div>
     </div>
 
-    <div id="loading">
-      <div>
-        <div class="progress-bar-outer"><div class="progress-bar-inner" id="loading-inner"></div></div>
-      </div>
+    <div id="loading" class="screen">
+      <div class="progress-bar-outer"><div class="progress-bar-inner" id="loading-inner"></div></div>
     </div>
 
-    <div id="error" hidden>
-      <div>
-        <h1>Error</h1>
-      </div>
+    <div id="error" class="screen" hidden>
+      <h1>Error</h1>
+      <p>See console for more information</p>
     </div>
 
     <script src="dist/index.js"></script>
@@ -123,7 +122,7 @@
       setProgress(0.1);
 
       const getProjectJSON = async () => {
-        const PROJECT_ID = '543015009';
+        const PROJECT_ID = '60917032';
         const asset = await storage.load(Scaffolding.Storage.AssetType.Project, PROJECT_ID);
         return asset.data;
       };
