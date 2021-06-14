@@ -93,6 +93,7 @@
     </div>
 
     <script src="dist/index.js"></script>
+    <script src="dist/addons.js"></script>
     <script>
       const appElement = document.getElementById('app');
       const launchScreen = document.getElementById('launch');
@@ -104,7 +105,9 @@
       scaffolding.setup();
       scaffolding.appendTo(appElement);
 
-      const {storage} = scaffolding;
+      ScaffoldingAddons.run(scaffolding);
+
+      const {storage, vm} = scaffolding;
       storage.addWebStore(
         [storage.AssetType.Project],
         (asset) => `https://projects.scratch.mit.edu/${asset.assetId}`
@@ -122,7 +125,7 @@
       setProgress(0.1);
 
       const getProjectJSON = async () => {
-        const PROJECT_ID = '60917032';
+        const PROJECT_ID = '413072152';
         const asset = await storage.load(Scaffolding.Storage.AssetType.Project, PROJECT_ID);
         return asset.data;
       };
