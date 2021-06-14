@@ -14,6 +14,10 @@ class Scaffolding {
     this.height = 360;
 
     this._monitors = new Map();
+    this._mousedownPosition = null;
+    this._draggingId = null;
+    this._draggingStartMousePosition = null;
+    this._draggingStartSpritePosition = null;
     this._createDOM();
   }
 
@@ -26,10 +30,6 @@ class Scaffolding {
     this._root.appendChild(this._layers);
 
     this._canvas = document.createElement('canvas');
-    this._canvas.addEventListener('mousemove', this._onmousemove.bind(this));
-    this._canvas.addEventListener('mousedown', this._onmousedown.bind(this));
-    this._canvas.addEventListener('mouseup', this._onmouseup.bind(this));
-    this._canvas.addEventListener('wheel', this._onwheel.bind(this));
     this._addLayer(this._canvas);
 
     this._overlays = document.createElement('div');
@@ -39,6 +39,10 @@ class Scaffolding {
     this._monitorOverlay.className = styles.monitorOverlay;
     this._overlays.appendChild(this._monitorOverlay);
 
+    document.addEventListener('mousemove', this._onmousemove.bind(this));
+    this._canvas.addEventListener('mousedown', this._onmousedown.bind(this));
+    document.addEventListener('mouseup', this._onmouseup.bind(this));
+    this._canvas.addEventListener('wheel', this._onwheel.bind(this));
     document.addEventListener('keydown', this._onkeydown.bind(this));
     document.addEventListener('keyup', this._onkeyup.bind(this));
     window.addEventListener('resize', this._onresize.bind(this));
@@ -48,6 +52,13 @@ class Scaffolding {
     this._layers.appendChild(el);
   }
 
+  _scratchCoordinates (x, y) {
+    return {
+      x: (this.width / this.layersRect.width) * (x - (this.layersRect.width / 2)),
+      y: -(this.height / this.layersRect.height) * (y - (this.layersRect.height / 2))
+    };
+  }
+
   _onmousemove (e) {
     const data = {
       x: e.clientX - this.layersRect.left,
@@ -55,7 +66,40 @@ class Scaffolding {
       canvasWidth: this.layersRect.width,
       canvasHeight: this.layersRect.height
     };
+    if (this._mousedownPosition && !this._draggingId) {
+      const distance = Math.sqrt(
+        Math.pow(data.x - this._mousedownPosition.x, 2) +
+        Math.pow(data.y - this._mousedownPosition.y, 2)
+      );
+      if (distance > 3) {
+        this._startDragging(data.x, data.y);
+      }
+    } else if (this._draggingId) {
+      const position = this._scratchCoordinates(data.x, data.y);
+      this.vm.postSpriteInfo({
+        x: position.x - this._draggingStartMousePosition.x + this._draggingStartSpritePosition.x,
+        y: position.y - this._draggingStartMousePosition.y + this._draggingStartSpritePosition.y,
+        force: true
+      });
+    }
     this.vm.postIOData('mouse', data);
+  }
+
+  _startDragging (x, y) {
+    if (this._draggingId) return;
+    const drawableId = this.renderer.pick(x, y);
+    if (drawableId === null) return;
+    const targetId = this.vm.getTargetIdForDrawableId(drawableId);
+    if (targetId === null) return;
+    const target = this.vm.runtime.getTargetById(targetId);
+    if (!target.draggable) return;
+    this._draggingId = targetId;
+    this._draggingStartMousePosition = this._scratchCoordinates(x, y);
+    this._draggingStartSpritePosition = {
+      x: target.x,
+      y: target.y
+    };
+    this.vm.startDrag(targetId);
   }
 
   _onmousedown (e) {
@@ -65,6 +109,10 @@ class Scaffolding {
       canvasWidth: this.layersRect.width,
       canvasHeight: this.layersRect.height,
       isDown: true
+    };
+    this._mousedownPosition = {
+      x: data.x,
+      y: data.y
     };
     this.vm.postIOData('mouse', data);
   }
@@ -77,7 +125,14 @@ class Scaffolding {
       canvasHeight: this.layersRect.height,
       isDown: false
     };
+    this._mousedownPosition = null;
     this.vm.postIOData('mouse', data);
+    if (this._draggingId) {
+      this.vm.stopDrag(this._draggingId);
+      this._draggingStartMousePosition = null;
+      this._draggingStartSpritePosition = null;
+      this._draggingId = null;
+    }
   }
 
   _onwheel (e) {
