@@ -67,6 +67,7 @@
   border-radius: 4px;
   font-size: 12px;
   overflow: hidden;
+  user-select: none;
 }
 .monitor-inner {
   display: flex;
@@ -125,5 +126,5 @@
 
 }
 .monitor-row-value {
-
+  user-select: text;
 }
