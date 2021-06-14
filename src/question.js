@@ -11,6 +11,12 @@ class Question {
     this.inner = document.createElement('div');
     this.inner.className = styles.questionInner;
 
+    if (text) {
+      this.textElement = document.createElement('div');
+      this.textElement.textContent = text;
+      this.textElement.className = styles.questionText;
+    }
+
     this.inputContainer = document.createElement('div');
     this.inputContainer.className = styles.questionInputOuter;
 
@@ -19,6 +25,9 @@ class Question {
     this.input.addEventListener('keypress', this.onkeypress.bind(this));
 
     this.inputContainer.appendChild(this.input);
+    if (this.textElement) {
+      this.inner.appendChild(this.textElement);
+    }
     this.inner.appendChild(this.inputContainer);
     this.root.appendChild(this.inner);
     this.parent._addLayer(this.root);

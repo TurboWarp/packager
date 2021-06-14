@@ -16,6 +16,7 @@
 .question-root {
   bottom: 0;
   width: 100%;
+  color: black;
 }
 .question-inner {
   margin: 0.5rem;
@@ -24,6 +25,11 @@
   border-width: 2px;
   padding: 1rem;
   background: white;
+}
+.question-text {
+  font-size: 12px;
+  padding-bottom: 8px;
+  font-weight: bold;
 }
 .question-input-outer {
   position: relative;
@@ -38,13 +44,10 @@
   border-color: hsla(0, 0%, 0%, 0.15);
   border-radius: 2rem;
   outline: none;
-  cursor: text;
   transition: 0.25s ease-out;
   box-shadow: none;
-  overflow: hidden;
   text-overflow: ellipsis;
-  white-space: nowrap;
-  min-width: 0;
+  color: inherit;
 }
 .question-input:focus {
   border-color: hsla(215, 100%, 65%, 1);
