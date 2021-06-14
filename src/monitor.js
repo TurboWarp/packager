@@ -71,7 +71,7 @@ class VariableMonitor extends Monitor {
   }
 }
 
-const ROW_HEIGHT = 20;
+const ROW_HEIGHT = 24;
 
 class Row {
   constructor () {
@@ -83,10 +83,13 @@ class Row {
     this.root.className = styles.monitorRowRoot;
     this.indexEl = document.createElement('div');
     this.indexEl.className = styles.monitorRowIndex;
-    this.valueEl = document.createElement('div');
-    this.valueEl.className = styles.monitorRowValue;
+    this.valueOuter = document.createElement('div');
+    this.valueOuter.className = styles.monitorRowValueOuter;
+    this.valueInner = document.createElement('div');
+    this.valueInner.className = styles.monitorRowValueInner;
+    this.valueOuter.appendChild(this.valueInner);
     this.root.appendChild(this.indexEl);
-    this.root.appendChild(this.valueEl);
+    this.root.appendChild(this.valueOuter);
   }
 
   setIndex (index) {
@@ -100,7 +103,7 @@ class Row {
   setValue (value) {
     if (this._value !== value) {
       this._value = value;
-      this.valueEl.textContent = value;
+      this.valueInner.textContent = value;
     }
   }
 
@@ -119,6 +122,13 @@ class ListMonitor extends Monitor {
     this.rows = [];
     this.scrollTop = 0;
 
+    this.label = document.createElement('div');
+    this.label.className = styles.monitorListLabel;
+    this.label.textContent = this.getLabel();
+
+    this.footer = document.createElement('div');
+    this.footer.className = styles.monitorListFooter;
+
     this.rowsOuter = document.createElement('div');
     this.rowsOuter.className = styles.monitorRowsOuter;
 
@@ -131,7 +141,9 @@ class ListMonitor extends Monitor {
 
     this.rowsInner.appendChild(this.endPoint);
     this.rowsOuter.appendChild(this.rowsInner);
+    this.root.appendChild(this.label);
     this.root.appendChild(this.rowsOuter);
+    this.root.appendChild(this.footer);
   }
 
   _onscroll (e) {
@@ -149,12 +161,13 @@ class ListMonitor extends Monitor {
   update (monitor) {
     super.update(monitor);
 
-    this.width = monitor.get('width') || 200;
+    this.width = monitor.get('width') || 100;
     this.height = monitor.get('height') || 200;
     this.root.style.width = `${this.width}px`;
     this.root.style.height = `${this.height}px`;
 
     this.value = monitor.get('value');
+    this.footer.textContent = `length ${this.value.length}`;
     this.updateValue(this.value);
   }
 
