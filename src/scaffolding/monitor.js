@@ -96,40 +96,48 @@ class VariableMonitor extends Monitor {
 
     this.mode = monitor.get('mode');
 
-    this.inner = document.createElement('div');
-    this.inner.className = styles.monitorInner;
+    if (this.mode === 'large') {
+      this.valueElement = document.createElement('div');
+      this.valueElement.className = styles.monitorLargeValue + ' ' + styles.monitorValueColor;
 
-    this.valueRow = document.createElement('div');
-    this.valueRow.className = styles.monitorRow;
+      this.root.appendChild(this.valueElement);
+    } else {
+      this.inner = document.createElement('div');
+      this.inner.className = styles.monitorInner;
+  
+      this.valueRow = document.createElement('div');
+      this.valueRow.className = styles.monitorRow;
+  
+      this.label = document.createElement('div');
+      this.label.className = styles.monitorLabel;
+      this.label.textContent = this.getLabel();
+  
+      this.valueElement = document.createElement('div');
+      this.valueElement.className = styles.monitorValue + ' ' + styles.monitorValueColor;
+  
+      this.valueRow.appendChild(this.label);
+      this.valueRow.appendChild(this.valueElement);
+      this.inner.appendChild(this.valueRow);
+  
+      if (this.mode === 'slider') {
+        this.sliderRow = document.createElement('div');
+        this.sliderRow.className = styles.monitorRow;
+  
+        this.slider = document.createElement('input');
+        this.slider.className = styles.monitorSlider;
+        this.slider.type = 'range';
+        this.slider.min = monitor.get('sliderMin');
+        this.slider.max = monitor.get('sliderMax');
+        this.slider.step = monitor.get('isDiscrete') ? 1 : 0.01;
+        this.slider.addEventListener('input', this.onsliderchange.bind(this));
+  
+        this.sliderRow.appendChild(this.slider);
+        this.inner.appendChild(this.sliderRow);
+      }
 
-    this.label = document.createElement('div');
-    this.label.className = styles.monitorLabel;
-    this.label.textContent = this.getLabel();
-
-    this.valueElement = document.createElement('div');
-    this.valueElement.className = styles.monitorValue;
-
-    this.valueRow.appendChild(this.label);
-    this.valueRow.appendChild(this.valueElement);
-    this.inner.appendChild(this.valueRow);
-
-    if (this.mode === 'slider') {
-      this.sliderRow = document.createElement('div');
-      this.sliderRow.className = styles.monitorRow;
-
-      this.slider = document.createElement('input');
-      this.slider.className = styles.monitorSlider;
-      this.slider.type = 'range';
-      this.slider.min = monitor.get('sliderMin');
-      this.slider.max = monitor.get('sliderMax');
-      this.slider.step = monitor.get('isDiscrete') ? 1 : 0.01;
-      this.slider.addEventListener('input', this.onsliderchange.bind(this));
-
-      this.sliderRow.appendChild(this.slider);
-      this.inner.appendChild(this.sliderRow);
+      this.root.appendChild(this.inner);
     }
 
-    this.root.appendChild(this.inner);
     this.parent._monitorOverlay.appendChild(this.root);
   }
 

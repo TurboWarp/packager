@@ -104,20 +104,29 @@
   white-space: pre-wrap;
   background-color: #0fbd8c;
 }
-.monitor-root[opcode^="motion_"] .monitor-value {
+.monitor-root[opcode^="motion_"] .monitor-value-color {
   background-color: #4c97ff;
 }
-.monitor-root[opcode^="sensing_"] .monitor-value {
+.monitor-root[opcode^="sensing_"] .monitor-value-color {
   background-color: #5cb1d6;
 }
-.monitor-root[opcode^="data_"] .monitor-value {
+.monitor-root[opcode^="data_"] .monitor-value-color {
   background-color: #ff8c1a;
 }
-.monitor-root[opcode^="looks_"] .monitor-value {
+.monitor-root[opcode^="looks_"] .monitor-value-color {
   background-color: #9966ff;
 }
-.monitor-root[opcode^="sound_"] .monitor-value {
+.monitor-root[opcode^="sound_"] .monitor-value-color {
   background-color: #cf63cf;
+}
+.monitor-large-value {
+  min-height: 1.4rem;
+  min-width: 3rem;
+  padding: 0.1rem 0.25rem;
+  text-align: center;
+  color: white;
+  font-size: 1rem;
+  white-space: pre-wrap;
 }
 
 .monitor-list-label {
