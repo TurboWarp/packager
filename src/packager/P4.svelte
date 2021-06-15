@@ -2,29 +2,11 @@
   import ProjectPackager from './packager';
   import downloadFile from './download-file';
 
+  const packager = new ProjectPackager();
+
   let projectId = '1';
-  let turbo = false;
-  let interpolation = false;
-  let framerate = 30;
-  let highQualityPen = false;
-  let width = 480;
-  let height = 360;
-  let autoplay = false;
-  let runtimeOptions = {
-    maxClones: 300,
-    fencing: true,
-    miscLimits: true
-  };
-  let compilerOptions = {
-    enabled: true,
-    warpTimer: false
-  };
-  let backgroundColor = '#000000';
-  let textColor = '#ffffff';
-  let addons = false;
 
   const pack = async () => {
-    const packager = new ProjectPackager();
     await packager.loadProjectById(projectId);
     await packager.loadResources();
     const result = await packager.package();
@@ -50,9 +32,12 @@
   <ul>
     <li>Packaged projects are now about a megabyte smaller</li>
     <li>Packaged projects load slightly faster</li>
-    <li>Packaged projects can run slightly (in some cases, significantly) faster due to less Scratch overhead</li>
-    <li>Things like monitors, ask prompts, etc. can look and function a bit different, we're working on it.</li>
-    <li>Redesigned minimal loading screen. Easy to edit. Just open the HTML and look for the part that says "progress bar".</li>
+    <li>Packaged projects can run slightly faster (in a few cases, significantly faster)</li>
+    <li>Things like monitors, ask prompts, etc. can look and function a bit different, we're working on it</li>
+    <li>Redesigned minimal loading screen</li>
+    <li>HTML is easy to edit</li>
+    <li>Completely removed TurboWarp's red color</li>
+    <li>Also, if you think you have an idea to make this website look nice, please let us know :)</li>
   </ul>
 
   <h2>Project Options</h2>
@@ -63,51 +48,51 @@
 
   <h2>Runtime Options</h2>
   <label>
-    <input type="checkbox" bind:checked={turbo}>
+    <input type="checkbox" bind:checked={packager.turbo}>
     Turbo Mode
   </label>
   <label>
-    <input type="checkbox" bind:checked={interpolation}>
+    <input type="checkbox" bind:checked={packager.interpolation}>
     Interpolation
   </label>
   <label>
     Framerate
-    <input type="number" min="0" max="240" bind:value={framerate}>
+    <input type="number" min="0" max="240" bind:value={packager.framerate}>
   </label>
   <label>
-    <input type="checkbox" bind:checked={highQualityPen}>
+    <input type="checkbox" bind:checked={packager.highQualityPen}>
     High Quality Pen
   </label>
   <label>
-    <input type="checkbox" checked={runtimeOptions.maxClones === Infinity} on:change={(e) => {
-      runtimeOptions.maxClones = e.target.checked ? Infinity : 300;
+    <input type="checkbox" checked={packager.maxClones === Infinity} on:change={(e) => {
+      packager.maxClones = e.target.checked ? Infinity : 300;
     }}>
     Infinite Clones
   </label>
   <label>
-    <input type="checkbox" checked={!runtimeOptions.fencing} on:change={(e) => {
-      runtimeOptions.fencing = !e.target.checked;
+    <input type="checkbox" checked={!packager.fencing} on:change={(e) => {
+      packager.fencing = !e.target.checked;
     }}>
     Remove Fencing
   </label>
   <label>
-    <input type="checkbox" checked={!runtimeOptions.miscLimits} on:change={(e) => {
-      runtimeOptions.miscLimits = !e.target.checked;
+    <input type="checkbox" checked={!packager.miscLimits} on:change={(e) => {
+      packager.miscLimits = !e.target.checked;
     }}>
     Remove Miscellanous Limits
   </label>
   <label>
     Stage Size
-    <input type="number" min="0" max="4096" step="1" bind:value={width}>
+    <input type="number" min="0" max="4096" step="1" bind:value={packager.stageWidth}>
     &times;
-    <input type="number" min="0" max="4096" step="1" bind:value={height}>
+    <input type="number" min="0" max="4096" step="1" bind:value={packager.stageHeight}>
   </label>
   <label>
-    <input type="checkbox" bind:checked={autoplay}>
+    <input type="checkbox" bind:checked={packager.autoplay}>
     Autoplay
   </label>
 
-  <h2>Compiler Options</h2>
+  <!-- <h2>Compiler Options</h2>
   <label>
     <input type="checkbox" bind:checked={compilerOptions.enabled}>
     Enable compiler
@@ -115,9 +100,9 @@
   <label>
     <input type="checkbox" bind:checked={compilerOptions.warpTimer}>
     Warp Timer
-  </label>
+  </label> -->
 
-  <h2>Appearance</h2>
+  <!-- <h2>Appearance</h2>
   <label>
     <input type="color" bind:value={backgroundColor}>
     Background Color
@@ -125,13 +110,13 @@
   <label>
     <input type="color" bind:value={textColor}>
     Text Color
-  </label>
+  </label> -->
 
-  <h2>Addons</h2>
+  <!-- <h2>Addons</h2>
   <label>
     <input type="checkbox" bind:checked={addons}>
     Include gamepad addon
-  </label>
+  </label> -->
 
   <button on:click={pack}>Package</button>
 </main>

@@ -10,6 +10,17 @@ const readAsDataURL = (buffer) => new Promise((resolve, reject) => {
 export class Packager {
   constructor () {
     this.projectSource = null;
+
+    this.turbo = false;
+    this.interpolation = false;
+    this.framerate = 30;
+    this.highQualityPen = false;
+    this.maxClones = 300;
+    this.fencing = true;
+    this.miscLimits = true;
+    this.stageWidth = 480;
+    this.stageHeight = 360;
+    this.autoplay = false;
   }
 
   async loadProjectById (id) {
@@ -136,6 +147,10 @@ export class Packager {
     const errorScreen = document.getElementById('error');
 
     const scaffolding = new Scaffolding.Scaffolding();
+
+    scaffolding.width = ${JSON.stringify(this.stageWidth)};
+    scaffolding.height = ${JSON.stringify(this.stageHeight)};
+
     scaffolding.setup();
     scaffolding.appendTo(appElement);
     ScaffoldingAddons.run(scaffolding);
@@ -147,6 +162,20 @@ export class Packager {
     storage.onprogress = (total, loaded) => {
       setProgress(0.2 + (loaded / total) * 0.8)
     };
+
+    vm.setTurboMode(${JSON.stringify(this.turbo)});
+    vm.setInterpolation(${JSON.stringify(this.interpolation)});
+    vm.setFramerate(${JSON.stringify(this.framerate)});
+    vm.renderer.setUseHighQualityRender(${JSON.stringify(this.highQualityPen)});
+    vm.setRuntimeOptions({
+      fencing: ${JSON.stringify(this.fencing)},
+      miscLimits: ${JSON.stringify(this.miscLimits)},
+      maxClones: ${JSON.stringify(this.maxClones)},
+    });
+    vm.setCompilerOptions({
+
+    });
+
     setProgress(0.1);
 
     const getProjectJSON = async () => {
@@ -160,12 +189,16 @@ export class Packager {
       await scaffolding.loadProject(projectJSON);
       setProgress(1);
       loadingScreen.hidden = true;
-      launchScreen.hidden = false;
-      launchScreen.addEventListener('click', () => {
-        launchScreen.hidden = true;
-        scaffolding.start();
-      });
-      launchScreen.focus();
+      if (${JSON.stringify(this.autoplay)}) {
+        scaffolding.start();        
+      } else {
+        launchScreen.hidden = false;
+        launchScreen.addEventListener('click', () => {
+          launchScreen.hidden = true;
+          scaffolding.start();
+        });
+        launchScreen.focus();
+      }
     };
 
     const handleError = (error) => {
