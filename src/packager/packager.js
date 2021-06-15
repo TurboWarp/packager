@@ -29,6 +29,10 @@ export class Packager {
     this.projectSource = blob;
   }
 
+  async loadProjectFromFile (blob) {
+    this.projectSource = blob;
+  }
+
   async loadResources () {
     const requests = await Promise.all([
       fetch('scaffolding.js'),

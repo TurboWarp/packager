@@ -4,13 +4,29 @@
 
   const packager = new ProjectPackager();
 
+  let projectSource = 'id';
   let projectId = '1';
+  let projectFileList;
 
-  const pack = async () => {
-    await packager.loadProjectById(projectId);
+  const runPackager = async () => {
+    if (projectSource === 'id') {
+      await packager.loadProjectById(projectId);
+    } else {
+      await packager.loadProjectFromFile(projectFileList[0]);
+    }
     await packager.loadResources();
     const result = await packager.package();
-    downloadFile(result, 'project.html');
+    return result;
+  }
+
+  const pack = async () => {
+    try {
+      const result = await runPackager();
+      downloadFile(result, 'project.html');
+    } catch (e) {
+      console.error(e);
+      alert(e);
+    }
   };
 </script>
 
@@ -40,10 +56,28 @@
   </ul>
 
   <h2>Project Options</h2>
-  <label>
-    Project ID
-    <input type="number" bind:value={projectId}>
-  </label>
+
+  <div>
+    <label>
+      <input type="radio" value="id" bind:group={projectSource}>
+      Project ID
+    </label>
+    <label>
+      <input type="radio" value="file" bind:group={projectSource}>
+      Project File
+    </label>
+  </div>
+  {#if projectSource === 'id'}
+    <label>
+      Project ID
+      <input type="number" bind:value={projectId}>
+    </label>
+  {:else}
+    <label>
+      Project File
+      <input type="file" bind:files={projectFileList} accept=".sb,.sb2,.sb3">
+    </label>  
+  {/if}
 
   <h2>Runtime Options</h2>
   <label>
