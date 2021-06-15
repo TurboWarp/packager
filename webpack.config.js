@@ -17,7 +17,8 @@ module.exports = {
   resolve: {
     alias: {
       svelte: path.resolve('node_modules', 'svelte'),
-      'text-encoding': 'fastestsmallesttextencoderdecoder'
+      'text-encoding$': 'fastestsmallesttextencoderdecoder',
+      'scratch-translate-extension-languages$': path.resolve(__dirname, 'src', 'scaffolding', 'scratch-translate-extension-languages', 'languages.json')
     },
     extensions: ['.mjs', '.js', '.svelte'],
     mainFields: ['svelte', 'browser', 'module', 'main']
