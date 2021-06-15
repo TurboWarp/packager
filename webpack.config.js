@@ -9,9 +9,9 @@ module.exports = {
     path: path.resolve(__dirname, 'dist')
   },
   entry: {
-    index: './src/export.js',
+    scaffolding: './src/scaffolding/export.js',
     addons: './src/addons/index.js',
-    packager: './src/p4/index.js'
+    packager: './src/packager/index.js'
   },
   resolve: {
     alias: {
@@ -53,8 +53,8 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      filename: 'packager.html',
-      template: './packager.ejs',
+      filename: 'index.html',
+      template: './src/packager/template.ejs',
       chunks: ['packager']
     })
   ],

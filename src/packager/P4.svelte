@@ -1,5 +1,5 @@
 <script>
-  import ProjectPackager from '../packager/';
+  import ProjectPackager from './packager';
   import downloadFile from './download-file';
 
   const pack = async () => {
