@@ -4,6 +4,7 @@ import Storage from './storage';
 import AudioEngine from 'scratch-audio';
 import {BitmapAdapter} from 'scratch-svg-renderer';
 
+import Cloud from './cloud';
 import Question from './question';
 import {ListMonitor, VariableMonitor} from './monitor';
 import styles from './style.css';
@@ -202,10 +203,25 @@ class Scaffolding {
     this.vm.on('MONITORS_UPDATE', this._onmonitorsupdate.bind(this));
     this.vm.runtime.on('QUESTION', this._onquestion.bind(this));
 
-    this._attachRenderer();
-    this._attachStorage();
-    this._attachAudioEngine();
-    this._attachBitmapAdapter();
+    this.cloudManager = new Cloud.CloudManager(this);
+
+    this.renderer = new Renderer(
+      this._canvas,
+      -this.width / 2,
+      this.width / 2,
+      -this.height / 2,
+      this.height / 2
+    );
+    this.vm.attachRenderer(this.renderer);
+
+    this.storage = new Storage();
+    this.vm.attachStorage(this.storage);
+
+    this.audioEngine = new AudioEngine();
+    this.vm.attachAudioEngine(this.audioEngine);
+
+    this.bitmapAdapter = new BitmapAdapter();
+    this.vm.attachV2BitmapAdapter(this.bitmapAdapter);
   }
 
   _onmonitorsupdate (monitors) {
@@ -247,41 +263,27 @@ class Scaffolding {
     }
   }
 
-  _attachRenderer () {
-    this.renderer = new Renderer(
-      this._canvas,
-      -this.width / 2,
-      this.width / 2,
-      -this.height / 2,
-      this.height / 2
-    );
-    this.vm.attachRenderer(this.renderer);
-  }
-
-  _attachStorage () {
-    this.storage = new Storage();
-    this.vm.attachStorage(this.storage);
-  }
-
-  _attachAudioEngine () {
-    this.audioEngine = new AudioEngine();
-    this.vm.attachAudioEngine(this.audioEngine);
-  }
-
-  _attachBitmapAdapter () {
-    this.bitmapAdapter = new BitmapAdapter();
-    this.vm.attachV2BitmapAdapter(this.bitmapAdapter);
-  }
-
   loadProject (data) {
     return this.vm.loadProject(data)
       .then(() => {
+        this.vm.setCloudProvider(this.cloudManager);
         this.renderer.draw();
         // Render again after a short delay because some costumes are loaded async
         setTimeout(() => {
           this.renderer.draw();
         });
       });
+  }
+
+  setUsername (username) {
+    this._username = username;
+    this.vm.postIOData('userData', {
+      username
+    });
+  }
+
+  addCloudProvider (provider) {
+    this.cloudManager.addProvider(provider);
   }
 
   start () {
@@ -292,6 +294,7 @@ class Scaffolding {
 
 export {
   Scaffolding,
+  Cloud,
   VM,
   Renderer,
   Storage,
