@@ -69,6 +69,7 @@ module.exports = {
     new HtmlWebpackPlugin({
       filename: 'example.html',
       template: './src/scaffolding/example.html',
+      chunks: []
     }),
     ...(process.env.BUNDLE_ANALYZER ? [new BundleAnalyzerPlugin()] : [])
   ],
