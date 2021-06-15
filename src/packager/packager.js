@@ -1,5 +1,12 @@
 import downloadProject from './downloader';
 
+const readAsDataURL = (buffer) => new Promise((resolve, reject) => {
+  const fr = new FileReader();
+  fr.onload = () => resolve(fr.result);
+  fr.onerror = () => reject(new Error('Cannot read as URL'));
+  fr.readAsDataURL(buffer);
+});
+
 export class Packager {
   constructor () {
     this.projectSource = null;
@@ -7,8 +14,8 @@ export class Packager {
 
   async loadProjectById (id) {
     const project = await downloadProject(id);
-    const buffer = await project.asArrayBuffer();
-    this.projectSource = buffer;
+    const blob = await project.asBlob();
+    this.projectSource = blob;
   }
 
   async loadResources () {
@@ -131,18 +138,9 @@ export class Packager {
     const scaffolding = new Scaffolding.Scaffolding();
     scaffolding.setup();
     scaffolding.appendTo(appElement);
-
     ScaffoldingAddons.run(scaffolding);
 
     const {storage, vm} = scaffolding;
-    storage.addWebStore(
-      [storage.AssetType.Project],
-      (asset) => "https://projects.scratch.mit.edu/" + asset.assetId
-    );
-    storage.addWebStore(
-      [storage.AssetType.ImageVector, storage.AssetType.ImageBitmap, storage.AssetType.Sound],
-      (asset) => "https://assets.scratch.mit.edu/internalapi/asset/" + asset.assetId + "." + asset.dataFormat + "/get/"
-    );
     const setProgress = (progress) => {
       loadingInner.style.width = progress * 100 + "%";
     }
@@ -152,9 +150,8 @@ export class Packager {
     setProgress(0.1);
 
     const getProjectJSON = async () => {
-      const PROJECT_ID = '413072152';
-      const asset = await storage.load(Scaffolding.Storage.AssetType.Project, PROJECT_ID);
-      return asset.data;
+      const res = await fetch(${JSON.stringify(await readAsDataURL(this.projectSource))});
+      return res.arrayBuffer();
     };
 
     const run = async () => {
