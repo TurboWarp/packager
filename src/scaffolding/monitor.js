@@ -156,7 +156,10 @@ class VariableMonitor extends Monitor {
       return;
     }
 
-    const value = monitor.get('value');
+    let value = monitor.get('value');
+    if (typeof value === 'number') {
+      value = Number(value.toFixed(6));
+    }
     this.valueElement.textContent = value;
     if (this.slider) {
       this.slider.value = value;
