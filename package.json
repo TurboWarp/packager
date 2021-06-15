@@ -11,6 +11,7 @@
   "author": "",
   "license": "GPL-3.0",
   "dependencies": {
+    "fastestsmallesttextencoderdecoder": "^1.0.22",
     "jszip": "^3.6.0",
     "scratch-audio": "0.1.0-prerelease.20200528195344",
     "scratch-render": "git://github.com/TurboWarp/scratch-render.git#develop",
