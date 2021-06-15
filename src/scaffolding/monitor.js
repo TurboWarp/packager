@@ -152,6 +152,7 @@ class VariableMonitor extends Monitor {
     }
     const variable = target.variables[this.id];
     variable.value = value;
+    this._value = value;
     this.valueElement.textContent = value;
   }
 
