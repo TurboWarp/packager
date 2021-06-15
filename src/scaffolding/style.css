@@ -12,6 +12,9 @@
 .layers > * {
   position: absolute;
 }
+.root * {
+  box-sizing: border-box;
+}
 
 .question-root {
   bottom: 0;
@@ -154,7 +157,6 @@
   margin: 0 3px;
 }
 .monitor-row-value-outer {
-  box-sizing: border-box;
   min-width: 40px;
   height: 22px;
   border: 1px solid hsla(0, 0%, 0%, 0.15);
