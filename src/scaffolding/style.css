@@ -91,6 +91,9 @@
   text-align: center;
   margin: 0 5px;
 }
+.monitor-slider {
+  margin: 0;
+}
 .monitor-value {
   min-width: 40px;
   text-align: center;
@@ -99,15 +102,22 @@
   border-radius: 4px;
   padding: 0 2px;
   white-space: pre-wrap;
+  background-color: #0fbd8c;
 }
-.monitor-slider {
-  margin: 0;
+.monitor-root[opcode^="motion_"] .monitor-value {
+  background-color: #4c97ff;
 }
 .monitor-root[opcode^="sensing_"] .monitor-value {
-  background-color: rgb(92, 177, 214);
+  background-color: #5cb1d6;
 }
 .monitor-root[opcode^="data_"] .monitor-value {
-  background-color: rgb(255, 140, 26);
+  background-color: #ff8c1a;
+}
+.monitor-root[opcode^="looks_"] .monitor-value {
+  background-color: #9966ff;
+}
+.monitor-root[opcode^="sound_"] .monitor-value {
+  background-color: #cf63cf;
 }
 
 .monitor-list-label {

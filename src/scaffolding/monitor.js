@@ -18,17 +18,66 @@ class Monitor {
   }
 
   getLabel () {
-    let base;
-    if (Object.keys(this.params).length) {
-      base = this.params[Object.keys(this.params)[0]];
+    let label;
+    if (this.opcode === 'data_variable') {
+      label = this.params.VARIABLE;
+    } else if (this.opcode === 'data_listcontents') {
+      label = this.params.LIST;
+    } else if (this.opcode === 'motion_xposition') {
+      label = 'x position';
+    } else if (this.opcode === 'motion_yposition') {
+      label = 'y position';
+    } else if (this.opcode === 'motion_direction') {
+      label = 'direction';
+    } else if (this.opcode === 'sensing_username') {
+      label = 'username';
+    } else if (this.opcode === 'looks_costumenumbername') {
+      if (this.params.NUMBER_NAME === 'number') {
+        label = 'costume number';
+      } else {
+        label = 'costume name';
+      }
+    } else if (this.opcode === 'looks_backdropnumbername') {
+      if (this.params.NUMBER_NAME === 'number') {
+        label = 'backdrop number';
+      } else {
+        label = 'backdrop name';
+      }
+    } else if (this.opcode === 'looks_size') {
+      label = 'size';
+    } else if (this.opcode === 'sensing_answer') {
+      label = 'answer';
+    } else if (this.opcode === 'sensing_loudness') {
+      label = 'loudness';
+    } else if (this.opcode === 'sensing_timer') {
+      label = 'timer';
+    } else if (this.opcode === 'sound_volume') {
+      label = 'volume';
+    } else if (this.opcode === 'sensing_current') {
+      const menu = this.params.CURRENTMENU.toLowerCase();
+      if (menu === 'year') {
+        label = 'year';
+      } else if (menu === 'month') {
+        label = 'month';
+      } else if (menu === 'date') {
+        label = 'date';
+      } else if (menu === 'dayofweek') {
+        label = 'day of week';
+      } else if (menu === 'hour') {
+        label = 'hour';
+      } else if (menu === 'minute') {
+        label = 'minute';
+      } else if (menu === 'second') {
+        label = 'second';
+      }
     } else {
-      base = this.id;
+      label = this.parent.vm.runtime.getLabelForOpcode(this.opcode).label;
     }
 
     if (this.spriteName) {
-      return `${this.spriteName}: ${base}`;
+      return `${this.spriteName}: ${label}`;
     }
-    return base;
+    return label;
   }
 
   update (monitor) {
