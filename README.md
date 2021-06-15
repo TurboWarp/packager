@@ -9,7 +9,7 @@ Goals for this rewrite:
  - Smaller projects
  - Faster projects
  - Increased customizability
- - Stop interfaces in vanilla JS
+ - Stop writing interfaces in vanilla JS
  - Use standard Scratch libraries (no branches or forks)
 
 Setup:
