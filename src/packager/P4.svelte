@@ -8,6 +8,28 @@
   let projectFileList;
   let url;
 
+  let hasRunOnce = false;
+  let progress = 0;
+  let progressText = '';
+
+  packager.addEventListener('data-progress', (e) => {
+    progressText = 'Downloading project';
+    progress = e.detail;
+  });
+
+  let totalAssets = 0;
+  let finishedAssets = 0;
+  packager.addEventListener('asset-fetch', (e) => {
+    totalAssets++;
+    progress = finishedAssets / totalAssets;
+    progressText = `Downloading assets (${finishedAssets}/${totalAssets})`;
+  });
+  packager.addEventListener('asset-fetched', (e) => {
+    finishedAssets++;
+    progress = finishedAssets / totalAssets;
+    progressText = `Downloading assets (${finishedAssets}/${totalAssets})`;
+  });
+
   const displayURL = (name, blob) => {
     const href = URL.createObjectURL(blob);
     url = {
@@ -26,11 +48,20 @@
     document.body.removeChild(link);
   };
 
-  const runPackager = async () => {
+  const reset = () => {
     if (url) {
       URL.revokeObjectURL(url.href);
       url = null;
     }
+    hasRunOnce = true;
+    progressText = 'Loading';
+    progress = 0;
+    totalAssets = 0;
+    finishedAssets = 0;
+  };
+
+  const runPackager = async () => {
+    reset();
     if (projectSource === 'id') {
       await packager.loadProjectById(projectId);
     } else {
@@ -186,9 +217,19 @@
     <button on:click={preview}>Preview</button>
   </div>
 
-  {#if url}
+  {#if hasRunOnce}
     <div>
-      <a download={url.name} href={url.href}>Download {url.name}</a>
+      <div>
+        {progressText}
+      </div>
+      <div>
+        <progress value={progress}></progress>
+      </div>
+      {#if url}
+        <div>
+          <a download={url.name} href={url.href}>Download {url.name}</a>
+        </div>
+      {/if}
     </div>
   {/if}
 </main>
