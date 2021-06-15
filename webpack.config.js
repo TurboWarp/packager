@@ -1,4 +1,5 @@
 const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   mode: process.env.NODE_ENV || 'development',
@@ -10,7 +11,7 @@ module.exports = {
   entry: {
     index: './src/export.js',
     addons: './src/addons/index.js',
-    packager: './src/packager/index.js'
+    packager: './src/p4/index.js'
   },
   resolve: {
     alias: {
@@ -49,5 +50,15 @@ module.exports = {
         use: 'svelte-loader'
       },
     ]
-  }
+  },
+  plugins: [
+    new HtmlWebpackPlugin({
+      filename: 'packager.html',
+      template: './packager.ejs',
+      chunks: ['packager']
+    })
+  ],
+  devServer: {
+    contentBase: './dist/',
+  },
 };

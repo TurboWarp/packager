@@ -1,3 +1,4 @@
+<!--
 # Scaffolding
 
 A (relatively) small Scratch project player. Built on top of TurboWarp/Scratch, but without React. Batteries not included.
@@ -15,3 +16,4 @@ To keep things small, simple, and fast, some things are impossible:
  - You have to fetch the project on your own
  - Configuration is most likely required
  - Can not load a different project into an existing Scaffolding instance. Make a new one instead
+-->
