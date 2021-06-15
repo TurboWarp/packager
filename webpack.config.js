@@ -52,6 +52,7 @@ module.exports = {
       },
       {
         test: /\.(html|svelte)$/,
+        exclude: /scaffolding/,
         use: 'svelte-loader'
       },
     ]
@@ -64,6 +65,10 @@ module.exports = {
       filename: 'index.html',
       template: './src/packager/template.ejs',
       chunks: ['packager']
+    }),
+    new HtmlWebpackPlugin({
+      filename: 'example.html',
+      template: './src/scaffolding/example.html',
     }),
     ...(process.env.BUNDLE_ANALYZER ? [new BundleAnalyzerPlugin()] : [])
   ],
