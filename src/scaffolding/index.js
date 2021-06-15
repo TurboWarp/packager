@@ -267,6 +267,7 @@ class Scaffolding {
     return this.vm.loadProject(data)
       .then(() => {
         this.vm.setCloudProvider(this.cloudManager);
+        this.cloudManager.projectReady();
         this.renderer.draw();
         // Render again after a short delay because some costumes are loaded async
         setTimeout(() => {

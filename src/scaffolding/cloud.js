@@ -4,6 +4,18 @@ class CloudManager {
     this.providers = [];
   }
 
+  hasCloudData () {
+    return this.parent.vm.runtime.hasCloudData();
+  }
+
+  projectReady () {
+    if (this.hasCloudData()) {
+      for (const provider of this.providers) {
+        provider.enable();
+      }
+    }
+  }
+
   setVariable (name, value) {
     this.parent.vm.postIOData('cloud', {
       varUpdate: {
@@ -19,6 +31,9 @@ class CloudManager {
 
   addProvider (provider) {
     provider.manager = this;
+    if (this.hasCloudData()) {
+      provider.enable();
+    }
     this.providers.push(provider);
   }
 
@@ -49,10 +64,11 @@ class WebSocketProvider {
   constructor(cloudHost, projectId) {
     this.cloudHost = cloudHost;
     this.projectId = projectId;
-
     this.connectionAttempts = 0;
-
     this.openConnection = this.openConnection.bind(this);
+  }
+
+  enable () {
     this.openConnection();
   }
 
@@ -116,7 +132,48 @@ class WebSocketProvider {
   }
 }
 
+class LocalStorageProvider {
+  constructor (key='p4:cloudvariables') {
+    this.key = key;
+    this.variables = {};
+  }
+
+  readFromLocalStorage () {
+    let parsed;
+    try {
+      parsed = JSON.parse(localStorage.getItem(this.key));
+      if (!parsed || typeof parsed !== 'object') {
+        return;
+      }
+    } catch (e) {
+      return;
+    }
+    this.variables = parsed;
+    for (const key of Object.keys(this.variables)) {
+      this.manager.setVariable(key, this.variables[key]);
+    }
+  }
+
+  storeToLocalStorage () {
+    try {
+      localStorage.setItem(this.key, JSON.stringify(this.variables))
+    } catch (e) {
+      // ignore
+    }
+  }
+
+  enable () {
+    this.readFromLocalStorage();
+  }
+
+  handleUpdateVariable (name, value) {
+    this.variables[name] = value;
+    this.storeToLocalStorage();
+  }
+}
+
 export default {
   CloudManager,
-  WebSocketProvider
+  WebSocketProvider,
+  LocalStorageProvider
 };

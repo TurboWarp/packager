@@ -95,6 +95,8 @@
     <script src="scaffolding.js"></script>
     <script src="addons.js"></script>
     <script>
+      const PROJECT_ID = '402080736';
+
       const appElement = document.getElementById('app');
       const launchScreen = document.getElementById('launch');
       const loadingScreen = document.getElementById('loading');
@@ -124,8 +126,9 @@
       };
       setProgress(0.1);
 
+      scaffolding.addCloudProvider(new Scaffolding.Cloud.WebSocketProvider('wss://clouddata.turbowarp.org', PROJECT_ID));
+
       const getProjectJSON = async () => {
-        const PROJECT_ID = '402080736';
         const asset = await storage.load(Scaffolding.Storage.AssetType.Project, PROJECT_ID);
         return asset.data;
       };
@@ -135,7 +138,6 @@
         setProgress(0.1);
         await scaffolding.loadProject(projectJSON);
         scaffolding.setUsername('123');
-        scaffolding.addCloudProvider(new Scaffolding.Cloud.WebSocketProvider('wss://clouddata.turbowarp.org', '402080736'));
         setProgress(1);
         loadingScreen.hidden = true;
         launchScreen.hidden = false;
