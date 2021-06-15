@@ -55,23 +55,25 @@ class VariableMonitor extends Monitor {
     this.label.className = styles.monitorLabel;
     this.label.textContent = this.getLabel();
 
-    this.value = document.createElement('div');
-    this.value.className = styles.monitorValue;
+    this.valueElement = document.createElement('div');
+    this.valueElement.className = styles.monitorValue;
 
     this.valueRow.appendChild(this.label);
-    this.valueRow.appendChild(this.value);
+    this.valueRow.appendChild(this.valueElement);
     this.inner.appendChild(this.valueRow);
     this.root.appendChild(this.inner);
     this.parent._monitorOverlay.appendChild(this.root);
   }
 
   update (monitor) {
+    super.update(monitor);
+
     if (!this.visible) {
       return;
     }
 
     const value = monitor.get('value');
-    this.value.textContent = value;
+    this.valueElement.textContent = value;
   }
 }
 
