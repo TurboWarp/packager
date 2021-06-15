@@ -1,5 +1,6 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 module.exports = {
   mode: process.env.NODE_ENV || 'development',
@@ -57,7 +58,8 @@ module.exports = {
       filename: 'index.html',
       template: './src/packager/template.ejs',
       chunks: ['packager']
-    })
+    }),
+    ...(process.env.BUNDLE_ANALYZER ? [new BundleAnalyzerPlugin()] : [])
   ],
   devServer: {
     contentBase: './dist/',
