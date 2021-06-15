@@ -139,6 +139,8 @@ class VariableMonitor extends Monitor {
     }
 
     this.parent._monitorOverlay.appendChild(this.root);
+
+    this._value = '';
   }
 
   setVariableValue (value) {
@@ -168,9 +170,12 @@ class VariableMonitor extends Monitor {
     if (typeof value === 'number') {
       value = Number(value.toFixed(6));
     }
-    this.valueElement.textContent = value;
-    if (this.slider) {
-      this.slider.value = value;
+    if (this._value !== value) {
+      this._value = value;
+      this.valueElement.textContent = value;
+      if (this.slider) {
+        this.slider.value = value;
+      }
     }
   }
 }

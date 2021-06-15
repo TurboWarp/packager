@@ -90,6 +90,7 @@
   font-weight: bold;
   text-align: center;
   margin: 0 5px;
+  white-space: nowrap;
 }
 .monitor-slider {
   margin: 0;
