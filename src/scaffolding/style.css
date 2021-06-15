@@ -97,6 +97,9 @@
   padding: 0 2px;
   white-space: pre-wrap;
 }
+.monitor-slider {
+  margin: 0;
+}
 .monitor-root[opcode^="sensing_"] .monitor-value {
   background-color: rgb(92, 177, 214);
 }

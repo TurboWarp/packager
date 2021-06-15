@@ -45,6 +45,8 @@ class VariableMonitor extends Monitor {
   constructor (parent, monitor) {
     super(parent, monitor);
 
+    this.mode = monitor.get('mode');
+
     this.inner = document.createElement('div');
     this.inner.className = styles.monitorInner;
 
@@ -61,8 +63,41 @@ class VariableMonitor extends Monitor {
     this.valueRow.appendChild(this.label);
     this.valueRow.appendChild(this.valueElement);
     this.inner.appendChild(this.valueRow);
+
+    if (this.mode === 'slider') {
+      this.sliderRow = document.createElement('div');
+      this.sliderRow.className = styles.monitorRow;
+
+      this.slider = document.createElement('input');
+      this.slider.className = styles.monitorSlider;
+      this.slider.type = 'range';
+      this.slider.min = monitor.get('sliderMin');
+      this.slider.max = monitor.get('sliderMax');
+      this.slider.step = monitor.get('isDiscrete') ? 1 : 0.01;
+      this.slider.addEventListener('input', this.onsliderchange.bind(this));
+
+      this.sliderRow.appendChild(this.slider);
+      this.inner.appendChild(this.sliderRow);
+    }
+
     this.root.appendChild(this.inner);
     this.parent._monitorOverlay.appendChild(this.root);
+  }
+
+  setVariableValue (value) {
+    let target;
+    if (this.targetId) {
+      target = this.parent.vm.runtime.getTargetById(this.targetId);
+    } else {
+      target = this.parent.vm.runtime.getTargetForStage();
+    }
+    const variable = target.variables[this.id];
+    variable.value = value;
+    this.valueElement.textContent = value;
+  }
+
+  onsliderchange (e) {
+    this.setVariableValue(+e.target.value);
   }
 
   update (monitor) {
@@ -74,6 +109,9 @@ class VariableMonitor extends Monitor {
 
     const value = monitor.get('value');
     this.valueElement.textContent = value;
+    if (this.slider) {
+      this.slider.value = value;
+    }
   }
 }
 
