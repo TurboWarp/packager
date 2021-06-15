@@ -1,12 +1,27 @@
 <script>
   import ProjectPackager from './packager';
-  import downloadFile from './download-file';
 
   const packager = new ProjectPackager();
 
   let projectSource = 'id';
   let projectId = '1';
   let projectFileList;
+
+  const toURL = (obj) => {
+    const blob = new Blob([obj]);
+    const url = URL.createObjectURL(blob);
+    return url;
+  };
+
+  const downloadURL = (url, filename) => {
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = filename;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    return url;
+  };
 
   const runPackager = async () => {
     if (projectSource === 'id') {
@@ -17,17 +32,25 @@
     await packager.loadResources();
     const result = await packager.package();
     return result;
-  }
-
-  const pack = async () => {
-    try {
-      const result = await runPackager();
-      downloadFile(result, 'project.html');
-    } catch (e) {
-      console.error(e);
-      alert(e);
-    }
   };
+
+  const handleError = (fn) => () => fn()
+    .catch((err) => {
+      console.error(err);
+      alert(err);
+    });
+
+  const pack = handleError(async () => {
+    const result = await runPackager();
+    const url = toURL(result);
+    downloadURL(url, 'project.html');
+  });
+
+  const preview = handleError(async () => {
+    const result = await runPackager();
+    const url = toURL(result);
+    window.open(url);
+  });
 </script>
 
 <style>
@@ -151,5 +174,8 @@
     Include gamepad addon
   </label> -->
 
-  <button on:click={pack}>Package</button>
+  <div>
+    <button on:click={pack}>Package</button>
+    <button on:click={preview}>Preview</button>
+  </div>
 </main>

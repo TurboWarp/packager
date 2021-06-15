@@ -7,8 +7,10 @@ const readAsDataURL = (buffer) => new Promise((resolve, reject) => {
   fr.readAsDataURL(buffer);
 });
 
-export class Packager {
+export class Packager extends EventTarget {
   constructor () {
+    super();
+
     this.projectSource = null;
 
     this.turbo = false;
@@ -24,7 +26,9 @@ export class Packager {
   }
 
   async loadProjectById (id) {
-    const project = await downloadProject(id);
+    const project = await downloadProject(id, {
+      progressTarget: this
+    });
     const blob = await project.asBlob();
     this.projectSource = blob;
   }
