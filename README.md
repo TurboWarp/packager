@@ -1,19 +1,20 @@
-<!--
-# Scaffolding
+# p4
 
-A (relatively) small Scratch project player. Built on top of TurboWarp/Scratch, but without React. Batteries not included.
+https://packager-staging-do-not-use.turbowarp.org/
 
-Intended for eventually being used in the TurboWarp packager.
+We're rewriting the packager again. This is the last time, I promise.
 
- - Simple -- You don't have to worry about how to hook together all the Scratch packages. It does all that for you.
- - Lightweight -- Several MB smaller than scratch-gui
- - Fast -- Starts hundreds of milliseconds faster than scratch-gui. No React or Redux to slow everything down.
+Goals for this rewrite:
 
-See index.html for a fully-featured example.
+ - Smaller projects
+ - Faster projects
+ - Increased customizability
+ - Stop interfaces in vanilla JS
+ - Use standard Scratch libraries (no branches or forks)
 
-To keep things small, simple, and fast, some things are impossible:
+Setup:
 
- - You have to fetch the project on your own
- - Configuration is most likely required
- - Can not load a different project into an existing Scaffolding instance. Make a new one instead
--->
+```
+npm ci
+npm start
+```
