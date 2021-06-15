@@ -26,18 +26,17 @@
 </style>
 
 <main>
-  <h1>TurboWarp Packager</h1>
+  <h1>TurboWarp Packager 4.0 staging</h1>
 
-  <p>We're currently rewriting the packager to make it faster, more customizable, and more maintainable. Noteworthy changes:</p>
+  <p>We're rewriting the packager to make it faster, more customizable, and more maintainable. Noteworthy changes:</p>
   <ul>
-    <li>Packaged projects are now about a megabyte smaller</li>
-    <li>Packaged projects load slightly faster</li>
-    <li>Packaged projects can run slightly faster (in a few cases, significantly faster)</li>
-    <li>Things like monitors, ask prompts, etc. can look and function a bit different, we're working on it</li>
-    <li>Redesigned minimal loading screen</li>
+    <li>Packaged projects are now about a megabyte smaller, load slightly faster, and can run slightly faster</li>
+    <li>Complete redesign of packaged projects</li>
     <li>HTML is easy to edit</li>
-    <li>Completely removed TurboWarp's red color</li>
-    <li>Also, if you think you have an idea to make this website look nice, please let us know :)</li>
+    <li>Things like monitors, ask prompts, etc. might look a bit different, we're working on it</li>
+    <li>If you have an idea to make this website look nice, please let us know</li>
+    <li>If you have an idea for a possible "theme" for packaged projects, let us know. We want to know what customizations people want now that we're free from the Scratch loading screen.</li>
+    <li>Includes the "gamepad support" addon from TurboWarp or other third-party Scratch tools</li>
   </ul>
 
   <h2>Project Options</h2>
