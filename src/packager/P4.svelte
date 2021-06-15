@@ -6,24 +6,31 @@
   let projectSource = 'id';
   let projectId = '1';
   let projectFileList;
+  let url;
 
-  const toURL = (obj) => {
-    const blob = new Blob([obj]);
-    const url = URL.createObjectURL(blob);
-    return url;
+  const displayURL = (name, blob) => {
+    const href = URL.createObjectURL(blob);
+    url = {
+      href,
+      size: blob.size,
+      name
+    };
   };
 
-  const downloadURL = (url, filename) => {
+  const downloadURL = (filename, url) => {
     const link = document.createElement('a');
     link.href = url;
     link.download = filename;
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
-    return url;
   };
 
   const runPackager = async () => {
+    if (url) {
+      URL.revokeObjectURL(url.href);
+      url = null;
+    }
     if (projectSource === 'id') {
       await packager.loadProjectById(projectId);
     } else {
@@ -31,7 +38,7 @@
     }
     await packager.loadResources();
     const result = await packager.package();
-    return result;
+    return new Blob([result]);
   };
 
   const handleError = (fn) => () => fn()
@@ -42,14 +49,14 @@
 
   const pack = handleError(async () => {
     const result = await runPackager();
-    const url = toURL(result);
-    downloadURL(url, 'project.html');
+    displayURL('project.html', result);
+    downloadURL('project.html', url.href);
   });
 
   const preview = handleError(async () => {
     const result = await runPackager();
-    const url = toURL(result);
-    window.open(url);
+    displayURL('project.html', result);
+    window.open(url.href);
   });
 </script>
 
@@ -178,4 +185,10 @@
     <button on:click={pack}>Package</button>
     <button on:click={preview}>Preview</button>
   </div>
+
+  {#if url}
+    <div>
+      <a download={url.name} href={url.href}>Download {url.name}</a>
+    </div>
+  {/if}
 </main>
