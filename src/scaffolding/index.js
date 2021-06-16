@@ -31,6 +31,7 @@ class Scaffolding {
     this._root.appendChild(this._layers);
 
     this._canvas = document.createElement('canvas');
+    this._canvas.className = styles.canvas;
     this._addLayer(this._canvas);
 
     this._overlays = document.createElement('div');
