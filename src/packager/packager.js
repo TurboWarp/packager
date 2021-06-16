@@ -1,4 +1,4 @@
-import downloadProject from './downloader';
+import JSZip from 'jszip';
 
 const readAsDataURL = (buffer) => new Promise((resolve, reject) => {
   const fr = new FileReader();
@@ -11,7 +11,9 @@ export class Packager extends EventTarget {
   constructor () {
     super();
 
-    this.projectSource = null;
+    this.vm = null;
+
+    this.target = 'html';
 
     this.turbo = false;
     this.interpolation = false;
@@ -26,15 +28,15 @@ export class Packager extends EventTarget {
   }
 
   async loadProjectById (id) {
-    const project = await downloadProject(id, {
-      progressTarget: this
-    });
-    const blob = await project.asBlob();
-    this.projectSource = blob;
+    const res = await fetch('https://projects.scratch.mit.edu/' + id);
+    const data = await res.text();
+    const vm = await this.getVirtualMachine();
+    await vm.loadProject(data);
   }
 
   async loadProjectFromFile (blob) {
-    this.projectSource = blob;
+    const vm = await this.getVirtualMachine();
+    await vm.loadProject(blob);
   }
 
   async loadResources () {
@@ -49,8 +51,31 @@ export class Packager extends EventTarget {
     this.script = texts.join('\n').replace(/<\/script>/g,"</scri'+'pt>");
   }
 
+  async getVirtualMachine () {
+    if (!this.vm) {
+      const [
+        VirtualMachine,
+        Storage
+      ] = await Promise.all([
+        import('scratch-vm'),
+        import('scratch-storage')
+      ]);
+
+      this.vm = new (VirtualMachine.default)();
+      const storage = new (Storage.default)();
+      storage.addWebStore(
+        [storage.AssetType.ImageVector, storage.AssetType.ImageBitmap, storage.AssetType.Sound],
+        (asset) => `https://assets.scratch.mit.edu/internalapi/asset/${asset.assetId}.${asset.dataFormat}/get/`
+      );
+      this.vm.attachStorage(storage);
+    }
+    this.vm.clear();
+    return this.vm;
+  }
+
   async package () {
-    return `<!DOCTYPE html>
+    const serialized = await this.vm.saveProjectSb3();
+    const html = `<!DOCTYPE html>
 <!-- -->
 <html>
 <head>
@@ -155,21 +180,24 @@ export class Packager extends EventTarget {
     const errorScreen = document.getElementById('error');
 
     const scaffolding = new Scaffolding.Scaffolding();
-
     scaffolding.width = ${JSON.stringify(this.stageWidth)};
     scaffolding.height = ${JSON.stringify(this.stageHeight)};
-
     scaffolding.setup();
     scaffolding.appendTo(appElement);
     ScaffoldingAddons.run(scaffolding);
 
     const {storage, vm} = scaffolding;
+    storage.addWebStore(
+      [storage.AssetType.ImageVector, storage.AssetType.ImageBitmap, storage.AssetType.Sound],
+      (asset) => new URL("./assets/" + asset.assetId + "." + asset.dataFormat, location).href
+    );
     const setProgress = (progress) => {
       loadingInner.style.width = progress * 100 + "%";
     }
     storage.onprogress = (total, loaded) => {
-      setProgress(0.2 + (loaded / total) * 0.8)
+      setProgress(0.2 + (loaded / total) * 0.8);
     };
+    setProgress(0.1);
 
     vm.setTurboMode(${JSON.stringify(this.turbo)});
     vm.setInterpolation(${JSON.stringify(this.interpolation)});
@@ -180,14 +208,12 @@ export class Packager extends EventTarget {
       miscLimits: ${JSON.stringify(this.miscLimits)},
       maxClones: ${JSON.stringify(this.maxClones)},
     });
-    vm.setCompilerOptions({
-
-    });
-
-    setProgress(0.1);
+    vm.setCompilerOptions({});
 
     const getProjectJSON = async () => {
-      const res = await fetch(${JSON.stringify(await readAsDataURL(this.projectSource))});
+      const res = await fetch(${JSON.stringify(
+        this.target === 'html' ? await readAsDataURL(serialized) : './assets/project.json'
+      )});
       return res.arrayBuffer();
     };
 
@@ -220,6 +246,18 @@ export class Packager extends EventTarget {
 </body>
 </html>
 `;
+    if (this.target === 'zip') {
+      const zip = await JSZip.loadAsync(serialized);
+      for (const file of Object.keys(zip.files)) {
+        zip.files[`assets/${file}`] = zip.files[file];
+        delete zip.files[file];
+      }
+      zip.file('index.html', html);
+      return zip.generateAsync({
+        type: 'blob'
+      });
+    }
+    return html;
   }
 }
 

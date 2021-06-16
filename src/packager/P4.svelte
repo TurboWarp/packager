@@ -80,8 +80,8 @@
 
   const pack = handleError(async () => {
     const result = await runPackager();
-    displayURL('project.html', result);
-    downloadURL('project.html', url.href);
+    displayURL('project.zip', result);
+    downloadURL('project.zip', url.href);
   });
 
   const preview = handleError(async () => {
@@ -211,6 +211,16 @@
     <input type="checkbox" bind:checked={addons}>
     Include gamepad addon
   </label> -->
+
+  <h2>Environment</h2>
+  <label>
+    <input type="radio" bind:group={packager.target} value="html">
+    Standalone HTML
+  </label>
+  <label>
+    <input type="radio" bind:group={packager.target} value="zip">
+    Zip
+  </label>
 
   <div>
     <button on:click={pack}>Package</button>
