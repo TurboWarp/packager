@@ -13,8 +13,6 @@ export class Packager extends EventTarget {
 
     this.vm = null;
 
-    this.target = 'html';
-
     this.turbo = false;
     this.interpolation = false;
     this.framerate = 30;
@@ -73,7 +71,9 @@ export class Packager extends EventTarget {
     return this.vm;
   }
 
-  async package () {
+  async package ({
+    target
+  }) {
     const serialized = await this.vm.saveProjectSb3();
     const html = `<!DOCTYPE html>
 <!-- -->
@@ -212,7 +212,7 @@ export class Packager extends EventTarget {
 
     const getProjectJSON = async () => {
       const res = await fetch(${JSON.stringify(
-        this.target === 'html' ? await readAsDataURL(serialized) : './assets/project.json'
+        target === 'html' ? await readAsDataURL(serialized) : './assets/project.json'
       )});
       return res.arrayBuffer();
     };
@@ -246,18 +246,24 @@ export class Packager extends EventTarget {
 </body>
 </html>
 `;
-    if (this.target === 'zip') {
+    if (target === 'zip') {
       const zip = await JSZip.loadAsync(serialized);
       for (const file of Object.keys(zip.files)) {
         zip.files[`assets/${file}`] = zip.files[file];
         delete zip.files[file];
       }
       zip.file('index.html', html);
-      return zip.generateAsync({
-        type: 'blob'
-      });
+      return {
+        contents: await zip.generateAsync({
+          type: 'blob'
+        }),
+        filename: 'project.zip'
+      };
     }
-    return html;
+    return {
+      contents: new Blob([html]),
+      filename: 'project.html'
+    };
   }
 }
 

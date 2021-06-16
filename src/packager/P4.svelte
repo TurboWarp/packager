@@ -12,6 +12,8 @@
   let progress = 0;
   let progressText = '';
 
+  let target = 'zip';
+
   packager.addEventListener('data-progress', (e) => {
     progressText = 'Downloading project';
     progress = e.detail;
@@ -30,12 +32,12 @@
     progressText = `Downloading assets (${finishedAssets}/${totalAssets})`;
   });
 
-  const displayURL = (name, blob) => {
-    const href = URL.createObjectURL(blob);
+  const displayURL = (result) => {
+    const href = URL.createObjectURL(result.contents);
     url = {
       href,
-      size: blob.size,
-      name
+      size: result.contents.size,
+      name: result.filename
     };
   };
 
@@ -60,7 +62,7 @@
     finishedAssets = 0;
   };
 
-  const runPackager = async () => {
+  const runPackager = async (options) => {
     reset();
     if (projectSource === 'id') {
       await packager.loadProjectById(projectId);
@@ -68,8 +70,8 @@
       await packager.loadProjectFromFile(projectFileList[0]);
     }
     await packager.loadResources();
-    const result = await packager.package();
-    return new Blob([result]);
+    const result = await packager.package(options);
+    return result;
   };
 
   const handleError = (fn) => () => fn()
@@ -79,14 +81,18 @@
     });
 
   const pack = handleError(async () => {
-    const result = await runPackager();
-    displayURL('project.zip', result);
-    downloadURL('project.zip', url.href);
+    const result = await runPackager({
+      target
+    });
+    displayURL(result);
+    downloadURL(result.filename, url.href);
   });
 
   const preview = handleError(async () => {
-    const result = await runPackager();
-    displayURL('project.html', result);
+    const result = await runPackager({
+      target: 'html'
+    });
+    displayURL(result);
     window.open(url.href);
   });
 </script>
@@ -214,11 +220,11 @@
 
   <h2>Environment</h2>
   <label>
-    <input type="radio" bind:group={packager.target} value="html">
+    <input type="radio" bind:group={target} value="html">
     Standalone HTML
   </label>
   <label>
-    <input type="radio" bind:group={packager.target} value="zip">
+    <input type="radio" bind:group={target} value="zip">
     Zip
   </label>
 
