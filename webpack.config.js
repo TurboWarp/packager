@@ -75,5 +75,6 @@ module.exports = {
   ],
   devServer: {
     contentBase: './dist/',
+    host: '0.0.0.0'
   },
 };
