@@ -75,6 +75,8 @@ module.exports = {
   ],
   devServer: {
     contentBase: './dist/',
+    compress: true,
+    overlay: true,
     host: '0.0.0.0'
   },
 };
