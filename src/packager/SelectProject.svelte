@@ -13,19 +13,16 @@
   });
 
   const load = withErrorHandling(async () => {
-    const [
+    const {
       VirtualMachine,
       Storage
-    ] = await Promise.all([
-      import('scratch-vm'),
-      import('scratch-storage')
-    ]);
+    } = await import(/* webpackChunkName: "scratch" */'./large-scratch-packages');
 
     projectData = null;
 
-    let vm = new (VirtualMachine.default)();
+    let vm = new VirtualMachine();
 
-    class StorageWithProgress extends Storage.default {
+    class StorageWithProgress extends Storage {
       constructor (...args) {
         super(...args);
         this.totalAssets = 0;
