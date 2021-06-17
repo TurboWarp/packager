@@ -2,6 +2,7 @@
   import ProjectPackager from './packager';
   import SelectProject from './SelectProject.svelte';
   import PackagerOptions from './PackagerOptions.svelte';
+  import {error} from './stores';
 
   let packager = new ProjectPackager();
   let projectData;
@@ -13,6 +14,14 @@
 
   $: if (projectData) {
     packager.vm = projectData.vm;
+  } else {
+    packager.vm = null;
+  }
+
+  $: if ($error) {
+    console.error($error);
+    alert($error);
+    $error = null;
   }
 </script>
 

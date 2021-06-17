@@ -1,5 +1,6 @@
 <script>
   import writablePersistentStore from './persistent-store';
+  import {error} from './stores';
 
   export let projectData = null
   export let progress;
@@ -7,7 +8,11 @@
   const projectId = writablePersistentStore('SelectProject.id', '1');
   let files = null;
 
-  const load = async () => {
+  const withErrorHandling = (fn) => () => fn().catch((e) => {
+    $error = e
+  });
+
+  const load = withErrorHandling(async () => {
     const [
       VirtualMachine,
       Storage
@@ -69,7 +74,7 @@
       await vm.loadProject(data);
     }
     projectData = newProjectData
-  };
+  });
 </script>
 
 <style>

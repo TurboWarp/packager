@@ -1,6 +1,7 @@
 <script>
   import ProjectPackager from './packager';
   import writablePersistentStore from './persistent-store';
+  import {error} from './stores';
 
   export let projectData;
   export let packager;
@@ -30,17 +31,21 @@
     url = URL.createObjectURL(result.blob);
   };
 
-  const pack = async () => {
+  const withErrorHandling = (fn) => () => fn().catch((e) => {
+    $error = e
+  });
+
+  const pack = withErrorHandling(async () => {
     await runPackager(packager.child());
     downloadURL(result.filename, url);
-  };
+  });
 
-  const preview = async () => {
+  const preview = withErrorHandling(async () => {
     const child = packager.child();
     child.options.target = 'html';
     await runPackager(child);
     window.open(url);
-  };
+  });
 </script>
 
 <style>
@@ -123,7 +128,7 @@
 </label>
 <label>
   <input type="radio" bind:group={$options.target} value="zip">
-  Zip
+  Zip (each asset gets separate file)
 </label>
 
 <div>
