@@ -138,7 +138,7 @@
 </label> -->
 
 <h2>Cloud Variables</h2>
-{#if cloudVariables}
+{#if cloudVariables.length > 0}
   <div>
     <select bind:value={$options.cloudVariables.mode}>
       {#if canUseCloudVariableServer}
