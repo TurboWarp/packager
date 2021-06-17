@@ -52,6 +52,7 @@
       }
       result = null;
       url = null;
+
       result = await packager.package();
       url = URL.createObjectURL(result.blob);
     } catch (e) {
@@ -70,7 +71,11 @@
     const child = packager.child();
     child.options.target = 'html';
     await runPackager(child);
-    preview.setContent(result.blob);
+    if (result) {
+      preview.setContent(result.blob);
+    } else {
+      preview.close();
+    }
   };
 </script>
 
