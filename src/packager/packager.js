@@ -1,6 +1,6 @@
 import JSZip from 'jszip';
 
-const readAsDataURL = (buffer) => new Promise((resolve, reject) => {
+const readAsURL = (buffer) => new Promise((resolve, reject) => {
   const fr = new FileReader();
   fr.onload = () => resolve(fr.result);
   fr.onerror = () => reject(new Error('Cannot read as URL'));
@@ -10,31 +10,15 @@ const readAsDataURL = (buffer) => new Promise((resolve, reject) => {
 export class Packager extends EventTarget {
   constructor () {
     super();
-
     this.vm = null;
-
-    this.turbo = false;
-    this.interpolation = false;
-    this.framerate = 30;
-    this.highQualityPen = false;
-    this.maxClones = 300;
-    this.fencing = true;
-    this.miscLimits = true;
-    this.stageWidth = 480;
-    this.stageHeight = 360;
-    this.autoplay = false;
+    this.options = Packager.DEFAULT_OPTIONS();
   }
 
-  async loadProjectById (id) {
-    const res = await fetch('https://projects.scratch.mit.edu/' + id);
-    const data = await res.text();
-    const vm = await this.getVirtualMachine();
-    await vm.loadProject(data);
-  }
-
-  async loadProjectFromFile (blob) {
-    const vm = await this.getVirtualMachine();
-    await vm.loadProject(blob);
+  child () {
+    const packager = new Packager();
+    packager.options = Object.assign({}, this.options);
+    packager.vm = this.vm;
+    return packager;
   }
 
   async loadResources () {
@@ -49,31 +33,8 @@ export class Packager extends EventTarget {
     this.script = texts.join('\n').replace(/<\/script>/g,"</scri'+'pt>");
   }
 
-  async getVirtualMachine () {
-    if (!this.vm) {
-      const [
-        VirtualMachine,
-        Storage
-      ] = await Promise.all([
-        import('scratch-vm'),
-        import('scratch-storage')
-      ]);
-
-      this.vm = new (VirtualMachine.default)();
-      const storage = new (Storage.default)();
-      storage.addWebStore(
-        [storage.AssetType.ImageVector, storage.AssetType.ImageBitmap, storage.AssetType.Sound],
-        (asset) => `https://assets.scratch.mit.edu/internalapi/asset/${asset.assetId}.${asset.dataFormat}/get/`
-      );
-      this.vm.attachStorage(storage);
-    }
-    this.vm.clear();
-    return this.vm;
-  }
-
-  async package ({
-    target
-  }) {
+  async package () {
+    await this.loadResources();
     const serialized = await this.vm.saveProjectSb3();
     const html = `<!DOCTYPE html>
 <!-- -->
@@ -180,8 +141,8 @@ export class Packager extends EventTarget {
     const errorScreen = document.getElementById('error');
 
     const scaffolding = new Scaffolding.Scaffolding();
-    scaffolding.width = ${JSON.stringify(this.stageWidth)};
-    scaffolding.height = ${JSON.stringify(this.stageHeight)};
+    scaffolding.width = ${this.options.stageWidth};
+    scaffolding.height = ${this.options.stageHeight};
     scaffolding.setup();
     scaffolding.appendTo(appElement);
     ScaffoldingAddons.run(scaffolding);
@@ -199,20 +160,20 @@ export class Packager extends EventTarget {
     };
     setProgress(0.1);
 
-    vm.setTurboMode(${JSON.stringify(this.turbo)});
-    vm.setInterpolation(${JSON.stringify(this.interpolation)});
-    vm.setFramerate(${JSON.stringify(this.framerate)});
-    vm.renderer.setUseHighQualityRender(${JSON.stringify(this.highQualityPen)});
+    vm.setTurboMode(${this.options.turbo});
+    vm.setInterpolation(${this.options.interpolation});
+    vm.setFramerate(${this.options.framerate});
+    vm.renderer.setUseHighQualityRender(${this.options.highQualityPen});
     vm.setRuntimeOptions({
-      fencing: ${JSON.stringify(this.fencing)},
-      miscLimits: ${JSON.stringify(this.miscLimits)},
-      maxClones: ${JSON.stringify(this.maxClones)},
+      fencing: ${this.options.fencing},
+      miscLimits: ${this.options.miscLimits},
+      maxClones: ${this.options.maxClones},
     });
     vm.setCompilerOptions({});
 
     const getProjectJSON = async () => {
       const res = await fetch(${JSON.stringify(
-        target === 'html' ? await readAsDataURL(serialized) : './assets/project.json'
+        this.options.target === 'html' ? await readAsURL(serialized) : './assets/project.json'
       )});
       return res.arrayBuffer();
     };
@@ -223,7 +184,7 @@ export class Packager extends EventTarget {
       await scaffolding.loadProject(projectJSON);
       setProgress(1);
       loadingScreen.hidden = true;
-      if (${JSON.stringify(this.autoplay)}) {
+      if (${this.options.autoplay}) {
         scaffolding.start();        
       } else {
         launchScreen.hidden = false;
@@ -246,7 +207,7 @@ export class Packager extends EventTarget {
 </body>
 </html>
 `;
-    if (target === 'zip') {
+    if (this.options.target === 'zip') {
       const zip = await JSZip.loadAsync(serialized);
       for (const file of Object.keys(zip.files)) {
         zip.files[`assets/${file}`] = zip.files[file];
@@ -254,17 +215,31 @@ export class Packager extends EventTarget {
       }
       zip.file('index.html', html);
       return {
-        contents: await zip.generateAsync({
+        blob: await zip.generateAsync({
           type: 'blob'
         }),
         filename: 'project.zip'
       };
     }
     return {
-      contents: new Blob([html]),
+      blob: new Blob([html]),
       filename: 'project.html'
     };
   }
 }
+
+Packager.DEFAULT_OPTIONS = () => ({
+  turbo: false,
+  interpolation: false,
+  framerate: 30,
+  highQualityPen: false,
+  maxClones: 300,
+  fencing: true,
+  miscLimits: true,
+  stageWidth: 480,
+  stageHeight: 360,
+  autoplay: false,
+  target: 'html'
+});
 
 export default Packager;
