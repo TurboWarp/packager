@@ -44,7 +44,7 @@
     <li>Things like monitors, ask prompts, etc. might look a bit different, we're working on it</li>
     <li>If you have an idea to make this website look nice, please let us know</li>
     <li>We want to know what customizations people are lookinng for</li>
-    <li>Includes the "gamepad support" addon from TurboWarp and other third-party Scratch tools</li>
+    <li>Option to include the "gamepad support" addon from TurboWarp and other third-party Scratch tools</li>
   </ul>
 
   <h2>Choose Project</h2>

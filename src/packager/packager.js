@@ -22,10 +22,13 @@ export class Packager extends EventTarget {
   }
 
   async loadResources () {
-    const requests = await Promise.all([
-      fetch('scaffolding.js'),
-      fetch('addons.js')
-    ]);
+    const chunks = [
+      fetch('scaffolding.js')
+    ];
+    if (this.options.chunks.gamepad) {
+      chunks.push(fetch('addons.js'))
+    }
+    const requests = await Promise.all(chunks);
     if (!requests.every(i => i.ok)) {
       throw new Error('Resource loading failed');
     }
@@ -145,7 +148,8 @@ export class Packager extends EventTarget {
     scaffolding.height = ${this.options.stageHeight};
     scaffolding.setup();
     scaffolding.appendTo(appElement);
-    ScaffoldingAddons.run(scaffolding);
+
+    if (typeof ScaffoldingAddons !== "undefined") ScaffoldingAddons.run(scaffolding);
 
     const {storage, vm} = scaffolding;
     storage.addWebStore(
@@ -241,7 +245,10 @@ Packager.DEFAULT_OPTIONS = () => ({
   stageWidth: 480,
   stageHeight: 360,
   autoplay: false,
-  target: 'html'
+  target: 'html',
+  chunks: {
+    gamepad: false
+  }
 });
 
 export default Packager;

@@ -121,6 +121,12 @@
   Text Color
 </label> -->
 
+<h2>Addons</h2>
+<label>
+  <input type="checkbox" bind:checked={$options.chunks.gamepad}>
+  Gamepad support
+</label>
+
 <h2>Environment</h2>
 <label>
   <input type="radio" bind:group={$options.target} value="html">
