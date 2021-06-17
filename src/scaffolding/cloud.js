@@ -75,7 +75,7 @@ class CloudManager {
   }
 }
 
-class WebSocketProvider  {
+class WebSocketProvider {
   constructor(cloudHost, projectId) {
     this.cloudHost = cloudHost;
     this.projectId = projectId;
