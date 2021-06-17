@@ -73,7 +73,9 @@
       };
       if ($type === 'id') {
         const match = $projectId.match(/\d+/);
-        if (!match) throw new Error('no project selected');
+        if (!match) {
+          throw new Error('Invalid project ID');
+        }
         const id = match[0];
         newProjectData.uniqueId = `#${id}`;
         newProjectData.projectId = id;
@@ -81,6 +83,9 @@
         const data = await res.arrayBuffer();
         await vm.loadProject(data);
       } else {
+        if (!files) {
+          throw new Error('No file selected');
+        }
         const file = files[0];
         newProjectData.projectId = null;
         newProjectData.uniqueId = `@${file.name}`;
