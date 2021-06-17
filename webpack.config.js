@@ -77,6 +77,7 @@ module.exports = {
     contentBase: './dist/',
     compress: true,
     overlay: true,
+    inline: false,
     host: '0.0.0.0'
   },
 };
