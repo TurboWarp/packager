@@ -12,9 +12,11 @@ const writablePersistentStore = (key, value) => {
       }
     }
   }
-  const store = writable(localValue || value);
-  store.subscribe((value) => {
-    localStorage.setItem(key, JSON.stringify(value));
+  const store = writable(localValue || value, () => {
+    const unsubscribe = store.subscribe(value => {
+      localStorage.setItem(key, JSON.stringify(value));
+    });
+    return unsubscribe;
   });
   return store;
 };
