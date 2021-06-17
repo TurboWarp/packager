@@ -22,6 +22,8 @@
 
     let vm = new VirtualMachine();
 
+    vm.extensionManager.loadExtensionURL = () => Promise.resolve();
+
     class StorageWithProgress extends Storage {
       constructor (...args) {
         super(...args);
