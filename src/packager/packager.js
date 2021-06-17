@@ -75,6 +75,7 @@ export class Packager extends EventTarget {
 <head>
   <meta charset="utf8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' 'unsafe-eval' data: blob:; connect-src * data: blob:">
   <title>Packaged Project</title>
   <style>
     body {
