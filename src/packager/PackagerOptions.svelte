@@ -8,21 +8,20 @@
   const packager = new ProjectPackager();
   packager.vm = projectData.vm;
 
-  let cloudVariables = Object.values(projectData.vm.runtime.getTargetForStage().variables)
+  const cloudVariables = Object.values(projectData.vm.runtime.getTargetForStage().variables)
     .filter(i => i.isCloud)
     .map(i => i.name);
   const canUseCloudVariableServer = !!projectData.projectId;
 
-  const defaultOptions = ProjectPackager.DEFAULT_OPTIONS();
-  defaultOptions.projectId = projectData.projectId;
+  packager.options.projectId = projectData.projectId;
   if (!canUseCloudVariableServer) {
-    defaultOptions.cloudVariables.mode = 'local';
+    packager.options.cloudVariables.mode = 'local';
   }
   for (const variable of cloudVariables) {
-    defaultOptions.cloudVariables.custom[variable] = canUseCloudVariableServer ? 'ws' : 'local';
+    packager.options.cloudVariables.custom[variable] = canUseCloudVariableServer ? 'ws' : 'local';
   }
 
-  const options = writablePersistentStore(`PackagerOptions.${projectData.uniqueId}`, defaultOptions);
+  const options = writablePersistentStore(`PackagerOptions.${projectData.uniqueId}`, packager.options);
   $: packager.options = $options;
 
   let result = null;
