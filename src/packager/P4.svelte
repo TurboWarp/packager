@@ -40,8 +40,9 @@
   }
   main {
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-    max-width: 700px;
-    margin: auto;
+  }
+  footer {
+    text-align: center;
   }
   .new-outer {
     display: flex;
@@ -85,4 +86,10 @@
       <PackagerOptions projectData={projectData} />
     </div>
   {/if}
+
+  <footer>
+    <a href="https://scratch.mit.edu/users/GarboMuffin/#comments">Feedback & Bugs</a>
+    -
+    <a href="https://github.com/TurboWarp/p4">Source Code (LGPL3.0)</a>
+  </footer>
 </main>
