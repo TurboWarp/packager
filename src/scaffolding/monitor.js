@@ -244,7 +244,7 @@ class ListMonitor extends Monitor {
 
     this.rowsInner = document.createElement('div');
     this.rowsInner.className = styles.monitorRowsInner;
-    this.rowsInner.addEventListener('scroll', this._onscroll.bind(this));
+    this.rowsInner.addEventListener('scroll', this._onscroll.bind(this), {passive: true});
 
     this.endPoint = document.createElement('div');
     this.endPoint.className = styles.monitorRowsEndpoint;
