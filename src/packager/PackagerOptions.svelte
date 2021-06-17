@@ -1,5 +1,6 @@
 <script>
   import Section from './Section.svelte';
+  import Progress from './Progress.svelte';
   import ProjectPackager from './packager';
   import writablePersistentStore from './persistent-store';
   import {error} from './stores';
@@ -27,6 +28,9 @@
 
   let result = null;
   let url = null;
+  let progressVisible = false;
+  let progress = 0;
+  let progressText = '';
 
   const downloadURL = (filename, url) => {
     const link = document.createElement('a');
@@ -38,30 +42,35 @@
   };
 
   const runPackager = async (packager) => {
-    if (url) {
-      URL.revokeObjectURL(url);
+    try {
+      progressVisible = true;
+      progressText = 'Loading';
+      progress = 0;
+      if (url) {
+        URL.revokeObjectURL(url);
+      }
+      result = null;
+      url = null;
+      result = await packager.package();
+      url = URL.createObjectURL(result.blob);
+    } catch (e) {
+      $error = e;
     }
-    result = null;
-    url = null;
-    result = await packager.package();
-    url = URL.createObjectURL(result.blob);
+    progressVisible = false;
   };
 
-  const withErrorHandling = (fn) => () => fn().catch((e) => {
-    $error = e
-  });
-
-  const pack = withErrorHandling(async () => {
+  const pack = async () => {
     await runPackager(packager.child());
     downloadURL(result.filename, url);
-  });
+  };
 
-  const preview = withErrorHandling(async () => {
+  const preview = async () => {
     const child = packager.child();
     child.options.target = 'html';
     await runPackager(child);
     window.open(url);
-  });
+    // const w = window.open()
+  };
 </script>
 
 <style>
@@ -208,6 +217,10 @@
     <div class="downloads">
       <a href={url} download={result.filename}>Download {result.filename} ({(result.blob.size / 1024 / 1024).toFixed(2)}MiB)</a>
     </div>
+  </Section>
+{:else if progressVisible}
+  <Section>
+    <Progress progress={progress} text={progressText} />
   </Section>
 {:else}
   <Section caption>
