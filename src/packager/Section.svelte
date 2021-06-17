@@ -1,9 +1,11 @@
 <script>
   export let caption = false;
+  export let modal = false;
 </script>
 
 <style>
   .card {
+    width: 100%;
     max-width: 600px;
     margin: auto;
     border-radius: 0.3em;
@@ -20,9 +22,12 @@
     text-align: center;
     font-style: italic;
   }
+  .modal {
+    max-width: 400px;
+  }
 </style>
 
-<div class="card" class:caption>
+<div class="card" class:caption class:modal>
   <div>
     <slot></slot>
   </div>

@@ -19,9 +19,16 @@
 
   $: if ($error) {
     console.error($error);
-    alert($error);
-    $error = null;
   }
+
+  const closeModal = () => {
+    $error = null;
+  };
+  const onKeyDown = (e) => {
+    if (e.key === 'Escape') {
+      closeModal();
+    }
+  };
 </script>
 
 <style>
@@ -58,7 +65,20 @@
     background: #b117f8;
     border-color: #6f0073;
   }
+  .modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.75);
+  }
 </style>
+
+<svelte:window on:keydown={onKeyDown} />
 
 <main>
   <Section>
@@ -85,6 +105,19 @@
   {#if projectData}
     <div in:fade>
       <PackagerOptions projectData={projectData} />
+    </div>
+  {/if}
+
+  {#if $error}
+    <div class="modal" on:click|self={closeModal} on:key>
+      <Section modal>
+        <h2>Error</h2>
+        <p>Message: {$error}</p>
+        <p>
+          <button on:click={closeModal}>Close</button>
+          <a href="https://scratch.mit.edu/users/GarboMuffin/#comments">Report bug</a>
+        </p>
+      </Section>
     </div>
   {/if}
 

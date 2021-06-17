@@ -92,6 +92,10 @@ class Preview {
       blob: content
     }, location.origin);
   }
+
+  close () {
+    this.window.close();
+  }
 }
 
 window.addEventListener('message', (e) => {
