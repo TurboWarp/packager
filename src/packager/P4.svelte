@@ -36,6 +36,9 @@
 <main>
   <h1>TurboWarp Packager 4.0 staging</h1>
 
+  <p>Converts Scratch projects into standalone files.</p>
+  <p>If you just want to embed a TurboWarp project into your website, see <a href="https://github.com/TurboWarp/scratch-gui/wiki/Embedding">Embedding</a> instead.</p>
+
   <p>We're rewriting the packager to make it faster, more customizable, and more maintainable. Noteworthy changes:</p>
   <ul>
     <li>Packaged projects are significantly smaller and run slightly faster</li>
