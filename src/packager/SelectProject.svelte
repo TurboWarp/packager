@@ -3,7 +3,6 @@
   import {error} from './stores';
 
   export let projectData = null;
-  export let progress;
   const type = writablePersistentStore('SelectProject.type', 'id');
   const projectId = writablePersistentStore('SelectProject.id', '1');
   let files = null;
@@ -38,14 +37,14 @@
       }
       load (...args) {
         this.totalAssets++;
-        progress.text = `Downloading assets (${this.loadedAssets}/${this.totalAssets})`;
-        progress.visible = true
-        progress.value = this.loadedAssets / this.totalAssets;
+        // progress.text = `Downloading assets (${this.loadedAssets}/${this.totalAssets})`;
+        // progress.visible = true
+        // progress.value = this.loadedAssets / this.totalAssets;
         return super.load(...args)
           .then((r) => {
             this.loadedAssets++;
-            progress.text = `Downloading assets (${this.loadedAssets}/${this.totalAssets})`;
-            progress.value = this.loadedAssets / this.totalAssets;
+            // progress.text = `Downloading assets (${this.loadedAssets}/${this.totalAssets})`;
+            // progress.value = this.loadedAssets / this.totalAssets;
             return r;
           });
       }

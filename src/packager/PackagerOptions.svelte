@@ -4,7 +4,9 @@
   import {error} from './stores';
 
   export let projectData;
-  export let packager;
+
+  const packager = new ProjectPackager();
+  packager.vm = projectData.vm;
 
   let cloudVariables = Object.values(projectData.vm.runtime.getTargetForStage().variables)
     .filter(i => i.isCloud)
