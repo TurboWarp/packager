@@ -1,18 +1,13 @@
 import {writable} from 'svelte/store';
+import merge from './lib/merge';
 
-const writablePersistentStore = (key, value) => {
+const writablePersistentStore = (key, defaultValue) => {
+  let value = defaultValue;
   const localValue = JSON.parse(localStorage.getItem(key));
   if (localValue) {
-    // Copy missing properties
-    if (typeof value === 'object') {
-      for (const key of Object.keys(value)) {
-        if (typeof localValue[key] === 'undefined') {
-          localValue[key] = value[key];
-        }
-      }
-    }
+    value = merge(localValue, defaultValue);
   }
-  const store = writable(localValue || value, () => {
+  const store = writable(value, () => {
     const unsubscribe = store.subscribe(value => {
       localStorage.setItem(key, JSON.stringify(value));
     });
