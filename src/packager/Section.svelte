@@ -13,6 +13,9 @@
     margin-bottom: 1.2em;
     box-shadow: 0 2px 0.5em 0.1em rgba(0, 0, 0, 0.2);
   }
+  :global([theme="dark"]) .card {
+    background: #222;
+  }
   .caption {
     text-align: center;
     font-style: italic;

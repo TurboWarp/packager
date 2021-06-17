@@ -7,6 +7,15 @@
 
   let projectData;
 
+  const darkMedia = window.matchMedia('(prefers-color-scheme: dark)');
+  let theme = darkMedia.matches ? 'dark' : 'light';
+  if (darkMedia.addEventListener) {
+    darkMedia.addEventListener('change', () => {
+      theme = darkMedia.matches ? 'dark' : 'light';
+    });
+  }
+  $: document.body.setAttribute('theme', theme);
+
   $: if ($error) {
     console.error($error);
     alert($error);
@@ -15,6 +24,20 @@
 </script>
 
 <style>
+  :global([theme="dark"]) {
+    background: #111;
+    color: #eee;
+    color-scheme: dark;
+  }
+  :global(a) {
+    color: blue;
+  }
+  :global(a:active) {
+    color: red;
+  }
+  :global([theme="dark"]) :global(a) {
+    color: #4af;
+  }
   main {
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     max-width: 700px;
