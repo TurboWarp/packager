@@ -71,9 +71,12 @@
         vm
       };
       if ($type === 'id') {
-        newProjectData.uniqueId = `#${$projectId}`;
-        newProjectData.projectId = $projectId;
-        const res = await fetch('https://projects.scratch.mit.edu/' + $projectId);
+        const match = $projectId.match(/\d+/);
+        if (!match) throw new Error('no project selected');
+        const id = match[0];
+        newProjectData.uniqueId = `#${id}`;
+        newProjectData.projectId = id;
+        const res = await fetch('https://projects.scratch.mit.edu/' + id);
         const data = await res.arrayBuffer();
         await vm.loadProject(data);
       } else {
