@@ -4,6 +4,7 @@
   import ProjectPackager from './packager';
   import writablePersistentStore from './persistent-store';
   import {error} from './stores';
+  import Preview from './preview';
 
   export let projectData;
 
@@ -65,11 +66,11 @@
   };
 
   const preview = async () => {
+    const preview = new Preview();
     const child = packager.child();
     child.options.target = 'html';
     await runPackager(child);
-    window.open(url);
-    // const w = window.open()
+    preview.setContent(result.blob);
   };
 </script>
 
