@@ -5,7 +5,6 @@
 
 <style>
   .card {
-    width: 100%;
     max-width: 600px;
     margin: auto;
     border-radius: 0.3em;
@@ -23,6 +22,7 @@
     font-style: italic;
   }
   .modal {
+    width: 100%;
     max-width: 400px;
   }
 </style>
