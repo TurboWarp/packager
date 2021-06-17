@@ -1,4 +1,6 @@
 <script>
+  import {fade} from 'svelte/transition';
+  import Section from './Section.svelte';
   import SelectProject from './SelectProject.svelte';
   import PackagerOptions from './PackagerOptions.svelte';
   import {error} from './stores';
@@ -18,29 +20,46 @@
     max-width: 700px;
     margin: auto;
   }
+  .new-outer {
+    display: flex;
+    align-items: center;
+  }
+  .new {
+    border-radius: 4px;
+    border-bottom: 2px solid #111;
+    padding: 1px 5px;
+    margin-right: 4px;
+    color: white;
+    background: #b117f8;
+    border-color: #6f0073;
+  }
 </style>
 
 <main>
-  <h1>TurboWarp Packager 4.0 staging</h1>
+  <Section>
+    <h1>TurboWarp Packager</h1>
+    <p>Converts Scratch projects into standalone files.</p>
+    <p>If you just want to embed a TurboWarp project into your website, see <a href="https://github.com/TurboWarp/scratch-gui/wiki/Embedding">Embedding</a> instead.</p>
+  </Section>
 
-  <p>Converts Scratch projects into standalone files.</p>
-  <p>If you just want to embed a TurboWarp project into your website, see <a href="https://github.com/TurboWarp/scratch-gui/wiki/Embedding">Embedding</a> instead.</p>
+  <Section>
+    <p class="new-outer"><span class="new">New!</span> We've made a major update to the packager. Here's the highlights:</p>
+    <ul>
+      <li>Packaged projects are smaller and faster</li>
+      <li>Complete redesign of packaged projects, including a brand new loading screen</li>
+      <li>Packaged projects are easy to edit (just simple HTML)</li>
+      <li>Added option to include the "gamepad support" addon from TurboWarp</li>
+      <li>Variable monitors and ask prompts might look a bit different, we're working on it</li>
+      <li>A lot of things that were previously difficult are now trivial -- let us know what features and customizations you're looking for.</li>
+    </ul>
+    <p>The <a href="TODO">old version</a> can still be used indefinitely, but it will not be receiving updates.</p>
+  </Section>
 
-  <p>We're rewriting the packager to make it faster, more customizable, and more maintainable. Noteworthy changes:</p>
-  <ul>
-    <li>Packaged projects are significantly smaller and run slightly faster</li>
-    <li>Complete redesign of packaged projects</li>
-    <li>HTML is easy to edit</li>
-    <li>Things like monitors, ask prompts, etc. might look a bit different, we're working on it</li>
-    <li>If you have an idea to make this website look nice, please let us know</li>
-    <li>We want to know what customizations people are lookinng for</li>
-    <li>Option to include the "gamepad support" addon from TurboWarp and other third-party Scratch tools</li>
-  </ul>
-
-  <h2>Choose Project</h2>
   <SelectProject bind:projectData />
 
   {#if projectData}
-    <PackagerOptions projectData={projectData} />
+    <div in:fade>
+      <PackagerOptions projectData={projectData} />
+    </div>
   {/if}
 </main>

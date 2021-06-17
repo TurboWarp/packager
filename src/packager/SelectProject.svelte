@@ -1,4 +1,5 @@
 <script>
+  import Section from './Section.svelte';
   import Progress from './Progress.svelte';
   import writablePersistentStore from './persistent-store';
   import {error} from './stores';
@@ -99,29 +100,39 @@
 
 </style>
 
-<div>
-  <label>
-    <input type="radio" bind:group={$type} value="id">
-    Project ID or URL
-  </label>
-  {#if $type === "id"}
-    <input type="text" bind:value={$projectId}>
-  {/if}
-</div>
-<div>
-  <label>
-    <input type="radio" bind:group={$type} value="file">
-    File
-  </label>
-  {#if $type === "file"}
-    <input bind:files={files} type="file" accept=".sb,.sb2,.sb3">
-  {/if}
-</div>
-
-<div>
-  <button on:click={load} disabled={progressVisible}>Load Project</button>
-</div>
+<Section>
+  <h2>Choose Project</h2>
+  
+  <div>
+    <label>
+      <input type="radio" bind:group={$type} value="id">
+      Project ID or URL
+    </label>
+    {#if $type === "id"}
+      <input type="text" bind:value={$projectId}>
+    {/if}
+  </div>
+  <div>
+    <label>
+      <input type="radio" bind:group={$type} value="file">
+      File
+    </label>
+    {#if $type === "file"}
+      <input bind:files={files} type="file" accept=".sb,.sb2,.sb3">
+    {/if}
+  </div>
+  
+  <div>
+    <button on:click={load} disabled={progressVisible}>Load Project</button>
+  </div>
+</Section>
 
 {#if progressVisible}
-  <Progress progress={progress} text={progressText} />
+  <Section>
+    <Progress progress={progress} text={progressText} />
+  </Section>
+{:else if !projectData}
+  <Section caption>
+    <p>Load a project to continue</p>
+  </Section>
 {/if}
