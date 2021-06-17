@@ -257,6 +257,15 @@ class ListMonitor extends Monitor {
   }
 
   _onscroll (e) {
+    // If the list monitor is selected, we'll unselect it because the selection won't work properly.
+    if (window.getSelection) {
+      const selection = getSelection();
+      if (selection && (this.rowsInner.contains(selection.anchorNode) || this.rowsInner.contains(selection.focusNode))) {
+        if (selection.empty) {
+          selection.empty();
+        }
+      }
+    }
     this.scrollTop = e.target.scrollTop;
     this.updateValue(this.value);
   }
