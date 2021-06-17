@@ -222,7 +222,9 @@ export class Packager extends EventTarget {
       };
     }
     return {
-      blob: new Blob([html]),
+      blob: new Blob([html], {
+        type: 'text/html'
+      }),
       filename: 'project.html'
     };
   }
