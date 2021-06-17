@@ -5,7 +5,6 @@
 <style>
   .card {
     max-width: 600px;
-    min-height: 60px;
     margin: auto;
     border-radius: 0.3em;
     background-color: #fff;

@@ -37,7 +37,7 @@
       const {
         VirtualMachine,
         Storage
-      } = await import(/* webpackChunkName: "scratch" */ './large-scratch-packages');
+      } = await import(/* webpackChunkName: "large" */ './large-dependencies');
 
       progressText = 'Loading project';
       let vm = new VirtualMachine();

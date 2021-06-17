@@ -1,11 +1,14 @@
-import JSZip from 'jszip';
-
 const readAsURL = (buffer) => new Promise((resolve, reject) => {
   const fr = new FileReader();
   fr.onload = () => resolve(fr.result);
   fr.onerror = () => reject(new Error('Cannot read as URL'));
   fr.readAsDataURL(buffer);
 });
+
+const getJSZip = async () => {
+  const {JSZip} = await import('./large-dependencies');
+  return JSZip;
+};
 
 export class Packager extends EventTarget {
   constructor () {
@@ -250,7 +253,7 @@ export class Packager extends EventTarget {
 </html>
 `;
     if (this.options.target === 'zip') {
-      const zip = await JSZip.loadAsync(serialized);
+      const zip = await (await getJSZip()).loadAsync(serialized);
       for (const file of Object.keys(zip.files)) {
         zip.files[`assets/${file}`] = zip.files[file];
         delete zip.files[file];
