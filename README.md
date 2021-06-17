@@ -18,3 +18,5 @@ Setup:
 npm ci
 npm start
 ```
+
+License: GNU Lesser General Public License version 3
