@@ -288,6 +288,10 @@ class Scaffolding {
     this.cloudManager.addProvider(provider);
   }
 
+  addCloudProviderOverride (name, provider) {
+    this.cloudManager.addProviderOverride(name, provider);
+  }
+
   start () {
     this.vm.start();
     this.vm.greenFlag();

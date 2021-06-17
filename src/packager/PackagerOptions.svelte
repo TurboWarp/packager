@@ -6,7 +6,21 @@
   export let projectData;
   export let packager;
 
-  const options = writablePersistentStore(`PackagerOptions.${projectData.uniqueId}`, ProjectPackager.DEFAULT_OPTIONS());
+  let cloudVariables = Object.values(projectData.vm.runtime.getTargetForStage().variables)
+    .filter(i => i.isCloud)
+    .map(i => i.name);
+  const canUseCloudVariableServer = !!projectData.projectId;
+
+  const defaultOptions = ProjectPackager.DEFAULT_OPTIONS();
+  defaultOptions.projectId = projectData.projectId;
+  if (!canUseCloudVariableServer) {
+    defaultOptions.cloudVariables.mode = 'local';
+  }
+  for (const variable of cloudVariables) {
+    defaultOptions.cloudVariables.custom[variable] = canUseCloudVariableServer ? 'ws' : 'local';
+  }
+
+  const options = writablePersistentStore(`PackagerOptions.${projectData.uniqueId}`, defaultOptions);
   $: packager.options = $options;
 
   let result = null;
@@ -120,6 +134,40 @@
   <input type="color" bind:value={textColor}>
   Text Color
 </label> -->
+
+<h2>Cloud Variables</h2>
+{#if cloudVariables}
+  <div>
+    <select bind:value={$options.cloudVariables.mode}>
+      {#if canUseCloudVariableServer}
+        <option value="ws">Cloud variable server</option>
+      {:else}
+        <option disabled>Can not use cloud variable server on this project</option>
+      {/if}
+      <option value="local">Local Storage</option>
+      <option value="custom">Custom</option>
+      <option value="">Ignore</option>
+    </select>
+  </div>
+  {#if $options.cloudVariables.mode === "custom"}
+    {#each cloudVariables as variable}
+      <div>
+        <select bind:value={$options.cloudVariables.custom[variable]}>
+          {#if canUseCloudVariableServer}
+            <option value="ws">Cloud variable server</option>
+          {:else}
+            <option disabled>Can not use cloud variable server on this project</option>
+          {/if}
+          <option value="local">Local Storage</option>
+          <option value="">Ignore</option>
+        </select>
+        {variable}
+      </div>
+    {/each}
+  {/if}
+{:else}
+  <p>This project does not contain cloud variables.</p>
+{/if}
 
 <h2>Addons</h2>
 <label>

@@ -2,6 +2,7 @@ class CloudManager {
   constructor (parent) {
     this.parent = parent;
     this.providers = [];
+    this.overrides = new Map();
   }
 
   hasCloudData () {
@@ -53,14 +54,28 @@ class CloudManager {
     // no-op
   }
 
+  addProviderOverride (name, provider) {
+    if (provider && !this.providers.includes(provider)) {
+      throw new Error('Manager is not aware of this provider');
+    }
+    this.overrides.set(name, provider);
+  }
+
   updateVariable (name, value) {
+    if (this.overrides.has(name)) {
+      const provider = this.overrides.get(name);
+      if (provider) {
+        provider.handleUpdateVariable(name, value);
+      }
+      return;
+    }
     for (const provider of this.providers) {
       provider.handleUpdateVariable(name, value);
     }
   }
 }
 
-class WebSocketProvider {
+class WebSocketProvider  {
   constructor(cloudHost, projectId) {
     this.cloudHost = cloudHost;
     this.projectId = projectId;

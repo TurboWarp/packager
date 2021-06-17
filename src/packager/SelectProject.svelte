@@ -2,7 +2,7 @@
   import writablePersistentStore from './persistent-store';
   import {error} from './stores';
 
-  export let projectData = null
+  export let projectData = null;
   export let progress;
   const type = writablePersistentStore('SelectProject.type', 'id');
   const projectId = writablePersistentStore('SelectProject.id', '1');
@@ -18,7 +18,7 @@
     const {
       VirtualMachine,
       Storage
-    } = await import(/* webpackChunkName: "scratch" */'./large-scratch-packages');
+    } = await import(/* webpackChunkName: "scratch" */ './large-scratch-packages');
 
     let vm = new VirtualMachine();
 
@@ -61,11 +61,13 @@
     };
     if ($type === 'id') {
       newProjectData.uniqueId = `#${$projectId}`;
+      newProjectData.projectId = $projectId;
       const res = await fetch('https://projects.scratch.mit.edu/' + $projectId);
       const data = await res.arrayBuffer();
       await vm.loadProject(data);
     } else {
       const file = files[0];
+      newProjectData.projectId = null;
       newProjectData.uniqueId = `@${file.name}`;
       const data = await readAsArrayBuffer(file);
       await vm.loadProject(data);

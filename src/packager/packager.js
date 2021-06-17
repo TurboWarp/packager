@@ -36,6 +36,33 @@ export class Packager extends EventTarget {
     this.script = texts.join('\n').replace(/<\/script>/g,"</scri'+'pt>");
   }
 
+  makeWebSocketProvider () {
+    return `new Scaffolding.Cloud.WebSocketProvider("wss://clouddata.turbowarp.org", "${this.options.projectId}")`;
+  }
+
+  makeLocalStorageProvider () {
+    return `new Scaffolding.Cloud.LocalStorageProvider()`;
+  }
+
+  makeCustomProvider () {
+    const variables = this.options.cloudVariables.custom;
+    let result = '{const providers = {};\n';
+    for (const provider of new Set(Object.values(variables))) {
+      if (provider === 'ws') {
+        result += `providers.ws = ${this.makeWebSocketProvider()};\n`;
+      } else if (provider === 'local') {
+        result += `providers.local = ${this.makeLocalStorageProvider()};\n`;
+      }
+    }
+    result += 'for (const provider of Object.values(providers)) scaffolding.addCloudProvider(provider);\n';
+    for (const variableName of Object.keys(variables)) {
+      const providerToUse = variables[variableName];
+      result += `scaffolding.addCloudProviderOverride(${JSON.stringify(variableName)}, providers[${JSON.stringify(providerToUse)}] || null);\n`;
+    }
+    result += '}';
+    return result;
+  }
+
   async package () {
     await this.loadResources();
     const serialized = await this.vm.saveProjectSb3();
@@ -164,6 +191,17 @@ export class Packager extends EventTarget {
     };
     setProgress(0.1);
 
+    scaffolding.setUsername("123");
+
+    ${this.options.cloudVariables.mode === 'ws' ?
+      `scaffolding.addCloudProvider(${this.makeWebSocketProvider()})` :
+      this.options.cloudVariables.mode === 'local' ?
+      `scaffolding.addCloudProvider(${this.makeLocalStorageProvider()})` :
+      this.options.cloudVariables.mode === 'custom' ?
+      this.makeCustomProvider() :
+      '/* no-op */'
+    };
+
     vm.setTurboMode(${this.options.turbo});
     vm.setInterpolation(${this.options.interpolation});
     vm.setFramerate(${this.options.framerate});
@@ -189,7 +227,7 @@ export class Packager extends EventTarget {
       setProgress(1);
       loadingScreen.hidden = true;
       if (${this.options.autoplay}) {
-        scaffolding.start();        
+        scaffolding.start();
       } else {
         launchScreen.hidden = false;
         launchScreen.addEventListener('click', () => {
@@ -202,7 +240,7 @@ export class Packager extends EventTarget {
 
     const handleError = (error) => {
       console.error(error);
-      errorScreen.hidden = false;  
+      errorScreen.hidden = false;
     };
 
     run().catch(handleError);
@@ -248,6 +286,11 @@ Packager.DEFAULT_OPTIONS = () => ({
   target: 'html',
   chunks: {
     gamepad: false
+  },
+  cloudVariables: {
+    mode: 'ws',
+    id: 0,
+    custom: {}
   }
 });
 

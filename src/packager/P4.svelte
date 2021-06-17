@@ -58,7 +58,7 @@
 
   {#if projectData}
     <PackagerOptions
-      projectData
+      projectData={projectData}
       bind:packager
       bind:progress
     />
