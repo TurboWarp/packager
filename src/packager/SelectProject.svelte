@@ -13,12 +13,12 @@
   });
 
   const load = withErrorHandling(async () => {
+    projectData = null;
+
     const {
       VirtualMachine,
       Storage
     } = await import(/* webpackChunkName: "scratch" */'./large-scratch-packages');
-
-    projectData = null;
 
     let vm = new VirtualMachine();
 
