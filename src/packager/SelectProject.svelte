@@ -12,8 +12,14 @@
     $error = e
   });
 
-  const load = withErrorHandling(async () => {
+  const reset = () => {
     projectData = null;
+  };
+
+  $: files, $projectId, $type, reset();
+
+  const load = withErrorHandling(async () => {
+    reset();
 
     const {
       VirtualMachine,
