@@ -10,8 +10,10 @@ import {ListMonitor, VariableMonitor} from './monitor';
 import ControlBar from './control-bar';
 import styles from './style.css';
 
-class Scaffolding {
+class Scaffolding extends EventTarget {
   constructor () {
+    super();
+
     this.width = 480;
     this.height = 360;
 
@@ -230,6 +232,8 @@ class Scaffolding {
     this.vm.setCompatibilityMode(true);
     this.vm.on('MONITORS_UPDATE', this._onmonitorsupdate.bind(this));
     this.vm.runtime.on('QUESTION', this._onquestion.bind(this));
+    this.vm.on('PROJECT_RUN_START', () => this.dispatchEvent(new Event('PROJECT_RUN_START')));
+    this.vm.on('PROJECT_RUN_STOP', () => this.dispatchEvent(new Event('PROJECT_RUN_STOP')));
 
     this.cloudManager = new Cloud.CloudManager(this);
 
