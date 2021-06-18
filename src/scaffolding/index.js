@@ -7,6 +7,7 @@ import {BitmapAdapter} from 'scratch-svg-renderer';
 import Cloud from './cloud';
 import Question from './question';
 import {ListMonitor, VariableMonitor} from './monitor';
+import ControlBar from './control-bar';
 import styles from './style.css';
 
 class Scaffolding {
@@ -21,7 +22,7 @@ class Scaffolding {
     this._draggingStartSpritePosition = null;
     this._createDOM();
 
-    this._offsetFromTop = 0;
+    this._offsetFromTop = 10;
     this._offsetFromBottom = 0;
     this._offsetFromLeft = 0;
     this._offsetFromRight = 0;
@@ -46,13 +47,16 @@ class Scaffolding {
     this._monitorOverlay.className = styles.monitorOverlay;
     this._overlays.appendChild(this._monitorOverlay);
 
+    this._topControls = new ControlBar();
+    this._layers.appendChild(this._topControls.root);
+
     document.addEventListener('mousemove', this._onmousemove.bind(this));
     this._canvas.addEventListener('mousedown', this._onmousedown.bind(this));
     document.addEventListener('mouseup', this._onmouseup.bind(this));
     this._canvas.addEventListener('wheel', this._onwheel.bind(this));
     document.addEventListener('keydown', this._onkeydown.bind(this));
     document.addEventListener('keyup', this._onkeyup.bind(this));
-    window.addEventListener('resize', this.resize.bind(this));
+    window.addEventListener('resize', this.relayout.bind(this));
   }
 
   _addLayer (el) {
@@ -178,15 +182,20 @@ class Scaffolding {
   }
 
   _onresize () {
-    this.resize();
+    this.relayout();
   }
 
-  resize () {
+  relayout () {
     const totalWidth = Math.max(1, this._root.offsetWidth);
     const totalHeight = Math.max(1, this._root.offsetHeight);
 
-    const canvasWidth = Math.max(1, totalWidth - this._offsetFromLeft - this._offsetFromRight);
-    const canvasHeight = Math.max(1, totalHeight - this._offsetFromTop - this._offsetFromBottom);
+    const offsetFromTop = this._offsetFromTop + this._topControls.computeHeight();
+    const offsetFromBottom = this._offsetFromBottom;
+    const offsetFromLeft = this._offsetFromLeft;
+    const offsetFromRight = this._offsetFromRight;
+
+    const canvasWidth = Math.max(1, totalWidth - offsetFromLeft - offsetFromRight);
+    const canvasHeight = Math.max(1, totalHeight - offsetFromTop - offsetFromBottom);
 
     let height = canvasHeight;
     let width = height / this.height * this.width;
@@ -199,8 +208,8 @@ class Scaffolding {
 
     const distanceFromTop = totalHeight - height;
     const distanceFromLeft = totalWidth - width;
-    const translateY = (distanceFromLeft - this._offsetFromLeft - this._offsetFromRight) / 2 + this._offsetFromLeft - (distanceFromLeft / 2);
-    const translateX = (distanceFromTop - this._offsetFromTop - this._offsetFromBottom) / 2 + this._offsetFromTop - (distanceFromTop / 2);
+    const translateY = (distanceFromLeft - offsetFromLeft - offsetFromRight) / 2 + offsetFromLeft - (distanceFromLeft / 2);
+    const translateX = (distanceFromTop - offsetFromTop - offsetFromBottom) / 2 + offsetFromTop - (distanceFromTop / 2);
 
     this._layers.style.transform = `translate(${translateY}px, ${translateX}px)`;
     this._layers.style.width = `${width}px`;
@@ -213,7 +222,7 @@ class Scaffolding {
 
   appendTo (element) {
     element.appendChild(this._root);
-    this.resize();
+    this.relayout();
   }
 
   setup () {
@@ -308,6 +317,17 @@ class Scaffolding {
 
   addCloudProviderOverride (name, provider) {
     this.cloudManager.addProviderOverride(name, provider);
+  }
+
+  addControlButton({element, where}) {
+    if (where === 'top-left') {
+      this._topControls.addToStart(element);
+    } else if (where === 'top-right') {
+      this._topControls.addToEnd(element);
+    } else {
+      throw new Error(`Unknown 'where': ${where}`);
+    }
+    this.relayout();
   }
 
   start () {

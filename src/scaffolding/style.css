@@ -5,12 +5,15 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  position: relative;
 }
 .layers {
   position: relative;
 }
 .layers > * {
   position: absolute;
+  top: 0;
+  left: 0;
 }
 .root * {
   box-sizing: border-box;
@@ -196,4 +199,12 @@
   text-overflow: ellipsis;
   user-select: text;
   white-space: pre;
+}
+
+.controls-bar {
+  transform: translateY(-100%);
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  flex-wrap: nowrap;
 }
