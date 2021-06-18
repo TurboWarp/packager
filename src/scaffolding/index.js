@@ -22,7 +22,7 @@ class Scaffolding {
     this._draggingStartSpritePosition = null;
     this._createDOM();
 
-    this._offsetFromTop = 10;
+    this._offsetFromTop = 0;
     this._offsetFromBottom = 0;
     this._offsetFromLeft = 0;
     this._offsetFromRight = 0;
