@@ -110,7 +110,7 @@
 </style>
 
 <Section>
-  <h2>Runtime Options</h2>
+  <h2>Project player</h2>
 
   <!-- TODO: this is not ideal, the help should be in here -->
   <!-- especially as not all of these options are actually in advanced settings on the main site -->
@@ -163,14 +163,23 @@
 </Section>
 
 <Section>
+  <h2>Addons</h2>
+  <!-- TODO: with only one thing in here, consider merging it into project player options -->
+  <label>
+    <input type="checkbox" bind:checked={$options.chunks.gamepad}>
+    Gamepad support (no settings modal)
+  </label>
+</Section>
+
+<Section>
   <h2>Appearance</h2>
   <label>
     <input type="color" bind:value={$options.appearance.background}>
-    Background Color
+    Background color
   </label>
   <label>
     <input type="color" bind:value={$options.appearance.foreground}>
-    Text Color
+    Progress bar color
   </label>
 </Section>
 
@@ -186,8 +195,8 @@
           <option disabled>Can not use cloud variable server on this project</option>
         {/if}
         <option value="local">Store in local storage</option>
-        <option value="custom">Configure per-variable</option>
         <option value="">Ignore</option>
+        <option value="custom">Advanced</option>
       </select>
     </label>
     {#if $options.cloudVariables.mode === "custom"}
@@ -208,16 +217,12 @@
         {/each}
       </div>
     {/if}
+    <p>"Connect to cloud variable server" will use TurboWarp's cloud variable server to sync the variables with other users. This is the default behavior. It can not be used on projects packaged from files.</p>
+    <p>"Store in local storage" stores the variables on the user's computer and restores them when the project is restarted.</p>
+    <p>"Ignore" treats cloud variables like normal variables.</p>
+    <p>"Advanced" lets you configure a different mode for each variable, so you can have some sync with other users but have others be remembered locally.</p>
   </Section>
 {/if}
-
-<Section>
-  <h2>Addons</h2>
-  <label>
-    <input type="checkbox" bind:checked={$options.chunks.gamepad}>
-    Gamepad support
-  </label>
-</Section>
 
 <Section>
   <h2>Advanced Options</h2>
