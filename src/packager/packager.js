@@ -265,7 +265,7 @@ class Packager extends EventTarget {
   }
 
   makeWebSocketProvider () {
-    return `new Scaffolding.Cloud.WebSocketProvider("wss://clouddata.turbowarp.org", "${this.options.projectId}")`;
+    return `new Scaffolding.Cloud.WebSocketProvider(${JSON.stringify(this.options.cloudVariables.cloudHost)}, "${this.options.projectId}")`;
   }
 
   makeLocalStorageProvider () {
@@ -547,6 +547,7 @@ Packager.DEFAULT_OPTIONS = () => ({
   cloudVariables: {
     mode: 'ws',
     id: 0,
+    cloudHost: 'wss://clouddata.turbowarp.org',
     custom: {}
   }
 });
