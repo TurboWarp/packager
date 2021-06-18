@@ -367,7 +367,8 @@ class Packager extends EventTarget {
 
       return {
         blob: await zip.generateAsync({
-          type: 'blob'
+          type: 'blob',
+          compression: 'DEFLATE'
         }),
         filename: 'project.zip'
       };
