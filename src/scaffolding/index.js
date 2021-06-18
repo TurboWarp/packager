@@ -20,6 +20,11 @@ class Scaffolding {
     this._draggingStartMousePosition = null;
     this._draggingStartSpritePosition = null;
     this._createDOM();
+
+    this._offsetFromTop = 0;
+    this._offsetFromBottom = 0;
+    this._offsetFromLeft = 0;
+    this._offsetFromRight = 0;
   }
 
   _createDOM () {
@@ -47,7 +52,7 @@ class Scaffolding {
     this._canvas.addEventListener('wheel', this._onwheel.bind(this));
     document.addEventListener('keydown', this._onkeydown.bind(this));
     document.addEventListener('keyup', this._onkeyup.bind(this));
-    window.addEventListener('resize', this._onresize.bind(this));
+    window.addEventListener('resize', this.resize.bind(this));
   }
 
   _addLayer (el) {
@@ -173,18 +178,31 @@ class Scaffolding {
   }
 
   _onresize () {
-    const totalWidth = this._root.offsetWidth;
-    const totalHeight = this._root.offsetHeight;
+    this.resize();
+  }
 
-    let height = totalHeight;
+  resize () {
+    const totalWidth = Math.max(1, this._root.offsetWidth);
+    const totalHeight = Math.max(1, this._root.offsetHeight);
+
+    const canvasWidth = Math.max(1, totalWidth - this._offsetFromLeft - this._offsetFromRight);
+    const canvasHeight = Math.max(1, totalHeight - this._offsetFromTop - this._offsetFromBottom);
+
+    let height = canvasHeight;
     let width = height / this.height * this.width;
     let scale = height / this.height;
-    if (width > totalWidth) {
-      scale = totalWidth / this.width;
-      height = totalWidth / this.width * this.height;
-      width = totalWidth;
+    if (width > canvasWidth) {
+      scale = canvasWidth / this.width;
+      height = canvasWidth / this.width * this.height;
+      width = canvasWidth;
     }
 
+    const distanceFromTop = totalHeight - height;
+    const distanceFromLeft = totalWidth - width;
+    const translateY = (distanceFromLeft - this._offsetFromLeft - this._offsetFromRight) / 2 + this._offsetFromLeft - (distanceFromLeft / 2);
+    const translateX = (distanceFromTop - this._offsetFromTop - this._offsetFromBottom) / 2 + this._offsetFromTop - (distanceFromTop / 2);
+
+    this._layers.style.transform = `translate(${translateY}px, ${translateX}px)`;
     this._layers.style.width = `${width}px`;
     this._layers.style.height = `${height}px`;
     this._overlays.style.transform = `scale(${scale})`;
@@ -195,7 +213,7 @@ class Scaffolding {
 
   appendTo (element) {
     element.appendChild(this._root);
-    this._onresize();
+    this.resize();
   }
 
   setup () {
