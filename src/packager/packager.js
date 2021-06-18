@@ -1,3 +1,6 @@
+import fetchLargeAsset from './large-assets';
+import defaultIcon from './default-icon.png';
+
 const readAsURL = (buffer) => new Promise((resolve, reject) => {
   const fr = new FileReader();
   fr.onload = () => resolve(fr.result);
@@ -10,7 +13,103 @@ const getJSZip = async () => {
   return JSZip;
 };
 
-export class Packager extends EventTarget {
+const setFileFast = (zip, path, data) => {
+  zip.files[path] = data;
+};
+
+const getIcon = async (icon) => {
+  if (!icon) {
+    const res = await fetch(defaultIcon);
+    return res.arrayBuffer();
+  }
+  return new Promise((resolve, reject) => {
+    const fr = new FileReader();
+    fr.onload = () => resolve(fr.result);
+    fr.onerror = () => reject(new Error('Cannot read as array buffer'));
+    fr.readAsArrayBuffer(icon);
+  });
+};
+
+const addNwJS = async (projectZip, app) => {
+  const nwjsBuffer = await fetchLargeAsset('nwjs-win64');
+  const nwjsZip = await (await getJSZip()).loadAsync(nwjsBuffer);
+
+  const isMac = false;
+  const isWindows = true;
+
+  // NW.js Windows folder structure:
+  // * (root)
+  // +-- nwjs-v0.49.0-win-x64
+  //   +-- nw.exe (executable)
+  //   +-- credits.html
+  //   +-- (project data)
+  //   +-- ...
+
+  // NW.js macOS folder structure:
+  // * (root)
+  // +-- nwjs-v0.49.0-osx-64
+  //   +-- credits.html
+  //   +-- nwjs.app
+  //     +-- Contents
+  //       +-- Resources
+  //         +-- app.icns (icon)
+  //         +-- app.nw
+  //           +-- (project data)
+  //       +-- MacOS
+  //         +-- nwjs (executable)
+  //       +-- ...
+
+  // the first folder, something like "nwjs-v0.49.0-win-64"
+  const nwjsPrefix = Object.keys(nwjsZip.files)[0].split('/')[0];
+
+  const zip = new (await getJSZip());
+
+  const appName = 'AppName123';
+
+  // Copy NW.js files to the right place
+  for (const path of Object.keys(nwjsZip.files)) {
+    const file = nwjsZip.files[path];
+
+    let newPath = path.replace(nwjsPrefix, appName);
+    if (isMac) {
+      newPath = newPath.replace('nwjs.app', `${appName}.app`);
+    } else if (isWindows) {
+      newPath = newPath.replace('nw.exe', `${appName}.exe`);
+    }
+
+    setFileFast(zip, newPath, file);
+  }
+
+  let dataPrefix;
+  if (isMac) {
+    const icnsData = await pngToAppleICNS(this.icon);
+    zip.file(`${appName}/${appName}.app/Contents/Resources/app.icns`, icnsData);
+    dataPrefix = `${appName}/${appName}.app/Contents/Resources/app.nw/`;
+  } else {
+    dataPrefix = `${appName}/`;
+  }
+
+  // Copy project files to the right place
+  for (const path of Object.keys(projectZip.files)) {
+    setFileFast(zip, dataPrefix + path, projectZip.files[path]);
+  }  
+
+  zip.file(dataPrefix + 'icon.png', await getIcon(app.icon));
+  zip.file(dataPrefix + 'package.json', JSON.stringify({
+    name: 'Name of the project',
+    main: 'index.html',
+    window: {
+      width: 480,
+      height: 360,
+      resizable: true,
+      icon: 'icon.png'
+    }
+  }));
+
+  return zip;
+};
+
+class Packager extends EventTarget {
   constructor () {
     super();
     this.vm = null;
@@ -253,13 +352,19 @@ export class Packager extends EventTarget {
 </body>
 </html>
 `;
-    if (this.options.target === 'zip') {
-      const zip = await (await getJSZip()).loadAsync(serialized);
+
+    if (this.options.target !== 'html') {
+      let zip = await (await getJSZip()).loadAsync(serialized);
       for (const file of Object.keys(zip.files)) {
         zip.files[`assets/${file}`] = zip.files[file];
         delete zip.files[file];
       }
       zip.file('index.html', html);
+
+      if (this.options.target === 'nwjs-win64') {
+        zip = await addNwJS(zip, this.options.app);
+      }
+
       return {
         blob: await zip.generateAsync({
           type: 'blob'
@@ -288,6 +393,10 @@ Packager.DEFAULT_OPTIONS = () => ({
   stageHeight: 360,
   autoplay: false,
   target: 'html',
+  app: {
+    icon: null,
+    packageName: 'app'
+  },
   chunks: {
     gamepad: false
   },
@@ -298,4 +407,6 @@ Packager.DEFAULT_OPTIONS = () => ({
   }
 });
 
-export default Packager;
+export {
+  Packager
+};

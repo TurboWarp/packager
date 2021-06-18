@@ -1,14 +1,14 @@
 <script>
   import Section from './Section.svelte';
   import Progress from './Progress.svelte';
-  import ProjectPackager from './packager';
+  import {Packager} from './packager';
   import writablePersistentStore from './persistent-store';
   import {error} from './stores';
   import Preview from './preview';
 
   export let projectData;
 
-  const packager = new ProjectPackager();
+  const packager = new Packager();
   packager.vm = projectData.vm;
 
   const cloudVariables = Object.values(projectData.vm.runtime.getTargetForStage().variables)
@@ -63,7 +63,9 @@
 
   const pack = async () => {
     await runPackager(packager.child());
-    downloadURL(result.filename, url);
+    if (result) {
+      downloadURL(result.filename, url);
+    }
   };
 
   const preview = async () => {
@@ -211,6 +213,21 @@
     <input type="radio" bind:group={$options.target} value="zip">
     Zip (each asset gets separate file)
   </label>
+  <label>
+    <input type="radio" bind:group={$options.target} value="nwjs-win64">
+    NW.js Windows (64-bit)
+  </label>
+
+  {#if $options.target === 'nwjs-win64'}
+    <label>
+      Package Name
+      <input type="text" bind:value={$options.app.packageName}>
+    </label>
+    <label>
+      Icon
+      <input type="file" bind:files={$options.app.icon} accept=".png">
+    </label>
+  {/if}
 </Section>
 
 <Section>
