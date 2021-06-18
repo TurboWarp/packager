@@ -1,11 +1,33 @@
-import fetchLargeAsset from './large-assets';
+import shajs from 'sha.js';
 import defaultIcon from './default-icon.png';
+
+const largeAssets = {
+  'nwjs-win64': {
+    src: 'nwjs-v0.49.0-win-x64.zip',
+    size: 97406745,
+    sha256: 'c76f97d1b6a59745051226fb59c3a8526362caf6b7f3e8e3dd193dfcdafebad5'
+  },
+  'nwjs-mac': {
+    src: 'nwjs-v0.49.0-osx-x64.zip',
+    size: 97406745,
+    sha256: '792fadce3a23677f6fd0e67997b13b23de02fb7920f0a3ca24c2be26f8b78395'
+  }
+};
+
+const sha256 = (buffer) => shajs('sha256').update(new Uint8Array(buffer)).digest('hex');
 
 const readAsURL = (buffer) => new Promise((resolve, reject) => {
   const fr = new FileReader();
   fr.onload = () => resolve(fr.result);
   fr.onerror = () => reject(new Error('Cannot read as URL'));
   fr.readAsDataURL(buffer);
+});
+
+const readAsArrayBuffer = (buffer) => new Promise((resolve, reject) => {
+  const fr = new FileReader();
+  fr.onload = () => resolve(fr.result);
+  fr.onerror = () => reject(new Error('Cannot read as URL'));
+  fr.readAsArrayBuffer(buffer);
 });
 
 const getJSZip = async () => {
@@ -17,11 +39,28 @@ const setFileFast = (zip, path, data) => {
   zip.files[path] = data;
 };
 
+const fetchLargeAsset = async (name) => {
+  const entry = largeAssets[name];
+  if (!entry) {
+    throw new Error('Invalid manifest entry');
+  }
+  const res = await fetch(entry.src);
+  if (!res.ok) {
+    throw new Error(`Unexpected status code: ${res.status}`);
+  }
+  const buffer = await res.arrayBuffer();
+  const hash = sha256(buffer);
+  if (hash !== entry.sha256) {
+    throw new Error('Hash mismatch');
+  }
+  return buffer;
+};
+
 const getIcon = async (icon) => {
   if (!icon) {
     const res = await fetch(defaultIcon);
     return {
-      data: res.arrayBuffer(),
+      data: await res.arrayBuffer(),
       name: 'icon.png'
     };
   }
@@ -36,12 +75,90 @@ const getIcon = async (icon) => {
   });
 };
 
+const loadImage = (src) => new Promise((resolve, reject) => {
+  const image = new Image();
+  image.onload = () => resolve(image);
+  image.onerror = () => reject(new Error(`Could not load image: ${src}`));
+  image.src = src;
+});
+
+const canvasToBlob = (canvas) => new Promise((resolve, reject) => {
+  canvas.toBlob((blob) => {
+    if (blob) {
+      resolve(blob);
+    } else {
+      reject(new Error('Could not read <canvas> as blob'));
+    }
+  });
+});
+
+const pngToAppleICNS = async (pngData) => {
+  const Icns = await import('@fiahfy/icns');
+  const Buffer = (await import('buffer')).Buffer;
+
+  const FORMATS = [
+    { type: 'ic04', size: 16 },
+    { type: 'ic07', size: 128 },
+    { type: 'ic08', size: 256 },
+    { type: 'ic09', size: 512 },
+    { type: 'ic10', size: 1024 },
+    { type: 'ic11', size: 32 },
+    { type: 'ic12', size: 64 },
+    { type: 'ic13', size: 256 },
+    { type: 'ic14', size: 512 },
+  ];
+
+  // Read the Image.
+  const pngDataBlob = new Blob([pngData], {
+    type: 'image/png'
+  });
+  const url = URL.createObjectURL(pngDataBlob);
+  const image = await loadImage(url);
+  if (image.width !== image.height) {
+    throw new Error('Image width and height do not match');
+  }
+  const size = image.width;
+
+  // Determine the formats to create
+  const eligibleFormats = FORMATS.filter((format) => {
+    // Always include the smallest size so that tiny images will get at least 1 image.
+    if (format.size === 16) {
+      return true;
+    }
+    return size >= format.size;
+  });
+
+  // Create a single canvas to be used for conversion
+  // Creating many canvases is prone to error in Safari
+  const canvas = document.createElement('canvas');
+  const ctx = canvas.getContext('2d');
+  if (!ctx) {
+    throw new Error('cannot get canvas rendering context');
+  }
+
+  const icns = new Icns.Icns();
+  for (const format of eligibleFormats) {
+    // Use the canvas to scale the image.
+    const formatSize = format.size;
+    canvas.width = formatSize;
+    canvas.height = formatSize;
+    ctx.drawImage(image, 0, 0, formatSize, formatSize);
+
+    const blob = await canvasToBlob(canvas);
+    const arrayBuffer = await readAsArrayBuffer(blob);
+    const icnsImage = await Icns.IcnsImage.fromPNG(Buffer.from(arrayBuffer), format.type);
+    icns.append(icnsImage);
+  }
+
+  return icns.data;
+};
+
 const addNwJS = async (projectZip, packagerOptions) => {
-  const nwjsBuffer = await fetchLargeAsset('nwjs-win64');
+  const nwjsBuffer = await fetchLargeAsset(packagerOptions.target);
   const nwjsZip = await (await getJSZip()).loadAsync(nwjsBuffer);
 
-  const isMac = false;
-  const isWindows = true;
+  const isMac = packagerOptions.target === 'nwjs-mac';
+  const isWindows = packagerOptions.target === 'nwjs-win64';
 
   // NW.js Windows folder structure:
   // * (root)
@@ -86,20 +203,6 @@ const addNwJS = async (projectZip, packagerOptions) => {
     setFileFast(zip, newPath, file);
   }
 
-  let dataPrefix;
-  if (isMac) {
-    const icnsData = await pngToAppleICNS(this.icon);
-    zip.file(`${packageName}/${packageName}.app/Contents/Resources/app.icns`, icnsData);
-    dataPrefix = `${packageName}/${packageName}.app/Contents/Resources/app.nw/`;
-  } else {
-    dataPrefix = `${packageName}/`;
-  }
-
-  // Copy project files to the right place
-  for (const path of Object.keys(projectZip.files)) {
-    setFileFast(zip, dataPrefix + path, projectZip.files[path]);
-  }  
-
   const icon = await getIcon(packagerOptions.app.icon);
   const manifest = {
     name: packageName,
@@ -110,6 +213,20 @@ const addNwJS = async (projectZip, packagerOptions) => {
       icon: icon.name
     }
   };
+
+  let dataPrefix;
+  if (isMac) {
+    const icnsData = await pngToAppleICNS(icon.data);
+    zip.file(`${packageName}/${packageName}.app/Contents/Resources/app.icns`, icnsData);
+    dataPrefix = `${packageName}/${packageName}.app/Contents/Resources/app.nw/`;
+  } else {
+    dataPrefix = `${packageName}/`;
+  }
+
+  // Copy project files and extra NW.js files to the right place
+  for (const path of Object.keys(projectZip.files)) {
+    setFileFast(zip, dataPrefix + path, projectZip.files[path]);
+  }  
   zip.file(dataPrefix + icon.name, icon.data);
   zip.file(dataPrefix + 'package.json', JSON.stringify(manifest, null, 4));
 
@@ -368,14 +485,16 @@ class Packager extends EventTarget {
       }
       zip.file('index.html', html);
 
-      if (this.options.target === 'nwjs-win64') {
+      if (this.options.target === 'nwjs-win64' || this.options.target === 'nwjs-mac') {
         zip = await addNwJS(zip, this.options);
       }
 
       return {
         blob: await zip.generateAsync({
           type: 'blob',
-          compression: 'DEFLATE'
+          compression: 'DEFLATE',
+          // Use UNIX permissions so that executable bits are properly set, which matters for NW.js macOS
+          platform: 'UNIX',
         }),
         filename: 'project.zip'
       };
