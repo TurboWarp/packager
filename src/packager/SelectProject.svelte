@@ -3,6 +3,7 @@
   import Progress from './Progress.svelte';
   import writablePersistentStore from './persistent-store';
   import {error} from './stores';
+  import {UserError} from './errors';
 
   export let projectData = null;
   const type = writablePersistentStore('SelectProject.type', 'id');
@@ -74,7 +75,7 @@
       if ($type === 'id') {
         const match = $projectId.match(/\d+/);
         if (!match) {
-          throw new Error('Invalid project ID');
+          throw new UserError('Invalid project ID');
         }
         const id = match[0];
         newProjectData.uniqueId = `#${id}`;
@@ -84,7 +85,7 @@
         await vm.loadProject(data);
       } else {
         if (!files) {
-          throw new Error('No file selected');
+          throw new UserError('No file selected');
         }
         const file = files[0];
         newProjectData.projectId = null;
@@ -107,7 +108,7 @@
 
 <Section>
   <h2>Choose Project</h2>
-  
+  <p>You can package projects from the Scratch website by copying their URL or from files from your computer. If using someone else's project, make sure to give them proper credit.</p>
   <div>
     <label>
       <input type="radio" bind:group={$type} value="id">
@@ -126,10 +127,10 @@
       <input bind:files={files} type="file" accept=".sb,.sb2,.sb3">
     {/if}
   </div>
-  
-  <div>
-    <button on:click={load} disabled={progressVisible}>Load Project</button>
-  </div>
+
+  <p>
+    <button on:click={load} disabled={progressVisible}>Load New Project</button>
+  </p>
 </Section>
 
 {#if progressVisible}

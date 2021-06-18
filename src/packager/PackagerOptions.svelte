@@ -1,4 +1,5 @@
 <script>
+  import {slide} from 'svelte/transition';
   import Section from './Section.svelte';
   import Progress from './Progress.svelte';
   import {Packager} from './packager';
@@ -86,11 +87,19 @@
 <style>
   label {
     display: block;
+    margin-bottom: 4px;
+  }
+  input[type=number] {
+    width: 60px;
+  }
+  input[type=text] {
+    width: 150px;
   }
   textarea {
     display: block;
     height: 200px;
     width: 100%;
+    box-sizing: border-box;
   }
   .downloads {
     text-align: center;
@@ -99,18 +108,22 @@
 
 <Section>
   <h2>Runtime Options</h2>
-  
+
+  <!-- TODO: this is not ideal, the help should be in here -->
+  <!-- especially as not all of these options are actually in advanced settings on the main site -->
+  <p>See the advanced settings menu in <a href="https://turbowarp.org/">TurboWarp</a> for more information about these settings.</p>
+
   <label>
     <input type="checkbox" bind:checked={$options.turbo}>
     Turbo Mode
   </label>
   <label>
-    <input type="checkbox" bind:checked={$options.interpolation}>
-    Interpolation
-  </label>
-  <label>
     Framerate
     <input type="number" min="0" max="240" bind:value={$options.framerate}>
+  </label>
+  <label>
+    <input type="checkbox" bind:checked={$options.interpolation}>
+    Interpolation
   </label>
   <label>
     <input type="checkbox" bind:checked={$options.highQualityPen}>
@@ -147,6 +160,63 @@
 </Section>
 
 <Section>
+  <h2>Appearance</h2>
+  <label>
+    <input type="color" bind:value={$options.appearance.background}>
+    Background Color
+  </label>
+  <label>
+    <input type="color" bind:value={$options.appearance.foreground}>
+    Text Color
+  </label>
+</Section>
+
+{#if cloudVariables.length > 0}
+  <Section>
+    <h2>Cloud Variables</h2>
+    <label>
+      Mode
+      <select bind:value={$options.cloudVariables.mode}>
+        {#if canUseCloudVariableServer}
+          <option value="ws">Connect to cloud variable server</option>
+        {:else}
+          <option disabled>Can not use cloud variable server on this project</option>
+        {/if}
+        <option value="local">Store in local storage</option>
+        <option value="custom">Configure per-variable</option>
+        <option value="">Ignore</option>
+      </select>
+    </label>
+    {#if $options.cloudVariables.mode === "custom"}
+      <div transition:slide>
+        {#each cloudVariables as variable}
+          <label>
+            <select bind:value={$options.cloudVariables.custom[variable]}>
+              {#if canUseCloudVariableServer}
+                <option value="ws">Connect to cloud variable server</option>
+              {:else}
+                <option disabled>Can not use cloud variable server on this project</option>
+              {/if}
+              <option value="local">Store in local storage</option>
+              <option value="">Ignore</option>
+            </select>
+            {variable}
+          </label>
+        {/each}
+      </div>
+    {/if}
+  </Section>
+{/if}
+
+<Section>
+  <h2>Addons</h2>
+  <label>
+    <input type="checkbox" bind:checked={$options.chunks.gamepad}>
+    Gamepad support
+  </label>
+</Section>
+
+<Section>
   <h2>Advanced Options</h2>
   <details>
     <summary>You probably don't want to change these. (Click to open)</summary>
@@ -163,60 +233,6 @@
       <textarea bind:value={$options.custom.js}></textarea>
     </label>
   </details>
-</Section>
-
-<Section>
-  <h2>Appearance</h2>
-  <label>
-    <input type="color" bind:value={$options.appearance.background}>
-    Background Color
-  </label>
-  <label>
-    <input type="color" bind:value={$options.appearance.foreground}>
-    Text Color
-  </label>
-</Section>
-
-{#if cloudVariables.length > 0}
-  <Section>
-    <h2>Cloud Variables</h2>
-    <div>
-      <select bind:value={$options.cloudVariables.mode}>
-        {#if canUseCloudVariableServer}
-          <option value="ws">Cloud variable server</option>
-        {:else}
-          <option disabled>Can not use cloud variable server on this project</option>
-        {/if}
-        <option value="local">Local Storage</option>
-        <option value="custom">Custom</option>
-        <option value="">Ignore</option>
-      </select>
-    </div>
-    {#if $options.cloudVariables.mode === "custom"}
-      {#each cloudVariables as variable}
-        <div>
-          <select bind:value={$options.cloudVariables.custom[variable]}>
-            {#if canUseCloudVariableServer}
-              <option value="ws">Cloud variable server</option>
-            {:else}
-              <option disabled>Can not use cloud variable server on this project</option>
-            {/if}
-            <option value="local">Local Storage</option>
-            <option value="">Ignore</option>
-          </select>
-          {variable}
-        </div>
-      {/each}
-    {/if}
-  </Section>
-{/if}
-
-<Section>
-  <h2>Addons</h2>
-  <label>
-    <input type="checkbox" bind:checked={$options.chunks.gamepad}>
-    Gamepad support
-  </label>
 </Section>
 
 <Section>
@@ -239,14 +255,16 @@
   </label>
 
   {#if $options.target === 'nwjs-win64' || $options.target === 'nwjs-mac'}
-    <label>
-      Package Name
-      <input type="text" bind:value={$options.app.packageName}>
-    </label>
-    <label>
-      Icon
-      <input type="file" bind:files={iconFiles} accept=".png">
-    </label>
+    <div transition:slide>
+      <label>
+        Package Name
+        <input type="text" bind:value={$options.app.packageName}>
+      </label>
+      <label>
+        Icon
+        <input type="file" bind:files={iconFiles} accept=".png">
+      </label>
+    </div>
   {/if}
 </Section>
 

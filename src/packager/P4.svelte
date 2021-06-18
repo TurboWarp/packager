@@ -4,6 +4,7 @@
   import SelectProject from './SelectProject.svelte';
   import PackagerOptions from './PackagerOptions.svelte';
   import {error} from './stores';
+  import {UserError} from './errors';
 
   let projectData;
 
@@ -48,6 +49,7 @@
   }
   main {
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    padding-bottom: 10px;
   }
   footer {
     text-align: center;
@@ -90,13 +92,13 @@
   <Section>
     <p class="new-outer"><span class="new">New!</span> We've made a major update to the packager. Here's the highlights:</p>
     <ul>
-      <li>Packaged projects are smaller and faster</li>
-      <li>Complete redesign of packaged projects, including a brand new loading screen</li>
+      <li>Packaged projects are smaller, faster, and have a redesigned loading screen</li>
       <li>Things like loading screens are easy to edit by editing the simple HTML/CSS</li>
       <li>New features: Gamepad support addon, configuring cloud variables per-variable, better zip projects</li>
-      <li>You can still use the <a href="TODO">old version</a> if you'd like, but it won't receive updates.</li>
+      <li>License changed from GPLv3 to LGPLv3, talk to a lawyer to learn what that means</li>
     </ul>
     <p>A lot of things that were previously difficult are now trivial -- let us know what features and customizations you're looking for.</p>
+    <p>You can still use the <a href="TODO">old version</a> if you'd like, but it won't receive updates.</p>
   </Section>
 
   <SelectProject bind:projectData />
@@ -111,11 +113,18 @@
     <div class="modal" on:click|self={closeModal} on:key>
       <Section modal>
         <h2>Error</h2>
-        <p>Message: {$error}</p>
-        <p>
-          <button on:click={closeModal}>Close</button>
-          <a href="https://scratch.mit.edu/users/GarboMuffin/#comments">Report bug</a>
-        </p>
+        {#if $error instanceof UserError}
+          <p>{$error.message}</p>
+          <p>
+            <button on:click={closeModal}>Close</button>
+          </p>
+        {:else}
+          <p>Message: {$error}</p>
+          <p>
+            <button on:click={closeModal}>Close</button>
+            <a href="https://scratch.mit.edu/users/GarboMuffin/#comments">Report bug</a>
+          </p>
+        {/if}
       </Section>
     </div>
   {/if}
