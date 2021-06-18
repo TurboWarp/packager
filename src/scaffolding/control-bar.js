@@ -2,6 +2,7 @@ import styles from './style.css';
 
 class ControlBar {
   constructor () {
+    this.hasItem = false;
     this.root = document.createElement('div');
     this.root.className = styles.controlsBar;
     this.start = document.createElement('div');
@@ -11,22 +12,20 @@ class ControlBar {
   }
 
   addToStart (el) {
+    this.hasItem = true;
     this.start.appendChild(el);
   }
 
   addToEnd (el) {
+    this.hasItem = true;
     this.end.appendChild(el);
   }
 
   computeHeight () {
-    let max = 0;
-    for (const child of [...this.start.childNodes, ...this.end.childNodes]) {
-      const height = child.offsetHeight;
-      if (height > max) {
-        max = height;
-      }
+    if (!this.hasItem) {
+      return 0;
     }
-    return max;
+    return this.root.getBoundingClientRect().height;
   }
 }
 
