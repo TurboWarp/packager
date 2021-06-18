@@ -98,7 +98,7 @@
       <li>License changed from GPLv3 to LGPLv3, talk to a lawyer to learn what that means</li>
     </ul>
     <p>A lot of things that were previously difficult are now trivial -- let us know what features and customizations you're looking for.</p>
-    <p>You can still use the <a href="TODO">old version</a> if you'd like, but it won't receive updates.</p>
+    <p>You can still use the <a href="https://packager.turbowarp.org/">old version</a> if you'd like, but it won't receive updates.</p>
   </Section>
 
   <SelectProject bind:projectData />
