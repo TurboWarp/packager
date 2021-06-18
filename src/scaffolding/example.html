@@ -96,7 +96,7 @@
     <script src="scaffolding.js"></script>
     <script src="addons.js"></script>
     <script>
-      const PROJECT_ID = '402080736';
+      const PROJECT_ID = location.hash.substr(1) || '1';
 
       const appElement = document.getElementById('app');
       const launchScreen = document.getElementById('launch');
