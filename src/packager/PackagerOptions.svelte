@@ -9,6 +9,9 @@
 
   export let projectData;
 
+  // JSON can't easily parse Infinity, so we'll just store large numbers instead
+  const ALMOST_INFINITY = 9999999999;
+
   const packager = new Packager();
   packager.vm = projectData.vm;
 
@@ -130,8 +133,8 @@
     High Quality Pen
   </label>
   <label>
-    <input type="checkbox" checked={$options.maxClones === Infinity} on:change={(e) => {
-      $options.maxClones = e.target.checked ? Infinity : 300;
+    <input type="checkbox" checked={$options.maxClones === ALMOST_INFINITY} on:change={(e) => {
+      $options.maxClones = e.target.checked ? ALMOST_INFINITY : 300;
     }}>
     Infinite Clones
   </label>
