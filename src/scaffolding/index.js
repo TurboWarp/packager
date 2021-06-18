@@ -334,6 +334,14 @@ class Scaffolding {
     this.vm.start();
     this.vm.greenFlag();
   }
+
+  greenFlag () {
+    this.start();
+  }
+
+  stopAll () {
+    this.vm.stopAll();
+  }
 }
 
 export {
