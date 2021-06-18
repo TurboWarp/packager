@@ -92,12 +92,11 @@
     <ul>
       <li>Packaged projects are smaller and faster</li>
       <li>Complete redesign of packaged projects, including a brand new loading screen</li>
-      <li>Packaged projects are easy to edit (just simple HTML)</li>
-      <li>Added option to include the "gamepad support" addon from TurboWarp</li>
-      <li>Variable monitors and ask prompts might look a bit different, we're working on it</li>
-      <li>A lot of things that were previously difficult are now trivial -- let us know what features and customizations you're looking for.</li>
+      <li>Things like loading screens are easy to edit by editing the simple HTML/CSS</li>
+      <li>New features: Gamepad support addon, configuring cloud variables per-variable, better zip projects</li>
+      <li>You can still use the <a href="TODO">old version</a> if you'd like, but it won't receive updates.</li>
     </ul>
-    <p>The <a href="TODO">old version</a> can still be used indefinitely, but it will not be receiving updates.</p>
+    <p>A lot of things that were previously difficult are now trivial -- let us know what features and customizations you're looking for.</p>
   </Section>
 
   <SelectProject bind:projectData />

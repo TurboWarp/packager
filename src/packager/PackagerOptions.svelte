@@ -161,9 +161,9 @@
   Text Color
 </label> -->
 
-<Section>
-  <h2>Cloud Variables</h2>
-  {#if cloudVariables.length > 0}
+{#if cloudVariables.length > 0}
+  <Section>
+    <h2>Cloud Variables</h2>
     <div>
       <select bind:value={$options.cloudVariables.mode}>
         {#if canUseCloudVariableServer}
@@ -192,10 +192,8 @@
         </div>
       {/each}
     {/if}
-  {:else}
-    <p>This project does not contain cloud variables.</p>
-  {/if}
-</Section>
+  </Section>
+{/if}
 
 <Section>
   <h2>Addons</h2>
