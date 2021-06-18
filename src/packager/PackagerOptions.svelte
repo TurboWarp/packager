@@ -183,6 +183,22 @@
   </label>
 </Section>
 
+<Section>
+  <h2>Controls</h2>
+  <label>
+    <input type="checkbox" bind:checked={$options.controls.greenFlag.enabled}>
+    Green Flag
+  </label>
+  <label>
+    <input type="checkbox" bind:checked={$options.controls.stopAll.enabled}>
+    Stop All
+  </label>
+  <label>
+    <input type="checkbox" bind:checked={$options.controls.fullscreen.enabled}>
+    Fullscreen
+  </label>
+</Section>
+
 {#if cloudVariables.length > 0}
   <Section>
     <h2>Cloud Variables</h2>
