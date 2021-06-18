@@ -87,6 +87,11 @@
   label {
     display: block;
   }
+  textarea {
+    display: block;
+    height: 200px;
+    width: 100%;
+  }
   .downloads {
     text-align: center;
   }
@@ -141,25 +146,36 @@
   </label>
 </Section>
 
-<!-- <h2>Compiler Options</h2>
-<label>
-  <input type="checkbox" bind:checked={$options.enabled}>
-  Enable compiler
-</label>
-<label>
-  <input type="checkbox" bind:checked={$options.warpTimer}>
-  Warp Timer
-</label> -->
+<Section>
+  <h2>Advanced Options</h2>
+  <details>
+    <summary>You probably don't want to change these. (Click to open)</summary>
+    <label>
+      <input type="checkbox" bind:checked={$options.compiler.enabled}>
+      Enable compiler
+    </label>
+    <label>
+      <input type="checkbox" bind:checked={$options.compiler.warpTimer}>
+      Warp Timer
+    </label>
+    <label>
+      Custom JS
+      <textarea bind:value={$options.custom.js}></textarea>
+    </label>
+  </details>
+</Section>
 
-<!-- <h2>Appearance</h2>
-<label>
-  <input type="color" bind:value={backgroundColor}>
-  Background Color
-</label>
-<label>
-  <input type="color" bind:value={textColor}>
-  Text Color
-</label> -->
+<Section>
+  <h2>Appearance</h2>
+  <label>
+    <input type="color" bind:value={$options.appearance.background}>
+    Background Color
+  </label>
+  <label>
+    <input type="color" bind:value={$options.appearance.foreground}>
+    Text Color
+  </label>
+</Section>
 
 {#if cloudVariables.length > 0}
   <Section>

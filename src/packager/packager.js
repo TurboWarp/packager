@@ -302,8 +302,8 @@ class Packager extends EventTarget {
   <title>Packaged Project</title>
   <style>
     body {
-      background-color: black;
-      color: white;
+      background-color: ${this.options.appearance.background};
+      color: ${this.options.appearance.foreground};
       font-family: sans-serif;
       overflow: hidden;
     }
@@ -438,7 +438,10 @@ class Packager extends EventTarget {
       miscLimits: ${this.options.miscLimits},
       maxClones: ${this.options.maxClones},
     });
-    vm.setCompilerOptions({});
+    vm.setCompilerOptions({
+      enabled: ${this.options.compiler.enabled},
+      warpTimer: ${this.options.compiler.warpTimer}
+    });
 
     const getProjectJSON = async () => {
       const res = await fetch(${JSON.stringify(
@@ -451,6 +454,7 @@ class Packager extends EventTarget {
       const projectJSON = await getProjectJSON();
       setProgress(0.1);
       await scaffolding.loadProject(projectJSON);
+      ${this.options.custom.js}
       setProgress(1);
       loadingScreen.hidden = true;
       if (${this.options.autoplay}) {
@@ -519,6 +523,17 @@ Packager.DEFAULT_OPTIONS = () => ({
   stageWidth: 480,
   stageHeight: 360,
   autoplay: false,
+  custom: {
+    js: '// Do not change if you don\'t know what you\'re doing!'
+  },
+  appearance: {
+    background: '#000000',
+    foreground: '#ffffff'
+  },
+  compiler: {
+    enabled: true,
+    warpTimer: true
+  },
   target: 'html',
   app: {
     icon: null,
