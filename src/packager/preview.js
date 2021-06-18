@@ -21,6 +21,7 @@ const source = `<!DOCTYPE html>
     left: 0;
     width: 100%;
     height: 100%;
+    user-select: none;
   }
   [hidden] {
     display: none;
