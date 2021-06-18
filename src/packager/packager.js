@@ -20,17 +20,23 @@ const setFileFast = (zip, path, data) => {
 const getIcon = async (icon) => {
   if (!icon) {
     const res = await fetch(defaultIcon);
-    return res.arrayBuffer();
+    return {
+      data: res.arrayBuffer(),
+      name: 'icon.png'
+    };
   }
   return new Promise((resolve, reject) => {
     const fr = new FileReader();
-    fr.onload = () => resolve(fr.result);
+    fr.onload = () => resolve({
+      data: fr.result,
+      name: icon.name || 'icon.png'
+    });
     fr.onerror = () => reject(new Error('Cannot read as array buffer'));
     fr.readAsArrayBuffer(icon);
   });
 };
 
-const addNwJS = async (projectZip, app) => {
+const addNwJS = async (projectZip, packagerOptions) => {
   const nwjsBuffer = await fetchLargeAsset('nwjs-win64');
   const nwjsZip = await (await getJSZip()).loadAsync(nwjsBuffer);
 
@@ -64,17 +70,17 @@ const addNwJS = async (projectZip, app) => {
 
   const zip = new (await getJSZip());
 
-  const appName = 'AppName123';
+  const packageName = packagerOptions.app.packageName;
 
   // Copy NW.js files to the right place
   for (const path of Object.keys(nwjsZip.files)) {
     const file = nwjsZip.files[path];
 
-    let newPath = path.replace(nwjsPrefix, appName);
+    let newPath = path.replace(nwjsPrefix, packageName);
     if (isMac) {
-      newPath = newPath.replace('nwjs.app', `${appName}.app`);
+      newPath = newPath.replace('nwjs.app', `${packageName}.app`);
     } else if (isWindows) {
-      newPath = newPath.replace('nw.exe', `${appName}.exe`);
+      newPath = newPath.replace('nw.exe', `${packageName}.exe`);
     }
 
     setFileFast(zip, newPath, file);
@@ -83,10 +89,10 @@ const addNwJS = async (projectZip, app) => {
   let dataPrefix;
   if (isMac) {
     const icnsData = await pngToAppleICNS(this.icon);
-    zip.file(`${appName}/${appName}.app/Contents/Resources/app.icns`, icnsData);
-    dataPrefix = `${appName}/${appName}.app/Contents/Resources/app.nw/`;
+    zip.file(`${packageName}/${packageName}.app/Contents/Resources/app.icns`, icnsData);
+    dataPrefix = `${packageName}/${packageName}.app/Contents/Resources/app.nw/`;
   } else {
-    dataPrefix = `${appName}/`;
+    dataPrefix = `${packageName}/`;
   }
 
   // Copy project files to the right place
@@ -94,17 +100,18 @@ const addNwJS = async (projectZip, app) => {
     setFileFast(zip, dataPrefix + path, projectZip.files[path]);
   }  
 
-  zip.file(dataPrefix + 'icon.png', await getIcon(app.icon));
-  zip.file(dataPrefix + 'package.json', JSON.stringify({
-    name: 'Name of the project',
+  const icon = await getIcon(packagerOptions.app.icon);
+  const manifest = {
+    name: packageName,
     main: 'index.html',
     window: {
-      width: 480,
-      height: 360,
-      resizable: true,
-      icon: 'icon.png'
+      width: packagerOptions.stageWidth,
+      height: packagerOptions.stageHeight,
+      icon: icon.name
     }
-  }));
+  };
+  zip.file(dataPrefix + icon.name, icon.data);
+  zip.file(dataPrefix + 'package.json', JSON.stringify(manifest, null, 4));
 
   return zip;
 };
@@ -362,7 +369,7 @@ class Packager extends EventTarget {
       zip.file('index.html', html);
 
       if (this.options.target === 'nwjs-win64') {
-        zip = await addNwJS(zip, this.options.app);
+        zip = await addNwJS(zip, this.options);
       }
 
       return {
@@ -396,7 +403,7 @@ Packager.DEFAULT_OPTIONS = () => ({
   target: 'html',
   app: {
     icon: null,
-    packageName: 'app'
+    packageName: 'p4-project'
   },
   chunks: {
     gamepad: false

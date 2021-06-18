@@ -32,6 +32,8 @@
   let progressVisible = false;
   let progress = 0;
   let progressText = '';
+  let iconFiles = null;
+  $: $options.app.icon = iconFiles ? iconFiles[0] : null;
 
   const downloadURL = (filename, url) => {
     const link = document.createElement('a');
@@ -225,7 +227,7 @@
     </label>
     <label>
       Icon
-      <input type="file" bind:files={$options.app.icon} accept=".png">
+      <input type="file" bind:files={iconFiles} accept=".png">
     </label>
   {/if}
 </Section>
