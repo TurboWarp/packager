@@ -67,6 +67,7 @@ module.exports = {
       ]
     }),
     new webpack.DefinePlugin({
+      'process.env.LARGE_ASSET_BASE': JSON.stringify(process.env.LARGE_ASSET_BASE || 'https://packagerdata.turbowarp.org/'),
       'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development'),
     }),
     new HtmlWebpackPlugin({

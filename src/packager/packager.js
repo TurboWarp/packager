@@ -1,14 +1,16 @@
 import shajs from 'sha.js';
 import defaultIcon from './default-icon.png';
 
+const LARGE_ASSET_BASE = process.env.LARGE_ASSET_BASE;
+
 const largeAssets = {
   'nwjs-win64': {
-    src: 'nwjs-v0.49.0-win-x64.zip',
+    src: LARGE_ASSET_BASE + 'nwjs-v0.49.0-win-x64.zip',
     size: 97406745,
     sha256: 'c76f97d1b6a59745051226fb59c3a8526362caf6b7f3e8e3dd193dfcdafebad5'
   },
   'nwjs-mac': {
-    src: 'nwjs-v0.49.0-osx-x64.zip',
+    src: LARGE_ASSET_BASE + 'nwjs-v0.49.0-osx-x64.zip',
     size: 97406745,
     sha256: '792fadce3a23677f6fd0e67997b13b23de02fb7920f0a3ca24c2be26f8b78395'
   }
