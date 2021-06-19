@@ -280,6 +280,11 @@ class Packager extends EventTarget {
       width: 0;
       background-color: currentColor;
     }
+    .loading-text {
+      font-weight: normal;
+      font-size: 36px;
+      margin: 0 0 16px;
+    }
     .control-button {
       width: 2rem;
       height: 2rem;
@@ -319,6 +324,7 @@ class Packager extends EventTarget {
   </div>
 
   <div id="loading" class="screen">
+    ${this.options.loadingScreen.text ? `<h1 class="loading-text">${escapeXML(this.options.loadingScreen.text)}</h1>` : ''}
     <div class="progress-bar-outer"><div class="progress-bar-inner" id="loading-inner"></div></div>
   </div>
 
@@ -558,6 +564,9 @@ Packager.DEFAULT_OPTIONS = () => ({
     background: '#000000',
     foreground: '#ffffff',
     accent: '#ff4c4c'
+  },
+  loadingScreen: {
+    text: ''
   },
   controls: {
     greenFlag: {
