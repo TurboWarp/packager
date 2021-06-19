@@ -195,8 +195,8 @@ class Packager extends EventTarget {
   }
 
   async package () {
-    await this.loadResources();
     const serialized = await this.vm.saveProjectSb3();
+    await this.loadResources();
     const html = `<!DOCTYPE html>
 <!-- -->
 <html>

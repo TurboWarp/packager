@@ -27,8 +27,8 @@
       reset();
       progressVisible = true;
       progress = 0;
-      progressText = 'Loading Scratch';
 
+      progressText = 'Loading packager';
       const {
         VirtualMachine,
         Storage

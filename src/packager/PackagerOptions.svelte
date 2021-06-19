@@ -53,7 +53,7 @@
   };
 
   const handleZipProgress = ({detail}) => {
-    progressText = 'Zipping project';
+    progressText = 'Compressing project';
     progress = detail.progress;
   };
 
@@ -69,7 +69,7 @@
   const runPackager = async (packager) => {
     try {
       progressVisible = true;
-      progressText = 'Loading';
+      progressText = 'Compressing project';
       progress = 0;
       if (url) {
         URL.revokeObjectURL(url);
