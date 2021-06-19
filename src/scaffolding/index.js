@@ -113,6 +113,7 @@ class Scaffolding extends EventTarget {
   }
 
   _onmousedown (e) {
+    e.preventDefault();
     const data = {
       x: e.clientX - this.layersRect.left,
       y: e.clientY - this.layersRect.top,
