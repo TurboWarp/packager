@@ -440,7 +440,6 @@ class Packager extends EventTarget {
       });
     }
 
-    debugger;
     vm.setTurboMode(${this.options.turbo});
     vm.setInterpolation(${this.options.interpolation});
     vm.setFramerate(${this.options.framerate});
