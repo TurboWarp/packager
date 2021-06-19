@@ -513,6 +513,14 @@ class Packager extends EventTarget {
   }
 }
 
+Packager.getDefaultPackageNameFromTitle = (title) => {
+  // Remove file extension
+  title = title.split('.')[0];
+  title = title.replace(/ /g, '-');
+  title = title.replace(/[^\-a-z]/gi, '');
+  return title.toLowerCase() || 'packaged-project';
+};
+
 Packager.DEFAULT_OPTIONS = () => ({
   turbo: false,
   interpolation: false,
@@ -551,7 +559,7 @@ Packager.DEFAULT_OPTIONS = () => ({
   target: 'html',
   app: {
     icon: null,
-    packageName: 'p4-project'
+    packageName: Packager.getDefaultPackageNameFromTitle('')
   },
   chunks: {
     gamepad: false
@@ -564,6 +572,4 @@ Packager.DEFAULT_OPTIONS = () => ({
   }
 });
 
-export {
-  Packager
-};
+export default Packager;

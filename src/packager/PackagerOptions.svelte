@@ -2,7 +2,7 @@
   import {slide} from 'svelte/transition';
   import Section from './Section.svelte';
   import Progress from './Progress.svelte';
-  import {Packager} from './packager';
+  import Packager from './packager';
   import writablePersistentStore from './persistent-store';
   import {error} from './stores';
   import Preview from './preview';
@@ -27,6 +27,7 @@
   for (const variable of cloudVariables) {
     packager.options.cloudVariables.custom[variable] = canUseCloudVariableServer ? 'ws' : 'local';
   }
+  packager.options.app.packageName = Packager.getDefaultPackageNameFromTitle(projectData.title);
 
   const options = writablePersistentStore(`PackagerOptions.${projectData.uniqueId}`, packager.options);
   $: packager.options = $options;
