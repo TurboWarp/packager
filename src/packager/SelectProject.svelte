@@ -3,6 +3,8 @@
   import Progress from './Progress.svelte';
   import writablePersistentStore from './persistent-store';
   import {error} from './stores';
+  import loadProject from './load-project';
+  import xhr from './lib/xhr';
   import {UserError} from './errors';
   import {readAsArrayBuffer} from './lib/readers';
 
@@ -28,66 +30,62 @@
       progressVisible = true;
       progress = 0;
 
-      progressText = 'Loading packager';
-      const {
-        VirtualMachine,
-        Storage
-      } = await import(/* webpackChunkName: "large" */ './large-dependencies');
+      let data;
+      let uniqueId = '';
+      let id = null;
+      let projectTitle = '';
 
-      progressText = 'Loading project';
-      let vm = new VirtualMachine();
-      vm.extensionManager.loadExtensionURL = () => Promise.resolve();
-      class StorageWithProgress extends Storage {
-        constructor (...args) {
-          super(...args);
-          this.totalAssets = 0;
-          this.loadedAssets = 0;
-        }
-        load (...args) {
-          this.totalAssets++;
-          progress = this.loadedAssets / this.totalAssets;
-          progressText = `Loading assets (${this.loadedAssets}/${this.totalAssets})`;
-          return super.load(...args)
-            .then((r) => {
-              this.loadedAssets++;
-              progress = this.loadedAssets / this.totalAssets;
-              progressText = `Loading assets (${this.loadedAssets}/${this.totalAssets})`;
-              return r;
-            });
-        }
-      }
-      const storage = new StorageWithProgress();
-      storage.addWebStore(
-        [storage.AssetType.ImageVector, storage.AssetType.ImageBitmap, storage.AssetType.Sound],
-        (asset) => `https://assets.scratch.mit.edu/internalapi/asset/${asset.assetId}.${asset.dataFormat}/get/`
-      );
-      vm.attachStorage(storage);
-
-      const newProjectData = {
-        vm
-      };
       if ($type === 'id') {
         const match = $projectId.match(/\d+/);
         if (!match) {
           throw new UserError('Invalid project ID');
         }
-        const id = match[0];
-        newProjectData.uniqueId = `#${id}`;
-        newProjectData.projectId = id;
-        const res = await fetch('https://projects.scratch.mit.edu/' + id);
-        const data = await res.arrayBuffer();
-        await vm.loadProject(data);
+        id = match[0];
+        uniqueId = `#${id}`;
+
+        progressText = 'Loading project metadata';
+        try {
+          const meta = await xhr({
+            url: `https://trampoline.turbowarp.org/proxy/projects/${id}`,
+            timeout: 5000,
+            type: 'json'
+          });
+          projectTitle = meta.title;
+        } catch (e) {
+          // Happens commonly when loading unshared projects, not something to worry about
+          console.warn(e);
+        }
+
+        progressText = 'Loading project data';
+        data = await xhr({
+          url: `https://projects.scratch.mit.edu/${id}`,
+          type: 'arraybuffer',
+          progressCallback: (p) => {
+            progress = p;
+          }
+        });
       } else {
         if (!files) {
           throw new UserError('No file selected');
         }
         const file = files[0];
-        newProjectData.projectId = null;
-        newProjectData.uniqueId = `@${file.name}`;
-        const data = await readAsArrayBuffer(file);
-        await vm.loadProject(data);
+        uniqueId = `@${file.name}`;
+        projectTitle = file.name;
+        progressText = 'Reading project';
+        data = await readAsArrayBuffer(file);
       }
-      projectData = newProjectData
+
+      progressText = 'Loading packager';
+      const vm = await loadProject(data, (loadedAssets, totalAssets) => {
+        progressText = `Loading assets (${loadedAssets}/${totalAssets})`;
+        progress = loadedAssets / totalAssets;
+      });
+      projectData = {
+        vm,
+        projectId: id,
+        uniqueId,
+        title: projectTitle
+      };
     } catch (e) {
       $error = e;
     }

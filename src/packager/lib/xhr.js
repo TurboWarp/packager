@@ -1,7 +1,8 @@
 const xhr = ({
   url,
   type,
-  progressCallback
+  progressCallback,
+  timeout
 }) => new Promise((resolve, reject) => {
   const xhr = new XMLHttpRequest();
   xhr.onload = () => {
@@ -14,14 +15,22 @@ const xhr = ({
   xhr.onerror = () => {
     reject(new Error('XHR error'));
   };
-  xhr.onprogress = (e) => {
-    if (e.lengthComputable) {
-      progressCallback(e.loaded / e.total);
-    }
-  };
+  if (progressCallback) {
+    xhr.onprogress = (e) => {
+      if (e.lengthComputable) {
+        progressCallback(e.loaded / e.total);
+      }
+    };
+  }
   xhr.responseType = type;
   xhr.open('GET', url);
   xhr.send();
+  if (timeout) {
+    setTimeout(() => {
+      xhr.abort();
+      reject(new Error('XHR timed out'));
+    }, timeout);
+  }
 });
 
 export default xhr;
