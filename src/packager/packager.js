@@ -13,6 +13,14 @@ const largeAssets = {
     src: LARGE_ASSET_BASE + 'nwjs-v0.49.0-osx-x64.zip',
     size: 97406745,
     sha256: '792fadce3a23677f6fd0e67997b13b23de02fb7920f0a3ca24c2be26f8b78395'
+  },
+  scaffolding: {
+    src: 'scaffolding.js',
+    asText: true
+  },
+  addons: {
+    src: 'addons.js',
+    asText: true
   }
 };
 
@@ -46,16 +54,23 @@ const fetchLargeAsset = async (name) => {
   if (!entry) {
     throw new Error('Invalid manifest entry');
   }
+  if (entry._data) {
+    return entry._data;
+  }
   const res = await fetch(entry.src);
   if (!res.ok) {
     throw new Error(`Unexpected status code: ${res.status}`);
   }
-  const buffer = await res.arrayBuffer();
-  const hash = sha256(buffer);
-  if (hash !== entry.sha256) {
-    throw new Error('Hash mismatch');
+  let result = await (entry.asText ? res.text() : res.arrayBuffer());
+  if (entry.sha256) {
+    // TODO: check hash in web worker as it can be quite slow
+    const hash = sha256(result);
+    if (hash !== entry.sha256) {
+      throw new Error(`Hash mismatch for ${name}, found ${hash} but expected ${entry.sha256}`);
+    }
   }
-  return buffer;
+  entry._data = result;
+  return result;
 };
 
 const getIcon = async (icon) => {
@@ -251,16 +266,12 @@ class Packager extends EventTarget {
 
   async loadResources () {
     const chunks = [
-      fetch('scaffolding.js')
+      fetchLargeAsset('scaffolding'),
     ];
     if (this.options.chunks.gamepad) {
-      chunks.push(fetch('addons.js'))
+      chunks.push(fetchLargeAsset('addons'));
     }
-    const requests = await Promise.all(chunks);
-    if (!requests.every(i => i.ok)) {
-      throw new Error('Resource loading failed');
-    }
-    const texts = await Promise.all(requests.map(i => i.text()));
+    const texts = await Promise.all(chunks);
     this.script = texts.join('\n').replace(/<\/script>/g,"</scri'+'pt>");
   }
 
