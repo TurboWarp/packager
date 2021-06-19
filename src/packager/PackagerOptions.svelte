@@ -230,7 +230,7 @@
       Accent color (background color of controls when active or hovered)
     </label>
   {/if}
-  <p>If all controls are disabled, there will be no controls at all.</p>
+  <p>If all controls are disabled, there will be no controls at all. If only fullscreen is enabled, it will be displayed as its own button always in the top left corner, not in a header above the player.</p>
 
   <h3>Colors</h3>
   <label>
