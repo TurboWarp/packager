@@ -39,8 +39,12 @@
   let progressVisible = false;
   let progress = 0;
   let progressText = '';
+  let previewer = null;
   let iconFiles = null;
   $: $options.app.icon = iconFiles ? iconFiles[0] : null;
+  $: if (previewer) {
+    previewer.setProgress(progress, progressText);
+  }
 
   const handleLargeAssetFetchProgress = ({detail}) => {
     if (detail.asset.startsWith('nwjs-')) {
@@ -99,15 +103,16 @@
   };
 
   const preview = async () => {
-    const preview = new Preview();
+    previewer = new Preview();
     const child = packager.child();
     child.options.target = 'html';
     await runPackager(child);
     if (result) {
-      preview.setContent(result.blob);
+      previewer.setContent(result.blob);
     } else {
-      preview.close();
+      previewer.close();
     }
+    previewer = null;
   };
 </script>
 

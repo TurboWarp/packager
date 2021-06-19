@@ -24,8 +24,15 @@ const source = `<!DOCTYPE html>
     height: 100%;
     user-select: none;
   }
-  .preview-message > div {
-    margin-bottom: 4px;
+  .preview-progress-outer {
+    width: 200px;
+    height: 10px;
+    border: 1px solid white;
+  }
+  .preview-progress-inner {
+    height: 100%;
+    width: 0;
+    background: white;
   }
   [hidden] {
     display: none;
@@ -34,8 +41,7 @@ const source = `<!DOCTYPE html>
 </head>
 <body>
   <div class="preview-message">
-    <div>Waiting for packager to finish...</div>
-    <div>If this is taking a while, check the original tab and try again.</div>
+    <div class="preview-progress-outer"><div class="preview-progress-inner"></div></div>
   </div>
   <div class="preview-message preview-error" hidden>
     <div class="preview-error-message"></div>
@@ -52,10 +58,12 @@ const source = `<!DOCTYPE html>
       return;
     }
     let hasRun = false;
+    const progressBar = document.querySelector(".preview-progress-inner");
+    const progressText = document.querySelector(".preview-progress-text");
     window.addEventListener("message", (e) => {
       if (e.origin !== location.origin) return;
+      if (hasRun) return;
       if (e.data.blob) {
-        if (hasRun) return;
         hasRun = true;
         const fr = new FileReader();
         fr.onload = () => {
@@ -67,6 +75,9 @@ const source = `<!DOCTYPE html>
           err("Something went wrong reading the file");
         };
         fr.readAsText(e.data.blob);
+      }
+      if (typeof e.data.progress === "number") {
+        progressBar.style.width = (e.data.progress * 100) + "%";
       }
     });
     window.opener.postMessage({
@@ -96,6 +107,13 @@ class Preview {
     this.window.postMessage({
       blob: content
     }, location.origin);
+  }
+
+  setProgress (progress, text) {
+    this.window.postMessage({
+      progress,
+      text
+    });
   }
 
   close () {
