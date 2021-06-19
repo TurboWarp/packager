@@ -115,6 +115,13 @@
     }
     previewer = null;
   };
+
+  const reset = () => {
+    if (confirm('Reset all settings to defaults and reload?')) {
+      localStorage.clear();
+      location.reload();
+    }
+  };
 </script>
 
 <style>
@@ -202,6 +209,10 @@
   <label>
     Page Title
     <input type="text" bind:value={$options.app.windowTitle}>
+  </label>
+  <label>
+    Loading Screen Text
+    <input type="text" bind:value={$options.loadingScreen.text}>
   </label>
 
   <h3>Controls</h3>
@@ -363,6 +374,7 @@
 <Section>
   <Button on:click={pack} disabled={progressVisible}>Package</Button>
   <Button on:click={preview} disabled={progressVisible} secondary>Preview</Button>
+  <Button on:click={reset} danger>Reset</Button>
 </Section>
 
 {#if result && url}

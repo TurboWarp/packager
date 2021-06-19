@@ -1,6 +1,7 @@
 <script>
   export let disabled;
   export let secondary;
+  export let danger;
 </script>
 
 <style>
@@ -31,8 +32,17 @@
   .secondary:disabled {
     background-color: #57dbb6;
   }
+  .danger {
+    background-color: #FF8C1A;
+  }
+  .danger:active {
+    background-color: #c76c12;
+  }
+  .danger:disabled {
+    background-color: #ffbd7b;
+  }
 </style>
 
-<button on:click disabled={disabled} class:secondary>
+<button on:click disabled={disabled} class:secondary class:danger>
   <slot></slot>
 </button>
