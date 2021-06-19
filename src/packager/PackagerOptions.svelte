@@ -257,7 +257,7 @@
       Warp Timer
     </label>
     <label>
-      Custom JS
+      Custom JS (Don't change if you don't know what you're doing!)
       <textarea bind:value={$options.custom.js}></textarea>
     </label>
   </details>

@@ -627,7 +627,7 @@ Packager.DEFAULT_OPTIONS = () => ({
   autoplay: false,
   username: 'player####',
   custom: {
-    js: '// Do not change if you don\'t know what you\'re doing!'
+    js: ''
   },
   appearance: {
     background: '#000000',
