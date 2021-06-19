@@ -28,6 +28,7 @@
     packager.options.cloudVariables.custom[variable] = canUseCloudVariableServer ? 'ws' : 'local';
   }
   packager.options.app.packageName = Packager.getDefaultPackageNameFromTitle(projectData.title);
+  packager.options.app.windowTitle = Packager.getWindowTitleFromProjectTitle(projectData.title);
 
   const options = writablePersistentStore(`PackagerOptions.${projectData.uniqueId}`, packager.options);
   $: packager.options = $options;
@@ -190,6 +191,11 @@
 
 <Section>
   <h2>Player Options</h2>
+
+  <label>
+    Page Title
+    <input type="text" bind:value={$options.app.windowTitle}>
+  </label>
 
   <label>
     <input type="checkbox" bind:checked={$options.controls.greenFlag.enabled}>

@@ -6,6 +6,16 @@ import largeAssets from './large-assets';
 import xhr from './lib/xhr';
 import pngToAppleICNS from './lib/icns';
 
+const escapeXML = (v) => v.replace(/["'<>&]/g, (i) => {
+  switch (i) {
+    case '"': return '&quot;';
+    case '\'': return '&apos;';
+    case '<': return '&lt;';
+    case '>': return '&gt;';
+    case '&': return '&amp;';
+  }
+});
+
 const sha256 = async (buffer) => {
   const worker = Comlink.wrap(new ChecksumWorker());
   return await worker.sha256(buffer);
@@ -204,7 +214,7 @@ class Packager extends EventTarget {
   <meta charset="utf8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' 'unsafe-eval' data: blob:; connect-src * data: blob:">
-  <title>Packaged Project</title>
+  <title>${escapeXML(this.options.app.windowTitle)}</title>
   <style>
     body {
       background-color: ${this.options.appearance.background};
@@ -521,6 +531,11 @@ Packager.getDefaultPackageNameFromTitle = (title) => {
   return title.toLowerCase() || 'packaged-project';
 };
 
+Packager.getWindowTitleFromProjectTitle = (title) => {
+  title = title.split('.')[0];
+  return title || 'Packaged Project';
+};
+
 Packager.DEFAULT_OPTIONS = () => ({
   turbo: false,
   interpolation: false,
@@ -559,7 +574,8 @@ Packager.DEFAULT_OPTIONS = () => ({
   target: 'html',
   app: {
     icon: null,
-    packageName: Packager.getDefaultPackageNameFromTitle('')
+    packageName: Packager.getDefaultPackageNameFromTitle(''),
+    windowTitle: Packager.getWindowTitleFromProjectTitle('')
   },
   chunks: {
     gamepad: false
