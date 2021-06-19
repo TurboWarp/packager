@@ -228,7 +228,7 @@ const addNwJS = async (projectZip, packagerOptions) => {
   // Copy project files and extra NW.js files to the right place
   for (const path of Object.keys(projectZip.files)) {
     setFileFast(zip, dataPrefix + path, projectZip.files[path]);
-  }  
+  }
   zip.file(dataPrefix + icon.name, icon.data);
   zip.file(dataPrefix + 'package.json', JSON.stringify(manifest, null, 4));
 
@@ -441,7 +441,7 @@ class Packager extends EventTarget {
     };
     setProgress(0.1);
 
-    scaffolding.setUsername("123");
+    scaffolding.setUsername(${JSON.stringify(this.options.username)}.replace(/#/g, () => Math.floor(Math.random() * 10)));
 
     ${this.options.cloudVariables.mode === 'ws' ?
       `scaffolding.addCloudProvider(${this.makeWebSocketProvider()})` :
@@ -613,6 +613,7 @@ Packager.DEFAULT_OPTIONS = () => ({
   stageWidth: 480,
   stageHeight: 360,
   autoplay: false,
+  username: 'player####',
   custom: {
     js: '// Do not change if you don\'t know what you\'re doing!'
   },

@@ -157,6 +157,10 @@
     <input type="number" min="0" max="4096" step="1" bind:value={$options.stageHeight}>
   </label>
   <label>
+    Username (# will be replaced with random number)
+    <input type="text" bind:value={$options.username}>
+  </label>
+  <label>
     <input type="checkbox" bind:checked={$options.autoplay}>
     Autoplay
   </label>
