@@ -22,15 +22,12 @@ class Scaffolding extends EventTarget {
     this._draggingId = null;
     this._draggingStartMousePosition = null;
     this._draggingStartSpritePosition = null;
-    this._createDOM();
 
     this._offsetFromTop = 0;
     this._offsetFromBottom = 0;
     this._offsetFromLeft = 0;
     this._offsetFromRight = 0;
-  }
 
-  _createDOM () {
     this._root = document.createElement('div');
     this._root.className = styles.root;
 
