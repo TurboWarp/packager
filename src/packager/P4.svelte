@@ -3,7 +3,8 @@
   import Section from './Section.svelte';
   import SelectProject from './SelectProject.svelte';
   import PackagerOptions from './PackagerOptions.svelte';
-  import {error} from './stores';
+  import Progress from './Progress.svelte';
+  import {error, progress} from './stores';
   import {UserError} from './errors';
 
   let projectData;
@@ -137,6 +138,12 @@
         {/if}
       </Section>
     </div>
+  {/if}
+
+  {#if $progress.visible}
+    <Section>
+      <Progress progress={$progress.progress} text={$progress.text} />
+    </Section>
   {/if}
 
   <footer>

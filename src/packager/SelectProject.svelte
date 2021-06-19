@@ -3,7 +3,7 @@
   import Progress from './Progress.svelte';
   import Button from './Button.svelte';
   import writablePersistentStore from './persistent-store';
-  import {error} from './stores';
+  import {error, progress} from './stores';
   import loadProject from './load-project';
   import xhr from './lib/xhr';
   import {UserError} from './errors';
@@ -18,18 +18,13 @@
     projectData = null;
   };
 
-  let progressVisible = false;
-  let progress = 0;
-  let progressText = '';
-
   // Reset project whenever an input changes
   $: files, $projectId, $type, reset();
 
   const load = async () => {
     try {
       reset();
-      progressVisible = true;
-      progress = 0;
+      $progress.visible = true;
 
       let data;
       let uniqueId = '';
@@ -44,7 +39,7 @@
         id = match[0];
         uniqueId = `#${id}`;
 
-        progressText = 'Loading project metadata';
+        $progress.text = 'Loading project metadata';
         try {
           const meta = await xhr({
             url: `https://trampoline.turbowarp.org/proxy/projects/${id}`,
@@ -57,12 +52,12 @@
           console.warn(e);
         }
 
-        progressText = 'Loading project data';
+        $progress.text = 'Loading project data';
         data = await xhr({
           url: `https://projects.scratch.mit.edu/${id}`,
           type: 'arraybuffer',
           progressCallback: (p) => {
-            progress = p;
+            $progress.progress = p;
           }
         });
       } else {
@@ -72,17 +67,17 @@
         const file = files[0];
         uniqueId = `@${file.name}`;
         projectTitle = file.name;
-        progressText = 'Reading project';
+        $progress.text = 'Reading project';
         data = await readAsArrayBuffer(file);
       }
 
-      progressText = 'Loading packager';
+      $progress.text = 'Loading packager';
       const vm = await loadProject(data, (loadedAssets, totalAssets) => {
-        progressText = `Loading assets (${loadedAssets}/${totalAssets})`;
-        progress = loadedAssets / totalAssets;
+        $progress.text = `Loading assets (${loadedAssets}/${totalAssets})`;
+        $progress.progress = loadedAssets / totalAssets;
       });
 
-      progressText = 'Compressing project';
+      $progress.text = 'Compressing project';
       const serialized = await vm.saveProjectSb3();
 
       projectData = {
@@ -96,7 +91,7 @@
       $error = e;
     }
 
-    progressVisible = false;
+    progress.reset();
   };
 </script>
 
@@ -127,15 +122,11 @@
   </div>
 
   <p>
-    <Button on:click={load} disabled={progressVisible}>Load Project</Button>
+    <Button on:click={load} disabled={$progress.visible}>Load Project</Button>
   </p>
 </Section>
 
-{#if progressVisible}
-  <Section>
-    <Progress progress={progress} text={progressText} />
-  </Section>
-{:else if !projectData}
+{#if !$progress.visible && !projectData}
   <Section caption>
     <p>Load a project to continue</p>
   </Section>

@@ -1,11 +1,10 @@
 <script>
   import {slide, fade} from 'svelte/transition';
   import Section from './Section.svelte';
-  import Progress from './Progress.svelte';
   import Button from './Button.svelte';
   import Packager from './packager';
   import writablePersistentStore from './persistent-store';
-  import {error} from './stores';
+  import {error, progress} from './stores';
   import Preview from './preview';
 
   export let projectData;
@@ -37,32 +36,29 @@
 
   let result = null;
   let url = null;
-  let progressVisible = false;
-  let progress = 0;
-  let progressText = '';
   let previewer = null;
   let iconFiles = null;
   $: $options.app.icon = iconFiles ? iconFiles[0] : null;
   $: if (previewer) {
-    previewer.setProgress(progress, progressText);
+    previewer.setProgress($progress.progress, $progress.text);
   }
 
   const handleLargeAssetFetchProgress = ({detail}) => {
     if (detail.asset.startsWith('nwjs-')) {
-      progressText = 'Loading NW.js';
+      $progress.text = 'Loading NW.js';
     } else if (detail.asset === 'scaffolding') {
-      progressText = 'Loading TurboWarp';
+      $progress.text = 'Loading TurboWarp';
     } else if (detail.asset === 'addons') {
-      progressText = 'Loading addons';
+      $progress.text = 'Loading addons';
     } else {
-      progressText = `Loading large asset ${detail.asset}`
+      $progress.text = `Loading large asset ${detail.asset}`
     }
-    progress = detail.progress;
+    $progress.progress = detail.progress;
   };
 
   const handleZipProgress = ({detail}) => {
-    progressText = 'Compressing project';
-    progress = detail.progress;
+    $progress.text = 'Compressing project';
+    $progress.progress = detail.progress;
   };
 
   const downloadURL = (filename, url) => {
@@ -76,9 +72,9 @@
 
   const runPackager = async (packager) => {
     try {
-      progressVisible = true;
-      progressText = 'Packaging project';
-      progress = 0;
+      $progress.visible = true;
+      $progress.text = 'Packaging project';
+
       if (url) {
         URL.revokeObjectURL(url);
       }
@@ -93,7 +89,7 @@
     } catch (e) {
       $error = e;
     }
-    progressVisible = false;
+    progress.reset();
   };
 
   const pack = async () => {
@@ -372,8 +368,8 @@
 {/if}
 
 <Section>
-  <Button on:click={pack} disabled={progressVisible}>Package</Button>
-  <Button on:click={preview} disabled={progressVisible} secondary>Preview</Button>
+  <Button on:click={pack} disabled={$progress.visible}>Package</Button>
+  <Button on:click={preview} disabled={$progress.visible} secondary>Preview</Button>
   <Button on:click={reset} danger>Reset</Button>
 </Section>
 
@@ -383,11 +379,7 @@
       <a href={url} download={result.filename}>Download {result.filename} ({(result.blob.size / 1024 / 1024).toFixed(2)}MiB)</a>
     </div>
   </Section>
-{:else if progressVisible}
-  <Section>
-    <Progress progress={progress} text={progressText} />
-  </Section>
-{:else}
+{:else if !$progress.visible}
   <Section caption>
     <p>Downloads will appear here</p>
   </Section>
