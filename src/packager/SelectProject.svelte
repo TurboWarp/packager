@@ -127,7 +127,7 @@
   </div>
 
   <p>
-    <Button on:click={load} disabled={progressVisible}>Load New Project</Button>
+    <Button on:click={load} disabled={progressVisible}>Load Project</Button>
   </p>
 </Section>
 
