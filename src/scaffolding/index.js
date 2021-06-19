@@ -52,6 +52,7 @@ class Scaffolding extends EventTarget {
     document.addEventListener('mousemove', this._onmousemove.bind(this));
     this._canvas.addEventListener('mousedown', this._onmousedown.bind(this));
     document.addEventListener('mouseup', this._onmouseup.bind(this));
+    this._canvas.addEventListener('contextmenu', this._oncontextmenu.bind(this));
     this._canvas.addEventListener('wheel', this._onwheel.bind(this));
     document.addEventListener('keydown', this._onkeydown.bind(this));
     document.addEventListener('keyup', this._onkeyup.bind(this));
@@ -144,6 +145,10 @@ class Scaffolding extends EventTarget {
       this._draggingStartSpritePosition = null;
       this._draggingId = null;
     }
+  }
+
+  _oncontextmenu (e) {
+    e.preventDefault();
   }
 
   _onwheel (e) {
