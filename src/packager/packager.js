@@ -5,6 +5,7 @@ import {readAsArrayBuffer, readAsURL} from './lib/readers';
 import largeAssets from './large-assets';
 import xhr from './lib/xhr';
 import pngToAppleICNS from './lib/icns';
+import deepClone from './lib/deep-clone';
 
 const escapeXML = (v) => v.replace(/["'<>&]/g, (i) => {
   switch (i) {
@@ -54,7 +55,7 @@ class Packager extends EventTarget {
 
   child () {
     const packager = new Packager();
-    packager.options = JSON.parse(JSON.stringify(this.options));
+    packager.options = deepClone(this.options);
     packager.vm = this.vm;
     packager.serialized = this.serialized;
     return packager;
