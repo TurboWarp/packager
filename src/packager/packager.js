@@ -3,6 +3,7 @@ import ChecksumWorker from 'worker-loader?name=checksum.worker.js!./checksum.wor
 import defaultIcon from './default-icon.png';
 import {readAsArrayBuffer, readAsURL} from './lib/readers';
 import largeAssets from './large-assets';
+import xhr from './lib/xhr';
 
 const sha256 = async (buffer) => {
   const worker = Comlink.wrap(new ChecksumWorker());
@@ -16,30 +17,6 @@ const getJSZip = async () => {
 
 const setFileFast = (zip, path, data) => {
   zip.files[path] = data;
-};
-
-const fetchLargeAsset = async (name) => {
-  const entry = largeAssets[name];
-  if (!entry) {
-    throw new Error('Invalid manifest entry');
-  }
-  if (entry._data) {
-    return entry._data;
-  }
-  const res = await fetch(entry.src);
-  if (!res.ok) {
-    throw new Error(`Unexpected status code: ${res.status}`);
-  }
-  let result = await (entry.asText ? res.text() : res.arrayBuffer());
-  if (entry.sha256) {
-    // TODO: check hash in web worker as it can be quite slow
-    const hash = await sha256(result);
-    if (hash !== entry.sha256) {
-      throw new Error(`Hash mismatch for ${name}, found ${hash} but expected ${entry.sha256}`);
-    }
-  }
-  entry._data = result;
-  return result;
 };
 
 const getIcon = async (icon) => {
@@ -134,86 +111,6 @@ const pngToAppleICNS = async (pngData) => {
   return icns.data;
 };
 
-const addNwJS = async (projectZip, packagerOptions) => {
-  const nwjsBuffer = await fetchLargeAsset(packagerOptions.target);
-  const nwjsZip = await (await getJSZip()).loadAsync(nwjsBuffer);
-
-  const isMac = packagerOptions.target === 'nwjs-mac';
-  const isWindows = packagerOptions.target.startsWith('nwjs-win');
-
-  // NW.js Windows folder structure:
-  // * (root)
-  // +-- nwjs-v0.49.0-win-x64
-  //   +-- nw.exe (executable)
-  //   +-- credits.html
-  //   +-- (project data)
-  //   +-- ...
-
-  // NW.js macOS folder structure:
-  // * (root)
-  // +-- nwjs-v0.49.0-osx-64
-  //   +-- credits.html
-  //   +-- nwjs.app
-  //     +-- Contents
-  //       +-- Resources
-  //         +-- app.icns (icon)
-  //         +-- app.nw
-  //           +-- (project data)
-  //       +-- MacOS
-  //         +-- nwjs (executable)
-  //       +-- ...
-
-  // the first folder, something like "nwjs-v0.49.0-win-64"
-  const nwjsPrefix = Object.keys(nwjsZip.files)[0].split('/')[0];
-
-  const zip = new (await getJSZip());
-
-  const packageName = packagerOptions.app.packageName;
-
-  // Copy NW.js files to the right place
-  for (const path of Object.keys(nwjsZip.files)) {
-    const file = nwjsZip.files[path];
-
-    let newPath = path.replace(nwjsPrefix, packageName);
-    if (isMac) {
-      newPath = newPath.replace('nwjs.app', `${packageName}.app`);
-    } else if (isWindows) {
-      newPath = newPath.replace('nw.exe', `${packageName}.exe`);
-    }
-
-    setFileFast(zip, newPath, file);
-  }
-
-  const icon = await getIcon(packagerOptions.app.icon);
-  const manifest = {
-    name: packageName,
-    main: 'index.html',
-    window: {
-      width: packagerOptions.stageWidth,
-      height: packagerOptions.stageHeight,
-      icon: icon.name
-    }
-  };
-
-  let dataPrefix;
-  if (isMac) {
-    const icnsData = await pngToAppleICNS(icon.data);
-    zip.file(`${packageName}/${packageName}.app/Contents/Resources/app.icns`, icnsData);
-    dataPrefix = `${packageName}/${packageName}.app/Contents/Resources/app.nw/`;
-  } else {
-    dataPrefix = `${packageName}/`;
-  }
-
-  // Copy project files and extra NW.js files to the right place
-  for (const path of Object.keys(projectZip.files)) {
-    setFileFast(zip, dataPrefix + path, projectZip.files[path]);
-  }
-  zip.file(dataPrefix + icon.name, icon.data);
-  zip.file(dataPrefix + 'package.json', JSON.stringify(manifest, null, 4));
-
-  return zip;
-};
-
 class Packager extends EventTarget {
   constructor () {
     super();
@@ -228,15 +125,123 @@ class Packager extends EventTarget {
     return packager;
   }
 
-  async loadResources () {
-    const chunks = [
-      fetchLargeAsset('scaffolding'),
-    ];
-    if (this.options.chunks.gamepad) {
-      chunks.push(fetchLargeAsset('addons'));
+  async fetchLargeAsset (name) {
+    const asset = largeAssets[name];
+    if (!asset) {
+      throw new Error('Invalid manifest entry');
     }
-    const texts = await Promise.all(chunks);
+    if (asset._data) {
+      return asset._data;
+    }
+    const result = await xhr({
+      url: asset.src,
+      type: asset.type || 'arraybuffer',
+      progressCallback: (progress) => {
+        this.dispatchEvent(new CustomEvent('large-asset-fetch', {
+          detail: {
+            asset: name,
+            progress
+          }
+        }));
+      }
+    });
+    if (asset.sha256) {
+      const hash = await sha256(result);
+      if (hash !== asset.sha256) {
+        throw new Error(`Hash mismatch for ${name}, found ${hash} but expected ${asset.sha256}`);
+      }
+    }
+    asset._data = result;
+    return result;
+  }
+
+  async loadResources () {
+    const texts = [];
+    texts.push(await this.fetchLargeAsset('scaffolding'));
+    if (this.options.chunks.gamepad) {
+      texts.push(await this.fetchLargeAsset('addons'));
+    }
     this.script = texts.join('\n').replace(/<\/script>/g,"</scri'+'pt>");
+  }
+
+  async addNwJS (projectZip) {
+    const nwjsBuffer = await this.fetchLargeAsset(this.options.target);
+    const nwjsZip = await (await getJSZip()).loadAsync(nwjsBuffer);
+  
+    const isMac = this.options.target === 'nwjs-mac';
+    const isWindows = this.options.target.startsWith('nwjs-win');
+  
+    // NW.js Windows folder structure:
+    // * (root)
+    // +-- nwjs-v0.49.0-win-x64
+    //   +-- nw.exe (executable)
+    //   +-- credits.html
+    //   +-- (project data)
+    //   +-- ...
+  
+    // NW.js macOS folder structure:
+    // * (root)
+    // +-- nwjs-v0.49.0-osx-64
+    //   +-- credits.html
+    //   +-- nwjs.app
+    //     +-- Contents
+    //       +-- Resources
+    //         +-- app.icns (icon)
+    //         +-- app.nw
+    //           +-- (project data)
+    //       +-- MacOS
+    //         +-- nwjs (executable)
+    //       +-- ...
+  
+    // the first folder, something like "nwjs-v0.49.0-win-64"
+    const nwjsPrefix = Object.keys(nwjsZip.files)[0].split('/')[0];
+  
+    const zip = new (await getJSZip());
+  
+    const packageName = this.options.app.packageName;
+  
+    // Copy NW.js files to the right place
+    for (const path of Object.keys(nwjsZip.files)) {
+      const file = nwjsZip.files[path];
+  
+      let newPath = path.replace(nwjsPrefix, packageName);
+      if (isMac) {
+        newPath = newPath.replace('nwjs.app', `${packageName}.app`);
+      } else if (isWindows) {
+        newPath = newPath.replace('nw.exe', `${packageName}.exe`);
+      }
+  
+      setFileFast(zip, newPath, file);
+    }
+  
+    const icon = await getIcon(this.options.app.icon);
+    const manifest = {
+      name: packageName,
+      main: 'index.html',
+      window: {
+        width: this.options.stageWidth,
+        height: this.options.stageHeight,
+        icon: icon.name
+      }
+    };
+  
+    let dataPrefix;
+    if (isMac) {
+      const icnsData = await pngToAppleICNS(icon.data);
+      zip.file(`${packageName}/${packageName}.app/Contents/Resources/app.icns`, icnsData);
+      dataPrefix = `${packageName}/${packageName}.app/Contents/Resources/app.nw/`;
+    } else {
+      dataPrefix = `${packageName}/`;
+    }
+  
+    // Copy project files and extra NW.js files to the right place
+    for (const path of Object.keys(projectZip.files)) {
+      setFileFast(zip, dataPrefix + path, projectZip.files[path]);
+    }
+    zip.file(dataPrefix + icon.name, icon.data);
+    zip.file(dataPrefix + 'package.json', JSON.stringify(manifest, null, 4));
+  
+    return zip;
   }
 
   makeWebSocketProvider () {
@@ -556,7 +561,7 @@ class Packager extends EventTarget {
       zip.file('script.js', this.script);
 
       if (this.options.target.startsWith('nwjs-')) {
-        zip = await addNwJS(zip, this.options);
+        zip = await this.addNwJS(zip);
       }
 
       return {
@@ -565,6 +570,13 @@ class Packager extends EventTarget {
           compression: 'DEFLATE',
           // Use UNIX permissions so that executable bits are properly set, which matters for NW.js macOS
           platform: 'UNIX',
+          onUpdate: (meta) => {
+            this.dispatchEvent(new CustomEvent('zip-progress', {
+              detail: {
+                progress: meta.progress / 100
+              }
+            }));
+          }
         }),
         filename: 'project.zip'
       };

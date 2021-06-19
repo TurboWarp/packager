@@ -39,6 +39,24 @@
   let iconFiles = null;
   $: $options.app.icon = iconFiles ? iconFiles[0] : null;
 
+  const handleLargeAssetFetchProgress = ({detail}) => {
+    if (detail.asset.startsWith('nwjs-')) {
+      progressText = 'Loading NW.js';
+    } else if (detail.asset === 'scaffolding') {
+      progressText = 'Loading TurboWarp';
+    } else if (detail.asset === 'addons') {
+      progressText = 'Loading addons';
+    } else {
+      progressText = `Loading large asset ${detail.asset}`
+    }
+    progress = detail.progress;
+  };
+
+  const handleZipProgress = ({detail}) => {
+    progressText = 'Zipping project';
+    progress = detail.progress;
+  };
+
   const downloadURL = (filename, url) => {
     const link = document.createElement('a');
     link.download = filename;
@@ -58,6 +76,9 @@
       }
       result = null;
       url = null;
+
+      packager.addEventListener('large-asset-fetch', handleLargeAssetFetchProgress);
+      packager.addEventListener('zip-progress', handleZipProgress);
 
       result = await packager.package();
       url = URL.createObjectURL(result.blob);
