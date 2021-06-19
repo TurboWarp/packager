@@ -397,10 +397,10 @@ class Packager extends EventTarget {
       border-radius: 4px;
     }
     .control-button:hover {
-      background: hsla(0, 100%, 65%, 0.15);
+      background: ${this.options.appearance.accent}26;
     }
     .control-button.active {
-      background: hsla(0, 100%, 65%, 0.35);
+      background: ${this.options.appearance.accent}59;
     }
     .fullscreen-button {
       background: white !important;
@@ -639,7 +639,8 @@ Packager.DEFAULT_OPTIONS = () => ({
   },
   appearance: {
     background: '#000000',
-    foreground: '#ffffff'
+    foreground: '#ffffff',
+    accent: '#ff4c4c'
   },
   controls: {
     greenFlag: {

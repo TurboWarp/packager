@@ -110,7 +110,7 @@
 </style>
 
 <Section>
-  <h2>Project player</h2>
+  <h2>Runtime Options</h2>
 
   <!-- TODO: this is not ideal, the help should be in here -->
   <!-- especially as not all of these options are actually in advanced settings on the main site -->
@@ -167,28 +167,8 @@
 </Section>
 
 <Section>
-  <h2>Addons</h2>
-  <!-- TODO: with only one thing in here, consider merging it into project player options -->
-  <label>
-    <input type="checkbox" bind:checked={$options.chunks.gamepad}>
-    Gamepad support (no settings modal)
-  </label>
-</Section>
+  <h2>Player Options</h2>
 
-<Section>
-  <h2>Appearance</h2>
-  <label>
-    <input type="color" bind:value={$options.appearance.background}>
-    Background color
-  </label>
-  <label>
-    <input type="color" bind:value={$options.appearance.foreground}>
-    Progress bar color
-  </label>
-</Section>
-
-<Section>
-  <h2>Controls</h2>
   <label>
     <input type="checkbox" bind:checked={$options.controls.greenFlag.enabled}>
     Green Flag
@@ -200,6 +180,26 @@
   <label>
     <input type="checkbox" bind:checked={$options.controls.fullscreen.enabled}>
     Fullscreen
+  </label>
+
+  {#if $options.controls.greenFlag.enabled || $options.controls.stopAll.enabled}
+    <label transition:slide>
+      <input type="color" bind:value={$options.appearance.accent}>
+      Accent color (background of controls)
+    </label>
+  {/if}
+  <label>
+    <input type="color" bind:value={$options.appearance.background}>
+    Background color
+  </label>
+  <label>
+    <input type="color" bind:value={$options.appearance.foreground}>
+    Progress bar color
+  </label>
+
+  <label>
+    <input type="checkbox" bind:checked={$options.chunks.gamepad}>
+    Gamepad support (no settings modal)
   </label>
 </Section>
 
