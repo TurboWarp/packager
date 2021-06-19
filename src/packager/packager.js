@@ -456,8 +456,8 @@ class Packager extends EventTarget {
     const run = async () => {
       const projectJSON = await getProjectJSON();
       setProgress(0.1);
-      await scaffolding.loadProject(projectJSON);
       ${this.options.custom.js}
+      await scaffolding.loadProject(projectJSON);
       setProgress(1);
       loadingScreen.hidden = true;
       if (${this.options.autoplay}) {
