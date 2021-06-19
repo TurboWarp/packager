@@ -12,14 +12,13 @@
   .bar-outer {
     width: 200px;
     height: 10px;
-    border: 1px solid black;
-    background: white;
+    border: 1px solid currentColor;
     margin-bottom: 4px;
   }
   .bar-inner {
     height: 100%;
     width: 0;
-    background: black;
+    background: currentColor;
   }
   .text {
     font-style: italic;
