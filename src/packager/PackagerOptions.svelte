@@ -217,7 +217,7 @@
   </label>
 
   {#if $options.controls.greenFlag.enabled || $options.controls.stopAll.enabled}
-    <label transition:slide>
+    <label transition:slide|local>
       <input type="color" bind:value={$options.appearance.accent}>
       Accent color (background of controls)
     </label>
@@ -254,7 +254,7 @@
       </select>
     </label>
     {#if $options.cloudVariables.mode === "custom"}
-      <div transition:slide>
+      <div transition:slide|local>
         {#each cloudVariables as variable}
           <label>
             <select bind:value={$options.cloudVariables.custom[variable]}>
@@ -321,7 +321,7 @@
   </label>
 
   {#if $options.target.startsWith('nwjs-')}
-    <div transition:slide>
+    <div transition:slide|local>
       <label>
         Package Name
         <input type="text" bind:value={$options.app.packageName}>
