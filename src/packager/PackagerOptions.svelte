@@ -208,7 +208,7 @@
   </label>
   <label>
     Loading Screen Text
-    <input type="text" bind:value={$options.loadingScreen.text}>
+    <input type="text" bind:value={$options.loadingScreen.text} placeholder="(Nothing)">
   </label>
 
   <h3>Controls</h3>
