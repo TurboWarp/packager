@@ -278,11 +278,15 @@
     NW.js Windows (64-bit)
   </label>
   <label>
+    <input type="radio" bind:group={$options.target} value="nwjs-win32">
+    NW.js Windows (32-bit)
+  </label>
+  <label>
     <input type="radio" bind:group={$options.target} value="nwjs-mac">
     NW.js macOS
   </label>
 
-  {#if $options.target === 'nwjs-win64' || $options.target === 'nwjs-mac'}
+  {#if $options.target.startsWith('nwjs-')}
     <div transition:slide>
       <label>
         Package Name

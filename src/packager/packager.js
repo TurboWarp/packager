@@ -183,7 +183,7 @@ const addNwJS = async (projectZip, packagerOptions) => {
   const nwjsZip = await (await getJSZip()).loadAsync(nwjsBuffer);
 
   const isMac = packagerOptions.target === 'nwjs-mac';
-  const isWindows = packagerOptions.target === 'nwjs-win64';
+  const isWindows = packagerOptions.target.startsWith('nwjs-win');
 
   // NW.js Windows folder structure:
   // * (root)
@@ -599,7 +599,7 @@ class Packager extends EventTarget {
       zip.file('index.html', html);
       zip.file('script.js', this.script);
 
-      if (this.options.target === 'nwjs-win64' || this.options.target === 'nwjs-mac') {
+      if (this.options.target.startsWith('nwjs-')) {
         zip = await addNwJS(zip, this.options);
       }
 
