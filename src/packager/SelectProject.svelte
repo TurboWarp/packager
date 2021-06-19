@@ -4,6 +4,7 @@
   import writablePersistentStore from './persistent-store';
   import {error} from './stores';
   import {UserError} from './errors';
+  import {readAsArrayBuffer} from './lib/readers';
 
   export let projectData = null;
   const type = writablePersistentStore('SelectProject.type', 'id');
@@ -20,13 +21,6 @@
 
   // Reset project whenever an input changes
   $: files, $projectId, $type, reset();
-
-  const readAsArrayBuffer = blob => new Promise((resolve, reject) => {
-    const fr = new FileReader();
-    fr.onload = () => resolve(fr.result);
-    fr.onerror = () => reject(new Error('Can not read blob'));
-    fr.readAsArrayBuffer(blob);
-  });
 
   const load = async () => {
     try {

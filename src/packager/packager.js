@@ -1,6 +1,7 @@
 import * as Comlink from 'comlink';
 import ChecksumWorker from 'worker-loader?name=checksum.worker.js!./checksum.worker.js'
 import defaultIcon from './default-icon.png';
+import {readAsArrayBuffer, readAsURL} from './lib/readers';
 
 const LARGE_ASSET_BASE = process.env.LARGE_ASSET_BASE;
 
@@ -33,20 +34,6 @@ const sha256 = async (buffer) => {
   const worker = Comlink.wrap(new ChecksumWorker());
   return await worker.sha256(buffer);
 };
-
-const readAsURL = (buffer) => new Promise((resolve, reject) => {
-  const fr = new FileReader();
-  fr.onload = () => resolve(fr.result);
-  fr.onerror = () => reject(new Error('Cannot read as URL'));
-  fr.readAsDataURL(buffer);
-});
-
-const readAsArrayBuffer = (buffer) => new Promise((resolve, reject) => {
-  const fr = new FileReader();
-  fr.onload = () => resolve(fr.result);
-  fr.onerror = () => reject(new Error('Cannot read as URL'));
-  fr.readAsArrayBuffer(buffer);
-});
 
 const getJSZip = async () => {
   const {JSZip} = await import('./large-dependencies');
@@ -89,15 +76,10 @@ const getIcon = async (icon) => {
       name: 'icon.png'
     };
   }
-  return new Promise((resolve, reject) => {
-    const fr = new FileReader();
-    fr.onload = () => resolve({
-      data: fr.result,
-      name: icon.name || 'icon.png'
-    });
-    fr.onerror = () => reject(new Error('Cannot read as array buffer'));
-    fr.readAsArrayBuffer(icon);
-  });
+  return {
+    data: await readAsArrayBuffer(icon),
+    name: icon.name || 'icon.png'
+  };
 };
 
 const loadImage = (src) => new Promise((resolve, reject) => {
