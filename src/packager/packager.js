@@ -1,4 +1,5 @@
-import shajs from 'sha.js';
+import * as Comlink from 'comlink';
+import ChecksumWorker from 'worker-loader!./checksum.worker.js'
 import defaultIcon from './default-icon.png';
 
 const LARGE_ASSET_BASE = process.env.LARGE_ASSET_BASE;
@@ -24,7 +25,10 @@ const largeAssets = {
   }
 };
 
-const sha256 = (buffer) => shajs('sha256').update(new Uint8Array(buffer)).digest('hex');
+const sha256 = async (buffer) => {
+  const worker = Comlink.wrap(new ChecksumWorker());
+  return await worker.sha256(buffer);
+};
 
 const readAsURL = (buffer) => new Promise((resolve, reject) => {
   const fr = new FileReader();
@@ -64,7 +68,7 @@ const fetchLargeAsset = async (name) => {
   let result = await (entry.asText ? res.text() : res.arrayBuffer());
   if (entry.sha256) {
     // TODO: check hash in web worker as it can be quite slow
-    const hash = sha256(result);
+    const hash = await sha256(result);
     if (hash !== entry.sha256) {
       throw new Error(`Hash mismatch for ${name}, found ${hash} but expected ${entry.sha256}`);
     }
