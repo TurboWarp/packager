@@ -208,7 +208,7 @@ class Packager extends EventTarget {
     const serialized = await this.vm.saveProjectSb3();
     await this.loadResources();
     const html = `<!DOCTYPE html>
-<!-- -->
+<!-- Created with https://packager.turbowarp.org/ -->
 <html>
 <head>
   <meta charset="utf8">
