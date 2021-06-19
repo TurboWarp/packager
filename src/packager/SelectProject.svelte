@@ -79,6 +79,12 @@
       $progress.text = 'Compressing project';
       const serialized = await vm.saveProjectSb3();
       const stageVariables = vm.runtime.getTargetForStage().variables;
+
+      // Try really hard to make sure that the VM can be garbage collected
+      for (const target of vm.runtime.targets) {
+        target.sprite.costumes = [];
+        target.sprite.sounds = [];
+      }
       vm.clear();
 
       projectData = {
