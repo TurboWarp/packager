@@ -315,6 +315,7 @@ class Packager extends EventTarget {
       cursor: pointer;
     }
   </style>
+  <meta name="theme-color" content="${this.options.appearance.background}">
 </head>
 <body>
   <noscript>Enable JavaScript</noscript>
