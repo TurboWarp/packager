@@ -14,6 +14,7 @@
 
   const packager = new Packager();
   packager.vm = projectData.vm;
+  packager.serialized = projectData.serialized;
 
   const cloudVariables = Object.values(projectData.vm.runtime.getTargetForStage().variables)
     .filter(i => i.isCloud)

@@ -80,11 +80,16 @@
         progressText = `Loading assets (${loadedAssets}/${totalAssets})`;
         progress = loadedAssets / totalAssets;
       });
+
+      progressText = 'Compressing project';
+      const serialized = await vm.saveProjectSb3();
+
       projectData = {
         vm,
         projectId: id,
         uniqueId,
-        title: projectTitle
+        title: projectTitle,
+        serialized
       };
     } catch (e) {
       $error = e;

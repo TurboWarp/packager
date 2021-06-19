@@ -1,7 +1,7 @@
 const source = `<!DOCTYPE html>
 <html>
 <head>
-  <title>Packaged Project</title>
+  <title>Loading Preview</title>
   <meta charset="utf8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <style>
@@ -16,12 +16,16 @@ const source = `<!DOCTYPE html>
     align-items: center;
     flex-direction: column;
     justify-content: center;
+    text-align: center;
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
     user-select: none;
+  }
+  .preview-message > div {
+    margin-bottom: 4px;
   }
   [hidden] {
     display: none;
@@ -30,7 +34,7 @@ const source = `<!DOCTYPE html>
 </head>
 <body>
   <div class="preview-message">
-    <div>Waiting for packager...</div>
+    <div>Waiting for packager to finish...</div>
     <div>If this is taking a while, check the original tab and try again.</div>
   </div>
   <div class="preview-message preview-error" hidden>

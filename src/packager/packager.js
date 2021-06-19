@@ -48,6 +48,7 @@ class Packager extends EventTarget {
   constructor () {
     super();
     this.vm = null;
+    this.serialized = null;
     this.options = Packager.DEFAULT_OPTIONS();
   }
 
@@ -55,6 +56,7 @@ class Packager extends EventTarget {
     const packager = new Packager();
     packager.options = Object.assign({}, this.options);
     packager.vm = this.vm;
+    packager.serialized = this.serialized;
     return packager;
   }
 
@@ -205,7 +207,6 @@ class Packager extends EventTarget {
   }
 
   async package () {
-    const serialized = await this.vm.saveProjectSb3();
     await this.loadResources();
     const html = `<!DOCTYPE html>
 <!-- Created with https://packager.turbowarp.org/ -->
@@ -449,7 +450,7 @@ class Packager extends EventTarget {
 
     const getProjectJSON = async () => {
       const res = await fetch(${JSON.stringify(
-        this.options.target === 'html' ? await readAsURL(serialized) : './assets/project.json'
+        this.options.target === 'html' ? await readAsURL(this.serialized) : './assets/project.json'
       )});
       return res.arrayBuffer();
     };
@@ -486,7 +487,7 @@ class Packager extends EventTarget {
 `;
 
     if (this.options.target !== 'html') {
-      let zip = await (await getJSZip()).loadAsync(serialized);
+      let zip = await (await getJSZip()).loadAsync(this.serialized);
       for (const file of Object.keys(zip.files)) {
         zip.files[`assets/${file}`] = zip.files[file];
         delete zip.files[file];
