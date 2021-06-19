@@ -10,7 +10,7 @@
 
   export let projectData = null;
   const type = writablePersistentStore('SelectProject.type', 'id');
-  const projectId = writablePersistentStore('SelectProject.id', '1');
+  const projectId = writablePersistentStore('SelectProject.id', 'https://scratch.mit.edu/projects/60917032/');
   let files = null;
 
   const reset = () => {
@@ -19,6 +19,14 @@
 
   // Reset project whenever an input changes
   $: files, $projectId, $type, reset();
+
+  const getId = () => {
+    const match = $projectId.match(/\d+/);
+    if (!match) {
+      return null;
+    }
+    return match[0];
+  };
 
   const load = async () => {
     try {
@@ -31,11 +39,10 @@
       let projectTitle = '';
 
       if ($type === 'id') {
-        const match = $projectId.match(/\d+/);
-        if (!match) {
+        id = getId();
+        if (!id) {
           throw new UserError('Invalid project ID');
         }
-        id = match[0];
         uniqueId = `#${id}`;
 
         $progress.text = 'Loading project metadata';
@@ -103,7 +110,9 @@
 </script>
 
 <style>
-
+  input[type="text"] {
+    width: 300px;
+  }
 </style>
 
 <Section accent="#4C97FF">
