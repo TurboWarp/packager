@@ -1,5 +1,5 @@
 <script>
-  import {slide} from 'svelte/transition';
+  import {slide, fade} from 'svelte/transition';
   import Section from './Section.svelte';
   import Progress from './Progress.svelte';
   import Button from './Button.svelte';
@@ -338,6 +338,27 @@
     </div>
   {/if}
 </Section>
+
+{#if $options.target.startsWith('nwjs-')}
+  <div transition:fade|local>
+    <Section>
+      {#if $options.target.startsWith('nwjs-win')}
+        <div>
+          <h2>Further steps for Windows</h2>
+          <p>To change the icon of the executable and generate installers, see <a href="https://docs.nwjs.io/en/latest/For%20Users/Package%20and%20Distribute/#windows">NW.js Documentation</a>.</p>
+        </div>
+      {:else if $options.target === 'nwjs-mac'}
+        <h2>Further steps for macOS</h2>
+        <p>Due to Apple policy, packaging for their platforms is rather troublesome. You either have to:</p>
+        <ul>
+          <li>Pay Apple $100/year for a developer account, or</li>
+          <li>Instruct users to ignore Gatekeeper by opening Finder > Navigating to the application > Right click > Open > Open again</li>
+        </ul>
+        <p>For further help and steps, see <a href="https://docs.nwjs.io/en/latest/For%20Users/Package%20and%20Distribute/#mac-os-x">NW.js Documentation</a>.</p>
+      {/if}
+    </Section>
+  </div>
+{/if}
 
 <Section>
   <Button on:click={pack} disabled={progressVisible}>Package</Button>
