@@ -19,7 +19,10 @@
   document.body.setAttribute('p4-loaded', '');
 
   $: if ($error) {
+    document.body.setAttribute('modal-visible', '');
     console.error($error);
+  } else {
+    document.body.removeAttribute('modal-visible');
   }
 
   const closeModal = () => {
@@ -46,6 +49,9 @@
   }
   :global([theme="dark"]) :global(a) {
     color: #4af;
+  }
+  :global([modal-visible]) {
+    overflow: hidden;
   }
   main {
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
