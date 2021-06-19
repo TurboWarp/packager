@@ -329,8 +329,8 @@
 </Section>
 
 <Section>
-  <button on:click={pack}>Package</button>
-  <button on:click={preview}>Preview</button>
+  <button on:click={pack} disabled={progressVisible}>Package</button>
+  <button on:click={preview} disabled={progressVisible}>Preview</button>
 </Section>
 
 {#if result && url}
