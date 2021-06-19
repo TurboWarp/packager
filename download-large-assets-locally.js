@@ -27,7 +27,7 @@ console.log('This may take a while.');
     }
     const data = await res.arrayBuffer();
     // Don't bother checking checksum, it will be checked by the website when it gets used
-    fs.writeFileSync(file, data);
+    fs.writeFileSync(file, Buffer.from(data));
   }
 })().catch((err) => {
   console.error(err);
