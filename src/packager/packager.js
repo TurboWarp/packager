@@ -48,7 +48,6 @@ const getIcon = async (icon) => {
 class Packager extends EventTarget {
   constructor () {
     super();
-    this.vm = null;
     this.serialized = null;
     this.options = Packager.DEFAULT_OPTIONS();
   }
@@ -56,7 +55,6 @@ class Packager extends EventTarget {
   child () {
     const packager = new Packager();
     packager.options = deepClone(this.options);
-    packager.vm = this.vm;
     packager.serialized = this.serialized;
     return packager;
   }

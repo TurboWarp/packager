@@ -13,10 +13,9 @@
   const ALMOST_INFINITY = 9999999999;
 
   const packager = new Packager();
-  packager.vm = projectData.vm;
   packager.serialized = projectData.serialized;
 
-  const cloudVariables = Object.values(projectData.vm.runtime.getTargetForStage().variables)
+  const cloudVariables = Object.values(projectData.stageVariables)
     .filter(i => i.isCloud)
     .map(i => i.name);
   const canUseCloudVariableServer = !!projectData.projectId;

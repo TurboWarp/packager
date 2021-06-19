@@ -78,12 +78,14 @@
 
       $progress.text = 'Compressing project';
       const serialized = await vm.saveProjectSb3();
+      const stageVariables = vm.runtime.getTargetForStage().variables;
+      vm.clear();
 
       projectData = {
-        vm,
         projectId: id,
         uniqueId,
         title: projectTitle,
+        stageVariables,
         serialized
       };
     } catch (e) {
