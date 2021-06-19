@@ -143,7 +143,7 @@
 
   <!-- TODO: this is not ideal, the help should be in here -->
   <!-- especially as not all of these options are actually in advanced settings on the main site -->
-  <p>See the advanced settings menu in <a href="https://turbowarp.org/">TurboWarp</a> for more information about these settings.</p>
+  <p>See the advanced settings menu in <a href="https://turbowarp.org/">TurboWarp</a> for more information about some of these settings.</p>
 
   <label>
     <input type="checkbox" bind:checked={$options.turbo}>
@@ -186,7 +186,7 @@
     <input type="number" min="0" max="4096" step="1" bind:value={$options.stageHeight}>
   </label>
   <label>
-    Username (# will be replaced with random number)
+    Username (each "#" gets replaced with a random number)
     <input type="text" bind:value={$options.username}>
   </label>
   <label>
@@ -203,25 +203,28 @@
     <input type="text" bind:value={$options.app.windowTitle}>
   </label>
 
+  <h3>Controls</h3>
   <label>
     <input type="checkbox" bind:checked={$options.controls.greenFlag.enabled}>
-    Green Flag
+    Show green flag button in controls
   </label>
   <label>
     <input type="checkbox" bind:checked={$options.controls.stopAll.enabled}>
-    Stop All
+    Show stop sign button in controls
   </label>
   <label>
     <input type="checkbox" bind:checked={$options.controls.fullscreen.enabled}>
-    Fullscreen
+    Show fullscreen button in controls
   </label>
-
   {#if $options.controls.greenFlag.enabled || $options.controls.stopAll.enabled}
     <label transition:slide|local>
       <input type="color" bind:value={$options.appearance.accent}>
-      Accent color (background of controls)
+      Accent color (background color of controls when active or hovered)
     </label>
   {/if}
+  <p>If all controls are disabled, there will be no controls at all.</p>
+
+  <h3>Colors</h3>
   <label>
     <input type="color" bind:value={$options.appearance.background}>
     Background color
@@ -231,9 +234,10 @@
     Progress bar color
   </label>
 
+  <h3>Addons</h3>
   <label>
     <input type="checkbox" bind:checked={$options.chunks.gamepad}>
-    Gamepad support (no settings modal)
+    Gamepad support addon (no settings button or modal for now)
   </label>
 </Section>
 

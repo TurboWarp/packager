@@ -78,6 +78,10 @@
     justify-content: center;
     background-color: rgba(0, 0, 0, 0.75);
   }
+  .small {
+    opacity: 0.8;
+    font-size: 13px;
+  }
 </style>
 
 <svelte:window on:keydown={onKeyDown} />
@@ -86,19 +90,19 @@
   <Section>
     <h1>TurboWarp Packager</h1>
     <p>Converts Scratch projects into standalone files.</p>
-    <p>If you just want to embed a TurboWarp project into your website, see <a href="https://github.com/TurboWarp/scratch-gui/wiki/Embedding">Embedding</a> instead.</p>
+    <p>If you just want an easy way to embed a TurboWarp project into your website, see <a href="https://github.com/TurboWarp/scratch-gui/wiki/Embedding">Embedding</a>.</p>
   </Section>
 
   <Section>
-    <p class="new-outer"><span class="new">New!</span> We've made a major update to the packager. Here's the highlights:</p>
+    <p class="new-outer"><span class="new">New!</span> We've made some major updates to the packager. Here's the highlights:</p>
     <ul>
       <li>Packaged projects are smaller, faster, and have a redesigned loading screen</li>
       <li>Things like loading screens are easy to edit by editing the simple HTML/CSS</li>
-      <li>New features: Gamepad support addon, configuring cloud variables per-variable, better zip projects</li>
-      <li>License changed from GPLv3 to LGPLv3, talk to a lawyer to learn what that means</li>
+      <li>New features: Gamepad support addon, configure cloud variables per-variable, better zip output</li>
+      <li>License changed from GPLv3 to LGPLv3, talk to a lawyer to learn what that means (This probably benefits you)</li>
     </ul>
-    <p>A lot of things that were previously difficult are now trivial -- let us know what features and customizations you're looking for.</p>
-    <p>You can still use the <a href="https://packager.turbowarp.org/">old version</a> if you'd like, but it won't receive updates.</p>
+    <p>A lot of features that were previously rejected for being difficult are now trivial -- let us know what features and customizations you're looking for.</p>
+    <p class="small">You can still use the <a href="https://packager.turbowarp.org/">old version</a>, but it won't receive updates.</p>
   </Section>
 
   <SelectProject bind:projectData />
