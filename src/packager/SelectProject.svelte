@@ -1,6 +1,7 @@
 <script>
   import Section from './Section.svelte';
   import Progress from './Progress.svelte';
+  import Button from './Button.svelte';
   import writablePersistentStore from './persistent-store';
   import {error} from './stores';
   import loadProject from './load-project';
@@ -126,7 +127,7 @@
   </div>
 
   <p>
-    <button on:click={load} disabled={progressVisible}>Load New Project</button>
+    <Button on:click={load} disabled={progressVisible}>Load New Project</Button>
   </p>
 </Section>
 

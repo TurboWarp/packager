@@ -2,6 +2,7 @@
   import {slide} from 'svelte/transition';
   import Section from './Section.svelte';
   import Progress from './Progress.svelte';
+  import Button from './Button.svelte';
   import Packager from './packager';
   import writablePersistentStore from './persistent-store';
   import {error} from './stores';
@@ -339,8 +340,8 @@
 </Section>
 
 <Section>
-  <button on:click={pack} disabled={progressVisible}>Package</button>
-  <button on:click={preview} disabled={progressVisible}>Preview</button>
+  <Button on:click={pack} disabled={progressVisible}>Package</Button>
+  <Button on:click={preview} disabled={progressVisible} secondary>Preview</Button>
 </Section>
 
 {#if result && url}
