@@ -1,5 +1,5 @@
 import * as Comlink from 'comlink';
-import ChecksumWorker from 'worker-loader!./checksum.worker.js'
+import ChecksumWorker from 'worker-loader?name=checksum.worker.js!./checksum.worker.js'
 import defaultIcon from './default-icon.png';
 
 const LARGE_ASSET_BASE = process.env.LARGE_ASSET_BASE;
@@ -114,8 +114,8 @@ const canvasToBlob = (canvas) => new Promise((resolve, reject) => {
 });
 
 const pngToAppleICNS = async (pngData) => {
-  const Icns = await import('@fiahfy/icns');
-  const Buffer = (await import('buffer')).Buffer;
+  const Icns = await import(/* webpackChunkName: "icns" */ '@fiahfy/icns');
+  const Buffer = (await import(/* webpackChunkName: "buffer" */ 'buffer')).Buffer;
 
   const FORMATS = [
     { type: 'ic04', size: 16 },
