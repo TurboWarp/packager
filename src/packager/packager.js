@@ -553,10 +553,10 @@ class Packager extends EventTarget {
 
 Packager.getDefaultPackageNameFromTitle = (title) => {
   // Remove file extension
-  title = title.trim();
   title = title.split('.')[0];
+  title = title.replace(/[^\-a-z ]/gi, '');
+  title = title.trim();
   title = title.replace(/ /g, '-');
-  title = title.replace(/[^\-a-z]/gi, '');
   return title.toLowerCase() || 'packaged-project';
 };
 
