@@ -142,7 +142,7 @@
   }
 </style>
 
-<Section>
+<Section accent="#FFAB19">
   <h2>Runtime Options</h2>
 
   <!-- TODO: this is not ideal, the help should be in here -->
@@ -199,7 +199,7 @@
   </label>
 </Section>
 
-<Section>
+<Section accent="#9966FF">
   <h2>Player Options</h2>
 
   <label>
@@ -250,7 +250,7 @@
 </Section>
 
 {#if cloudVariables.length > 0}
-  <Section>
+  <Section accent="#FF8C1A">
     <h2>Cloud Variables</h2>
     <label>
       Mode
@@ -290,7 +290,7 @@
   </Section>
 {/if}
 
-<Section>
+<Section accent="#FF6680">
   <h2>Advanced Options</h2>
   <details>
     <summary>You probably don't want to change these. (Click to open)</summary>
@@ -309,7 +309,7 @@
   </details>
 </Section>
 
-<Section>
+<Section accent="#0FBD8C">
   <h2>Environment</h2>
   <label>
     <input type="radio" bind:group={$options.target} value="html">
@@ -348,7 +348,7 @@
 
 {#if $options.target.startsWith('nwjs-')}
   <div transition:fade|local>
-    <Section>
+    <Section accent="#FF661A">
       {#if $options.target.startsWith('nwjs-win')}
         <div>
           <h2>Further steps for Windows</h2>

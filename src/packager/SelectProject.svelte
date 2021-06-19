@@ -1,6 +1,5 @@
 <script>
   import Section from './Section.svelte';
-  import Progress from './Progress.svelte';
   import Button from './Button.svelte';
   import writablePersistentStore from './persistent-store';
   import {error, progress} from './stores';
@@ -99,7 +98,7 @@
 
 </style>
 
-<Section>
+<Section accent="#4C97FF">
   <h2>Choose Project</h2>
   <p>You can package projects from the Scratch website by copying their URL or from files from your computer. If you're using someone else's project, make sure to give them proper credit.</p>
   <div>

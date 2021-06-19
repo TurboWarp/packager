@@ -1,6 +1,7 @@
 <script>
   export let caption = false;
   export let modal = false;
+  export let accent = '';
 </script>
 
 <style>
@@ -27,7 +28,7 @@
   }
 </style>
 
-<div class="card" class:caption class:modal>
+<div class="card" class:caption class:modal style={accent ? `border-top: 6px solid ${accent}` : ''}>
   <div>
     <slot></slot>
   </div>

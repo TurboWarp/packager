@@ -94,13 +94,13 @@
 <svelte:window on:keydown={onKeyDown} />
 
 <main>
-  <Section>
+  <Section accent="#ff4c4c">
     <h1>TurboWarp Packager</h1>
     <p>Converts Scratch projects into standalone files.</p>
     <p>If you just want an easy way to embed a TurboWarp project into your website, see <a href="https://github.com/TurboWarp/scratch-gui/wiki/Embedding">Embedding</a>.</p>
   </Section>
 
-  <Section>
+  <Section accent="#b117f8">
     <p class="new-outer"><span class="new">New!</span> We've made some major updates to the packager. Here's the highlights:</p>
     <ul>
       <li>Packaged projects are smaller, faster, and have a redesigned loading screen</li>
