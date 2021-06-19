@@ -33,9 +33,12 @@ const setFileFast = (zip, path, data) => {
 
 const getIcon = async (icon) => {
   if (!icon) {
-    const res = await fetch(defaultIcon);
+    const blob = await xhr({
+      url: defaultIcon,
+      type: 'blob'
+    });
     return {
-      data: await res.arrayBuffer(),
+      data: blob,
       name: 'icon.png'
     };
   }
@@ -103,10 +106,10 @@ class Packager extends EventTarget {
   async addNwJS (projectZip) {
     const nwjsBuffer = await this.fetchLargeAsset(this.options.target);
     const nwjsZip = await (await getJSZip()).loadAsync(nwjsBuffer);
-  
+
     const isMac = this.options.target === 'nwjs-mac';
     const isWindows = this.options.target.startsWith('nwjs-win');
-  
+
     // NW.js Windows folder structure:
     // * (root)
     // +-- nwjs-v0.49.0-win-x64
@@ -114,7 +117,7 @@ class Packager extends EventTarget {
     //   +-- credits.html
     //   +-- (project data)
     //   +-- ...
-  
+
     // NW.js macOS folder structure:
     // * (root)
     // +-- nwjs-v0.49.0-osx-64
@@ -128,28 +131,28 @@ class Packager extends EventTarget {
     //       +-- MacOS
     //         +-- nwjs (executable)
     //       +-- ...
-  
+
     // the first folder, something like "nwjs-v0.49.0-win-64"
     const nwjsPrefix = Object.keys(nwjsZip.files)[0].split('/')[0];
-  
+
     const zip = new (await getJSZip());
-  
+
     const packageName = this.options.app.packageName;
-  
+
     // Copy NW.js files to the right place
     for (const path of Object.keys(nwjsZip.files)) {
       const file = nwjsZip.files[path];
-  
+
       let newPath = path.replace(nwjsPrefix, packageName);
       if (isMac) {
         newPath = newPath.replace('nwjs.app', `${packageName}.app`);
       } else if (isWindows) {
         newPath = newPath.replace('nw.exe', `${packageName}.exe`);
       }
-  
+
       setFileFast(zip, newPath, file);
     }
-  
+
     const icon = await getIcon(this.options.app.icon);
     const manifest = {
       name: packageName,
@@ -160,7 +163,7 @@ class Packager extends EventTarget {
         icon: icon.name
       }
     };
-  
+
     let dataPrefix;
     if (isMac) {
       const icnsData = await pngToAppleICNS(icon.data);
@@ -169,14 +172,14 @@ class Packager extends EventTarget {
     } else {
       dataPrefix = `${packageName}/`;
     }
-  
+
     // Copy project files and extra NW.js files to the right place
     for (const path of Object.keys(projectZip.files)) {
       setFileFast(zip, dataPrefix + path, projectZip.files[path]);
     }
     zip.file(dataPrefix + icon.name, icon.data);
     zip.file(dataPrefix + 'package.json', JSON.stringify(manifest, null, 4));
-  
+
     return zip;
   }
 
