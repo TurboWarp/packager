@@ -29,6 +29,11 @@
   };
 
   const load = async () => {
+    if ($progress.visible) {
+      // Already running something
+      return;
+    }
+
     try {
       reset();
       $progress.visible = true;
@@ -124,7 +129,9 @@
       Project ID or URL
     </label>
     {#if $type === "id"}
-      <input type="text" bind:value={$projectId}>
+      <input type="text" bind:value={$projectId} on:keypress={(e) => {
+        if (e.key === 'Enter') load();
+      }}>
     {/if}
   </div>
   <div>
