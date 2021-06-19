@@ -549,6 +549,7 @@ class Packager extends EventTarget {
 
 Packager.getDefaultPackageNameFromTitle = (title) => {
   // Remove file extension
+  title = title.trim();
   title = title.split('.')[0];
   title = title.replace(/ /g, '-');
   title = title.replace(/[^\-a-z]/gi, '');
@@ -556,6 +557,7 @@ Packager.getDefaultPackageNameFromTitle = (title) => {
 };
 
 Packager.getWindowTitleFromProjectTitle = (title) => {
+  title = title.trim();
   title = title.split('.')[0];
   return title || 'Packaged Project';
 };
