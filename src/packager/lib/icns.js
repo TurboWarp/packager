@@ -18,8 +18,10 @@ const canvasToBlob = (canvas) => new Promise((resolve, reject) => {
 });
 
 const pngToAppleICNS = async (pngData) => {
-  const Icns = await import(/* webpackChunkName: "icns" */ '@fiahfy/icns');
-  const Buffer = (await import(/* webpackChunkName: "buffer" */ 'buffer')).Buffer;
+  const {
+    Icns,
+    Buffer
+  } = await import(/* webpackChunkName: "icns" */ './icns-bundle');
 
   const FORMATS = [
     { type: 'ic04', size: 16 },
