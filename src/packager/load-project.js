@@ -1,8 +1,21 @@
+const loadScratch = () => new Promise((resolve, reject) => {
+  // Loading Scratch like this is a terrible hack, yes, but its the fastest
+  // as we'll need scaffolding later anyways (this should get it in the cache)
+  const script = document.createElement('script');
+  document.body.appendChild(script);
+  script.onload = () => resolve({
+    VirtualMachine: window.Scaffolding.VM,
+    Storage: window.Scaffolding.Storage
+  });
+  script.onerror = () => reject(new Error('Could not load scaffolding'));
+  script.src = 'scaffolding.js';
+});
+
 const loadProject = async (data, progressCallback) => {
   const {
     VirtualMachine,
     Storage
-  } = await import(/* webpackChunkName: "large" */ './large-dependencies');
+  } = await loadScratch();
 
   const vm = new VirtualMachine();
 

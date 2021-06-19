@@ -22,10 +22,7 @@ const sha256 = async (buffer) => {
   return await worker.sha256(buffer);
 };
 
-const getJSZip = async () => {
-  const {JSZip} = await import('./large-dependencies');
-  return JSZip;
-};
+const getJSZip = async () => (await import(/* webpackChunkName: "jszip" */ 'jszip')).default;
 
 const setFileFast = (zip, path, data) => {
   zip.files[path] = data;
