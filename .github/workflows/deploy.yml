@@ -14,6 +14,8 @@ jobs:
         node-version: 10.x
     - run: npm ci
     - run: npm run build
+      env:
+        NODE_ENV: production
     - run: npm test
     - name: Deploy
       uses: JamesIves/github-pages-deploy-action@4.1.4
