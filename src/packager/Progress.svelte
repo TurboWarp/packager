@@ -14,11 +14,15 @@
     height: 10px;
     border: 1px solid currentColor;
     margin-bottom: 4px;
+    background: black;
+  }
+  :global([theme="dark"]) .bar-outer {
+    background: transparent;
   }
   .bar-inner {
     height: 100%;
     width: 0;
-    background: currentColor;
+    background: white;
   }
   .text {
     font-style: italic;
