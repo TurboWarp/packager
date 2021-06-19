@@ -17,4 +17,6 @@ jobs:
         node-version: 10.x
     - run: npm ci
     - run: npm run build
+      env:
+        NODE_ENV: production
     - run: npm test
