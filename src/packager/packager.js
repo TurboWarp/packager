@@ -570,13 +570,13 @@ Packager.DEFAULT_OPTIONS = () => ({
   },
   controls: {
     greenFlag: {
-      enabled: true,
+      enabled: false,
     },
     stopAll: {
-      enabled: true,
+      enabled: false,
     },
     fullscreen: {
-      enabled: true
+      enabled: false
     }
   },
   compiler: {
