@@ -54,7 +54,7 @@ class Packager extends EventTarget {
 
   child () {
     const packager = new Packager();
-    packager.options = Object.assign({}, this.options);
+    packager.options = JSON.parse(JSON.stringify(this.options));
     packager.vm = this.vm;
     packager.serialized = this.serialized;
     return packager;
@@ -434,6 +434,7 @@ class Packager extends EventTarget {
       });
     }
 
+    debugger;
     vm.setTurboMode(${this.options.turbo});
     vm.setInterpolation(${this.options.interpolation});
     vm.setFramerate(${this.options.framerate});
