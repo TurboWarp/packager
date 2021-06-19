@@ -72,7 +72,7 @@
   const runPackager = async (packager) => {
     try {
       progressVisible = true;
-      progressText = 'Compressing project';
+      progressText = 'Packaging project';
       progress = 0;
       if (url) {
         URL.revokeObjectURL(url);
