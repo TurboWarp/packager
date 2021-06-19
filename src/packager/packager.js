@@ -423,7 +423,7 @@ class Packager extends EventTarget {
     <p>See console for more information</p>
   </div>
 
-  <script>${this.script}</script>
+  ${this.options.target === 'html' ? `<script>${this.script}</script>` : '<script src="script.js"></script>'}
   <script>
     const appElement = document.getElementById('app');
     const launchScreen = document.getElementById('launch');
@@ -589,6 +589,7 @@ class Packager extends EventTarget {
         delete zip.files[file];
       }
       zip.file('index.html', html);
+      zip.file('script.js', this.script);
 
       if (this.options.target === 'nwjs-win64' || this.options.target === 'nwjs-mac') {
         zip = await addNwJS(zip, this.options);
