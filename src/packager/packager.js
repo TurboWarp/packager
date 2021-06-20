@@ -205,6 +205,16 @@ class Packager extends EventTarget {
     return result;
   }
 
+  async getProjectFetch () {
+    if (this.options.target === 'html') {
+      return JSON.stringify(await readAsURL(this.project.blob));
+    }
+    if (this.project.type === 'blob') {
+      return JSON.stringify('./assets/project.zip');
+    }
+    return JSON.stringify('./assets/project.json');
+  }
+
   async package () {
     await this.loadResources();
     const html = `<!DOCTYPE html>
@@ -471,9 +481,7 @@ class Packager extends EventTarget {
     });
 
     const getProjectJSON = async () => {
-      const res = await fetch(${JSON.stringify(
-        this.options.target === 'html' ? await readAsURL(this.project.blob) : './assets/project.json'
-      )});
+      const res = await fetch(${await this.getProjectFetch()});
       return res.arrayBuffer();
     };
 
@@ -509,10 +517,16 @@ class Packager extends EventTarget {
 `;
 
     if (this.options.target !== 'html') {
-      let zip = await (await getJSZip()).loadAsync(this.serialized.blob);
-      for (const file of Object.keys(zip.files)) {
-        zip.files[`assets/${file}`] = zip.files[file];
-        delete zip.files[file];
+      let zip;
+      if (this.project.type === 'sb3') {
+        zip = await (await getJSZip()).loadAsync(this.project.blob);
+        for (const file of Object.keys(zip.files)) {
+          zip.files[`assets/${file}`] = zip.files[file];
+          delete zip.files[file];
+        }  
+      } else {
+        zip = new (await getJSZip());
+        zip.file('assets/project.zip', this.project.blob);
       }
       zip.file('index.html', html);
       zip.file('script.js', this.script);
