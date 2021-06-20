@@ -13,7 +13,7 @@
   const ALMOST_INFINITY = 9999999999;
 
   const packager = new Packager();
-  packager.serialized = projectData.serialized;
+  packager.project = projectData.project;
 
   const cloudVariables = Object.values(projectData.stageVariables)
     .filter(i => i.isCloud)

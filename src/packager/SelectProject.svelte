@@ -3,7 +3,6 @@
   import Button from './Button.svelte';
   import writablePersistentStore from './persistent-store';
   import {error, progress} from './stores';
-  import loadProject from './load-project';
   import xhr from './lib/xhr';
   import {UserError} from './errors';
   import {readAsArrayBuffer} from './lib/readers';
@@ -82,29 +81,29 @@
         data = await readAsArrayBuffer(file);
       }
 
-      $progress.text = 'Loading packager';
-      const vm = await loadProject(data, (loadedAssets, totalAssets) => {
+      const progressTarget = new EventTarget();
+      let totalAssets = 0;
+      let loadedAssets = 0;
+      progressTarget.addEventListener('asset-fetch', () => {
+        totalAssets++;
+        $progress.text = `Loading assets (${loadedAssets}/${totalAssets})`;
+        $progress.progress = loadedAssets / totalAssets;
+      });
+      progressTarget.addEventListener('asset-fetched', () => {
+        loadedAssets++;
         $progress.text = `Loading assets (${loadedAssets}/${totalAssets})`;
         $progress.progress = loadedAssets / totalAssets;
       });
 
-      $progress.text = 'Compressing project';
-      const serialized = await vm.saveProjectSb3();
-      const stageVariables = vm.runtime.getTargetForStage().variables;
-
-      // Try really hard to make sure that the VM can be garbage collected
-      for (const target of vm.runtime.targets) {
-        target.sprite.costumes = [];
-        target.sprite.sounds = [];
-      }
-      vm.clear();
+      const loadProject = (await import('./lib/download-project')).default;
+      const project = await loadProject(data, progressTarget);
 
       projectData = {
         projectId: id,
         uniqueId,
         title: projectTitle,
-        stageVariables,
-        serialized
+        project,
+        stageVariables: project.stageVariables
       };
     } catch (e) {
       $error = e;

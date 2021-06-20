@@ -48,14 +48,14 @@ const getIcon = async (icon) => {
 class Packager extends EventTarget {
   constructor () {
     super();
-    this.serialized = null;
+    this.project = null;
     this.options = Packager.DEFAULT_OPTIONS();
   }
 
   child () {
     const packager = new Packager();
     packager.options = deepClone(this.options);
-    packager.serialized = this.serialized;
+    packager.project = this.project;
     return packager;
   }
 
@@ -472,7 +472,7 @@ class Packager extends EventTarget {
 
     const getProjectJSON = async () => {
       const res = await fetch(${JSON.stringify(
-        this.options.target === 'html' ? await readAsURL(this.serialized) : './assets/project.json'
+        this.options.target === 'html' ? await readAsURL(this.project.blob) : './assets/project.json'
       )});
       return res.arrayBuffer();
     };
@@ -509,7 +509,7 @@ class Packager extends EventTarget {
 `;
 
     if (this.options.target !== 'html') {
-      let zip = await (await getJSZip()).loadAsync(this.serialized);
+      let zip = await (await getJSZip()).loadAsync(this.serialized.blob);
       for (const file of Object.keys(zip.files)) {
         zip.files[`assets/${file}`] = zip.files[file];
         delete zip.files[file];
