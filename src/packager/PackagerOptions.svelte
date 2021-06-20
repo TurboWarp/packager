@@ -331,9 +331,12 @@
     <input type="radio" bind:group={$options.target} value="nwjs-mac">
     NW.js macOS
   </label>
+</Section>
 
-  {#if $options.target.startsWith('nwjs-')}
-    <div transition:slide|local>
+{#if $options.target.startsWith('nwjs-')}
+  <div transition:fade|local>
+    <Section accent="#FF661A">
+      <h2>NW.js Options</h2>
       <label>
         Package Name
         <input type="text" bind:value={$options.app.packageName}>
@@ -342,13 +345,7 @@
         Icon
         <input type="file" bind:files={iconFiles} accept=".png">
       </label>
-    </div>
-  {/if}
-</Section>
 
-{#if $options.target.startsWith('nwjs-')}
-  <div transition:fade|local>
-    <Section accent="#FF661A">
       {#if $options.target.startsWith('nwjs-win')}
         <div>
           <h2>Further steps for Windows</h2>
@@ -358,9 +355,10 @@
         <h2>Further steps for macOS</h2>
         <p>Due to Apple policy, packaging for their platforms is rather troublesome. You either have to:</p>
         <ul>
-          <li>Pay Apple $100/year for a developer account, or</li>
+          <li>Pay Apple $100/year for a developer account to sign and notarize the app (we do not have a tutorial for this as we can't afford that and don't want to support such practices), or</li>
           <li>Instruct users to ignore Gatekeeper by opening Finder > Navigating to the application > Right click > Open > Open again</li>
         </ul>
+        <p>NW.js currently only natively supports Intel Macs. Apple silicon Macs will use Rosetta.</p>
         <p>For further help and steps, see <a href="https://docs.nwjs.io/en/latest/For%20Users/Package%20and%20Distribute/#mac-os-x">NW.js Documentation</a>.</p>
       {/if}
     </Section>
