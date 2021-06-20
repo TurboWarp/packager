@@ -13,11 +13,13 @@ const identifyProjectType = (projectData) => {
 
 const analyzeScratch2 = (projectData) => {
   const stageVariables = {};
-  for (const {name, value, isPersistent} of projectData.variables) {
-    stageVariables[name] = {
-      name,
-      isCloud: isPersistent
-    };
+  if (projectData.variables) {
+    for (const {name, value, isPersistent} of projectData.variables) {
+      stageVariables[name] = {
+        name,
+        isCloud: isPersistent
+      };
+    }
   }
   return {
     stageVariables
