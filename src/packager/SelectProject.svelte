@@ -55,6 +55,9 @@
           loadedAssets++;
           $progress.text = `Loading assets (${loadedAssets}/${totalAssets})`;
           $progress.progress = loadedAssets / totalAssets;
+        } else if (type === 'compress') {
+          $progress.text = 'Compressing project';
+          $progress.progress = p;
         }
       };
 

@@ -535,14 +535,13 @@ class Packager extends EventTarget {
           type: 'blob',
           compression: 'DEFLATE',
           // Use UNIX permissions so that executable bits are properly set, which matters for NW.js macOS
-          platform: 'UNIX',
-          onUpdate: (meta) => {
-            this.dispatchEvent(new CustomEvent('zip-progress', {
-              detail: {
-                progress: meta.progress / 100
-              }
-            }));
-          }
+          platform: 'UNIX'
+        }, (meta) => {
+          this.dispatchEvent(new CustomEvent('zip-progress', {
+            detail: {
+              progress: meta.percent / 100
+            }
+          }));
         }),
         filename: 'project.zip'
       };

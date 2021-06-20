@@ -226,6 +226,8 @@ const downloadProject = async (data, progressCallback) => {
     blob = await downloaded.zip.generateAsync({
       type: 'blob',
       compression: 'DEFLATE'
+    }, (meta) => {
+      progressCallback('compress', meta.percent / 100);
     });
     analysis = downloaded.analysis;
   } else {
