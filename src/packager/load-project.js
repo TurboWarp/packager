@@ -23,7 +23,6 @@ const fromID = async (id, progressCallback) => {
 };
 
 const fromFile = async (file, progressCallback) => {
-  const worker = Comlink.wrap(new DownloadWorker());
   const buffer = await readAsArrayBuffer(file);
   return downloadProject(buffer, progressCallback);
 };
