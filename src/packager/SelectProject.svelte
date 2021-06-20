@@ -91,7 +91,8 @@
 
 <style>
   input[type="text"] {
-    width: 300px;
+    width: 100%;
+    max-width: 300px;
   }
 </style>
 
