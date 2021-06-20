@@ -6,6 +6,8 @@
 
 <style>
   button {
+    font-family: inherit;
+    font-size: 14px;
     background-color: #ff4c4c;
     color: white;
     border: none;
