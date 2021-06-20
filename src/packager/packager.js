@@ -18,8 +18,11 @@ const escapeXML = (v) => v.replace(/["'<>&]/g, (i) => {
 });
 
 const sha256 = async (buffer) => {
-  const worker = Comlink.wrap(new ChecksumWorker());
-  return await worker.sha256(buffer);
+  const worker = new ChecksumWorker();
+  const wrap = Comlink.wrap(worker);
+  const hash = await wrap.sha256(buffer);
+  worker.terminate();
+  return hash;
 };
 
 const getJSZip = async () => (await import(/* webpackChunkName: "jszip" */ 'jszip')).default;
