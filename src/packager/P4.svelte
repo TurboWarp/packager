@@ -98,6 +98,8 @@
     <h1>TurboWarp Packager</h1>
     <p>Converts Scratch projects into standalone files.</p>
     <p>If you just want an easy way to embed a TurboWarp project into your website, see <a href="https://github.com/TurboWarp/scratch-gui/wiki/Embedding">Embedding</a>.</p>
+    <p>Report bugs, give feedback, and suggest ideas <a href="https://scratch.mit.edu/users/GarboMuffin/#comments">on Scratch</a> or <a href="https://github.com/TurboWarp/packager/issues">on GitHub</a>.</p>
+    <p>The current URL is temporary. Links to this page will stop working when we replace packager.turbowarp.org with this.</p>
   </Section>
 
   <Section accent="#b117f8">
@@ -109,7 +111,6 @@
       <li>License changed from GPLv3 to LGPLv3, talk to a lawyer to learn what that means (This probably benefits you)</li>
     </ul>
     <p>A lot of features that were previously rejected for being difficult are now trivial -- let us know what features and customizations you're looking for.</p>
-    <p class="small">You can still use the <a href="https://packager.turbowarp.org/">old version</a>, but it won't receive updates.</p>
   </Section>
 
   <SelectProject bind:projectData />
