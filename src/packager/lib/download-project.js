@@ -29,7 +29,7 @@ const analyzeScratch2 = (projectData) => {
 const loadScratch2 = (projectData, progressTarget) => {
   const zip = new JSZip();
 
-  const IMAGE_EXTENSIONS = ['svg', 'png'];
+  const IMAGE_EXTENSIONS = ['svg', 'png', 'jpg', 'jpeg', 'bmp'];
   const SOUND_EXTENSIONS = ['wav', 'mp3'];
 
   // sb2 files have two ways of storing references to files.
