@@ -212,17 +212,37 @@ const downloadProject = async (data, progressCallback) => {
   if (bufferView[0] === '{'.charCodeAt(0)) {
     // JSON project, we have to download all the assets
     const progressTarget = new EventTarget();
+
+    let isDoneLoadingProject = false;
+    let timeout;
+    let loadedAssets = 0;
+    let totalAssets = 0;
+    const sendThrottledAssetProgressUpdate = () => {
+      if (timeout) {
+        return;
+      }
+      setTimeout(() => {
+        if (!isDoneLoadingProject) {
+          progressCallback('assets', loadedAssets, totalAssets);
+        }
+      });
+    };
     progressTarget.addEventListener('asset-fetch', () => {
-      progressCallback('asset-fetch');
+      totalAssets++;
+      sendThrottledAssetProgressUpdate();
     });
     progressTarget.addEventListener('asset-fetched', () => {
-      progressCallback('asset-fetched');
+      loadedAssets++;
+      sendThrottledAssetProgressUpdate();
     });
 
     const text = new TextDecoder().decode(data);
     const json = JSON.parse(text);
     type = identifyProjectType(json);
     const downloaded = await downloadJSONProject(json, progressTarget);
+    progressCallback('assets', totalAssets, totalAssets);
+    isDoneLoadingProject = true;
+
     blob = await downloaded.zip.generateAsync({
       type: 'blob',
       compression: 'DEFLATE'

@@ -42,22 +42,15 @@
       let projectTitle = '';
       let project;
 
-      let loadedAssets = 0;
-      let totalAssets = 0;
-      const progressCallback = (type, p) => {
+      const progressCallback = (type, a, b) => {
         if (type === 'fetch') {
-          $progress.progress = p;
-        } else if (type === 'asset-fetch') {
-          totalAssets++;
-          $progress.text = `Loading assets (${loadedAssets}/${totalAssets})`;
-          $progress.progress = loadedAssets / totalAssets;
-        } else if (type === 'asset-fetched') {
-          loadedAssets++;
-          $progress.text = `Loading assets (${loadedAssets}/${totalAssets})`;
-          $progress.progress = loadedAssets / totalAssets;
+          $progress.progress = a;
+        } else if (type === 'assets') {
+          $progress.text = `Loading assets (${a}/${b})`;
+          $progress.progress = a / b;
         } else if (type === 'compress') {
           $progress.text = 'Compressing project';
-          $progress.progress = p;
+          $progress.progress = a;
         }
       };
 
