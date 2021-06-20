@@ -3,11 +3,9 @@
   import Button from './Button.svelte';
   import writablePersistentStore from './persistent-store';
   import {error, progress} from './stores';
-  import xhr from './lib/xhr';
   import {UserError} from './errors';
-  import {readAsArrayBuffer} from './lib/readers';
-  import * as Comlink from 'comlink';
-  import DownloadWorker from 'worker-loader?name=downloader.worker.js!./downloader.worker.js';
+  import loadProject from './load-project';
+  import getProjectTitle from './lib/get-project-meta.js';
 
   export let projectData = null;
   const type = writablePersistentStore('SelectProject.type', 'id');
@@ -39,10 +37,15 @@
       reset();
       $progress.visible = true;
 
-      let data;
       let uniqueId = '';
       let id = null;
       let projectTitle = '';
+      let project;
+
+      const progressCallback = (loadedAssets, totalAssets) => {
+        $progress.text = `Loading assets (${loadedAssets}/${totalAssets})`;
+        $progress.progress = loadedAssets / totalAssets;
+      };
 
       if ($type === 'id') {
         id = getId();
@@ -50,28 +53,10 @@
           throw new UserError('Invalid project ID');
         }
         uniqueId = `#${id}`;
-
         $progress.text = 'Loading project metadata';
-        try {
-          const meta = await xhr({
-            url: `https://trampoline.turbowarp.org/proxy/projects/${id}`,
-            timeout: 5000,
-            type: 'json'
-          });
-          projectTitle = meta.title;
-        } catch (e) {
-          // Happens commonly when loading unshared projects, not something to worry about
-          console.warn(e);
-        }
-
-        $progress.text = 'Loading project data';
-        data = await xhr({
-          url: `https://projects.scratch.mit.edu/${id}`,
-          type: 'arraybuffer',
-          progressCallback: (p) => {
-            $progress.progress = p;
-          }
-        });
+        projectTitle = await getProjectTitle(id);
+        $progress.text = 'Loading project';
+        project = await loadProject.fromID(id, progressCallback);
       } else {
         if (!files) {
           throw new UserError('No file selected');
@@ -80,23 +65,14 @@
         uniqueId = `@${file.name}`;
         projectTitle = file.name;
         $progress.text = 'Reading project';
-        data = await readAsArrayBuffer(file);
+        project = await loadProject.fromFile(file);
       }
-
-      const progressCallback = (loadedAssets, totalAssets) => {
-        $progress.text = `Loading assets (${loadedAssets}/${totalAssets})`;
-        $progress.progress = loadedAssets / totalAssets;
-      };
-
-      const worker = Comlink.wrap(new DownloadWorker());
-      const project = await worker.downloadProject(data, Comlink.proxy(progressCallback));
 
       projectData = {
         projectId: id,
         uniqueId,
         title: projectTitle,
         project,
-        stageVariables: project.stageVariables
       };
     } catch (e) {
       $error = e;

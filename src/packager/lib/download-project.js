@@ -11,6 +11,19 @@ const identifyProjectType = (projectData) => {
   return null;
 };
 
+const analyzeScratch2 = (projectData) => {
+  const stageVariables = {};
+  for (const {name, value, isPersistent} of projectData.variables) {
+    stageVariables[name] = {
+      name,
+      isCloud: isPersistent
+    };
+  }
+  return {
+    stageVariables
+  };
+};
+
 const loadScratch2 = (projectData, progressTarget) => {
   const zip = new JSZip();
 
@@ -106,18 +119,26 @@ const loadScratch2 = (projectData, progressTarget) => {
     .then(() => {
       // We must add the project JSON at the end because it is changed during the loading due to updating asset IDs
       zip.file('project.json', JSON.stringify(projectData));
-      const stageVariables = {};
-      for (const {name, value, isPersistent} of projectData.variables) {
-        stageVariables[name] = {
-          name,
-          isCloud: isPersistent
-        };
-      }
       return {
         zip,
-        stageVariables: {}
+        analysis: analyzeScratch2(projectData)
       };
     });
+};
+
+const analyzeScratch3 = (projectData) => {
+  const stage = projectData.targets[0];
+  const stageVariables = {};
+  for (const id of Object.keys(stage.variables)) {
+    const [name, value, cloud] = stage.variables[id];
+    stageVariables[id] = {
+      name,
+      isCloud: !!cloud
+    };
+  }
+  return {
+    stageVariables
+  };
 };
 
 const loadScratch3 = (projectData, progressTarget) => {
@@ -164,18 +185,9 @@ const loadScratch3 = (projectData, progressTarget) => {
 
   return Promise.all(assets.map((a) => addFile(a)))
     .then(() => {
-      const stage = targets[0];
-      const stageVariables = {};
-      for (const id of Object.keys(stage.variables)) {
-        const [name, value, cloud] = stage.variables[id];
-        stageVariables[id] = {
-          name,
-          isCloud: !!cloud
-        };
-      }
       return {
         zip,
-        stageVariables
+        analysis: analyzeScratch3(projectData)
       };
     });
 };
@@ -192,8 +204,13 @@ const downloadJSONProject = (json, progressTarget) => {
 };
 
 const downloadProject = async (data, progressCallback) => {
+  let type;
+  let blob;
+  let analysis;
+
   const bufferView = new Uint8Array(data);
   if (bufferView[0] === '{'.charCodeAt(0)) {
+    // JSON project, we have to download everything else
     const progressTarget = new EventTarget();
     let totalAssets = 0;
     let loadedAssets = 0;
@@ -206,26 +223,53 @@ const downloadProject = async (data, progressCallback) => {
       progressCallback(loadedAssets, totalAssets);
     });
 
-    // Looks like it's JSON
     const text = new TextDecoder().decode(data);
     const json = JSON.parse(text);
-    const type = identifyProjectType(json);
-    const result = await downloadJSONProject(json, progressTarget);
-    const blob = await result.zip.generateAsync({
+    type = identifyProjectType(json);
+    const downloaded = await downloadJSONProject(json, progressTarget);
+    blob = await downloaded.zip.generateAsync({
       type: 'blob',
       compression: 'DEFLATE'
     });
-    return {
-      type: type === 'sb3' ? 'sb3' : 'blob',
-      blob,
-      stageVariables: result.stageVariables
-    };
+    analysis = downloaded.analysis;
+  } else {
+    // It's a binary blob
+    blob = new Blob([data]);
+    let zip;
+    try {
+      zip = await JSZip.loadAsync(data);
+    } catch (e) {
+      console.warn(e);
+    }
+    if (zip) {
+      const projectDataFile = zip.file('project.json');
+      const projectDataText = await projectDataFile.async('text');
+      const projectData = JSON.parse(projectDataText);
+      type = identifyProjectType(projectData);
+      if (type === 'sb3') {
+        analysis = analyzeScratch3(projectData);
+      } else {
+        analysis = analyzeScratch2(projectData);
+      }
+    } else {
+      type = 'sb';
+      analysis = {
+        stageVariables: {}
+      };
+    }
   }
-  // It's a binary blob
+
+  if (type === 'sb3') {
+    return {
+      type: 'sb3',
+      blob,
+      analysis
+    }
+  }
   return {
     type: 'blob',
-    blob: new Blob([data]),
-    stageVariables: {}
+    blob,
+    analysis
   };
 };
 

@@ -15,7 +15,7 @@
   const packager = new Packager();
   packager.project = projectData.project;
 
-  const cloudVariables = Object.values(projectData.stageVariables)
+  const cloudVariables = Object.values(projectData.project.analysis.stageVariables)
     .filter(i => i.isCloud)
     .map(i => i.name);
   const canUseCloudVariableServer = !!projectData.projectId;
