@@ -210,17 +210,13 @@ const downloadProject = async (data, progressCallback) => {
 
   const bufferView = new Uint8Array(data);
   if (bufferView[0] === '{'.charCodeAt(0)) {
-    // JSON project, we have to download everything else
+    // JSON project, we have to download all the assets
     const progressTarget = new EventTarget();
-    let totalAssets = 0;
-    let loadedAssets = 0;
     progressTarget.addEventListener('asset-fetch', () => {
-      totalAssets++;
-      progressCallback(loadedAssets, totalAssets);
+      progressCallback('asset-fetch');
     });
     progressTarget.addEventListener('asset-fetched', () => {
-      loadedAssets++;
-      progressCallback(loadedAssets, totalAssets);
+      progressCallback('asset-fetched');
     });
 
     const text = new TextDecoder().decode(data);

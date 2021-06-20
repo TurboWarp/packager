@@ -42,9 +42,20 @@
       let projectTitle = '';
       let project;
 
-      const progressCallback = (loadedAssets, totalAssets) => {
-        $progress.text = `Loading assets (${loadedAssets}/${totalAssets})`;
-        $progress.progress = loadedAssets / totalAssets;
+      let loadedAssets = 0;
+      let totalAssets = 0;
+      const progressCallback = (type, p) => {
+        if (type === 'fetch') {
+          $progress.progress = p;
+        } else if (type === 'asset-fetch') {
+          totalAssets++;
+          $progress.text = `Loading assets (${loadedAssets}/${totalAssets})`;
+          $progress.progress = loadedAssets / totalAssets;
+        } else if (type === 'asset-fetched') {
+          loadedAssets++;
+          $progress.text = `Loading assets (${loadedAssets}/${totalAssets})`;
+          $progress.progress = loadedAssets / totalAssets;
+        }
       };
 
       if ($type === 'id') {
@@ -55,7 +66,7 @@
         uniqueId = `#${id}`;
         $progress.text = 'Loading project metadata';
         projectTitle = await getProjectTitle(id);
-        $progress.text = 'Loading project';
+        $progress.text = 'Loading project data';
         project = await loadProject.fromID(id, progressCallback);
       } else {
         if (!files) {
@@ -65,7 +76,7 @@
         uniqueId = `@${file.name}`;
         projectTitle = file.name;
         $progress.text = 'Reading project';
-        project = await loadProject.fromFile(file);
+        project = await loadProject.fromFile(file, progressCallback);
       }
 
       projectData = {
