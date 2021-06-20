@@ -52,13 +52,6 @@ class Packager extends EventTarget {
     this.options = Packager.DEFAULT_OPTIONS();
   }
 
-  child () {
-    const packager = new Packager();
-    packager.options = deepClone(this.options);
-    packager.project = this.project;
-    return packager;
-  }
-
   async fetchLargeAsset (name) {
     const asset = largeAssets[name];
     if (!asset) {

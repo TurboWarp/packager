@@ -6,32 +6,29 @@
   import writablePersistentStore from './persistent-store';
   import {error, progress} from './stores';
   import Preview from './preview';
+  import deepClone from './lib/deep-clone';
 
   export let projectData;
 
   // JSON can't easily parse Infinity, so we'll just store large numbers instead
   const ALMOST_INFINITY = 9999999999;
 
-  const packager = new Packager();
-  packager.project = projectData.project;
-
   const cloudVariables = Object.values(projectData.project.analysis.stageVariables)
     .filter(i => i.isCloud)
     .map(i => i.name);
   const canUseCloudVariableServer = !!projectData.projectId;
 
-  packager.options.projectId = projectData.projectId;
+  const defaultOptions = Packager.DEFAULT_OPTIONS();
+  defaultOptions.projectId = projectData.projectId;
   if (!canUseCloudVariableServer) {
-    packager.options.cloudVariables.mode = 'local';
+    defaultOptions.cloudVariables.mode = 'local';
   }
   for (const variable of cloudVariables) {
-    packager.options.cloudVariables.custom[variable] = canUseCloudVariableServer ? 'ws' : 'local';
+    defaultOptions.cloudVariables.custom[variable] = canUseCloudVariableServer ? 'ws' : 'local';
   }
-  packager.options.app.packageName = Packager.getDefaultPackageNameFromTitle(projectData.title);
-  packager.options.app.windowTitle = Packager.getWindowTitleFromProjectTitle(projectData.title);
-
-  const options = writablePersistentStore(`PackagerOptions.${projectData.uniqueId}`, packager.options);
-  $: packager.options = $options;
+  defaultOptions.app.packageName = Packager.getDefaultPackageNameFromTitle(projectData.title);
+  defaultOptions.app.windowTitle = Packager.getWindowTitleFromProjectTitle(projectData.title);
+  const options = writablePersistentStore(`PackagerOptions.${projectData.uniqueId}`, defaultOptions);
 
   let result = null;
   let url = null;
@@ -69,8 +66,12 @@
     link.remove();
   };
 
-  const runPackager = async (packager) => {
+  const runPackager = async (options) => {
     try {
+      const packager = new Packager();
+      packager.options = options;
+      packager.project = projectData.project;
+
       $progress.visible = true;
       $progress.text = 'Packaging project';
 
@@ -92,7 +93,7 @@
   };
 
   const pack = async () => {
-    await runPackager(packager.child());
+    await runPackager($options);
     if (result) {
       downloadURL(result.filename, url);
     }
@@ -100,9 +101,9 @@
 
   const preview = async () => {
     previewer = new Preview();
-    const child = packager.child();
-    child.options.target = 'html';
-    await runPackager(child);
+    const optionsClone = deepClone($options);
+    optionsClone.target = 'html';
+    await runPackager(optionsClone);
     if (result) {
       previewer.setContent(result.blob);
     } else {
