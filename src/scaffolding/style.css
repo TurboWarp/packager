@@ -12,8 +12,6 @@
 }
 .layers > * {
   position: absolute;
-  top: 0;
-  left: 0;
 }
 .root * {
   box-sizing: border-box;
