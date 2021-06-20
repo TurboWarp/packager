@@ -200,6 +200,10 @@ class Packager extends EventTarget {
     return result;
   }
 
+  generateFilename (extension) {
+    return `${this.options.app.windowTitle}.${extension}`;
+  }
+
   async getProjectFetch () {
     if (this.options.target === 'html') {
       return JSON.stringify(await readAsURL(this.project.blob));
@@ -543,14 +547,14 @@ class Packager extends EventTarget {
             }
           }));
         }),
-        filename: 'project.zip'
+        filename: this.generateFilename('zip')
       };
     }
     return {
       blob: new Blob([html], {
         type: 'text/html'
       }),
-      filename: 'project.html'
+      filename: this.generateFilename('html')
     };
   }
 }
