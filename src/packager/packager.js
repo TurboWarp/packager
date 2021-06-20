@@ -523,7 +523,7 @@ class Packager extends EventTarget {
         for (const file of Object.keys(zip.files)) {
           zip.files[`assets/${file}`] = zip.files[file];
           delete zip.files[file];
-        }  
+        }
       } else {
         zip = new (await getJSZip());
         zip.file('assets/project.zip', this.project.blob);
