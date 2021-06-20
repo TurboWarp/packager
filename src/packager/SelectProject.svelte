@@ -6,6 +6,8 @@
   import xhr from './lib/xhr';
   import {UserError} from './errors';
   import {readAsArrayBuffer} from './lib/readers';
+  import * as Comlink from 'comlink';
+  import DownloadWorker from 'worker-loader?name=downloader.worker.js!./downloader.worker.js';
 
   export let projectData = null;
   const type = writablePersistentStore('SelectProject.type', 'id');
@@ -81,22 +83,13 @@
         data = await readAsArrayBuffer(file);
       }
 
-      const progressTarget = new EventTarget();
-      let totalAssets = 0;
-      let loadedAssets = 0;
-      progressTarget.addEventListener('asset-fetch', () => {
-        totalAssets++;
+      const progressCallback = (loadedAssets, totalAssets) => {
         $progress.text = `Loading assets (${loadedAssets}/${totalAssets})`;
         $progress.progress = loadedAssets / totalAssets;
-      });
-      progressTarget.addEventListener('asset-fetched', () => {
-        loadedAssets++;
-        $progress.text = `Loading assets (${loadedAssets}/${totalAssets})`;
-        $progress.progress = loadedAssets / totalAssets;
-      });
+      };
 
-      const loadProject = (await import('./lib/download-project')).default;
-      const project = await loadProject(data, progressTarget);
+      const worker = Comlink.wrap(new DownloadWorker());
+      const project = await worker.downloadProject(data, Comlink.proxy(progressCallback));
 
       projectData = {
         projectId: id,

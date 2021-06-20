@@ -191,10 +191,21 @@ const downloadJSONProject = (json, progressTarget) => {
   }
 };
 
-const downloadProject = async (data, progressTarget) => {
-  // TODO: move to worker
+const downloadProject = async (data, progressCallback) => {
   const bufferView = new Uint8Array(data);
   if (bufferView[0] === '{'.charCodeAt(0)) {
+    const progressTarget = new EventTarget();
+    let totalAssets = 0;
+    let loadedAssets = 0;
+    progressTarget.addEventListener('asset-fetch', () => {
+      totalAssets++;
+      progressCallback(loadedAssets, totalAssets);
+    });
+    progressTarget.addEventListener('asset-fetched', () => {
+      loadedAssets++;
+      progressCallback(loadedAssets, totalAssets);
+    });
+
     // Looks like it's JSON
     const text = new TextDecoder().decode(data);
     const json = JSON.parse(text);
