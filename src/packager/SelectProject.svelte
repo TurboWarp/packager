@@ -94,12 +94,20 @@
     width: 100%;
     max-width: 300px;
   }
+  .option {
+    height: 25px;
+    display: flex;
+    align-items: center;
+  }
+  input[type="text"], input[type="file"] {
+    margin-left: 4px;
+  }
 </style>
 
 <Section accent="#4C97FF">
   <h2>Choose Project</h2>
   <p>You can package projects from the Scratch website by copying their URL or from files from your computer. If you're using someone else's project, make sure to give them proper credit.</p>
-  <div>
+  <div class="option">
     <label>
       <input type="radio" bind:group={$type} value="id">
       Project ID or URL
@@ -110,7 +118,7 @@
       }}>
     {/if}
   </div>
-  <div>
+  <div class="option">
     <label>
       <input type="radio" bind:group={$type} value="file">
       File
