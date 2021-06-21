@@ -259,7 +259,7 @@ class Packager extends EventTarget {
       text-align: center;
       cursor: default;
       user-select: none;
-      background-color: black;
+      background-color: ${this.options.appearance.background};
     }
     #launch {
       background-color: rgba(0, 0, 0, 0.7);
