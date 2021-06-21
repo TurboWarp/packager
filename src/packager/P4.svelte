@@ -89,10 +89,6 @@
     justify-content: center;
     background-color: rgba(0, 0, 0, 0.75);
   }
-  .small {
-    opacity: 0.8;
-    font-size: 13px;
-  }
   footer > div {
     margin-top: 8px;
   }
