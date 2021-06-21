@@ -89,6 +89,9 @@
     opacity: 0.8;
     font-size: 13px;
   }
+  footer > div {
+    margin-top: 8px;
+  }
 </style>
 
 <svelte:window on:keydown={onKeyDown} />
@@ -148,8 +151,13 @@
   {/if}
 
   <footer>
-    <a href="https://scratch.mit.edu/users/GarboMuffin/#comments">Feedback & Bugs</a>
-    -
-    <a href="https://github.com/TurboWarp/p4">Source Code (LGPL3.0)</a>
+    <div>
+      <a href="https://scratch.mit.edu/users/GarboMuffin/#comments">Feedback & Bugs</a>
+      -
+      <a href="https://github.com/TurboWarp/p4">Source Code (LGPL3.0)</a>
+    </div>
+    <div>
+      <a href="https://fosshost.org/">File hosting provided by Fosshost</a>
+    </div>
   </footer>
 </main>
