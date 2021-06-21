@@ -12,7 +12,7 @@
     background-color: #fff;
     padding: 1em;
     margin-top: 1em;
-    margin-bottom: 1.2em;
+    margin-bottom: 1em;
     box-shadow: 0 2px 0.5em 0.1em rgba(0, 0, 0, 0.2);
   }
   :global([theme="dark"]) .card {
@@ -29,7 +29,5 @@
 </style>
 
 <div class="card" class:caption class:modal style={accent ? `border-top: 6px solid ${accent}` : ''}>
-  <div>
-    <slot></slot>
-  </div>
+  <slot></slot>
 </div>

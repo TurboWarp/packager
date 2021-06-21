@@ -55,6 +55,9 @@
   :global([modal-visible]) {
     overflow: hidden;
   }
+  :global(p), :global(h1), :global(h2) {
+    margin: 12px 0;
+  }
   main {
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     padding-bottom: 10px;
