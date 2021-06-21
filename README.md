@@ -1,29 +1,36 @@
-# p4
+# TurboWarp Packager
 
 https://packager-staging-do-not-use.turbowarp.org/
 
-We're rewriting the packager again. This is the last time, I promise.
+A packager for Scratch projects. Built using TurboWarp, webpack, and Svelte. Version 4.
 
-Goals for this rewrite:
+## Development
 
- - Smaller projects
- - Faster projects
- - Increased customizability
- - Stop writing interfaces in vanilla JS
- - Use standard Scratch libraries (no branches or forks)
-
-Setup:
+To run in development mode:
 
 ```
 npm ci
 npm start
 ```
 
-Sometimes for development it can be nice to store NW.js locally, so that you don't have to constantly download it.
+Then visit http://localhost:8080. Must manually refresh to apply.
+
+Sometimes for development it can be nice to store the large NW.js downloads locally, so that you don't have to constantly download them. On unix-like systems:
 
 ```
 node download-large-assets-locally.js
 LARGE_ASSET_BASE=./ npm start
 ```
 
-License: GNU Lesser General Public License version 3
+The general layout of `src` is:
+
+ - build: some questionable webpack customizations
+ - packager: The packager website and logic
+ - scaffolding: A minimal Scratch project player that abstracts most implementation details of Scratch
+ - addons: currently only the optional "gamepad support" addon in packaged projects
+
+## License
+
+This project is licensed under the GNU Lesser General Public License version 3. See COPYING and COPYING.LESSER for more information. We believe that packaging a project using the packager "makes use of an interface provided by the Library, but which is not otherwise based on the Library"
+
+If you manually modify this software or its output, then you may have to publish that source code under the terms of the LGPLv3, but you probably don't have to make the project that you packaged free to all.
