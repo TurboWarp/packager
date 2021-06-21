@@ -4,6 +4,7 @@
   import SelectProject from './SelectProject.svelte';
   import PackagerOptions from './PackagerOptions.svelte';
   import Progress from './Progress.svelte';
+  import Button from './Button.svelte';
   import {error, progress} from './stores';
   import {UserError} from './errors';
 
@@ -131,12 +132,12 @@
         {#if $error instanceof UserError}
           <p>{$error.message}</p>
           <p>
-            <button on:click={closeModal}>Close</button>
+            <Button color="#ff4c4c" on:click={closeModal}>Close</Button>
           </p>
         {:else}
           <p>Message: {$error}</p>
           <p>
-            <button on:click={closeModal}>Close</button>
+            <Button color="#ff4c4c" on:click={closeModal}>Close</Button>
             <a href="https://scratch.mit.edu/users/GarboMuffin/#comments">Report bug</a>
           </p>
         {/if}
