@@ -135,12 +135,12 @@
         {#if $error instanceof UserError}
           <p>{$error.message}</p>
           <p>
-            <Button color="#ff4c4c" on:click={closeModal}>Close</Button>
+            <Button on:click={closeModal}>Close</Button>
           </p>
         {:else}
           <p>Message: {$error}</p>
           <p>
-            <Button color="#ff4c4c" on:click={closeModal}>Close</Button>
+            <Button on:click={closeModal}>Close</Button>
             <a href="https://scratch.mit.edu/users/GarboMuffin/#comments">Report bug</a>
           </p>
         {/if}
