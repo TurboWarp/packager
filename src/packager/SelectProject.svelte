@@ -91,8 +91,8 @@
 
 <style>
   input[type="text"] {
-    width: 100%;
     max-width: 300px;
+    flex-grow: 1;
   }
   .option {
     height: 25px;
