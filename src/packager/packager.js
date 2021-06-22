@@ -82,7 +82,7 @@ class Packager extends EventTarget {
     if (!result) {
       result = await xhr({
         url: asset.src,
-        type: asset.type || 'arraybuffer',
+        type: asset.type,
         progressCallback: (progress) => {
           dispatchProgress(progress);
         }

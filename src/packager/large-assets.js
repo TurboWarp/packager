@@ -5,15 +5,18 @@ const LARGE_ASSET_BASE = process.env.LARGE_ASSET_BASE;
 module.exports = {
   'nwjs-win64': {
     src: LARGE_ASSET_BASE + 'nwjs-v0.54.0-win-x64.zip',
-    sha256: '0f082671b67b711f783d98cc989cf5aebacfc9bce3bef78875b57d08fc2a6e86'
+    sha256: '0f082671b67b711f783d98cc989cf5aebacfc9bce3bef78875b57d08fc2a6e86',
+    type: 'arraybuffer'
   },
   'nwjs-win32': {
     src: LARGE_ASSET_BASE + 'nwjs-v0.54.0-win-ia32.zip',
-    sha256: '7a1ed3a6a51b8cdf9280761b90cb4723cf9ee8050e3ed0b58451e8e4e694b203'
+    sha256: '7a1ed3a6a51b8cdf9280761b90cb4723cf9ee8050e3ed0b58451e8e4e694b203',
+    type: 'arraybuffer'
   },
   'nwjs-mac': {
     src: LARGE_ASSET_BASE + 'nwjs-v0.54.0-osx-x64.zip',
-    sha256: '498c97a264f8feac504c4c2396c1fddc8290c15573aee2fc692e59ff9803cc40'
+    sha256: '498c97a264f8feac504c4c2396c1fddc8290c15573aee2fc692e59ff9803cc40',
+    type: 'arraybuffer'
   },
   scaffolding: {
     src: 'scaffolding.js',
