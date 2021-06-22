@@ -60,6 +60,13 @@ class Packager extends EventTarget {
     if (!asset) {
       throw new Error(`Invalid asset: ${name}`);
     }
+    const dispatchProgress = (progress) => this.dispatchEvent(new CustomEvent('large-asset-fetch', {
+      detail: {
+        asset: name,
+        progress
+      }
+    }));
+    dispatchProgress(0);
     let result;
     let cameFromCache = false;
     try {
@@ -68,6 +75,7 @@ class Packager extends EventTarget {
         result = cached;
         cameFromCache = true;
       }
+      dispatchProgress(0.5);
     } catch (e) {
       console.warn(e);
     }
@@ -76,12 +84,7 @@ class Packager extends EventTarget {
         url: asset.src,
         type: asset.type || 'arraybuffer',
         progressCallback: (progress) => {
-          this.dispatchEvent(new CustomEvent('large-asset-fetch', {
-            detail: {
-              asset: name,
-              progress
-            }
-          }));
+          dispatchProgress(progress);
         }
       });
     }
@@ -98,6 +101,7 @@ class Packager extends EventTarget {
         console.warn(e);
       }
     }
+    dispatchProgress(1);
     return result;
   }
 
