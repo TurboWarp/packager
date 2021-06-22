@@ -103,7 +103,10 @@ const set = (asset, content) => new Promise(async (resolve, reject) => {
   };
 });
 
+const getCacheBuster = () => SCAFFOLDING_BUILD_ID;
+
 export default {
   get,
-  set
+  set,
+  getCacheBuster
 };

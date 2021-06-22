@@ -21,11 +21,13 @@ module.exports = {
   scaffolding: {
     src: 'scaffolding.js',
     estimatedSize: 4775503,
+    cacheBuster: true,
     type: 'text'
   },
   addons: {
     src: 'addons.js',
     estimatedSize: 14339,
+    cacheBuster: true,
     type: 'text'
   }
 };

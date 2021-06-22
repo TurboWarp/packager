@@ -80,8 +80,12 @@ class Packager extends EventTarget {
       console.warn(e);
     }
     if (!result) {
+      let url = asset.src;
+      if (asset.cacheBuster) {
+        url += `?${assetCache.getCacheBuster()}`;
+      }
       result = await xhr({
-        url: asset.src,
+        url,
         type: asset.type,
         estimatedSize: asset.estimatedSize,
         progressCallback: (progress) => {
