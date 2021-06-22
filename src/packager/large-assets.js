@@ -20,10 +20,12 @@ module.exports = {
   },
   scaffolding: {
     src: 'scaffolding.js',
+    estimatedSize: 4775503,
     type: 'text'
   },
   addons: {
     src: 'addons.js',
+    estimatedSize: 14339,
     type: 'text'
   }
 };

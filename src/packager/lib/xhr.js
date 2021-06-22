@@ -1,8 +1,11 @@
+const clampProgress = (n) => Math.max(0, Math.min(1, n));
+
 const xhr = ({
   url,
   type,
   progressCallback,
-  timeout
+  timeout,
+  estimatedSize
 }) => new Promise((resolve, reject) => {
   const xhr = new XMLHttpRequest();
   xhr.onload = () => {
@@ -19,6 +22,8 @@ const xhr = ({
     xhr.onprogress = (e) => {
       if (e.lengthComputable) {
         progressCallback(e.loaded / e.total);
+      } else if (estimatedSize) {
+        progressCallback(clampProgress(e.loaded / estimatedSize));
       }
     };
   }

@@ -83,6 +83,7 @@ class Packager extends EventTarget {
       result = await xhr({
         url: asset.src,
         type: asset.type,
+        estimatedSize: asset.estimatedSize,
         progressCallback: (progress) => {
           dispatchProgress(progress);
         }
