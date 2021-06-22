@@ -74,8 +74,8 @@ class Packager extends EventTarget {
       if (cached) {
         result = cached;
         cameFromCache = true;
+        dispatchProgress(0.5);
       }
-      dispatchProgress(0.5);
     } catch (e) {
       console.warn(e);
     }
