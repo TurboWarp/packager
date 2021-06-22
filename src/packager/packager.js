@@ -60,36 +60,43 @@ class Packager extends EventTarget {
     if (!asset) {
       throw new Error(`Invalid asset: ${name}`);
     }
+    let result;
+    let cameFromCache = false;
     try {
       const cached = await assetCache.get(asset);
       if (cached) {
-        return cached;
+        result = cached;
+        cameFromCache = true;
       }
     } catch (e) {
       console.warn(e);
     }
-    const result = await xhr({
-      url: asset.src,
-      type: asset.type || 'arraybuffer',
-      progressCallback: (progress) => {
-        this.dispatchEvent(new CustomEvent('large-asset-fetch', {
-          detail: {
-            asset: name,
-            progress
-          }
-        }));
-      }
-    });
+    if (!result) {
+      result = await xhr({
+        url: asset.src,
+        type: asset.type || 'arraybuffer',
+        progressCallback: (progress) => {
+          this.dispatchEvent(new CustomEvent('large-asset-fetch', {
+            detail: {
+              asset: name,
+              progress
+            }
+          }));
+        }
+      });
+    }
     if (asset.sha256) {
       const hash = await sha256(result);
       if (hash !== asset.sha256) {
         throw new Error(`Hash mismatch for ${name}, found ${hash} but expected ${asset.sha256}`);
       }
     }
-    try {
-      await assetCache.set(asset, result);
-    } catch (e) {
-      console.warn(e);
+    if (!cameFromCache) {
+      try {
+        await assetCache.set(asset, result);
+      } catch (e) {
+        console.warn(e);
+      }
     }
     return result;
   }
