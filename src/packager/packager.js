@@ -5,6 +5,7 @@ import {readAsArrayBuffer, readAsURL} from './lib/readers';
 import largeAssets from './large-assets';
 import xhr from './lib/xhr';
 import pngToAppleICNS from './lib/icns';
+import assetCache from './cache';
 
 const escapeXML = (v) => v.replace(/["'<>&]/g, (i) => {
   switch (i) {
@@ -57,10 +58,15 @@ class Packager extends EventTarget {
   async fetchLargeAsset (name) {
     const asset = largeAssets[name];
     if (!asset) {
-      throw new Error('Invalid manifest entry');
+      throw new Error(`Invalid asset: ${name}`);
     }
-    if (asset._data) {
-      return asset._data;
+    try {
+      const cached = await assetCache.get(asset);
+      if (cached) {
+        return cached;
+      }
+    } catch (e) {
+      console.warn(e);
     }
     const result = await xhr({
       url: asset.src,
@@ -80,7 +86,11 @@ class Packager extends EventTarget {
         throw new Error(`Hash mismatch for ${name}, found ${hash} but expected ${asset.sha256}`);
       }
     }
-    asset._data = result;
+    try {
+      await assetCache.set(asset, result);
+    } catch (e) {
+      console.warn(e);
+    }
     return result;
   }
 
