@@ -94,7 +94,7 @@
   };
 
   const pack = async () => {
-    await runPackager($options);
+    await runPackager(deepClone($options));
     if (result) {
       downloadURL(result.filename, url);
     }
