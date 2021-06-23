@@ -523,16 +523,16 @@ class Packager extends EventTarget {
       warpTimer: ${this.options.compiler.warpTimer}
     });
 
-    const getProjectJSON = async () => {
+    const getProjectData = async () => {
       const res = await fetch(${await this.getProjectFetch()});
       return res.arrayBuffer();
     };
 
     const run = async () => {
-      const projectJSON = await getProjectJSON();
+      const projectData = await getProjectData();
       setProgress(0.1);
       ${this.options.custom.js}
-      await scaffolding.loadProject(projectJSON);
+      await scaffolding.loadProject(projectData);
       setProgress(1);
       loadingScreen.hidden = true;
       if (${this.options.autoplay}) {
