@@ -485,7 +485,7 @@ class Packager extends EventTarget {
         }
       });
       const otherControlsExist = ${this.options.controls.greenFlag.enabled || this.options.controls.stopAll.enabled};
-      const fillColor = otherControlsExist ? '#575E75' : '#FFFFFF';
+      const fillColor = otherControlsExist ? '#575E75' : '${this.options.appearance.foreground}';
       const updateFullScreen = () => {
         isFullScreen = !!(document.fullscreenElement || document.webkitFullscreenElement);
         if (isFullScreen) {
