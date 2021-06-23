@@ -122,10 +122,27 @@ const set = (asset, content) => new Promise(async (resolve, reject) => {
   };
 });
 
+const reset = async () => {
+  if (!window.indexedDB) {
+    return;
+  }
+  await idbReady();
+  return new Promise((resolve, reject) => {
+    const request = indexedDB.deleteDatabase(DATABASE_NAME);
+    request.onsuccess = () => {
+      resolve();
+    };
+    request.onerror = () => {
+      reject(new Error('Cannot delete databse'));
+    };
+  });
+};
+
 const getCacheBuster = () => SCAFFOLDING_BUILD_ID;
 
 export default {
   get,
   set,
+  reset,
   getCacheBuster
 };

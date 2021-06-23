@@ -7,6 +7,7 @@
   import {error, progress} from './stores';
   import Preview from './preview';
   import deepClone from './lib/deep-clone';
+  import assetCache from './cache';
 
   export let projectData;
 
@@ -112,8 +113,13 @@
     previewer = null;
   };
 
-  const reset = () => {
+  const reset = async () => {
     if (confirm('Reset all settings to defaults and reload?')) {
+      try {
+        await assetCache.reset();
+      } catch (e) {
+        console.warn(e);
+      }
       localStorage.clear();
       location.reload();
     }
