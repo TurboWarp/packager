@@ -17,7 +17,10 @@ class CloudManager {
     }
   }
 
-  setVariable (name, value) {
+  setVariable (provider, name, value) {
+    if (this.overrides.has(name) && this.overrides.get(name) !== provider) {
+      return;
+    }
     this.parent.vm.postIOData('cloud', {
       varUpdate: {
         name,
@@ -105,7 +108,7 @@ class WebSocketProvider {
       if (line) {
         const parsed = JSON.parse(line);
         if (parsed.method === 'set') {
-          this.manager.setVariable(parsed.name, parsed.value);
+          this.manager.setVariable(this, parsed.name, parsed.value);
         }
       }
     }
@@ -165,7 +168,7 @@ class LocalStorageProvider {
     }
     this.variables = parsed;
     for (const key of Object.keys(this.variables)) {
-      this.manager.setVariable(key, this.variables[key]);
+      this.manager.setVariable(this, key, this.variables[key]);
     }
   }
 
