@@ -4,6 +4,7 @@ import Storage from './storage';
 import AudioEngine from 'scratch-audio';
 import {BitmapAdapter} from 'scratch-svg-renderer';
 
+import VideoProvider from './video';
 import Cloud from './cloud';
 import Question from './question';
 import {ListMonitor, VariableMonitor} from './monitor';
@@ -257,6 +258,9 @@ class Scaffolding extends EventTarget {
 
     this.bitmapAdapter = new BitmapAdapter();
     this.vm.attachV2BitmapAdapter(this.bitmapAdapter);
+
+    this.videoProvider = new VideoProvider();
+    this.vm.setVideoProvider(this.videoProvider);
   }
 
   _onmonitorsupdate (monitors) {
