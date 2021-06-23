@@ -245,7 +245,7 @@
   </label>
   <label>
     <input type="color" bind:value={$options.appearance.foreground}>
-    Progress bar color
+    Foreground color (progress bar, some icons, some text)
   </label>
 
   <h3>Addons</h3>
