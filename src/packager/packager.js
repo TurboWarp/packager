@@ -48,6 +48,22 @@ const getIcon = async (icon) => {
   };
 };
 
+const COPYRIGHT_HEADER = `/*!
+* Copyright (C) 2021 Thomas Weber
+*
+* This program is free software: you can redistribute it and/or modify
+* it under the terms of the GNU Lesser General Public License version 3
+* as published by the Free Software Foundation.
+*
+* This program is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+* GNU Lesser General Public License for more details.
+*
+* You should have received a copy of the GNU Lesser General Public License
+* along with this program. If not, see <https://www.gnu.org/licenses/>.
+*/\n`;
+
 class Packager extends EventTarget {
   constructor () {
     super();
@@ -111,7 +127,7 @@ class Packager extends EventTarget {
   }
 
   async loadResources () {
-    const texts = [];
+    const texts = [COPYRIGHT_HEADER];
     texts.push(await this.fetchLargeAsset('scaffolding'));
     if (this.options.chunks.gamepad) {
       texts.push(await this.fetchLargeAsset('addons'));
