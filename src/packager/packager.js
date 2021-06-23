@@ -246,14 +246,42 @@ class Packager extends EventTarget {
     return `${this.options.app.windowTitle}.${extension}`;
   }
 
-  async getProjectFetch () {
+  async generateGetProjectData () {
     if (this.options.target === 'html') {
-      return JSON.stringify(await readAsURL(this.project.blob));
+      const url = await readAsURL(this.project.blob);
+      return `return fetch(${JSON.stringify(url)})
+        .then((r) => r.arrayBuffer())
+        .then((buffer) => {
+          setProgress(0.9);
+          return buffer;
+        });`;
     }
+    let src;
+    let progressWeight;
     if (this.project.type === 'blob' || this.options.target === 'zip-one-asset') {
-      return JSON.stringify('./project.zip');
+      src = './project.zip';
+      progressWeight = 0.9;
+    } else {
+      src = './assets/project.json';
+      progressWeight = 0.1;
     }
-    return JSON.stringify('./assets/project.json');
+    return `return new Promise((resolve, reject) => {
+      const xhr = new XMLHttpRequest();
+      xhr.onload = () => {
+        resolve(xhr.response);
+      };
+      xhr.onerror = () => {
+        reject(new Error("Request to load project data failed."));
+      };
+      xhr.onprogress = (e) => {
+        if (e.lengthComputable) {
+          setProgress(0.1 + (e.loaded / e.total) * ${progressWeight});
+        }
+      };
+      xhr.responseType = "arraybuffer";
+      xhr.open("GET", ${JSON.stringify(src)});
+      xhr.send();
+    });`;
   }
 
   async package () {
@@ -523,14 +551,12 @@ class Packager extends EventTarget {
       warpTimer: ${this.options.compiler.warpTimer}
     });
 
-    const getProjectData = async () => {
-      const res = await fetch(${await this.getProjectFetch()});
-      return res.arrayBuffer();
+    const getProjectData = () => {
+      ${await this.generateGetProjectData()}
     };
 
     const run = async () => {
       const projectData = await getProjectData();
-      setProgress(0.1);
       ${this.options.custom.js}
       await scaffolding.loadProject(projectData);
       setProgress(1);
