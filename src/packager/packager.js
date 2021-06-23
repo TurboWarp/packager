@@ -7,6 +7,10 @@ import xhr from './lib/xhr';
 import pngToAppleICNS from './lib/icns';
 import assetCache from './cache';
 
+const PROGRESS_LOADED_SCRIPTS = 0.1;
+const PROGRESS_LOADED_JSON_BUT_NEED_ASSETS = 0.2;
+const PROGRESS_FETCHED_INLINE_DATA_BUT_NOT_LOADED = 0.9;
+
 const escapeXML = (v) => v.replace(/["'<>&]/g, (i) => {
   switch (i) {
     case '"': return '&quot;';
@@ -249,10 +253,12 @@ class Packager extends EventTarget {
   async generateGetProjectData () {
     if (this.options.target === 'html') {
       const url = await readAsURL(this.project.blob);
-      return `return fetch(${JSON.stringify(url)})
+      return `
+      setProgress(${PROGRESS_FETCHED_INLINE_DATA_BUT_NOT_LOADED});
+      const getProjectData = () => fetch(${JSON.stringify(url)})
         .then((r) => r.arrayBuffer())
         .then((buffer) => {
-          setProgress(0.9);
+          setProgress(1);
           return buffer;
         });`;
     }
@@ -260,12 +266,12 @@ class Packager extends EventTarget {
     let progressWeight;
     if (this.project.type === 'blob' || this.options.target === 'zip-one-asset') {
       src = './project.zip';
-      progressWeight = 0.9;
+      progressWeight = 1 - PROGRESS_LOADED_SCRIPTS;
     } else {
       src = './assets/project.json';
-      progressWeight = 0.1;
+      progressWeight = PROGRESS_LOADED_JSON_BUT_NEED_ASSETS - PROGRESS_LOADED_SCRIPTS;
     }
-    return `return new Promise((resolve, reject) => {
+    return `const getProjectData = () => new Promise((resolve, reject) => {
       const xhr = new XMLHttpRequest();
       xhr.onload = () => {
         resolve(xhr.response);
@@ -275,7 +281,7 @@ class Packager extends EventTarget {
       };
       xhr.onprogress = (e) => {
         if (e.lengthComputable) {
-          setProgress(0.1 + (e.loaded / e.total) * ${progressWeight});
+          setProgress(${PROGRESS_LOADED_SCRIPTS} + (e.loaded / e.total) * ${progressWeight});
         }
       };
       xhr.responseType = "arraybuffer";
@@ -446,9 +452,9 @@ class Packager extends EventTarget {
       loadingInner.style.width = progress * 100 + "%";
     }
     storage.onprogress = (total, loaded) => {
-      setProgress(0.2 + (loaded / total) * 0.8);
+      setProgress(${PROGRESS_LOADED_JSON_BUT_NEED_ASSETS} + (loaded / total) * ${1 - PROGRESS_LOADED_JSON_BUT_NEED_ASSETS});
     };
-    setProgress(0.1);
+    setProgress(${PROGRESS_LOADED_SCRIPTS});
 
     scaffolding.setUsername(${JSON.stringify(this.options.username)}.replace(/#/g, () => Math.floor(Math.random() * 10)));
 
@@ -550,10 +556,9 @@ class Packager extends EventTarget {
       enabled: ${this.options.compiler.enabled},
       warpTimer: ${this.options.compiler.warpTimer}
     });
-
-    const getProjectData = () => {
-      ${await this.generateGetProjectData()}
-    };
+  </script>
+  <script>
+    ${await this.generateGetProjectData()}
 
     const run = async () => {
       const projectData = await getProjectData();
