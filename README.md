@@ -1,6 +1,6 @@
 # TurboWarp Packager
 
-https://packager-staging-do-not-use.turbowarp.org/
+https://packager.turbowarp.org/
 
 A packager for Scratch projects. Built using TurboWarp, webpack, and Svelte. Version 4.
 

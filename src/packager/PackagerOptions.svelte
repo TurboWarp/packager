@@ -230,7 +230,7 @@
       Accent color (background color of controls when active or hovered)
     </label>
   {/if}
-  <p>If all controls are disabled, there will be no controls at all. If only fullscreen is enabled, it will be displayed as its own button always in the top left corner, not in a header above the player.</p>
+  <p>If all controls are disabled, the controls bar is removed entirely. If only fullscreen is enabled, it will always be located in the top left corner, not in the controls header.</p>
 
   <h3>Colors</h3>
   <label>
@@ -283,10 +283,10 @@
         {/each}
       </div>
     {/if}
-    <p>"Connect to cloud variable server" will use TurboWarp's cloud variable server to sync the variables with other users. This is the default behavior. It can not be used on projects packaged from files.</p>
+    <p>"Connect to cloud variable server" uses TurboWarp's cloud variable server to sync the variables with other users. Can not be used on projects loaded from files.</p>
     <p>"Store in local storage" stores the variables on the user's computer and restores them when the project is restarted.</p>
     <p>"Ignore" treats cloud variables like normal variables.</p>
-    <p>"Advanced" lets you configure a different mode for each variable, so you can have some sync with other users but have others be remembered locally.</p>
+    <p>"Advanced" uses a different mode for each variable, so some variables can sync with other users but others can be stored locally, for example.</p>
   </Section>
 {/if}
 

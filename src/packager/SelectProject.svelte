@@ -105,8 +105,8 @@
 </style>
 
 <Section accent="#4C97FF">
-  <h2>Choose Project</h2>
-  <p>You can package projects from the Scratch website by copying their URL or from files from your computer. If you're using someone else's project, make sure to give them proper credit.</p>
+  <h2>Select Project</h2>
+  <p>You can package projects from the Scratch website by copying their URL or you can package files from your computer. If you're using someone else's project, make sure to give them proper credit.</p>
   <div class="option">
     <label>
       <input type="radio" bind:group={$type} value="id">

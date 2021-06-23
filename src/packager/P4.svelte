@@ -65,10 +65,6 @@
   footer {
     text-align: center;
   }
-  .new-outer {
-    display: flex;
-    align-items: center;
-  }
   .new {
     border-radius: 4px;
     border-bottom: 2px solid #111;
@@ -100,20 +96,13 @@
   <Section accent="#ff4c4c">
     <h1>TurboWarp Packager</h1>
     <p>Converts Scratch projects into standalone files.</p>
-    <p>If you just want an easy way to embed a TurboWarp project into your website, see <a href="https://github.com/TurboWarp/scratch-gui/wiki/Embedding">Embedding</a>.</p>
+    <p>If you just want an easy way to embed a TurboWarp project into your website, you may be interested in <a href="https://github.com/TurboWarp/scratch-gui/wiki/Embedding">Embedding</a>.</p>
     <p>Report bugs, give feedback, and suggest ideas <a href="https://scratch.mit.edu/users/GarboMuffin/#comments">on Scratch</a> or <a href="https://github.com/TurboWarp/packager/issues">on GitHub</a>.</p>
-    <p>The current URL is temporary. Links to this page will stop working when we replace packager.turbowarp.org with this.</p>
   </Section>
 
   <Section accent="#b117f8">
-    <p class="new-outer"><span class="new">New!</span> We've made some major updates to the packager. Here's the highlights:</p>
-    <ul>
-      <li>Packaged projects are smaller, faster, and have a redesigned loading screen</li>
-      <li>Things like loading screens are easy to edit by editing the simple HTML/CSS</li>
-      <li>New features: Gamepad support addon, configure cloud variables per-variable, better zip output</li>
-      <li>License changed from GPLv3 to LGPLv3, talk to a lawyer to learn what that means (This probably benefits you)</li>
-    </ul>
-    <p>A lot of features that were previously rejected for being difficult are now trivial -- let us know what features and customizations you're looking for.</p>
+    <p><span class="new">New!</span>We've made some major updates to the packager including improved performance, file size, customizability, simple-to-edit HTML, a new loading screen, more options for cloud variables, optional gamepad support, and more.</p>
+    <p>A lot of features that were previously difficult are now trivial. <a href="https://scratch.mit.edu/users/GarboMuffin/#comments">Let us know</a> what features and customizations you're looking for.</p>
   </Section>
 
   <SelectProject bind:projectData />
