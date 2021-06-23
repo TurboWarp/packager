@@ -143,6 +143,9 @@
     width: 100%;
     box-sizing: border-box;
   }
+  .environment-section {
+    margin-bottom: 12px;
+  }
   .downloads {
     text-align: center;
   }
@@ -317,36 +320,42 @@
 
 <Section accent="#0FBD8C">
   <h2>Environment</h2>
-  <label>
-    <input type="radio" bind:group={$options.target} value="html">
-    HTML
-  </label>
-  <label>
-    <input type="radio" bind:group={$options.target} value="zip">
-    Zip, each asset in separate file (ideal for websites)
-  </label>
-  <label>
-    <input type="radio" bind:group={$options.target} value="zip-one-asset">
-    Zip, project data in single large file (better progress bar)
-  </label>
-  <label>
-    <input type="radio" bind:group={$options.target} value="nwjs-win32">
-    NW.js Windows executable (32-bit or 64-bit)
-  </label>
-  <label>
-    <input type="radio" bind:group={$options.target} value="nwjs-win64">
-    NW.js Windows executable (64-bit only, not recommended)
-  </label>
-  <label>
-    <input type="radio" bind:group={$options.target} value="nwjs-mac">
-    NW.js macOS application
-  </label>
+  <div class="environment-section">
+    <label>
+      <input type="radio" bind:group={$options.target} value="html">
+      Plain HTML (standalone, works anywhere)
+    </label>
+  </div>
+  <div class="environment-section">
+    <label>
+      <input type="radio" bind:group={$options.target} value="zip">
+      Zip, each asset in separate file (ideal for websites)
+    </label>
+    <label>
+      <input type="radio" bind:group={$options.target} value="zip-one-asset">
+      Zip, combine assets into single file (not recommended)
+    </label>
+  </div>
+  <div class="environment-section">
+    <label>
+      <input type="radio" bind:group={$options.target} value="nwjs-win32">
+      NW.js Windows executable (32-bit or 64-bit)
+    </label>
+    <label>
+      <input type="radio" bind:group={$options.target} value="nwjs-win64">
+      NW.js Windows executable (64-bit only, not recommended)
+    </label>
+    <label>
+      <input type="radio" bind:group={$options.target} value="nwjs-mac">
+      NW.js macOS application
+    </label>
+  </div>
 </Section>
 
 {#if $options.target.startsWith('nwjs-')}
   <div transition:fade|local>
     <Section accent="#FF661A">
-      <h2>NW.js Options</h2>
+      <h2>NW.js</h2>
       <label>
         Package Name
         <input type="text" bind:value={$options.app.packageName}>
@@ -368,7 +377,7 @@
           <li>Pay Apple $100/year for a developer account to sign and notarize the app (we do not have a tutorial for this as we can't afford that and don't want to support such practices), or</li>
           <li>Instruct users to ignore Gatekeeper by opening Finder > Navigating to the application > Right click > Open > Open again</li>
         </ul>
-        <p>NW.js currently only natively supports Intel Macs. Apple silicon Macs will use Rosetta.</p>
+        <p>NW.js runs natively on Intel Macs but will use Rosetta on Apple silicon Macs.</p>
         <p>For further help and steps, see <a href="https://docs.nwjs.io/en/latest/For%20Users/Package%20and%20Distribute/#mac-os-x">NW.js Documentation</a>.</p>
       {/if}
     </Section>
