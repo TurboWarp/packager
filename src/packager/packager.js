@@ -250,8 +250,8 @@ class Packager extends EventTarget {
     if (this.options.target === 'html') {
       return JSON.stringify(await readAsURL(this.project.blob));
     }
-    if (this.project.type === 'blob') {
-      return JSON.stringify('./assets/project.zip');
+    if (this.project.type === 'blob' || this.options.target === 'zip-one-asset') {
+      return JSON.stringify('./project.zip');
     }
     return JSON.stringify('./assets/project.json');
   }
@@ -561,7 +561,7 @@ class Packager extends EventTarget {
 
     if (this.options.target !== 'html') {
       let zip;
-      if (this.project.type === 'sb3') {
+      if (this.project.type === 'sb3' && this.options.target !== 'zip-one-asset') {
         zip = await (await getJSZip()).loadAsync(this.project.blob);
         for (const file of Object.keys(zip.files)) {
           zip.files[`assets/${file}`] = zip.files[file];
@@ -569,7 +569,7 @@ class Packager extends EventTarget {
         }
       } else {
         zip = new (await getJSZip());
-        zip.file('assets/project.zip', this.project.blob);
+        zip.file('project.zip', this.project.blob);
       }
       zip.file('index.html', html);
       zip.file('script.js', this.script);

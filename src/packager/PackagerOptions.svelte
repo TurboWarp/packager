@@ -323,7 +323,11 @@
   </label>
   <label>
     <input type="radio" bind:group={$options.target} value="zip">
-    Zip (each asset in separate file, ideal for websites)
+    Zip, each asset in separate file (ideal for websites)
+  </label>
+  <label>
+    <input type="radio" bind:group={$options.target} value="zip-one-asset">
+    Zip, project data in single large file (better progress bar)
   </label>
   <label>
     <input type="radio" bind:group={$options.target} value="nwjs-win32">
