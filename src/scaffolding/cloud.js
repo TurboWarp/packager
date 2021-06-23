@@ -84,6 +84,9 @@ class WebSocketProvider {
     this.projectId = projectId;
     this.connectionAttempts = 0;
     this.openConnection = this.openConnection.bind(this);
+    this._throttleTimeoutFinished = this._throttleTimeoutFinished.bind(this);
+    this.messageQueue = [];
+    this.throttleTimeout = null;
   }
 
   enable () {
@@ -133,16 +136,44 @@ class WebSocketProvider {
     setTimeout(this.openConnection, timeout);
   }
 
-  writeToServer (message) {
-    if (this.ws && this.ws.readyState === WebSocket.OPEN) {
-      message.project_id = this.projectId;
-      message.user = this.manager.getUsername();
-      this.ws.send(JSON.stringify(message));
+  canWriteToServer () {
+    return this.ws && this.ws.readyState === WebSocket.OPEN && this.throttleTimeout === null;
+  }
+
+  _scheduleThrottledSend () {
+    if (this.throttleTimeout === null) {
+      this.throttleTimeout = setTimeout(this._throttleTimeoutFinished, 1000 / 30);
     }
   }
 
+  _throttleTimeoutFinished () {
+    this.throttleTimeout = null;
+    if (this.messageQueue.length === 0) {
+      return;
+    }
+    if (this.canWriteToServer()) {
+      this.writeToServer(this.messageQueue.shift());
+    }
+    this._scheduleThrottledSend();
+  }
+
+  throttledWriteToServer (message) {
+    if (this.canWriteToServer()) {
+      this.writeToServer(message);
+    } else {
+      this.messageQueue.push(message);
+    }
+    this._scheduleThrottledSend();
+  }
+
+  writeToServer (message) {
+    message.project_id = this.projectId;
+    message.user = this.manager.getUsername();
+    this.ws.send(JSON.stringify(message));
+  }
+
   handleUpdateVariable (name, value) {
-    this.writeToServer({
+    this.throttledWriteToServer({
       method: 'set',
       name,
       value
