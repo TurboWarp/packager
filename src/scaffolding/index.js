@@ -116,6 +116,9 @@ class Scaffolding extends EventTarget {
 
   _onmousedown (e) {
     e.preventDefault();
+    if (document.activeElement && document.activeElement.blur) {
+      document.activeElement.blur();
+    }
     const data = {
       x: e.clientX - this.layersRect.left,
       y: e.clientY - this.layersRect.top,
@@ -161,6 +164,7 @@ class Scaffolding extends EventTarget {
   }
 
   _onkeydown (e) {
+    console.log(e.target);
     if (e.target !== document && e.target !== document.body) {
       return;
     }  
