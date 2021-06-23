@@ -32,44 +32,41 @@ const idbReady = () => {
   }).finally(() => clearInterval(intervalId));
 };
 
-const openDB = () => new Promise(async (resolve, reject) => {
+const openDB = async () => {
   if (_db) {
-    resolve(_db);
-    return;
+    return _db;
   }
   if (!window.indexedDB) {
-    reject(new Error('indexedDB is not supported'));
-    return;
+    throw new Error('indexedDB is not supported');
   }
   await idbReady();
-  const request = indexedDB.open(DATABASE_NAME, DATABASE_VERSION);
-  request.onupgradeneeded = e => {
-    const db = e.target.result;
-    db.createObjectStore(STORE_NAME, {
-      keyPath: 'id'
-    });
-  };
-  request.onsuccess = (e) => {
-    _db = e.target.result;
-    removeExtraneous()
-      .then(() => {
-        resolve(_db);
-      })
-      .catch((err) => {
-        reject(err);
+  return new Promise((resolve, reject) => {
+    const request = indexedDB.open(DATABASE_NAME, DATABASE_VERSION);
+    request.onupgradeneeded = e => {
+      const db = e.target.result;
+      db.createObjectStore(STORE_NAME, {
+        keyPath: 'id'
       });
-  };
-  request.onerror = (e) => {
-    reject(new Error(`IDB Error ${e.target.error}`));
-  };
-});
+    };
+    request.onsuccess = (e) => {
+      _db = e.target.result;
+      removeExtraneous()
+        .then(() => {
+          resolve(_db);
+        })
+        .catch((err) => {
+          reject(err);
+        });
+    };
+    request.onerror = (e) => {
+      reject(new Error(`IDB Error ${e.target.error}`));
+    };
+  });
+};
 
-const createTransaction = async (readwrite, reject) => {
+const createTransaction = async (readwrite) => {
   const db = await openDB();
   const transaction = db.transaction(STORE_NAME, readwrite);
-  transaction.onerror = () => {
-    reject(new Error(`Transaction error: ${transaction.error}`));
-  };
   const store = transaction.objectStore(STORE_NAME);
   return {
     db,
@@ -78,49 +75,64 @@ const createTransaction = async (readwrite, reject) => {
   };
 };
 
-const removeExtraneous = () => new Promise(async (resolve, reject) => {
-  const {store} = await createTransaction('readwrite', reject);
-  const allValidAssetIds = Object.values(largeAssets).map(getAssetId);
-  const request = store.openCursor();
-  request.onsuccess = e => {
-    const cursor = e.target.result;
-    if (cursor) {
-      const key = cursor.key;
-      if (!allValidAssetIds.includes(key)) {
-        cursor.delete();
+const setTransactionErrorHandler = (transaction, reject) => {
+  transaction.onerror = () => {
+    reject(new Error(`Transaction error: ${transaction.error}`))
+  };
+};
+
+const removeExtraneous = async () => {
+  const {transaction, store} = await createTransaction('readwrite');
+  return new Promise((resolve, reject) => {
+    setTransactionErrorHandler(transaction, reject);
+    const allValidAssetIds = Object.values(largeAssets).map(getAssetId);
+    const request = store.openCursor();
+    request.onsuccess = e => {
+      const cursor = e.target.result;
+      if (cursor) {
+        const key = cursor.key;
+        if (!allValidAssetIds.includes(key)) {
+          cursor.delete();
+        }
+        cursor.continue();
+      } else {
+        resolve();
       }
-      cursor.continue();
-    } else {
-      resolve();
-    }
-  };
-});
+    };
+  })
+};
 
-const get = (asset) => new Promise(async (resolve, reject) => {
-  const {store} = await createTransaction('readonly', reject);
-  const assetId = getAssetId(asset);
-  const request = store.get(assetId);
-  request.onsuccess = (e) => {
-    const result = e.target.result;
-    if (result) {
-      resolve(result.data);
-    } else {
-      resolve(null);
-    }
-  };
-});
-
-const set = (asset, content) => new Promise(async (resolve, reject) => {
-  const {store} = await createTransaction('readwrite', reject);
-  const assetId = getAssetId(asset);
-  const request = store.put({
-    id: assetId,
-    data: content
+const get = async (asset) => {
+  const {transaction, store} = await createTransaction('readonly');
+  return new Promise((resolve, reject) => {
+    setTransactionErrorHandler(transaction, reject);
+    const assetId = getAssetId(asset);
+    const request = store.get(assetId);
+    request.onsuccess = (e) => {
+      const result = e.target.result;
+      if (result) {
+        resolve(result.data);
+      } else {
+        resolve(null);
+      }
+    };
   });
-  request.onsuccess = () => {
-    resolve();
-  };
-});
+};
+
+const set = async (asset, content) => {
+  const {transaction, store} = await createTransaction('readwrite');
+  return new Promise((resolve, reject) => {
+    setTransactionErrorHandler(transaction, reject);
+    const assetId = getAssetId(asset);
+    const request = store.put({
+      id: assetId,
+      data: content
+    });
+    request.onsuccess = () => {
+      resolve();
+    };
+  });
+};
 
 const reset = async () => {
   if (!window.indexedDB) {
