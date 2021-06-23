@@ -14,7 +14,25 @@ const getAssetId = (asset) => {
   return `${asset.src}-${asset.type}-${asset.sha256 || SCAFFOLDING_BUILD_ID}`;
 };
 
-const openDB = () => new Promise((resolve, reject) => {
+// https://github.com/jakearchibald/safari-14-idb-fix/blob/582bbdc7230891113bfb5743391550cbf29d21f2/src/index.ts
+const idbReady = () => {
+  const isSafari =
+    !navigator.userAgentData &&
+    /Safari\//.test(navigator.userAgent) &&
+    !/Chrom(e|ium)\//.test(navigator.userAgent);
+
+  // No point putting other browsers or older versions of Safari through this mess.
+  if (!isSafari || !indexedDB.databases) return Promise.resolve();
+
+  let intervalId;
+  return new Promise((resolve) => {
+    const tryIdb = () => indexedDB.databases().finally(resolve);
+    intervalId = setInterval(tryIdb, 100);
+    tryIdb();
+  }).finally(() => clearInterval(intervalId));
+};
+
+const openDB = () => new Promise(async (resolve, reject) => {
   if (_db) {
     resolve(_db);
     return;
@@ -23,6 +41,7 @@ const openDB = () => new Promise((resolve, reject) => {
     reject(new Error('indexedDB is not supported'));
     return;
   }
+  await idbReady();
   const request = indexedDB.open(DATABASE_NAME, DATABASE_VERSION);
   request.onupgradeneeded = e => {
     const db = e.target.result;
