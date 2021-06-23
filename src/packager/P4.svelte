@@ -152,6 +152,8 @@
 
   <footer>
     <div>
+      <a href="privacy.html">Privacy Policy</a>
+      -
       <a href="https://scratch.mit.edu/users/GarboMuffin/#comments">Feedback & Bugs</a>
       -
       <a href="https://github.com/TurboWarp/p4">Source Code (LGPL3.0)</a>
