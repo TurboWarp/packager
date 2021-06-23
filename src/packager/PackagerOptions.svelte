@@ -313,23 +313,23 @@
   <h2>Environment</h2>
   <label>
     <input type="radio" bind:group={$options.target} value="html">
-    Standalone HTML
+    HTML
   </label>
   <label>
     <input type="radio" bind:group={$options.target} value="zip">
-    Zip (each asset gets separate file)
-  </label>
-  <label>
-    <input type="radio" bind:group={$options.target} value="nwjs-win64">
-    NW.js Windows (64-bit)
+    Zip (each asset in separate file, ideal for websites)
   </label>
   <label>
     <input type="radio" bind:group={$options.target} value="nwjs-win32">
-    NW.js Windows (32-bit)
+    NW.js Windows executable (32-bit or 64-bit)
+  </label>
+  <label>
+    <input type="radio" bind:group={$options.target} value="nwjs-win64">
+    NW.js Windows executable (64-bit only, not recommended)
   </label>
   <label>
     <input type="radio" bind:group={$options.target} value="nwjs-mac">
-    NW.js macOS
+    NW.js macOS application
   </label>
 </Section>
 
