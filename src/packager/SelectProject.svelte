@@ -9,7 +9,7 @@
 
   export let projectData = null;
   const type = writablePersistentStore('SelectProject.type', 'id');
-  const projectId = writablePersistentStore('SelectProject.id', 'https://scratch.mit.edu/projects/60917032/');
+  const projectId = writablePersistentStore('SelectProject.id', '60917032');
   let files = null;
 
   const reset = () => {
@@ -19,10 +19,10 @@
   // Reset project whenever an input changes
   $: files, $projectId, $type, reset();
 
-  const getId = () => {
-    const match = $projectId.match(/\d+/);
+  const extractProjectId = (text) => {
+    const match = text.match(/\d+/);
     if (!match) {
-      return null;
+      return '';
     }
     return match[0];
   };
@@ -55,7 +55,7 @@
       };
 
       if ($type === 'id') {
-        id = getId();
+        id = $projectId;
         if (!id) {
           throw new UserError('Invalid project ID');
         }
@@ -87,6 +87,26 @@
 
     progress.reset();
   };
+
+  // just incase some non-number string was stored from older versions
+  $projectId = extractProjectId($projectId);
+
+  const getDisplayedProjectURL = () => `https://scratch.mit.edu/projects/${$projectId}`;
+  $: projectIdInput = getDisplayedProjectURL();
+
+  const handleKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      e.target.blur();
+      load();
+    }
+  };
+  const handleInput = (e) => {
+    $projectId = extractProjectId(e.target.value);
+    e.target.value = getDisplayedProjectURL();
+  };
+  const handleFocus = (e) => {
+    e.target.select();
+  };
 </script>
 
 <style>
@@ -113,9 +133,7 @@
       Project ID or URL
     </label>
     {#if $type === "id"}
-      <input type="text" bind:value={$projectId} on:keypress={(e) => {
-        if (e.key === 'Enter') load();
-      }}>
+      <input type="text" value={projectIdInput} on:keypress={handleKeyPress} on:input={handleInput} on:focus={handleFocus}>
     {/if}
   </div>
   <div class="option">
