@@ -205,7 +205,6 @@ class Scaffolding extends EventTarget {
   }
 
   _onkeydown (e) {
-    console.log(e.target);
     if (e.target !== document && e.target !== document.body) {
       return;
     }  
