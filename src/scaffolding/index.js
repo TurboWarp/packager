@@ -122,6 +122,7 @@ class Scaffolding extends EventTarget {
     const data = {
       x: e.clientX - this.layersRect.left,
       y: e.clientY - this.layersRect.top,
+      button: e.button,
       canvasWidth: this.layersRect.width,
       canvasHeight: this.layersRect.height,
       isDown: true
@@ -137,6 +138,7 @@ class Scaffolding extends EventTarget {
     const data = {
       x: e.clientX - this.layersRect.left,
       y: e.clientY - this.layersRect.top,
+      button: e.button,
       canvasWidth: this.layersRect.width,
       canvasHeight: this.layersRect.height,
       isDown: false
