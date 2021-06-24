@@ -156,7 +156,8 @@ class Scaffolding extends EventTarget {
       button: e.button,
       canvasWidth: this.layersRect.width,
       canvasHeight: this.layersRect.height,
-      isDown: false
+      isDown: false,
+      wasDragged: this._draggingId !== null
     };
     this._mousedownPosition = null;
     this.vm.postIOData('mouse', data);
