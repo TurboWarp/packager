@@ -11,6 +11,15 @@ import {ListMonitor, VariableMonitor} from './monitor';
 import ControlBar from './control-bar';
 import styles from './style.css';
 
+const getEventXY = (e) => {
+  if (e.touches && e.touches[0]) {
+    return {x: e.touches[0].clientX, y: e.touches[0].clientY};
+  } else if (e.changedTouches && e.changedTouches[0]) {
+    return {x: e.changedTouches[0].clientX, y: e.changedTouches[0].clientY};
+  }
+  return {x: e.clientX, y: e.clientY};
+};
+
 class Scaffolding extends EventTarget {
   constructor () {
     super();
@@ -53,6 +62,9 @@ class Scaffolding extends EventTarget {
     document.addEventListener('mousemove', this._onmousemove.bind(this));
     this._canvas.addEventListener('mousedown', this._onmousedown.bind(this));
     document.addEventListener('mouseup', this._onmouseup.bind(this));
+    this._canvas.addEventListener('touchstart', this._ontouchstart.bind(this));
+    document.addEventListener('touchmove', this._ontouchmove.bind(this));
+    document.addEventListener('touchend', this._ontouchend.bind(this));
     this._canvas.addEventListener('contextmenu', this._oncontextmenu.bind(this));
     this._canvas.addEventListener('wheel', this._onwheel.bind(this));
     document.addEventListener('keydown', this._onkeydown.bind(this));
@@ -72,9 +84,10 @@ class Scaffolding extends EventTarget {
   }
 
   _onmousemove (e) {
+    const {x, y} = getEventXY(e);
     const data = {
-      x: e.clientX - this.layersRect.left,
-      y: e.clientY - this.layersRect.top,
+      x: x - this.layersRect.left,
+      y: y - this.layersRect.top,
       canvasWidth: this.layersRect.width,
       canvasHeight: this.layersRect.height
     };
@@ -119,9 +132,10 @@ class Scaffolding extends EventTarget {
     if (document.activeElement && document.activeElement.blur) {
       document.activeElement.blur();
     }
+    const {x, y} = getEventXY(e);
     const data = {
-      x: e.clientX - this.layersRect.left,
-      y: e.clientY - this.layersRect.top,
+      x: x - this.layersRect.left,
+      y: y - this.layersRect.top,
       button: e.button,
       canvasWidth: this.layersRect.width,
       canvasHeight: this.layersRect.height,
@@ -135,9 +149,10 @@ class Scaffolding extends EventTarget {
   }
 
   _onmouseup (e) {
+    const {x, y} = getEventXY(e);
     const data = {
-      x: e.clientX - this.layersRect.left,
-      y: e.clientY - this.layersRect.top,
+      x: x - this.layersRect.left,
+      y: y - this.layersRect.top,
       button: e.button,
       canvasWidth: this.layersRect.width,
       canvasHeight: this.layersRect.height,
@@ -151,6 +166,18 @@ class Scaffolding extends EventTarget {
       this._draggingStartSpritePosition = null;
       this._draggingId = null;
     }
+  }
+
+  _ontouchstart (e) {
+    this._onmousedown(e);
+  }
+
+  _ontouchmove (e) {
+    this._onmousemove(e);
+  }
+
+  _ontouchend (e) {
+    this._onmouseup(e);
   }
 
   _oncontextmenu (e) {
