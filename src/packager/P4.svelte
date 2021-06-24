@@ -69,7 +69,6 @@
     border-radius: 4px;
     border-bottom: 2px solid #111;
     padding: 1px 5px;
-    margin-right: 4px;
     color: white;
     background: #b117f8;
     border-color: #6f0073;
@@ -101,8 +100,9 @@
   </Section>
 
   <Section accent="#b117f8">
-    <p><span class="new">New!</span>We've made some major updates to the packager including improved performance, file size, customizability, simple-to-edit HTML, a new loading screen, more options for cloud variables, optional gamepad support, and more.</p>
+    <p><span class="new">New!</span> We rewrote the packager to bring improved performance, file size, customizability, simple-to-edit HTML, a new loading screen, more options for cloud variables, optional gamepad support, and more.</p>
     <p>A lot of features that were previously difficult are now trivial. <a href="https://scratch.mit.edu/users/GarboMuffin/#comments">Let us know</a> what features and customizations you're looking for.</p>
+    <p>The old packager <a href="https://packager-legacy.turbowarp.org/">can still be used indefinitely</a> for the few niche use-cases that are no longer possible. It's not actively maintained so we wouldn't recommend it.</p>
   </Section>
 
   <SelectProject bind:projectData />
