@@ -145,7 +145,7 @@
       -
       <a href="https://scratch.mit.edu/users/GarboMuffin/#comments">Feedback & Bugs</a>
       -
-      <a href="https://github.com/TurboWarp/p4">Source Code (LGPL3.0)</a>
+      <a href="https://github.com/TurboWarp/packager">Source Code (LGPL3.0)</a>
     </div>
     <div>
       <a href="https://fosshost.org/">File hosting provided by Fosshost</a>
