@@ -35,7 +35,7 @@ const setFileFast = (zip, path, data) => {
   zip.files[path] = data;
 };
 
-const getIcon = async (icon) => {
+const getAppIcon = async (icon) => {
   if (!icon) {
     const blob = await xhr({
       url: defaultIcon,
@@ -189,7 +189,7 @@ class Packager extends EventTarget {
       setFileFast(zip, newPath, file);
     }
 
-    const icon = await getIcon(this.options.app.icon);
+    const icon = await getAppIcon(this.options.app.icon);
     const manifest = {
       name: packageName,
       main: 'index.html',
@@ -288,6 +288,14 @@ class Packager extends EventTarget {
       xhr.open("GET", ${JSON.stringify(src)});
       xhr.send();
     });`;
+  }
+
+  async generateFavicon () {
+    if (this.options.app.icon === null) {
+      return '<!-- no favicon -->';
+    }
+    const data = await readAsURL(this.options.app.icon);
+    return `<link id="favicon" rel="icon" href="${data}" type="image/png" sizes="16x16">`;
   }
 
   async package () {
@@ -401,6 +409,7 @@ class Packager extends EventTarget {
     }
   </style>
   <meta name="theme-color" content="${this.options.appearance.background}">
+  ${await this.generateFavicon()}
 </head>
 <body>
   <noscript>Enable JavaScript</noscript>

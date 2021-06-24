@@ -219,6 +219,10 @@
     Loading Screen Text
     <input type="text" bind:value={$options.loadingScreen.text} placeholder="(Nothing)">
   </label>
+  <label>
+    Icon
+    <input type="file" bind:files={iconFiles} accept=".png">
+  </label>
 
   <h3>Controls</h3>
   <label>
@@ -359,10 +363,6 @@
       <label>
         Package Name
         <input type="text" bind:value={$options.app.packageName}>
-      </label>
-      <label>
-        Icon
-        <input type="file" bind:files={iconFiles} accept=".png">
       </label>
 
       {#if $options.target.startsWith('nwjs-win')}
