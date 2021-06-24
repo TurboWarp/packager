@@ -685,7 +685,7 @@ Packager.DEFAULT_OPTIONS = () => ({
   },
   compiler: {
     enabled: true,
-    warpTimer: true
+    warpTimer: false
   },
   target: 'html',
   app: {
