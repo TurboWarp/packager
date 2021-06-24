@@ -98,6 +98,7 @@ class Scaffolding extends EventTarget {
       );
       if (distance > 3) {
         this._startDragging(data.x, data.y);
+        this._cancelDragTimeout();
       }
     } else if (this._draggingId) {
       const position = this._scratchCoordinates(data.x, data.y);
@@ -118,6 +119,7 @@ class Scaffolding extends EventTarget {
     if (targetId === null) return;
     const target = this.vm.runtime.getTargetById(targetId);
     if (!target.draggable) return;
+    target.goToFront();
     this._draggingId = targetId;
     this._draggingStartMousePosition = this._scratchCoordinates(x, y);
     this._draggingStartSpritePosition = {
@@ -125,6 +127,11 @@ class Scaffolding extends EventTarget {
       y: target.y
     };
     this.vm.startDrag(targetId);
+  }
+
+  _cancelDragTimeout () {
+    clearTimeout(this._dragTimeout);
+    this._dragTimeout = null;
   }
 
   _onmousedown (e) {
@@ -141,6 +148,9 @@ class Scaffolding extends EventTarget {
       canvasHeight: this.layersRect.height,
       isDown: true
     };
+    if (e.button === 0 || e instanceof TouchEvent) {
+      this._dragTimeout = setTimeout(this._startDragging.bind(this, data.x, data.y), 400);
+    }
     this._mousedownPosition = {
       x: data.x,
       y: data.y
@@ -149,6 +159,7 @@ class Scaffolding extends EventTarget {
   }
 
   _onmouseup (e) {
+    this._cancelDragTimeout();
     const {x, y} = getEventXY(e);
     const data = {
       x: x - this.layersRect.left,
