@@ -192,7 +192,7 @@ class Packager extends EventTarget {
     const icon = await getAppIcon(this.options.app.icon);
     const manifest = {
       name: packageName,
-      main: 'index.html',
+      main: 'main.js',
       window: {
         width: this.options.stageWidth,
         height: this.options.stageHeight,
@@ -215,6 +215,10 @@ class Packager extends EventTarget {
     }
     zip.file(dataPrefix + icon.name, icon.data);
     zip.file(dataPrefix + 'package.json', JSON.stringify(manifest, null, 4));
+    zip.file(dataPrefix + 'main.js', `
+    const start = () => nw.Window.open('index.html');
+    nw.App.on('open', start);
+    start();`);
 
     return zip;
   }
