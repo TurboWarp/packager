@@ -354,11 +354,11 @@
     </label>
     <label>
       <input type="radio" bind:group={$options.target} value="nwjs-mac">
-      NW.js macOS application
+      NW.js macOS application (Beta)
     </label>
     <label>
       <input type="radio" bind:group={$options.target} value="nwjs-linux-x64">
-      NW.js Linux application (64-bit only) (BETA)
+      NW.js Linux application (64-bit only) (Beta)
     </label>
   </div>
 </Section>
@@ -379,6 +379,7 @@
         </div>
       {:else if $options.target === 'nwjs-mac'}
         <h2>Further steps for macOS</h2>
+        <p>macOS support is still experimental.</p>
         <p>Due to Apple policy, packaging for their platforms is rather troublesome. You either have to:</p>
         <ul>
           <li>Pay Apple $100/year for a developer account to sign and notarize the app (we do not have a tutorial for this as we can't afford that and don't want to support such practices), or</li>
@@ -388,7 +389,7 @@
         <p>For further help and steps, see <a href="https://docs.nwjs.io/en/latest/For%20Users/Package%20and%20Distribute/#mac-os-x">NW.js Documentation</a>.</p>
       {:else if $options.target.startsWith('nwjs-linux')}
         <h2>Further steps for Linux</h2>
-        <p>Linux support is still especially experimental.</p>
+        <p>Linux support is still experimental.</p>
         <p>For further help and steps, see <a href="https://docs.nwjs.io/en/latest/For%20Users/Package%20and%20Distribute/#linux">NW.js Documentation</a>.</p>
       {/if}
     </Section>
