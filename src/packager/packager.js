@@ -582,10 +582,11 @@ class Packager extends EventTarget {
         policy.ignore();
         nw.Shell.openExternal(url);
       });
-      nw.App.registerGlobalHotKey(new nw.Shortcut({
-        key: "Escape",
-        active: () => win.leaveFullscreen()
-      }));
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" && document.fullscreenElement) {
+          document.exitFullscreen();
+        }
+      });
     }
   </script>
   <script>
