@@ -143,8 +143,9 @@ class Packager extends EventTarget {
     const nwjsBuffer = await this.fetchLargeAsset(this.options.target);
     const nwjsZip = await (await getJSZip()).loadAsync(nwjsBuffer);
 
-    const isMac = this.options.target === 'nwjs-mac';
     const isWindows = this.options.target.startsWith('nwjs-win');
+    const isMac = this.options.target === 'nwjs-mac';
+    const isLinux = this.options.target.startsWith('nwjs-linux');
 
     // NW.js Windows folder structure:
     // * (root)
@@ -184,6 +185,8 @@ class Packager extends EventTarget {
         newPath = newPath.replace('nwjs.app', `${packageName}.app`);
       } else if (isWindows) {
         newPath = newPath.replace('nw.exe', `${packageName}.exe`);
+      } else if (isLinux) {
+        newPath = newPath.replace(/nw$/, packageName);
       }
 
       setFileFast(zip, newPath, file);

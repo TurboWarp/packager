@@ -18,6 +18,11 @@ module.exports = {
     sha256: '498c97a264f8feac504c4c2396c1fddc8290c15573aee2fc692e59ff9803cc40',
     type: 'arraybuffer'
   },
+  'nwjs-linux-x64': {
+    src: LARGE_ASSET_BASE + 'nwjs-v0.54.0-linux-x64.zip',
+    sha256: '53651a3a12d29ad096cff5b44d9f1e3aa09e9fad970bdcfe8bda07ea23d960d8',
+    type: 'arraybuffer'
+  },
   scaffolding: {
     src: 'scaffolding.js',
     estimatedSize: 4775503,

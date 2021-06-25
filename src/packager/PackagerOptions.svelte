@@ -356,6 +356,10 @@
       <input type="radio" bind:group={$options.target} value="nwjs-mac">
       NW.js macOS application
     </label>
+    <label>
+      <input type="radio" bind:group={$options.target} value="nwjs-linux-x64">
+      NW.js Linux application (64-bit only) (BETA)
+    </label>
   </div>
 </Section>
 
@@ -382,6 +386,10 @@
         </ul>
         <p>NW.js runs natively on Intel Macs but will use Rosetta on Apple silicon Macs.</p>
         <p>For further help and steps, see <a href="https://docs.nwjs.io/en/latest/For%20Users/Package%20and%20Distribute/#mac-os-x">NW.js Documentation</a>.</p>
+      {:else if $options.target.startsWith('nwjs-linux')}
+        <h2>Further steps for Linux</h2>
+        <p>Linux support is still especially experimental.</p>
+        <p>For further help and steps, see <a href="https://docs.nwjs.io/en/latest/For%20Users/Package%20and%20Distribute/#linux">NW.js Documentation</a>.</p>
       {/if}
     </Section>
   </div>
