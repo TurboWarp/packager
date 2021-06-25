@@ -196,7 +196,8 @@ class Packager extends EventTarget {
       window: {
         width: this.options.stageWidth,
         height: this.options.stageHeight,
-        icon: icon.name
+        icon: icon.name,
+        position: 'center'
       }
     };
 
