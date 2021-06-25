@@ -1,9 +1,8 @@
 import * as Comlink from 'comlink';
-import {sha256 as sha256_} from 'hash-wasm/dist/sha256.umd.min.js';
+import shajs from 'sha.js';
 
-const sha256 = async (buffer) => {
-  const checksum = await sha256_(new Uint8Array(buffer));
-  return checksum;
+const sha256 = (buffer) => {
+  return shajs('sha256').update(new Uint8Array(buffer)).digest('hex');
 };
 
 Comlink.expose({
