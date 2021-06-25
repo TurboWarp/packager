@@ -181,10 +181,10 @@ class Packager extends EventTarget {
       const file = nwjsZip.files[path];
 
       let newPath = path.replace(nwjsPrefix, packageName);
-      if (isMac) {
-        newPath = newPath.replace('nwjs.app', `${packageName}.app`);
-      } else if (isWindows) {
+      if (isWindows) {
         newPath = newPath.replace('nw.exe', `${packageName}.exe`);
+      } else if (isMac) {
+        newPath = newPath.replace('nwjs.app', `${packageName}.app`);
       } else if (isLinux) {
         newPath = newPath.replace(/nw$/, packageName);
       }
@@ -204,11 +204,19 @@ class Packager extends EventTarget {
     };
 
     let dataPrefix;
-    if (isMac) {
+    if (isWindows) {
+      dataPrefix = `${packageName}/`;
+    } else if (isMac) {
       const icnsData = await pngToAppleICNS(icon.data);
       zip.file(`${packageName}/${packageName}.app/Contents/Resources/app.icns`, icnsData);
       dataPrefix = `${packageName}/${packageName}.app/Contents/Resources/app.nw/`;
-    } else {
+    } else if (isLinux) {
+      const startScript = `#!/bin/bash
+cd "$(dirname "$0")"
+./${packageName}`;
+      zip.file(`${packageName}/start.sh`, startScript, {
+        unixPermissions: 0o100755
+      });
       dataPrefix = `${packageName}/`;
     }
 
@@ -650,7 +658,7 @@ class Packager extends EventTarget {
         blob: await zip.generateAsync({
           type: 'blob',
           compression: 'DEFLATE',
-          // Use UNIX permissions so that executable bits are properly set, which matters for NW.js macOS
+          // Use UNIX permissions so that executable bits are properly set for macOS and Linux
           platform: 'UNIX'
         }, (meta) => {
           this.dispatchEvent(new CustomEvent('zip-progress', {
