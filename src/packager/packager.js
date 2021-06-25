@@ -196,8 +196,7 @@ class Packager extends EventTarget {
       window: {
         width: this.options.stageWidth,
         height: this.options.stageHeight,
-        icon: icon.name,
-        position: 'center'
+        icon: icon.name
       }
     };
 
@@ -217,7 +216,9 @@ class Packager extends EventTarget {
     zip.file(dataPrefix + icon.name, icon.data);
     zip.file(dataPrefix + 'package.json', JSON.stringify(manifest, null, 4));
     zip.file(dataPrefix + 'main.js', `
-    const start = () => nw.Window.open('index.html');
+    const start = () => nw.Window.open('index.html', {
+      position: "center"
+    });
     nw.App.on('open', start);
     start();`);
 
