@@ -565,6 +565,19 @@ class Packager extends EventTarget {
       enabled: ${this.options.compiler.enabled},
       warpTimer: ${this.options.compiler.warpTimer}
     });
+
+    // NW.js hook
+    if (typeof nw !== 'undefined') {
+      const win = nw.Window.get();
+      win.on('new-win-policy', (frame, url, policy) => {
+        policy.ignore();
+        nw.Shell.openExternal(url);
+      });
+      win.on('navigation', (frame, url, policy) => {
+        policy.ignore();
+        nw.Shell.openExternal(url);
+      });
+    }
   </script>
   <script>
     ${await this.generateGetProjectData()}
