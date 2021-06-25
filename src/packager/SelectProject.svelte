@@ -135,7 +135,7 @@
       Project ID or URL
     </label>
     {#if $type === "id"}
-      <input type="text" value={getDisplayedProjectURL()} on:keypress={handleKeyPress} on:input={handleInput} on:focus={handleFocus}>
+      <input type="text" value={getDisplayedProjectURL()} spellcheck="false" on:keypress={handleKeyPress} on:input={handleInput} on:focus={handleFocus}>
     {/if}
   </div>
   <div class="option">
