@@ -8,6 +8,9 @@ const enabled =
   navigator.doNotTrack !== '1';
 
 const sendEvent = eventName => {
+  if (!enabled) {
+    return;
+  }
   setTimeout(() => {
     const xhr = new XMLHttpRequest();
     xhr.open('POST', PLAUSIBLE_API, true);
@@ -21,6 +24,8 @@ const sendEvent = eventName => {
   });
 };
 
-if (enabled) {
-  sendEvent('pageview');
-}
+sendEvent('pageview');
+
+export default {
+  sendEvent
+};

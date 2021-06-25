@@ -6,6 +6,7 @@
   import {UserError} from './errors';
   import loadProject from './load-project';
   import getProjectTitle from './lib/get-project-meta.js';
+  import analytics from './analytics';
 
   export let projectData = null;
   const type = writablePersistentStore('SelectProject.type', 'id');
@@ -81,6 +82,8 @@
         title: projectTitle,
         project,
       };
+
+      analytics.sendEvent('Load Project');
     } catch (e) {
       $error = e;
     }

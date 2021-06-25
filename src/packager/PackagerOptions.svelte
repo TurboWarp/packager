@@ -8,6 +8,7 @@
   import Preview from './preview';
   import deepClone from './lib/deep-clone';
   import assetCache from './cache';
+  import analytics from './analytics';
 
   export let projectData;
 
@@ -98,6 +99,7 @@
     if (result) {
       downloadURL(result.filename, url);
     }
+    analytics.sendEvent('Package');
   };
 
   const preview = async () => {
@@ -111,6 +113,7 @@
       previewer.close();
     }
     previewer = null;
+    analytics.sendEvent('Preview');
   };
 
   const reset = async () => {
