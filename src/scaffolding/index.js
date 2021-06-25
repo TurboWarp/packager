@@ -148,7 +148,7 @@ class Scaffolding extends EventTarget {
       canvasHeight: this.layersRect.height,
       isDown: true
     };
-    if (e.button === 0 || e instanceof TouchEvent) {
+    if (e.button === 0 || (typeof TouchEvent !== 'undefined' && e instanceof TouchEvent)) {
       this._dragTimeout = setTimeout(this._startDragging.bind(this, data.x, data.y), 400);
     }
     this._mousedownPosition = {
@@ -282,6 +282,8 @@ class Scaffolding extends EventTarget {
     this.vm.runtime.on('QUESTION', this._onquestion.bind(this));
     this.vm.on('PROJECT_RUN_START', () => this.dispatchEvent(new Event('PROJECT_RUN_START')));
     this.vm.on('PROJECT_RUN_STOP', () => this.dispatchEvent(new Event('PROJECT_RUN_STOP')));
+    this.vm.runtime.stageWidth = this.width;
+    this.vm.runtime.stageHeight = this.height;
 
     this.cloudManager = new Cloud.CloudManager(this);
 

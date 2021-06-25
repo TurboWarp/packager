@@ -192,7 +192,7 @@ class Packager extends EventTarget {
     const icon = await getAppIcon(this.options.app.icon);
     const manifest = {
       name: packageName,
-      main: 'index.html',
+      main: 'main.js',
       window: {
         width: this.options.stageWidth,
         height: this.options.stageHeight,
@@ -215,6 +215,13 @@ class Packager extends EventTarget {
     }
     zip.file(dataPrefix + icon.name, icon.data);
     zip.file(dataPrefix + 'package.json', JSON.stringify(manifest, null, 4));
+    zip.file(dataPrefix + 'main.js', `
+    const start = () => nw.Window.open('index.html', {
+      position: "center",
+      new_instance: true
+    });
+    nw.App.on('open', start);
+    start();`);
 
     return zip;
   }
@@ -565,6 +572,24 @@ class Packager extends EventTarget {
       enabled: ${this.options.compiler.enabled},
       warpTimer: ${this.options.compiler.warpTimer}
     });
+
+    // NW.js hook
+    if (typeof nw !== 'undefined') {
+      const win = nw.Window.get();
+      win.on('new-win-policy', (frame, url, policy) => {
+        policy.ignore();
+        nw.Shell.openExternal(url);
+      });
+      win.on('navigation', (frame, url, policy) => {
+        policy.ignore();
+        nw.Shell.openExternal(url);
+      });
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" && document.fullscreenElement) {
+          document.exitFullscreen();
+        }
+      });
+    }
   </script>
   <script>
     ${await this.generateGetProjectData()}
