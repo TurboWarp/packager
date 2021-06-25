@@ -217,7 +217,8 @@ class Packager extends EventTarget {
     zip.file(dataPrefix + 'package.json', JSON.stringify(manifest, null, 4));
     zip.file(dataPrefix + 'main.js', `
     const start = () => nw.Window.open('index.html', {
-      position: "center"
+      position: "center",
+      new_instance: true
     });
     nw.App.on('open', start);
     start();`);
