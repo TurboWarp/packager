@@ -148,7 +148,7 @@ class Scaffolding extends EventTarget {
       canvasHeight: this.layersRect.height,
       isDown: true
     };
-    if (e.button === 0 || e instanceof TouchEvent) {
+    if (e.button === 0 || (typeof TouchEvent !== 'undefined' && e instanceof TouchEvent)) {
       this._dragTimeout = setTimeout(this._startDragging.bind(this, data.x, data.y), 400);
     }
     this._mousedownPosition = {
