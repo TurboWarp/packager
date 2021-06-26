@@ -119,7 +119,7 @@
   const reset = async () => {
     if (confirm('Reset all settings to defaults and reload?')) {
       try {
-        await assetCache.reset();
+        await assetCache.resetAll();
       } catch (e) {
         console.warn(e);
       }

@@ -99,7 +99,7 @@ const removeExtraneous = async () => {
         resolve();
       }
     };
-  })
+  });
 };
 
 const get = async (asset) => {
@@ -134,18 +134,19 @@ const set = async (asset, content) => {
   });
 };
 
-const reset = async () => {
-  if (!window.indexedDB) {
-    return;
-  }
-  await idbReady();
+const resetAll = async () => {
+  const {transaction, store} = await createTransaction('readwrite');
   return new Promise((resolve, reject) => {
-    const request = indexedDB.deleteDatabase(DATABASE_NAME);
-    request.onsuccess = () => {
-      resolve();
-    };
-    request.onerror = () => {
-      reject(new Error('Cannot delete databse'));
+    setTransactionErrorHandler(transaction, reject);
+    const request = store.openCursor();
+    request.onsuccess = e => {
+      const cursor = e.target.result;
+      if (cursor) {
+        cursor.delete();
+        cursor.continue();
+      } else {
+        resolve();
+      }
     };
   });
 };
@@ -155,6 +156,6 @@ const getCacheBuster = () => SCAFFOLDING_BUILD_ID;
 export default {
   get,
   set,
-  reset,
+  resetAll,
   getCacheBuster
 };
