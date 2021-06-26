@@ -69,7 +69,7 @@ class Scaffolding extends EventTarget {
     this._canvas.addEventListener('wheel', this._onwheel.bind(this));
     document.addEventListener('keydown', this._onkeydown.bind(this));
     document.addEventListener('keyup', this._onkeyup.bind(this));
-    window.addEventListener('resize', this.relayout.bind(this));
+    window.addEventListener('resize', this._onresize.bind(this));
   }
 
   _addLayer (el) {
