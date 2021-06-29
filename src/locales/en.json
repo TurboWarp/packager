@@ -1,6 +1,6 @@
 {
   "p4": {
-    "description1": "Converts Scratch projects into standalone files.",
+    "description1": "Converts Scratch projects into standalone files or executable programs.",
     "error": "Error",
     "errorMessage": "Message: {error}",
     "close": "Close",
