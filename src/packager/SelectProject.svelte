@@ -67,9 +67,8 @@
           throw new UserError($_('select.invalidId'));
         }
         uniqueId = `#${id}`;
-        $progress.text = $_('progress.loadingProjectMetadata');
-        projectTitle = await getProjectTitle(id);
         $progress.text = $_('progress.loadingProjectData');
+        projectTitle = await getProjectTitle(id);
         project = await loadProject.fromID(id, progressCallback);
       } else {
         if (!files) {
@@ -78,7 +77,7 @@
         const file = files[0];
         uniqueId = `@${file.name}`;
         projectTitle = file.name;
-        $progress.text = $_('progress.readingProject');
+        $progress.text = $_('progress.compressingProject');
         project = await loadProject.fromFile(file, progressCallback);
       }
 

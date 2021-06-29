@@ -13,13 +13,10 @@
   "progress": {
     "loadingAssets": "Loading assets ({loaded}/{total})",
     "compressingProject": "Compressing project",
-    "loadingProjectMetadata": "Loading project metadata",
     "loadingProjectData": "Loading project data",
-    "readingProject": "Reading project",
-    "packagingProject": "Packaging Project",
+    "packagingProject": "Packaging project",
     "loadingNwjs": "Loading NW.js",
-    "loadingTurboWarp": "Loading TurboWarp",
-    "loadingAddons": "Loading addons"
+    "loadingScripts": "Loading scripts"
   },
   "select": {
     "select": "Select Project",

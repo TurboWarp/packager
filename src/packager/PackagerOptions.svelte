@@ -45,13 +45,6 @@
   const handleLargeAssetFetchProgress = ({detail}) => {
     if (detail.asset.startsWith('nwjs-')) {
       $progress.text = $_('progress.loadingNwjs');
-    } else if (detail.asset === 'scaffolding') {
-      $progress.text = $_('progress.loadingTurboWarp');
-    } else if (detail.asset === 'addons') {
-      $progress.text = $_('progress.loadingAddons');
-    } else {
-      // This should never happen
-      $progress.text = `Loading large asset ${detail.asset}`
     }
     $progress.progress = detail.progress;
   };
@@ -77,7 +70,7 @@
       packager.project = projectData.project;
 
       $progress.visible = true;
-      $progress.text = $_('progress.packagingProject');
+      $progress.text = $_('progress.loadingScripts');
 
       if (url) {
         URL.revokeObjectURL(url);
