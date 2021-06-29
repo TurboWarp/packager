@@ -222,7 +222,7 @@
   </label>
   <label>
     {$_('options.loadingScreenText')}
-    <input type="text" bind:value={$options.loadingScreen.text} placeholder="(Nothing)">
+    <input type="text" bind:value={$options.loadingScreen.text} placeholder={$_('options.loadingScreenTextPlaceholder')}>
   </label>
   <label>
     {$_('options.icon')}
@@ -271,7 +271,7 @@
   <Section accent="#FF8C1A">
     <h2>{$_('options.cloudVariables')}</h2>
     <label>
-      Mode
+      {$_('options.mode')}
       <select bind:value={$options.cloudVariables.mode}>
         {#if canUseCloudVariableServer}
           <option value="ws">{$_('options.cloudVariables-ws')}</option>

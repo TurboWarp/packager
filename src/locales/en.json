@@ -47,6 +47,7 @@
     "playerOptions": "Player Options",
     "pageTitle": "Page Title",
     "loadingScreenText": "Loading Screen Text",
+    "loadingScreenTextPlaceholder": "(Nothing)",
     "icon": "Icon",
     "controls": "Controls",
     "showFlag": "Show green flag button in controls",

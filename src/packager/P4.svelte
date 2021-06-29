@@ -96,7 +96,7 @@
   <Section accent="#ff4c4c">
     <!-- don't translate "TurboWarp Packager" -->
     <h1>TurboWarp Packager</h1>
-    <p>Converts Scratch projects into standalone files.</p>
+    <p>{$_('p4.description1')}</p>
     <p>If you just want an easy way to embed a TurboWarp project into your website, you may be interested in <a href="https://github.com/TurboWarp/scratch-gui/wiki/Embedding">Embedding</a>.</p>
     <p>Report bugs, give feedback, and suggest ideas <a href="https://scratch.mit.edu/users/GarboMuffin/#comments">on Scratch</a> or <a href="https://github.com/TurboWarp/packager/issues">on GitHub</a>.</p>
   </Section>
@@ -129,7 +129,7 @@
           <p>
             {$_('p4.errorMessage', {
               values: {
-                error: $error
+                error: `${$error}`
               }
             })}
           </p>
