@@ -1,0 +1,21 @@
+{
+    "options": {
+        "addons": "애드온",
+        "cloudVariables-custom": "고급 설정",
+        "enableCompiler": "컴파일러 켜기",
+        "highQualityPen": "펜 품질 올리기",
+        "infiniteClones": "무제한 복제본",
+        "interpolation": "보간하기",
+        "removeFencing": "무대 밖 동작 제한 풀기",
+        "removeMiscLimits": "기타 몇몇 제한 풀기",
+        "reset": "초기화하기",
+        "warpTimer": "워프 타이머"
+    },
+    "p4": {
+        "privacy": "개인정보 보호 정책",
+        "sourceCode": "소스코드"
+    },
+    "progress": {
+        "loadingScripts": "스크립트를 불러오는 중입니다..."
+    }
+}

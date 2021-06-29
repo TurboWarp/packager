@@ -1,0 +1,20 @@
+{
+    "options": {
+        "addons": "アドオン",
+        "cloudVariables-custom": "高度な設定",
+        "highQualityPen": "ペンできれいに描画する",
+        "infiniteClones": "クローンの制限を解除",
+        "interpolation": "補完機能",
+        "removeFencing": "動く範囲と大きさの制限を解除する",
+        "removeMiscLimits": "その他の制限を解除",
+        "reset": "リセット",
+        "warpTimer": "Warpタイマー"
+    },
+    "p4": {
+        "privacy": "プライバシーポリシー",
+        "sourceCode": "ソースコード"
+    },
+    "progress": {
+        "loadingScripts": "スクリプトの読み込み"
+    }
+}

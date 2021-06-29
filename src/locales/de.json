@@ -1,0 +1,18 @@
+{
+    "options": {
+        "cloudVariables-custom": "Erweitert",
+        "enableCompiler": "Schalte Compiler an",
+        "highQualityPen": "Stift mit Hoher Qualität",
+        "infiniteClones": "Unendliche Klone",
+        "removeFencing": "Einzäunung entfernen",
+        "removeMiscLimits": "Verschiedene Begrenzungen entfernen",
+        "reset": "Zurücksetzen"
+    },
+    "p4": {
+        "privacy": "Datenschutzerklärung",
+        "sourceCode": "Quellcode"
+    },
+    "progress": {
+        "loadingScripts": "Skripte werden geladen"
+    }
+}

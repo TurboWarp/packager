@@ -1,0 +1,16 @@
+{
+    "options": {
+        "cloudVariables-custom": "Avancé",
+        "enableCompiler": "Activer le compilateur",
+        "highQualityPen": "Stylo de haute qualité",
+        "infiniteClones": "Clones Infinis",
+        "reset": "Réinitialiser"
+    },
+    "p4": {
+        "privacy": "Politique de Confidentialité",
+        "sourceCode": "Code source"
+    },
+    "progress": {
+        "loadingScripts": "Lecture des assets"
+    }
+}

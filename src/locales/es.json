@@ -1,0 +1,19 @@
+{
+    "options": {
+        "cloudVariables-custom": "Avanzado",
+        "enableCompiler": "Activar Compilador",
+        "highQualityPen": "Lápiz de Alta Calidad",
+        "infiniteClones": "Clones Infinitos",
+        "interpolation": "Interpolació",
+        "removeFencing": "Quitar Fencing",
+        "removeMiscLimits": "Quitar Límites Varios",
+        "reset": "Reiniciar"
+    },
+    "p4": {
+        "privacy": "Política de Privacidad",
+        "sourceCode": "Código Fuente"
+    },
+    "progress": {
+        "loadingScripts": "Cargando scripts"
+    }
+}

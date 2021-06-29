@@ -1,0 +1,21 @@
+{
+    "options": {
+        "addons": "插件",
+        "cloudVariables-custom": "高级",
+        "enableCompiler": "使用编译",
+        "highQualityPen": "高清画笔",
+        "infiniteClones": "无限克隆",
+        "interpolation": "插入",
+        "removeFencing": "取消边缘",
+        "removeMiscLimits": "移除其他限制",
+        "reset": "重置",
+        "warpTimer": "循环计时器"
+    },
+    "p4": {
+        "privacy": "隐私政策",
+        "sourceCode": "源代码"
+    },
+    "progress": {
+        "loadingScripts": "加载脚本中……"
+    }
+}

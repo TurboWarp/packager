@@ -1,0 +1,15 @@
+{
+    "options": {
+        "addons": "Extensii",
+        "cloudVariables-custom": "Avansat",
+        "enableCompiler": "Pornește Compilerul",
+        "reset": "Resetează"
+    },
+    "p4": {
+        "privacy": "Politica de Confidențialitate",
+        "sourceCode": "Cod sursă"
+    },
+    "progress": {
+        "loadingScripts": "Se încarcă blocurile"
+    }
+}

@@ -1,0 +1,17 @@
+{
+    "options": {
+        "addons": "Dodatki",
+        "cloudVariables-custom": "Zaawansowane",
+        "highQualityPen": "Wysokiej Jakości Pióro",
+        "infiniteClones": "Nieskończone Klony",
+        "interpolation": "Interpolacja",
+        "removeFencing": "Usuń Ograniczenia",
+        "removeMiscLimits": "Usuń Różne Limity",
+        "reset": "Resetuj",
+        "warpTimer": "Warp Stoper"
+    },
+    "p4": {
+        "privacy": "Polityka Prywatności",
+        "sourceCode": "Kod Źródłowy"
+    }
+}

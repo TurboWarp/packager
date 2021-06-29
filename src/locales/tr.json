@@ -1,0 +1,21 @@
+{
+    "options": {
+        "addons": "Eklentiler",
+        "cloudVariables-custom": "Gelişmiş",
+        "enableCompiler": "Derlemeyi aç",
+        "highQualityPen": "Yüksek kalite kalem",
+        "infiniteClones": "Sonsuz klonlar",
+        "interpolation": "Enterpolasyon",
+        "removeFencing": "Eskirimi çıkart",
+        "removeMiscLimits": "Çeşitli Limitleri Kaldır",
+        "reset": "Sıfırla",
+        "warpTimer": "Warp zamanlayıcı"
+    },
+    "p4": {
+        "privacy": "Gizillik Politikası",
+        "sourceCode": "Kaynak Kodu"
+    },
+    "progress": {
+        "loadingScripts": "Kodlar yükleniyor"
+    }
+}

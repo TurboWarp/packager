@@ -1,0 +1,19 @@
+{
+    "options": {
+        "addons": "Dodatki",
+        "cloudVariables-custom": "Napredno",
+        "highQualityPen": "Visoka ločljivost svinčnika",
+        "infiniteClones": "Neskončno klonov",
+        "interpolation": "Interpolacija",
+        "removeFencing": "Odstrani omejitve premikanja figur",
+        "removeMiscLimits": "Odstrani razne omejitve",
+        "reset": "Ponastavi"
+    },
+    "p4": {
+        "privacy": "Politika zasebnosti",
+        "sourceCode": "Izvirna koda"
+    },
+    "progress": {
+        "loadingScripts": "Nalaganje skript"
+    }
+}

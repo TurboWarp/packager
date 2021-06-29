@@ -1,0 +1,14 @@
+{
+    "options": {
+        "addons": "Дополнения",
+        "cloudVariables-custom": "Дополнительно",
+        "highQualityPen": "Перо в высоком качестве",
+        "infiniteClones": "Бесконечные клоны",
+        "interpolation": "Интерполяция",
+        "reset": "Сбросить"
+    },
+    "p4": {
+        "privacy": "Политика конфиденциальности",
+        "sourceCode": "Исходный код"
+    }
+}

@@ -1,0 +1,20 @@
+{
+    "options": {
+        "addons": "Addon",
+        "cloudVariables-custom": "Impostazioni Avanzate",
+        "enableCompiler": "Abilita Compilatore",
+        "highQualityPen": "Penna Alta Qualità",
+        "infiniteClones": "Cloni Infiniti",
+        "interpolation": "Interpolazione",
+        "removeFencing": "Rimozione Recinto",
+        "removeMiscLimits": "Rimozione Limiti Vari",
+        "reset": "Resetta"
+    },
+    "p4": {
+        "privacy": "Politica della Privacy",
+        "sourceCode": "Codice Sorgente"
+    },
+    "progress": {
+        "loadingScripts": "Caricamento script in corso"
+    }
+}
