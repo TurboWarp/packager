@@ -1,4 +1,5 @@
 <script>
+  import {_} from 'svelte-i18n';
   import Section from './Section.svelte';
   import Button from './Button.svelte';
   import writablePersistentStore from './persistent-store';
@@ -47,10 +48,15 @@
         if (type === 'fetch') {
           $progress.progress = a;
         } else if (type === 'assets') {
-          $progress.text = `Loading assets (${a}/${b})`;
+          $progress.text = $_('progress.loadingAssets', {
+            values: {
+              loaded: a,
+              total: b
+            }
+          });
           $progress.progress = a / b;
         } else if (type === 'compress') {
-          $progress.text = 'Compressing project';
+          $progress.text = $_('progress.compressingProject');
           $progress.progress = a;
         }
       };
@@ -58,21 +64,21 @@
       if ($type === 'id') {
         id = $projectId;
         if (!id) {
-          throw new UserError('Invalid project ID');
+          throw new UserError($_('select.invalidId'));
         }
         uniqueId = `#${id}`;
-        $progress.text = 'Loading project metadata';
+        $progress.text = $_('progress.loadingProjectMetadata');
         projectTitle = await getProjectTitle(id);
-        $progress.text = 'Loading project data';
+        $progress.text = $_('progress.loadingProjectData');
         project = await loadProject.fromID(id, progressCallback);
       } else {
         if (!files) {
-          throw new UserError('No file selected');
+          throw new UserError($_('select.noFileSelected'));
         }
         const file = files[0];
         uniqueId = `@${file.name}`;
         projectTitle = file.name;
-        $progress.text = 'Reading project';
+        $progress.text = $_('progress.readingProject');
         project = await loadProject.fromFile(file, progressCallback);
       }
 
@@ -127,12 +133,12 @@
 </style>
 
 <Section accent="#4C97FF">
-  <h2>Select Project</h2>
-  <p>You can package projects from the Scratch website by copying their URL or you can package files from your computer. If you're using someone else's project, make sure to give them proper credit.</p>
+  <h2>{$_('select.select')}</h2>
+  <p>{$_('select.selectHelp')}</p>
   <div class="option">
     <label>
       <input type="radio" bind:group={$type} value="id">
-      Project ID or URL
+      {$_('select.idOrUrl')}
     </label>
     {#if $type === "id"}
       <input type="text" value={getDisplayedProjectURL()} spellcheck="false" on:keypress={handleKeyPress} on:input={handleInput} on:focus={handleFocus}>
@@ -141,7 +147,7 @@
   <div class="option">
     <label>
       <input type="radio" bind:group={$type} value="file">
-      File
+      {$_('select.file')}
     </label>
     {#if $type === "file"}
       <input bind:files={files} type="file" accept=".sb,.sb2,.sb3">
@@ -149,12 +155,12 @@
   </div>
 
   <p>
-    <Button on:click={load} disabled={$progress.visible}>Load Project</Button>
+    <Button on:click={load} disabled={$progress.visible}>{$_('select.loadProject')}</Button>
   </p>
 </Section>
 
 {#if !$progress.visible && !projectData}
   <Section caption>
-    <p>Load a project to continue</p>
+    <p>{$_('select.loadToContinue')}</p>
   </Section>
 {/if}

@@ -1,4 +1,5 @@
 <script>
+  import {_} from 'svelte-i18n';
   import {fade} from 'svelte/transition';
   import Section from './Section.svelte';
   import SelectProject from './SelectProject.svelte';
@@ -93,6 +94,7 @@
 
 <main>
   <Section accent="#ff4c4c">
+    <!-- don't translate "TurboWarp Packager" -->
     <h1>TurboWarp Packager</h1>
     <p>Converts Scratch projects into standalone files.</p>
     <p>If you just want an easy way to embed a TurboWarp project into your website, you may be interested in <a href="https://github.com/TurboWarp/scratch-gui/wiki/Embedding">Embedding</a>.</p>
@@ -100,6 +102,7 @@
   </Section>
 
   <Section accent="#b117f8">
+    <!-- this will be removed soon so don't bother translating -->
     <p><span class="new">New!</span> We rewrote the packager to bring improved performance, file size, customizability, simple-to-edit HTML, a new loading screen, more options for cloud variables, optional gamepad support, and more.</p>
     <p>A lot of features that were previously difficult are now trivial. <a href="https://scratch.mit.edu/users/GarboMuffin/#comments">Let us know</a> what features and customizations you're looking for.</p>
     <p>The old packager <a href="https://packager-legacy.turbowarp.org/">can still be used indefinitely</a> for the few niche use-cases that are no longer possible. It's not actively maintained so we wouldn't recommend it.</p>
@@ -116,17 +119,23 @@
   {#if $error}
     <div class="modal" on:click|self={closeModal} on:key>
       <Section modal>
-        <h2>Error</h2>
+        <h2>{$_('p4.error')}</h2>
         {#if $error instanceof UserError}
           <p>{$error.message}</p>
           <p>
-            <Button on:click={closeModal}>Close</Button>
+            <Button on:click={closeModal}>{$_('p4.close')}</Button>
           </p>
         {:else}
-          <p>Message: {$error}</p>
           <p>
-            <Button on:click={closeModal}>Close</Button>
-            <a href="https://scratch.mit.edu/users/GarboMuffin/#comments">Report bug</a>
+            {$_('p4.errorMessage', {
+              values: {
+                error: $error
+              }
+            })}
+          </p>
+          <p>
+            <Button on:click={closeModal}>{$_('p4.close')}</Button>
+            <a href="https://scratch.mit.edu/users/GarboMuffin/#comments">{$_('p4.reportBug')}</a>
           </p>
         {/if}
       </Section>
@@ -141,14 +150,14 @@
 
   <footer>
     <div>
-      <a href="privacy.html">Privacy Policy</a>
+      <a href="privacy.html">{$_('p4.privacy')}</a>
       -
-      <a href="https://scratch.mit.edu/users/GarboMuffin/#comments">Feedback & Bugs</a>
+      <a href="https://scratch.mit.edu/users/GarboMuffin/#comments">{$_('p4.feedback')}</a>
       -
-      <a href="https://github.com/TurboWarp/packager">Source Code (LGPL3.0)</a>
+      <a href="https://github.com/TurboWarp/packager">{$_('p4.sourceCode')}</a>
     </div>
     <div>
-      <a href="https://fosshost.org/">File hosting provided by Fosshost</a>
+      <a href="https://fosshost.org/">{$_('p4.fosshost')}</a>
     </div>
   </footer>
 </main>

@@ -26,6 +26,7 @@ The general layout of `src` is:
 
  - build: some questionable webpack customizations
  - packager: The packager website and logic
+ - locales: translations
  - scaffolding: A minimal Scratch project player that abstracts most implementation details of Scratch
  - addons: currently only the optional "gamepad support" addon in packaged projects
 

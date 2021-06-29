@@ -1,4 +1,5 @@
 <script>
+  import {_} from 'svelte-i18n'
   import {slide, fade} from 'svelte/transition';
   import Section from './Section.svelte';
   import Button from './Button.svelte';
@@ -43,19 +44,20 @@
 
   const handleLargeAssetFetchProgress = ({detail}) => {
     if (detail.asset.startsWith('nwjs-')) {
-      $progress.text = 'Loading NW.js';
+      $progress.text = $_('progress.loadingNwjs');
     } else if (detail.asset === 'scaffolding') {
-      $progress.text = 'Loading TurboWarp';
+      $progress.text = $_('progress.loadingTurboWarp');
     } else if (detail.asset === 'addons') {
-      $progress.text = 'Loading addons';
+      $progress.text = $_('progress.loadingAddons');
     } else {
+      // This should never happen
       $progress.text = `Loading large asset ${detail.asset}`
     }
     $progress.progress = detail.progress;
   };
 
   const handleZipProgress = ({detail}) => {
-    $progress.text = 'Compressing project';
+    $progress.text = $_('progress.compressingProject');
     $progress.progress = detail.progress;
   };
 
@@ -75,7 +77,7 @@
       packager.project = projectData.project;
 
       $progress.visible = true;
-      $progress.text = 'Packaging project';
+      $progress.text = $_('progress.packagingProject');
 
       if (url) {
         URL.revokeObjectURL(url);
@@ -117,7 +119,7 @@
   };
 
   const reset = async () => {
-    if (confirm('Reset all settings to defaults and reload?')) {
+    if (confirm($_('options.confirmReload'))) {
       try {
         await assetCache.resetAll();
       } catch (e) {
@@ -155,7 +157,7 @@
 </style>
 
 <Section accent="#FFAB19">
-  <h2>Runtime Options</h2>
+  <h2>{$_('options.runtimeOptions')}</h2>
 
   <!-- TODO: this is not ideal, the help should be in here -->
   <!-- especially as not all of these options are actually in advanced settings on the main site -->
@@ -163,122 +165,122 @@
 
   <label>
     <input type="checkbox" bind:checked={$options.turbo}>
-    Turbo Mode
+    {$_('options.turbo')}
   </label>
   <label>
-    Framerate
+    {$_('options.framerate')}
     <input type="number" min="0" max="240" bind:value={$options.framerate}>
   </label>
   <label>
     <input type="checkbox" bind:checked={$options.interpolation}>
-    Interpolation
+    {$_('options.interpolation')}
   </label>
   <label>
     <input type="checkbox" bind:checked={$options.highQualityPen}>
-    High Quality Pen
+    {$_('options.highQualityPen')}
   </label>
   <label>
     <input type="checkbox" checked={$options.maxClones === ALMOST_INFINITY} on:change={(e) => {
       $options.maxClones = e.target.checked ? ALMOST_INFINITY : 300;
     }}>
-    Infinite Clones
+    {$_('options.infiniteClones')}
   </label>
   <label>
     <input type="checkbox" checked={!$options.fencing} on:change={(e) => {
       $options.fencing = !e.target.checked;
     }}>
-    Remove Fencing
+    {$_('options.removeFencing')}
   </label>
   <label>
     <input type="checkbox" checked={!$options.miscLimits} on:change={(e) => {
       $options.miscLimits = !e.target.checked;
     }}>
-    Remove Miscellanous Limits
+    {$_('options.removeMiscLimits')}
   </label>
   <label>
-    Stage Size
+    {$_('options.stageSize')}
     <input type="number" min="0" max="4096" step="1" bind:value={$options.stageWidth}>
     &times;
     <input type="number" min="0" max="4096" step="1" bind:value={$options.stageHeight}>
   </label>
   <label>
-    Username (each "#" gets replaced with a random number)
+    {$_('options.username')}
     <input type="text" bind:value={$options.username}>
   </label>
   <label>
     <input type="checkbox" bind:checked={$options.autoplay}>
-    Autoplay
+    {$_('options.autoplay')}
   </label>
 </Section>
 
 <Section accent="#9966FF">
-  <h2>Player Options</h2>
+  <h2>{$_('options.playerOptions')}</h2>
 
   <label>
-    Page Title
+    {$_('options.pageTitle')}
     <input type="text" bind:value={$options.app.windowTitle}>
   </label>
   <label>
-    Loading Screen Text
+    {$_('options.loadingScreenText')}
     <input type="text" bind:value={$options.loadingScreen.text} placeholder="(Nothing)">
   </label>
   <label>
-    Icon
+    {$_('options.icon')}
     <input type="file" bind:files={iconFiles} accept=".png">
   </label>
 
-  <h3>Controls</h3>
+  <h3>{$_('options.controls')}</h3>
   <label>
     <input type="checkbox" bind:checked={$options.controls.greenFlag.enabled}>
-    Show green flag button in controls
+    {$_('options.showFlag')}
   </label>
   <label>
     <input type="checkbox" bind:checked={$options.controls.stopAll.enabled}>
-    Show stop sign button in controls
+    {$_('options.showStop')}
   </label>
   <label>
     <input type="checkbox" bind:checked={$options.controls.fullscreen.enabled}>
-    Show fullscreen button in controls
+    {$_('options.showFullscreen')}
   </label>
   {#if $options.controls.greenFlag.enabled || $options.controls.stopAll.enabled}
     <label transition:slide|local>
       <input type="color" bind:value={$options.appearance.accent}>
-      Accent color (background color of controls when active or hovered)
+      {$_('options.accentColor')}
     </label>
   {/if}
-  <p>If all controls are disabled, the controls bar is removed entirely. If only fullscreen is enabled, it will always be located in the top left corner, not in the controls header.</p>
+  <p>{$_('options.controlsHelp')}</p>
 
-  <h3>Colors</h3>
+  <h3>{$_('options.colors')}</h3>
   <label>
     <input type="color" bind:value={$options.appearance.background}>
-    Background color
+    {$_('options.backgroundColor')}
   </label>
   <label>
     <input type="color" bind:value={$options.appearance.foreground}>
-    Foreground color (progress bar, some icons, some text)
+    {$_('options.foregroundColor')}
   </label>
 
-  <h3>Addons</h3>
+  <h3>{$_('options.addons')}</h3>
   <label>
     <input type="checkbox" bind:checked={$options.chunks.gamepad}>
-    Gamepad support addon (no settings button or modal for now)
+    {$_('options.gamepadSupport')}
   </label>
 </Section>
 
 {#if cloudVariables.length > 0}
   <Section accent="#FF8C1A">
-    <h2>Cloud Variables</h2>
+    <h2>{$_('options.cloudVariables')}</h2>
     <label>
       Mode
       <select bind:value={$options.cloudVariables.mode}>
         {#if canUseCloudVariableServer}
-          <option value="ws">Connect to cloud variable server</option>
+          <option value="ws">{$_('options.cloudVariables-ws')}</option>
         {:else}
-          <option disabled>Can not use cloud variable server on this project</option>
+          <option disabled>{$_('options.cloudVariables-ws-unavailable')}</option>
         {/if}
-        <option value="local">Store in local storage</option>
-        <option value="">Ignore</option>
-        <option value="custom">Advanced</option>
+        <option value="local">{$_('options.cloudVariables-local')}</option>
+        <option value="">{$_('options.cloudVariables-ignore')}</option>
+        <option value="custom">{$_('options.cloudVariables-custom')}</option>
       </select>
     </label>
     {#if $options.cloudVariables.mode === "custom"}
@@ -287,78 +289,78 @@
           <label>
             <select bind:value={$options.cloudVariables.custom[variable]}>
               {#if canUseCloudVariableServer}
-                <option value="ws">Connect to cloud variable server</option>
+                <option value="ws">{$_('options.cloudVariables-ws')}</option>
               {:else}
-                <option disabled>Can not use cloud variable server on this project</option>
+                <option disabled>{$_('options.cloudVariables-ws-unavailable')}</option>
               {/if}
-              <option value="local">Store in local storage</option>
-              <option value="">Ignore</option>
+              <option value="local">{$_('options.cloudVariables-local')}</option>
+              <option value="">{$_('options.cloudVariables-ignore')}</option>
             </select>
             {variable}
           </label>
         {/each}
       </div>
     {/if}
-    <p>"Connect to cloud variable server" uses TurboWarp's cloud variable server to sync the variables with other users. Can not be used on projects loaded from files.</p>
-    <p>"Store in local storage" stores the variables on the user's computer and restores them when the project is restarted.</p>
-    <p>"Ignore" treats cloud variables like normal variables.</p>
-    <p>"Advanced" uses a different mode for each variable, so some variables can sync with other users but others can be stored locally, for example.</p>
+    <p>{$_('options.cloudVariables-ws-help')}</p>
+    <p>{$_('options.cloudVariables-local-help')}</p>
+    <p>{$_('options.cloudVariables-ignore-help')}</p>
+    <p>{$_('options.cloudVariables-custom-help')}</p>
   </Section>
 {/if}
 
 <Section accent="#FF6680">
-  <h2>Advanced Options</h2>
+  <h2>{$_('options.advancedOptions')}</h2>
   <details>
-    <summary>You probably don't want to change these. (Click to open)</summary>
+    <summary>{$_('options.advancedSummary')}</summary>
     <label>
       <input type="checkbox" bind:checked={$options.compiler.enabled}>
-      Enable compiler
+      {$_('options.enableCompiler')}
     </label>
     <label>
       <input type="checkbox" bind:checked={$options.compiler.warpTimer}>
-      Warp Timer
+      {$_('options.warpTimer')}
     </label>
     <label>
-      Custom JS (Don't change if you don't know what you're doing!)
+      {$_('options.customJS')}
       <textarea bind:value={$options.custom.js}></textarea>
     </label>
   </details>
 </Section>
 
 <Section accent="#0FBD8C">
-  <h2>Environment</h2>
+  <h2>{$_('options.environment')}</h2>
   <div class="environment-section">
     <label>
       <input type="radio" bind:group={$options.target} value="html">
-      Plain HTML (standalone, works anywhere)
+      {$_('options.html')}
     </label>
   </div>
   <div class="environment-section">
     <label>
       <input type="radio" bind:group={$options.target} value="zip">
-      Zip, each asset in separate file (ideal for websites)
+      {$_('options.zip')}
     </label>
     <label>
       <input type="radio" bind:group={$options.target} value="zip-one-asset">
-      Zip, combine assets into single file (not recommended)
+      {$_('options.zip-one-asset')}
     </label>
   </div>
   <div class="environment-section">
     <label>
       <input type="radio" bind:group={$options.target} value="nwjs-win32">
-      NW.js Windows executable (32-bit or 64-bit)
+      {$_('options.nwjs-win32')}
     </label>
     <label>
       <input type="radio" bind:group={$options.target} value="nwjs-win64">
-      NW.js Windows executable (64-bit only, not recommended)
+      {$_('options.nwjs-win64')}
     </label>
     <label>
       <input type="radio" bind:group={$options.target} value="nwjs-mac">
-      NW.js macOS application (Beta)
+      {$_('options.nwjs-mac')}
     </label>
     <label>
       <input type="radio" bind:group={$options.target} value="nwjs-linux-x64">
-      NW.js Linux application (64-bit only) (Beta)
+      {$_('options.nwjs-linux64')}
     </label>
   </div>
 </Section>
@@ -366,19 +368,20 @@
 {#if $options.target.startsWith('nwjs-')}
   <div transition:fade|local>
     <Section accent="#FF661A">
+      <!-- don't translate NW.js -->
       <h2>NW.js</h2>
       <label>
-        Package Name
+        {$_('options.packageName')}
         <input type="text" bind:value={$options.app.packageName}>
       </label>
 
       {#if $options.target.startsWith('nwjs-win')}
         <div>
-          <h2>Further steps for Windows</h2>
+          <h2>{$_('nwjs.furtherStepsWin')}</h2>
           <p>To change the icon of the executable and generate installers, see <a href="https://docs.nwjs.io/en/latest/For%20Users/Package%20and%20Distribute/#windows">NW.js Documentation</a>.</p>
         </div>
       {:else if $options.target === 'nwjs-mac'}
-        <h2>Further steps for macOS</h2>
+        <h2>{$_('nwjs.furtherStepsMac')}</h2>
         <p>macOS support is still experimental.</p>
         <p>Due to Apple policy, packaging for their platforms is rather troublesome. You either have to:</p>
         <ul>
@@ -388,7 +391,7 @@
         <p>NW.js runs natively on Intel Macs but will use Rosetta on Apple silicon Macs.</p>
         <p>For further help and steps, see <a href="https://docs.nwjs.io/en/latest/For%20Users/Package%20and%20Distribute/#mac-os-x">NW.js Documentation</a>.</p>
       {:else if $options.target.startsWith('nwjs-linux')}
-        <h2>Further steps for Linux</h2>
+        <h2>{$_('nwjs.furtherStepsLinux')}</h2>
         <p>Linux support is still experimental.</p>
         <p>For further help and steps, see <a href="https://docs.nwjs.io/en/latest/For%20Users/Package%20and%20Distribute/#linux">NW.js Documentation</a>.</p>
       {/if}
@@ -397,19 +400,25 @@
 {/if}
 
 <Section>
-  <Button on:click={pack} disabled={$progress.visible}>Package</Button>
-  <Button on:click={preview} disabled={$progress.visible} secondary>Preview</Button>
-  <Button on:click={reset} danger>Reset</Button>
+  <Button on:click={pack} disabled={$progress.visible}>{$_('options.package')}</Button>
+  <Button on:click={preview} disabled={$progress.visible} secondary>{$_('options.preview')}</Button>
+  <Button on:click={reset} danger>{$_('options.reset')}</Button>
 </Section>
 
 {#if result && url}
   <Section>
     <div class="downloads">
-      <a href={url} download={result.filename}>Download {result.filename} ({(result.blob.size / 1024 / 1024).toFixed(2)}MiB)</a>
+      <a href={url} download={result.filename}>
+        {$_('options.download', {
+          values: {
+            filename: result.filename,
+            size: (result.blob.size / 1000 / 1000).toFixed(2)
+          }
+        })}
     </div>
   </Section>
 {:else if !$progress.visible}
   <Section caption>
-    <p>Downloads will appear here</p>
+    <p>{$_('options.downloadsWillAppearHere')}</p>
   </Section>
 {/if}
