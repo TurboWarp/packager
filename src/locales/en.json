@@ -1,76 +1,59 @@
 {
   "p4": {
     "description1": {
-      "string": "Converts Scratch projects into standalone files or executable programs.",
-      "context": ""
+      "string": "Converts Scratch projects into standalone files or executable programs."
     },
     "error": {
-      "string": "Error",
-      "context": ""
+      "string": "Error"
     },
     "errorMessage": {
-      "string": "Message: {error}",
-      "context": ""
+      "string": "Message: {error}"
     },
     "close": {
-      "string": "Close",
-      "context": ""
+      "string": "Close"
     },
     "reportBug": {
-      "string": "Report Bug",
-      "context": ""
+      "string": "Report Bug"
     },
     "privacy": {
-      "string": "Privacy Policy",
-      "context": ""
+      "string": "Privacy Policy"
     },
     "feedback": {
-      "string": "Feedback",
-      "context": ""
+      "string": "Feedback"
     },
     "sourceCode": {
-      "string": "Source Code",
-      "context": ""
+      "string": "Source Code"
     },
     "fosshost": {
-      "string": "File hosting provided by Fosshost",
-      "context": ""
+      "string": "File hosting provided by Fosshost"
     }
   },
   "progress": {
     "loadingAssets": {
-      "string": "Loading assets ({loaded}/{total})",
-      "context": ""
+      "string": "Loading assets ({loaded}/{total})"
     },
     "compressingProject": {
-      "string": "Compressing project",
-      "context": ""
+      "string": "Compressing project"
     },
     "loadingProjectData": {
-      "string": "Loading project data",
-      "context": ""
+      "string": "Loading project data"
     },
     "packagingProject": {
-      "string": "Packaging project",
-      "context": ""
+      "string": "Packaging project"
     },
     "loadingNwjs": {
-      "string": "Loading NW.js",
-      "context": ""
+      "string": "Loading NW.js"
     },
     "loadingScripts": {
-      "string": "Loading scripts",
-      "context": ""
+      "string": "Loading scripts"
     }
   },
   "select": {
     "select": {
-      "string": "Select Project",
-      "context": ""
+      "string": "Select Project"
     },
     "selectHelp": {
-      "string": "You can package projects from the Scratch website by copying their URL or you can package files from your computer. If you're using someone else's project, make sure to give them proper credit.",
-      "context": ""
+      "string": "You can package projects from the Scratch website by copying their URL or you can package files from your computer. If you're using someone else's project, make sure to give them proper credit."
     },
     "idOrUrl": {
       "string": "Project ID or URL",
@@ -85,8 +68,7 @@
       "context": "Button to load a project"
     },
     "loadToContinue": {
-      "string": "Load a project to continue",
-      "context": ""
+      "string": "Load a project to continue"
     },
     "invalidId": {
       "string": "Invalid project ID",
@@ -99,116 +81,93 @@
   },
   "options": {
     "confirmReload": {
-      "string": "Reset all settings to defaults and reload?",
-      "context": ""
+      "string": "Reset all settings to defaults and reload?"
     },
     "runtimeOptions": {
-      "string": "Runtime Options",
-      "context": ""
+      "string": "Runtime Options"
     },
     "turbo": {
-      "string": "Turbo Mode",
-      "context": ""
+      "string": "Turbo Mode"
     },
     "framerate": {
-      "string": "Framerate",
-      "context": ""
+      "string": "Framerate"
     },
     "interpolation": {
-      "string": "Interpolation",
-      "context": ""
+      "string": "Interpolation"
     },
     "highQualityPen": {
-      "string": "High Quality Pen",
-      "context": ""
+      "string": "High Quality Pen"
     },
     "infiniteClones": {
-      "string": "Infinite Clones",
-      "context": ""
+      "string": "Infinite Clones"
     },
     "removeFencing": {
-      "string": "Remove Fencing",
-      "context": ""
+      "string": "Remove Fencing"
     },
     "removeMiscLimits": {
-      "string": "Remove Miscellaneous Limits",
-      "context": ""
+      "string": "Remove Miscellaneous Limits"
     },
     "stageSize": {
-      "string": "Stage Size",
-      "context": ""
+      "string": "Stage Size"
     },
     "username": {
-      "string": "Username (each \"#\" gets replaced with a random number)",
-      "context": ""
+      "string": "Username (each \"#\" gets replaced with a random number)"
     },
     "autoplay": {
-      "string": "Autoplay",
-      "context": ""
+      "string": "Autoplay"
     },
     "playerOptions": {
       "string": "Player Options",
       "context": "Player options section header"
     },
     "pageTitle": {
-      "string": "Page Title",
-      "context": ""
+      "string": "Page Title"
     },
     "loadingScreenText": {
-      "string": "Loading Screen Text",
-      "context": ""
+      "string": "Loading Screen Text"
     },
     "loadingScreenTextPlaceholder": {
       "string": "(Nothing)",
       "context": "Placeholder text for the 'Loading Screen Text' option"
     },
     "icon": {
-      "string": "Icon",
-      "context": ""
+      "string": "Icon"
     },
     "controls": {
       "string": "Controls",
       "context": "Controls section header"
     },
     "showFlag": {
-      "string": "Show green flag button in controls",
-      "context": ""
+      "string": "Show green flag button in controls"
     },
     "showStop": {
-      "string": "Show stop sign button in controls",
-      "context": ""
+      "string": "Show stop sign button in controls"
     },
     "showFullscreen": {
-      "string": "Show fullscreen button in controls",
-      "context": ""
+      "string": "Show fullscreen button in controls"
     },
     "accentColor": {
-      "string": "Accent color (background color of controls when active or hovered)",
-      "context": ""
+      "string": "Accent color (background color of controls when active or hovered)"
     },
     "controlsHelp": {
-      "string": "If all controls are disabled, the controls bar is removed entirely. If only fullscreen is enabled, it will always be located in the top left corner, not in the controls header.",
-      "context": ""
+      "string": "If all controls are disabled, the controls bar is removed entirely. If only fullscreen is enabled, it will always be located in the top left corner, not in the controls header."
     },
     "colors": {
       "string": "Colors",
       "context": "Colors section header"
     },
     "backgroundColor": {
-      "string": "Background Color",
-      "context": ""
+      "string": "Background Color"
     },
     "foregroundColor": {
-      "string": "Foreground color (progress bar, some icons, some text)",
-      "context": ""
+      "string": "Foreground color (progress bar, some icons, some text)"
     },
     "addons": {
       "string": "Addons",
       "context": "Addons section header"
     },
     "gamepadSupport": {
-      "string": "Gamepad support addon (no settings button or modal for now)",
-      "context": ""
+      "string": "Gamepad support addon (no settings button or modal for now)"
     },
     "cloudVariables": {
       "string": "Cloud Variables",
@@ -219,96 +178,75 @@
       "context": "Label to choose how to handle cloud variables"
     },
     "cloudVariables-ws": {
-      "string": "Connect to cloud variable server",
-      "context": ""
+      "string": "Connect to cloud variable server"
     },
     "cloudVariables-ws-unavailable": {
-      "string": "Can not use cloud variable server on this project",
-      "context": ""
+      "string": "Can not use cloud variable server on this project"
     },
     "cloudVariables-ws-help": {
-      "string": "\"Connect to cloud variable server\" uses TurboWarp's cloud variable server to sync the variables with other users. Can not be used on projects loaded from files.",
-      "context": ""
+      "string": "\"Connect to cloud variable server\" uses TurboWarp's cloud variable server to sync the variables with other users. Can not be used on projects loaded from files."
     },
     "cloudVariables-local": {
-      "string": "Store in local storage",
-      "context": ""
+      "string": "Store in local storage"
     },
     "cloudVariables-local-help": {
-      "string": "\"Store in local storage\" stores the variables on the user's computer and restores them when the project is restarted.",
-      "context": ""
+      "string": "\"Store in local storage\" stores the variables on the user's computer and restores them when the project is restarted."
     },
     "cloudVariables-ignore": {
-      "string": "Ignore",
-      "context": ""
+      "string": "Ignore"
     },
     "cloudVariables-ignore-help": {
-      "string": "\"Ignore\" treats cloud variables like normal variables.",
-      "context": ""
+      "string": "\"Ignore\" treats cloud variables like normal variables."
     },
     "cloudVariables-custom": {
-      "string": "Advanced",
-      "context": ""
+      "string": "Advanced"
     },
     "cloudVariables-custom-help": {
-      "string": "\"Advanced\" uses a different mode for each variable, so some variables can sync with other users but others can be stored locally, for example.",
-      "context": ""
+      "string": "\"Advanced\" uses a different mode for each variable, so some variables can sync with other users but others can be stored locally, for example."
     },
     "advancedOptions": {
-      "string": "Advanced Options",
-      "context": ""
+      "string": "Advanced Options"
     },
     "advancedSummary": {
       "string": "You probably don't want to change these. (Click to open)",
       "context": "Text that can be clicked to expand the advanced options section."
     },
     "enableCompiler": {
-      "string": "Enable Compiler",
-      "context": ""
+      "string": "Enable Compiler"
     },
     "warpTimer": {
-      "string": "Warp Timer",
-      "context": ""
+      "string": "Warp Timer"
     },
     "customJS": {
-      "string": "Custom JS (Don't change if you don't know what you're doing!)",
-      "context": ""
+      "string": "Custom JS (Don't change if you don't know what you're doing!)"
     },
     "environment": {
       "string": "Environment",
       "context": "Label to select which environment to package the project for"
     },
     "html": {
-      "string": "Plain HTML (standalone, works anywhere)",
-      "context": ""
+      "string": "Plain HTML (standalone, works anywhere)"
     },
     "zip": {
-      "string": "Zip, each asset in separate file (ideal for websites)",
-      "context": ""
+      "string": "Zip, each asset in separate file (ideal for websites)"
     },
     "zip-one-asset": {
-      "string": "Zip, combine assets into single file (not recommended)",
-      "context": ""
+      "string": "Zip, combine assets into single file (not recommended)"
     },
     "nwjs-win32": {
-      "string": "NW.js Windows executable (32-bit or 64-bit)",
-      "context": ""
+      "string": "NW.js Windows executable (32-bit or 64-bit)"
     },
     "nwjs-win64": {
-      "string": "NW.js Windows executable (64-bit only, not recommended)",
-      "context": ""
+      "string": "NW.js Windows executable (64-bit only, not recommended)"
     },
     "nwjs-mac": {
-      "string": "NW.js macOS application (Beta)",
-      "context": ""
+      "string": "NW.js macOS application (Beta)"
     },
     "nwjs-linux64": {
-      "string": "NW.js Linux application (64-bit only) (Beta)",
-      "context": ""
+      "string": "NW.js Linux application (64-bit only) (Beta)"
     },
     "packageName": {
-      "string": "Package Name",
-      "context": ""
+      "string": "Package Name"
     },
     "package": {
       "string": "Package",
@@ -327,22 +265,18 @@
       "context": "Download link"
     },
     "downloadsWillAppearHere": {
-      "string": "Downloads will appear here",
-      "context": ""
+      "string": "Downloads will appear here"
     }
   },
   "nwjs": {
     "furtherStepsWin": {
-      "string": "Further steps for Windows",
-      "context": ""
+      "string": "Further steps for Windows"
     },
     "furtherStepsMac": {
-      "string": "Further steps for macOS",
-      "context": ""
+      "string": "Further steps for macOS"
     },
     "furtherStepsLinux": {
-      "string": "Further steps for Linux",
-      "context": ""
+      "string": "Further steps for Linux"
     }
   }
 }
