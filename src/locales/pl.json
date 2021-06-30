@@ -1,16 +1,27 @@
 {
+    "nwjs": {
+        "furtherStepsLinux": "Dalsze kroki dla Linuxa",
+        "furtherStepsMac": "Dalsze kroki dla macOS",
+        "furtherStepsWin": "Dalsze kroki dla Windowsa"
+    },
     "options": {
         "addons": "Dodatki",
         "cloudVariables-custom": "Zaawansowane",
+        "download": "Ściągnij {filename}({size}MB) ",
+        "downloadsWillAppearHere": "Tutaj pojawią się pliki do pobrania ",
         "highQualityPen": "Wysokiej Jakości Pióro",
         "infiniteClones": "Nieskończone Klony",
         "interpolation": "Interpolacja",
+        "preview": "Przejżyj",
         "removeFencing": "Usuń Ograniczenia",
         "removeMiscLimits": "Usuń Różne Limity",
         "reset": "Resetuj",
         "warpTimer": "Warp Stoper"
     },
     "p4": {
+        "close": "Zamknij",
+        "error": "Błąd",
+        "errorMessage": "Wiadomość: {error}",
         "privacy": "Polityka Prywatności",
         "sourceCode": "Kod Źródłowy"
     }

@@ -51,6 +51,7 @@ const messages = {
   "ro": require("./ro.json"),
   "ru": require("./ru.json"),
   "sl": require("./sl.json"),
+  "sv": require("./sv.json"),
   "tr": require("./tr.json"),
   "zh-cn": require("./zh-cn.json"),
   "zh-tw": require("./zh-tw.json"),
