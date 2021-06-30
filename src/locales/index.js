@@ -1,3 +1,5 @@
+import {getLocaleFromNavigator} from 'svelte-i18n';
+
 const unstructure = (messages) => {
   for (const key of Object.keys(messages)) {
     const value = messages[key];
@@ -10,6 +12,25 @@ const unstructure = (messages) => {
     }
   }
   return messages;
+};
+
+const STORAGE_KEY = 'p4:initialLocale';
+const initialLocaleFromNavigator = getLocaleFromNavigator();
+
+export const getInitialLocale = () => {
+  const local = localStorage.getItem(STORAGE_KEY);
+  if (local) {
+    return local;
+  }
+  return initialLocaleFromNavigator;
+};
+
+export const setInitialLocale = (locale) => {
+  if (locale === initialLocaleFromNavigator) {
+    localStorage.removeItem(STORAGE_KEY);
+  } else {
+    localStorage.setItem(STORAGE_KEY, locale);
+  }
 };
 
 const messages = {

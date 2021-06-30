@@ -1,14 +1,14 @@
-import {addMessages, getLocaleFromNavigator, init} from 'svelte-i18n';
-import messages from '../locales/index';
+import {addMessages, init} from 'svelte-i18n';
+import messages, {getInitialLocale} from '../locales/index';
 import P4 from './P4.svelte';
 import './analytics';
 
-for (const language of Object.keys(messages)) {
+for (const language of Object.keys(messages).sort()) {
   addMessages(language, messages[language]);
 }
 init({
   fallbackLocale: 'en',
-  initialLocale: getLocaleFromNavigator()
+  initialLocale: getInitialLocale()
 });
 
 const app = new P4({
