@@ -7,13 +7,18 @@ class ContextMenu {
     this.root = document.createElement('div');
     this.root.className = styles.contextMenu;
 
-    this._onmousedown = this._onmousedown.bind(this)
+    this._onmousedown = this._onmousedown.bind(this);
+    this._onresize = this._onresize.bind(this);
   }
 
   _onmousedown (e) {
     if (!this.root.contains(e.target)) {
       this.destroy();
     }
+  }
+
+  _onresize () {
+    this.destroy();
   }
 
   add (option) {
@@ -32,6 +37,7 @@ class ContextMenu {
 
   show (mouseEvent) {
     document.addEventListener('mousedown', this._onmousedown);
+    window.addEventListener('resize', this._onresize);
     const layersRect = this.parent.layersRect;
     const x = mouseEvent.clientX - layersRect.left + 1;
     const y = mouseEvent.clientY - layersRect.top + 1;
@@ -41,6 +47,7 @@ class ContextMenu {
 
   destroy () {
     document.removeEventListener('mousedown', this._onmousedown);
+    window.removeEventListener('resize', this._onresize);
     this.root.remove();
   }
 }
