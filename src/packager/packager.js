@@ -484,6 +484,7 @@ cd "$(dirname "$0")"
     setProgress(${PROGRESS_LOADED_SCRIPTS});
 
     scaffolding.setUsername(${JSON.stringify(this.options.username)}.replace(/#/g, () => Math.floor(Math.random() * 10)));
+    scaffolding.setAccentColor(${JSON.stringify(this.options.appearance.accent)});
 
     ${this.options.cloudVariables.mode === 'ws' ?
       `scaffolding.addCloudProvider(${this.makeWebSocketProvider()})` :

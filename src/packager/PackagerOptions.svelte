@@ -243,12 +243,6 @@
     <input type="checkbox" bind:checked={$options.controls.fullscreen.enabled}>
     {$_('options.showFullscreen')}
   </label>
-  {#if $options.controls.greenFlag.enabled || $options.controls.stopAll.enabled}
-    <label transition:slide|local>
-      <input type="color" bind:value={$options.appearance.accent}>
-      {$_('options.accentColor')}
-    </label>
-  {/if}
   <p>{$_('options.controlsHelp')}</p>
 
   <h3>{$_('options.colors')}</h3>
@@ -259,6 +253,10 @@
   <label>
     <input type="color" bind:value={$options.appearance.foreground}>
     {$_('options.foregroundColor')}
+  </label>
+  <label>
+    <input type="color" bind:value={$options.appearance.accent}>
+    {$_('options.accentColor')}
   </label>
 
   <h3>{$_('options.addons')}</h3>

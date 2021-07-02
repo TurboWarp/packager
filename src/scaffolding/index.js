@@ -394,6 +394,15 @@ class Scaffolding extends EventTarget {
     return this.messages[id] || id;
   }
 
+  /**
+   * Change primary accent color.
+   * @param {string} color Color in the format #abcdef
+   */
+  setAccentColor (color) {
+    this._root.style.setProperty('--sc-accent-color', color);
+    this._root.style.setProperty('--sc-accent-color-transparent', `${color}59`);
+  }
+
   start () {
     this.vm.start();
     this.vm.greenFlag();

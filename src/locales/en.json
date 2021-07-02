@@ -147,7 +147,7 @@
       "string": "Show fullscreen button in controls"
     },
     "accentColor": {
-      "string": "Accent color (background color of controls when active or hovered)"
+      "string": "Accent color (active/hovered controls, ask prompt, context menus)"
     },
     "controlsHelp": {
       "string": "If all controls are disabled, the controls bar is removed entirely. If only fullscreen is enabled, it will always be located in the top left corner, not in the controls header."
