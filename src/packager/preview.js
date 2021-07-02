@@ -23,6 +23,7 @@ const source = `<!DOCTYPE html>
     width: 100%;
     height: 100%;
     user-select: none;
+    -webkit-user-select: none;
   }
   .preview-progress-outer {
     width: 200px;

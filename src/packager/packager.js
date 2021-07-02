@@ -362,6 +362,7 @@ cd "$(dirname "$0")"
       text-align: center;
       cursor: default;
       user-select: none;
+      -webkit-user-select: none;
       background-color: ${this.options.appearance.background};
     }
     #launch {
@@ -404,6 +405,7 @@ cd "$(dirname "$0")"
       margin-top: 0.5rem;
       margin-bottom: 0.5rem;
       user-select: none;
+      -webkit-user-select: none;
       cursor: pointer;
       border: 0;
       border-radius: 4px;

@@ -91,6 +91,7 @@
   font-size: 12px;
   overflow: hidden;
   user-select: none;
+  -webkit-user-select: none;
   display: flex;
   flex-direction: column;
   pointer-events: auto;
@@ -209,6 +210,7 @@
   overflow: hidden;
   text-overflow: ellipsis;
   user-select: text;
+  -webkit-user-select: none;
   white-space: pre;
 }
 .monitor-empty {
