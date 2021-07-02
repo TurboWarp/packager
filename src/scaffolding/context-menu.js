@@ -6,6 +6,8 @@ class ContextMenu {
 
     this.root = document.createElement('div');
     this.root.className = styles.contextMenu;
+
+    this._onmousedown = this._onmousedown.bind(this)
   }
 
   _onmousedown (e) {
@@ -29,7 +31,7 @@ class ContextMenu {
   }
 
   show (mouseEvent) {
-    document.addEventListener('mousedown', this._onmousedown.bind(this));
+    document.addEventListener('mousedown', this._onmousedown);
     const layersRect = this.parent.layersRect;
     const x = mouseEvent.clientX - layersRect.left + 1;
     const y = mouseEvent.clientY - layersRect.top + 1;
@@ -38,6 +40,7 @@ class ContextMenu {
   }
 
   destroy () {
+    document.removeEventListener('mousedown', this._onmousedown);
     this.root.remove();
   }
 }
