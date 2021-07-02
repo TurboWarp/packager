@@ -44,11 +44,18 @@ class ContextMenu {
     document.addEventListener('mousedown', this._onmousedown);
     window.addEventListener('resize', this._onresize);
     window.addEventListener('blur', this._onblur);
-    const layersRect = this.parent.layersRect;
-    const x = mouseEvent.clientX - layersRect.left + 1;
-    const y = mouseEvent.clientY - layersRect.top + 1;
-    this.root.style.transform = `translate(${x}px, ${y}px)`;
     this.parent._addLayer(this.root);
+    const layersRect = this.parent.layersRect;
+    const menuRect = this.root.getBoundingClientRect();
+    let x = mouseEvent.clientX - layersRect.left;
+    let y = mouseEvent.clientY - layersRect.top;
+    if (x + menuRect.width > layersRect.width) {
+      x -= menuRect.width;
+    }
+    if (y + menuRect.height > layersRect.height) {
+      y -= menuRect.height;
+    }
+    this.root.style.transform = `translate(${x}px, ${y}px)`;
     getComputedStyle(this.root).opacity;
     this.root.style.opacity = '1';
   }
