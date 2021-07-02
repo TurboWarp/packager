@@ -36,7 +36,7 @@
   bottom: 0;
   width: 100%;
   color: black;
-  pointer-events: all;
+  pointer-events: auto;
 }
 .question-inner {
   margin: 0.5rem;
@@ -93,7 +93,7 @@
   user-select: none;
   display: flex;
   flex-direction: column;
-  pointer-events: all;
+  pointer-events: auto;
 }
 .monitor-inner {
   display: flex;
