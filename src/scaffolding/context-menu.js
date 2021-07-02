@@ -9,6 +9,7 @@ class ContextMenu {
 
     this._onmousedown = this._onmousedown.bind(this);
     this._onresize = this._onresize.bind(this);
+    this._onblur = this._onblur.bind(this);
   }
 
   _onmousedown (e) {
@@ -18,6 +19,10 @@ class ContextMenu {
   }
 
   _onresize () {
+    this.destroy();
+  }
+
+  _onblur () {
     this.destroy();
   }
 
@@ -38,6 +43,7 @@ class ContextMenu {
   show (mouseEvent) {
     document.addEventListener('mousedown', this._onmousedown);
     window.addEventListener('resize', this._onresize);
+    window.addEventListener('blur', this._onblur);
     const layersRect = this.parent.layersRect;
     const x = mouseEvent.clientX - layersRect.left + 1;
     const y = mouseEvent.clientY - layersRect.top + 1;
@@ -50,6 +56,7 @@ class ContextMenu {
   destroy () {
     document.removeEventListener('mousedown', this._onmousedown);
     window.removeEventListener('resize', this._onresize);
+    window.removeEventListener('blur', this._onblur);
     this.root.style.opacity = '0';
     this.root.style.pointerEvents = 'none';
     setTimeout(() => {
