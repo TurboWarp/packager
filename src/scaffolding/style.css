@@ -218,19 +218,16 @@
 
 .context-menu {
   position: absolute;
-  background-color: white;
   color: black;
-  display: flex;
-  flex-direction: column;
-  border-radius: 4px;
-  overflow: hidden;
   box-shadow: 0px 0px 5px 1px hsla(0, 0%, 0%, 0.15);
   min-width: 130px;
   opacity: 0;
   transition: .2s opacity;
 }
 .context-menu-item {
-  background: none;
+  display: block;
+  width: 100%;
+  background-color: white;
   border: none;
   border-radius: 0;
   cursor: pointer;
@@ -238,15 +235,20 @@
   font-family: inherit;
   font-size: 0.85em;
   padding: 8px 12px;
+  margin: 0;
   transition: .1s background-color, .1s color;
 }
 .context-menu-item:focus {
-  background-color: #ff4c4c55;
-  border: none;
-  outline: none;
+  outline: 2px solid black;
 }
 .context-menu-item:hover,
 .context-menu-item:active {
   color: white;
   background-color: #ff4c4c;
+}
+.context-menu-item:first-child {
+  border-radius: 4px 4px 0 0;
+}
+.context-menu-item:last-child {
+  border-radius: 0 0 4px 4px;
 }
