@@ -10,6 +10,7 @@ import assetCache from './cache';
 const PROGRESS_LOADED_SCRIPTS = 0.1;
 const PROGRESS_LOADED_JSON_BUT_NEED_ASSETS = 0.2;
 const PROGRESS_FETCHED_INLINE_DATA_BUT_NOT_LOADED = 0.9;
+const PROGRESS_WAITING_FOR_VM_LOAD = 1;
 
 const escapeXML = (v) => v.replace(/["'<>&]/g, (i) => {
   switch (i) {
@@ -276,7 +277,7 @@ cd "$(dirname "$0")"
       const getProjectData = () => fetch(${JSON.stringify(url)})
         .then((r) => r.arrayBuffer())
         .then((buffer) => {
-          setProgress(1);
+          setProgress(${PROGRESS_WAITING_FOR_VM_LOAD});
           return buffer;
         });`;
     }
@@ -284,7 +285,7 @@ cd "$(dirname "$0")"
     let progressWeight;
     if (this.project.type === 'blob' || this.options.target === 'zip-one-asset') {
       src = './project.zip';
-      progressWeight = 1 - PROGRESS_LOADED_SCRIPTS;
+      progressWeight = PROGRESS_WAITING_FOR_VM_LOAD - PROGRESS_LOADED_SCRIPTS;
     } else {
       src = './assets/project.json';
       progressWeight = PROGRESS_LOADED_JSON_BUT_NEED_ASSETS - PROGRESS_LOADED_SCRIPTS;
