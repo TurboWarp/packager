@@ -1,3 +1,4 @@
+import ContextMenu from './context-menu';
 import styles from './style.css';
 
 class Monitor {
@@ -80,6 +81,18 @@ class Monitor {
     return label;
   }
 
+  getTarget () {
+    if (this.targetId) {
+      return this.parent.vm.runtime.getTargetById(this.targetId);
+    }
+    return this.parent.vm.runtime.getTargetForStage();
+  }
+
+  getVmVariable () {
+    const target = this.getTarget();
+    return target.variables[this.id];
+  }
+
   update (monitor) {
     // TODO: don't touch if not changed
     this.x = monitor.get('x');
@@ -144,13 +157,7 @@ class VariableMonitor extends Monitor {
   }
 
   setVariableValue (value) {
-    let target;
-    if (this.targetId) {
-      target = this.parent.vm.runtime.getTargetById(this.targetId);
-    } else {
-      target = this.parent.vm.runtime.getTargetForStage();
-    }
-    const variable = target.variables[this.id];
+    const variable = this.getVmVariable();
     variable.value = value;
     this._value = value;
     this.valueElement.textContent = value;
@@ -254,6 +261,10 @@ class ListMonitor extends Monitor {
     this.root.appendChild(this.label);
     this.root.appendChild(this.rowsOuter);
     this.root.appendChild(this.footer);
+
+    this.handleImport = this.handleImport.bind(this);
+    this.handleExport = this.handleExport.bind(this);
+    this.root.addEventListener('contextmenu', this._oncontextmenu.bind(this));
   }
 
   _onscroll (e) {
@@ -268,6 +279,68 @@ class ListMonitor extends Monitor {
     }
     this.scrollTop = e.target.scrollTop;
     this.updateValue(this.value);
+  }
+
+
+  _oncontextmenu (e) {
+    e.preventDefault();
+    const menu = new ContextMenu(this.parent);
+    menu.add({
+      text: 'import',
+      callback: this.handleImport
+    });
+    menu.add({
+      text: 'export',
+      callback: this.handleExport
+    });
+    menu.show(e);
+  }
+
+  handleImport () {
+    const fileSelector = document.createElement('input');
+    fileSelector.type = 'file';
+    fileSelector.accept = '.txt,.csv,.tsv';
+    fileSelector.style.display = 'none';
+    document.body.appendChild(fileSelector);
+    fileSelector.addEventListener('change', (e) => {
+      const files = e.target.files;
+      if (files.length === 0) return;
+      const file = files[0];
+      const reader = new FileReader();
+      reader.onload = () => {
+        const text = reader.result;
+        // TODO: this doesn't exactly match Scratch behavior
+        const lines = text.split(/\r?\n/);
+        this.setValue(lines);
+      };
+      reader.readAsText(file);
+    });
+    fileSelector.click();
+  }
+
+  handleExport () {
+    const value = this.getValue();
+    const exported = value.join('\n');
+    const blob = new Blob([exported], {
+      type: 'text/plain'
+    });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.download = `${this.getLabel()}.txt`;
+    link.href = url;
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+  }
+
+  getValue () {
+    return this.getVmVariable().value;
+  }
+
+  setValue (value) {
+    const variable = this.getVmVariable();
+    variable.value = value;
+    this.updateValue(value);
   }
 
   getRow () {

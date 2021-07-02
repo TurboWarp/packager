@@ -211,3 +211,36 @@
   align-items: center;
   flex-wrap: nowrap;
 }
+
+.context-menu {
+  position: absolute;
+  background-color: white;
+  color: black;
+  display: flex;
+  flex-direction: column;
+  border-radius: 4px;
+  overflow: hidden;
+  box-shadow: 0px 0px 5px 1px hsla(0, 0%, 0%, 0.15);
+  min-width: 130px;
+}
+.context-menu-item {
+  background: none;
+  border: none;
+  border-radius: 0;
+  cursor: pointer;
+  text-align: left;
+  font-family: inherit;
+  font-size: 0.85em;
+  padding: 8px 12px;
+  transition: .1s background-color, .1s color;
+}
+.context-menu-item:focus {
+  background-color: #ff4c4c55;
+  border: none;
+  outline: none;
+}
+.context-menu-item:hover,
+.context-menu-item:active {
+  color: white;
+  background-color: #ff4c4c;
+}
