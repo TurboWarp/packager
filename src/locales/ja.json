@@ -11,10 +11,21 @@
         "warpTimer": "Warpタイマー"
     },
     "p4": {
+        "close": "閉じる",
+        "error": "エラー",
+        "errorMessage": "メッセージ: {error}",
+        "feedback": "フィードバック",
         "privacy": "プライバシーポリシー",
+        "reportBug": "バグを知らせる",
         "sourceCode": "ソースコード"
     },
     "progress": {
+        "loadingNwjs": "NW.jsを読み込む",
         "loadingScripts": "スクリプトの読み込み"
+    },
+    "select": {
+        "file": "ファイル",
+        "idOrUrl": "プロジェクトのIDまたはURL",
+        "select": "プロジェクトを選ぶ"
     }
 }
