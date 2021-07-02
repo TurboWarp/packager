@@ -6,6 +6,8 @@
   align-items: center;
   justify-content: center;
   position: relative;
+  --sc-accent-color: #ff4c4c;
+  --sc-accent-color-transparent: #ff4c4c59;
 }
 .layers {
   position: relative;
@@ -58,11 +60,11 @@
   color: inherit;
 }
 .question-input:focus {
-  border-color: hsla(215, 100%, 65%, 1);
-  box-shadow: 0px 0px 0px 3px hsla(215, 100%, 65%, 0.35);
+  border-color: var(--sc-accent-color);
+  box-shadow: 0px 0px 0px 3px var(--sc-accent-color-transparent);
 }
 .question-input:hover {
-  border-color: hsla(215, 100%, 65%, 1);
+  border-color: var(--sc-accent-color);
 }
 
 .monitor-overlay {
@@ -244,7 +246,7 @@
 .context-menu-item:hover,
 .context-menu-item:active {
   color: white;
-  background-color: #ff4c4c;
+  background-color: var(--sc-accent-color);
 }
 .context-menu-item:first-child {
   border-radius: 4px 4px 0 0;
