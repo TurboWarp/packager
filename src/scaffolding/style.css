@@ -36,7 +36,7 @@
   bottom: 0;
   width: 100%;
   color: black;
-  pointer-events: auto;
+  pointer-events: all;
 }
 .question-inner {
   margin: 0.5rem;
@@ -66,6 +66,7 @@
   outline: none;
   transition: 0.25s ease-out;
   box-shadow: none;
+  overflow: hidden;
   text-overflow: ellipsis;
   color: inherit;
 }
@@ -94,7 +95,7 @@
   -webkit-user-select: none;
   display: flex;
   flex-direction: column;
-  pointer-events: auto;
+  pointer-events: all;
 }
 .monitor-inner {
   display: flex;
