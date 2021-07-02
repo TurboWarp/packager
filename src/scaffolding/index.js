@@ -9,6 +9,7 @@ import Cloud from './cloud';
 import Question from './question';
 import {ListMonitor, VariableMonitor} from './monitor';
 import ControlBar from './control-bar';
+import defaultMessages from './messages.json';
 import styles from './style.css';
 
 const getEventXY = (e) => {
@@ -26,6 +27,8 @@ class Scaffolding extends EventTarget {
 
     this.width = 480;
     this.height = 360;
+
+    this.messages = defaultMessages;
 
     this._monitors = new Map();
     this._mousedownPosition = null;
@@ -385,6 +388,10 @@ class Scaffolding extends EventTarget {
       throw new Error(`Unknown 'where': ${where}`);
     }
     this.relayout();
+  }
+
+  getMessage (id) {
+    return this.messages[id] || id;
   }
 
   start () {

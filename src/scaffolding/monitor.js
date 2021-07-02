@@ -25,51 +25,51 @@ class Monitor {
     } else if (this.opcode === 'data_listcontents') {
       label = this.params.LIST;
     } else if (this.opcode === 'motion_xposition') {
-      label = 'x position';
+      label = this.parent.getMessage('var-x');
     } else if (this.opcode === 'motion_yposition') {
-      label = 'y position';
+      label = this.parent.getMessage('var-y');
     } else if (this.opcode === 'motion_direction') {
-      label = 'direction';
+      label = this.parent.getMessage('var-direction');
     } else if (this.opcode === 'sensing_username') {
-      label = 'username';
+      label = this.parent.getMessage('var-username');
     } else if (this.opcode === 'looks_costumenumbername') {
       if (this.params.NUMBER_NAME === 'number') {
-        label = 'costume number';
+        label = this.parent.getMessage('var-costume-number');
       } else {
-        label = 'costume name';
+        label = this.parent.getMessage('var-costume-name');
       }
     } else if (this.opcode === 'looks_backdropnumbername') {
       if (this.params.NUMBER_NAME === 'number') {
-        label = 'backdrop number';
+        label = this.parent.getMessage('var-backdrop-number');
       } else {
-        label = 'backdrop name';
+        label = this.parent.getMessage('var-backdrop-name');
       }
     } else if (this.opcode === 'looks_size') {
-      label = 'size';
+      label = this.parent.getMessage('var-size');
     } else if (this.opcode === 'sensing_answer') {
-      label = 'answer';
+      label = this.parent.getMessage('var-answer');
     } else if (this.opcode === 'sensing_loudness') {
-      label = 'loudness';
+      label = this.parent.getMessage('var-loudness');
     } else if (this.opcode === 'sensing_timer') {
-      label = 'timer';
+      label = this.parent.getMessage('var-timer');
     } else if (this.opcode === 'sound_volume') {
-      label = 'volume';
+      label = this.parent.getMessage('var-volume');
     } else if (this.opcode === 'sensing_current') {
       const menu = this.params.CURRENTMENU.toLowerCase();
       if (menu === 'year') {
-        label = 'year';
+        label = this.parent.getMessage('var-year');
       } else if (menu === 'month') {
-        label = 'month';
+        label = this.parent.getMessage('var-month');
       } else if (menu === 'date') {
-        label = 'date';
+        label = this.parent.getMessage('var-date');
       } else if (menu === 'dayofweek') {
-        label = 'day of week';
+        label = this.parent.getMessage('var-day-of-week');
       } else if (menu === 'hour') {
-        label = 'hour';
+        label = this.parent.getMessage('var-hour');
       } else if (menu === 'minute') {
-        label = 'minute';
+        label = this.parent.getMessage('var-minute');
       } else if (menu === 'second') {
-        label = 'second';
+        label = this.parent.getMessage('var-second');
       }
     } else {
       label = this.parent.vm.runtime.getLabelForOpcode(this.opcode).label;
@@ -257,7 +257,7 @@ class ListMonitor extends Monitor {
     this.endPoint.className = styles.monitorRowsEndpoint;
 
     this.emptyLabel = document.createElement('div');
-    this.emptyLabel.textContent = '(empty)';
+    this.emptyLabel.textContent = parent.getMessage('list-empty');
     this.emptyLabel.className = styles.monitorEmpty;
 
     this.rowsInner.appendChild(this.endPoint);
@@ -291,11 +291,11 @@ class ListMonitor extends Monitor {
     e.preventDefault();
     const menu = new ContextMenu(this.parent);
     menu.add({
-      text: 'import',
+      text: this.parent.getMessage('list-import'),
       callback: this.handleImport
     });
     menu.add({
-      text: 'export',
+      text: this.parent.getMessage('list-export'),
       callback: this.handleExport
     });
     menu.show(e);
@@ -368,7 +368,7 @@ class ListMonitor extends Monitor {
     this.root.style.height = `${this.height}px`;
 
     this.value = monitor.get('value');
-    this.footer.textContent = `length ${this.value.length}`;
+    this.footer.textContent = this.parent.getMessage('list-length').replace('{n}', this.value.length);
     this.updateValue(this.value);
   }
 
