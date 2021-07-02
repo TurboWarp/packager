@@ -138,10 +138,6 @@ class Scaffolding extends EventTarget {
   }
 
   _onmousedown (e) {
-    e.preventDefault();
-    if (document.activeElement && document.activeElement.blur) {
-      document.activeElement.blur();
-    }
     const {x, y} = getEventXY(e);
     const data = {
       x: x - this.layersRect.left,
@@ -151,8 +147,15 @@ class Scaffolding extends EventTarget {
       canvasHeight: this.layersRect.height,
       isDown: true
     };
-    if (e.button === 0 || (typeof TouchEvent !== 'undefined' && e instanceof TouchEvent)) {
+    const isTouchEvent = typeof TouchEvent !== 'undefined' && e instanceof TouchEvent;
+    if (e.button === 0 || isTouchEvent) {
       this._dragTimeout = setTimeout(this._startDragging.bind(this, data.x, data.y), 400);
+    }
+    if (isTouchEvent) {
+      e.preventDefault();
+      if (document.activeElement && document.activeElement.blur) {
+        document.activeElement.blur();
+      }  
     }
     this._mousedownPosition = {
       x: data.x,
