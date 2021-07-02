@@ -5,7 +5,6 @@
   import SelectProject from './SelectProject.svelte';
   import PackagerOptions from './PackagerOptions.svelte';
   import Progress from './Progress.svelte';
-  import SelectLanguage from './SelectLanguage.svelte';
   import Button from './Button.svelte';
   import {error, progress} from './stores';
   import {UserError} from './errors';
@@ -159,9 +158,6 @@
     </div>
     <div>
       <a href="https://fosshost.org/">{$_('p4.fosshost')}</a>
-    </div>
-    <div>
-      <SelectLanguage />
     </div>
   </footer>
 </main>

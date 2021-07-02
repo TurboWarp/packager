@@ -17,13 +17,7 @@ const unstructure = (messages) => {
 const STORAGE_KEY = 'p4:initialLocale';
 const initialLocaleFromNavigator = getLocaleFromNavigator();
 
-export const getInitialLocale = () => {
-  const local = localStorage.getItem(STORAGE_KEY);
-  if (local) {
-    return local;
-  }
-  return initialLocaleFromNavigator;
-};
+export const getInitialLocale = () => initialLocaleFromNavigator;
 
 export const setInitialLocale = (locale) => {
   if (locale === initialLocaleFromNavigator) {
