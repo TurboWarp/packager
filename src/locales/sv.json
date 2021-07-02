@@ -1,8 +1,18 @@
 {
+    "options": {
+        "cloudVariables-custom": "Avancerat",
+        "cloudVariables-ignore": "Ignorera",
+        "preview": "Förhandsvisning",
+        "reset": "Starta om"
+    },
     "p4": {
         "close": "Stäng",
+        "description1": "Konverterar Scratch projekt till fristående filer eller körbara program.",
         "error": "Fel",
         "errorMessage": "Meddelande: {error}",
+        "feedback": "Respons",
+        "privacy": "Integritetspolicy",
+        "reportBug": "Rapportera bugg",
         "sourceCode": "Källkod"
     },
     "progress": {
