@@ -67,7 +67,7 @@
     },
     "progress": {
         "compressingProject": "Stiskanje projekta",
-        "loadingAssets": "Nalaganje projekta ({complete}/{total}) ...",
+        "loadingAssets": "Nalaganje projekta ({loaded}/{total}) ...",
         "loadingNwjs": "Nalaganje NW.js",
         "loadingProjectData": "Nalaganje podatkov projekta",
         "loadingScripts": "Nalaganje skript",
