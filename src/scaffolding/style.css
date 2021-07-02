@@ -77,6 +77,50 @@
 .question-input:hover {
   border-color: var(--sc-accent-color);
 }
+.question-submit-button {
+  top: 4px;
+  right: 4px;
+  width: 24px;
+  height: 24px;
+  position: absolute;
+  outline: none;
+  border: none;
+  padding: 2px;
+  margin: 0;
+  border-radius: 100%;
+  background: none;
+  cursor: pointer;
+  color: white;
+  background: var(--sc-accent-color);
+  overflow: hidden;
+}
+.question-submit-button:focus {
+  outline: 2px solid black;
+}
+.question-submit-button-image {
+  width: 100%;
+  height: 100%;
+  transform: rotate(-135deg);
+  margin-top: 5px;
+}
+.question-submit-button-image::before {
+  content: '';
+  position: absolute;
+  background-color: currentColor;
+  width: 50%;
+  height: 3px;
+  left: 50%;
+  top: 50%;
+}
+.question-submit-button-image::after {
+  content: '';
+  position: absolute;
+  background-color: currentColor;
+  width: 3px;
+  height: 50%;
+  left: 50%;
+  top: 50%;
+}
 
 .monitor-overlay {
 

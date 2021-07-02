@@ -24,7 +24,16 @@ class Question {
     this.input.className = styles.questionInput;
     this.input.addEventListener('keypress', this.onkeypress.bind(this));
 
+    this.submitButton = document.createElement('button');
+    this.submitButton.className = styles.questionSubmitButton;
+    this.submitButton.addEventListener('click', this.onsubmitpressclick.bind(this));
+
+    this.submitButtonImage = document.createElement('div');
+    this.submitButtonImage.className = styles.questionSubmitButtonImage;
+
     this.inputContainer.appendChild(this.input);
+    this.submitButton.appendChild(this.submitButtonImage);
+    this.inputContainer.appendChild(this.submitButton);
     if (this.textElement) {
       this.inner.appendChild(this.textElement);
     }
@@ -51,6 +60,10 @@ class Question {
     if (e.key === 'Enter') {
       this.submit();
     }
+  }
+
+  onsubmitpressclick () {
+    this.submit();
   }
 
   destroy () {
