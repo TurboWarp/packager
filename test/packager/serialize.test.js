@@ -29,6 +29,21 @@ test('does not care about types', () => {
   })
 });
 
+test('arrays', () => {
+  expect(serialize({
+    a: [1]
+  }, {
+    a: [1]
+  })).toStrictEqual(null);
+  expect(serialize({
+    a: [2]
+  }, {
+    a: [1]
+  })).toStrictEqual({
+    a: [2]
+  });
+});
+
 /*
 test('does not serialize blobs', () => {
   expect(serialize({

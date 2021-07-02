@@ -584,6 +584,10 @@ cd "$(dirname "$0")"
       warpTimer: ${this.options.compiler.warpTimer}
     });
 
+    for (const extension of ${JSON.stringify(this.options.extensions.map(i => i.url))}) {
+      vm.extensionManager.loadExtensionURL(extension);
+    }
+
     // NW.js hook
     if (typeof nw !== 'undefined') {
       const win = nw.Window.get();
@@ -746,7 +750,8 @@ Packager.DEFAULT_OPTIONS = () => ({
     id: 0,
     cloudHost: 'wss://clouddata.turbowarp.org',
     custom: {}
-  }
+  },
+  extensions: []
 });
 
 export default Packager;

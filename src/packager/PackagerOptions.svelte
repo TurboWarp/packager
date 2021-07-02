@@ -37,7 +37,9 @@
   let url = null;
   let previewer = null;
   let iconFiles = null;
+  let customExtensions = $options.extensions.map(i => i.url).join('\n');
   $: $options.app.icon = iconFiles ? iconFiles[0] : null;
+  $: $options.extensions = customExtensions.split('\n').filter(i => i).map(i => ({url: i}));
   $: if (previewer) {
     previewer.setProgress($progress.progress, $progress.text);
   }
@@ -137,9 +139,15 @@
   }
   textarea {
     display: block;
-    height: 200px;
+    height: 100px;
     width: 100%;
     box-sizing: border-box;
+  }
+  textarea.large {
+    height: 200px;
+  }
+  textarea.nowrap {
+    white-space: nowrap;
   }
   .environment-section {
     margin-bottom: 12px;
@@ -314,8 +322,12 @@
       {$_('options.warpTimer')}
     </label>
     <label>
+      {$_('options.customExtensions')}
+      <textarea bind:value={customExtensions} class="nowrap"></textarea>
+    </label>
+    <label>
       {$_('options.customJS')}
-      <textarea bind:value={$options.custom.js}></textarea>
+      <textarea bind:value={$options.custom.js} class="large"></textarea>
     </label>
   </details>
 </Section>

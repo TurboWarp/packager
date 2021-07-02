@@ -217,6 +217,9 @@
     "warpTimer": {
       "string": "Warp Timer"
     },
+    "customExtensions": {
+      "string": "Custom extensions (one URL per line)"
+    },
     "customJS": {
       "string": "Custom JS (Don't change if you don't know what you're doing!)"
     },

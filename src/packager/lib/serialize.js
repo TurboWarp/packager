@@ -1,5 +1,17 @@
 const isObject = (v) => !!v && typeof v === 'object' && !Array.isArray(v);
 
+const areArraysEqual = (a, b) => {
+  if (a.length !== b.length) {
+    return false;
+  }
+  for (let i = 0; i < a.length; i++) {
+    if (a[i] !== b[i]) {
+      return false;
+    }
+  }
+  return true;
+};
+
 /**
  * @returns {*|null} null means "do not store"
  */
@@ -24,6 +36,9 @@ const serialize = (value, defaultValue) => {
       return null;
     }
     return result;
+  }
+  if (Array.isArray(value) && areArraysEqual(value, defaultValue)) {
+    return null;
   }
   if (value === defaultValue) {
     return null;
