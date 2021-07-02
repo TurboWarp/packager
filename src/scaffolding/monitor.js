@@ -256,7 +256,12 @@ class ListMonitor extends Monitor {
     this.endPoint = document.createElement('div');
     this.endPoint.className = styles.monitorRowsEndpoint;
 
+    this.emptyLabel = document.createElement('div');
+    this.emptyLabel.textContent = '(empty)';
+    this.emptyLabel.className = styles.monitorEmpty;
+
     this.rowsInner.appendChild(this.endPoint);
+    this.rowsInner.appendChild(this.emptyLabel);
     this.rowsOuter.appendChild(this.rowsInner);
     this.root.appendChild(this.label);
     this.root.appendChild(this.rowsOuter);
@@ -374,6 +379,8 @@ class ListMonitor extends Monitor {
     if (startIndex < 0) startIndex = 0;
     let endIndex = Math.ceil((this.scrollTop + this.height) / ROW_HEIGHT) + 5;
     if (endIndex > value.length - 1) endIndex = value.length - 1;
+
+    this.emptyLabel.style.display = value.length ? 'none' : '';
 
     const rowsNeeded = endIndex - startIndex + 1;
     while (this.rows.length < rowsNeeded) {

@@ -198,6 +198,10 @@
   user-select: text;
   white-space: pre;
 }
+.monitor-empty {
+  text-align: center;
+  padding: 5px;
+}
 
 .controls-bar {
   transform: translateY(-100%);
