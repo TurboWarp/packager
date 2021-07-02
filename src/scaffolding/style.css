@@ -15,6 +15,15 @@
 .layers > * {
   position: absolute;
 }
+.scaled-overlays-outer {
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+.scaled-overlays-inner {
+  transform-origin: top left;
+}
 .root * {
   box-sizing: border-box;
 }
@@ -27,6 +36,7 @@
   bottom: 0;
   width: 100%;
   color: black;
+  pointer-events: all;
 }
 .question-inner {
   margin: 0.5rem;
@@ -83,6 +93,7 @@
   user-select: none;
   display: flex;
   flex-direction: column;
+  pointer-events: all;
 }
 .monitor-inner {
   display: flex;

@@ -53,7 +53,13 @@ class Scaffolding extends EventTarget {
     this._addLayer(this._canvas);
 
     this._overlays = document.createElement('div');
-    this._addLayer(this._overlays);
+    this._overlays.className = styles.scaledOverlaysInner;
+
+    this._overlaysOuter = document.createElement('div');
+    this._overlaysOuter.className = styles.scaledOverlaysOuter;
+
+    this._overlaysOuter.appendChild(this._overlays);
+    this._addLayer(this._overlaysOuter);
 
     this._monitorOverlay = document.createElement('div');
     this._monitorOverlay.className = styles.monitorOverlay;
