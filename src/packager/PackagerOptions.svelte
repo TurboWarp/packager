@@ -369,7 +369,7 @@
 </Section>
 
 {#if $options.target.startsWith('nwjs-')}
-  <div transition:fade|local>
+  <div in:fade|local>
     <Section accent="#FF661A">
       <!-- don't translate NW.js -->
       <h2>NW.js</h2>
