@@ -1,13 +1,24 @@
 {
     "options": {
         "addons": "アドオン",
+        "autoplay": "自動再生",
         "cloudVariables-custom": "高度な設定",
+        "confirmReload": "全ての設定をデフォルトに戻し、再読み込みしますか？",
+        "download": "{filename}をダウンロード({size}MB)",
+        "framerate": "フレームレート",
         "highQualityPen": "ペンできれいに描画する",
         "infiniteClones": "クローンの制限を解除",
         "interpolation": "補完機能",
+        "package": "パッケージ",
+        "pageTitle": "ページのタイトル",
+        "playerOptions": "プレイヤーのオプション",
+        "preview": "プレビュー",
         "removeFencing": "動く範囲と大きさの制限を解除する",
         "removeMiscLimits": "その他の制限を解除",
         "reset": "リセット",
+        "stageSize": "ステージのサイズ",
+        "turbo": "ターボモード",
+        "username": "ユーザー名(#はそれぞれランダムな数に入れ替わります。)",
         "warpTimer": "Warpタイマー"
     },
     "p4": {
@@ -26,6 +37,8 @@
     "select": {
         "file": "ファイル",
         "idOrUrl": "プロジェクトのIDまたはURL",
+        "loadToContinue": "プロジェクトを読み込んで続ける",
+        "noFileSelected": "ファイルを選んでいません",
         "select": "プロジェクトを選ぶ"
     }
 }

@@ -2,8 +2,10 @@
     "options": {
         "cloudVariables-custom": "Avancerat",
         "cloudVariables-ignore": "Ignorera",
+        "interpolation": "Interplotation",
         "preview": "Förhandsvisning",
-        "reset": "Starta om"
+        "reset": "Starta om",
+        "turbo": "Turboläge"
     },
     "p4": {
         "close": "Stäng",
@@ -17,5 +19,9 @@
     },
     "progress": {
         "loadingProjectData": "Laddar projektdata"
+    },
+    "select": {
+        "file": "Fil",
+        "select": "Välj Projekt"
     }
 }
