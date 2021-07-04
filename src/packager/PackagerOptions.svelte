@@ -381,7 +381,7 @@
       {#if $options.target.startsWith('nwjs-win')}
         <div>
           <h2>{$_('nwjs.furtherStepsWin')}</h2>
-          <p>To change the icon of the executable and generate installers, see <a href="https://docs.nwjs.io/en/latest/For%20Users/Package%20and%20Distribute/#windows">NW.js Documentation</a>.</p>
+          <p>To change the executable icon or create an installer program, download and run <a href="https://github.com/TurboWarp/packager-extras/releases">TurboWarp Packager Extras</a> and select the output of this website.</p>
         </div>
       {:else if $options.target === 'nwjs-mac'}
         <h2>{$_('nwjs.furtherStepsMac')}</h2>
