@@ -227,7 +227,7 @@
   </label>
   <label>
     {$_('options.icon')}
-    <input type="file" bind:files={iconFiles} accept=".png">
+    <input type="file" bind:files={iconFiles} accept=".png,.jpg,.jpeg,.bmp">
   </label>
 
   <h3>{$_('options.controls')}</h3>

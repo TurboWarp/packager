@@ -36,21 +36,41 @@ const setFileFast = (zip, path, data) => {
   zip.files[path] = data;
 };
 
-const getAppIcon = async (icon) => {
-  if (!icon) {
-    const blob = await xhr({
+const getAppIcon = async (file) => {
+  if (!file) {
+    return xhr({
       url: defaultIcon,
-      type: 'blob'
+      type: 'arraybuffer'
     });
-    return {
-      data: blob,
-      name: 'icon.png'
-    };
   }
-  return {
-    data: await readAsArrayBuffer(icon),
-    name: icon.name || 'icon.png'
-  };
+  // Convert to PNG
+  return new Promise((resolve, reject) => {
+    const url = URL.createObjectURL(file);
+    const image = new Image();
+    image.onload = () => {
+      image.onload = null;
+      image.onerror = null;
+      const canvas = document.createElement('canvas');
+      const ctx = canvas.getContext('2d');
+      if (!ctx) {
+        reject(new Error('Cannot get rendering context for icon conversion'));
+        return;
+      }
+      canvas.width = image.width;
+      canvas.height = image.height;
+      ctx.drawImage(image, 0, 0);
+      canvas.toBlob((blob) => {
+        URL.revokeObjectURL(url);
+        resolve(readAsArrayBuffer(blob));
+      });
+    };
+    image.onerror = () => {
+      image.onload = null;
+      image.onerror = null;
+      reject(new Error('Cannot load icon'));
+    };
+    image.src = url;
+  });
 };
 
 const COPYRIGHT_HEADER = `/*!
@@ -243,6 +263,7 @@ class Packager extends EventTarget {
       setFileFast(zip, newPath, file);
     }
 
+    const ICON_NAME = 'icon.png';
     const icon = await getAppIcon(this.options.app.icon);
     const manifest = {
       name: packageName,
@@ -250,7 +271,7 @@ class Packager extends EventTarget {
       window: {
         width: this.options.stageWidth,
         height: this.options.stageHeight,
-        icon: icon.name
+        icon: ICON_NAME
       }
     };
 
@@ -258,7 +279,7 @@ class Packager extends EventTarget {
     if (isWindows) {
       dataPrefix = `${packageName}/`;
     } else if (isMac) {
-      const icnsData = await pngToAppleICNS(icon.data);
+      const icnsData = await pngToAppleICNS(icon);
       zip.file(`${packageName}/${packageName}.app/Contents/Resources/app.icns`, icnsData);
       dataPrefix = `${packageName}/${packageName}.app/Contents/Resources/app.nw/`;
     } else if (isLinux) {
@@ -275,7 +296,7 @@ cd "$(dirname "$0")"
     for (const path of Object.keys(projectZip.files)) {
       setFileFast(zip, dataPrefix + path, projectZip.files[path]);
     }
-    zip.file(dataPrefix + icon.name, icon.data);
+    zip.file(dataPrefix + ICON_NAME, icon);
     zip.file(dataPrefix + 'package.json', JSON.stringify(manifest, null, 4));
     zip.file(dataPrefix + 'main.js', `
     const start = () => nw.Window.open('index.html', {
