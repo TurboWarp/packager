@@ -44,6 +44,9 @@ const getAppIcon = async (file) => {
     });
   }
   // Convert to PNG
+  if (file.type === 'image/png') {
+    return readAsArrayBuffer(file);
+  }
   return new Promise((resolve, reject) => {
     const url = URL.createObjectURL(file);
     const image = new Image();
