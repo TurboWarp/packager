@@ -30,11 +30,24 @@ module.exports = {
     rules: [
       {
         test: /\.(mp3|svg|png)$/i,
+        include: /node_modules|addons/,
         use: [
           {
             loader: 'url-loader',
             options: {
               esModule: false
+            }
+          }
+        ]
+      },
+      {
+        test: /\.png$/i,
+        include: /packager/,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              name: 'assets/[name].[contenthash].[ext]'
             }
           }
         ]
