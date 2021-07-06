@@ -15,13 +15,6 @@ npm start
 
 Then visit http://localhost:8080. Must manually refresh to apply.
 
-Sometimes for development it can be nice to store the large NW.js downloads locally, so that you don't have to constantly download them. On unix-like systems:
-
-```
-node download-large-assets-locally.js
-LARGE_ASSET_BASE=./ npm start
-```
-
 The general layout of `src` is:
 
  - build: some questionable webpack customizations
