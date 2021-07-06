@@ -11,9 +11,9 @@ const downloadProject = async (buffer, progressCallback) => {
   return project;
 };
 
-const fromID = async (id, progressCallback) => {
+const fromURL = async (url, progressCallback) => {
   const buffer = await xhr({
-    url: `https://projects.scratch.mit.edu/${id}`,
+    url,
     type: 'arraybuffer',
     progressCallback: (progress) => {
       progressCallback('fetch', progress);
@@ -22,6 +22,8 @@ const fromID = async (id, progressCallback) => {
   return downloadProject(buffer, progressCallback);
 };
 
+const fromID = (id, progressCallback) => fromURL(`https://projects.scratch.mit.edu/${id}`, progressCallback);
+
 const fromFile = async (file, progressCallback) => {
   const buffer = await readAsArrayBuffer(file);
   return downloadProject(buffer, progressCallback);
@@ -29,5 +31,6 @@ const fromFile = async (file, progressCallback) => {
 
 export default {
   fromID,
+  fromURL,
   fromFile
 };

@@ -12,6 +12,7 @@
   export let projectData = null;
   const type = writablePersistentStore('SelectProject.type', 'id');
   const projectId = writablePersistentStore('SelectProject.id', '60917032');
+  const projectUrl = writablePersistentStore('SelectProject.url', '');
   let files = null;
 
   const reset = () => {
@@ -27,6 +28,23 @@
       return '';
     }
     return match[0];
+  };
+
+  const isValidURL = (str) => {
+    try {
+      const url = new URL(str);
+      return url.protocol === 'http:' || url.protocol === 'https:';
+    } catch (e) {
+      return false;
+    }
+  };
+
+  const getTitleFromURL = (url) => {
+    const match = url.match(/\/([^\/]+)\.sb[2|3]?$/);
+    if (match) {
+      return match[1];
+    }
+    return '';
   };
 
   const load = async () => {
@@ -70,7 +88,7 @@
         $progress.text = $_('progress.loadingProjectData');
         projectTitle = await getProjectTitle(id);
         project = await loadProject.fromID(id, progressCallback);
-      } else {
+      } else if ($type === 'file') {
         if (!files) {
           throw new UserError($_('select.noFileSelected'));
         }
@@ -79,6 +97,17 @@
         projectTitle = file.name;
         $progress.text = $_('progress.compressingProject');
         project = await loadProject.fromFile(file, progressCallback);
+      } else if ($type === 'url') {
+        const url = $projectUrl;
+        if (!isValidURL(url)) {
+          throw new UserError($_('select.invalidUrl'));
+        }
+        uniqueId = `$${url}`;
+        $progress.text = $_('progress.loadingProjectData');
+        projectTitle = getTitleFromURL(url);
+        project = await loadProject.fromURL(url, progressCallback);
+      } else {
+        throw new Error('Unknown type');
       }
 
       projectData = {
@@ -137,7 +166,7 @@
   <div class="option">
     <label>
       <input type="radio" bind:group={$type} value="id">
-      {$_('select.idOrUrl')}
+      {$_('select.id')}
     </label>
     {#if $type === "id"}
       <input type="text" value={getDisplayedProjectURL()} spellcheck="false" on:keypress={handleKeyPress} on:input={handleInput} on:focus={handleFocus}>
@@ -150,6 +179,15 @@
     </label>
     {#if $type === "file"}
       <input bind:files={files} type="file" accept=".sb,.sb2,.sb3">
+    {/if}
+  </div>
+  <div class="option">
+    <label>
+      <input type="radio" bind:group={$type} value="url">
+      {$_('select.url')}
+    </label>
+    {#if $type === "url"}
+      <input type="text" bind:value={$projectUrl} spellcheck="false">
     {/if}
   </div>
 

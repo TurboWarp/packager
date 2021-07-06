@@ -55,13 +55,17 @@
     "selectHelp": {
       "string": "You can package projects from the Scratch website by copying their URL or you can package files from your computer. If you're using someone else's project, make sure to give them proper credit."
     },
-    "idOrUrl": {
-      "string": "Project ID or URL",
+    "id": {
+      "string": "Scratch Project ID or URL",
       "context": "Radio option to select a project from the Scratch website"
     },
     "file": {
       "string": "File",
       "context": "Radio option to upload a project from file"
+    },
+    "url": {
+      "string": "Other URL",
+      "context": "Radio option to choose a project from a non-Scratch URL"
     },
     "loadProject": {
       "string": "Load Project",
@@ -72,6 +76,10 @@
     },
     "invalidId": {
       "string": "Invalid project ID",
+      "context": "Error message"
+    },
+    "invalidUrl": {
+      "string": "Invalid URL",
       "context": "Error message"
     },
     "noFileSelected": {
