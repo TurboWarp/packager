@@ -1,5 +1,5 @@
 <script>
-  import {_} from 'svelte-i18n'
+  import {_} from '../locales/';
   import {slide, fade} from 'svelte/transition';
   import Section from './Section.svelte';
   import Button from './Button.svelte';
@@ -412,12 +412,9 @@
   <Section>
     <div class="downloads">
       <a href={url} download={result.filename}>
-        {$_('options.download', {
-          values: {
-            filename: result.filename,
-            size: (result.blob.size / 1000 / 1000).toFixed(2)
-          }
-        })}
+        {$_('options.download')
+          .replace('{filename}', result.filename)
+          .replace('{size}', (result.blob.size / 1000 / 1000).toFixed(2))}
     </div>
   </Section>
 {:else if !$progress.visible}

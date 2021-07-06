@@ -1,5 +1,5 @@
 <script>
-  import {_} from 'svelte-i18n';
+  import {_} from '../locales/';
   import Section from './Section.svelte';
   import Button from './Button.svelte';
   import writablePersistentStore from './persistent-store';
@@ -66,12 +66,9 @@
         if (type === 'fetch') {
           $progress.progress = a;
         } else if (type === 'assets') {
-          $progress.text = $_('progress.loadingAssets', {
-            values: {
-              loaded: a,
-              total: b
-            }
-          });
+          $progress.text = $_('progress.loadingAssets')
+            .replace('{loaded}', a)
+            .replace('{total}', b);
           $progress.progress = a / b;
         } else if (type === 'compress') {
           $progress.text = $_('progress.compressingProject');
