@@ -75,7 +75,6 @@
     },
     "select": {
         "file": "Datoteka",
-        "idOrUrl": "ID ali URL projekta",
         "invalidId": "ID projekta ni veljaven",
         "loadProject": "Naloži projekt",
         "loadToContinue": "Za nadaljevanje naložite projekt",

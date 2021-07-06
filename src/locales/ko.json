@@ -2,6 +2,7 @@
     "options": {
         "addons": "애드온",
         "cloudVariables-custom": "고급 설정",
+        "customJS": "사용자 지정 자바스크립트 파일 (무엇을 하고 있는지 명확히 아는 것이 아니라면 변경하지 마세요!)",
         "enableCompiler": "컴파일러 켜기",
         "highQualityPen": "펜 품질 올리기",
         "infiniteClones": "무제한 복제본",

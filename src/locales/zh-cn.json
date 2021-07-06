@@ -25,7 +25,7 @@
         "confirmReload": "重置所有已保存的打包信息，然后刷新？",
         "controls": "控制按钮",
         "controlsHelp": "如果此处的所有选项都不勾选，将会删除控制栏。如果只有全屏按钮被选中，则它会放在网页的左上角，而不是控制栏上。",
-        "customExtensions": "自定义拓展 (每行一个链接)",
+        "customExtensions": "自定义拓展 (每行一个网页链接)",
         "customJS": "自定义 JS (如果你不确定你在做什么，别动它)",
         "download": "下载 {filename} (大小 {size}MB)",
         "downloadsWillAppearHere": "下载进度将显示在这里",
@@ -86,12 +86,11 @@
     },
     "select": {
         "file": "文件",
-        "idOrUrl": "作品 ID 或链接",
         "invalidId": "无效的作品 ID",
         "loadProject": "加载作品",
         "loadToContinue": "加载作品以继续",
         "noFileSelected": "没有选择文件",
         "select": "选择作品",
-        "selectHelp": "您可以通过复制 URL 来从 Scratch 网站打包项目，也可以从您的计算机打包文件。 If you're using someone else's project, make sure to give them proper credit."
+        "selectHelp": "您可以通过复制网页链接来从 Scratch 网站打包项目，也可以从您的计算机打包文件。 如果你正在尝试打包他人的作品，请确保你表明作者是谁并给予对方足够的感谢。"
     }
 }
