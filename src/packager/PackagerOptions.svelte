@@ -321,7 +321,7 @@
     </label>
     <label>
       {$_('options.customExtensions')}
-      <textarea bind:value={customExtensions} class="nowrap" placeholder="https://extensions.turbowarp.org/fetch.js"></textarea>
+      <textarea bind:value={customExtensions} class="nowrap"></textarea>
     </label>
     <label>
       {$_('options.customJS')}
