@@ -66,14 +66,6 @@
   footer {
     text-align: center;
   }
-  .new {
-    border-radius: 4px;
-    border-bottom: 2px solid #111;
-    padding: 1px 5px;
-    color: white;
-    background: #b117f8;
-    border-color: #6f0073;
-  }
   .modal {
     position: fixed;
     top: 0;
@@ -99,13 +91,6 @@
     <p>{$_('p4.description1')}</p>
     <p>If you just want an easy way to embed a TurboWarp project into your website, you may be interested in <a href="https://github.com/TurboWarp/scratch-gui/wiki/Embedding">Embedding</a>.</p>
     <p>Report bugs, give feedback, and suggest ideas <a href="https://scratch.mit.edu/users/GarboMuffin/#comments">on Scratch</a> or <a href="https://github.com/TurboWarp/packager/issues">on GitHub</a>.</p>
-  </Section>
-
-  <Section accent="#b117f8">
-    <!-- this will be removed soon so don't bother translating -->
-    <p><span class="new">New!</span> We rewrote the packager to bring improved performance, file size, customizability, simple-to-edit HTML, a new loading screen, more options for cloud variables, optional gamepad support, and more.</p>
-    <p>A lot of features that were previously difficult are now trivial. <a href="https://scratch.mit.edu/users/GarboMuffin/#comments">Let us know</a> what features and customizations you're looking for.</p>
-    <p>The old packager <a href="https://packager-legacy.turbowarp.org/">can still be used indefinitely</a> for the few niche use-cases that are no longer possible. It's not actively maintained so we wouldn't recommend it.</p>
   </Section>
 
   <SelectProject bind:projectData />
