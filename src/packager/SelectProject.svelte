@@ -130,7 +130,7 @@
 
   const getDisplayedProjectURL = () => `https://scratch.mit.edu/projects/${$projectId}`;
 
-  const handleKeyPress = (e) => {
+  const submitOnEnter = (e) => {
     if (e.key === 'Enter') {
       e.target.blur();
       load();
@@ -169,7 +169,7 @@
       {$_('select.id')}
     </label>
     {#if $type === "id"}
-      <input type="text" value={getDisplayedProjectURL()} spellcheck="false" on:keypress={handleKeyPress} on:input={handleInput} on:focus={handleFocus}>
+      <input type="text" value={getDisplayedProjectURL()} spellcheck="false" on:keypress={submitOnEnter} on:input={handleInput} on:focus={handleFocus}>
     {/if}
   </div>
   <div class="option">
@@ -187,7 +187,7 @@
       {$_('select.url')}
     </label>
     {#if $type === "url"}
-      <input type="text" bind:value={$projectUrl} spellcheck="false">
+      <input type="text" bind:value={$projectUrl} spellcheck="false" on:keypress={submitOnEnter} >
     {/if}
   </div>
 
