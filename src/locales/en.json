@@ -68,7 +68,7 @@
       "string": "Select Project"
     },
     "selectHelp": {
-      "string": "You can package projects from the Scratch website by copying their URL or you can package files from your computer. If you're using someone else's project, make sure to give them proper credit."
+      "string": "Select the project you want to package by copying and pasting the Scratch project link or using one of the other modes. If you use a project you didn't make, make sure to credit the creator."
     },
     "id": {
       "string": "Scratch Project ID or URL",
