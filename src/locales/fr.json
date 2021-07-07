@@ -7,6 +7,9 @@
         "reset": "Réinitialiser"
     },
     "p4": {
+        "description2-embedding": "Intégrer",
+        "description3-github": "sur GitHub",
+        "description3-scratch": "sur Scratch",
         "privacy": "Politique de Confidentialité",
         "sourceCode": "Code source"
     },

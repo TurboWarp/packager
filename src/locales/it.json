@@ -11,6 +11,9 @@
         "reset": "Resetta"
     },
     "p4": {
+        "description2-embedding": "Inclusione",
+        "description3-github": "su GitHub",
+        "description3-scratch": "su Scratch",
         "privacy": "Politica della Privacy",
         "sourceCode": "Codice Sorgente"
     },

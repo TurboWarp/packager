@@ -12,6 +12,9 @@
         "warpTimer": "Warp zamanlayıcı"
     },
     "p4": {
+        "description2-embedding": "Gömmek",
+        "description3-github": "Githubda",
+        "description3-scratch": "Scratch'te",
         "privacy": "Gizillik Politikası",
         "sourceCode": "Kaynak Kodu"
     },

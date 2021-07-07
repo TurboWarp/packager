@@ -43,6 +43,9 @@
     },
     "p4": {
         "close": "閉じる",
+        "description2-embedding": "埋め込みコード",
+        "description3-github": "GitHub",
+        "description3-scratch": "Scratch",
         "error": "エラー",
         "errorMessage": "メッセージ: {error}",
         "feedback": "フィードバック",

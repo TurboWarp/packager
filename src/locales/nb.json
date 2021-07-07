@@ -8,6 +8,8 @@
         "reset": "Tilbakestill"
     },
     "p4": {
+        "description3-github": "på GitHub",
+        "description3-scratch": "på Scratch",
         "privacy": "Personvernregler",
         "sourceCode": "Kildekode"
     },

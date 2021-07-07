@@ -57,6 +57,9 @@
     "p4": {
         "close": "Zapri",
         "description1": "Spremeni Scratch projekte v samostojne datoteke ali programe.",
+        "description2-embedding": "Vgraditev",
+        "description3-github": "na GitHub",
+        "description3-scratch": "na Scratchu",
         "error": "Napaka",
         "errorMessage": "Sporočilo: {error}",
         "feedback": "Povratne informacije",
@@ -79,7 +82,6 @@
         "loadProject": "Naloži projekt",
         "loadToContinue": "Za nadaljevanje naložite projekt",
         "noFileSelected": "Datoteka ni izbrana",
-        "select": "Izberite projekt",
-        "selectHelp": "Zapakirate lahko projekte s Scratcheve spletne strani tako, da skopirate njihov URL, ali pa datoteke z vašega računalnika. Če je projekt naredil kdo drug, se mu, ko ga objavite, zahvalite."
+        "select": "Izberite projekt"
     }
 }

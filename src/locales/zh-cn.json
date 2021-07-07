@@ -68,6 +68,9 @@
     "p4": {
         "close": "关闭",
         "description1": "将Scratch作品转换为独立文件或可执行程序。 ",
+        "description2-embedding": "嵌入",
+        "description3-github": "在 GitHub 上",
+        "description3-scratch": "在 Scratch 上",
         "error": "错误",
         "errorMessage": "错误：{error}",
         "feedback": "反馈",
@@ -86,11 +89,12 @@
     },
     "select": {
         "file": "文件",
+        "id": "Scratch 作品 或者 URL",
         "invalidId": "无效的作品 ID",
         "loadProject": "加载作品",
         "loadToContinue": "加载作品以继续",
         "noFileSelected": "没有选择文件",
         "select": "选择作品",
-        "selectHelp": "您可以通过复制网页链接来从 Scratch 网站打包项目，也可以从您的计算机打包文件。 如果你正在尝试打包他人的作品，请确保你表明作者是谁并给予对方足够的感谢。"
+        "url": "其他 URL"
     }
 }

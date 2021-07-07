@@ -65,6 +65,9 @@
     "p4": {
         "close": "Schließen",
         "description1": "Wandelt Scratch-Projekte in alleinstehende Dateien oder ausführbare Programme um.",
+        "description2-embedding": "Einbettung",
+        "description3-github": "auf GitHub",
+        "description3-scratch": "auf Scratch",
         "error": "Fehler",
         "errorMessage": "Nachricht: {error}",
         "fosshost": "Dateien von Fosshost gehostet",
@@ -86,7 +89,6 @@
         "loadProject": "Projekt laden",
         "loadToContinue": "Lade ein Projekt, um fortzufahren",
         "noFileSelected": "Keine Datei ausgewählt",
-        "select": "Projekt auswählen",
-        "selectHelp": "Du kannst Scratch-Projekte paketisieren, indem du ihre URL kopierst oder sie von deinem Computer hochlädst. Falls das Projekt jemand anderem gehört, vergewissere dich, dich dafür zu bedanken."
+        "select": "Projekt auswählen"
     }
 }

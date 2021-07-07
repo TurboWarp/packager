@@ -65,6 +65,9 @@
     "p4": {
         "close": "Fechar",
         "description1": "Converte projetos do Scratch em arquivos HTML ou programas executáveis.",
+        "description2-embedding": "Incorporação",
+        "description3-github": "no GitHub",
+        "description3-scratch": "no Scratch",
         "error": "Erro",
         "errorMessage": "Mensagem: {error}",
         "fosshost": "Hospedagem de arquivos por Fosshost",
@@ -86,7 +89,6 @@
         "loadProject": "Carregar Projeto",
         "loadToContinue": "Carregue um projeto para continuar",
         "noFileSelected": "Nenhum arquivo selecionado",
-        "select": "Selecione um Projeto",
-        "selectHelp": "Você pode empacotar um projeto do site do Scratch copiando seu URL ou você pode empacotar arquivos do seu computador. Se estiver usando um projeto de outra pessoa, lembre-se de dar créditos."
+        "select": "Selecione um Projeto"
     }
 }

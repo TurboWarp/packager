@@ -4,6 +4,8 @@
         "highQualityPen": "Hoge Kwaliteit Pen"
     },
     "p4": {
+        "description3-github": "op GitHub",
+        "description3-scratch": "op Scratch",
         "privacy": "Privacy Beleid",
         "sourceCode": "Broncode"
     }

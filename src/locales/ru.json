@@ -8,6 +8,9 @@
         "reset": "Сбросить"
     },
     "p4": {
+        "description2-embedding": "Встраивание",
+        "description3-github": "на GitHub",
+        "description3-scratch": "на Scratch",
         "privacy": "Политика конфиденциальности",
         "sourceCode": "Исходный код"
     }

@@ -10,6 +10,9 @@
         "reset": "Reiniciar"
     },
     "p4": {
+        "description2-embedding": "Embedido",
+        "description3-github": "en GitHub",
+        "description3-scratch": "en Scratch",
         "privacy": "Política de Privacidad",
         "sourceCode": "Código Fuente"
     },
