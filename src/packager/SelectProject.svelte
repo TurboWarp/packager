@@ -184,7 +184,7 @@
       {$_('select.url')}
     </label>
     {#if $type === "url"}
-      <input type="text" bind:value={$projectUrl} spellcheck="false" on:keypress={submitOnEnter} >
+      <input type="text" bind:value={$projectUrl} spellcheck="false" placeholder="https://..." on:keypress={submitOnEnter}>
     {/if}
   </div>
 
