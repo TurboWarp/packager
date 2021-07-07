@@ -3,6 +3,7 @@
   import {slide, fade} from 'svelte/transition';
   import Section from './Section.svelte';
   import Button from './Button.svelte';
+  import ComplexMessage from './ComplexMessage.svelte';
   import Packager from './packager';
   import writablePersistentStore from './persistent-store';
   import {error, progress} from './stores';
@@ -162,7 +163,17 @@
 
   <!-- TODO: this is not ideal, the help should be in here -->
   <!-- especially as not all of these options are actually in advanced settings on the main site -->
-  <p>See the advanced settings menu in <a href="https://turbowarp.org/">TurboWarp</a> for more information about some of these settings.</p>
+  <p>
+    <ComplexMessage
+      message={'See the advanced settings menu in {turbowarp} for more information about some of these settings.'}
+      values={{
+        turbowarp: {
+          text: 'TurboWarp',
+          href: 'https://turbowarp.org/'
+        }
+      }}
+    />
+  </p>
 
   <label>
     <input type="checkbox" bind:checked={$options.turbo}>

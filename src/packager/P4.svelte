@@ -1,5 +1,6 @@
 <script>
   import {_} from '../locales/';
+  import ComplexMessage from './ComplexMessage.svelte';
   import {fade} from 'svelte/transition';
   import Section from './Section.svelte';
   import SelectProject from './SelectProject.svelte';
@@ -89,8 +90,32 @@
     <!-- don't translate "TurboWarp Packager" -->
     <h1>TurboWarp Packager</h1>
     <p>{$_('p4.description1')}</p>
-    <p>If you just want an easy way to embed a TurboWarp project into your website, you may be interested in <a href="https://github.com/TurboWarp/scratch-gui/wiki/Embedding">Embedding</a>.</p>
-    <p>Report bugs, give feedback, and suggest ideas <a href="https://scratch.mit.edu/users/GarboMuffin/#comments">on Scratch</a> or <a href="https://github.com/TurboWarp/packager/issues">on GitHub</a>.</p>
+    <p>
+      <ComplexMessage
+        message={'If you just want an easy way to embed a TurboWarp project into your website, you may be interested in {embedding}.'}
+        values={{
+          embedding: {
+            text: 'Embedding',
+            href: 'https://github.com/TurboWarp/scratch-gui/wiki/Embedding'
+          }
+        }}
+      />
+    </p>
+    <p>
+      <ComplexMessage
+        message={'Report bugs, give feedback, and suggest ideas {onScratch} or {onGitHub}.'}
+        values={{
+          onScratch: {
+            text: 'on Scratch',
+            href: 'https://scratch.mit.edu/users/GarboMuffin/#comments'
+          },
+          onGitHub: {
+            text: 'on GitHub',
+            href: 'https://github.com/TurboWarp/packager/issues'
+          }
+        }}
+      />
+    </p>
   </Section>
 
   <SelectProject bind:projectData />
