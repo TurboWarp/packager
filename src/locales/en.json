@@ -45,7 +45,7 @@
   },
   "progress": {
     "loadingAssets": {
-      "string": "Loading assets ({loaded}/{total})"
+      "string": "Loading assets ({complete}/{total})"
     },
     "compressingProject": {
       "string": "Compressing project"

@@ -67,7 +67,7 @@
           $progress.progress = a;
         } else if (type === 'assets') {
           $progress.text = $_('progress.loadingAssets')
-            .replace('{loaded}', a)
+            .replace('{complete}', a)
             .replace('{total}', b);
           $progress.progress = a / b;
         } else if (type === 'compress') {
