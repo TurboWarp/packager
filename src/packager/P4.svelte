@@ -105,7 +105,7 @@
     <div class="modal" on:click|self={closeModal} on:key>
       <Section modal>
         <h2>{$_('p4.error')}</h2>
-        {#if $error instanceof UserError && false}
+        {#if $error instanceof UserError}
           <p>{$error.message}</p>
           <p>
             <Button on:click={closeModal}>{$_('p4.close')}</Button>
