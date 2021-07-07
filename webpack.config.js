@@ -42,7 +42,7 @@ module.exports = {
       },
       {
         test: /\.png$/i,
-        include: /packager/,
+        include: /src[\/\\]packager/,
         use: [
           {
             loader: 'file-loader',
