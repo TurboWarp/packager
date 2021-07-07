@@ -21,7 +21,6 @@
         "sourceCode": "소스코드"
     },
     "progress": {
-        "loadingAssets": "에셋을 불러오는 중입니다({loaded}/{total})...",
         "loadingNwjs": "NM.js를 불러옵니다",
         "loadingProjectData": "프로젝트 자료를 불러옵니다",
         "loadingScripts": "스크립트를 불러오는 중입니다..."

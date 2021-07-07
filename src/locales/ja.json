@@ -54,7 +54,6 @@
         "sourceCode": "ソースコード"
     },
     "progress": {
-        "loadingAssets": "{total}個中{complete}個読み込み完了…",
         "loadingNwjs": "NW.jsを読み込む",
         "loadingProjectData": "プロジェクトのデータを読み込んでいます",
         "loadingScripts": "スクリプトの読み込み"

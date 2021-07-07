@@ -81,7 +81,6 @@
     },
     "progress": {
         "compressingProject": "压缩作品中",
-        "loadingAssets": "加载素材 ({loaded}/{total})",
         "loadingNwjs": "加载 NW.js 中",
         "loadingProjectData": "加载作品数据中",
         "loadingScripts": "加载脚本中……",

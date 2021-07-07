@@ -77,7 +77,6 @@
     },
     "progress": {
         "compressingProject": "Projekt wird komprimiert",
-        "loadingAssets": "Ressourcen werden geladen ({loaded}/{total})",
         "loadingNwjs": "NW.js wird geladen",
         "loadingProjectData": "Projektdaten werden geladen",
         "loadingScripts": "Skripte werden geladen",
