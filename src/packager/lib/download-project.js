@@ -11,6 +11,11 @@ const identifyProjectType = (projectData) => {
   return null;
 };
 
+const unknownAnalysis = () => ({
+  stageVariables: {},
+  usesMusic: true
+});
+
 const analyzeScratch2 = (projectData) => {
   const stageVariables = {};
   if (projectData.variables) {
@@ -22,7 +27,26 @@ const analyzeScratch2 = (projectData) => {
     }
   }
   return {
-    stageVariables
+    stageVariables,
+    // We currently don't analyze these projects so assume that they do, for safety
+    usesMusic: true
+  };
+};
+
+const analyzeScratch3 = (projectData) => {
+  const stage = projectData.targets[0];
+  const stageVariables = {};
+  for (const id of Object.keys(stage.variables)) {
+    const [name, value, cloud] = stage.variables[id];
+    stageVariables[id] = {
+      name,
+      isCloud: !!cloud
+    };
+  }
+  const usesMusic = projectData.extensions.includes('music');
+  return {
+    stageVariables,
+    usesMusic
   };
 };
 
@@ -126,21 +150,6 @@ const loadScratch2 = (projectData, progressTarget) => {
         analysis: analyzeScratch2(projectData)
       };
     });
-};
-
-const analyzeScratch3 = (projectData) => {
-  const stage = projectData.targets[0];
-  const stageVariables = {};
-  for (const id of Object.keys(stage.variables)) {
-    const [name, value, cloud] = stage.variables[id];
-    stageVariables[id] = {
-      name,
-      isCloud: !!cloud
-    };
-  }
-  return {
-    stageVariables
-  };
 };
 
 const loadScratch3 = (projectData, progressTarget) => {
@@ -273,9 +282,7 @@ const downloadProject = async (data, progressCallback) => {
       }
     } else {
       type = 'sb';
-      analysis = {
-        stageVariables: {}
-      };
+      analysis = unknownAnalysis();
     }
   }
 

@@ -206,7 +206,11 @@ class Packager extends EventTarget {
 
   async loadResources () {
     const texts = [COPYRIGHT_HEADER];
-    texts.push(await this.fetchLargeAsset('scaffolding'));
+    if (this.project.analysis.usesMusic) {
+      texts.push(await this.fetchLargeAsset('scaffolding'));
+    } else {
+      texts.push(await this.fetchLargeAsset('scaffolding-min'));
+    }
     if (this.options.chunks.gamepad) {
       texts.push(await this.fetchLargeAsset('addons'));
     }

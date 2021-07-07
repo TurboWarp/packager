@@ -30,6 +30,12 @@ module.exports = {
     cacheBuster: true,
     type: 'text'
   },
+  'scaffolding-min': {
+    src: SCAFFOLDING_ROOT + 'scaffolding-min.js',
+    estimatedSize: 2400000, // TODO
+    cacheBuster: true,
+    type: 'text'
+  },
   addons: {
     src: SCAFFOLDING_ROOT + 'addons.js',
     estimatedSize: 14339,
