@@ -137,7 +137,7 @@
           </p>
         {:else}
           <p>
-            {$_('p4.errorMessage').replace('{error}', error)}
+            {$_('p4.errorMessage').replace('{error}', $error)}
           </p>
           <p>
             <Button on:click={closeModal}>{$_('p4.close')}</Button>
