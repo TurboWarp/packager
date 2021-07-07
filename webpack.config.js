@@ -11,15 +11,17 @@ const base = {
 };
 const dist = path.resolve(__dirname, 'dist');
 
-const makeScaffolding = () => ({
+const makeScaffolding = ({full}) => ({
   ...base,
   output: {
     filename: 'scaffolding/[name].js',
     path: dist
   },
-  entry: {
+  entry: full ? {
     scaffolding: './src/scaffolding/export.js',
     addons: './src/addons/index.js'
+  } : {
+    'scaffolding-min': './src/scaffolding/export.js'
   },
   resolve: {
     alias: {
@@ -30,16 +32,25 @@ const makeScaffolding = () => ({
   module: {
     rules: [
       {
-        test: /\.(mp3|svg|png)$/i,
-        use: [
-          {
-            loader: 'url-loader',
-            options: {
-              esModule: false
-            }
-          }
-        ]
+        test: /\.(svg|png)$/i,
+        use: [{
+          loader: 'url-loader'
+        }]
       },
+      ...(full ? [{
+        test: /\.mp3$/i,
+        use: [{
+          loader: 'url-loader',
+          options: {
+            esModule: false
+          }
+        }]
+      }] : [{
+        test: /\.mp3$/i,
+        use: [{
+          loader: path.resolve(__dirname, 'src', 'build', 'noop-loader.js')
+        }]
+      }]),
       {
         test: /\.css$/i,
         use: ['style-loader', {
@@ -139,6 +150,7 @@ const makeWebsite = () => ({
 });
 
 module.exports = [
-  makeScaffolding(),
+  makeScaffolding({full: true}),
+  makeScaffolding({full: false}),
   makeWebsite()
 ];
