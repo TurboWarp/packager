@@ -281,7 +281,6 @@ const downloadProject = async (data, progressCallback) => {
         analysis = analyzeScratch2(projectData);
       }
     } else {
-      type = 'sb';
       analysis = unknownAnalysis();
     }
   }
