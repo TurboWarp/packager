@@ -8,6 +8,7 @@
   import loadProject from './load-project';
   import getProjectTitle from './lib/get-project-meta.js';
   import analytics from './analytics';
+  import {extractProjectId, isValidURL, getTitleFromURL} from './lib/url-utils';
 
   export let projectData = null;
   const type = writablePersistentStore('SelectProject.type', 'id');
@@ -21,31 +22,6 @@
 
   // Reset project whenever an input changes
   $: files, $projectId, $type, reset();
-
-  const extractProjectId = (text) => {
-    const match = text.match(/\d+/);
-    if (!match) {
-      return '';
-    }
-    return match[0];
-  };
-
-  const isValidURL = (str) => {
-    try {
-      const url = new URL(str);
-      return url.protocol === 'http:' || url.protocol === 'https:';
-    } catch (e) {
-      return false;
-    }
-  };
-
-  const getTitleFromURL = (url) => {
-    const match = url.match(/\/([^\/]+)\.sb[2|3]?$/);
-    if (match) {
-      return match[1];
-    }
-    return '';
-  };
 
   const load = async () => {
     if ($progress.visible) {
