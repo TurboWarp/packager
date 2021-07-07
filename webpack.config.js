@@ -1,4 +1,3 @@
-require('./src/build/make-worker-loader-always-inline');
 const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
@@ -64,6 +63,10 @@ const makeScaffolding = ({full}) => ({
         }],
       }
     ]
+  },
+  resolveLoader: {
+    // Replace worker-loader with our own modified version
+    modules: [path.resolve(__dirname, 'src', 'build', 'inline-worker-loader'), 'node_modules'],
   },
   plugins: [
     new CopyWebpackPlugin({
