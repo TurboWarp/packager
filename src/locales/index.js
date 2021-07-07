@@ -15,7 +15,7 @@ const unstructure = (messages) => {
 };
 
 const getLocalMessages = () => {
-  let language = 'de-DE';
+  let language = navigator.language;
   if (allMessages[language]) return allMessages[language]();
   language = language.split('-')[0];
   if (allMessages[language]) return allMessages[language]();
