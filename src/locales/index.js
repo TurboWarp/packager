@@ -15,15 +15,17 @@ const unstructure = (messages) => {
 };
 
 const getLocalMessages = () => {
-  let language = navigator.language;
-  if (allMessages[language]) return allMessages[language]();
-  language = language.split('-')[0];
-  if (allMessages[language]) return allMessages[language]();
-  return {};
-}
+  const language = [
+    navigator.language.toLowerCase(),
+    navigator.language.toLowerCase().split('-')[0]
+  ].find(i => allMessages[i]) || 'en';
+  document.documentElement.lang = language;
+  return allMessages[language]();
+};
 
 const englishMessages = unstructure(require('./en.json'));
 const allMessages = {
+  en: () => englishMessages,
   // Generated code:
   /*===*/
   "de": () => require("./de.json"),
