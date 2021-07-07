@@ -165,7 +165,7 @@
   <!-- especially as not all of these options are actually in advanced settings on the main site -->
   <p>
     <ComplexMessage
-      message={'See the advanced settings menu in {turbowarp} for more information about some of these settings.'}
+      message={$_('options.moreHelp')}
       values={{
         turbowarp: {
           text: 'TurboWarp',

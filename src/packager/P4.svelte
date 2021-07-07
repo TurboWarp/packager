@@ -92,10 +92,10 @@
     <p>{$_('p4.description1')}</p>
     <p>
       <ComplexMessage
-        message={'If you just want an easy way to embed a TurboWarp project into your website, you may be interested in {embedding}.'}
+        message={$_('p4.description2')}
         values={{
           embedding: {
-            text: 'Embedding',
+            text: $_('p4.description2-embedding'),
             href: 'https://github.com/TurboWarp/scratch-gui/wiki/Embedding'
           }
         }}
@@ -103,14 +103,14 @@
     </p>
     <p>
       <ComplexMessage
-        message={'Report bugs, give feedback, and suggest ideas {onScratch} or {onGitHub}.'}
+        message={$_('p4.description3')}
         values={{
           onScratch: {
-            text: 'on Scratch',
+            text: $_('p4.description3-scratch'),
             href: 'https://scratch.mit.edu/users/GarboMuffin/#comments'
           },
           onGitHub: {
-            text: 'on GitHub',
+            text: $_('p4.description3-github'),
             href: 'https://github.com/TurboWarp/packager/issues'
           }
         }}

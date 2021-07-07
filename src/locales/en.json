@@ -3,6 +3,21 @@
     "description1": {
       "string": "Converts Scratch projects into standalone files or executable programs."
     },
+    "description2": {
+      "string": "If you just want an easy way to embed a TurboWarp project into your website, you may be interested in {embedding}."
+    },
+    "description2-embedding": {
+      "string": "Embedding"
+    },
+    "description3": {
+      "string": "Report bugs, give feedback, and suggest ideas {onScratch} or {onGitHub}."
+    },
+    "description3-scratch": {
+      "string": "on Scratch"
+    },
+    "description3-github": {
+      "string": "on GitHub"
+    },
     "error": {
       "string": "Error"
     },
@@ -93,6 +108,9 @@
     },
     "runtimeOptions": {
       "string": "Runtime Options"
+    },
+    "moreHelp": {
+      "string": "See the advanced settings menu in {turbowarp} for more information about some of these settings."
     },
     "turbo": {
       "string": "Turbo Mode"
