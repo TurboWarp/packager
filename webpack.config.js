@@ -72,7 +72,8 @@ const makeScaffolding = ({full}) => ({
           from: 'src/scaffolding/example.html'
         }
       ]
-    })
+    }),
+    ...(process.env.BUNDLE_ANALYZER === (full ? '1' : '2') ? [new BundleAnalyzerPlugin()] : [])
   ]
 });
 
@@ -138,7 +139,7 @@ const makeWebsite = () => ({
       template: './src/scaffolding/example.html',
       chunks: []
     }),
-    ...(process.env.BUNDLE_ANALYZER ? [new BundleAnalyzerPlugin()] : [])
+    ...(process.env.BUNDLE_ANALYZER === '3' ? [new BundleAnalyzerPlugin()] : [])
   ],
   devServer: {
     contentBase: './dist/',
