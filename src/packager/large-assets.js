@@ -1,5 +1,6 @@
 // Defined by webpack
 const LARGE_ASSET_BASE = process.env.LARGE_ASSET_BASE;
+const SCAFFOLDING_ROOT = 'scaffolding/';
 
 // Use old nodejs exports so that this can be referenced easily from node
 module.exports = {
@@ -24,13 +25,13 @@ module.exports = {
     type: 'arraybuffer'
   },
   scaffolding: {
-    src: 'scaffolding.js',
+    src: SCAFFOLDING_ROOT + 'scaffolding.js',
     estimatedSize: 4775503,
     cacheBuster: true,
     type: 'text'
   },
   addons: {
-    src: 'addons.js',
+    src: SCAFFOLDING_ROOT + 'addons.js',
     estimatedSize: 14339,
     cacheBuster: true,
     type: 'text'
