@@ -1,3 +1,3 @@
 module.exports = function noopLoader () {
-  return 'export default null;';
+  return 'module.exports = null;';
 };
