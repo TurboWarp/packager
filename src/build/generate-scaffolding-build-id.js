@@ -7,12 +7,14 @@ const hash = crypto.createHash('sha256');
 
 const root = path.join(__dirname, '..', '..');
 const files = [
+  __filename,
   ...glob.sync('./src/scaffolding/**/*', {
     cwd: root
   }),
   ...glob.sync('./src/addons/**/*', {
     cwd: root
   }),
+  path.join(root, 'webpack.config.js'),
   path.join(root, 'package.json'),
   path.join(root, 'package-lock.json')
 ];
