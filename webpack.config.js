@@ -127,7 +127,7 @@ const makeWebsite = () => ({
     new webpack.DefinePlugin({
       'process.env.LARGE_ASSET_BASE': JSON.stringify(process.env.LARGE_ASSET_BASE || 'https://packagerdata.turbowarp.org/'),
       // In production mode, generate a unique hash. In development mode, use a random ID every reload as those files are coming from localhost anyways.
-      'process.env.SCAFFOLDING_BUILD_ID': process.env.NODE_ENV === 'production' ? JSON.stringify(require('./src/build/generate-scaffolding-build-id')) : 'Math.random()',
+      'process.env.SCAFFOLDING_BUILD_ID': process.env.NODE_ENV === 'production' ? JSON.stringify(require('./src/build/generate-scaffolding-build-id')) : 'Math.random().toString()',
       'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development'),
       'process.env.PLAUSIBLE_API': JSON.stringify(process.env.PLAUSIBLE_API),
       'process.env.PLAUSIBLE_DOMAIN': JSON.stringify(process.env.PLAUSIBLE_DOMAIN),
