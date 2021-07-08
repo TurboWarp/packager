@@ -203,6 +203,10 @@
       "string": "Mode",
       "context": "Label to choose how to handle cloud variables"
     },
+    "cloudVariablesHost": {
+      "string": "Cloud host",
+      "context": "Option to use configure which cloud variable server to connect to"
+    },
     "cloudVariables-ws": {
       "string": "Connect to cloud variable server"
     },
@@ -210,7 +214,7 @@
       "string": "Can not use cloud variable server on this project"
     },
     "cloudVariables-ws-help": {
-      "string": "\"Connect to cloud variable server\" uses TurboWarp's cloud variable server to sync the variables with other users. Can not be used on projects loaded from files."
+      "string": "\"Connect to cloud variable server\" syncs variables with other users."
     },
     "cloudVariables-local": {
       "string": "Store in local storage"

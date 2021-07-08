@@ -311,6 +311,12 @@
         {/each}
       </div>
     {/if}
+    {#if $options.cloudVariables.mode === 'ws' || $options.cloudVariables.mode === 'custom'}
+      <label transition:slide>
+        {$_('options.cloudVariablesHost')}
+        <input type="text" bind:value={$options.cloudVariables.cloudHost}>
+      </label>
+    {/if}
     <p>{$_('options.cloudVariables-ws-help')}</p>
     <p>{$_('options.cloudVariables-local-help')}</p>
     <p>{$_('options.cloudVariables-ignore-help')}</p>
