@@ -88,7 +88,7 @@ const makeWebsite = () => ({
   ...base,
   devtool: 'source-map',
   output: {
-    filename: 'js/[name].js',
+    filename: isProduction ? 'js/[name].[contenthash].js' : 'js/[name].js',
     path: dist
   },
   entry: {
