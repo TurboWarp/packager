@@ -559,6 +559,9 @@ cd "$(dirname "$0")"
 
     if (typeof ScaffoldingAddons !== "undefined") ScaffoldingAddons.run(scaffolding);
 
+    // Expose values expected by third-party plugins
+    window.vm = scaffolding.vm;
+
     const {storage, vm} = scaffolding;
     storage.addWebStore(
       [storage.AssetType.ImageVector, storage.AssetType.ImageBitmap, storage.AssetType.Sound],
