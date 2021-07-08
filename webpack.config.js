@@ -5,16 +5,16 @@ const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPl
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const AddBuildIDToOutputPlugin = require('./src/build/add-build-id-to-output-plugin');
 
+const isProduction = process.env.NODE_ENV === 'production';
 const base = {
-  mode: process.env.NODE_ENV || 'development',
-  devtool: 'source-map'
+  mode: isProduction ? 'production' : 'development'
 };
 const dist = path.resolve(__dirname, 'dist');
-
-const buildId = process.env.NODE_ENV === 'production' ? require('./src/build/generate-scaffolding-build-id') : null;
+const buildId = isProduction ? require('./src/build/generate-scaffolding-build-id') : null;
 
 const makeScaffolding = ({full}) => ({
   ...base,
+  devtool: isProduction ? '' : 'source-map',
   output: {
     filename: 'scaffolding/[name].js',
     path: dist
@@ -86,6 +86,7 @@ const makeScaffolding = ({full}) => ({
 
 const makeWebsite = () => ({
   ...base,
+  devtool: 'source-map',
   output: {
     filename: 'js/[name].js',
     path: dist
