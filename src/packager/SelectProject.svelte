@@ -89,8 +89,6 @@
         title: projectTitle,
         project,
       };
-
-      analytics.sendEvent('Load Project');
     } catch (e) {
       $error = e;
     }

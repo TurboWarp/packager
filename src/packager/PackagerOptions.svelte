@@ -97,7 +97,6 @@
     if (result) {
       downloadURL(result.filename, url);
     }
-    analytics.sendEvent('Package');
   };
 
   const preview = async () => {
@@ -111,7 +110,6 @@
       previewer.close();
     }
     previewer = null;
-    analytics.sendEvent('Preview');
   };
 
   const reset = async () => {
