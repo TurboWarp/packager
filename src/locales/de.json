@@ -18,7 +18,6 @@
         "cloudVariables-local": "Lokal speichern",
         "cloudVariables-local-help": "\"Lokal speichern\" speichert die Variablen am Computer des Benutzers und stellt sie beim Neustarten des Projekts wieder her.",
         "cloudVariables-ws": "Mit Cloudvariablenserver verbinden",
-        "cloudVariables-ws-help": "\"Mit Cloudvariablenserver verbinden\" verwendet TurboWarps Cloudvariablenserver, um die Variablen mit anderen Benutzern zu synchronisieren. Funktioniert auf Projekten, die von Dateien geladen wurden, nicht.",
         "cloudVariables-ws-unavailable": "Kann Cloudvariablenserver auf diesem Projekt nicht verwenden",
         "colors": "Farben",
         "confirmReload": "Alle Einstellungen auf ihre Standardwerte zurücksetzen und neu laden?",
@@ -40,6 +39,7 @@
         "loadingScreenText": "Text am Ladebildschirm",
         "loadingScreenTextPlaceholder": "(Nichts)",
         "mode": "Modus",
+        "moreHelp": "Weiter Infos über diese Einstellungen findest du im Menü für erweiterte Einstellungen auf {turbowarp}.",
         "nwjs-linux64": "NW.js Linux-Anwendung (nur 64 Bit) (Beta)",
         "nwjs-mac": "NW.js macOS-App (Beta)",
         "nwjs-win32": "NW.js Auf Windows ausführbar (32 oder 64 Bit)",
@@ -65,7 +65,9 @@
     "p4": {
         "close": "Schließen",
         "description1": "Wandelt Scratch-Projekte in alleinstehende Dateien oder ausführbare Programme um.",
+        "description2": "Falls du einfach ein TurboWarp-Projekt in deine Website einbetten willst, könntest du in {embedding} interessiert sein.",
         "description2-embedding": "Einbettung",
+        "description3": "{onScratch} oder {onGitHub} kannst du Fehler melden, Feedback geben oder Ideen vorschlagen.",
         "description3-github": "auf GitHub",
         "description3-scratch": "auf Scratch",
         "error": "Fehler",
@@ -77,6 +79,7 @@
     },
     "progress": {
         "compressingProject": "Projekt wird komprimiert",
+        "loadingAssets": "Ressourcen werden geladen ({complete}/{total})",
         "loadingNwjs": "NW.js wird geladen",
         "loadingProjectData": "Projektdaten werden geladen",
         "loadingScripts": "Skripte werden geladen",
@@ -84,10 +87,14 @@
     },
     "select": {
         "file": "Datei",
+        "id": "Scratch-Projekt-ID oder -URL",
         "invalidId": "Ungültige Projekt-ID",
+        "invalidUrl": "Ungültige URL",
         "loadProject": "Projekt laden",
         "loadToContinue": "Lade ein Projekt, um fortzufahren",
         "noFileSelected": "Keine Datei ausgewählt",
-        "select": "Projekt auswählen"
+        "select": "Projekt auswählen",
+        "selectHelp": "Wähle das Projekt, das du paketisieren willst, indem du den Link dazu kopierst und einfügst oder einen der anderen Modi verwendest. Falls das Projekt jemand anderem gehört, vergewissere dich, dass du dich dafür bedankst.",
+        "url": "Andere URL"
     }
 }

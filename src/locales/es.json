@@ -1,22 +1,30 @@
 {
     "options": {
+        "cloudVariables": "Variables en la Nube",
         "cloudVariables-custom": "Avanzado",
+        "download": "Descargar {filename} ({size} MB)",
         "enableCompiler": "Activar Compilador",
+        "framerate": "FPS",
         "highQualityPen": "Lápiz de Alta Calidad",
         "infiniteClones": "Clones Infinitos",
         "interpolation": "Interpolació",
+        "loadingScreenTextPlaceholder": "(Nada)",
         "removeFencing": "Quitar Fencing",
         "removeMiscLimits": "Quitar Límites Varios",
-        "reset": "Reiniciar"
+        "reset": "Reiniciar",
+        "stageSize": "Tamaño del Escenario"
     },
     "p4": {
         "description2-embedding": "Embedido",
         "description3-github": "en GitHub",
         "description3-scratch": "en Scratch",
+        "feedback": "Comentarios",
         "privacy": "Política de Privacidad",
         "sourceCode": "Código Fuente"
     },
     "progress": {
+        "loadingAssets": "Cargando archivos ({complete}/{total})",
+        "loadingProjectData": "Cargando información del proyecto",
         "loadingScripts": "Cargando scripts"
     }
 }
