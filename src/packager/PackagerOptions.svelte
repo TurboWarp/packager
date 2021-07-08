@@ -312,7 +312,7 @@
       </div>
     {/if}
     {#if $options.cloudVariables.mode === 'ws' || $options.cloudVariables.mode === 'custom'}
-      <label transition:slide>
+      <label transition:slide|local>
         {$_('options.cloudVariablesHost')}
         <input type="text" bind:value={$options.cloudVariables.cloudHost}>
       </label>
