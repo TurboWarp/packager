@@ -27,19 +27,19 @@ module.exports = {
   scaffolding: {
     src: SCAFFOLDING_ROOT + 'scaffolding.js',
     estimatedSize: 4775503,
-    cacheBuster: true,
+    useBuildId: true,
     type: 'text'
   },
   'scaffolding-min': {
     src: SCAFFOLDING_ROOT + 'scaffolding-min.js',
     estimatedSize: 2400000, // TODO
-    cacheBuster: true,
+    useBuildId: true,
     type: 'text'
   },
   addons: {
     src: SCAFFOLDING_ROOT + 'addons.js',
     estimatedSize: 14339,
-    cacheBuster: true,
+    useBuildId: true,
     type: 'text'
   }
 };

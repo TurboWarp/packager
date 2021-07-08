@@ -1,4 +1,5 @@
 import largeAssets from './large-assets';
+import {buildId} from './lib/build-id';
 
 // We can't trust the HTTP cache to reliably cache these large assets
 
@@ -9,9 +10,8 @@ const STORE_NAME = 'assets';
 
 let _db;
 
-const SCAFFOLDING_BUILD_ID = process.env.SCAFFOLDING_BUILD_ID;
 const getAssetId = (asset) => {
-  return `${asset.src}-${asset.type}-${asset.sha256 || SCAFFOLDING_BUILD_ID}`;
+  return `${asset.src}-${asset.type}-${asset.sha256 || buildId}`;
 };
 
 // https://github.com/jakearchibald/safari-14-idb-fix/blob/582bbdc7230891113bfb5743391550cbf29d21f2/src/index.ts
@@ -151,11 +151,8 @@ const resetAll = async () => {
   });
 };
 
-const getCacheBuster = () => SCAFFOLDING_BUILD_ID;
-
 export default {
   get,
   set,
-  resetAll,
-  getCacheBuster
+  resetAll
 };

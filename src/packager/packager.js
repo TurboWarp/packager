@@ -6,6 +6,7 @@ import largeAssets from './large-assets';
 import xhr from './lib/xhr';
 import pngToAppleICNS from './lib/icns';
 import assetCache from './cache';
+import {buildId, verifyBuildId} from './lib/build-id';
 
 const PROGRESS_LOADED_SCRIPTS = 0.1;
 const PROGRESS_LOADED_JSON_BUT_NEED_ASSETS = 0.2;
@@ -175,8 +176,8 @@ class Packager extends EventTarget {
     }
     if (!result) {
       let url = asset.src;
-      if (asset.cacheBuster) {
-        url += `?${assetCache.getCacheBuster()}`;
+      if (asset.useBuildId) {
+        url += `?${buildId}`;
       }
       result = await xhr({
         url,
@@ -186,6 +187,9 @@ class Packager extends EventTarget {
           dispatchProgress(progress);
         }
       });
+    }
+    if (asset.useBuildId && !verifyBuildId(buildId, result)) {
+      throw new Error('Build ID mismatch');
     }
     if (asset.sha256) {
       const hash = await sha256(result);
