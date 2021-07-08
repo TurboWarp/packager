@@ -3,12 +3,15 @@ const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const AddBuildIDToOutputPlugin = require('./src/build/add-build-id-to-output-plugin');
 
 const base = {
   mode: process.env.NODE_ENV || 'development',
   devtool: 'source-map'
 };
 const dist = path.resolve(__dirname, 'dist');
+
+const buildId = process.env.NODE_ENV === 'production' ? require('./src/build/generate-scaffolding-build-id') : null;
 
 const makeScaffolding = ({full}) => ({
   ...base,
@@ -76,6 +79,7 @@ const makeScaffolding = ({full}) => ({
         }
       ]
     }),
+    ...(buildId ? [new AddBuildIDToOutputPlugin(buildId)] : []),
     ...(process.env.BUNDLE_ANALYZER === (full ? '1' : '2') ? [new BundleAnalyzerPlugin()] : [])
   ]
 });
@@ -126,8 +130,7 @@ const makeWebsite = () => ({
     }),
     new webpack.DefinePlugin({
       'process.env.LARGE_ASSET_BASE': JSON.stringify(process.env.LARGE_ASSET_BASE || 'https://packagerdata.turbowarp.org/'),
-      // In production mode, generate a unique hash. In development mode, use a random ID every reload as those files are coming from localhost anyways.
-      'process.env.SCAFFOLDING_BUILD_ID': process.env.NODE_ENV === 'production' ? JSON.stringify(require('./src/build/generate-scaffolding-build-id')) : 'Math.random().toString()',
+      'process.env.SCAFFOLDING_BUILD_ID': buildId ? JSON.stringify(buildId) : 'Math.random().toString()',
       'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development'),
       'process.env.PLAUSIBLE_API': JSON.stringify(process.env.PLAUSIBLE_API),
       'process.env.PLAUSIBLE_DOMAIN': JSON.stringify(process.env.PLAUSIBLE_DOMAIN),
