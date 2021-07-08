@@ -1,4 +1,3 @@
-import { expect } from '@jest/globals';
 import {extractProjectId, getTitleFromURL, isValidURL} from '../../src/packager/lib/url-utils';
 
 test('extractProjectId', () => {
@@ -14,4 +13,5 @@ test('getTitleFromURL', () => {
 test('isValidURL', () => {
   expect(isValidURL('https://example.github.io')).toBe(true);
   expect(isValidURL('file:///etc/passwd')).toBe(false);
+  expect(isValidURL('ihuwergji')).toBe(false);
 });

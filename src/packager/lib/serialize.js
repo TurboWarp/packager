@@ -17,8 +17,7 @@ const areArraysEqual = (a, b) => {
  */
 const serialize = (value, defaultValue) => {
   // Never serialize blobs.
-  // Check for Blob existing because this can run in node
-  if (typeof Blob !== 'undefined' && value instanceof Blob) {
+  if (value instanceof Blob) {
     return null;
   }
   if (isObject(defaultValue)) {

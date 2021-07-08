@@ -1,4 +1,7 @@
+import Blob from 'node-blob';
 import serialize from '../../src/packager/lib/serialize';
+
+global.Blob = Blob;
 
 test('no changes returns null', () => {
   expect(serialize({
@@ -44,7 +47,6 @@ test('arrays', () => {
   });
 });
 
-/*
 test('does not serialize blobs', () => {
   expect(serialize({
     a: new Blob(['Hello world']),
@@ -52,11 +54,10 @@ test('does not serialize blobs', () => {
   }, {
     a: null,
     b: 0
-  })).toBe({
+  })).toStrictEqual({
     b: 2
   });
 });
-*/
 
 test('deep', () => {
   expect(serialize({
