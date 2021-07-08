@@ -30,8 +30,8 @@
   for (const variable of cloudVariables) {
     defaultOptions.cloudVariables.custom[variable] = canUseCloudVariableServer ? 'ws' : 'local';
   }
-  defaultOptions.app.packageName = Packager.getDefaultPackageNameFromTitle(projectData.title);
-  defaultOptions.app.windowTitle = Packager.getWindowTitleFromProjectTitle(projectData.title);
+  defaultOptions.app.packageName = Packager.getDefaultPackageNameFromFileName(projectData.title);
+  defaultOptions.app.windowTitle = Packager.getWindowTitleFromFileName(projectData.title);
   const options = writablePersistentStore(`PackagerOptions.${projectData.uniqueId}`, defaultOptions);
 
   let result = null;

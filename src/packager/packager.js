@@ -769,7 +769,7 @@ cd "$(dirname "$0")"
   }
 }
 
-Packager.getDefaultPackageNameFromTitle = (title) => {
+Packager.getDefaultPackageNameFromFileName = (title) => {
   // Remove file extension
   title = title.split('.')[0];
   title = title.replace(/[^\-a-z ]/gi, '');
@@ -778,7 +778,7 @@ Packager.getDefaultPackageNameFromTitle = (title) => {
   return title.toLowerCase() || 'packaged-project';
 };
 
-Packager.getWindowTitleFromProjectTitle = (title) => {
+Packager.getWindowTitleFromFileName = (title) => {
   title = title.trim();
   title = title.split('.')[0];
   return title || 'Packaged Project';
@@ -825,8 +825,8 @@ Packager.DEFAULT_OPTIONS = () => ({
   target: 'html',
   app: {
     icon: null,
-    packageName: Packager.getDefaultPackageNameFromTitle(''),
-    windowTitle: Packager.getWindowTitleFromProjectTitle('')
+    packageName: Packager.getDefaultPackageNameFromFileName(''),
+    windowTitle: Packager.getWindowTitleFromFileName('')
   },
   chunks: {
     gamepad: false
