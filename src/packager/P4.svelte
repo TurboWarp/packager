@@ -166,6 +166,8 @@
     <div>
       <a href="https://fosshost.org/">{$_('p4.fosshost')}</a>
     </div>
-    <SelectLocale />
+    <div>
+      <SelectLocale />
+    </div>
   </footer>
 </main>
