@@ -83,3 +83,11 @@ test('deep', () => {
     }
   });
 });
+
+test('unexpected array', () => {
+  expect(serialize({
+    a: [1]
+  }, {
+    a: 1
+  })).toBe(null);
+});

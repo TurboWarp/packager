@@ -36,8 +36,14 @@ const serialize = (value, defaultValue) => {
     }
     return result;
   }
-  if (Array.isArray(value) && areArraysEqual(value, defaultValue)) {
-    return null;
+  if (Array.isArray(value)) {
+    if (Array.isArray(defaultValue)) {
+      if (areArraysEqual(value, defaultValue)) {
+        return null;
+      }
+    } else {
+      return null;
+    }
   }
   if (value === defaultValue) {
     return null;
