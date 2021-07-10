@@ -19,7 +19,9 @@
         "cloudVariables-local": "存储在localStorage（浏览器本地存储）中",
         "cloudVariables-local-help": "“存储在localStorage”将变量存储在用户的计算机上，并在项目重新启动时恢复它们。 ",
         "cloudVariables-ws": "连接到云变量服务器",
+        "cloudVariables-ws-help": "“连接到云变量服务器”使用 TurboWarp 的云变量服务器和其它用户同步变量",
         "cloudVariables-ws-unavailable": "无法在从文件加载的作品中使用 TurboWarp 的云变量服务器",
+        "cloudVariablesHost": "云变量服务器地址",
         "colors": "颜色",
         "confirmReload": "重置所有已保存的打包信息，然后刷新？",
         "controls": "控制按钮",
@@ -41,7 +43,8 @@
         "loadingScreenText": "加载提示文本",
         "loadingScreenTextPlaceholder": "(无)",
         "mode": "模式",
-        "nwjs-linux64": "使用 NW.js 创建 Linux 下的应用程序 (64位，测试)",
+        "moreHelp": "查看{turbowarp}中的“高级”选项卡了解关于这些选项的更多信息",
+        "nwjs-linux64": "使用 NW.js 创建 Linux 下的应用程序 (64位)(测试)",
         "nwjs-mac": "使用 NW.js 创建 MacOS 下的应用程序 (测试)",
         "nwjs-win32": "使用 NW.js 创建 Windows 下的应用程序 ( 32 位或 64 位)",
         "nwjs-win64": "使用 NW.js 创建 Windows 下的应用程序 ( 64 位，不推荐)",
@@ -66,20 +69,23 @@
     },
     "p4": {
         "close": "关闭",
-        "description1": "将Scratch作品转换为独立文件或可执行程序。 ",
-        "description2-embedding": "嵌入",
+        "description1": "将 Scratch 作品转换为独立文件或可执行程序。 ",
+        "description2": "如果您只是想以一种简单的方式将 TurboWarp 作品嵌入您的网站，您可能会对 {embedding} 感兴趣。 ",
+        "description2-embedding": "Turbowarp 嵌入式展示器",
+        "description3": "{onScratch}，或者{onGitHub}报告错误，给予反馈，并提出想法。",
         "description3-github": "在 GitHub 上",
         "description3-scratch": "在 Scratch 上",
         "error": "错误",
         "errorMessage": "错误：{error}",
         "feedback": "反馈",
-        "fosshost": "文件由Fosshost托管",
+        "fosshost": "托管服务由 Fosshost 提供",
         "privacy": "隐私政策",
         "reportBug": "反馈问题",
         "sourceCode": "源代码"
     },
     "progress": {
         "compressingProject": "压缩作品中",
+        "loadingAssets": "加载素材 ({complete}/{total})",
         "loadingNwjs": "加载 NW.js 中",
         "loadingProjectData": "加载作品数据中",
         "loadingScripts": "加载脚本中……",
@@ -87,12 +93,14 @@
     },
     "select": {
         "file": "文件",
-        "id": "Scratch 作品 或者 URL",
+        "id": "Scratch网站作品ID或者网页链接",
         "invalidId": "无效的作品 ID",
+        "invalidUrl": "无效的作品链接。请检查是否为直接链接。即右键打开是否会直接开始下载",
         "loadProject": "加载作品",
         "loadToContinue": "加载作品以继续",
         "noFileSelected": "没有选择文件",
         "select": "选择作品",
-        "url": "其他 URL"
+        "selectHelp": "你可以通过复制和粘贴 Scratch 作品链接或使用其他模式之一来选择要打包的项目。 如果您打包的作品不是您制作的，请务必在发布时归功于作品的作者。",
+        "url": "其他网站的直接链接"
     }
 }

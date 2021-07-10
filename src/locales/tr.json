@@ -2,23 +2,50 @@
     "options": {
         "addons": "Eklentiler",
         "cloudVariables-custom": "Gelişmiş",
+        "download": "İndir {filename} ({size}MB)",
+        "downloadsWillAppearHere": "İndirilenler burada görünecek",
         "enableCompiler": "Derlemeyi aç",
         "highQualityPen": "Yüksek kalite kalem",
         "infiniteClones": "Sonsuz klonlar",
         "interpolation": "Enterpolasyon",
+        "mode": "Modu",
+        "nwjs-linux64": "NW.js Linux uygulama (tek 64-bit) (Beta)",
+        "nwjs-mac": "NW.js macOS uygulama (Beta)",
+        "nwjs-win32": "NW.js Windows executable (32-bit yada 64-bit)",
+        "nwjs-win64": "NW.js Widnows uygulama (sadece 64-bit, önerilmez)",
+        "package": "Paketle",
+        "packageName": "Proje Adı",
+        "preview": "Önizleme",
         "removeFencing": "Eskirimi çıkart",
         "removeMiscLimits": "Çeşitli Limitleri Kaldır",
         "reset": "Sıfırla",
         "warpTimer": "Warp zamanlayıcı"
     },
     "p4": {
+        "close": "Kapat",
+        "description1": "Scratch projelerini HTML dosyalara veya uygulamaya dönüştürür.",
+        "description2": "Bir TurboWarp projesini web sitenize yerleştirmenin kolay bir yolunu istiyorsanız, embedlerek ilginizi çekebilir.",
         "description2-embedding": "Gömmek",
+        "description3": "Hataları bildirin, geri bildirimde ve yeni fikirleri göstermek için {onScratch} veya {onGitHub} ile yapınız. ",
         "description3-github": "Githubda",
         "description3-scratch": "Scratch'te",
+        "error": "Hata",
+        "errorMessage": "Mesaj: {error}",
+        "feedback": "Geribildirim",
+        "fosshost": "Dosyaları Fosshost sağlıyor.",
         "privacy": "Gizillik Politikası",
+        "reportBug": "Hata Bildirin",
         "sourceCode": "Kaynak Kodu"
     },
     "progress": {
+        "compressingProject": "Projeyi sıkıştıryor",
+        "loadingAssets": " 97% match \nVarlıklar yükleniyor ({complete}/{total})",
+        "loadingNwjs": "NW.js yükleniyor",
         "loadingScripts": "Kodlar yükleniyor"
+    },
+    "select": {
+        "file": "Dosya",
+        "id": "Scratch Proje ID yada URL",
+        "select": "Projeyi şeç"
     }
 }
