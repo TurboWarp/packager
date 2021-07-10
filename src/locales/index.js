@@ -1,4 +1,5 @@
-import {readable} from 'svelte/store';
+import {derived} from 'svelte/store';
+import writablePersistentStore from '../packager/persistent-store';
 
 const unstructure = (messages) => {
   for (const key of Object.keys(messages)) {
@@ -12,15 +13,6 @@ const unstructure = (messages) => {
     }
   }
   return messages;
-};
-
-const getLocalMessages = () => {
-  const language = [
-    navigator.language.toLowerCase(),
-    navigator.language.toLowerCase().split('-')[0]
-  ].find(i => allMessages[i]) || 'en';
-  document.documentElement.lang = language;
-  return allMessages[language]();
 };
 
 const englishMessages = unstructure(require('./en.json'));
@@ -48,7 +40,16 @@ const allMessages = {
   "zh-tw": () => require("./zh-tw.json"),
   /*===*/
 };
-const localMessages = getLocalMessages();
+
+const getInitialLocale = () => [
+  navigator.language.toLowerCase(),
+  navigator.language.toLowerCase().split('-')[0]
+].find(i => allMessages[i]) || 'en';
+
+const locale = writablePersistentStore('P4.locale', getInitialLocale());
+locale.subscribe((locale) => {
+  document.documentElement.lang = locale;
+});
 
 const getProperty = (obj, id) => {
   const parts = id.split('.');
@@ -61,14 +62,17 @@ const getProperty = (obj, id) => {
   return obj[parts[parts.length - 1]] || null;
 };
 
-/**
- * @param {string} n Message ID
- * @returns {string} Translated message
- */
-const translate = (n) => getProperty(localMessages, n) || getProperty(englishMessages, n) || n;
-
-const exportedTranslate = readable(translate);
+const translate = derived(locale, (locale) => {
+  const localMessages = allMessages[locale]();
+  /**
+   * @param {string} id Message ID
+   * @returns {string} Translated message
+   */
+  return (id) => {
+    return getProperty(localMessages, id) || getProperty(englishMessages, id) || id;
+  };
+});
 
 export {
-  exportedTranslate as _
+  translate as _
 };
