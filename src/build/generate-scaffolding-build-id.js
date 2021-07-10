@@ -19,7 +19,6 @@ const files = [
   path.join(root, 'package-lock.json')
 ];
 for (const file of files) {
-  hash.update(file);
   const stat = fs.statSync(file);
   if (!stat.isDirectory()) {
     hash.update(fs.readFileSync(file, 'utf-8'));
