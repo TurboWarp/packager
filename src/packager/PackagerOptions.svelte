@@ -4,8 +4,10 @@
   import Section from './Section.svelte';
   import Button from './Button.svelte';
   import ComplexMessage from './ComplexMessage.svelte';
+  import FileInput from './FileInput.svelte';
   import Packager from './packager';
   import writablePersistentStore from './persistent-store';
+  import fileStore from './file-store';
   import {error, progress} from './stores';
   import Preview from './preview';
   import deepClone from './lib/deep-clone';
@@ -35,14 +37,17 @@
 
   let result = null;
   let url = null;
+
   let previewer = null;
-  let iconFiles = null;
-  let customExtensions = $options.extensions.map(i => i.url).join('\n');
-  $: $options.app.icon = iconFiles ? iconFiles[0] : null;
-  $: $options.extensions = customExtensions.split('\n').filter(i => i).map(i => ({url: i}));
   $: if (previewer) {
     previewer.setProgress($progress.progress, $progress.text);
   }
+
+  const icon = fileStore.writableFileStore(`PackagerOptions.icon.${projectData.uniqueId}`);
+  $: $options.app.icon = $icon;
+
+  let customExtensions = $options.extensions.map(i => i.url).join('\n');
+  $: $options.extensions = customExtensions.split('\n').filter(i => i).map(i => ({url: i}));
 
   const handleLargeAssetFetchProgress = ({detail}) => {
     if (detail.asset.startsWith('nwjs-')) {
@@ -115,6 +120,7 @@
     if (confirm($_('options.confirmReload'))) {
       try {
         await assetCache.resetAll();
+        await fileStore.resetAll();
       } catch (e) {
         console.warn(e);
       }
@@ -233,9 +239,11 @@
     {$_('options.loadingScreenText')}
     <input type="text" bind:value={$options.loadingScreen.text} placeholder={$_('options.loadingScreenTextPlaceholder')}>
   </label>
+  <!-- Ignore because FileInput will have an <input> inside it -->
+  <!-- svelte-ignore a11y-label-has-associated-control -->
   <label>
     {$_('options.icon')}
-    <input type="file" bind:files={iconFiles} accept=".png,.jpg,.jpeg,.bmp,.svg">
+    <FileInput bind:file={$icon} accept=".png,.jpg,.jpeg,.bmp,.svg" />
   </label>
 
   <h3>{$_('options.controls')}</h3>
