@@ -1,5 +1,6 @@
 import {derived} from 'svelte/store';
 import writablePersistentStore from '../packager/persistent-store';
+import localeNames from './locale-names.json';
 
 const unstructure = (messages) => {
   for (const key of Object.keys(messages)) {
@@ -41,6 +42,14 @@ const allMessages = {
   /*===*/
 };
 
+const supportedLocales = {};
+// Iterate over localeNames to preserve order
+for (const key of Object.keys(localeNames)) {
+  if (allMessages[key]) {
+    supportedLocales[key] = localeNames[key];
+  }
+}
+
 const getInitialLocale = () => [
   navigator.language.toLowerCase(),
   navigator.language.toLowerCase().split('-')[0]
@@ -74,5 +83,7 @@ const translate = derived(locale, (locale) => {
 });
 
 export {
+  locale,
+  supportedLocales,
   translate as _
 };

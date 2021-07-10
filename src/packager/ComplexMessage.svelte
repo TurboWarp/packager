@@ -1,11 +1,15 @@
 <script>
-  import {onMount} from 'svelte';
+  import {onMount, onDestroy, tick} from 'svelte';
+  import {locale} from '../locales/index';
 
   export let message;
   export let values;
   let el;
 
   const build = () => {
+    while (el.firstChild) {
+      el.removeChild(el.firstChild);
+    }
     const parts = message.split(/{(\w+)}/g);
     for (let i = 0; i < parts.length; i++) {
       const part = parts[i];
@@ -27,7 +31,15 @@
     }
   };
 
+  const unsubscribe = locale.subscribe(() => {
+    if (el) {
+      // message props don't get updated until after tick
+      tick().then(build);
+    }
+  });
+
   onMount(build);
+  onDestroy(unsubscribe);
 </script>
 
 <span bind:this={el}></span>
