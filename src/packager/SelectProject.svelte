@@ -121,7 +121,7 @@
     flex-grow: 1;
   }
   .option {
-    height: 25px;
+    min-height: 25px;
     display: flex;
     align-items: center;
   }
