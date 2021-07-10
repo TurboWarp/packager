@@ -7,7 +7,6 @@
   import {UserError} from './errors';
   import loadProject from './load-project';
   import getProjectTitle from './lib/get-project-meta.js';
-  import analytics from './analytics';
   import {extractProjectId, isValidURL, getTitleFromURL} from './lib/url-utils';
 
   export let projectData = null;

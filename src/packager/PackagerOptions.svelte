@@ -10,7 +10,6 @@
   import Preview from './preview';
   import deepClone from './lib/deep-clone';
   import assetCache from './cache';
-  import analytics from './analytics';
 
   export let projectData;
 
