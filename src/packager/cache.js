@@ -68,22 +68,7 @@ const set = async (asset, content) => {
   });
 };
 
-const resetAll = async () => {
-  const {transaction, store} = await db.createTransaction('readwrite');
-  return new Promise((resolve, reject) => {
-    Database.setTransactionErrorHandler(transaction, reject);
-    const request = store.openCursor();
-    request.onsuccess = e => {
-      const cursor = e.target.result;
-      if (cursor) {
-        cursor.delete();
-        cursor.continue();
-      } else {
-        resolve();
-      }
-    };
-  });
-};
+const resetAll = () => db.deleteEverything();
 
 export default {
   get,
