@@ -306,10 +306,12 @@
       "string": "Select or drop file"
     },
     "clear": {
-      "string": "Clear Selection"
+      "string": "Clear Selection",
+      "context": "Button to unselect a file"
     },
     "selected": {
-      "string": "Selected {file}"
+      "string": "Selected {file}",
+      "context": "Message indicating the name of the selected file"
     }
   },
   "nwjs": {
