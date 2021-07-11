@@ -1,16 +1,6 @@
 <script>
   import {_} from '../locales';
 
-  export let file;
-  let fileInput;
-  let dragging;
-
-  $: url = file && URL.createObjectURL(file);
-  $: if (!file && url) {
-    URL.revokeObjectURL(url);
-    url = null;
-  }
-
   const ACCEPT = [
     '.png',
     '.jpg',
@@ -19,6 +9,23 @@
     '.svg',
     '.ico'
   ];
+
+  export let file;
+  let fileInput;
+  let dragging;
+  let url;
+
+  // This is a bit strange, there's probably a better way to do this
+  // Seems to create and revoke an extra object URL for each file for some reason
+  $: if (file) {
+    if (url) {
+      URL.revokeObjectURL(url);
+    }
+    url = URL.createObjectURL(file);
+  } else if (url) {
+    URL.revokeObjectURL(url);
+    url = null;
+  }
 
   const handleChange = (e) => {
     const files = e.target.files;
@@ -71,20 +78,21 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    text-align: center;
     overflow: hidden;
     user-select: none;
     position: relative;
     cursor: pointer;
   }
   :global([theme="dark"]) .container {
-    color: #999;
+    color: #aaa;
   }
   .dragging,
-  .container:focus {
+  .container:focus-visible {
     color: rgb(79, 123, 211);
   }
   :global([theme="dark"]) .dragging,
-  :global([theme="dark"]) .container:focus {
+  :global([theme="dark"]) .container:focus-visible {
     color: rgb(178, 195, 228);
   }
   .placeholder {
@@ -107,6 +115,7 @@
 <div
   class="container"
   class:dragging
+  role="button"
   tabindex="0"
   on:click={handleClickBackground}
   on:dragover={handleDragOver}
@@ -116,8 +125,12 @@
   <input bind:this={fileInput} type="file" accept={ACCEPT.join(',')} on:change={handleChange}>
   {#if file}
     <div class="selected">
-      <!-- TODO: consider display more sizes so people can see what their icon looks like when small -->
-      <img src={url} alt="Project icon" width="64" height="64">
+      <!-- svelte-ignore a11y-missing-attribute -->
+      <img src={url} width="64" height="64">
+      <!-- svelte-ignore a11y-missing-attribute -->
+      <img src={url} width="32" height="32">
+      <!-- svelte-ignore a11y-missing-attribute -->
+      <img src={url} width="16" height="16">
       <div>{$_('fileInput.selected').replace('{file}', file.name)}</div>
       <button on:click={clear}>{$_('fileInput.clear')}</button>
     </div>
