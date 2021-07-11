@@ -1,4 +1,9 @@
 {
+    "fileInput": {
+        "clear": "清除选择",
+        "select": "选择或拖入文件",
+        "selected": "已选择 {file}"
+    },
     "nwjs": {
         "furtherStepsLinux": "关于 Linux 的更多信息",
         "furtherStepsMac": "关于 MacOS 的更多信息",

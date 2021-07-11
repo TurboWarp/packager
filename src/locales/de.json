@@ -1,4 +1,9 @@
 {
+    "fileInput": {
+        "clear": "Auswahl löschen",
+        "select": "Datei auswählen oder ziehen",
+        "selected": "{file} ausgewählt"
+    },
     "nwjs": {
         "furtherStepsLinux": "Zusätzliche Schritte für Linux",
         "furtherStepsMac": "Zusätzliche Schritte für macOS",
