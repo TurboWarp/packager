@@ -5,6 +5,7 @@
   import Button from './Button.svelte';
   import ComplexMessage from './ComplexMessage.svelte';
   import FileInput from './FileInput.svelte';
+  import CustomExtensions from './CustomExtensions.svelte';
   import Packager from './packager';
   import writablePersistentStore from './persistent-store';
   import fileStore from './file-store';
@@ -45,9 +46,6 @@
 
   const icon = fileStore.writableFileStore(`PackagerOptions.icon.${projectData.uniqueId}`);
   $: $options.app.icon = $icon;
-
-  let customExtensions = $options.extensions.map(i => i.url).join('\n');
-  $: $options.extensions = customExtensions.split('\n').filter(i => i).map(i => ({url: i}));
 
   const handleLargeAssetFetchProgress = ({detail}) => {
     if (detail.asset.startsWith('nwjs-')) {
@@ -146,12 +144,7 @@
     height: 100px;
     width: 100%;
     box-sizing: border-box;
-  }
-  textarea.large {
     height: 200px;
-  }
-  textarea.nowrap {
-    white-space: nowrap;
   }
   .environment-section {
     margin-bottom: 12px;
@@ -341,13 +334,15 @@
       <input type="checkbox" bind:checked={$options.compiler.warpTimer}>
       {$_('options.warpTimer')}
     </label>
+    <!-- Ignore because CustomExtensions will have a <textarea> inside it -->
+    <!-- svelte-ignore a11y-label-has-associated-control -->
     <label>
       {$_('options.customExtensions')}
-      <textarea bind:value={customExtensions} class="nowrap"></textarea>
+      <CustomExtensions bind:value={$options.extensions} />
     </label>
     <label>
       {$_('options.customJS')}
-      <textarea bind:value={$options.custom.js} class="large"></textarea>
+      <textarea bind:value={$options.custom.js}></textarea>
     </label>
   </details>
 </Section>
