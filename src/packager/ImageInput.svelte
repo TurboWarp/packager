@@ -74,7 +74,7 @@
     border: 5px dashed currentColor;
     transition: .2s border-color, .2s color;
     border-radius: 20px;
-    min-height: 100px;
+    min-height: 90px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -83,6 +83,7 @@
     user-select: none;
     position: relative;
     cursor: pointer;
+    padding: 4px;
   }
   :global([theme="dark"]) .container {
     color: #aaa;
