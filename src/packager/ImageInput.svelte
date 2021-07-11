@@ -16,7 +16,8 @@
     '.jpg',
     '.jpeg',
     '.bmp',
-    '.svg'
+    '.svg',
+    '.ico'
   ];
 
   const handleChange = (e) => {
