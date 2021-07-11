@@ -72,13 +72,6 @@ const makeScaffolding = ({full}) => ({
     modules: [path.resolve(__dirname, 'src', 'build', 'inline-worker-loader'), 'node_modules'],
   },
   plugins: [
-    new CopyWebpackPlugin({
-      patterns: [
-        {
-          from: 'src/scaffolding/example.html'
-        }
-      ]
-    }),
     ...(buildId ? [new AddBuildIDToOutputPlugin(buildId)] : []),
     ...(process.env.BUNDLE_ANALYZER === (full ? '1' : '2') ? [new BundleAnalyzerPlugin()] : [])
   ]
@@ -121,7 +114,6 @@ const makeWebsite = () => ({
       },
       {
         test: /\.(html|svelte)$/,
-        exclude: /scaffolding/,
         use: 'svelte-loader'
       },
     ]
@@ -145,11 +137,6 @@ const makeWebsite = () => ({
       filename: 'index.html',
       template: './src/packager/template.ejs',
       chunks: ['packager']
-    }),
-    new HtmlWebpackPlugin({
-      filename: 'example.html',
-      template: './src/scaffolding/example.html',
-      chunks: []
     }),
     ...(process.env.BUNDLE_ANALYZER === '3' ? [new BundleAnalyzerPlugin()] : [])
   ],
