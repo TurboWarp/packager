@@ -78,7 +78,7 @@
     color: #555;
     width: 100%;
     box-sizing: border-box;
-    border: 5px dashed currentColor;
+    border: 3px dashed currentColor;
     transition: .2s border-color, .2s color;
     border-radius: 20px;
     min-height: 90px;
@@ -96,11 +96,13 @@
     color: #aaa;
   }
   .dragging,
-  .container:focus-visible {
+  .container:focus-visible,
+  .container:active {
     color: rgb(79, 123, 211);
   }
   :global([theme="dark"]) .dragging,
-  :global([theme="dark"]) .container:focus-visible {
+  :global([theme="dark"]) .container:focus-visible,
+  :global([theme="dark"]) .container:active {
     color: rgb(178, 195, 228);
   }
   .placeholder {
