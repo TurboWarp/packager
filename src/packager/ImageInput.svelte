@@ -11,7 +11,6 @@
   ];
 
   export let file;
-  let fileInput;
   let dragging;
   let url;
 
@@ -27,18 +26,26 @@
     url = null;
   }
 
-  const handleChange = (e) => {
-    const files = e.target.files;
-    file = files.length ? files[0] : null;
-  };
-
   const clear = (e) => {
     e.stopPropagation();
     file = null;
   };
 
   const handleClickBackground = () => {
-    fileInput.click();
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.accept = ACCEPT.join(',');
+    input.addEventListener('change', (e) => {
+      const files = e.target.files;
+      if (files.length) {
+        file = files[0];
+      } else {
+        file = null;
+      }
+    });
+    document.body.appendChild(input);
+    input.click();
+    input.remove();
   };
 
   const handleDragOver = (e) => {
@@ -99,9 +106,6 @@
   .placeholder {
     font-size: 1.5em;
   }
-  input[type=file] {
-    display: none;
-  }
   .selected {
     display: flex;
     align-items: center;
@@ -123,7 +127,6 @@
   on:dragleave={handleDragLeave}
   on:drop={handleDrop}
 >
-  <input bind:this={fileInput} type="file" accept={ACCEPT.join(',')} on:change={handleChange}>
   {#if file}
     <div class="selected">
       <!-- svelte-ignore a11y-missing-attribute -->
