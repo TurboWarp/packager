@@ -301,6 +301,17 @@
       "string": "Downloads will appear here"
     }
   },
+  "fileInput": {
+    "select": {
+      "string": "Select or drop file"
+    },
+    "clear": {
+      "string": "Clear Selection"
+    },
+    "selected": {
+      "string": "Selected {file}"
+    }
+  },
   "nwjs": {
     "furtherStepsWin": {
       "string": "Further steps for Windows"

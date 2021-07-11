@@ -4,7 +4,7 @@
   import Section from './Section.svelte';
   import Button from './Button.svelte';
   import ComplexMessage from './ComplexMessage.svelte';
-  import FileInput from './FileInput.svelte';
+  import ImageInput from './ImageInput.svelte';
   import CustomExtensions from './CustomExtensions.svelte';
   import Packager from './packager';
   import writablePersistentStore from './persistent-store';
@@ -232,12 +232,10 @@
     {$_('options.loadingScreenText')}
     <input type="text" bind:value={$options.loadingScreen.text} placeholder={$_('options.loadingScreenTextPlaceholder')}>
   </label>
-  <!-- Ignore because FileInput will have an <input> inside it -->
-  <!-- svelte-ignore a11y-label-has-associated-control -->
-  <label>
+  <div>
     {$_('options.icon')}
-    <FileInput bind:file={$icon} accept=".png,.jpg,.jpeg,.bmp,.svg" />
-  </label>
+    <ImageInput bind:file={$icon} />
+  </div>
 
   <h3>{$_('options.controls')}</h3>
   <label>
