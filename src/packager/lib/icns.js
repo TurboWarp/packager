@@ -41,10 +41,6 @@ const pngToAppleICNS = async (pngData) => {
   });
   const url = URL.createObjectURL(pngDataBlob);
   const image = await loadImage(url);
-  if (image.width !== image.height) {
-    throw new Error('Image width and height do not match');
-  }
-  const size = image.width;
 
   // Determine the formats to create
   const eligibleFormats = FORMATS.filter((format) => {
@@ -52,7 +48,7 @@ const pngToAppleICNS = async (pngData) => {
     if (format.size === 16) {
       return true;
     }
-    return size >= format.size;
+    return image.width >= format.size && image.height >= format.size;
   });
 
   // Create a single canvas to be used for conversion
