@@ -9,11 +9,14 @@
         "cloudVariables-local": "ローカルに保存する",
         "cloudVariables-ws": "クラウド変数のサーバーにつなぐ",
         "cloudVariables-ws-unavailable": "このプロジェクトではクラウド変数のサーバーは使えません。",
+        "cloudVariablesHost": "クラウドのホスト",
         "colors": "色",
         "confirmReload": "全ての設定をデフォルトに戻し、再読み込みしますか？",
         "controls": "コントロール",
+        "customExtensions": "カスタム拡張機能(1行にURLを1つ)",
         "customJS": "カスタム JS(何をするのか分からない場合は変更しないでください)",
         "download": "{filename}をダウンロード({size}MB)",
+        "enableCompiler": "コンパイラを有効にする",
         "environment": "環境",
         "foregroundColor": "主な色(読み込みの進捗バー、アイコンや文字の一部)",
         "framerate": "フレームレート",
@@ -54,15 +57,19 @@
         "sourceCode": "ソースコード"
     },
     "progress": {
+        "loadingAssets": "{total}個中{complete}個読み込み完了…",
         "loadingNwjs": "NW.jsを読み込む",
         "loadingProjectData": "プロジェクトのデータを読み込んでいます",
-        "loadingScripts": "スクリプトの読み込み"
+        "loadingScripts": "スクリプトの読み込み",
+        "packagingProject": "プロジェクトをパッケージ化する"
     },
     "select": {
         "file": "ファイル",
+        "id": "ScratchでのプロジェクトのIDかURL",
         "loadProject": "プロジェクトを読み込む",
         "loadToContinue": "プロジェクトを読み込んで続ける",
         "noFileSelected": "ファイルを選んでいません",
-        "select": "プロジェクトを選ぶ"
+        "select": "プロジェクトを選ぶ",
+        "url": "他のURL"
     }
 }

@@ -4,5 +4,9 @@
         "cloudVariables-custom": "進階",
         "highQualityPen": "高品質畫筆",
         "reset": "重置"
+    },
+    "p4": {
+        "description3-github": "GitHub",
+        "description3-scratch": "Scratch"
     }
 }
