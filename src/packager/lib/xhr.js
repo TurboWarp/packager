@@ -12,11 +12,11 @@ const xhr = ({
     if (xhr.status === 200) {
       resolve(xhr.response);
     } else {
-      reject(new Error(`Unexpected status code: ${xhr.status}`));
+      reject(new Error(`Request failed with status code: ${xhr.status}`));
     }
   };
   xhr.onerror = () => {
-    reject(new Error('XHR error'));
+    reject(new Error('Request failed, are you offline?'));
   };
   if (progressCallback) {
     xhr.onprogress = (e) => {
@@ -33,7 +33,7 @@ const xhr = ({
   if (timeout) {
     setTimeout(() => {
       xhr.abort();
-      reject(new Error('XHR timed out'));
+      reject(new Error('Request timed out'));
     }, timeout);
   }
 });
