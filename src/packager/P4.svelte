@@ -97,7 +97,7 @@
         values={{
           embedding: {
             text: $_('p4.description2-embedding'),
-            href: 'https://github.com/TurboWarp/scratch-gui/wiki/Embedding'
+            href: 'https://docs.turbowarp.org/embedding'
           }
         }}
       />
