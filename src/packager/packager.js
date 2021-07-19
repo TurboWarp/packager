@@ -402,7 +402,7 @@ cd "$(dirname "$0")"
       return '<!-- no favicon -->';
     }
     const data = await readAsURL(this.options.app.icon);
-    return `<link id="favicon" rel="icon" href="${data}" type="image/png">`;
+    return `<link rel="icon" href="${data}">`;
   }
 
   async package () {
