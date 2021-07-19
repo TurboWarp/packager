@@ -21,27 +21,36 @@ export const encode = (buffer) => {
   } else {
     data = new Uint32Array(buffer);
   }
-  let result = `${originalLength},`;
+
+  const originalLengthAsString = originalLength.toString();
+  const resultBuffer = new ArrayBuffer(originalLengthAsString.length + 1 + data.byteLength * 5 / 4);
+  const resultView = new Uint8Array(resultBuffer);
+  let resultIndex = 0;
+  for (let i = 0; i < originalLengthAsString.length; i++) {
+    resultView[resultIndex++] = originalLengthAsString.charCodeAt(i);
+  }
+  resultView[resultIndex++] = 44; // ascii for ","
+
   const getChar = (n) => {
     n += 0x29;
     if (n === 0x5c) {
-      return '~';
+      return 0x7e;
     }
-    return String.fromCharCode(n);
-  }
+    return n;
+  };
   for (let i = 0; i < data.length; i++) {
     let n = data[i];
-    result += getChar(n % 85);
+    resultView[resultIndex++] = getChar(n % 85);
     n = Math.floor(n / 85);
-    result += getChar(n % 85);
+    resultView[resultIndex++] = getChar(n % 85);
     n = Math.floor(n / 85);
-    result += getChar(n % 85);
+    resultView[resultIndex++] = getChar(n % 85);
     n = Math.floor(n / 85);
-    result += getChar(n % 85);
+    resultView[resultIndex++] = getChar(n % 85);
     n = Math.floor(n / 85);
-    result += getChar(n % 85);
+    resultView[resultIndex++] = getChar(n % 85);
   }
-  return result;
+  return new TextDecoder().decode(resultBuffer);
 };
 
 /**
