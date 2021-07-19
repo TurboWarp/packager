@@ -1,4 +1,8 @@
 {
+    "fileInput": {
+        "select": "選ぶかファイルをドロップする",
+        "selected": "{file}を選ぶ"
+    },
     "options": {
         "addons": "アドオン",
         "advancedOptions": "高度なオプション",

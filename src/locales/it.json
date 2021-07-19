@@ -2,22 +2,48 @@
     "options": {
         "addons": "Addon",
         "cloudVariables-custom": "Impostazioni Avanzate",
+        "confirmReload": "Reimpostare tutte le impostazioni ai loro valori predefiniti e ricaricare?",
         "enableCompiler": "Abilita Compilatore",
         "highQualityPen": "Penna Alta Qualità",
         "infiniteClones": "Cloni Infiniti",
         "interpolation": "Interpolazione",
+        "moreHelp": "Vedi il menu delle Impostazioni avanzate in {turbowarp} per saperne di più su alcune di queste informazioni.",
         "removeFencing": "Rimozione Recinto",
         "removeMiscLimits": "Rimozione Limiti Vari",
-        "reset": "Resetta"
+        "reset": "Resetta",
+        "runtimeOptions": "Opzioni Runtime",
+        "stageSize": "Dimensione dello Stage",
+        "turbo": "Modalità Turbo"
     },
     "p4": {
+        "close": "Chiudi",
+        "description1": "Converte progetti di Scratch in file indipendenti o programmi eseguibili.",
         "description2-embedding": "Inclusione",
         "description3-github": "su GitHub",
         "description3-scratch": "su Scratch",
+        "error": "Errore",
+        "errorMessage": "Messaggio: {error}",
+        "fosshost": "Hosting dei file fornito da Fosshost",
         "privacy": "Politica della Privacy",
+        "reportBug": "Segnala problema",
         "sourceCode": "Codice Sorgente"
     },
     "progress": {
-        "loadingScripts": "Caricamento script in corso"
+        "compressingProject": "Compressione progetto",
+        "loadingAssets": "Caricamento risorse ({complete}/{total})",
+        "loadingNwjs": "Caricamento NW.js",
+        "loadingProjectData": "Caricamento dati del progetto",
+        "loadingScripts": "Caricamento script in corso",
+        "packagingProject": "Pacchettizzazione progetto"
+    },
+    "select": {
+        "id": "ID o URL di un Progetto di Scratch",
+        "invalidId": "ID del Progetto non valida",
+        "invalidUrl": "URL non valida",
+        "loadProject": "Carica Progetto",
+        "loadToContinue": "Carica un progetto per continuare",
+        "noFileSelected": "Nessun file selezionato",
+        "select": "Seleziona Progetto",
+        "url": "Altro URL"
     }
 }

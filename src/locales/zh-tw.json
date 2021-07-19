@@ -1,12 +1,65 @@
 {
     "options": {
         "addons": "擴充功能",
+        "autoplay": "自動開始",
         "cloudVariables-custom": "進階",
+        "confirmReload": "你確定要全部重置？",
+        "controls": "控制欄",
+        "framerate": "幀率",
         "highQualityPen": "高品質畫筆",
-        "reset": "重置"
+        "icon": "圖示",
+        "infiniteClones": "無限分身",
+        "interpolation": "插值",
+        "loadingScreenText": "載入畫面文字",
+        "loadingScreenTextPlaceholder": "（無）",
+        "moreHelp": "在 {turbowarp} 的進階設定查看各個選項的說明。",
+        "pageTitle": "頁面標題",
+        "playerOptions": "玩家設定",
+        "removeFencing": "移除限制",
+        "removeMiscLimits": "移除各種限制",
+        "reset": "重置",
+        "runtimeOptions": "運行時選項",
+        "showFlag": "在控制欄顯示綠旗",
+        "showFullscreen": "在控制欄顯示全螢幕",
+        "showStop": "在控制欄顯示停止",
+        "stageSize": "舞臺大小",
+        "turbo": "加速模式",
+        "username": "用戶名稱（「#」會以隨機數取代之）"
     },
     "p4": {
+        "close": "關閉",
+        "description1": "將你的 Scratch 專案轉換成獨立檔案或可執行程式。",
+        "description2": "如果你只是想把你的 TurboWarp 專案嵌入到你的網站，請嘗試{embedding}。",
+        "description2-embedding": "嵌入",
+        "description3": "在{onScratch}或{onGitHub}上回報錯誤、給予回饋或提出建議。",
         "description3-github": "GitHub",
-        "description3-scratch": "Scratch"
+        "description3-scratch": "Scratch",
+        "error": "錯誤",
+        "errorMessage": "訊息：{error}",
+        "feedback": "回饋",
+        "fosshost": "檔案託管由 Fosshost 提供",
+        "privacy": "隱私權政策",
+        "reportBug": "回報錯誤",
+        "sourceCode": "原始碼"
+    },
+    "progress": {
+        "compressingProject": "壓縮專案",
+        "loadingAssets": "載入資產中……（{complete}/{total}）",
+        "loadingNwjs": "載入 NW.js 中……",
+        "loadingProjectData": "載入專案資料中……",
+        "loadingScripts": "載入程式中……",
+        "packagingProject": "封裝專案"
+    },
+    "select": {
+        "file": "檔案",
+        "id": "Scratch 專案 ID 或連結",
+        "invalidId": "無效的專案 ID",
+        "invalidUrl": "無效的專案連結",
+        "loadProject": "載入專案",
+        "loadToContinue": "載入專案以繼續",
+        "noFileSelected": "沒有選擇檔案。",
+        "select": "選擇專案",
+        "selectHelp": "貼上專案連結或使用其他模式。若你並非此專案的作者，請務必標記原作者。",
+        "url": "其他連結"
     }
 }
