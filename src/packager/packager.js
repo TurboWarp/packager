@@ -7,6 +7,7 @@ import xhr from './lib/xhr';
 import pngToAppleICNS from './lib/icns';
 import assetCache from './cache';
 import {buildId, verifyBuildId} from './lib/build-id';
+import {encode, decode} from './lib/base85-encode';
 
 const PROGRESS_LOADED_SCRIPTS = 0.1;
 const PROGRESS_LOADED_JSON_BUT_NEED_ASSETS = 0.2;
@@ -357,15 +358,16 @@ cd "$(dirname "$0")"
 
   async generateGetProjectData () {
     if (this.options.target === 'html') {
-      const url = await readAsURL(this.project.blob);
+      const data = await readAsArrayBuffer(this.project.blob);
+      const base85 = encode(data);
       return `
       setProgress(${PROGRESS_FETCHED_INLINE_DATA_BUT_NOT_LOADED});
-      const getProjectData = () => fetch(${JSON.stringify(url)})
-        .then((r) => r.arrayBuffer())
-        .then((buffer) => {
-          setProgress(${PROGRESS_WAITING_FOR_VM_LOAD});
-          return buffer;
-        });`;
+      const base85decode = ${decode};
+      const getProjectData = async () => {
+        const result = base85decode(${JSON.stringify(base85)});
+        setProgress(${PROGRESS_WAITING_FOR_VM_LOAD});
+        return result;
+      };`
     }
     let src;
     let progressWeight;
@@ -698,6 +700,8 @@ cd "$(dirname "$0")"
         }
       });
     }
+
+    console.time("Scaff to load");
   </script>
   <script>
     ${await this.generateGetProjectData()}
@@ -706,6 +710,7 @@ cd "$(dirname "$0")"
       const projectData = await getProjectData();
       ${this.options.custom.js}
       await scaffolding.loadProject(projectData);
+      console.timeEnd("Scaff to load");
       setProgress(1);
       loadingScreen.hidden = true;
       if (${this.options.autoplay}) {
