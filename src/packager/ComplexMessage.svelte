@@ -1,6 +1,6 @@
 <script>
   import {onMount, onDestroy, tick} from 'svelte';
-  import {locale} from '../locales/index';
+  import {_} from '../locales/index';
 
   export let message;
   export let values;
@@ -31,7 +31,7 @@
     }
   };
 
-  const unsubscribe = locale.subscribe(() => {
+  const unsubscribe = _.subscribe(() => {
     if (el) {
       // message props don't get updated until after tick
       tick().then(build);
