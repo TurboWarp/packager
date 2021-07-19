@@ -35,6 +35,9 @@ const analyzeScratch2 = (projectData) => {
 
 const analyzeScratch3 = (projectData) => {
   const stage = projectData.targets[0];
+  if (!stage || !stage.isStage) {
+    throw new Error('Project does not have stage');
+  }
   const stageVariables = {};
   for (const id of Object.keys(stage.variables)) {
     const [name, value, cloud] = stage.variables[id];
