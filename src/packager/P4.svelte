@@ -134,14 +134,14 @@
         {#if $error instanceof UserError}
           <p>{$error.message}</p>
           <p>
-            <Button on:click={closeModal}>{$_('p4.close')}</Button>
+            <Button on:click={closeModal} text={$_('p4.close')} />
           </p>
         {:else}
           <p>
             {$_('p4.errorMessage').replace('{error}', $error)}
           </p>
           <p>
-            <Button on:click={closeModal}>{$_('p4.close')}</Button>
+            <Button on:click={closeModal} text={$_('p4.close')} />
             <a href="https://scratch.mit.edu/users/GarboMuffin/#comments">{$_('p4.reportBug')}</a>
           </p>
         {/if}

@@ -418,9 +418,9 @@
 {/if}
 
 <Section>
-  <Button on:click={pack} disabled={$progress.visible}>{$_('options.package')}</Button>
-  <Button on:click={preview} disabled={$progress.visible} secondary>{$_('options.preview')}</Button>
-  <Button on:click={reset} danger>{$_('options.reset')}</Button>
+  <Button on:click={pack} disabled={$progress.visible} text={$_('options.package')} />
+  <Button on:click={preview} disabled={$progress.visible} secondary text={$_('options.preview')} />
+  <Button on:click={reset} danger text={$_('options.reset')} />
 </Section>
 
 {#if result && url}

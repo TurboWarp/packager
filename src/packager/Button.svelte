@@ -2,6 +2,7 @@
   export let disabled;
   export let secondary;
   export let danger;
+  export let text;
 </script>
 
 <style>
@@ -46,5 +47,5 @@
 </style>
 
 <button on:click disabled={disabled} class:secondary class:danger>
-  <slot></slot>
+  {text}
 </button>

@@ -162,7 +162,7 @@
   </div>
 
   <p>
-    <Button on:click={load} disabled={$progress.visible}>{$_('select.loadProject')}</Button>
+    <Button on:click={load} disabled={$progress.visible} text={$_('select.loadProject')} />
   </p>
 </Section>
 
