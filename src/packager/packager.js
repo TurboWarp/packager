@@ -700,8 +700,6 @@ cd "$(dirname "$0")"
         }
       });
     }
-
-    console.time("Scaff to load");
   </script>
   <script>
     ${await this.generateGetProjectData()}
@@ -710,7 +708,6 @@ cd "$(dirname "$0")"
       const projectData = await getProjectData();
       ${this.options.custom.js}
       await scaffolding.loadProject(projectData);
-      console.timeEnd("Scaff to load");
       setProgress(1);
       loadingScreen.hidden = true;
       if (${this.options.autoplay}) {
