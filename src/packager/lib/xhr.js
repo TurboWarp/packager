@@ -21,7 +21,7 @@ const xhr = ({
   if (progressCallback) {
     xhr.onprogress = (e) => {
       if (e.lengthComputable) {
-        progressCallback(e.loaded / e.total);
+        progressCallback(clampProgress(e.loaded / e.total));
       } else if (estimatedSize) {
         progressCallback(clampProgress(e.loaded / estimatedSize));
       }
