@@ -23,7 +23,7 @@
     "scratch-svg-renderer": "git://github.com/TurboWarp/scratch-svg-renderer.git#develop",
     "scratch-vm": "git://github.com/TurboWarp/scratch-vm.git#develop",
     "sha.js": "^2.4.11",
-    "svelte": "^3.39.0"
+    "svelte": "^3.40.1"
   },
   "devDependencies": {
     "@babel/core": "^7.14.8",
