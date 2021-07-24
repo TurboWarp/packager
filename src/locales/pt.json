@@ -1,4 +1,9 @@
 {
+    "fileInput": {
+        "clear": "Limpar Seleção",
+        "select": "Selecione ou arraste um arquivo.",
+        "selected": "Selecionado {file}"
+    },
     "nwjs": {
         "furtherStepsLinux": "Próximos passos para Linux",
         "furtherStepsMac": "Próximos passos para macOS",
@@ -18,7 +23,9 @@
         "cloudVariables-local": "Guardar localmente",
         "cloudVariables-local-help": "\"Guardar localmente\" salva as variáveis no computador do usuário e carrega os valores quando o projeto é reiniciado.",
         "cloudVariables-ws": "Conectar a servidor de variáveis nuvem",
+        "cloudVariables-ws-help": "\"Conectar a servidor de variáveis nuvem\" sincroniza as variáveis com outros usuários.",
         "cloudVariables-ws-unavailable": "Desativar servidor de variáveis nuvem nesse projeto",
+        "cloudVariablesHost": "Hospedagem Cloud",
         "colors": "Cores",
         "confirmReload": "Resetar todas as configurações e recarregar?",
         "controls": "Controles",
@@ -39,6 +46,7 @@
         "loadingScreenText": "Texto da Tela de Carregamento",
         "loadingScreenTextPlaceholder": "(Nada)",
         "mode": "Modo",
+        "moreHelp": "Veja o menu de opções avançadas no {turbowarp} para mais informações sobre algumas dessas opções.",
         "nwjs-linux64": "Aplicação para Linux NW.js (apenas 64-bit) (Beta)",
         "nwjs-mac": "Aplicação para macOS NW.js (Beta)",
         "nwjs-win32": "Executável para Windows NW.js (32-bit ou 64-bit)",
@@ -64,7 +72,9 @@
     "p4": {
         "close": "Fechar",
         "description1": "Converte projetos do Scratch em arquivos HTML ou programas executáveis.",
+        "description2": "Se você só quer um jeito fácil de colocar um projeto do TurboWarp no seu site, {embedding} pode ser uma escolha melhor.",
         "description2-embedding": "Incorporação",
+        "description3": "Relate bugs, mande feedback e sugira ideias {onScratch} ou {onGitHub}.",
         "description3-github": "no GitHub",
         "description3-scratch": "no Scratch",
         "error": "Erro",
@@ -76,6 +86,7 @@
     },
     "progress": {
         "compressingProject": "Comprimindo projeto",
+        "loadingAssets": "Carregando recursos ({complete}/{total})",
         "loadingNwjs": "Carregando NW.js",
         "loadingProjectData": "Carregando dados do projeto",
         "loadingScripts": "Carregando scripts",
@@ -83,10 +94,14 @@
     },
     "select": {
         "file": "Arquivo",
+        "id": "ID ou URL do Projeto no Scratch",
         "invalidId": "ID de projeto inválido",
+        "invalidUrl": "URL Inválido",
         "loadProject": "Carregar Projeto",
         "loadToContinue": "Carregue um projeto para continuar",
         "noFileSelected": "Nenhum arquivo selecionado",
-        "select": "Selecione um Projeto"
+        "select": "Selecione um Projeto",
+        "selectHelp": "Selecione o projeto que você quer empacotar copiando e colando o link do projeto no Scratch ou usando um dos outros meios. Se você usar um projeto criado por outra pessoa, lembre-se de dar créditos.",
+        "url": "Outro URL"
     }
 }
