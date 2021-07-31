@@ -1,4 +1,9 @@
 {
+    "fileInput": {
+        "clear": "Wyczyść Zaznaczenie",
+        "select": "Wybierz lub upuść plik",
+        "selected": "Wybrano {file}"
+    },
     "nwjs": {
         "furtherStepsLinux": "Dalsze kroki dla Linuxa",
         "furtherStepsMac": "Dalsze kroki dla macOS",
@@ -6,16 +11,32 @@
     },
     "options": {
         "addons": "Dodatki",
+        "advancedOptions": "Opcje Zaawansowane",
+        "backgroundColor": "Kolor Sceny",
+        "cloudVariables": "Zmienne w Chmurze",
         "cloudVariables-custom": "Zaawansowane",
+        "cloudVariables-ignore": "Ignoruj",
+        "cloudVariables-ignore-help": "\"Ignoruj\" traktuje zmienne w chmurze jak zwykłe zmienne.",
+        "colors": "Kolory",
         "download": "Ściągnij {filename}({size}MB) ",
         "downloadsWillAppearHere": "Tutaj pojawią się pliki do pobrania ",
-        "highQualityPen": "Wysokiej Jakości Pióro",
+        "environment": "Środowisko",
+        "highQualityPen": "Pióro Wysokiej Jakości",
+        "html": "Zwykły HTML ()samodzielny, działa wszędzie)",
+        "icon": "Ikona",
         "infiniteClones": "Nieskończone Klony",
         "interpolation": "Interpolacja",
+        "mode": "Tryb",
+        "package": "Paczka",
+        "packageName": "Nazwa Paczki",
+        "pageTitle": "Tytuł Strony",
+        "playerOptions": "Opcje gracza",
         "preview": "Przejżyj",
         "removeFencing": "Usuń Ograniczenia",
         "removeMiscLimits": "Usuń Różne Limity",
         "reset": "Resetuj",
+        "showFlag": "Pokaż przycisk zielonej flagi w Kontroli",
+        "stageSize": "Rozmiar sceny",
         "warpTimer": "Warp Stoper"
     },
     "p4": {
@@ -25,7 +46,25 @@
         "description3-scratch": "w Scratch",
         "error": "Błąd",
         "errorMessage": "Wiadomość: {error}",
+        "feedback": "Opinia Zwrotna",
         "privacy": "Polityka Prywatności",
+        "reportBug": "Zgłoś Błąd",
         "sourceCode": "Kod Źródłowy"
+    },
+    "progress": {
+        "loadingAssets": "Ładowanie danych ({complete}/{total})",
+        "loadingNwjs": "Ładowanie NW.js",
+        "loadingScripts": "Ładowanie skryptów"
+    },
+    "select": {
+        "file": "Plik",
+        "id": "ID lub URL projektu Scratcha",
+        "invalidId": "Nieprawidłowe ID projektu",
+        "invalidUrl": "Niepoprawny URL",
+        "loadProject": "Załaduj Projekt",
+        "loadToContinue": "Załaduj projekt, aby kontynuować",
+        "noFileSelected": "Nie wybrano pliku",
+        "select": "Wybierz Projekt",
+        "url": "Inne URL"
     }
 }
