@@ -29,7 +29,9 @@ const makeScaffolding = ({full}) => ({
   resolve: {
     alias: {
       'text-encoding$': 'fastestsmallesttextencoderdecoder',
-      'scratch-translate-extension-languages$': path.resolve(__dirname, 'src', 'scaffolding', 'scratch-translate-extension-languages', 'languages.json')
+      'scratch-translate-extension-languages$': path.resolve(__dirname, 'src', 'scaffolding', 'scratch-translate-extension-languages', 'languages.json'),
+      // dirty hack to deal with difference scratch modules using different scratch-render-fonts versions
+      'scratch-render-fonts$': path.resolve(__dirname, 'src', 'scaffolding', 'scratch-render-fonts')
     }
   },
   module: {
