@@ -1,4 +1,5 @@
 <script>
+  import {onDestroy} from 'svelte';
   import {_} from '../locales/';
   import {slide, fade} from 'svelte/transition';
   import Section from './Section.svelte';
@@ -126,6 +127,12 @@
       location.reload();
     }
   };
+
+  onDestroy(() => {
+    if (url) {
+      URL.revokeObjectURL(url);
+    }
+  });
 </script>
 
 <style>
