@@ -485,6 +485,9 @@ cd "$(dirname "$0")"
       font-size: 36px;
       margin: 0 0 16px;
     }
+    #error-info {
+      font-family: monospace;
+    }
     .control-button {
       width: 2rem;
       height: 2rem;
@@ -542,7 +545,8 @@ cd "$(dirname "$0")"
 
   <div id="error" class="screen" hidden>
     <h1>Error</h1>
-    <p>See console for more information</p>
+    <p>Something went wrong.</p>
+    <p id="error-info"></p>
   </div>
 
   ${this.options.target === 'html' ? `<script>${this.script}</script>` : '<script src="script.js"></script>'}
@@ -552,6 +556,7 @@ cd "$(dirname "$0")"
     const loadingScreen = document.getElementById('loading');
     const loadingInner = document.getElementById('loading-inner');
     const errorScreen = document.getElementById('error');
+    const errorScreenInfo = document.getElementById('error-info');
 
     const scaffolding = new Scaffolding.Scaffolding();
     scaffolding.width = ${this.options.stageWidth};
@@ -725,6 +730,7 @@ cd "$(dirname "$0")"
     const handleError = (error) => {
       console.error(error);
       errorScreen.hidden = false;
+      errorScreenInfo.textContent = '' + error;
     };
 
     run().catch(handleError);
