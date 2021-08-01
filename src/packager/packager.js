@@ -708,7 +708,8 @@ cd "$(dirname "$0")"
   </script>
   <script>
     ${await this.generateGetProjectData()}
-
+  </script>
+  <script>
     const run = async () => {
       const projectData = await getProjectData();
       ${this.options.custom.js}
