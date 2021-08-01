@@ -568,6 +568,7 @@ cd "$(dirname "$0")"
     if (typeof ScaffoldingAddons !== "undefined") ScaffoldingAddons.run(scaffolding);
 
     // Expose values expected by third-party plugins
+    window.scaffolding = scaffolding;
     window.vm = scaffolding.vm;
 
     const {storage, vm} = scaffolding;
