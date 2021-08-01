@@ -728,7 +728,6 @@ cd "$(dirname "$0")"
     };
 
     run().catch(handleError);
-
   </script>
 </body>
 </html>
