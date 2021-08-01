@@ -363,9 +363,10 @@ cd "$(dirname "$0")"
       return `
       setProgress(${PROGRESS_FETCHED_INLINE_DATA_BUT_NOT_LOADED});
       const base85decode = ${decode};
-      const getProjectData = async () => {
+      let getProjectData = async () => {
         const result = base85decode(${JSON.stringify(base85)});
         setProgress(${PROGRESS_WAITING_FOR_VM_LOAD});
+        getProjectData = null;
         return result;
       };`
     }
@@ -708,6 +709,7 @@ cd "$(dirname "$0")"
   </script>
   <script>
     ${await this.generateGetProjectData()}
+    document.currentScript.remove();
   </script>
   <script>
     const run = async () => {
