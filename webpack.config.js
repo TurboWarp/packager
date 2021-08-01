@@ -30,7 +30,8 @@ const makeScaffolding = ({full}) => ({
     alias: {
       'text-encoding$': 'fastestsmallesttextencoderdecoder',
       'htmlparser2$': path.resolve(__dirname, 'src', 'scaffolding', 'htmlparser2'),
-      'scratch-translate-extension-languages$': path.resolve(__dirname, 'src', 'scaffolding', 'scratch-translate-extension-languages', 'languages.json')
+      'scratch-translate-extension-languages$': path.resolve(__dirname, 'src', 'scaffolding', 'scratch-translate-extension-languages', 'languages.json'),
+      'scratch-parser$': path.resolve(__dirname, 'src', 'scaffolding', 'scratch-parser')
     }
   },
   module: {
