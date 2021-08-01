@@ -1,0 +1,2 @@
+// no-op
+module.exports = {};
