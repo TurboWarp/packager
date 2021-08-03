@@ -10,7 +10,7 @@
   import SelectLocale from './SelectLocale.svelte';
   import {error, progress} from './stores';
   import {UserError} from './errors';
-  import {APP_NAME} from './brand';
+  import {APP_NAME, FEEDBACK_GITHUB, FEEDBACK_SCRATCH, SOURCE_CODE} from './brand';
 
   let projectData;
 
@@ -108,11 +108,11 @@
         values={{
           onScratch: {
             text: $_('p4.description3-scratch'),
-            href: 'https://scratch.mit.edu/users/GarboMuffin/#comments'
+            href: FEEDBACK_SCRATCH
           },
           onGitHub: {
             text: $_('p4.description3-github'),
-            href: 'https://github.com/TurboWarp/packager/issues'
+            href: FEEDBACK_GITHUB
           }
         }}
       />
@@ -142,7 +142,7 @@
           </p>
           <p>
             <Button on:click={closeModal} text={$_('p4.close')} />
-            <a href="https://scratch.mit.edu/users/GarboMuffin/#comments">{$_('p4.reportBug')}</a>
+            <a href={FEEDBACK_SCRATCH}>{$_('p4.reportBug')}</a>
           </p>
         {/if}
       </Section>
@@ -159,9 +159,9 @@
     <div>
       <a href="privacy.html">{$_('p4.privacy')}</a>
       -
-      <a href="https://scratch.mit.edu/users/GarboMuffin/#comments">{$_('p4.feedback')}</a>
+      <a href={FEEDBACK_SCRATCH}>{$_('p4.feedback')}</a>
       -
-      <a href="https://github.com/TurboWarp/packager">{$_('p4.sourceCode')}</a>
+      <a href={SOURCE_CODE}>{$_('p4.sourceCode')}</a>
     </div>
     <div>
       <a href="https://fosshost.org/">{$_('p4.fosshost')}</a>

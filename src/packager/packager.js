@@ -8,7 +8,7 @@ import pngToAppleICNS from './lib/icns';
 import assetCache from './cache';
 import {buildId, verifyBuildId} from './lib/build-id';
 import {encode, decode} from './lib/base85-encode';
-import {APP_NAME} from './brand';
+import {APP_NAME, SOURCE_CODE} from './brand';
 
 const PROGRESS_LOADED_SCRIPTS = 0.1;
 const PROGRESS_LOADED_JSON_BUT_NEED_ASSETS = 0.2;
@@ -125,8 +125,8 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 </div>
 
 <div class="product">
-<span class="title">TurboWarp</span>
-<span class="homepage"><a href="https://github.com/TurboWarp/scratch-vm/">homepage</a></span>
+<span class="title">${APP_NAME}</span>
+<span class="homepage"><a href="${SOURCE_CODE}">homepage</a></span>
 <input type="checkbox" hidden id="p4-tw-scratch-vm">
 <label class="show" for="p4-tw-scratch-vm" tabindex="0"></label>
 <div class="licence">
