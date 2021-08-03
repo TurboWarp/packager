@@ -10,6 +10,7 @@
   import SelectLocale from './SelectLocale.svelte';
   import {error, progress} from './stores';
   import {UserError} from './errors';
+  import {APP_NAME} from './brand';
 
   let projectData;
 
@@ -88,8 +89,7 @@
 
 <main>
   <Section accent="#ff4c4c">
-    <!-- don't translate "TurboWarp Packager" -->
-    <h1>TurboWarp Packager</h1>
+    <h1>{APP_NAME}</h1>
     <p>{$_('p4.description1')}</p>
     <p>
       <ComplexMessage
