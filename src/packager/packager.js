@@ -710,6 +710,7 @@ cd "$(dirname "$0")"
         }
       });
     }
+    ${this.options.custom.js}
   </script>
   <script>
     ${await this.generateGetProjectData()}
@@ -718,7 +719,6 @@ cd "$(dirname "$0")"
   <script>
     const run = async () => {
       const projectData = await getProjectData();
-      ${this.options.custom.js}
       await scaffolding.loadProject(projectData);
       setProgress(1);
       loadingScreen.hidden = true;
