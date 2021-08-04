@@ -1,7 +1,10 @@
 // This implements a custom base85 encoding for improved efficiency compared to base64
-// The character set used is 0x29 - 0x7d of ASCII with 0x5c (\) replaced with 0x7e (~)
-// Note that it's possible these functions will be stringified at runtime to be included in generated code
-// So, make sure that they're entirely self contained
+// The character set used is 0x2a - 0x7e of ASCII
+// 0x3c (<) is replaced with 0x28 (opening parenthesis) and 0x3e (>) is replaced with 0x29 (closing parenthesis)
+// Encoded data can be safely included in HTML without escapes
+
+// It's possible these functions will be stringified at runtime to be included in generated code,
+// so make sure that they're entirely self contained
 
 /**
  * @param {ArrayBuffer} buffer The data to encode
@@ -32,10 +35,9 @@ export const encode = (buffer) => {
   resultView[resultIndex++] = 44; // ascii for ","
 
   const getChar = (n) => {
-    n += 0x29;
-    if (n === 0x5c) {
-      return 0x7e;
-    }
+    n += 0x2a;
+    if (n === 0x3c) return 0x28;
+    if (n === 0x3e) return 0x29;
     return n;
   };
   for (let i = 0; i < data.length; i++) {
@@ -59,10 +61,9 @@ export const encode = (buffer) => {
  */
 export const decode = (str) => {
   const getValue = (code) => {
-    if (code === 0x7e) {
-      return 0x5c - 0x29;
-    }
-    return code - 0x29;
+    if (code === 0x28) code = 0x3c;
+    if (code === 0x29) code = 0x3e;
+    return code - 0x2a;
   };
   const toMultipleOfFour = (n) => {
     if (n % 4 === 0) {

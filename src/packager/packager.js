@@ -364,14 +364,18 @@ cd "$(dirname "$0")"
       const data = await readAsArrayBuffer(this.project.blob);
       const base85 = encode(data);
       return `
+      <script id="p4-encoded-project-data" type="p4-encoded-project-data">${base85}</script>
+      <script>
       setProgress(${PROGRESS_FETCHED_INLINE_DATA_BUT_NOT_LOADED});
-      const base85decode = ${decode};
-      let getProjectData = async () => {
-        const result = base85decode(${JSON.stringify(base85)});
+      const base85decode = ${decode.toString()};
+      const getProjectData = async () => {
+        const dataElement = document.getElementById("p4-encoded-project-data");
+        const result = base85decode(dataElement.textContent);
+        dataElement.remove();
         setProgress(${PROGRESS_WAITING_FOR_VM_LOAD});
-        getProjectData = null;
         return result;
-      };`
+      };
+      </script>`
     }
     let src;
     let progressWeight;
@@ -382,7 +386,8 @@ cd "$(dirname "$0")"
       src = './assets/project.json';
       progressWeight = PROGRESS_LOADED_JSON_BUT_NEED_ASSETS - PROGRESS_LOADED_SCRIPTS;
     }
-    return `const getProjectData = () => new Promise((resolve, reject) => {
+    return `<script>
+    const getProjectData = () => new Promise((resolve, reject) => {
       const xhr = new XMLHttpRequest();
       xhr.onload = () => {
         resolve(xhr.response);
@@ -402,7 +407,8 @@ cd "$(dirname "$0")"
       xhr.responseType = "arraybuffer";
       xhr.open("GET", ${JSON.stringify(src)});
       xhr.send();
-    });`;
+    });
+    </script>`;
   }
 
   async generateFavicon () {
@@ -716,10 +722,7 @@ cd "$(dirname "$0")"
     }
     ${this.options.custom.js}
   </script>
-  <script>
-    ${await this.generateGetProjectData()}
-    document.currentScript.remove();
-  </script>
+  ${await this.generateGetProjectData()}
   <script>
     const run = async () => {
       const projectData = await getProjectData();
