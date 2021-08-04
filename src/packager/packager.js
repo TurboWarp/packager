@@ -388,7 +388,11 @@ cd "$(dirname "$0")"
         resolve(xhr.response);
       };
       xhr.onerror = () => {
-        reject(new Error("Request to load project data failed."));
+        if (location.protocol === 'file:') {
+          reject(new Error("Zip environment must be used from a website, not from a file URL."));
+        } else {
+          reject(new Error("Request to load project data failed."));
+        }  
       };
       xhr.onprogress = (e) => {
         if (e.lengthComputable) {
