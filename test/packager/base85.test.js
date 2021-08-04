@@ -1,4 +1,8 @@
 import {encode, decode} from '../../src/packager/lib/base85-encode';
+import {TextEncoder, TextDecoder} from 'fastestsmallesttextencoderdecoder';
+
+global.TextEncoder = TextEncoder;
+global.TextDecoder = TextDecoder;
 
 test('base85 encode and decode', () => {
   for (let i = 0; i < 10; i++) {
