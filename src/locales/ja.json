@@ -85,6 +85,8 @@
     "select": {
         "file": "ファイル",
         "id": "ScratchでのプロジェクトのIDかURL",
+        "invalidId": "プロジェクトIDが無効です。",
+        "invalidUrl": "URLが無効です。",
         "loadProject": "プロジェクトを読み込む",
         "loadToContinue": "プロジェクトを読み込んで続ける",
         "noFileSelected": "ファイルを選んでいません",
