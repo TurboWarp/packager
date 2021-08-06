@@ -1,3 +1,5 @@
+import {EventTarget} from 'event-target-shim';
+
 let console = window.console;
 
 /*

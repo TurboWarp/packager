@@ -1,4 +1,5 @@
 import * as Comlink from 'comlink';
+import {EventTarget} from 'event-target-shim';
 import ChecksumWorker from 'worker-loader?name=checksum.worker.js!./checksum.worker.js'
 import defaultIcon from './default-icon.png';
 import {readAsArrayBuffer, readAsURL} from './lib/readers';
