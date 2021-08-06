@@ -18,7 +18,7 @@ Start in development mode:
 npm start
 ```
 
-Then visit http://localhost:8080. Must manually refresh to apply.
+Then visit http://localhost:8947. Must manually refresh to apply.
 
 The general layout of `src` is:
 
