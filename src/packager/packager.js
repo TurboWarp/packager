@@ -330,7 +330,7 @@ cd "$(dirname "$0")"
   }
 
   makeWebSocketProvider () {
-    return `new Scaffolding.Cloud.WebSocketProvider(${JSON.stringify(this.options.cloudVariables.cloudHost)}, "${this.options.projectId}")`;
+    return `new Scaffolding.Cloud.WebSocketProvider(${JSON.stringify(this.options.cloudVariables.cloudHost)}, ${JSON.stringify(this.options.projectId)})`;
   }
 
   makeLocalStorageProvider () {
