@@ -71,19 +71,17 @@ export const decode = (str) => {
     }
     return n + (4 - n % 4);
   };
-  const stringToBytes = (str) => new TextEncoder().encode(str);
   const lengthEndsAt = str.indexOf(',');
   const byteLength = +str.substring(0, lengthEndsAt);
   const resultBuffer = new ArrayBuffer(toMultipleOfFour(byteLength));
   const resultView = new Uint32Array(resultBuffer);
-  const stringBytes = stringToBytes(str);
   for (let i = lengthEndsAt + 1, j = 0; i < str.length; i += 5, j++) {
     resultView[j] = (
-      getValue(stringBytes[i + 4]) * 85 * 85 * 85 * 85 +
-      getValue(stringBytes[i + 3]) * 85 * 85 * 85 +
-      getValue(stringBytes[i + 2]) * 85 * 85 +
-      getValue(stringBytes[i + 1]) * 85 +
-      getValue(stringBytes[i])
+      getValue(str.charCodeAt(i + 4)) * 85 * 85 * 85 * 85 +
+      getValue(str.charCodeAt(i + 3)) * 85 * 85 * 85 +
+      getValue(str.charCodeAt(i + 2)) * 85 * 85 +
+      getValue(str.charCodeAt(i + 1)) * 85 +
+      getValue(str.charCodeAt(i))
     );
   }
   return new Uint8Array(resultBuffer, 0, byteLength);
