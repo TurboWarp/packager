@@ -23,15 +23,11 @@
   const cloudVariables = Object.values(projectData.project.analysis.stageVariables)
     .filter(i => i.isCloud)
     .map(i => i.name);
-  const canUseCloudVariableServer = !!projectData.projectId;
 
   const defaultOptions = Packager.DEFAULT_OPTIONS();
-  defaultOptions.projectId = projectData.projectId;
-  if (!canUseCloudVariableServer) {
-    defaultOptions.cloudVariables.mode = 'local';
-  }
+  defaultOptions.projectId = projectData.projectId || `p4-${projectData.uniqueId}`;
   for (const variable of cloudVariables) {
-    defaultOptions.cloudVariables.custom[variable] = canUseCloudVariableServer ? 'ws' : 'local';
+    defaultOptions.cloudVariables.custom[variable] = 'ws';
   }
   defaultOptions.app.packageName = Packager.getDefaultPackageNameFromFileName(projectData.title);
   defaultOptions.app.windowTitle = Packager.getWindowTitleFromFileName(projectData.title);
@@ -286,11 +282,7 @@
     <label>
       {$_('options.mode')}
       <select bind:value={$options.cloudVariables.mode}>
-        {#if canUseCloudVariableServer}
-          <option value="ws">{$_('options.cloudVariables-ws')}</option>
-        {:else}
-          <option disabled>{$_('options.cloudVariables-ws-unavailable')}</option>
-        {/if}
+        <option value="ws">{$_('options.cloudVariables-ws')}</option>
         <option value="local">{$_('options.cloudVariables-local')}</option>
         <option value="">{$_('options.cloudVariables-ignore')}</option>
         <option value="custom">{$_('options.cloudVariables-custom')}</option>
@@ -301,11 +293,7 @@
         {#each cloudVariables as variable}
           <label>
             <select bind:value={$options.cloudVariables.custom[variable]}>
-              {#if canUseCloudVariableServer}
-                <option value="ws">{$_('options.cloudVariables-ws')}</option>
-              {:else}
-                <option disabled>{$_('options.cloudVariables-ws-unavailable')}</option>
-              {/if}
+              <option value="ws">{$_('options.cloudVariables-ws')}</option>
               <option value="local">{$_('options.cloudVariables-local')}</option>
               <option value="">{$_('options.cloudVariables-ignore')}</option>
             </select>

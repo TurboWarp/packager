@@ -210,9 +210,6 @@
     "cloudVariables-ws": {
       "string": "Connect to cloud variable server"
     },
-    "cloudVariables-ws-unavailable": {
-      "string": "Can not use cloud variable server on this project"
-    },
     "cloudVariables-ws-help": {
       "string": "\"Connect to cloud variable server\" syncs variables with other users."
     },
