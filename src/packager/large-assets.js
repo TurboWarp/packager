@@ -2,8 +2,7 @@
 const LARGE_ASSET_BASE = process.env.LARGE_ASSET_BASE;
 const SCAFFOLDING_ROOT = 'scaffolding/';
 
-// Use old nodejs exports so that this can be referenced easily from node
-module.exports = {
+export default {
   'nwjs-win64': {
     src: LARGE_ASSET_BASE + 'nwjs-v0.54.0-win-x64.zip',
     sha256: '0f082671b67b711f783d98cc989cf5aebacfc9bce3bef78875b57d08fc2a6e86',
