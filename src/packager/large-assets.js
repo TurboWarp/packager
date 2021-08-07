@@ -31,7 +31,7 @@ export default {
   },
   'scaffolding-min': {
     src: SCAFFOLDING_ROOT + 'scaffolding-min.js',
-    estimatedSize: 2400000, // TODO
+    estimatedSize: 2540321,
     useBuildId: true,
     type: 'text'
   },
