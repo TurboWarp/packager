@@ -572,135 +572,146 @@ cd "$(dirname "$0")"
     const errorScreen = document.getElementById('error');
     const errorScreenInfo = document.getElementById('error-info');
 
-    const scaffolding = new Scaffolding.Scaffolding();
-    scaffolding.width = ${this.options.stageWidth};
-    scaffolding.height = ${this.options.stageHeight};
-    scaffolding.setup();
-    scaffolding.appendTo(appElement);
-
-    if (typeof ScaffoldingAddons !== "undefined") ScaffoldingAddons.run(scaffolding);
-
-    // Expose values expected by third-party plugins
-    window.scaffolding = scaffolding;
-    window.vm = scaffolding.vm;
-
-    const {storage, vm} = scaffolding;
-    storage.addWebStore(
-      [storage.AssetType.ImageVector, storage.AssetType.ImageBitmap, storage.AssetType.Sound],
-      (asset) => new URL("./assets/" + asset.assetId + "." + asset.dataFormat, location).href
-    );
+    const handleError = (error) => {
+      console.error(error);
+      if (!errorScreen.hidden) return;
+      errorScreen.hidden = false;
+      errorScreenInfo.textContent = '' + error;
+    };
     const setProgress = (progress) => {
       loadingInner.style.width = progress * 100 + "%";
-    }
-    storage.onprogress = (total, loaded) => {
-      setProgress(${PROGRESS_LOADED_JSON_BUT_NEED_ASSETS} + (loaded / total) * ${1 - PROGRESS_LOADED_JSON_BUT_NEED_ASSETS});
-    };
-    setProgress(${PROGRESS_LOADED_SCRIPTS});
-
-    scaffolding.setUsername(${JSON.stringify(this.options.username)}.replace(/#/g, () => Math.floor(Math.random() * 10)));
-    scaffolding.setAccentColor(${JSON.stringify(this.options.appearance.accent)});
-
-    ${this.options.cloudVariables.mode === 'ws' ?
-      `scaffolding.addCloudProvider(${this.makeWebSocketProvider()})` :
-      this.options.cloudVariables.mode === 'local' ?
-      `scaffolding.addCloudProvider(${this.makeLocalStorageProvider()})` :
-      this.options.cloudVariables.mode === 'custom' ?
-      this.makeCustomProvider() :
-      '/* no-op */'
     };
 
-    if (${this.options.controls.greenFlag.enabled}) {
-      const greenFlagButton = document.createElement("img");
-      greenFlagButton.src = 'data:image/svg+xml,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16.63 17.5"><path d="M.75 2a6.44 6.44 0 017.69 0h0a6.44 6.44 0 007.69 0v10.4a6.44 6.44 0 01-7.69 0h0a6.44 6.44 0 00-7.69 0" fill="#4cbf56" stroke="#45993d" stroke-linecap="round" stroke-linejoin="round"/><path stroke-width="1.5" fill="#4cbf56" stroke="#45993d" stroke-linecap="round" stroke-linejoin="round" d="M.75 16.75v-16"/></svg>');
-      greenFlagButton.className = 'control-button';
-      greenFlagButton.addEventListener('click', () => {
-        scaffolding.greenFlag();
-      });
-      scaffolding.addEventListener('PROJECT_RUN_START', () => {
-        greenFlagButton.classList.add('active');
-      });
-      scaffolding.addEventListener('PROJECT_RUN_STOP', () => {
-        greenFlagButton.classList.remove('active');
-      });
-      scaffolding.addControlButton({
-        element: greenFlagButton,
-        where: 'top-left'
-      });
-    }
-
-    if (${this.options.controls.stopAll.enabled}) {
-      const stopAllButton = document.createElement("img");
-      stopAllButton.src = 'data:image/svg+xml,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 14 14"><path fill="#ec5959" stroke="#b84848" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="M4.3.5h5.4l3.8 3.8v5.4l-3.8 3.8H4.3L.5 9.7V4.3z"/></svg>');
-      stopAllButton.className = 'control-button';
-      stopAllButton.addEventListener('click', () => {
-        scaffolding.stopAll();
-      });
-      scaffolding.addControlButton({
-        element: stopAllButton,
-        where: 'top-left'
-      });
-    }
-
-    if (${this.options.controls.fullscreen.enabled} && (document.fullscreenEnabled || document.webkitFullscreenEnabled)) {
-      let isFullScreen = !!(document.fullscreenElement || document.webkitFullscreenElement);
-      const fullscreenButton = document.createElement('img');
-      fullscreenButton.className = 'control-button fullscreen-button';
-      fullscreenButton.addEventListener('click', () => {
-        if (isFullScreen) {
-          if (document.exitFullscreen) {
-            document.exitFullscreen();
-          } else if (document.webkitExitFullscreen) {
-            document.webkitExitFullscreen();
-          }
-        } else {
-          if (document.body.requestFullscreen) {
-            document.body.requestFullscreen()
-          } else if (document.body.webkitRequestFullscreen) {
-            document.body.webkitRequestFullscreen();
-          }
-        }
-      });
-      const otherControlsExist = ${this.options.controls.greenFlag.enabled || this.options.controls.stopAll.enabled};
-      const fillColor = otherControlsExist ? '#575E75' : '${this.options.appearance.foreground}';
-      const updateFullScreen = () => {
-        isFullScreen = !!(document.fullscreenElement || document.webkitFullscreenElement);
-        if (isFullScreen) {
-          fullscreenButton.src = 'data:image/svg+xml,' + encodeURIComponent('<svg width="20" height="20" xmlns="http://www.w3.org/2000/svg"><g fill="' + fillColor + '" fill-rule="evenodd"><path d="M12.662 3.65l.89.891 3.133-2.374a.815.815 0 011.15.165.819.819 0 010 .986L15.467 6.46l.867.871c.25.25.072.664-.269.664L12.388 8A.397.397 0 0112 7.611V3.92c0-.341.418-.514.662-.27M7.338 16.35l-.89-.89-3.133 2.374a.817.817 0 01-1.15-.166.819.819 0 010-.985l2.37-3.143-.87-.871a.387.387 0 01.27-.664L7.612 12a.397.397 0 01.388.389v3.692a.387.387 0 01-.662.27M7.338 3.65l-.89.891-3.133-2.374a.815.815 0 00-1.15.165.819.819 0 000 .986l2.37 3.142-.87.871a.387.387 0 00.27.664L7.612 8A.397.397 0 008 7.611V3.92a.387.387 0 00-.662-.27M12.662 16.35l.89-.89 3.133 2.374a.817.817 0 001.15-.166.819.819 0 000-.985l-2.368-3.143.867-.871a.387.387 0 00-.269-.664L12.388 12a.397.397 0 00-.388.389v3.692c0 .342.418.514.662.27"/></g></svg>');
-        } else {
-          fullscreenButton.src = 'data:image/svg+xml,' + encodeURIComponent('<svg width="20" height="20" xmlns="http://www.w3.org/2000/svg"><g fill="' + fillColor + '" fill-rule="evenodd"><path d="M16.338 7.35l-.89-.891-3.133 2.374a.815.815 0 01-1.15-.165.819.819 0 010-.986l2.368-3.142-.867-.871a.387.387 0 01.269-.664L16.612 3a.397.397 0 01.388.389V7.08a.387.387 0 01-.662.27M3.662 12.65l.89.89 3.133-2.374a.817.817 0 011.15.166.819.819 0 010 .985l-2.37 3.143.87.871c.248.25.071.664-.27.664L3.388 17A.397.397 0 013 16.611V12.92c0-.342.418-.514.662-.27M3.662 7.35l.89-.891 3.133 2.374a.815.815 0 001.15-.165.819.819 0 000-.986L6.465 4.54l.87-.871a.387.387 0 00-.27-.664L3.388 3A.397.397 0 003 3.389V7.08c0 .341.418.514.662.27M16.338 12.65l-.89.89-3.133-2.374a.817.817 0 00-1.15.166.819.819 0 000 .985l2.368 3.143-.867.871a.387.387 0 00.269.664l3.677.005a.397.397 0 00.388-.389V12.92a.387.387 0 00-.662-.27"/></g></svg>');
-        }
+    try {
+      const scaffolding = new Scaffolding.Scaffolding();
+      scaffolding.width = ${this.options.stageWidth};
+      scaffolding.height = ${this.options.stageHeight};
+      scaffolding.setup();
+      scaffolding.appendTo(appElement);
+  
+      if (typeof ScaffoldingAddons !== "undefined") ScaffoldingAddons.run(scaffolding);
+  
+      // Expose values expected by third-party plugins
+      window.scaffolding = scaffolding;
+      window.vm = scaffolding.vm;
+  
+      const {storage, vm} = scaffolding;
+      storage.addWebStore(
+        [storage.AssetType.ImageVector, storage.AssetType.ImageBitmap, storage.AssetType.Sound],
+        (asset) => new URL("./assets/" + asset.assetId + "." + asset.dataFormat, location).href
+      );
+      storage.onprogress = (total, loaded) => {
+        setProgress(${PROGRESS_LOADED_JSON_BUT_NEED_ASSETS} + (loaded / total) * ${1 - PROGRESS_LOADED_JSON_BUT_NEED_ASSETS});
       };
-      updateFullScreen();
-      document.addEventListener('fullscreenchange', updateFullScreen);
-      document.addEventListener('webkitfullscreenchange', updateFullScreen);
-      if (otherControlsExist) {
-        fullscreenButton.className = 'control-button fullscreen-button';
-        scaffolding.addControlButton({
-          element: fullscreenButton,
-          where: 'top-right'
+      setProgress(${PROGRESS_LOADED_SCRIPTS});
+  
+      scaffolding.setUsername(${JSON.stringify(this.options.username)}.replace(/#/g, () => Math.floor(Math.random() * 10)));
+      scaffolding.setAccentColor(${JSON.stringify(this.options.appearance.accent)});
+  
+      ${this.options.cloudVariables.mode === 'ws' ?
+        `scaffolding.addCloudProvider(${this.makeWebSocketProvider()})` :
+        this.options.cloudVariables.mode === 'local' ?
+        `scaffolding.addCloudProvider(${this.makeLocalStorageProvider()})` :
+        this.options.cloudVariables.mode === 'custom' ?
+        this.makeCustomProvider() :
+        '/* no-op */'
+      };
+  
+      if (${this.options.controls.greenFlag.enabled}) {
+        const greenFlagButton = document.createElement("img");
+        greenFlagButton.src = 'data:image/svg+xml,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16.63 17.5"><path d="M.75 2a6.44 6.44 0 017.69 0h0a6.44 6.44 0 007.69 0v10.4a6.44 6.44 0 01-7.69 0h0a6.44 6.44 0 00-7.69 0" fill="#4cbf56" stroke="#45993d" stroke-linecap="round" stroke-linejoin="round"/><path stroke-width="1.5" fill="#4cbf56" stroke="#45993d" stroke-linecap="round" stroke-linejoin="round" d="M.75 16.75v-16"/></svg>');
+        greenFlagButton.className = 'control-button';
+        greenFlagButton.addEventListener('click', () => {
+          scaffolding.greenFlag();
         });
-      } else {
-        fullscreenButton.className = 'standalone-fullscreen-button';
-        document.body.appendChild(fullscreenButton);
+        scaffolding.addEventListener('PROJECT_RUN_START', () => {
+          greenFlagButton.classList.add('active');
+        });
+        scaffolding.addEventListener('PROJECT_RUN_STOP', () => {
+          greenFlagButton.classList.remove('active');
+        });
+        scaffolding.addControlButton({
+          element: greenFlagButton,
+          where: 'top-left'
+        });
       }
-    }
-
-    vm.setTurboMode(${this.options.turbo});
-    vm.setInterpolation(${this.options.interpolation});
-    vm.setFramerate(${this.options.framerate});
-    vm.renderer.setUseHighQualityRender(${this.options.highQualityPen});
-    vm.setRuntimeOptions({
-      fencing: ${this.options.fencing},
-      miscLimits: ${this.options.miscLimits},
-      maxClones: ${this.options.maxClones},
-    });
-    vm.setCompilerOptions({
-      enabled: ${this.options.compiler.enabled},
-      warpTimer: ${this.options.compiler.warpTimer}
-    });
-
-    for (const extension of ${JSON.stringify(this.options.extensions.map(i => i.url))}) {
-      vm.extensionManager.loadExtensionURL(extension);
+  
+      if (${this.options.controls.stopAll.enabled}) {
+        const stopAllButton = document.createElement("img");
+        stopAllButton.src = 'data:image/svg+xml,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 14 14"><path fill="#ec5959" stroke="#b84848" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="M4.3.5h5.4l3.8 3.8v5.4l-3.8 3.8H4.3L.5 9.7V4.3z"/></svg>');
+        stopAllButton.className = 'control-button';
+        stopAllButton.addEventListener('click', () => {
+          scaffolding.stopAll();
+        });
+        scaffolding.addControlButton({
+          element: stopAllButton,
+          where: 'top-left'
+        });
+      }
+  
+      if (${this.options.controls.fullscreen.enabled} && (document.fullscreenEnabled || document.webkitFullscreenEnabled)) {
+        let isFullScreen = !!(document.fullscreenElement || document.webkitFullscreenElement);
+        const fullscreenButton = document.createElement('img');
+        fullscreenButton.className = 'control-button fullscreen-button';
+        fullscreenButton.addEventListener('click', () => {
+          if (isFullScreen) {
+            if (document.exitFullscreen) {
+              document.exitFullscreen();
+            } else if (document.webkitExitFullscreen) {
+              document.webkitExitFullscreen();
+            }
+          } else {
+            if (document.body.requestFullscreen) {
+              document.body.requestFullscreen()
+            } else if (document.body.webkitRequestFullscreen) {
+              document.body.webkitRequestFullscreen();
+            }
+          }
+        });
+        const otherControlsExist = ${this.options.controls.greenFlag.enabled || this.options.controls.stopAll.enabled};
+        const fillColor = otherControlsExist ? '#575E75' : '${this.options.appearance.foreground}';
+        const updateFullScreen = () => {
+          isFullScreen = !!(document.fullscreenElement || document.webkitFullscreenElement);
+          if (isFullScreen) {
+            fullscreenButton.src = 'data:image/svg+xml,' + encodeURIComponent('<svg width="20" height="20" xmlns="http://www.w3.org/2000/svg"><g fill="' + fillColor + '" fill-rule="evenodd"><path d="M12.662 3.65l.89.891 3.133-2.374a.815.815 0 011.15.165.819.819 0 010 .986L15.467 6.46l.867.871c.25.25.072.664-.269.664L12.388 8A.397.397 0 0112 7.611V3.92c0-.341.418-.514.662-.27M7.338 16.35l-.89-.89-3.133 2.374a.817.817 0 01-1.15-.166.819.819 0 010-.985l2.37-3.143-.87-.871a.387.387 0 01.27-.664L7.612 12a.397.397 0 01.388.389v3.692a.387.387 0 01-.662.27M7.338 3.65l-.89.891-3.133-2.374a.815.815 0 00-1.15.165.819.819 0 000 .986l2.37 3.142-.87.871a.387.387 0 00.27.664L7.612 8A.397.397 0 008 7.611V3.92a.387.387 0 00-.662-.27M12.662 16.35l.89-.89 3.133 2.374a.817.817 0 001.15-.166.819.819 0 000-.985l-2.368-3.143.867-.871a.387.387 0 00-.269-.664L12.388 12a.397.397 0 00-.388.389v3.692c0 .342.418.514.662.27"/></g></svg>');
+          } else {
+            fullscreenButton.src = 'data:image/svg+xml,' + encodeURIComponent('<svg width="20" height="20" xmlns="http://www.w3.org/2000/svg"><g fill="' + fillColor + '" fill-rule="evenodd"><path d="M16.338 7.35l-.89-.891-3.133 2.374a.815.815 0 01-1.15-.165.819.819 0 010-.986l2.368-3.142-.867-.871a.387.387 0 01.269-.664L16.612 3a.397.397 0 01.388.389V7.08a.387.387 0 01-.662.27M3.662 12.65l.89.89 3.133-2.374a.817.817 0 011.15.166.819.819 0 010 .985l-2.37 3.143.87.871c.248.25.071.664-.27.664L3.388 17A.397.397 0 013 16.611V12.92c0-.342.418-.514.662-.27M3.662 7.35l.89-.891 3.133 2.374a.815.815 0 001.15-.165.819.819 0 000-.986L6.465 4.54l.87-.871a.387.387 0 00-.27-.664L3.388 3A.397.397 0 003 3.389V7.08c0 .341.418.514.662.27M16.338 12.65l-.89.89-3.133-2.374a.817.817 0 00-1.15.166.819.819 0 000 .985l2.368 3.143-.867.871a.387.387 0 00.269.664l3.677.005a.397.397 0 00.388-.389V12.92a.387.387 0 00-.662-.27"/></g></svg>');
+          }
+        };
+        updateFullScreen();
+        document.addEventListener('fullscreenchange', updateFullScreen);
+        document.addEventListener('webkitfullscreenchange', updateFullScreen);
+        if (otherControlsExist) {
+          fullscreenButton.className = 'control-button fullscreen-button';
+          scaffolding.addControlButton({
+            element: fullscreenButton,
+            where: 'top-right'
+          });
+        } else {
+          fullscreenButton.className = 'standalone-fullscreen-button';
+          document.body.appendChild(fullscreenButton);
+        }
+      }
+  
+      vm.setTurboMode(${this.options.turbo});
+      vm.setInterpolation(${this.options.interpolation});
+      vm.setFramerate(${this.options.framerate});
+      vm.renderer.setUseHighQualityRender(${this.options.highQualityPen});
+      vm.setRuntimeOptions({
+        fencing: ${this.options.fencing},
+        miscLimits: ${this.options.miscLimits},
+        maxClones: ${this.options.maxClones},
+      });
+      vm.setCompilerOptions({
+        enabled: ${this.options.compiler.enabled},
+        warpTimer: ${this.options.compiler.warpTimer}
+      });
+  
+      for (const extension of ${JSON.stringify(this.options.extensions.map(i => i.url))}) {
+        vm.extensionManager.loadExtensionURL(extension);
+      }
+    } catch (e) {
+      handleError(e);
     }
 
     // NW.js hook
@@ -740,13 +751,6 @@ cd "$(dirname "$0")"
         launchScreen.focus();
       }
     };
-
-    const handleError = (error) => {
-      console.error(error);
-      errorScreen.hidden = false;
-      errorScreenInfo.textContent = '' + error;
-    };
-
     run().catch(handleError);
   </script>
 </body>
