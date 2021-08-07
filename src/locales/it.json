@@ -24,7 +24,6 @@
         "cloudVariables-local-help": "\"Memorizza nella memoria locale\" memorizza le variabili sul computer dell'utente e ne ripristina i valori quando il progetto viene riavviato.",
         "cloudVariables-ws": "Connessione al server delle variabili cloud",
         "cloudVariables-ws-help": "\"Connessione al server delle variabili cloud\" sincronizza le variabili con altri utenti.",
-        "cloudVariables-ws-unavailable": "Impossibile usare le variabili cloud in questo progetto",
         "colors": "Colori",
         "confirmReload": "Riportare tutte le impostazioni ai loro valori predefiniti e ricaricare?",
         "controls": "Controlli",

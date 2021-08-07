@@ -24,7 +24,6 @@
         "cloudVariables-local-help": "\"Guardar localmente\" salva as variáveis no computador do usuário e carrega os valores quando o projeto é reiniciado.",
         "cloudVariables-ws": "Conectar a servidor de variáveis nuvem",
         "cloudVariables-ws-help": "\"Conectar a servidor de variáveis nuvem\" sincroniza as variáveis com outros usuários.",
-        "cloudVariables-ws-unavailable": "Desativar servidor de variáveis nuvem nesse projeto",
         "cloudVariablesHost": "Hospedagem Cloud",
         "colors": "Cores",
         "confirmReload": "Resetar todas as configurações e recarregar?",

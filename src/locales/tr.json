@@ -24,7 +24,6 @@
         "cloudVariables-local-help": "\"Yerel depoda saklayın\" değişkenleri kullanıcının bilgisayarında saklar ve proje yeniden başlatıldığında bunları geri yükler.",
         "cloudVariables-ws": "Bulut değişkenler sunucuya bağlanın",
         "cloudVariables-ws-help": "\"Bulut değişkenler sunucuya bağlanın\" değişkenleri diğer kullanıcılarla senkronize eder.",
-        "cloudVariables-ws-unavailable": "Bu projede bulut değişken sunucusu kullanılamaz",
         "cloudVariablesHost": "Bulut ana bilgisayarı",
         "colors": "Renkler",
         "confirmReload": "Tüm ayarlar varsayılanlara sıfırlansın ve yeniden yüklensin mi?",

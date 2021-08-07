@@ -25,7 +25,6 @@
         "cloudVariables-local-help": "存儲在本機⸺存在玩家本機，專案重啟時延續。",
         "cloudVariables-ws": "連接到雲端變數主機",
         "cloudVariables-ws-help": "連接到雲端變數主機⸺與其他玩家同步。",
-        "cloudVariables-ws-unavailable": "無法在這個專案使用雲端變數",
         "cloudVariablesHost": "雲端變數主機",
         "colors": "顏色",
         "confirmReload": "你確定要全部重置？",

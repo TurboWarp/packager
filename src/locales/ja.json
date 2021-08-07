@@ -1,5 +1,6 @@
 {
     "fileInput": {
+        "clear": "明確な選択",
         "select": "選ぶかファイルをドロップする",
         "selected": "{file}を選ぶ"
     },
@@ -19,7 +20,6 @@
         "cloudVariables-local-help": "「ローカルに保存する」はユーザーのコンピューターに変数を保存し、プロジェクトを再起動したときに復元します。",
         "cloudVariables-ws": "クラウド変数のサーバーにつなぐ",
         "cloudVariables-ws-help": "「クラウド変数のサーバーにつなぐ」は他のユーザーと変数を同期します。",
-        "cloudVariables-ws-unavailable": "このプロジェクトではクラウド変数のサーバーは使えません。",
         "cloudVariablesHost": "クラウドのホスト",
         "colors": "色",
         "confirmReload": "全ての設定をデフォルトに戻し、再読み込みしますか？",
@@ -34,6 +34,7 @@
         "framerate": "フレームレート",
         "gamepadSupport": "ゲームパッドのアドオン（現時点では設定ボタンなどはありません)",
         "highQualityPen": "ペンできれいに描画する",
+        "html": "プレーン HTML (スタンドアロンはどこでも機能します) ",
         "icon": "アイコン",
         "infiniteClones": "クローンの制限を解除",
         "interpolation": "補完機能",
