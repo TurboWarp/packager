@@ -114,7 +114,7 @@ class Preview {
     this.window.postMessage({
       progress,
       text
-    });
+    }, location.origin);
   }
 
   close () {
