@@ -10,6 +10,7 @@
   import SelectLocale from './SelectLocale.svelte';
   import {error, progress} from './stores';
   import {UserError} from './errors';
+  import isSupported from './lib/browser-support';
   import {APP_NAME, FEEDBACK_GITHUB, FEEDBACK_SCRATCH, SOURCE_CODE} from './brand';
 
   let projectData;
@@ -119,7 +120,14 @@
     </p>
   </Section>
 
-  <SelectProject bind:projectData />
+  {#if !isSupported}
+    <Section accent="#4C97FF">
+      <h2>Browser not supported</h2>
+      <p>While packaged projects will run in this browser, the packager itself will not. Please update your browser to use this site.</p>
+    </Section>
+  {:else}
+    <SelectProject bind:projectData />
+  {/if}
 
   {#if projectData}
     <div in:fade>
