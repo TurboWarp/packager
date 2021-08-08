@@ -3,8 +3,8 @@ import Renderer from 'scratch-render';
 import Storage from './storage';
 import AudioEngine from 'scratch-audio';
 import {BitmapAdapter} from 'scratch-svg-renderer';
-import {EventTarget, Event} from 'event-target-shim';
 
+import EventTarget from '../common/event-target';
 import VideoProvider from './video';
 import Cloud from './cloud';
 import Question from './question';

@@ -1,4 +1,4 @@
-import {EventTarget} from 'event-target-shim';
+import EventTarget from '../../common/event-target';
 
 let console = window.console;
 
