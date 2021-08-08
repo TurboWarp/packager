@@ -37,6 +37,18 @@ const makeScaffolding = ({full}) => ({
   module: {
     rules: [
       {
+        test: /\.jsx?$/,
+        loader: 'babel-loader',
+        include: [
+          path.resolve(__dirname, 'src'),
+          /node_modules[\\/]scratch-[^\\/]+[\\/]src/
+        ],
+        options: {
+          babelrc: false,
+          presets: ['@babel/preset-env']
+        }
+      },
+      {
         test: /\.(svg|png)$/i,
         use: [{
           loader: 'url-loader'
