@@ -123,7 +123,7 @@
   {#if !isSupported}
     <Section accent="#4C97FF">
       <h2>Browser not supported</h2>
-      <p>While packaged projects will run in this browser, the packager itself will not. Please update your browser to use this site.</p>
+      <p>Please update your browser to use this site.</p>
     </Section>
   {:else}
     <SelectProject bind:projectData />
