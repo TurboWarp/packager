@@ -407,18 +407,22 @@
       {$_('options.nwjs-linux64')}
     </label>
   </div>
-  <div class="environment-section">
-    <label>
-      <input type="radio" bind:group={$options.target} value="electron-win32">
-      <!-- TODO: translate -->
-      Electron Windows application (32-bit or 64-bit)
-    </label>
-    <label>
-      <input type="radio" bind:group={$options.target} value="electron-linux64">
-      <!-- TODO: translate -->
-      Electron Linux application (64-bit only)
-    </label>
-  </div>
+  <details>
+    <summary>Experimental platforms</summary>
+    <p>Electron will eventually replace NW.js due to improved performance, file size, and security.</p>
+    <div class="environment-section">
+      <label>
+        <input type="radio" bind:group={$options.target} value="electron-win32">
+        <!-- TODO: translate -->
+        Electron Windows application (32-bit or 64-bit) (Beta)
+      </label>
+      <label>
+        <input type="radio" bind:group={$options.target} value="electron-linux64">
+        <!-- TODO: translate -->
+        Electron Linux application (64-bit only) (Beta)
+      </label>
+    </div>
+  </details>
 </Section>
 
 {#if $options.target.startsWith('nwjs-') || $options.target.startsWith('electron-')}
