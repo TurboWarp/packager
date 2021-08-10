@@ -195,6 +195,9 @@
     "gamepadSupport": {
       "string": "Gamepad support addon (no settings button or modal for now)"
     },
+    "pointerlock": {
+      "string": "Pointerlock"
+    },
     "cloudVariables": {
       "string": "Cloud Variables",
       "context": "Cloud variables section header"

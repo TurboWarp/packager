@@ -212,7 +212,7 @@ class Packager extends EventTarget {
     } else {
       texts.push(await this.fetchLargeAsset('scaffolding-min'));
     }
-    if (this.options.chunks.gamepad) {
+    if (this.options.chunks.gamepad || this.options.chunks.pointerlock) {
       texts.push(await this.fetchLargeAsset('addons'));
     }
     this.script = texts.join('\n').replace(/<\/script>/g,"</scri'+'pt>");
@@ -596,7 +596,9 @@ cd "$(dirname "$0")"
       scaffolding.setup();
       scaffolding.appendTo(appElement);
 
-      if (typeof ScaffoldingAddons !== "undefined") ScaffoldingAddons.run(scaffolding);
+      if (typeof ScaffoldingAddons !== "undefined") {
+        ScaffoldingAddons.run(scaffolding, ${JSON.stringify(this.options.chunks)});
+      }
 
       // Expose values expected by third-party plugins
       window.scaffolding = scaffolding;
@@ -868,7 +870,8 @@ Packager.DEFAULT_OPTIONS = () => ({
     windowTitle: Packager.getWindowTitleFromFileName('')
   },
   chunks: {
-    gamepad: false
+    gamepad: false,
+    pointerlock: false
   },
   cloudVariables: {
     mode: 'ws',

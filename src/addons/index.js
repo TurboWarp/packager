@@ -1,15 +1,9 @@
-import gamepadUserscript from './gamepad/userscript.js';
-import gamepadUserstyle from '!raw-loader!./gamepad/style.css'
+import gamepad from './gamepad';
+import pointerlock from './pointerlock';
 
-const addStylesheet = (css) => {
-  const stylesheet = document.createElement('style');
-  stylesheet.textContent = css;
-  document.head.appendChild(stylesheet);
-};
-
-const run = (scaffolding) => {
-  gamepadUserscript(scaffolding);
-  addStylesheet(gamepadUserstyle);
+const run = (scaffolding, options) => {
+  if (options.gamepad) gamepad(scaffolding);
+  if (options.pointerlock) pointerlock(scaffolding);
 };
 
 window.ScaffoldingAddons = {

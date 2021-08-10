@@ -299,6 +299,10 @@
     <input type="checkbox" bind:checked={$options.chunks.gamepad}>
     {$_('options.gamepadSupport')}
   </label>
+  <label>
+    <input type="checkbox" bind:checked={$options.chunks.pointerlock}>
+    {$_('options.pointerlock')}
+  </label>
 </Section>
 
 {#if cloudVariables.length > 0}
