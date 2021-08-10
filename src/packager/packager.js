@@ -411,6 +411,18 @@ cd "$(dirname "$0")"
     return `<link rel="icon" href="${data}">`;
   }
 
+  async generateCursor () {
+    if (this.options.cursor.type !== 'custom') {
+      return this.options.cursor.type;
+    }
+    if (!this.options.cursor.custom) {
+      // Set to custom but no data, so ignore
+      return 'auto';
+    }
+    const data = await readAsURL(this.options.cursor.custom);
+    return `url(${data}), auto`;
+  }
+
   async package () {
     await this.loadResources();
     const html = `<!DOCTYPE html>
@@ -524,6 +536,9 @@ cd "$(dirname "$0")"
       border-radius: 0 0 0 4px;
       padding: 4px;
       cursor: pointer;
+    }
+    .sc-canvas {
+      cursor: ${await this.generateCursor()};
     }
   </style>
   <meta name="theme-color" content="${this.options.appearance.background}">
@@ -860,6 +875,10 @@ Packager.DEFAULT_OPTIONS = () => ({
     id: 0,
     cloudHost: 'wss://clouddata.turbowarp.org',
     custom: {}
+  },
+  cursor: {
+    type: 'auto',
+    custom: null
   },
   extensions: []
 });

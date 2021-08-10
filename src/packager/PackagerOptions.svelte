@@ -44,6 +44,9 @@
   const icon = fileStore.writableFileStore(`PackagerOptions.icon.${projectData.uniqueId}`);
   $: $options.app.icon = $icon;
 
+  const customCursorIcon = fileStore.writableFileStore(`PackagerOptions.customCursorIcon.${projectData.uniqueId}`);
+  $: $options.cursor.custom = $customCursorIcon;
+
   const handleLargeAssetFetchProgress = ({detail}) => {
     if (detail.asset.startsWith('nwjs-')) {
       $progress.text = $_('progress.loadingNwjs');
@@ -268,6 +271,28 @@
     <input type="color" bind:value={$options.appearance.accent}>
     {$_('options.accentColor')}
   </label>
+
+  <h3>{$_('options.cursor')}</h3>
+  <div>
+    <label>
+      <input type="radio" bind:group={$options.cursor.type} value="auto">
+      {$_('options.normalCursor')}
+    </label>
+    <label>
+      <input type="radio" bind:group={$options.cursor.type} value="none">
+      {$_('options.noCursor')}
+    </label>
+    <label>
+      <input type="radio" bind:group={$options.cursor.type} value="custom">
+      {$_('options.customCursor')}
+    </label>
+  </div>
+  {#if $options.cursor.type === 'custom'}
+    <div in:slide|self>
+      <ImageInput bind:file={$customCursorIcon} />
+      <p>{$_('options.cursorHelp')}</p>
+    </div>
+  {/if}
 
   <h3>{$_('options.addons')}</h3>
   <label>

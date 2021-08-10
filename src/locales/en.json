@@ -296,6 +296,21 @@
     },
     "downloadsWillAppearHere": {
       "string": "Downloads will appear here"
+    },
+    "cursor": {
+      "string": "Cursor"
+    },
+    "normalCursor": {
+      "string": "Normal cursor"
+    },
+    "noCursor": {
+      "string": "Hide cursor"
+    },
+    "customCursor": {
+      "string": "Custom cursor"
+    },
+    "cursorHelp": {
+      "string": "32x32 pixel images work best."
     }
   },
   "fileInput": {
