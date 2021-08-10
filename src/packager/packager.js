@@ -389,7 +389,7 @@ cd "$(dirname "$0")"
           reject(new Error("Zip environment must be used from a website, not from a file URL."));
         } else {
           reject(new Error("Request to load project data failed."));
-        }  
+        }
       };
       xhr.onprogress = (e) => {
         if (e.lengthComputable) {
@@ -595,13 +595,13 @@ cd "$(dirname "$0")"
       scaffolding.height = ${this.options.stageHeight};
       scaffolding.setup();
       scaffolding.appendTo(appElement);
-  
+
       if (typeof ScaffoldingAddons !== "undefined") ScaffoldingAddons.run(scaffolding);
-  
+
       // Expose values expected by third-party plugins
       window.scaffolding = scaffolding;
       window.vm = scaffolding.vm;
-  
+
       const {storage, vm} = scaffolding;
       storage.addWebStore(
         [storage.AssetType.ImageVector, storage.AssetType.ImageBitmap, storage.AssetType.Sound],
@@ -611,10 +611,10 @@ cd "$(dirname "$0")"
         setProgress(${PROGRESS_LOADED_JSON_BUT_NEED_ASSETS} + (loaded / total) * ${1 - PROGRESS_LOADED_JSON_BUT_NEED_ASSETS});
       };
       setProgress(${PROGRESS_LOADED_SCRIPTS});
-  
+
       scaffolding.setUsername(${JSON.stringify(this.options.username)}.replace(/#/g, () => Math.floor(Math.random() * 10)));
       scaffolding.setAccentColor(${JSON.stringify(this.options.appearance.accent)});
-  
+
       ${this.options.cloudVariables.mode === 'ws' ?
         `scaffolding.addCloudProvider(${this.makeWebSocketProvider()})` :
         this.options.cloudVariables.mode === 'local' ?
@@ -623,7 +623,7 @@ cd "$(dirname "$0")"
         this.makeCustomProvider() :
         '/* no-op */'
       };
-  
+
       if (${this.options.controls.greenFlag.enabled}) {
         const greenFlagButton = document.createElement("img");
         greenFlagButton.src = 'data:image/svg+xml,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16.63 17.5"><path d="M.75 2a6.44 6.44 0 017.69 0h0a6.44 6.44 0 007.69 0v10.4a6.44 6.44 0 01-7.69 0h0a6.44 6.44 0 00-7.69 0" fill="#4cbf56" stroke="#45993d" stroke-linecap="round" stroke-linejoin="round"/><path stroke-width="1.5" fill="#4cbf56" stroke="#45993d" stroke-linecap="round" stroke-linejoin="round" d="M.75 16.75v-16"/></svg>');
@@ -642,7 +642,7 @@ cd "$(dirname "$0")"
           where: 'top-left'
         });
       }
-  
+
       if (${this.options.controls.stopAll.enabled}) {
         const stopAllButton = document.createElement("img");
         stopAllButton.src = 'data:image/svg+xml,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 14 14"><path fill="#ec5959" stroke="#b84848" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="M4.3.5h5.4l3.8 3.8v5.4l-3.8 3.8H4.3L.5 9.7V4.3z"/></svg>');
@@ -655,7 +655,7 @@ cd "$(dirname "$0")"
           where: 'top-left'
         });
       }
-  
+
       if (${this.options.controls.fullscreen.enabled} && (document.fullscreenEnabled || document.webkitFullscreenEnabled)) {
         let isFullScreen = !!(document.fullscreenElement || document.webkitFullscreenElement);
         const fullscreenButton = document.createElement('img');
@@ -699,7 +699,7 @@ cd "$(dirname "$0")"
           document.body.appendChild(fullscreenButton);
         }
       }
-  
+
       vm.setTurboMode(${this.options.turbo});
       vm.setInterpolation(${this.options.interpolation});
       vm.setFramerate(${this.options.framerate});
@@ -713,7 +713,7 @@ cd "$(dirname "$0")"
         enabled: ${this.options.compiler.enabled},
         warpTimer: ${this.options.compiler.warpTimer}
       });
-  
+
       for (const extension of ${JSON.stringify(this.options.extensions.map(i => i.url))}) {
         vm.extensionManager.loadExtensionURL(extension);
       }
