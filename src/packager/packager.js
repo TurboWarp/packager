@@ -10,7 +10,7 @@ import assetCache from './cache';
 import {buildId, verifyBuildId} from './lib/build-id';
 import {encode, decode} from './lib/base85-encode';
 import generateAsar from './lib/generate-asar';
-import {APP_NAME, SOURCE_CODE} from './brand';
+import {APP_NAME, SOURCE_CODE, WEBSITE} from './brand';
 
 const PROGRESS_LOADED_SCRIPTS = 0.1;
 const PROGRESS_LOADED_JSON_BUT_NEED_ASSETS = 0.2;
@@ -598,7 +598,7 @@ if (acquiredLock) {
   async package () {
     await this.loadResources();
     const html = `<!DOCTYPE html>
-<!-- Created with https://packager.turbowarp.org/ -->
+<!-- Created with ${WEBSITE} -->
 <html>
 <head>
   <meta charset="utf8">
