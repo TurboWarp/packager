@@ -11,7 +11,6 @@
     },
     "options": {
         "accentColor": "Vurgu rengi (etkin/gezintili kontroller, soru istemi, bağlam menüleri)",
-        "addons": "Eklentiler",
         "advancedOptions": "Gelişmiş ayarlar",
         "advancedSummary": "Bunları değiştirmeyi bence istemezsiniz. (Açmak için tıklayın)",
         "backgroundColor": "Arka-plan rengi",
@@ -37,7 +36,6 @@
         "environment": "Çevre",
         "foregroundColor": "Ön-plan rengi (ilerleme çubuğu, bazı simgeler, bazı metinler)",
         "framerate": "Karehızı",
-        "gamepadSupport": "Gamepad desteği eklentisi (şimdilik ayar düğmesi veya modu yoktur)",
         "highQualityPen": "Yüksek kalite kalem",
         "html": "Sade HTML (bağımsız, her yerde çalışır)",
         "icon": "İkon",

@@ -36,7 +36,6 @@
         "enableCompiler": "Ligar compilador",
         "environment": "Ambiente",
         "foregroundColor": "Cor principal (barra de carregamento, alguns ícones e textos)",
-        "gamepadSupport": "Addon de suporte para controle (não há botão de configuração ou popup por enquanto)",
         "highQualityPen": "Caneta de Alta Qualidade",
         "html": "Arquivo HTML (pode ser rodado localmente ou na web)",
         "icon": "Ícone",

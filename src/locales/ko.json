@@ -10,7 +10,6 @@
     },
     "options": {
         "accentColor": "강조 색상(활성/비활성 제어, 질문 프롬프트, 우클릭 메뉴)",
-        "addons": "애드온",
         "autoplay": "자동 실행",
         "backgroundColor": "배경색",
         "cloudVariables": "클라우드 변수",
@@ -29,7 +28,6 @@
         "enableCompiler": "컴파일러 켜기",
         "environment": "환경",
         "framerate": "프레임률",
-        "gamepadSupport": "게임패드 지원 애드온 (현재는 설정 버튼이나 팝업창은 없습니다)",
         "highQualityPen": "펜 품질 올리기",
         "html": "일반 HTML (자립적, 어디에서나 작동)",
         "icon": "아이콘",

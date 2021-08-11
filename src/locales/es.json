@@ -32,7 +32,6 @@
         "environment": "Ambiente",
         "foregroundColor": "Color en primer plano (barra de progreso, algunos íconos, algunos textos)",
         "framerate": "FPS",
-        "gamepadSupport": "Addon de soporte de mando de videojuegos (sin botón de ajustes por ahora)",
         "highQualityPen": "Lápiz de Alta Calidad",
         "html": "HTML plano (autónomo, funciona en todos lados)",
         "icon": "Ícon",

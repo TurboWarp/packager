@@ -1,7 +1,6 @@
 {
     "options": {
         "accentColor": "Barva poudarkov (aktivni gumbi, polje za vnos odgovora, kontekstni meniji)",
-        "addons": "Dodatki",
         "advancedOptions": "Napredne možnosti",
         "advancedSummary": "Teh verjetno nočete spremeniti. (Kliknite, da odprete)",
         "autoplay": "Samodejno začni",
@@ -26,7 +25,6 @@
         "environment": "Okolje",
         "foregroundColor": "Barva ospredja (vrstica napredka, nekatere ikone in besedilo)",
         "framerate": "Sličice na sekundo",
-        "gamepadSupport": "Dodatek za igralne ploščke (zaenkrat brez gumba ali okna za nastavitve)",
         "highQualityPen": "Visoka ločljivost svinčnika",
         "html": "Samo HTML (samostojna datoteka, deluje kjerkoli)",
         "icon": "Ikona",

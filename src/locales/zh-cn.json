@@ -11,7 +11,6 @@
     },
     "options": {
         "accentColor": "主题色 (提问，下拉框菜单等，在原版 Scratch 中展现为蓝色)",
-        "addons": "插件",
         "advancedOptions": "高级选项",
         "advancedSummary": "大部分情况下，你不需要修改这里的设置。(单击以打开)",
         "autoplay": "自动绿旗",
@@ -38,7 +37,6 @@
         "environment": "运行环境",
         "foregroundColor": "前景颜色（进度栏，一些图标，一些文本）",
         "framerate": "帧率",
-        "gamepadSupport": "Gamepad 插件支持 (暂时没有按钮或设置)",
         "highQualityPen": "高清画笔",
         "html": "纯 HTML 文件 (单个文件，在大部分现代浏览器上工作)",
         "icon": "作品图标",

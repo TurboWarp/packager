@@ -11,7 +11,6 @@
     },
     "options": {
         "accentColor": "強調色（按鈕底、詢問框、右鍵選單）",
-        "addons": "附件",
         "advancedOptions": "進階選項",
         "advancedSummary": "正常來說，你會想更改這些（點擊以展開）。",
         "autoplay": "自動開始",
@@ -38,7 +37,6 @@
         "environment": "環境選項",
         "foregroundColor": "前景色（進度條、某些圖示和文字）",
         "framerate": "幀率",
-        "gamepadSupport": "手把支援附件（暫時沒有按鈕或模式設定）",
         "highQualityPen": "高品質畫筆",
         "html": "HTML（獨立，各處皆可用）",
         "icon": "圖示",

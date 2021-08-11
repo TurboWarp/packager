@@ -11,7 +11,6 @@
     },
     "options": {
         "accentColor": "Colore di evidenziazione (controlli attivi, casella chiedi, menu contestuali) ",
-        "addons": "Addon",
         "advancedOptions": "Opzioni Avanzate",
         "advancedSummary": "Probabilmente non vuoi cambiare queste impostazioni . (Clicca per aprire)",
         "backgroundColor": "Colore Sfondo",
@@ -35,7 +34,6 @@
         "enableCompiler": "Abilita Compilatore",
         "environment": "Ambiente",
         "foregroundColor": "Colore primo piano (barra di avanzamento, alcune icone, alcuni testi)",
-        "gamepadSupport": "Addon supporto Gamepad (no pulsante impostazioni o modale per ora)",
         "highQualityPen": "Penna Alta Qualità",
         "html": "Puro HTML (autonomo, funziona ovunque)",
         "icon": "icona",

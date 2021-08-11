@@ -1,6 +1,5 @@
 {
     "options": {
-        "addons": "Extensii",
         "cloudVariables-custom": "Avansat",
         "enableCompiler": "Pornește Compilerul",
         "reset": "Resetează"

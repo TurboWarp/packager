@@ -6,7 +6,6 @@
     },
     "options": {
         "accentColor": "アクセントカラー(アクティブ/ホバリングコントロール、質問バー、コンテキストメニュー)",
-        "addons": "アドオン",
         "advancedOptions": "高度なオプション",
         "advancedSummary": "これらを変更する必要はないでしょう。(クリックで開く)",
         "autoplay": "自動再生",
@@ -32,7 +31,6 @@
         "environment": "環境",
         "foregroundColor": "主な色(読み込みの進捗バー、アイコンや文字の一部)",
         "framerate": "フレームレート",
-        "gamepadSupport": "ゲームパッドのアドオン（現時点では設定ボタンなどはありません)",
         "highQualityPen": "ペンできれいに描画する",
         "html": "プレーン HTML (スタンドアロンはどこでも機能します) ",
         "icon": "アイコン",

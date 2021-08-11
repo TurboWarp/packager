@@ -37,7 +37,6 @@
         "environment": "Umgebung",
         "foregroundColor": "Farbe im Vordergrund (Ladebalken, manche Symbole und Texte)",
         "framerate": "Framefrequenz",
-        "gamepadSupport": "Gamepad-Unterstützung (derzeit ohne Knopf oder Modal für Einstellungen)",
         "highQualityPen": "Stift mit Hoher Qualität",
         "html": "Einfaches HTML (alleinstehend, funktioniert überall)",
         "icon": "Symbol",
