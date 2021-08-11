@@ -3,7 +3,7 @@ const run = (scaffolding) => {
   const vm = scaffolding.vm;
   const mouse = vm.runtime.ioDevices.mouse;
   let isLocked = false;
-  
+
   const postMouseData = (e, isDown) => {
     const {movementX, movementY} = e;
     const {width, height} = scaffolding.layersRect;
@@ -45,14 +45,20 @@ const run = (scaffolding) => {
       postMouseData(e);
     }
   }, true);
-  
+
+  scaffolding.addEventListener('PROJECT_RUN_START', () => {
+    if (!isLocked) {
+      canvas.requestPointerLock();
+    }
+  });
+
   document.addEventListener('pointerlockchange', () => {
     isLocked = document.pointerLockElement === canvas;
   });
   document.addEventListener('pointerlockerror', (e) => {
     console.error('Pointer lock error', e);
   });
-  
+
   const oldStep = vm.runtime._step;
   vm.runtime._step = function (...args) {
     const ret = oldStep.call(this, ...args);
