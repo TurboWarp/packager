@@ -245,7 +245,7 @@
   </label>
   <div>
     {$_('options.icon')}
-    <ImageInput bind:file={$icon} />
+    <ImageInput bind:file={$icon} previewSizes={[64, 32, 16]} />
   </div>
 
   <h3>{$_('options.controls')}</h3>
@@ -294,7 +294,7 @@
   </div>
   {#if $options.cursor.type === 'custom'}
     <div in:slide|self>
-      <ImageInput bind:file={$customCursorIcon} />
+      <ImageInput bind:file={$customCursorIcon} previewSizes={[32, 16]} />
       <p>{$_('options.cursorHelp')}</p>
     </div>
   {/if}

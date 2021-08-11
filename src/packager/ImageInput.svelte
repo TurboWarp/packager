@@ -11,6 +11,7 @@
   ];
 
   export let file;
+  export let previewSizes;
   let dragging;
   let url;
 
@@ -131,12 +132,10 @@
 >
   {#if file}
     <div class="selected">
-      <!-- svelte-ignore a11y-missing-attribute -->
-      <img src={url} width="64" height="64">
-      <!-- svelte-ignore a11y-missing-attribute -->
-      <img src={url} width="32" height="32">
-      <!-- svelte-ignore a11y-missing-attribute -->
-      <img src={url} width="16" height="16">
+      {#each previewSizes as size}
+        <!-- svelte-ignore a11y-missing-attribute -->
+        <img src={url} width={size} height={size}>
+      {/each}
       <div>{$_('fileInput.selected').replace('{file}', file.name)}</div>
       <button on:click={clear}>{$_('fileInput.clear')}</button>
     </div>
