@@ -47,6 +47,11 @@
   const customCursorIcon = fileStore.writableFileStore(`PackagerOptions.customCursorIcon.${projectData.uniqueId}`);
   $: $options.cursor.custom = $customCursorIcon;
 
+  // Temporary warning
+  if ($options.custom.js.includes('mouse._scratchX = Math.round(mouse.runtime.stageWidth * ((x / width) - 0.5));')) {
+    alert('Detected old pointer lock custom JS, please remove custom JS and use the new builtin option instead.');
+  }
+
   const handleLargeAssetFetchProgress = ({detail}) => {
     if (detail.asset.startsWith('nwjs-')) {
       $progress.text = $_('progress.loadingNwjs');
