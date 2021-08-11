@@ -188,15 +188,34 @@
     "foregroundColor": {
       "string": "Foreground color (progress bar, some icons, some text)"
     },
-    "addons": {
-      "string": "Addons",
-      "context": "Addons section header"
+    "interaction": {
+      "string": "Input",
+      "context": "Input settings header"
     },
-    "gamepadSupport": {
-      "string": "Gamepad support addon (no settings button or modal for now)"
+    "normalCursor": {
+      "string": "Normal cursor"
+    },
+    "noCursor": {
+      "string": "No cursor"
+    },
+    "customCursor": {
+      "string": "Custom cursor"
+    },
+    "cursorHelp": {
+      "string": "32x32 images work best. Larger images may not work reliably."
     },
     "pointerlock": {
-      "string": "Pointerlock"
+      "string": "Lock mouse cursor",
+      "context": "Option to enable pointerlock"
+    },
+    "pointerlockHelp": {
+      "string": "Based on a TurboWarp Experiment."
+    },
+    "gamepad": {
+      "string": "Support USB or Bluetooth gamepads/controllers"
+    },
+    "gamepadHelp": {
+      "string": "Based on the \"Gamepad support\" addon."
     },
     "cloudVariables": {
       "string": "Cloud Variables",
@@ -305,21 +324,6 @@
     },
     "downloadsWillAppearHere": {
       "string": "Downloads will appear here"
-    },
-    "cursor": {
-      "string": "Cursor"
-    },
-    "normalCursor": {
-      "string": "Normal cursor"
-    },
-    "noCursor": {
-      "string": "Hide cursor"
-    },
-    "customCursor": {
-      "string": "Custom cursor"
-    },
-    "cursorHelp": {
-      "string": "32x32 pixel images work best."
     }
   },
   "fileInput": {

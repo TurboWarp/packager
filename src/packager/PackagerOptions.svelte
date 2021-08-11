@@ -153,7 +153,7 @@
     min-width: 100%;
     height: 200px;
   }
-  .environment-section {
+  .option-group {
     margin-bottom: 12px;
   }
   .downloads {
@@ -276,8 +276,8 @@
     {$_('options.accentColor')}
   </label>
 
-  <h3>{$_('options.cursor')}</h3>
-  <div>
+  <h3>{$_('options.interaction')}</h3>
+  <div class="option-group">
     <label>
       <input type="radio" bind:group={$options.cursor.type} value="auto">
       {$_('options.normalCursor')}
@@ -298,15 +298,29 @@
     </div>
   {/if}
 
-  <h3>{$_('options.addons')}</h3>
-  <label>
-    <input type="checkbox" bind:checked={$options.chunks.gamepad}>
-    {$_('options.gamepadSupport')}
-  </label>
-  <label>
-    <input type="checkbox" bind:checked={$options.chunks.pointerlock}>
-    {$_('options.pointerlock')}
-  </label>
+  <div class="option-group">
+    <label>
+      <input type="checkbox" bind:checked={$options.chunks.pointerlock}>
+      {$_('options.pointerlock')}
+    </label>
+    <div>
+      <a href="https://experiments.turbowarp.org/pointerlock/" target="_blank" rel="noopener">
+        {$_('options.pointerlockHelp')}
+      </a>
+    </div>
+  </div>
+
+  <div class="option-group">
+    <label>
+      <input type="checkbox" bind:checked={$options.chunks.gamepad}>
+      {$_('options.gamepad')}
+    </label>
+    <div>
+      <a href="https://turbowarp.org/addons#gamepad" target="_blank" rel="noopener">
+        {$_('options.gamepadHelp')}
+      </a>
+    </div>
+  </div>
 </Section>
 
 {#if cloudVariables.length > 0}
@@ -375,13 +389,13 @@
 
 <Section accent="#0FBD8C">
   <h2>{$_('options.environment')}</h2>
-  <div class="environment-section">
+  <div class="option-group">
     <label>
       <input type="radio" bind:group={$options.target} value="html">
       {$_('options.html')}
     </label>
   </div>
-  <div class="environment-section">
+  <div class="option-group">
     <label>
       <input type="radio" bind:group={$options.target} value="zip">
       {$_('options.zip')}
@@ -391,7 +405,7 @@
       {$_('options.zip-one-asset')}
     </label>
   </div>
-  <div class="environment-section">
+  <div class="option-group">
     <label>
       <input type="radio" bind:group={$options.target} value="nwjs-win32">
       {$_('options.nwjs-win32')}
@@ -412,7 +426,7 @@
   <details>
     <summary>Experimental platforms</summary>
     <p>Electron will eventually replace NW.js due to improved performance, file size, and security.</p>
-    <div class="environment-section">
+    <div class="option-group">
       <label>
         <input type="radio" bind:group={$options.target} value="electron-win32">
         <!-- TODO: translate -->
