@@ -278,8 +278,14 @@
     "nwjs-linux64": {
       "string": "NW.js Linux application (64-bit only) (Beta)"
     },
+    "applicationSettings": {
+      "string": "Application Settings"
+    },
     "packageName": {
       "string": "Package Name"
+    },
+    "packageNameHelp": {
+      "string": "Package name should be a unique name used only by your application. The same project should always have the same package name."
     },
     "package": {
       "string": "Package",

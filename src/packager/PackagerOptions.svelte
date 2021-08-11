@@ -160,6 +160,9 @@
   .downloads {
     text-align: center;
   }
+  :invalid {
+    outline: 2px solid red;
+  }
 </style>
 
 <Section accent="#FFAB19">
@@ -428,12 +431,12 @@
 {#if $options.target.startsWith('nwjs-') || $options.target.startsWith('electron-')}
   <div in:fade|local>
     <Section accent="#FF661A">
-      <!-- TODO: translate -->
-      <h2>Application Settings</h2>
+      <h2>{$_('options.applicationSettings')}</h2>
       <label>
         {$_('options.packageName')}
-        <input type="text" bind:value={$options.app.packageName}>
+        <input type="text" bind:value={$options.app.packageName} pattern="[a-zA-Z -]+" minlength="1">
       </label>
+      <p>{$_('options.packageNameHelp')}</p>
 
       {#if $options.target.includes('win')}
         <div>
@@ -457,6 +460,9 @@
         <p>Linux support is still experimental.</p>
         {#if $options.target.includes('nwjs')}
           <p>For further help and steps, see <a href="https://docs.nwjs.io/en/latest/For%20Users/Package%20and%20Distribute/#linux">NW.js Documentation</a>.</p>
+        {/if}
+        {#if $options.target.includes('electron')}
+          <p>The application is started by running <code>start.sh</code>.</p>
         {/if}
       {/if}
     </Section>
