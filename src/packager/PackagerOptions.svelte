@@ -218,9 +218,9 @@
   </label>
   <label>
     {$_('options.stageSize')}
-    <input type="number" min="0" max="4096" step="1" bind:value={$options.stageWidth}>
+    <input type="number" min="1" max="4096" step="1" bind:value={$options.stageWidth}>
     &times;
-    <input type="number" min="0" max="4096" step="1" bind:value={$options.stageHeight}>
+    <input type="number" min="1" max="4096" step="1" bind:value={$options.stageHeight}>
   </label>
   <label>
     {$_('options.username')}
