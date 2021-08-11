@@ -160,7 +160,7 @@
   .downloads {
     text-align: center;
   }
-  :invalid {
+  input:invalid {
     outline: 2px solid red;
   }
 </style>
