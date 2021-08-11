@@ -7,10 +7,10 @@
 
 <style>
   textarea {
-    display: block;
-    width: 100%;
-    height: 100px;
     box-sizing: border-box;
+    width: 100%;
+    min-width: 100%;
+    height: 100px;
   }
 </style>
 

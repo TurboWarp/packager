@@ -148,10 +148,9 @@
     width: 150px;
   }
   textarea {
-    display: block;
-    height: 100px;
-    width: 100%;
     box-sizing: border-box;
+    width: 100%;
+    min-width: 100%;
     height: 200px;
   }
   .environment-section {
