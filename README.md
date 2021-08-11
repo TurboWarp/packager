@@ -2,7 +2,7 @@
 
 https://packager.turbowarp.org/
 
-A packager for Scratch projects. Built using TurboWarp, webpack, and Svelte.
+Converts Scratch projects to standalone files or executable programs. Built using TurboWarp, webpack, and Svelte.
 
 ## Development
 
@@ -36,7 +36,7 @@ NODE_ENV=production npm run build
 
 Output is static HTML files in the `dist` folder.
 
-## Production deployment
+## Tips for forks
 
 This section may be useful for people who intend to fork this project.
 
@@ -44,8 +44,8 @@ The packager can be deployed as a simple static website. We use GitHub Actions t
 
 Some assorted tips:
 
- - src/packager/brand.js controls some things you will likely want to change
- - Large files such as NW.js executables are stored on an external server outside of this repository and have no guarantee of existing long-term
+ - src/packager/brand.js controls some strings you will likely want to change
+ - Large files such as NW.js or Electron executables are stored on an external server outside of this repository and have no guarantee of existing long-term
  - Update the privacy policy to match your practices.
  - If you want to change the VM/renderer/etc. used, just link/install a different scratch-vm/scratch-render/etc. and restart the build. It will just work.
  - Be aware of the license of this project (LGPLv3, see below)
