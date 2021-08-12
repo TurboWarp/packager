@@ -134,7 +134,7 @@
     <div class="selected">
       {#each previewSizes as size}
         <!-- svelte-ignore a11y-missing-attribute -->
-        <img src={url} width={size} height={size}>
+        <img src={url} width={size[0]} height={size[1]}>
       {/each}
       <div>{$_('fileInput.selected').replace('{file}', file.name)}</div>
       <button on:click={clear}>{$_('fileInput.clear')}</button>
