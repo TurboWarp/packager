@@ -1,22 +1,8 @@
 import {derived} from 'svelte/store';
 import writablePersistentStore from '../packager/persistent-store';
+import englishMessages from '!../build/unstructure-translations-loader!./en.json';
 import localeNames from './locale-names.json';
 
-const unstructure = (messages) => {
-  for (const key of Object.keys(messages)) {
-    const value = messages[key];
-    if (typeof value === 'object') {
-      if (value.string) {
-        messages[key] = value.string;
-      } else {
-        unstructure(value);
-      }
-    }
-  }
-  return messages;
-};
-
-const englishMessages = unstructure(require('./en.json'));
 const allMessages = {
   en: () => englishMessages,
   // Generated code:
