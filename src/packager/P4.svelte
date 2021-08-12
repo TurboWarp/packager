@@ -161,7 +161,7 @@
   {/if}
 
   {#if $progress.visible}
-    <Section>
+    <Section center>
       <Progress progress={$progress.progress} text={$progress.text} />
     </Section>
   {/if}

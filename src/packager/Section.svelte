@@ -1,5 +1,6 @@
 <script>
   export let caption = false;
+  export let center = false;
   export let modal = false;
   export let accent = '';
 </script>
@@ -19,7 +20,6 @@
     background: #222;
   }
   .caption {
-    text-align: center;
     font-style: italic;
   }
   .modal {
@@ -27,8 +27,14 @@
     max-width: 400px;
     margin: 0 8px;
   }
+  .center {
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 </style>
 
-<div class="card" class:caption class:modal style={accent ? `border-top: 6px solid ${accent}` : ''}>
+<div class="card" class:caption class:modal class:center={caption || center} style={accent ? `border-top: 6px solid ${accent}` : ''}>
   <slot></slot>
 </div>

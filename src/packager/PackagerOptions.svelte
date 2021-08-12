@@ -164,9 +164,6 @@
   .option-group {
     margin-bottom: 12px;
   }
-  .downloads {
-    text-align: center;
-  }
   input:invalid {
     outline: 2px solid red;
   }
@@ -497,13 +494,14 @@
 </Section>
 
 {#if result && url}
-  <Section>
-    <div class="downloads">
+  <Section center>
+    <p>
       <a href={url} download={result.filename}>
         {$_('options.download')
           .replace('{filename}', result.filename)
           .replace('{size}', (result.blob.size / 1000 / 1000).toFixed(2))}
-    </div>
+      </a>
+    </p>
   </Section>
 {:else if !$progress.visible}
   <Section caption>
