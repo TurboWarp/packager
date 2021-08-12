@@ -147,24 +147,24 @@
       "context": "Player options section header"
     },
     "pageTitle": {
-      "string": "Page Title"
+      "string": "Page title"
     },
     "loadingScreen": {
       "string": "Loading Screen",
       "context": "Header of loading screen settings section"
     },
     "loadingScreenText": {
-      "string": "Loading Screen Text"
+      "string": "Loading screen text"
     },
     "loadingScreenImage": {
-      "string": "Loading Screen Image (replaces progress bar)"
+      "string": "Loading screen image (replaces progress bar)"
     },
     "loadingScreenTextPlaceholder": {
       "string": "(Nothing)",
       "context": "Placeholder text for the 'Loading Screen Text' option"
     },
     "icon": {
-      "string": "Icon"
+      "string": "Page icon"
     },
     "controls": {
       "string": "Controls",
@@ -190,7 +190,7 @@
       "context": "Colors section header"
     },
     "backgroundColor": {
-      "string": "Background Color"
+      "string": "Background color"
     },
     "foregroundColor": {
       "string": "Foreground color (progress bar, some icons, some text)"
