@@ -85,7 +85,10 @@
     background-color: rgba(0, 0, 0, 0.75);
   }
   footer > div {
-    margin-top: 8px;
+    margin-top: 12px;
+  }
+  .footer-spacer {
+    margin: 0 3px;
   }
 </style>
 
@@ -169,9 +172,9 @@
   <footer>
     <div>
       <a href="privacy.html">{$_('p4.privacy')}</a>
-      -
+      <span class="footer-spacer">-</span>
       <a href={FEEDBACK_SCRATCH}>{$_('p4.feedback')}</a>
-      -
+      <span class="footer-spacer">-</span>
       <a href={SOURCE_CODE}>{$_('p4.sourceCode')}</a>
     </div>
     <div>
