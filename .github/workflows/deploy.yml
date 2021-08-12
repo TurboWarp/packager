@@ -18,6 +18,7 @@ jobs:
         NODE_ENV: production
         PLAUSIBLE_API: https://stats.turbowarp.org/api/event
         PLAUSIBLE_DOMAIN: packager.turbowarp.org
+        ENABLE_SERVICE_WORKER: 1
     - run: npm test
     - name: Deploy
       uses: JamesIves/github-pages-deploy-action@4.1.4

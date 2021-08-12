@@ -6,7 +6,7 @@ const app = new P4({
   target: document.getElementById('app')
 });
 
-if ('serviceWorker' in navigator) {
+if (process.env.ENABLE_SERVICE_WORKER && 'serviceWorker' in navigator) {
   navigator.serviceWorker.register(serviceWorker)
     .then(() => {
       console.log('SW registered');

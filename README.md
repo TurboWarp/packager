@@ -49,6 +49,7 @@ Some assorted tips:
  - Update the privacy policy to match your practices.
  - If you want to change the VM/renderer/etc. used, just link/install a different scratch-vm/scratch-render/etc. and restart the build. It will just work.
  - Be aware of the license of this project (LGPLv3, see below)
+ - Set environment variable ENABLE_SERVICE_WORKER=1 to enable service worker (for offline support, beta)
 
 ## License
 
