@@ -733,7 +733,9 @@ if (acquiredLock) {
 
   <div id="loading" class="screen">
     ${this.options.loadingScreen.text ? `<h1 class="loading-text">${escapeXML(this.options.loadingScreen.text)}</h1>` : ''}
-    <div class="progress-bar-outer"><div class="progress-bar-inner" id="loading-inner"></div></div>
+    ${this.options.loadingScreen.image ?
+      `<div><img src="${await readAsURL(this.options.loadingScreen.image)}"></div>` :
+      '<div class="progress-bar-outer"><div class="progress-bar-inner" id="loading-inner"></div></div>'}
   </div>
 
   <div id="error" class="screen" hidden>
@@ -758,7 +760,7 @@ if (acquiredLock) {
       errorScreenInfo.textContent = '' + error;
     };
     const setProgress = (progress) => {
-      loadingInner.style.width = progress * 100 + "%";
+      if (loadingInner) loadingInner.style.width = progress * 100 + "%";
     };
 
     try {
@@ -1020,7 +1022,8 @@ Packager.DEFAULT_OPTIONS = () => ({
     accent: '#ff4c4c'
   },
   loadingScreen: {
-    text: ''
+    text: '',
+    image: null
   },
   controls: {
     greenFlag: {

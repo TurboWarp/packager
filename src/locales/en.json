@@ -149,8 +149,15 @@
     "pageTitle": {
       "string": "Page Title"
     },
+    "loadingScreen": {
+      "string": "Loading Screen",
+      "context": "Header of loading screen settings section"
+    },
     "loadingScreenText": {
       "string": "Loading Screen Text"
+    },
+    "loadingScreenImage": {
+      "string": "Loading Screen Image (replaces progress bar)"
     },
     "loadingScreenTextPlaceholder": {
       "string": "(Nothing)",

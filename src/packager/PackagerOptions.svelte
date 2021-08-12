@@ -48,6 +48,9 @@
   const customCursorIcon = fileStore.writableFileStore(`PackagerOptions.customCursorIcon.${projectData.uniqueId}`);
   $: $options.cursor.custom = $customCursorIcon;
 
+  const loadingScreenImage = fileStore.writableFileStore(`PackagerOptions.loadingScreenImage.${projectData.uniqueId}`);
+  $: $options.loadingScreen.image = $loadingScreenImage;
+
   const experimentalPlatformsInitiallyOpen = $options.target.includes('electron');
 
   // Temporary warning
@@ -243,13 +246,19 @@
     {$_('options.pageTitle')}
     <input type="text" bind:value={$options.app.windowTitle}>
   </label>
+  <div>
+    {$_('options.icon')}
+    <ImageInput bind:file={$icon} previewSizes={[64, 32, 16]} />
+  </div>
+
+  <h3>{$_('options.loadingScreen')}</h3>
   <label>
     {$_('options.loadingScreenText')}
     <input type="text" bind:value={$options.loadingScreen.text} placeholder={$_('options.loadingScreenTextPlaceholder')}>
   </label>
   <div>
-    {$_('options.icon')}
-    <ImageInput bind:file={$icon} previewSizes={[64, 32, 16]} />
+    {$_('options.loadingScreenImage')}
+    <ImageInput bind:file={$loadingScreenImage} previewSizes={[64]} />
   </div>
 
   <h3>{$_('options.controls')}</h3>
