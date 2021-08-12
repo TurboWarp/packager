@@ -35,6 +35,7 @@
 
   let result = null;
   let url = null;
+  $: $options, result = null, url = null;
 
   let previewer = null;
   $: if (previewer) {
