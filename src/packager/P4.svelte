@@ -63,6 +63,9 @@
   :global(p), :global(h1), :global(h2) {
     margin: 12px 0;
   }
+  :global(summary) {
+    cursor: pointer;
+  }
   main {
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     padding-bottom: 10px;
