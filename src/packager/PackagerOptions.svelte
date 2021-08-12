@@ -48,6 +48,8 @@
   const customCursorIcon = fileStore.writableFileStore(`PackagerOptions.customCursorIcon.${projectData.uniqueId}`);
   $: $options.cursor.custom = $customCursorIcon;
 
+  const experimentalPlatformsInitiallyOpen = $options.target.includes('electron');
+
   // Temporary warning
   if ($options.custom.js.includes('mouse._scratchX = Math.round(mouse.runtime.stageWidth * ((x / width) - 0.5));')) {
     alert('Detected old pointer lock custom JS, please remove custom JS and use the new builtin option instead.');
@@ -429,7 +431,7 @@
       {$_('options.nwjs-linux64')}
     </label>
   </div>
-  <details>
+  <details open={experimentalPlatformsInitiallyOpen}>
     <summary>Experimental platforms</summary>
     <p>Electron will eventually replace NW.js due to improved performance, file size, and security.</p>
     <div class="option-group">
