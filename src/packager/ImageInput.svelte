@@ -7,7 +7,8 @@
     '.jpeg',
     '.bmp',
     '.svg',
-    '.ico'
+    '.ico',
+    '.gif'
   ];
 
   export let file;
