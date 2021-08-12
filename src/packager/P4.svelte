@@ -22,7 +22,7 @@
       theme = darkMedia.matches ? 'dark' : 'light';
     });
   }
-  $: document.body.setAttribute('theme', theme);
+  $: document.documentElement.setAttribute('theme', theme);
   document.body.setAttribute('p4-loaded', '');
 
   $: if ($error) {
