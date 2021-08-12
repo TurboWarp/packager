@@ -498,7 +498,7 @@ if (acquiredLock) {
   }
 
   makeLocalStorageProvider () {
-    return `new Scaffolding.Cloud.LocalStorageProvider()`;
+    return `new Scaffolding.Cloud.LocalStorageProvider(${JSON.stringify(`cloudvariables:${this.options.projectId}`)})`;
   }
 
   makeCustomProvider () {
