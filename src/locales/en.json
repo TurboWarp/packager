@@ -202,7 +202,7 @@
       "string": "Custom cursor"
     },
     "cursorHelp": {
-      "string": "32x32 images work best. Larger images may not work reliably."
+      "string": "Images up to 32x32 work best. Larger images may not work reliably."
     },
     "pointerlock": {
       "string": "Lock mouse cursor",
