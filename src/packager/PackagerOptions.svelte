@@ -265,6 +265,16 @@
     <!-- Display preview at image's native size -->
     <ImageInput bind:file={$loadingScreenImage} previewSizes={[['', '']]} />
   </div>
+  {#if $loadingScreenImage}
+    <label>
+      <input type="radio" value="normal" bind:group={$options.loadingScreen.imageMode}>
+      {$_('options.sizeNormal')}
+    </label>
+    <label>
+      <input type="radio" value="stretch" bind:group={$options.loadingScreen.imageMode}>
+      {$_('options.sizeStretch')}
+    </label>
+  {/if}
 
   <h3>{$_('options.controls')}</h3>
   <label>

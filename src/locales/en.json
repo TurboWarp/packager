@@ -162,6 +162,12 @@
     "loadingScreenImage": {
       "string": "Loading screen image"
     },
+    "sizeNormal": {
+      "string": "Display at normal size"
+    },
+    "sizeStretch": {
+      "string": "Fill screen"
+    },
     "loadingScreenTextPlaceholder": {
       "string": "(Nothing)",
       "context": "Placeholder text for the 'Loading Screen Text' option"
