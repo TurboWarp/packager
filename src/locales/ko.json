@@ -11,7 +11,6 @@
     "options": {
         "accentColor": "강조 색상(활성/비활성 제어, 질문 프롬프트, 우클릭 메뉴)",
         "autoplay": "자동 실행",
-        "backgroundColor": "배경색",
         "cloudVariables": "클라우드 변수",
         "cloudVariables-custom": "고급 설정",
         "cloudVariables-ignore": "무시하기",
@@ -30,16 +29,12 @@
         "framerate": "프레임률",
         "highQualityPen": "펜 품질 올리기",
         "html": "일반 HTML (자립적, 어디에서나 작동)",
-        "icon": "아이콘",
         "infiniteClones": "무제한 복제본",
         "interpolation": "보간하기",
-        "loadingScreenText": "화면 글자를 불러옵니다",
         "loadingScreenTextPlaceholder": "(공란)",
         "mode": "모드",
         "nwjs-linux64": "NW.js 리눅스 앱 (64-bit) (베타)",
         "nwjs-mac": "NW.js macOS 앱 (베타)",
-        "packageName": "페키지 이름",
-        "pageTitle": "페이지 제목",
         "playerOptions": "플레이어 설정",
         "preview": "미리보기",
         "removeFencing": "무대 밖 동작 제한 풀기",
@@ -73,7 +68,6 @@
     "progress": {
         "compressingProject": "프로젝트 압축하기",
         "loadingAssets": "에셋 불러오는 중 ({complete}/{total})",
-        "loadingNwjs": "NM.js를 불러옵니다",
         "loadingProjectData": "프로젝트 자료를 불러옵니다",
         "loadingScripts": "스크립트를 불러오는 중입니다",
         "packagingProject": "프로젝트 패키징하기"
