@@ -56,8 +56,9 @@
     "packagingProject": {
       "string": "Packaging project"
     },
-    "loadingNwjs": {
-      "string": "Loading NW.js"
+    "loadingLargeAsset": {
+      "string": "Loading {thing}",
+      "context": "Generic loading message used when loading a \"brand name\" file such as NW.js or Electron."
     },
     "loadingScripts": {
       "string": "Loading scripts"

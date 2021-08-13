@@ -60,9 +60,9 @@
 
   const handleLargeAssetFetchProgress = ({detail}) => {
     if (detail.asset.startsWith('nwjs-')) {
-      $progress.text = $_('progress.loadingNwjs');
+      $progress.text = $_('progress.loadingLargeAsset').replace('{thing}', 'NW.js');
     } else if (detail.asset.startsWith('electron-')) {
-      $progress.text = 'Loading Electron';
+      $progress.text = $_('progress.loadingLargeAsset').replace('{thing}', 'Electron');
     }
     $progress.progress = detail.progress;
   };
