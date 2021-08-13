@@ -253,12 +253,16 @@
 
   <h3>{$_('options.loadingScreen')}</h3>
   <label>
+    <input type="checkbox" bind:checked={$options.loadingScreen.progressBar}>
+    {$_('options.showProgressBar')}
+  </label>
+  <label>
     {$_('options.loadingScreenText')}
     <input type="text" bind:value={$options.loadingScreen.text} placeholder={$_('options.loadingScreenTextPlaceholder')}>
   </label>
-  <div>
+  <div class="option-group">
     {$_('options.loadingScreenImage')}
-    <!-- Display preview at native size -->
+    <!-- Display preview at image's native size -->
     <ImageInput bind:file={$loadingScreenImage} previewSizes={[['', '']]} />
   </div>
 

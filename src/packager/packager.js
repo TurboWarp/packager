@@ -675,6 +675,9 @@ if (acquiredLock) {
       font-size: 36px;
       margin: 0 0 16px;
     }
+    .loading-image {
+      margin: 0 0 16px;
+    }
     #error-info {
       font-family: monospace;
     }
@@ -733,9 +736,8 @@ if (acquiredLock) {
 
   <div id="loading" class="screen">
     ${this.options.loadingScreen.text ? `<h1 class="loading-text">${escapeXML(this.options.loadingScreen.text)}</h1>` : ''}
-    ${this.options.loadingScreen.image ?
-      `<div><img src="${await readAsURL(this.options.loadingScreen.image)}"></div>` :
-      '<div class="progress-bar-outer"><div class="progress-bar-inner" id="loading-inner"></div></div>'}
+    ${this.options.loadingScreen.image ? `<div class="loading-image"><img src="${await readAsURL(this.options.loadingScreen.image)}"></div>` : ''}
+    ${this.options.loadingScreen.progressBar ? '<div class="progress-bar-outer"><div class="progress-bar-inner" id="loading-inner"></div></div>' : ''}
   </div>
 
   <div id="error" class="screen" hidden>
@@ -1022,6 +1024,7 @@ Packager.DEFAULT_OPTIONS = () => ({
     accent: '#ff4c4c'
   },
   loadingScreen: {
+    progressBar: true,
     text: '',
     image: null
   },

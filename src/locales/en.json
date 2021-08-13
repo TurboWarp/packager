@@ -153,11 +153,14 @@
       "string": "Loading Screen",
       "context": "Header of loading screen settings section"
     },
+    "showProgressBar": {
+      "string": "Show progress bar"
+    },
     "loadingScreenText": {
       "string": "Loading screen text"
     },
     "loadingScreenImage": {
-      "string": "Loading screen image (replaces progress bar)"
+      "string": "Loading screen image"
     },
     "loadingScreenTextPlaceholder": {
       "string": "(Nothing)",
