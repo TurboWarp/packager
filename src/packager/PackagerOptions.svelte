@@ -62,7 +62,7 @@
     if (detail.asset.startsWith('nwjs-')) {
       $progress.text = $_('progress.loadingNwjs');
     } else if (detail.asset.startsWith('electron-')) {
-      $progress.text = 'Loading electron';
+      $progress.text = 'Loading Electron';
     }
     $progress.progress = detail.progress;
   };
