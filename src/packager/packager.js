@@ -887,15 +887,15 @@ if (acquiredLock) {
       }
 
       vm.setTurboMode(${this.options.turbo});
-      vm.setInterpolation(${this.options.interpolation});
-      vm.setFramerate(${this.options.framerate});
-      vm.renderer.setUseHighQualityRender(${this.options.highQualityPen});
-      vm.setRuntimeOptions({
+      if (vm.setInterpolation) vm.setInterpolation(${this.options.interpolation});
+      if (vm.setFramerate) vm.setFramerate(${this.options.framerate});
+      if (vm.renderer.setUseHighQualityRender) vm.renderer.setUseHighQualityRender(${this.options.highQualityPen});
+      if (vm.setRuntimeOptions) vm.setRuntimeOptions({
         fencing: ${this.options.fencing},
         miscLimits: ${this.options.miscLimits},
         maxClones: ${this.options.maxClones},
       });
-      vm.setCompilerOptions({
+      if (vm.setCompilerOptions) vm.setCompilerOptions({
         enabled: ${this.options.compiler.enabled},
         warpTimer: ${this.options.compiler.warpTimer}
       });

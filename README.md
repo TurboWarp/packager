@@ -46,8 +46,8 @@ Some assorted tips:
 
  - src/packager/brand.js controls some strings you will likely want to change
  - Large files such as NW.js or Electron executables are stored on an external server outside of this repository and have no guarantee of existing long-term
+ - If you want to change the VM/renderer/etc. used, just `npm install` or `npm link` a different scratch-vm/scratch-render/etc. You can even install a vanilla scratch-vm and most core functionality will still work (features such as interpolation, high quality pen, stage size, etc. may not work)
  - Update the privacy policy to match your practices.
- - If you want to change the VM/renderer/etc. used, just link/install a different scratch-vm/scratch-render/etc. and restart the build. It will just work.
  - Be aware of the license of this project (LGPLv3, see below)
  - Set environment variable ENABLE_SERVICE_WORKER=1 to enable service worker (for offline support, beta)
 
