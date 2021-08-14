@@ -18,38 +18,35 @@ Start in development mode:
 npm start
 ```
 
-Then visit http://localhost:8947. Must manually refresh to apply.
+Then visit http://localhost:8947. Must manually refresh to apply updates.
 
 The general layout of `src` is:
 
- - build: some questionable webpack customizations
  - packager: The packager website and logic
- - locales: translations
- - scaffolding: A minimal Scratch project player that abstracts most implementation details of Scratch
- - addons: currently only the optional "gamepad support" addon in packaged projects
+ - scaffolding: A minimal Scratch project player used by the packager. Handles most of the boring details of playing Scratch projects such as handling basic mouse input
+ - addons: Optional addons such as gamepad support or pointerlock
+ - build: Unusual webpack customizations
+ - locales: Translations
 
-You should not distribute packaged projects generated while in development mode. Instead, you should run a production build to significantly reduce file size of both the website and the packager:
+Packaged projects generated while in development mode should not be distributed. Instead, you should run a production build by setting the NODE_ENV environment variable to production to significantly reduce file size of both the website and the packager:
 
 ```
 NODE_ENV=production npm run build
 ```
 
-Output is static HTML files in the `dist` folder.
+Output is in the `dist` folder.
 
 ## Tips for forks
 
-This section may be useful for people who intend to fork this project.
+Some assorted tips for people who want to fork this project (it's really easy):
 
-The packager can be deployed as a simple static website. We use GitHub Actions to deploy to GitHub Pages by running the "Deploy" workflow whenever we want to push to production (Actions > Deploy > Run workflow). This should be automatically available in forks after enabling GitHub Actions.
-
-Some assorted tips:
-
- - src/packager/brand.js controls some strings you will likely want to change
- - Large files such as NW.js or Electron executables are stored on an external server outside of this repository and have no guarantee of existing long-term
- - If you want to change the VM/renderer/etc. used, just `npm install` or `npm link` a different scratch-vm/scratch-render/etc. You can even install a vanilla scratch-vm and most core functionality will still work (features such as interpolation, high quality pen, stage size, etc. may not work)
- - Update the privacy policy to match your practices.
- - Be aware of the license of this project (LGPLv3, see below)
- - Set environment variable ENABLE_SERVICE_WORKER=1 to enable service worker (for offline support, beta)
+ - The packager is deployed as a simple static website. You can host it anywhere by just copying the `dist` folder. We use GitHub Actions to deploy to GitHub Pages by running the "Deploy" workflow whenever we want to push to production (Actions > Deploy > Run workflow). This should be automatically available in forks after enabling GitHub Actions.
+ - If you want to change the VM/renderer/etc. used, just `npm install` or `npm link` a different scratch-vm/scratch-render/etc and rebuild. You can even install a vanilla scratch-vm and all core functionality will still work (but optional features such as interpolation, high quality pen, stage size, etc. may not work)
+ - src/packager/brand.js controls names and links that appear in various places
+ - static/privacy.html is the privacy policy
+ - Large files such as NW.js or Electron executables are stored on an external server outside of this repository and have no guarantee of existing long-term. It's easy to setup your own, see src/packager/large-assets.js for more information.
+ - Set the environment variable ENABLE_SERVICE_WORKER=1 to enable service worker for offline support
+ - Be aware of the license of this project (see below)
 
 ## License
 
