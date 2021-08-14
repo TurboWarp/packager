@@ -1,5 +1,4 @@
-// Defined by webpack
-const LARGE_ASSET_BASE = process.env.LARGE_ASSET_BASE;
+const LARGE_ASSET_BASE = 'https://packagerdata.turbowarp.org/';
 const SCAFFOLDING_ROOT = 'scaffolding/';
 
 export default {
