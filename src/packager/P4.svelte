@@ -11,7 +11,7 @@
   import {error, progress} from './stores';
   import {UserError} from './errors';
   import isSupported from './lib/browser-support';
-  import {APP_NAME, FEEDBACK_GITHUB, FEEDBACK_SCRATCH, SOURCE_CODE} from './brand';
+  import {LONG_NAME, FEEDBACK_GITHUB, FEEDBACK_SCRATCH, SOURCE_CODE} from './brand';
 
   let projectData;
 
@@ -96,7 +96,7 @@
 
 <main>
   <Section accent="#ff4c4c">
-    <h1>{APP_NAME}</h1>
+    <h1>{LONG_NAME}</h1>
     <p>{$_('p4.description1')}</p>
     <p>
       <ComplexMessage
