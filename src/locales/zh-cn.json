@@ -88,7 +88,7 @@
     "p4": {
         "close": "关闭",
         "description1": "将 Scratch 作品转换为独立文件或可执行程序。 ",
-        "description2": "如果您只是想以一种简单的方式将 TurboWarp 作品嵌入您的网站，您可能会对 {embedding} 感兴趣。 ",
+        "description2": "如果您只是想以一种简单的方式将经过 TurboWarp 处理过的 Scratch 官网作品嵌入您的网站，您可能会对 {embedding} 感兴趣。 ",
         "description2-embedding": "TurboWarp 嵌入式展示器",
         "description3": "{onScratch}，或者{onGitHub}报告错误，给予反馈，并提出想法。",
         "description3-github": "在 GitHub 上",
