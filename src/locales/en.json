@@ -304,7 +304,7 @@
       "context": "type will become something like \"NW.js\" or \"Electron\". Do not translate \"Windows\"."
     },
     "application-win64": {
-      "string": "{type} Windows executable (32-bit or 64-bit)",
+      "string": "{type} Windows executable (64-bit only)",
       "context": "type will become something like \"NW.js\" or \"Electron\". Do not translate \"Windows\"."
     },
     "application-mac": {
