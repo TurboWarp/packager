@@ -7,6 +7,7 @@
   import ComplexMessage from './ComplexMessage.svelte';
   import ImageInput from './ImageInput.svelte';
   import CustomExtensions from './CustomExtensions.svelte';
+  import LearnMore from './LearnMore.svelte';
   import Packager from './packager';
   import writablePersistentStore from './persistent-store';
   import fileStore from './file-store';
@@ -175,20 +176,6 @@
 <Section accent="#FFAB19">
   <h2>{$_('options.runtimeOptions')}</h2>
 
-  <!-- TODO: this is not ideal, the help should be in here -->
-  <!-- especially as not all of these options are actually in advanced settings on the main site -->
-  <p>
-    <ComplexMessage
-      message={$_('options.moreHelp')}
-      values={{
-        turbowarp: {
-          text: 'TurboWarp',
-          href: 'https://turbowarp.org/'
-        }
-      }}
-    />
-  </p>
-
   <label>
     <input type="checkbox" bind:checked={$options.turbo}>
     {$_('options.turbo')}
@@ -196,38 +183,45 @@
   <label>
     {$_('options.framerate')}
     <input type="number" min="0" max="240" bind:value={$options.framerate}>
+    <LearnMore slug="custom-fps" />
   </label>
   <label>
     <input type="checkbox" bind:checked={$options.interpolation}>
     {$_('options.interpolation')}
+    <LearnMore slug="interpolation" />
   </label>
   <label>
     <input type="checkbox" bind:checked={$options.highQualityPen}>
     {$_('options.highQualityPen')}
+    <LearnMore slug="high-quality-pen" />
   </label>
   <label>
     <input type="checkbox" checked={$options.maxClones === ALMOST_INFINITY} on:change={(e) => {
       $options.maxClones = e.target.checked ? ALMOST_INFINITY : 300;
     }}>
     {$_('options.infiniteClones')}
+    <LearnMore slug="infinite-clones" />
   </label>
   <label>
     <input type="checkbox" checked={!$options.fencing} on:change={(e) => {
       $options.fencing = !e.target.checked;
     }}>
     {$_('options.removeFencing')}
+    <LearnMore slug="remove-fencing" />
   </label>
   <label>
     <input type="checkbox" checked={!$options.miscLimits} on:change={(e) => {
       $options.miscLimits = !e.target.checked;
     }}>
     {$_('options.removeMiscLimits')}
+    <LearnMore slug="remove-misc-limits" />
   </label>
   <label>
     {$_('options.stageSize')}
     <input type="number" min="1" max="4096" step="1" bind:value={$options.stageWidth}>
     &times;
     <input type="number" min="1" max="4096" step="1" bind:value={$options.stageHeight}>
+    <LearnMore slug="custom-stage-size" />
   </label>
   <label>
     {$_('options.username')}
@@ -398,15 +392,19 @@
     <label>
       <input type="checkbox" bind:checked={$options.compiler.enabled}>
       {$_('options.enableCompiler')}
+      <LearnMore slug="disable-compiler" />
     </label>
     <label>
       <input type="checkbox" bind:checked={$options.compiler.warpTimer}>
       {$_('options.warpTimer')}
+      <LearnMore slug="warp-timer" />
     </label>
     <!-- Ignore because CustomExtensions will have a <textarea> inside it -->
     <!-- svelte-ignore a11y-label-has-associated-control -->
     <label>
       {$_('options.customExtensions')}
+      <!-- TODO: use the user-facing documentation when that becomes available -->
+      <LearnMore slug="development/custom-extensions" />
       <CustomExtensions bind:value={$options.extensions} />
     </label>
     <label>

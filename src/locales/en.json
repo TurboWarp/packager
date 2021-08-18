@@ -110,9 +110,6 @@
     "runtimeOptions": {
       "string": "Runtime Options"
     },
-    "moreHelp": {
-      "string": "See the advanced settings menu in {turbowarp} for more information about some of these settings."
-    },
     "turbo": {
       "string": "Turbo Mode"
     },
