@@ -23,6 +23,7 @@ const allMessages = {
   "ru": () => require("./ru.json"),
   "sl": () => require("./sl.json"),
   "sv": () => require("./sv.json"),
+  "th": () => require("./th.json"),
   "tr": () => require("./tr.json"),
   "zh-cn": () => require("./zh-cn.json"),
   "zh-tw": () => require("./zh-tw.json"),

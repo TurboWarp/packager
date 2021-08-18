@@ -11,11 +11,17 @@
     "am": {
         "name": "አማርኛ"
     },
+    "an": {
+        "name": "Aragonés"
+    },
     "az": {
         "name": "Azeri"
     },
     "id": {
         "name": "Bahasa Indonesia"
+    },
+    "bn": {
+        "name": "বাংলা"
     },
     "be": {
         "name": "Беларуская"
@@ -61,6 +67,9 @@
     },
     "fr": {
         "name": "Français"
+    },
+    "fy": {
+        "name": "Frysk"
     },
     "ga": {
         "name": "Gaeilge"
