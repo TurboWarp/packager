@@ -4,7 +4,6 @@
   import {slide, fade} from 'svelte/transition';
   import Section from './Section.svelte';
   import Button from './Button.svelte';
-  import ComplexMessage from './ComplexMessage.svelte';
   import ImageInput from './ImageInput.svelte';
   import CustomExtensions from './CustomExtensions.svelte';
   import LearnMore from './LearnMore.svelte';
