@@ -435,19 +435,19 @@
   <div class="option-group">
     <label>
       <input type="radio" bind:group={$options.target} value="nwjs-win32">
-      {$_('options.nwjs-win32')}
+      {$_('options.application-win32').replace('{type}', 'NW.js')}
     </label>
     <label>
       <input type="radio" bind:group={$options.target} value="nwjs-win64">
-      {$_('options.nwjs-win64')}
+      {$_('options.application-win64').replace('{type}', 'NW.js')}
     </label>
     <label>
       <input type="radio" bind:group={$options.target} value="nwjs-mac">
-      {$_('options.nwjs-mac')}
+      {$_('options.application-mac').replace('{type}', 'NW.js')}
     </label>
     <label>
       <input type="radio" bind:group={$options.target} value="nwjs-linux-x64">
-      {$_('options.nwjs-linux64')}
+      {$_('options.application-linux64').replace('{type}', 'NW.js')}
     </label>
   </div>
   <details open={experimentalPlatformsInitiallyOpen}>
@@ -456,13 +456,11 @@
     <div class="option-group">
       <label>
         <input type="radio" bind:group={$options.target} value="electron-win32">
-        <!-- TODO: translate -->
-        Electron Windows application (32-bit or 64-bit) (Beta)
+        {$_('options.application-win32').replace('{type}', 'Electron')}
       </label>
       <label>
         <input type="radio" bind:group={$options.target} value="electron-linux64">
-        <!-- TODO: translate -->
-        Electron Linux application (64-bit only) (Beta)
+        {$_('options.application-linux64').replace('{type}', 'Electron')}
       </label>
     </div>
   </details>

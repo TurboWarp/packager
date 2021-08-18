@@ -299,17 +299,21 @@
     "zip-one-asset": {
       "string": "Zip, combine assets into single file (not recommended)"
     },
-    "nwjs-win32": {
-      "string": "NW.js Windows executable (32-bit or 64-bit)"
+    "application-win32": {
+      "string": "{type} Windows executable (32-bit or 64-bit)",
+      "context": "type will become something like \"NW.js\" or \"Electron\". Do not translate \"Windows\"."
     },
-    "nwjs-win64": {
-      "string": "NW.js Windows executable (64-bit only, not recommended)"
+    "application-win64": {
+      "string": "{type} Windows executable (32-bit or 64-bit)",
+      "context": "type will become something like \"NW.js\" or \"Electron\". Do not translate \"Windows\"."
     },
-    "nwjs-mac": {
-      "string": "NW.js macOS application (Beta)"
+    "application-mac": {
+      "string": "{type} macOS application",
+      "context": "type will become something like \"NW.js\" or \"Electron\". Do not translate \"macOS\"."
     },
-    "nwjs-linux64": {
-      "string": "NW.js Linux application (64-bit only) (Beta)"
+    "application-linux64": {
+      "string": "{type} Linux application (64-bit only)",
+      "context": "type will become something like \"NW.js\" or \"Electron\". Do not translate \"Linux\"."
     },
     "applicationSettings": {
       "string": "Application Settings"
