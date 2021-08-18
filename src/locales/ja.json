@@ -45,7 +45,6 @@
         "loadingScreenText": "ロード時の画面の文字",
         "loadingScreenTextPlaceholder": "(なし)",
         "mode": "モード",
-        "moreHelp": "これらの設定の詳細については、{turbowarp}の「高度な設定」を参照してください。",
         "noCursor": "カーソルを表示しない",
         "normalCursor": "通常のカーソル",
         "package": "パッケージ",

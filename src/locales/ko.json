@@ -33,8 +33,6 @@
         "interpolation": "보간하기",
         "loadingScreenTextPlaceholder": "(공란)",
         "mode": "모드",
-        "nwjs-linux64": "NW.js 리눅스 앱 (64-bit) (베타)",
-        "nwjs-mac": "NW.js macOS 앱 (베타)",
         "playerOptions": "플레이어 설정",
         "preview": "미리보기",
         "removeFencing": "무대 밖 동작 제한 풀기",
