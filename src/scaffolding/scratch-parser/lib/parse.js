@@ -16,7 +16,21 @@ module.exports = function (input, callback) {
         // so remove that specific one before continuing.
         // SB2 JSONs and SB3 JSONs have different versions of the
         // character serialized (e.g. \u0008 and \b), strip out both versions
-        result = JSON.parse(input.replace(/\\b|\\u0008/g, ''));
+        result = JSON.parse(input.replace(
+            /(\\+)(b|u0008)/g,
+            (match, backslash, code) => {
+                // If the number is odd, there is an actual backspace.
+                if (backslash.length % 2) {
+                    // The match contains an actual backspace, instead of backslashes followed by b.
+                    // Remove backspace and keep backslashes that are not part of
+                    // the control character representation.
+                    return match.replace('\\' + code, '');
+                }
+                // They are just backslashes followed by b or u0008. (e.g. "\\b")
+                // Don't replace in this case. (LLK/scratch-parser#56)
+                return match;
+            }
+        ));
     } catch (e) {
         return callback(e.toString());
     }
