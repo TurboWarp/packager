@@ -1,4 +1,5 @@
 import ContextMenu from './context-menu';
+import Dropper from './dropper';
 import styles from './style.css';
 
 class Monitor {
@@ -267,6 +268,8 @@ class ListMonitor extends Monitor {
     this.root.appendChild(this.rowsOuter);
     this.root.appendChild(this.footer);
 
+    this.dropper = new Dropper(this.rowsOuter, this.dropperCallback.bind(this));
+
     this.handleImport = this.handleImport.bind(this);
     this.handleExport = this.handleExport.bind(this);
     this.root.addEventListener('contextmenu', this._oncontextmenu.bind(this));
@@ -313,14 +316,17 @@ class ListMonitor extends Monitor {
       const file = files[0];
       const reader = new FileReader();
       reader.onload = () => {
-        const text = reader.result;
-        // TODO: this doesn't exactly match Scratch behavior
-        const lines = text.split(/\r?\n/);
-        this.setValue(lines);
+        this.import(reader.result);
       };
       reader.readAsText(file);
     });
     fileSelector.click();
+  }
+  
+  import (text) {
+    // TODO: Scratch uses a CSV parser
+    const lines = text.split(/\r?\n/);
+    this.setValue(lines);
   }
 
   handleExport () {
@@ -336,6 +342,10 @@ class ListMonitor extends Monitor {
     document.body.appendChild(link);
     link.click();
     link.remove();
+  }
+
+  dropperCallback (texts) {
+    this.import(texts.join('\n'));
   }
 
   getValue () {

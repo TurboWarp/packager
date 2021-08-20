@@ -1,3 +1,4 @@
+import Dropper from './dropper';
 import styles from './style.css';
 
 class Question {
@@ -23,6 +24,8 @@ class Question {
     this.input = document.createElement('input');
     this.input.className = styles.questionInput;
     this.input.addEventListener('keypress', this.onkeypress.bind(this));
+
+    this.dropper = new Dropper(this.input, this.dropperCallback.bind(this));
 
     this.submitButton = document.createElement('button');
     this.submitButton.className = styles.questionSubmitButton;
@@ -60,6 +63,11 @@ class Question {
     if (e.key === 'Enter') {
       this.submit();
     }
+  }
+
+  dropperCallback (texts) {
+    const text = texts.join('').replace(/\r?\n/g, ' ');
+    this.input.value = text;
   }
 
   onsubmitpressclick () {

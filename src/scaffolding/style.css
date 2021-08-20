@@ -312,3 +312,7 @@
 .context-menu-item:last-child {
   border-radius: 0 0 4px 4px;
 }
+
+.dropping {
+  background-color: var(--sc-accent-color-transparent);
+}
