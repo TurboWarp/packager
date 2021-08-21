@@ -39,8 +39,11 @@ const getInitialLocale = () => [
 ].find(i => allMessages[i]) || 'en';
 
 const locale = writablePersistentStore('P4.locale', getInitialLocale());
-locale.subscribe((locale) => {
-  document.documentElement.lang = locale;
+locale.subscribe((lang) => {
+  if (!allMessages[lang]) {
+    locale.set('en');
+  }
+  document.documentElement.lang = lang;
 });
 
 const getProperty = (obj, id) => {
