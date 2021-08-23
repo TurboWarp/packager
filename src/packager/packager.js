@@ -540,6 +540,7 @@ if (acquiredLock) {
 
     const plist = new Plist(await zip.file(`${contentsPrefix}Info.plist`).async('string'));
     plist.set('CFBundleIdentifier', `xyz.turbowarp.packager.userland.${this.options.app.packageName}`);
+    plist.set('CFBundleName', this.options.app.packageName);
     // TODO: update LSApplicationCategoryType
     zip.file(`${contentsPrefix}Info.plist`, plist.toString());
 
