@@ -294,7 +294,7 @@
       "string": "Plain HTML (standalone, works anywhere)"
     },
     "zip": {
-      "string": "Zip, each asset in separate file (ideal for websites)"
+      "string": "Zip (ideal for websites)"
     },
     "zip-one-asset": {
       "string": "Zip, combine assets into single file (not recommended)"
@@ -314,6 +314,14 @@
     "application-linux64": {
       "string": "{type} Linux application (64-bit only)",
       "context": "type will become something like \"NW.js\" or \"Electron\". Do not translate \"Linux\"."
+    },
+    "otherEnvironments": {
+      "string": "Other environments (Click to open)",
+      "context": "Text that can be clicked to expand list of environments to include some unrecommended ones."
+    },
+    "otherEnvironmentsHelp": {
+      "string": "Most new projects should use the options listed above instead.",
+      "context": "Text describing the \"Other environments\" section."
     },
     "applicationSettings": {
       "string": "Application Settings"
@@ -357,14 +365,18 @@
       "context": "Message indicating the name of the selected file"
     }
   },
-  "nwjs": {
-    "furtherStepsWin": {
+  "win": {
+    "furtherSteps": {
       "string": "Further steps for Windows"
-    },
-    "furtherStepsMac": {
+    }
+  },
+  "mac": {
+    "furtherSteps": {
       "string": "Further steps for macOS"
-    },
-    "furtherStepsLinux": {
+    }
+  },
+  "linux": {
+    "furtherSteps": {
       "string": "Further steps for Linux"
     }
   }
