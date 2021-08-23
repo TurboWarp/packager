@@ -10,6 +10,7 @@ import assetCache from './cache';
 import {buildId, verifyBuildId} from './lib/build-id';
 import {encode, decode} from './lib/base85-encode';
 import generateAsar from './lib/generate-asar';
+import Plist from './lib/plist';
 import {APP_NAME, SOURCE_CODE, WEBSITE} from './brand';
 
 const PROGRESS_LOADED_SCRIPTS = 0.1;
@@ -489,6 +490,58 @@ if (acquiredLock) {
   app.quit();
 }
 `);
+
+    return zip;
+  }
+
+  async addWebViewMac (projectZip) {
+    const buffer = await this.fetchLargeAsset(this.options.target);
+    const appZip = await (await getJSZip()).loadAsync(buffer);
+
+    // +-- WebView.app
+    //   +-- Contents
+    //     +-- Info.plist
+    //     +-- Resources
+    //       +-- index.html
+    //       +-- application_config.json
+    //       +-- AppIcon.icns
+
+    const newAppName = `${this.options.app.packageName}.app`;
+    const contentsPrefix = `${newAppName}/Contents/`;
+    const resourcePrefix = `${newAppName}/Contents/Resources/`;
+
+    const zip = new (await getJSZip());
+    for (const [path, data] of Object.entries(appZip.files)) {
+      setFileFast(zip, path.replace('WebView.app', newAppName), data);
+    }
+    for (const [path, data] of Object.entries(projectZip.files)) {
+      setFileFast(zip, `${resourcePrefix}${path}`, data);
+    }
+
+    const icon = await getAppIcon(this.options.app.icon);
+    const icns = await pngToAppleICNS(icon);
+    zip.file(`${resourcePrefix}AppIcon.icns`, icns);
+
+    const parsedBackgroundColor = parseInt(this.options.appearance.background.substr(1), 16);
+    const applicationConfig = {
+      title: this.options.app.windowTitle,
+      background: [
+        // R, G, B [0-255]
+        parsedBackgroundColor >> 16 & 0xff,
+        parsedBackgroundColor >> 8 & 0xff,
+        parsedBackgroundColor & 0xff,
+        // A [0-1]
+        1
+      ],
+      width: this.options.stageWidth,
+      height: this.options.stageHeight
+    };
+    zip.file(`${resourcePrefix}application_config.json`, JSON.stringify(applicationConfig));
+
+    const plist = new Plist(await zip.file(`${contentsPrefix}Info.plist`).async('string'));
+    plist.set('CFBundleIdentifier', `xyz.turbowarp.packager.userland.${this.options.app.packageName}`);
+    // TODO: update LSApplicationCategoryType
+    zip.file(`${contentsPrefix}Info.plist`, plist.toString());
 
     return zip;
   }
@@ -974,6 +1027,8 @@ if (acquiredLock) {
         zip = await this.addNwJS(zip);
       } else if (this.options.target.startsWith('electron-')) {
         zip = await this.addElectron(zip);
+      } else if (this.options.target === 'webview-mac') {
+        zip = await this.addWebViewMac(zip);
       }
 
       return {

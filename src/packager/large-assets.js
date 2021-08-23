@@ -32,6 +32,11 @@ export default {
     sha256: '6f28af0a3ccb20b0d2e4f26ea4698d5b89b81e860cbd40a446c2a8223fdf0101',
     type: 'arraybuffer'
   },
+  'webview-mac': {
+    src: LARGE_ASSET_BASE + 'WebView-macos-1.zip',
+    sha256: '16f3ba73c025598248bb64163d45001b9eb7b1b9780a9417596ca52019bd3057',
+    type: 'arraybuffer'
+  },
   scaffolding: {
     src: SCAFFOLDING_ROOT + 'scaffolding.js',
     estimatedSize: 4775503,

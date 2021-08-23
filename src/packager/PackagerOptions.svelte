@@ -457,10 +457,16 @@
         {$_('options.application-linux64').replace('{type}', 'Electron')}
       </label>
     </div>
+    <div class="option-group">
+      <label>
+        <input type="radio" bind:group={$options.target} value="webview-mac">
+        {$_('options.application-mac').replace('{type}', 'WKWebView')}
+      </label>
+    </div>
   </details>
 </Section>
 
-{#if $options.target.startsWith('nwjs-') || $options.target.startsWith('electron-')}
+{#if $options.target.startsWith('nwjs-') || $options.target.startsWith('electron-') || $options.target.startsWith('webview-')}
   <div in:fade|local>
     <Section accent="#FF661A">
       <h2>{$_('options.applicationSettings')}</h2>
