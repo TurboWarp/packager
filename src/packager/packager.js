@@ -152,9 +152,7 @@ ${SCRATCH_LICENSE.license}
 */\n`;
 
 const generateChromiumLicenseHTML = (licenses) => {
-  const pretext = `<div class="product">
-<span class="title">The following entries were added by the ${APP_NAME}</span>
-</div>`
+  const pretext = `<h2>The following entries were added by the ${APP_NAME}</h2>`;
   const convertedLicenses = licenses.map((({title, license, homepage}, index) => `
 <div class="product">
 <span class="title">${escapeXML(title)}</span>
