@@ -10,6 +10,7 @@ import assetCache from './cache';
 import {buildId, verifyBuildId} from './lib/build-id';
 import {encode, decode} from './lib/base85-encode';
 import generateAsar from './lib/generate-asar';
+import Plist from './lib/plist';
 import {APP_NAME, SOURCE_CODE, WEBSITE} from './brand';
 
 const PROGRESS_LOADED_SCRIPTS = 0.1;
@@ -81,7 +82,10 @@ const getAppIcon = async (file) => {
   });
 };
 
-const SELF_LICENSE = `Copyright (C) 2021 Thomas Weber
+const SELF_LICENSE = {
+  title: APP_NAME,
+  homepage: WEBSITE,
+  license: `Copyright (C) 2021 Thomas Weber
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU Lesser General Public License version 3
@@ -93,9 +97,13 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU Lesser General Public License for more details.
 
 You should have received a copy of the GNU Lesser General Public License
-along with this program. If not, see <https://www.gnu.org/licenses/>.`;
+along with this program. If not, see <https://www.gnu.org/licenses/>.`
+};
 
-const SCRATCH_LICENSE = `Copyright (c) 2016, Massachusetts Institute of Technology
+const SCRATCH_LICENSE = {
+  title: 'Scratch',
+  homepage: 'https://scratch.mit.edu/',
+  license: `Copyright (c) 2016, Massachusetts Institute of Technology
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -106,40 +114,58 @@ Redistribution and use in source and binary forms, with or without modification,
 
 3. Neither the name of the copyright holder nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
 
-THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.`;
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.`
+};
+
+const ELECTRON_LICENSE = {
+  title: 'Electron',
+  homepage: 'https://www.electronjs.org/',
+  license: `Copyright (c) Electron contributors
+Copyright (c) 2013-2020 GitHub Inc.
+
+Permission is hereby granted, free of charge, to any person obtaining
+a copy of this software and associated documentation files (the
+"Software"), to deal in the Software without restriction, including
+without limitation the rights to use, copy, modify, merge, publish,
+distribute, sublicense, and/or sell copies of the Software, and to
+permit persons to whom the Software is furnished to do so, subject to
+the following conditions:
+
+The above copyright notice and this permission notice shall be
+included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
+LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
+OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.`
+};
 
 const COPYRIGHT_HEADER = `/*!
 Parts of this script are from the ${APP_NAME} <${SOURCE_CODE}>, licensed as follows:
-${SELF_LICENSE}
+${SELF_LICENSE.license}
 
 Parts of this script are from Scratch <https://scratch.mit.edu/>, licensed as follows:
-${SCRATCH_LICENSE}
+${SCRATCH_LICENSE.license}
 */\n`;
 
-const APPEND_TO_CREDITS_HTML = `
+const generateChromiumLicenseHTML = (licenses) => {
+  const pretext = `<h2>The following entries were added by the ${APP_NAME}</h2>`;
+  const convertedLicenses = licenses.map((({title, license, homepage}, index) => `
 <div class="product">
-<span class="title">The following entries were added by the ${APP_NAME}</span>
-</div>
-
-<div class="product">
-<span class="title">Scratch</span>
-<span class="homepage"><a href="https://scratch.mit.edu/">homepage</a></span>
-<input type="checkbox" hidden id="p4-scratch">
-<label class="show" for="p4-scratch" tabindex="0"></label>
+<span class="title">${escapeXML(title)}</span>
+<span class="homepage"><a href="${escapeXML(homepage)}">homepage</a></span>
+<input type="checkbox" hidden id="p4-${index}">
+<label class="show" for="p4-${index}" tabindex="0"></label>
 <div class="licence">
-<pre>${SCRATCH_LICENSE}</pre>
+<pre>${escapeXML(license)}</pre>
 </div>
 </div>
-
-<div class="product">
-<span class="title">${APP_NAME}</span>
-<span class="homepage"><a href="${SOURCE_CODE}">homepage</a></span>
-<input type="checkbox" hidden id="p4-tw-scratch-vm">
-<label class="show" for="p4-tw-scratch-vm" tabindex="0"></label>
-<div class="licence">
-<pre>${SELF_LICENSE.replace(/>/g, '&gt;').replace(/</g, '&lt;')}</pre>
-</div>
-</div>`;
+`));
+  return `${pretext}${convertedLicenses.join('\n')}`;
+};
 
 class Packager extends EventTarget {
   constructor () {
@@ -317,7 +343,10 @@ cd "$(dirname "$0")"
 
     const creditsHtmlPath = `${packageName}/credits.html`;
     const creditsHtml = await zip.file(creditsHtmlPath).async('string');
-    zip.file(creditsHtmlPath, creditsHtml + APPEND_TO_CREDITS_HTML);
+    zip.file(creditsHtmlPath, creditsHtml + generateChromiumLicenseHTML([
+      SELF_LICENSE,
+      SCRATCH_LICENSE
+    ]));
 
     return zip;
   }
@@ -377,6 +406,15 @@ cd "$(dirname "$0")"
     for (const path of Object.keys(projectZip.files)) {
       setFileFast(zip, dataPrefix + path, projectZip.files[path]);
     }
+
+    const creditsHtml = await zip.file(`${packageName}/LICENSES.chromium.html`).async('string');
+    zip.remove(`${packageName}/LICENSE.txt`);
+    zip.remove(`${packageName}/LICENSES.chromium.html`);
+    zip.file(`${packageName}/licenses.html`, creditsHtml + generateChromiumLicenseHTML([
+      SELF_LICENSE,
+      SCRATCH_LICENSE,
+      ELECTRON_LICENSE
+    ]));
 
     zip.file(`${dataPrefix}${ICON_NAME}`, icon);
     zip.file(`${dataPrefix}resources/default_app.asar`, generateAsar([
@@ -489,6 +527,67 @@ if (acquiredLock) {
   app.quit();
 }
 `);
+
+    return zip;
+  }
+
+  async addWebViewMac (projectZip) {
+    const buffer = await this.fetchLargeAsset(this.options.target);
+    const appZip = await (await getJSZip()).loadAsync(buffer);
+
+    // +-- WebView.app
+    //   +-- Contents
+    //     +-- Info.plist
+    //     +-- MacOS
+    //       +-- WebView (executable)
+    //     +-- Resources
+    //       +-- index.html
+    //       +-- application_config.json
+    //       +-- AppIcon.icns
+
+    const newAppName = `${this.options.app.packageName}.app`;
+    const contentsPrefix = `${newAppName}/Contents/`;
+    const resourcePrefix = `${newAppName}/Contents/Resources/`;
+
+    const zip = new (await getJSZip());
+    for (const [path, data] of Object.entries(appZip.files)) {
+      const newPath = path
+        // Rename the .app itself
+        .replace('WebView.app', newAppName)
+        // Rename the executable
+        .replace(/WebView$/, this.options.app.packageName);
+      setFileFast(zip, newPath, data);
+    }
+    for (const [path, data] of Object.entries(projectZip.files)) {
+      setFileFast(zip, `${resourcePrefix}${path}`, data);
+    }
+
+    const icon = await getAppIcon(this.options.app.icon);
+    const icns = await pngToAppleICNS(icon);
+    zip.file(`${resourcePrefix}AppIcon.icns`, icns);
+
+    const parsedBackgroundColor = parseInt(this.options.appearance.background.substr(1), 16);
+    const applicationConfig = {
+      title: this.options.app.windowTitle,
+      background: [
+        // R, G, B [0-255]
+        parsedBackgroundColor >> 16 & 0xff,
+        parsedBackgroundColor >> 8 & 0xff,
+        parsedBackgroundColor & 0xff,
+        // A [0-1]
+        1
+      ],
+      width: this.options.stageWidth,
+      height: this.options.stageHeight
+    };
+    zip.file(`${resourcePrefix}application_config.json`, JSON.stringify(applicationConfig));
+
+    const plist = new Plist(await zip.file(`${contentsPrefix}Info.plist`).async('string'));
+    plist.set('CFBundleIdentifier', `xyz.turbowarp.packager.userland.${this.options.app.packageName}`);
+    plist.set('CFBundleName', this.options.app.windowTitle);
+    plist.set('CFBundleExecutable', this.options.app.packageName);
+    // TODO: update LSApplicationCategoryType
+    zip.file(`${contentsPrefix}Info.plist`, plist.toString());
 
     return zip;
   }
@@ -974,6 +1073,8 @@ if (acquiredLock) {
         zip = await this.addNwJS(zip);
       } else if (this.options.target.startsWith('electron-')) {
         zip = await this.addElectron(zip);
+      } else if (this.options.target === 'webview-mac') {
+        zip = await this.addWebViewMac(zip);
       }
 
       return {

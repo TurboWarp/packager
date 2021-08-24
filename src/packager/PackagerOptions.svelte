@@ -51,13 +51,25 @@
   const loadingScreenImage = fileStore.writableFileStore(`PackagerOptions.loadingScreenImage.${projectData.uniqueId}`);
   $: $options.loadingScreen.image = $loadingScreenImage;
 
-  const experimentalPlatformsInitiallyOpen = $options.target.includes('electron');
+  const otherEnvironmentsInitiallyOpen = ![
+    'html',
+    'zip',
+    'electron-win32',
+    'webview-mac',
+    'electron-linux64'
+  ].includes($options.target);
 
   const handleLargeAssetFetchProgress = ({detail}) => {
+    let thing;
     if (detail.asset.startsWith('nwjs-')) {
-      $progress.text = $_('progress.loadingLargeAsset').replace('{thing}', 'NW.js');
+      thing = 'NW.js';
     } else if (detail.asset.startsWith('electron-')) {
-      $progress.text = $_('progress.loadingLargeAsset').replace('{thing}', 'Electron');
+      thing = 'Electron';
+    } else if (detail.asset === 'webview-mac') {
+      thing = 'WKWebView';
+    }
+    if (thing) {
+      $progress.text = $_('progress.loadingLargeAsset').replace('{thing}', thing);
     }
     $progress.progress = detail.progress;
   };
@@ -415,52 +427,56 @@
       <input type="radio" bind:group={$options.target} value="html">
       {$_('options.html')}
     </label>
-  </div>
-  <div class="option-group">
     <label>
       <input type="radio" bind:group={$options.target} value="zip">
       {$_('options.zip')}
     </label>
-    <label>
-      <input type="radio" bind:group={$options.target} value="zip-one-asset">
-      {$_('options.zip-one-asset')}
-    </label>
   </div>
   <div class="option-group">
     <label>
-      <input type="radio" bind:group={$options.target} value="nwjs-win32">
-      {$_('options.application-win32').replace('{type}', 'NW.js')}
+      <input type="radio" bind:group={$options.target} value="electron-win32">
+      {$_('options.application-win32').replace('{type}', 'Electron')}
     </label>
     <label>
-      <input type="radio" bind:group={$options.target} value="nwjs-win64">
-      {$_('options.application-win64').replace('{type}', 'NW.js')}
+      <input type="radio" bind:group={$options.target} value="webview-mac">
+      {$_('options.application-mac').replace('{type}', 'WKWebView')}
     </label>
     <label>
-      <input type="radio" bind:group={$options.target} value="nwjs-mac">
-      {$_('options.application-mac').replace('{type}', 'NW.js')}
-    </label>
-    <label>
-      <input type="radio" bind:group={$options.target} value="nwjs-linux-x64">
-      {$_('options.application-linux64').replace('{type}', 'NW.js')}
+      <input type="radio" bind:group={$options.target} value="electron-linux64">
+      {$_('options.application-linux64').replace('{type}', 'Electron')}
     </label>
   </div>
-  <details open={experimentalPlatformsInitiallyOpen}>
-    <summary>Experimental platforms</summary>
-    <p>Electron will eventually replace NW.js due to improved performance, file size, and security.</p>
+  <details open={otherEnvironmentsInitiallyOpen}>
+    <summary>{$_('options.otherEnvironments')}</summary>
+    <p>{$_('options.otherEnvironmentsHelp')}</p>
     <div class="option-group">
       <label>
-        <input type="radio" bind:group={$options.target} value="electron-win32">
-        {$_('options.application-win32').replace('{type}', 'Electron')}
+        <input type="radio" bind:group={$options.target} value="zip-one-asset">
+        {$_('options.zip-one-asset')}
+      </label>
+    </div>
+    <div class="option-group">
+      <label>
+        <input type="radio" bind:group={$options.target} value="nwjs-win32">
+        {$_('options.application-win32').replace('{type}', 'NW.js')}
       </label>
       <label>
-        <input type="radio" bind:group={$options.target} value="electron-linux64">
-        {$_('options.application-linux64').replace('{type}', 'Electron')}
+        <input type="radio" bind:group={$options.target} value="nwjs-win64">
+        {$_('options.application-win64').replace('{type}', 'NW.js')}
+      </label>
+      <label>
+        <input type="radio" bind:group={$options.target} value="nwjs-mac">
+        {$_('options.application-mac').replace('{type}', 'NW.js')}
+      </label>
+      <label>
+        <input type="radio" bind:group={$options.target} value="nwjs-linux-x64">
+        {$_('options.application-linux64').replace('{type}', 'NW.js')}
       </label>
     </div>
   </details>
 </Section>
 
-{#if $options.target.startsWith('nwjs-') || $options.target.startsWith('electron-')}
+{#if $options.target.startsWith('nwjs-') || $options.target.startsWith('electron-') || $options.target.startsWith('webview-')}
   <div in:fade|local>
     <Section accent="#FF661A">
       <h2>{$_('options.applicationSettings')}</h2>
@@ -472,29 +488,45 @@
 
       {#if $options.target.includes('win')}
         <div>
-          <h2>{$_('nwjs.furtherStepsWin')}</h2>
+          <h2>{$_('win.furtherSteps')}</h2>
           <p>To change the executable icon or create an installer program, download and run <a href="https://github.com/TurboWarp/packager-extras/releases">TurboWarp Packager Extras</a> and select the output of this website.</p>
+          {#if $options.target.endsWith('64')}
+            <p>The application will only run on 64-bit x86 computers.</p>
+          {:else if $options.target.endsWith('32')}
+            <p>The application will run on 32-bit and 64-bit x86 computers.</p>
+          {/if}
         </div>
       {:else if $options.target.includes('mac')}
-        <h2>{$_('nwjs.furtherStepsMac')}</h2>
-        <p>macOS support is still experimental.</p>
-        <p>Due to Apple policy, packaging for their platforms is rather troublesome. You either have to:</p>
+        <h2>{$_('mac.furtherSteps')}</h2>
+        <p>Due to Apple policy, packaging for their platforms is troublesome. You either have to:</p>
         <ul>
-          <li>Pay Apple $100/year for a developer account to sign and notarize the app (we do not have a tutorial for this as we can't afford that and don't want to support such practices), or</li>
-          <li>Instruct users to ignore Gatekeeper by opening Finder > Navigating to the application > Right click > Open > Open again</li>
+          <li>Instruct users to ignore scary Gatekeeper warnings by opening Finder > Navigating to the application > Right click > Open > Open (this website generates files that require this workaround)</li>
+          <li>Or pay Apple $100/year for a developer account to sign and notarize the app. If you have already paid for a developer account, <a href="https://github.com/TurboWarp/packager/discussions">reach out on GitHub</a> and we'll help you set everything up (It is a very involved process).</li>
         </ul>
-        {#if $options.target.includes('nwjs')}
+        {#if $options.target.includes('webview')}
+          <h2>About WKWebView</h2>
+          <p>WKWebView is the fastest and smallest way to package for macOS. It should run natively (without Rosetta) on both Intel and Apple silicon Macs running macOS 10.12 or later. However, it is only actively tested on macOS Big Sur on an Intel Mac.</p>
+          <p>Some features are not available in this environment:</p>
+          <ul>
+            <li>Exporting lists (but importing works)</li>
+            <li>Video sensing</li>
+            <li>Loudness</li>
+          </ul>
+          <p>If you need these features, use "Plain HTML" or "NW.js macOS Application" instead.</p>
+        {:else if $options.target.includes('nwjs')}
+          <h2>About NW.js</h2>
           <p>NW.js runs natively on Intel Macs but will use Rosetta on Apple silicon Macs.</p>
           <p>For further help and steps, see <a href="https://docs.nwjs.io/en/latest/For%20Users/Package%20and%20Distribute/#mac-os-x">NW.js Documentation</a>.</p>
         {/if}
       {:else if $options.target.includes('linux')}
-        <h2>{$_('nwjs.furtherStepsLinux')}</h2>
+        <h2>{$_('linux.furtherSteps')}</h2>
         <p>Linux support is still experimental.</p>
-        {#if $options.target.includes('nwjs')}
-          <p>For further help and steps, see <a href="https://docs.nwjs.io/en/latest/For%20Users/Package%20and%20Distribute/#linux">NW.js Documentation</a>.</p>
-        {/if}
+        <p>The application will only run on 64-bit x86 computers. 32-bit computers, Raspberry Pis, and other ARM devices will not work.</p>
         {#if $options.target.includes('electron')}
           <p>The application is started by running <code>start.sh</code>.</p>
+        {/if}
+        {#if $options.target.includes('nwjs')}
+          <p>For further help and steps, see <a href="https://docs.nwjs.io/en/latest/For%20Users/Package%20and%20Distribute/#linux">NW.js Documentation</a>.</p>
         {/if}
       {/if}
     </Section>
