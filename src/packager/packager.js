@@ -583,7 +583,8 @@ if (acquiredLock) {
     zip.file(`${resourcePrefix}application_config.json`, JSON.stringify(applicationConfig));
 
     const plist = new Plist(await zip.file(`${contentsPrefix}Info.plist`).async('string'));
-    plist.set('CFBundleIdentifier', `xyz.turbowarp.packager.userland.${this.options.app.packageName}`);
+    // If CFBundleIdentifier changes, then things like saved local cloud variables will be reset.
+    plist.set('CFBundleIdentifier', `org.turbowarp.packager.userland.${this.options.app.packageName}`);
     plist.set('CFBundleName', this.options.app.windowTitle);
     plist.set('CFBundleExecutable', this.options.app.packageName);
     // TODO: update LSApplicationCategoryType
