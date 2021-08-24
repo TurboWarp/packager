@@ -4,10 +4,11 @@
         "select": "选择或拖入文件",
         "selected": "已选择 {file}"
     },
-    "nwjs": {
-        "furtherStepsLinux": "关于 Linux 的更多信息",
-        "furtherStepsMac": "关于 MacOS 的更多信息",
-        "furtherStepsWin": "关于 Windows 的更多信息"
+    "linux": {
+        "furtherSteps": "关于 Linux 的更多信息"
+    },
+    "mac": {
+        "furtherSteps": "关于 MacOS 的更多信息"
     },
     "options": {
         "accentColor": "主题色 (提问，下拉框菜单等，在原版 Scratch 中展现为蓝色)",
@@ -81,7 +82,6 @@
         "turbo": "启用加速模式",
         "username": "用户名 (每个 \"#\" 号代表一位随机数字 )",
         "warpTimer": "循环计时器",
-        "zip": "Zip, 每个素材存储在独立的文件中 (适合用于网站)",
         "zip-one-asset": "Zip, 把所有素材打包在一个文件中 (不推荐)"
     },
     "p4": {
@@ -119,5 +119,8 @@
         "select": "选择作品",
         "selectHelp": "你可以通过复制和粘贴 Scratch 作品链接或使用其他模式之一来选择要打包的项目。 如果您打包的作品不是您制作的，请务必在发布时归功于作品的作者。",
         "url": "其他网站的直接链接"
+    },
+    "win": {
+        "furtherSteps": "关于 Windows 的更多信息"
     }
 }

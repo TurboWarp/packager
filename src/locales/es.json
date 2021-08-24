@@ -4,10 +4,11 @@
         "select": "Selecciona o suelta aquí un archivo",
         "selected": "{file} seleccionados"
     },
-    "nwjs": {
-        "furtherStepsLinux": "Pasos siguientes para Linux",
-        "furtherStepsMac": "Pasos siguientes para macOS",
-        "furtherStepsWin": "Pasos siguientes para Windows"
+    "linux": {
+        "furtherSteps": "Pasos siguientes para Linux"
+    },
+    "mac": {
+        "furtherSteps": "Pasos siguientes para macOS"
     },
     "options": {
         "accentColor": "Color de resaltado (controles activos o con el cursor sobre ellos, entrada de respuestas, menús al dar click derecho)",
@@ -80,7 +81,6 @@
         "stageSize": "Tamaño del Escenario",
         "turbo": "Modo Turb",
         "username": "Nombre de usuario (cada \"#\" se reemplaza con un número aleatorio)",
-        "zip": "Zip, cada asset en un archivo separado (ideal para sitios web)",
         "zip-one-asset": "Zip, combinar assets a un solo archivo (no recomendado)"
     },
     "p4": {
@@ -117,5 +117,8 @@
         "select": "Seleccionar proyecto",
         "selectHelp": "Seleccione el proyecto que quiere empacar copiando y pegando el enlace de proyecto de Scratch o usando alguno de los otros modos. Si usa un proyecto que no creó, asegúrese de dar créditos al creador.",
         "url": "Otra URL"
+    },
+    "win": {
+        "furtherSteps": "Pasos siguientes para Windows"
     }
 }

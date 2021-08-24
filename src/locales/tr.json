@@ -4,10 +4,11 @@
         "select": "Dosyayı şeçin yada buraya bırakın",
         "selected": "{file}seçilmiştir"
     },
-    "nwjs": {
-        "furtherStepsLinux": "Linux için başka adımlar",
-        "furtherStepsMac": "macOS için başka adımlar",
-        "furtherStepsWin": "Windows için başka adımlar"
+    "linux": {
+        "furtherSteps": "Linux için başka adımlar"
+    },
+    "mac": {
+        "furtherSteps": "macOS için başka adımlar"
     },
     "options": {
         "accentColor": "Vurgu rengi (etkin/gezintili kontroller, soru istemi, bağlam menüleri)",
@@ -76,7 +77,6 @@
         "turbo": "Turbo Modu",
         "username": "Kullanıcı Adı (her \"#\" rastgele bir sayı ile değiştirililecek)",
         "warpTimer": "Warp zamanlayıcı",
-        "zip": "Zip, her varlık ayrı dosyada (web siteleri için iyidir)",
         "zip-one-asset": "Zip, varlıkları tek bir dosyada birleştirin (hiç önerilmez)"
     },
     "p4": {
@@ -114,5 +114,8 @@
         "select": "Projeyi şeç",
         "selectHelp": "Scratch proje bağlantısını kopyalayıp yapıştırarak veya diğer modlardan birini kullanarak paketlemek istediğiniz projeyi seçin. Eğer senin yapmadığın bir projeyi kullanırsanız lütfen yaratıcıya saygı gösterin. ",
         "url": "Başka URL"
+    },
+    "win": {
+        "furtherSteps": "Windows için başka adımlar"
     }
 }

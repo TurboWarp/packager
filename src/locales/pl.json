@@ -4,10 +4,11 @@
         "select": "Wybierz lub upuść plik",
         "selected": "Wybrano {file}"
     },
-    "nwjs": {
-        "furtherStepsLinux": "Dalsze kroki dla Linuxa",
-        "furtherStepsMac": "Dalsze kroki dla macOS",
-        "furtherStepsWin": "Dalsze kroki dla Windowsa"
+    "linux": {
+        "furtherSteps": "Dalsze kroki dla Linuxa"
+    },
+    "mac": {
+        "furtherSteps": "Dalsze kroki dla macOS"
     },
     "options": {
         "accentColor": "Akcentowy kolor (aktywne/wskazane kontrolki, ekrany pytań, menu kontekstowe)",
@@ -92,5 +93,8 @@
         "noFileSelected": "Nie wybrano pliku",
         "select": "Wybierz Projekt",
         "url": "Inne URL"
+    },
+    "win": {
+        "furtherSteps": "Dalsze kroki dla Windowsa"
     }
 }

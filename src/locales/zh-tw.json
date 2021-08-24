@@ -4,10 +4,11 @@
         "select": "選擇或放入檔案",
         "selected": "已選擇「{file}」"
     },
-    "nwjs": {
-        "furtherStepsLinux": "下一個步驟（Linux）",
-        "furtherStepsMac": "下一個步驟（macOS）",
-        "furtherStepsWin": "下一個步驟（Windows）"
+    "linux": {
+        "furtherSteps": "下一個步驟（Linux）"
+    },
+    "mac": {
+        "furtherSteps": "下一個步驟（macOS）"
     },
     "options": {
         "accentColor": "強調色（按鈕底、詢問框、右鍵選單）",
@@ -56,7 +57,6 @@
         "turbo": "加速模式",
         "username": "用戶名稱（「#」會以隨機數取代之）",
         "warpTimer": "Warp 計時器",
-        "zip": "Zip，一個資產一個檔案（適用於網站）",
         "zip-one-asset": "Zip，多個資產一個檔案（不推荐）"
     },
     "p4": {
@@ -93,5 +93,8 @@
         "select": "選擇專案",
         "selectHelp": "貼上專案網址或使用其他模式。若你並非此專案的作者，請務必標記原作者。",
         "url": "其他連結"
+    },
+    "win": {
+        "furtherSteps": "下一個步驟（Windows）"
     }
 }

@@ -4,10 +4,11 @@
         "select": "Datei auswählen oder ziehen",
         "selected": "{file} ausgewählt"
     },
-    "nwjs": {
-        "furtherStepsLinux": "Zusätzliche Schritte für Linux",
-        "furtherStepsMac": "Zusätzliche Schritte für macOS",
-        "furtherStepsWin": "Zusätzliche Schritte für Windows"
+    "linux": {
+        "furtherSteps": "Zusätzliche Schritte für Linux"
+    },
+    "mac": {
+        "furtherSteps": "Zusätzliche Schritte für macOS"
     },
     "options": {
         "accentColor": "Akzentfarbe (aktive/gehoverte Steuerelemente, Eingabeaufforderungen, Kontextmenüs)",
@@ -54,7 +55,6 @@
         "stageSize": "Bühnengröße",
         "turbo": "Turbo-Modus",
         "username": "Benutzername (alle \"#\" werden mit einer zufälligen Zahl ersetzt)",
-        "zip": "Zip, jede Ressource bekommt eine separate Datei (für Websites ideal)",
         "zip-one-asset": "Zip, Ressourcen in einer einzelnen Datei kombinieren (nicht empfohlen)"
     },
     "p4": {
@@ -90,5 +90,8 @@
         "select": "Projekt auswählen",
         "selectHelp": "Wähle das Projekt, das du paketisieren willst, indem du den Link dazu kopierst und einfügst oder einen der anderen Modi verwendest. Falls das Projekt jemand anderem gehört, vergewissere dich, dass du dich dafür bedankst.",
         "url": "Andere URL"
+    },
+    "win": {
+        "furtherSteps": "Zusätzliche Schritte für Windows"
     }
 }

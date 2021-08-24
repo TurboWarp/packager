@@ -4,10 +4,11 @@
         "select": "Selecione ou arraste um arquivo.",
         "selected": "Selecionado {file}"
     },
-    "nwjs": {
-        "furtherStepsLinux": "Próximos passos para Linux",
-        "furtherStepsMac": "Próximos passos para macOS",
-        "furtherStepsWin": "Próximos passos para Windows"
+    "linux": {
+        "furtherSteps": "Próximos passos para Linux"
+    },
+    "mac": {
+        "furtherSteps": "Próximos passos para macOS"
     },
     "options": {
         "accentColor": "Cor de destaque (controles ativos/em foco, caixa de pergunta, menus de contexto)",
@@ -75,7 +76,6 @@
         "stageSize": "Tamanho do Palco",
         "turbo": "Modo Turbo",
         "username": "Nome de usuário (cada \"#\" vira um número aleatório)",
-        "zip": "Zip, cada recurso em um arquivo separado (ideal para websites)",
         "zip-one-asset": "Zip, todos os recursos em um único arquivo (não recomendado)"
     },
     "p4": {
@@ -112,5 +112,8 @@
         "select": "Selecione um Projeto",
         "selectHelp": "Selecione o projeto que você quer empacotar copiando e colando o link do projeto no Scratch ou usando um dos outros meios. Se você usar um projeto criado por outra pessoa, lembre-se de dar créditos.",
         "url": "Outro URL"
+    },
+    "win": {
+        "furtherSteps": "Próximos passos para Windows"
     }
 }

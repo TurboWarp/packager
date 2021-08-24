@@ -43,7 +43,6 @@
         "stageSize": "Velikost odra",
         "turbo": "Turbo način",
         "username": "Uporabniško ime (vsak \"#\" bo zamenjan z naključno številko)",
-        "zip": "Stisnjena mapa, vsaka slika ali zvok v ločeni datoteki (priporočeno za spletne strani)",
         "zip-one-asset": "Stisnjena mapa, vse slike in zvoki v eni datoteki (ni priporočeno)"
     },
     "p4": {
