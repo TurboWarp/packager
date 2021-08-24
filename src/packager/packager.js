@@ -1,7 +1,7 @@
 import * as Comlink from 'comlink';
 import EventTarget from '../common/event-target';
 import ChecksumWorker from 'worker-loader?name=checksum.worker.js!./checksum.worker.js'
-import defaultIcon from './default-icon.png';
+import defaultIcon from './images/default-icon.png';
 import {readAsArrayBuffer, readAsURL} from './lib/readers';
 import largeAssets from './large-assets';
 import xhr from './lib/xhr';
