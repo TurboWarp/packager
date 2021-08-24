@@ -501,6 +501,8 @@ if (acquiredLock) {
     // +-- WebView.app
     //   +-- Contents
     //     +-- Info.plist
+    //     +-- MacOS
+    //       +-- WebView (executable)
     //     +-- Resources
     //       +-- index.html
     //       +-- application_config.json
@@ -512,7 +514,12 @@ if (acquiredLock) {
 
     const zip = new (await getJSZip());
     for (const [path, data] of Object.entries(appZip.files)) {
-      setFileFast(zip, path.replace('WebView.app', newAppName), data);
+      const newPath = path
+        // Rename the .app itself
+        .replace('WebView.app', newAppName)
+        // Rename the executable
+        .replace(/WebView$/, this.options.app.packageName);
+      setFileFast(zip, newPath, data);
     }
     for (const [path, data] of Object.entries(projectZip.files)) {
       setFileFast(zip, `${resourcePrefix}${path}`, data);
@@ -541,6 +548,7 @@ if (acquiredLock) {
     const plist = new Plist(await zip.file(`${contentsPrefix}Info.plist`).async('string'));
     plist.set('CFBundleIdentifier', `xyz.turbowarp.packager.userland.${this.options.app.packageName}`);
     plist.set('CFBundleName', this.options.app.windowTitle);
+    plist.set('CFBundleExecutable', this.options.app.packageName);
     // TODO: update LSApplicationCategoryType
     zip.file(`${contentsPrefix}Info.plist`, plist.toString());
 
