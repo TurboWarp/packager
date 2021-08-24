@@ -54,10 +54,16 @@
   const experimentalPlatformsInitiallyOpen = $options.target.includes('electron');
 
   const handleLargeAssetFetchProgress = ({detail}) => {
+    let thing;
     if (detail.asset.startsWith('nwjs-')) {
-      $progress.text = $_('progress.loadingLargeAsset').replace('{thing}', 'NW.js');
+      thing = 'NW.js';
     } else if (detail.asset.startsWith('electron-')) {
-      $progress.text = $_('progress.loadingLargeAsset').replace('{thing}', 'Electron');
+      thing = 'Electron';
+    } else if (detail.asset === 'webview-mac') {
+      thing = 'WKWebView';
+    }
+    if (thing) {
+      $progress.text = $_('progress.loadingLargeAsset').replace('{thing}', thing);
     }
     $progress.progress = detail.progress;
   };
