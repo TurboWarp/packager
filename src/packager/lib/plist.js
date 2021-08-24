@@ -111,10 +111,6 @@ class Plist {
     this.values = xmlToValue(rootDict);
   }
 
-  get (key) {
-    return this.values[key];
-  }
-
   set (key, value) {
     this.values[key] = value;
   }
