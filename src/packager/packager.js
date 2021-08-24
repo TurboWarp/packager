@@ -565,6 +565,7 @@ if (acquiredLock) {
     const icon = await getAppIcon(this.options.app.icon);
     const icns = await pngToAppleICNS(icon);
     zip.file(`${resourcePrefix}AppIcon.icns`, icns);
+    zip.remove(`${resourcePrefix}Assets.car`);
 
     const parsedBackgroundColor = parseInt(this.options.appearance.background.substr(1), 16);
     const applicationConfig = {
