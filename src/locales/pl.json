@@ -12,17 +12,20 @@
     "options": {
         "accentColor": "Akcentowy kolor (aktywne/wskazane kontrolki, ekrany pytań, menu kontekstowe)",
         "advancedOptions": "Opcje Zaawansowane",
+        "applicationSettings": "Ustawienia Aplikacji",
         "autoplay": "Auto uruchamianie",
         "backgroundColor": "Kolor tła",
         "cloudVariables": "Zmienne w Chmurze",
         "cloudVariables-custom": "Zaawansowane",
         "cloudVariables-ignore": "Ignoruj",
         "cloudVariables-ignore-help": "\"Ignoruj\" traktuje zmienne w chmurze jak zwykłe zmienne.",
+        "cloudVariables-ws": "Dołącz do serwera w chmurze",
         "cloudVariablesHost": "Hosting w chmurze",
         "colors": "Kolory",
         "controls": "Kontrola",
         "controlsHelp": "Jeżeli wszystkie kontrolki są wyłączone, pasek kontrolek zostanie usunięty całkowicie. Jeżeli tylko kontrolka pełnego ekranu jest aktywna, to będzie ona zawsze umieszczona w lewym górnym rogu, nie w pasku kontrolek.",
         "customCursor": "Niestandardowy kursor",
+        "customExtensions": "Niestandardowe rozszerzenia (jedno URL na linię)",
         "download": "Ściągnij {filename}({size}MB) ",
         "downloadsWillAppearHere": "Tutaj pojawią się pliki do pobrania ",
         "environment": "Środowisko",
@@ -56,6 +59,7 @@
         "sizeStretch": "Wypełnij ekran",
         "stageSize": "Rozmiar sceny",
         "turbo": "Tryb Turbo",
+        "username": "Nazwa użytkownika (\"#\" zostanie zmieniony na losową cyfrę)",
         "warpTimer": "Warp Stoper"
     },
     "p4": {
