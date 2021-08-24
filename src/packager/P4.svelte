@@ -1,10 +1,9 @@
 <script>
   import {_} from '../locales/';
   import ComplexMessage from './ComplexMessage.svelte';
-  import {fade} from 'svelte/transition';
+  import Lazy from './Lazy.svelte';
   import Section from './Section.svelte';
   import SelectProject from './SelectProject.svelte';
-  import PackagerOptions from './PackagerOptions.svelte';
   import Progress from './Progress.svelte';
   import Button from './Button.svelte';
   import SelectLocale from './SelectLocale.svelte';
@@ -12,6 +11,10 @@
   import {UserError} from './errors';
   import isSupported from './lib/browser-support';
   import {LONG_NAME, FEEDBACK_GITHUB, FEEDBACK_SCRATCH, SOURCE_CODE} from './brand';
+
+  const PackagerOptions = () => import(/* webpackChunkName: "packager-options" */ './PackagerOptions.svelte');
+  // We know we'll need this component very soon, so start importing as soon as possible.
+  PackagerOptions();
 
   let projectData;
 
@@ -136,9 +139,7 @@
   {/if}
 
   {#if projectData}
-    <div in:fade>
-      <PackagerOptions projectData={projectData} />
-    </div>
+    <Lazy component={PackagerOptions} projectData={projectData} />
   {/if}
 
   {#if $error}
