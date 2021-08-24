@@ -57,6 +57,8 @@
         "mode": "Modalità",
         "noCursor": "Nessun puntatore del mouse",
         "normalCursor": "Puntatore del mouse normale",
+        "otherEnvironments": "Altri ambienti (Cliccare per aprire)",
+        "otherEnvironmentsHelp": "La maggior parte dei nuovi progetti dovrebbe usare invece le opzioni elencate qui sopra.",
         "package": "Pacchetto",
         "packageName": "Nome pacchetto",
         "packageNameHelp": "Il nome del pacchetto deve essere un nome unico usato solo dalla tua applicazione. Lo stesso progetto dovrebbe avere sempre lo stesso nome per il pacchetto.",
@@ -78,6 +80,7 @@
         "stageSize": "Dimensione dello Stage",
         "turbo": "Modalità Turbo",
         "username": "Username (ogni \"#\" viene rimpiazzato da un numero casuale)",
+        "zip": "Zip (ideale Per i siti web)",
         "zip-one-asset": "Zip, le risorse vengono combinate in un singolo file (non raccomandato)"
     },
     "p4": {
