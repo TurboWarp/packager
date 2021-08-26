@@ -300,11 +300,11 @@
       "string": "Zip, combine assets into single file (not recommended)"
     },
     "application-win32": {
-      "string": "{type} Windows executable (32-bit or 64-bit)",
+      "string": "{type} Windows application (32-bit or 64-bit)",
       "context": "type will become something like \"NW.js\" or \"Electron\". Do not translate \"Windows\"."
     },
     "application-win64": {
-      "string": "{type} Windows executable (64-bit only, not recommended)",
+      "string": "{type} Windows application (64-bit only, not recommended)",
       "context": "type will become something like \"NW.js\" or \"Electron\". Do not translate \"Windows\"."
     },
     "application-mac": {
