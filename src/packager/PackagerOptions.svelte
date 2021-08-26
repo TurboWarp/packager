@@ -511,6 +511,7 @@
             <li>Exporting lists (but importing works)</li>
             <li>Video sensing</li>
             <li>Loudness</li>
+            <li>Very large projects may not work well</li>
           </ul>
           <p>If you need these features, use "Plain HTML" or "NW.js macOS Application" instead.</p>
         {:else if $options.target.includes('nwjs')}
