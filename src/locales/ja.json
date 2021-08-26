@@ -4,6 +4,12 @@
         "select": "選ぶかファイルをドロップする",
         "selected": "{file}を選ぶ"
     },
+    "linux": {
+        "furtherSteps": "Linuxでの追加の手順"
+    },
+    "mac": {
+        "furtherSteps": "macOSでの追加の手順"
+    },
     "options": {
         "accentColor": "アクセントカラー(アクティブ/ホバリングコントロール、質問バー、コンテキストメニュー)",
         "advancedOptions": "高度なオプション",
@@ -34,6 +40,7 @@
         "customExtensions": "カスタム拡張機能(1行にURLを1つ)",
         "customJS": "カスタム JS(何をするのか分からない場合は変更しないでください)",
         "download": "{filename}をダウンロード({size}MB)",
+        "downloadsWillAppearHere": "ダウンロードでここに表示する",
         "enableCompiler": "コンパイラを有効にする",
         "environment": "環境",
         "foregroundColor": "主な色(読み込みの進捗バー、アイコンや文字の一部)",
@@ -54,7 +61,10 @@
         "noCursor": "カーソルを表示しない",
         "normalCursor": "通常のカーソル",
         "otherEnvironments": "その他の環境(クリックして開く)",
+        "otherEnvironmentsHelp": "ほとんどの新規プロジェクトでは、代わりに上のオプションを使用する必要があります。",
         "package": "パッケージ",
+        "packageName": "パッケージの名前",
+        "packageNameHelp": "パッケージの名前は、あなたのアプリケーションだけで使うユニークな名前にしてください。同じプロジェクトでは、常に同じ名前を使用してください。",
         "pageTitle": "ページの題名",
         "playerOptions": "プレイヤーのオプション",
         "pointerlock": "マウスカーソルをロックする",
@@ -112,5 +122,8 @@
         "select": "プロジェクトを選ぶ",
         "selectHelp": "Scratchプロジェクトのリンクをコピー＆ペーストするか、その他の方法で、パッケージ化したいプロジェクトを選びます。自分が作ったものではないプロジェクトを使用する場合は、必ず制作者のクレジットを明記してください。",
         "url": "他のURL"
+    },
+    "win": {
+        "furtherSteps": "Windowsでの追加の手順"
     }
 }

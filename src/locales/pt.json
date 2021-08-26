@@ -14,6 +14,10 @@
         "accentColor": "Cor de destaque (controles ativos/em foco, caixa de pergunta, menus de contexto)",
         "advancedOptions": "Opções Avançadas",
         "advancedSummary": "Você provavelmente não quer mexer nessas. (Clique para abrir)",
+        "application-linux64": "{type} Aplicativo para Linux (apenas 64-bit)",
+        "application-mac": "{type} Aplicativo para macOS",
+        "application-win32": "{type} Executável para Windows (32-bit ou 64-bit)",
+        "application-win64": "{type} Executável para Windows (apenas 64-bit, não recomendado)",
         "applicationSettings": "Opções da Aplicação",
         "autoplay": "Rodar automaticamente",
         "backgroundColor": "Cor de fundo",
@@ -55,6 +59,8 @@
         "mode": "Modo",
         "noCursor": "Nenhum cursor",
         "normalCursor": "Cursor normal",
+        "otherEnvironments": "Outras plataformas (Clique para abrir)",
+        "otherEnvironmentsHelp": "É recomendado que a maioria dos projetos novos usem apenas as opções listadas acima.",
         "package": "Pacote",
         "packageName": "Nome do pacote",
         "packageNameHelp": "O nome do pacote deve ser um nome único usado exclusivamente para o seu aplicativo. O mesmo projeto deve sempre ter o mesmo nome de pacote.",
@@ -76,6 +82,7 @@
         "stageSize": "Tamanho do Palco",
         "turbo": "Modo Turbo",
         "username": "Nome de usuário (cada \"#\" vira um número aleatório)",
+        "zip": "Zip (ideal para websites)",
         "zip-one-asset": "Zip, todos os recursos em um único arquivo (não recomendado)"
     },
     "p4": {
