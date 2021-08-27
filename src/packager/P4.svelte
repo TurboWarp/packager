@@ -16,8 +16,6 @@
 
   let projectData;
 
-  document.body.setAttribute('p4-loaded', '');
-
   const darkMedia = window.matchMedia('(prefers-color-scheme: dark)');
   let systemTheme = darkMedia.matches ? 'dark' : 'light';
   if (darkMedia.addEventListener) {

@@ -6,6 +6,8 @@ const app = new P4({
   target: document.getElementById('app')
 });
 
+document.body.setAttribute('p4-loaded', '');
+
 if (process.env.ENABLE_SERVICE_WORKER && 'serviceWorker' in navigator) {
   navigator.serviceWorker.register(serviceWorker)
     .then(() => {
