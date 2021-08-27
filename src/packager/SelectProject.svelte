@@ -58,8 +58,10 @@
         }
         uniqueId = `#${id}`;
         $progress.text = $_('progress.loadingProjectData');
-        projectTitle = await getProjectTitle(id);
-        project = await loadProject.fromID(id, progressCallback);
+        [projectTitle, project] = await Promise.all([
+          getProjectTitle(id),
+          loadProject.fromID(id, progressCallback)
+        ]);
       } else if ($type === 'file') {
         if (!files) {
           throw new UserError($_('select.noFileSelected'));
