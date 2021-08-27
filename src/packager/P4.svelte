@@ -4,26 +4,28 @@
   import {fade} from 'svelte/transition';
   import Section from './Section.svelte';
   import SelectProject from './SelectProject.svelte';
+  import SelectLocale from './SelectLocale.svelte';
+  import SelectTheme from './SelectTheme.svelte';
   import PackagerOptions from './PackagerOptions.svelte';
   import Progress from './Progress.svelte';
   import Button from './Button.svelte';
-  import SelectLocale from './SelectLocale.svelte';
-  import {error, progress} from './stores';
+  import {error, progress, theme} from './stores';
   import {UserError} from './errors';
   import isSupported from './lib/browser-support';
   import {LONG_NAME, FEEDBACK_GITHUB, FEEDBACK_SCRATCH, SOURCE_CODE} from './brand';
 
   let projectData;
 
+  document.body.setAttribute('p4-loaded', '');
+
   const darkMedia = window.matchMedia('(prefers-color-scheme: dark)');
-  let theme = darkMedia.matches ? 'dark' : 'light';
+  let systemTheme = darkMedia.matches ? 'dark' : 'light';
   if (darkMedia.addEventListener) {
     darkMedia.addEventListener('change', () => {
-      theme = darkMedia.matches ? 'dark' : 'light';
+      systemTheme = darkMedia.matches ? 'dark' : 'light';
     });
   }
-  $: document.documentElement.setAttribute('theme', theme);
-  document.body.setAttribute('p4-loaded', '');
+  $: document.documentElement.setAttribute('theme', $theme === 'system' ? systemTheme : $theme);
 
   $: if ($error) {
     document.body.setAttribute('modal-visible', '');
@@ -179,6 +181,9 @@
     </div>
     <div>
       <a href="https://fosshost.org/">{$_('p4.fosshost')}</a>
+    </div>
+    <div>
+      <SelectTheme />
     </div>
     <div>
       <SelectLocale />
