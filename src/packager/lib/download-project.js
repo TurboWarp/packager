@@ -276,7 +276,7 @@ const downloadProject = async (data, progressCallback) => {
     try {
       zip = await JSZip.loadAsync(data);
     } catch (e) {
-      console.warn(e);
+      // It's a Scratch 1 project, probably
     }
     if (zip) {
       const projectDataFile = zip.file('project.json');
