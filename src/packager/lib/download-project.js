@@ -20,17 +20,21 @@ const unknownAnalysis = () => ({
 const analyzeScratch2 = (projectData) => {
   const stageVariables = {};
   if (projectData.variables) {
-    for (const {name, value, isPersistent} of projectData.variables) {
+    for (const {name, isPersistent} of projectData.variables) {
       stageVariables[name] = {
         name,
         isCloud: isPersistent
       };
     }
   }
+  // This may have some false positives, but that's okay.
+  const stringified = JSON.stringify(projectData);
+  const usesMusic = stringified.includes('drum:duration:elapsed:from:') ||
+    stringified.includes('playDrum') ||
+    stringified.includes('noteOn:duration:elapsed:from:');
   return {
     stageVariables,
-    // We currently don't analyze these projects so assume that they do, for safety
-    usesMusic: true
+    usesMusic
   };
 };
 
