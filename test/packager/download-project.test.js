@@ -13,7 +13,7 @@ const readTestProject = (name) => {
 };
 
 test('sb3', async () => {
-  const project = await downloadProject(await readTestProject('no-music.sb3'), emptyProgressCallback);
+  const project = await downloadProject(readTestProject('no-music.sb3'), emptyProgressCallback);
   expect(project.type).toBe('sb3');
   expect(project.analysis.stageVariables['`jEk@4|i[#Fk?(8x)AV.-my variable']).toEqual({
     name: 'my variable',
@@ -27,6 +27,6 @@ test('sb3', async () => {
 });
 
 test('sb3 with music', async () => {
-  const project = await downloadProject(await readTestProject('music.sb3'), emptyProgressCallback);
+  const project = await downloadProject(readTestProject('music.sb3'), emptyProgressCallback);
   expect(project.analysis.usesMusic).toBe(true);
 });
