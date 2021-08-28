@@ -22,7 +22,7 @@
           var local = localStorage.getItem('P4.theme')
           if (typeof local === 'string') theme = local;
         } catch (e) { /* ignore */ }
-        if (theme === 'system') theme = window.matchMedia('(prefers-color-scheme: dark)') ? 'dark' : 'light';
+        if (theme === 'system') theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
         document.body.setAttribute('p4-splash-theme', theme);
       })();
     </script>
