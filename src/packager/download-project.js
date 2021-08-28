@@ -1,5 +1,5 @@
 import JSZip from 'jszip';
-import EventTarget from '../../common/event-target';
+import EventTarget from '../common/event-target';
 
 const ASSET_HOST = 'https://assets.scratch.mit.edu/internalapi/asset/$path/get/';
 

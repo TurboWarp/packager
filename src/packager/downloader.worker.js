@@ -1,5 +1,5 @@
 import * as Comlink from 'comlink';
-import downloadProject from './lib/download-project';
+import downloadProject from './download-project';
 
 Comlink.expose({
   downloadProject

@@ -1,5 +1,5 @@
 import {writable} from 'svelte/store';
-import Database from '../packager/lib/idb';
+import Database from '../packager/idb';
 import {readAsArrayBuffer} from '../common/readers';
 
 const DATABASE_NAME = 'p4-local-settings';

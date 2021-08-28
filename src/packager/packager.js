@@ -4,13 +4,13 @@ import ChecksumWorker from 'worker-loader?name=checksum.worker.js!./checksum.wor
 import defaultIcon from './images/default-icon.png';
 import {readAsArrayBuffer, readAsURL} from '../common/readers';
 import largeAssets from './large-assets';
-import xhr from './lib/xhr';
-import pngToAppleICNS from './lib/icns';
+import xhr from './xhr';
+import pngToAppleICNS from './icns';
 import assetCache from './cache';
-import {buildId, verifyBuildId} from './lib/build-id';
-import {encode, decode} from './lib/base85-encode';
-import generateAsar from './lib/generate-asar';
-import {parsePlist, generatePlist} from './lib/plist';
+import {buildId, verifyBuildId} from './build-id';
+import {encode, decode} from './base85';
+import generateAsar from './generate-asar';
+import {parsePlist, generatePlist} from './plist';
 import {APP_NAME, SOURCE_CODE, WEBSITE} from './brand';
 
 const PROGRESS_LOADED_SCRIPTS = 0.1;

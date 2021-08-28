@@ -1,7 +1,7 @@
 import * as Comlink from 'comlink';
 import DownloadWorker from 'worker-loader?name=downloader.worker.js!./downloader.worker.js';
 import {readAsArrayBuffer} from '../common/readers';
-import xhr from './lib/xhr';
+import xhr from './xhr';
 
 const downloadProject = async (buffer, progressCallback) => {
   const worker = new DownloadWorker();
