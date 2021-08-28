@@ -1,7 +1,7 @@
 <script>
   import {_} from '../locales/';
-  import ComplexMessage from './ComplexMessage.svelte';
   import {fade} from 'svelte/transition';
+  import ComplexMessage from './ComplexMessage.svelte';
   import Section from './Section.svelte';
   import SelectProject from './SelectProject.svelte';
   import SelectLocale from './SelectLocale.svelte';

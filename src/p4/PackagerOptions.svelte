@@ -11,7 +11,7 @@
   import fileStore from './file-store';
   import {error, progress} from './stores';
   import Preview from './preview';
-  import deepClone from '../packager/lib/deep-clone';
+  import deepClone from './deep-clone';
   import assetCache from '../packager/cache';
   import Packager from '../packager/packager';
 

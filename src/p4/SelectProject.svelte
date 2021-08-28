@@ -5,9 +5,9 @@
   import writablePersistentStore from './persistent-store';
   import {error, progress} from './stores';
   import {UserError} from './errors';
-  import loadProject from '../packager/load-project';
   import getProjectTitle from './get-project-meta';
-  import {extractProjectId, isValidURL, getTitleFromURL} from '../packager/lib/url-utils';
+  import loadProject from '../packager/load-project';
+  import {extractProjectId, isValidURL, getTitleFromURL} from './url-utils';
 
   export let projectData = null;
   const type = writablePersistentStore('SelectProject.type', 'id');
