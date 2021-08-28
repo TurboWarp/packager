@@ -1,4 +1,4 @@
-import {encode, decode} from '../../src/packager/lib/base85-encode';
+import {encode, decode} from '../../src/packager/base85';
 import {TextEncoder, TextDecoder} from 'fastestsmallesttextencoderdecoder';
 
 global.TextEncoder = TextEncoder;
