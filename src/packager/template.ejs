@@ -8,14 +8,23 @@
     <title><%= appName %></title>
     <meta name="description" content="Converts Scratch projects into HTML files, zip archives, or executable programs for Windows, macOS, and Linux.">
     <style>
-      @media (prefers-color-scheme: dark) {
-        body:not([p4-loaded]) {
-          background-color: #111;
-        }
+      body[p4-splash-theme="dark"]:not([p4-loaded]) {
+        background-color: #111;
       }
     </style>
   </head>
   <body>
     <div id="app"></div>
+    <script>
+      (function() {
+        var theme = 'system';
+        try {
+          var local = localStorage.getItem('P4.theme')
+          if (typeof local === 'string') theme = local;
+        } catch (e) { /* ignore */ }
+        if (theme === 'system') theme = window.matchMedia('(prefers-color-scheme: dark)') ? 'dark' : 'light';
+        document.body.setAttribute('p4-splash-theme', theme);
+      })();
+    </script>
   </body>
 </html>
