@@ -103,28 +103,20 @@ const valueToXml = (doc, value) => {
   return valueToXml(doc, `${value}`);
 };
 
-class Plist {
-  constructor (string) {
-    const xml = new DOMParser().parseFromString(string, 'text/xml');
-    const rootNode = xml.children[0];
-    const rootDict = rootNode.children[0];
-    this.values = xmlToValue(rootDict);
-  }
+export const parsePlist = (string) => {
+  const xml = new DOMParser().parseFromString(string, 'text/xml');
+  const rootNode = xml.children[0];
+  const rootDict = rootNode.children[0];
+  return xmlToValue(rootDict);
+};
 
-  set (key, value) {
-    this.values[key] = value;
-  }
-
-  toString () {
-    const xml = document.implementation.createDocument(null, "plist");
-    const rootNode = xml.documentElement;
-    rootNode.setAttribute('version', '1.0');
-    rootNode.appendChild(valueToXml(xml, this.values));
-    const serialized = new XMLSerializer().serializeToString(xml);
-    return `<?xml version="1.0" encoding="UTF-8"?>
+export const generatePlist = (values) => {
+  const xml = document.implementation.createDocument(null, "plist");
+  const rootNode = xml.documentElement;
+  rootNode.setAttribute('version', '1.0');
+  rootNode.appendChild(valueToXml(xml, values));
+  const serialized = new XMLSerializer().serializeToString(xml);
+  return `<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 ${serialized}`;
-  }
-}
-
-export default Plist;
+};

@@ -10,7 +10,7 @@ import assetCache from './cache';
 import {buildId, verifyBuildId} from './lib/build-id';
 import {encode, decode} from './lib/base85-encode';
 import generateAsar from './lib/generate-asar';
-import Plist from './lib/plist';
+import {parsePlist, generatePlist} from './lib/plist';
 import {APP_NAME, SOURCE_CODE, WEBSITE} from './brand';
 
 const PROGRESS_LOADED_SCRIPTS = 0.1;
@@ -583,13 +583,13 @@ if (acquiredLock) {
     };
     zip.file(`${resourcePrefix}application_config.json`, JSON.stringify(applicationConfig));
 
-    const plist = new Plist(await zip.file(`${contentsPrefix}Info.plist`).async('string'));
+    const plist = parsePlist(await zip.file(`${contentsPrefix}Info.plist`).async('string'));
     // If CFBundleIdentifier changes, then things like saved local cloud variables will be reset.
-    plist.set('CFBundleIdentifier', `org.turbowarp.packager.userland.${this.options.app.packageName}`);
-    plist.set('CFBundleName', this.options.app.windowTitle);
-    plist.set('CFBundleExecutable', this.options.app.packageName);
+    plist.CFBundleIdentifier = `org.turbowarp.packager.userland.${this.options.app.packageName}`;
+    plist.CFBundleName = this.options.app.windowTitle;
+    plist.CFBundleExecutable = this.options.app.packageName;
     // TODO: update LSApplicationCategoryType
-    zip.file(`${contentsPrefix}Info.plist`, plist.toString());
+    zip.file(`${contentsPrefix}Info.plist`, generatePlist(plist));
 
     return zip;
   }
