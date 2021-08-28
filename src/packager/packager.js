@@ -887,6 +887,7 @@ if (acquiredLock) {
     .sc-canvas {
       cursor: ${await this.generateCursor()};
     }
+    ${this.options.custom.css}
   </style>
   <meta name="theme-color" content="${this.options.appearance.background}">
   ${await this.generateFavicon()}
@@ -1216,6 +1217,7 @@ Packager.DEFAULT_OPTIONS = () => ({
   autoplay: false,
   username: 'player####',
   custom: {
+    css: '',
     js: ''
   },
   appearance: {

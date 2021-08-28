@@ -290,6 +290,9 @@
     "customExtensions": {
       "string": "Custom extensions (one URL per line)"
     },
+    "customCSS": {
+      "string": "Custom CSS (Don't change if you don't know what you're doing!)"
+    },
     "customJS": {
       "string": "Custom JS (Don't change if you don't know what you're doing!)"
     },
