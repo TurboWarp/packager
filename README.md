@@ -25,6 +25,7 @@ The general layout of `src` is:
  - packager: The project packager
  - p4: The Svelte interface for the packager
  - scaffolding: A minimal Scratch project player used by the packager. Handles most of the boring details of playing Scratch projects such as handling basic mouse input
+ - common: Files used by both scaffolding and the packager
  - addons: Optional addons such as gamepad support or pointerlock
  - build: Unusual webpack customizations
  - locales: Translations
