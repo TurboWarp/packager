@@ -169,7 +169,7 @@
     box-sizing: border-box;
     width: 100%;
     min-width: 100%;
-    height: 200px;
+    height: 150px;
   }
   .option-group {
     margin-bottom: 12px;
@@ -438,6 +438,10 @@
         <!-- TODO: use the user-facing documentation when that becomes available -->
         <LearnMore slug="development/custom-extensions" />
         <CustomExtensions bind:value={$options.extensions} />
+      </label>
+      <label>
+        {$_('options.customCSS')}
+        <textarea bind:value={$options.custom.css}></textarea>
       </label>
       <label>
         {$_('options.customJS')}
