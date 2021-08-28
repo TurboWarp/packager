@@ -16,8 +16,6 @@
         "advancedSummary": "大部分情况下，你不需要修改这里的设置。(单击以打开)",
         "application-linux64": "使用 {type} 创建 Linux 应用程序（仅 64 位）",
         "application-mac": "使用 {type} 创建 macOS 应用程序",
-        "application-win32": "使用 {type} 创建 Windows 应用程序（32 位或 64 位）",
-        "application-win64": "使用 {type} 创建 Windows 应用程序（仅 64 位，不推荐）",
         "applicationSettings": "应用程序设置",
         "autoplay": "自动绿旗",
         "backgroundColor": "背景色",
