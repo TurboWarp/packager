@@ -1,4 +1,6 @@
 <script>
+  import {onMount} from 'svelte';
+  import {writable} from 'svelte/store';
   import {_} from '../locales';
   import Section from './Section.svelte';
   import Button from './Button.svelte';
@@ -9,12 +11,25 @@
   import loadProject from '../packager/load-project';
   import {extractProjectId, isValidURL, getTitleFromURL} from './url-utils';
 
-  export let projectData = null;
-  const type = writablePersistentStore('SelectProject.type', 'id');
-  const projectId = writablePersistentStore('SelectProject.id', '60917032');
+  const hasProjectIdInURL = location.hash && /^#\d+$/.test(location.hash);
+  const initialProjectId = hasProjectIdInURL ? location.hash.substring(1) : '60917032';
+
+  let type;
+  let projectId;
+  if (hasProjectIdInURL) {
+    type = writable('id');
+    projectId = writable(initialProjectId);
+    onMount(() => {
+      load();
+    });
+  } else {
+    type = writablePersistentStore('SelectProject.type', 'id');
+    projectId = writablePersistentStore('SelectProject.id', initialProjectId);
+  }
   const projectUrl = writablePersistentStore('SelectProject.url', '');
   let files = null;
 
+  export let projectData = null;
   const reset = () => {
     projectData = null;
   };
