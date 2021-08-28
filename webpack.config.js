@@ -100,7 +100,7 @@ const makeWebsite = () => ({
     path: dist
   },
   entry: {
-    packager: './src/packager/index.js'
+    packager: './src/p4/index.js'
   },
   resolve: {
     alias: {
@@ -150,7 +150,7 @@ const makeWebsite = () => ({
     }),
     new HtmlWebpackPlugin({
       filename: 'index.html',
-      template: './src/packager/template.ejs',
+      template: './src/p4/template.ejs',
       chunks: ['packager']
     }),
     new GenerateServiceWorkerPlugin(),

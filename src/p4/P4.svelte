@@ -11,8 +11,8 @@
   import Button from './Button.svelte';
   import {error, progress, theme} from './stores';
   import {UserError} from './errors';
-  import isSupported from './lib/browser-support';
-  import {LONG_NAME, FEEDBACK_GITHUB, FEEDBACK_SCRATCH, SOURCE_CODE} from './brand';
+  import isSupported from './browser-support';
+  import {LONG_NAME, FEEDBACK_GITHUB, FEEDBACK_SCRATCH, SOURCE_CODE} from '../packager/brand';
 
   let projectData;
 
