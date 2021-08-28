@@ -55,6 +55,7 @@
       return;
     }
     e.preventDefault();
+    e.dataTransfer.dropEffect = 'copy';
     dragging = true;
   };
 
