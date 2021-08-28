@@ -1,4 +1,4 @@
-import {extractProjectId, getTitleFromURL, isValidURL} from '../../src/packager/lib/url-utils';
+import {extractProjectId, getTitleFromURL, isValidURL} from '../../src/p4/url-utils';
 
 test('extractProjectId', () => {
   expect(extractProjectId('https://scratch.mit.edu/projects/104')).toBe('104');

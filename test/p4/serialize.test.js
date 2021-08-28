@@ -1,5 +1,5 @@
 import Blob from 'node-blob';
-import serialize from '../../src/packager/lib/serialize';
+import serialize from '../../src/p4/serialize';
 
 global.Blob = Blob;
 

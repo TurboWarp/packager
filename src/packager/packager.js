@@ -2,15 +2,15 @@ import * as Comlink from 'comlink';
 import EventTarget from '../common/event-target';
 import ChecksumWorker from 'worker-loader?name=checksum.worker.js!./checksum.worker.js'
 import defaultIcon from './images/default-icon.png';
-import {readAsArrayBuffer, readAsURL} from './lib/readers';
+import {readAsArrayBuffer, readAsURL} from '../common/readers';
 import largeAssets from './large-assets';
-import xhr from './lib/xhr';
-import pngToAppleICNS from './lib/icns';
+import xhr from './xhr';
+import pngToAppleICNS from './icns';
 import assetCache from './cache';
-import {buildId, verifyBuildId} from './lib/build-id';
-import {encode, decode} from './lib/base85-encode';
-import generateAsar from './lib/generate-asar';
-import Plist from './lib/plist';
+import {buildId, verifyBuildId} from './build-id';
+import {encode, decode} from './base85';
+import generateAsar from './generate-asar';
+import {parsePlist, generatePlist} from './plist';
 import {APP_NAME, SOURCE_CODE, WEBSITE} from './brand';
 
 const PROGRESS_LOADED_SCRIPTS = 0.1;
@@ -583,13 +583,13 @@ if (acquiredLock) {
     };
     zip.file(`${resourcePrefix}application_config.json`, JSON.stringify(applicationConfig));
 
-    const plist = new Plist(await zip.file(`${contentsPrefix}Info.plist`).async('string'));
+    const plist = parsePlist(await zip.file(`${contentsPrefix}Info.plist`).async('string'));
     // If CFBundleIdentifier changes, then things like saved local cloud variables will be reset.
-    plist.set('CFBundleIdentifier', `org.turbowarp.packager.userland.${this.options.app.packageName}`);
-    plist.set('CFBundleName', this.options.app.windowTitle);
-    plist.set('CFBundleExecutable', this.options.app.packageName);
+    plist.CFBundleIdentifier = `org.turbowarp.packager.userland.${this.options.app.packageName}`;
+    plist.CFBundleName = this.options.app.windowTitle;
+    plist.CFBundleExecutable = this.options.app.packageName;
     // TODO: update LSApplicationCategoryType
-    zip.file(`${contentsPrefix}Info.plist`, plist.toString());
+    zip.file(`${contentsPrefix}Info.plist`, generatePlist(plist));
 
     return zip;
   }

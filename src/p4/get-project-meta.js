@@ -1,4 +1,4 @@
-import xhr from './xhr';
+import xhr from '../packager/xhr';
 
 const getProjectTitle = async (id) => {
   try {

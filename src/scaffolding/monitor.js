@@ -1,6 +1,7 @@
 import ContextMenu from './context-menu';
 import Dropper from './dropper';
 import styles from './style.css';
+import {readAsText} from '../common/readers';
 
 class Monitor {
   constructor (parent, monitor) {
@@ -314,11 +315,9 @@ class ListMonitor extends Monitor {
       const files = e.target.files;
       if (files.length === 0) return;
       const file = files[0];
-      const reader = new FileReader();
-      reader.onload = () => {
+      readAsText(file).then((text) => {
         this.import(reader.result);
-      };
-      reader.readAsText(file);
+      });
     });
     fileSelector.click();
   }

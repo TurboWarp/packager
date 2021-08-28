@@ -1,4 +1,4 @@
-import merge from '../../src/packager/lib/merge';
+import merge from '../../src/p4/merge';
 
 test('defaults', () => {
   expect(merge({

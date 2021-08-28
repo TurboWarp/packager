@@ -1,6 +1,6 @@
 import largeAssets from './large-assets';
-import {buildId} from './lib/build-id';
-import Database from './lib/idb';
+import {buildId} from './build-id';
+import Database from './idb';
 
 // We can't trust the HTTP cache to reliably cache these large assets
 

@@ -1,7 +1,7 @@
 <script>
   import {_} from '../locales/';
-  import ComplexMessage from './ComplexMessage.svelte';
   import {fade} from 'svelte/transition';
+  import ComplexMessage from './ComplexMessage.svelte';
   import Section from './Section.svelte';
   import SelectProject from './SelectProject.svelte';
   import SelectLocale from './SelectLocale.svelte';
@@ -11,8 +11,8 @@
   import Button from './Button.svelte';
   import {error, progress, theme} from './stores';
   import {UserError} from './errors';
-  import isSupported from './lib/browser-support';
-  import {LONG_NAME, FEEDBACK_GITHUB, FEEDBACK_SCRATCH, SOURCE_CODE} from './brand';
+  import isSupported from './browser-support';
+  import {LONG_NAME, FEEDBACK_GITHUB, FEEDBACK_SCRATCH, SOURCE_CODE} from '../packager/brand';
 
   let projectData;
 

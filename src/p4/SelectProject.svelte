@@ -1,13 +1,13 @@
 <script>
-  import {_} from '../locales/';
+  import {_} from '../locales';
   import Section from './Section.svelte';
   import Button from './Button.svelte';
   import writablePersistentStore from './persistent-store';
   import {error, progress} from './stores';
   import {UserError} from './errors';
-  import loadProject from './load-project';
-  import getProjectTitle from './lib/get-project-meta.js';
-  import {extractProjectId, isValidURL, getTitleFromURL} from './lib/url-utils';
+  import getProjectTitle from './get-project-meta';
+  import loadProject from '../packager/load-project';
+  import {extractProjectId, isValidURL, getTitleFromURL} from './url-utils';
 
   export let projectData = null;
   const type = writablePersistentStore('SelectProject.type', 'id');

@@ -1,5 +1,5 @@
 import {derived} from 'svelte/store';
-import writablePersistentStore from '../packager/persistent-store';
+import writablePersistentStore from '../p4/persistent-store';
 import englishMessages from '!../build/unstructure-translations-loader!./en.json';
 import localeNames from './locale-names.json';
 

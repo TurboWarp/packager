@@ -1,6 +1,6 @@
 import {writable} from 'svelte/store';
-import merge from './lib/merge';
-import serialize from './lib/serialize';
+import merge from './merge';
+import serialize from './serialize';
 
 const writablePersistentStore = (key, defaultValue) => {
   let value = JSON.parse(JSON.stringify(defaultValue));

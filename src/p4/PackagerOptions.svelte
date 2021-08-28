@@ -3,17 +3,17 @@
   import {_} from '../locales/';
   import {slide, fade} from 'svelte/transition';
   import Section from './Section.svelte';
-  import Button from './Button.svelte';
+  import Button from '../p4/Button.svelte';
   import ImageInput from './ImageInput.svelte';
-  import CustomExtensions from './CustomExtensions.svelte';
+  import CustomExtensions from '../p4/CustomExtensions.svelte';
   import LearnMore from './LearnMore.svelte';
-  import Packager from './packager';
   import writablePersistentStore from './persistent-store';
   import fileStore from './file-store';
   import {error, progress} from './stores';
   import Preview from './preview';
-  import deepClone from './lib/deep-clone';
-  import assetCache from './cache';
+  import deepClone from './deep-clone';
+  import assetCache from '../packager/cache';
+  import Packager from '../packager/packager';
 
   export let projectData;
 
