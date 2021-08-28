@@ -1,11 +1,5 @@
 import styles from './style.css';
-
-const readAsText = (file) => new Promise((resolve, reject) => {
-  const fr = new FileReader();
-  fr.onload = () => resolve(fr.result);
-  fr.onerror = () => reject(new Error(`Cannot read as text: ${fr.error}`));
-  fr.readAsText(file);
-});
+import {readAsText} from '../common/readers';
 
 class Dropper {
   constructor (el, callback) {

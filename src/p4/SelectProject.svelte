@@ -6,7 +6,7 @@
   import {error, progress} from './stores';
   import {UserError} from './errors';
   import loadProject from '../packager/load-project';
-  import getProjectTitle from '../packager/lib/get-project-meta.js';
+  import getProjectTitle from './get-project-meta';
   import {extractProjectId, isValidURL, getTitleFromURL} from '../packager/lib/url-utils';
 
   export let projectData = null;
