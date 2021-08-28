@@ -1,5 +1,5 @@
 <script>
-  import {onMount} from 'svelte';
+  import {onMount, tick} from 'svelte';
   import {writable} from 'svelte/store';
   import {_} from '../locales';
   import Section from './Section.svelte';
@@ -27,7 +27,9 @@
     projectId = writablePersistentStore('SelectProject.id', initialProjectId);
   }
   const projectUrl = writablePersistentStore('SelectProject.url', '');
+
   let files = null;
+  let fileInputElement;
 
   export let projectData = null;
   const reset = () => {
@@ -130,6 +132,23 @@
   const handleFocus = (e) => {
     e.target.select();
   };
+  const handleDrop = (e) => {
+    e.preventDefault();
+    if (e.dataTransfer.types.includes('Files') && e.dataTransfer.files[0]) {
+      $type = 'file';
+      tick().then(() => {
+        files = e.dataTransfer.files;
+        fileInputElement.files = files;
+      });
+    }
+  };
+  const handleDragOver = (e) => {
+    if (!e.dataTransfer.types.includes('Files')) {
+      return;
+    }
+    e.preventDefault();
+    e.dataTransfer.dropEffect = 'copy';
+  };
 </script>
 
 <style>
@@ -147,41 +166,42 @@
   }
 </style>
 
-<Section accent="#4C97FF">
-  <h2>{$_('select.select')}</h2>
-  <p>{$_('select.selectHelp')}</p>
-  <div class="option">
-    <label>
-      <input type="radio" bind:group={$type} value="id">
-      {$_('select.id')}
-    </label>
-    {#if $type === "id"}
-      <input type="text" value={getDisplayedProjectURL()} spellcheck="false" on:keypress={submitOnEnter} on:input={handleInput} on:focus={handleFocus}>
-    {/if}
-  </div>
-  <div class="option">
-    <label>
-      <input type="radio" bind:group={$type} value="file">
-      {$_('select.file')}
-    </label>
-    {#if $type === "file"}
-      <input bind:files={files} type="file" accept=".sb,.sb2,.sb3">
-    {/if}
-  </div>
-  <div class="option">
-    <label>
-      <input type="radio" bind:group={$type} value="url">
-      {$_('select.url')}
-    </label>
-    {#if $type === "url"}
-      <input type="text" bind:value={$projectUrl} spellcheck="false" placeholder="https://..." on:keypress={submitOnEnter}>
-    {/if}
-  </div>
-
-  <p>
-    <Button on:click={load} disabled={$progress.visible} text={$_('select.loadProject')} />
-  </p>
-</Section>
+<div on:drop={handleDrop} on:dragover={handleDragOver}>
+  <Section accent="#4C97FF">
+    <h2>{$_('select.select')}</h2>
+    <p>{$_('select.selectHelp')}</p>
+    <div class="option">
+      <label>
+        <input type="radio" bind:group={$type} value="id">
+        {$_('select.id')}
+      </label>
+      {#if $type === "id"}
+        <input type="text" value={getDisplayedProjectURL()} spellcheck="false" on:keypress={submitOnEnter} on:input={handleInput} on:focus={handleFocus}>
+      {/if}
+    </div>
+    <div class="option">
+      <label>
+        <input type="radio" bind:group={$type} value="file">
+        {$_('select.file')}
+      </label>
+      {#if $type === "file"}
+        <input bind:files={files} bind:this={fileInputElement} type="file" accept=".sb,.sb2,.sb3">
+      {/if}
+    </div>
+    <div class="option">
+      <label>
+        <input type="radio" bind:group={$type} value="url">
+        {$_('select.url')}
+      </label>
+      {#if $type === "url"}
+        <input type="text" bind:value={$projectUrl} spellcheck="false" placeholder="https://..." on:keypress={submitOnEnter}>
+      {/if}
+    </div>
+    <p>
+      <Button on:click={load} disabled={$progress.visible} text={$_('select.loadProject')} />
+    </p>
+  </Section>
+</div>
 
 {#if !$progress.visible && !projectData}
   <Section caption>
