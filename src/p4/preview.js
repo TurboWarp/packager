@@ -55,7 +55,7 @@ const source = `<!DOCTYPE html>
       document.querySelector(".preview-error-message").textContent = "Error: " + message;
     };
     if (!window.opener) {
-      err("window.opener is missing");
+      err("Can't communicate with main page.");
       return;
     }
     let hasRun = false;
@@ -73,7 +73,7 @@ const source = `<!DOCTYPE html>
           document.close(); // fixes poor performance in firefox
         };
         fr.onerror = () => {
-          err("Something went wrong reading the file");
+          err("Something went wrong reading the file: " + fr.error);
         };
         fr.readAsText(e.data.blob);
       }
