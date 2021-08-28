@@ -4,7 +4,7 @@ const getProjectTitle = async (id) => {
   try {
     const meta = await xhr({
       url: `https://trampoline.turbowarp.org/proxy/projects/${id}`,
-      timeout: 5000,
+      timeout: 10000,
       type: 'json'
     });
     return meta.title;

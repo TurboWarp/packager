@@ -379,5 +379,19 @@
     "furtherSteps": {
       "string": "Further steps for Linux"
     }
+  },
+  "theme": {
+    "system": {
+      "string": "Use system theme",
+      "context": "Option to choose dark/light mode based on whatever the global system theme is"
+    },
+    "dark": {
+      "string": "Dark",
+      "context": "Dark mode option"
+    },
+    "light": {
+      "string": "Light",
+      "context": "Light mode option"
+    }
   }
 }
