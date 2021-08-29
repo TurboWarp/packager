@@ -14,6 +14,10 @@
         "accentColor": "Vurgu rengi (etkin/gezintili kontroller, soru istemi, bağlam menüleri)",
         "advancedOptions": "Gelişmiş ayarlar",
         "advancedSummary": "Bunları değiştirmeyi bence istemezsiniz. (Açmak için tıklayın)",
+        "application-linux64": "{type} Linux uygulaması (yalnızca 64-bit)",
+        "application-mac": "{type} macOS uygulaması",
+        "application-win32": "{type} Windows uygulaması (32-bit yada 64-bit)",
+        "application-win64": "{type} Windows uygulaması (yalnızca 64 bit, önerilmez)",
         "applicationSettings": "Uygulama ayarları",
         "backgroundColor": "Arka-plan rengi",
         "cloudVariables": "Bulut değişkenleri",
@@ -52,9 +56,13 @@
         "loadingScreenImage": "Yükleme ekran resimi",
         "loadingScreenText": "Yükleme ekran metini",
         "loadingScreenTextPlaceholder": "(Hiç birşey)",
+        "manyOptions": "Burada birçok seçenekler var, ancak endişelenmeyin, bunların çoğu ilgi çekici değiller. Paketlenmiş projenizi almak için, sadece {scrollDown}, bir ortam seç, ve büyük kırmızı butona bas.",
+        "manyOptions-scroll": " aşağının sonuna kadar kaydır",
         "mode": "Modu",
         "noCursor": "Kürsör yok",
         "normalCursor": "Normal kürsör",
+        "otherEnvironments": "Diğer ortamlar (Tıklayarak açın) ",
+        "otherEnvironmentsHelp": "Çoğu yeni proje, bunun yerine yukarıda listelenen seçenekleri kullanılmalıdır. ",
         "package": "Paketle",
         "packageName": "Paket Adı",
         "packageNameHelp": "Paket adı, yalnızca uygulamanız tarafından kullanılan benzersiz bir ad olmalıdır. Aynı proje hep aynı paket adı olmalıdır. ",
@@ -77,6 +85,7 @@
         "turbo": "Turbo Modu",
         "username": "Kullanıcı Adı (her \"#\" rastgele bir sayı ile değiştirililecek)",
         "warpTimer": "Warp zamanlayıcı",
+        "zip": "Zip (web siteleri için iyidir)",
         "zip-one-asset": "Zip, varlıkları tek bir dosyada birleştirin (hiç önerilmez)"
     },
     "p4": {
@@ -114,6 +123,11 @@
         "select": "Projeyi şeç",
         "selectHelp": "Scratch proje bağlantısını kopyalayıp yapıştırarak veya diğer modlardan birini kullanarak paketlemek istediğiniz projeyi seçin. Eğer senin yapmadığın bir projeyi kullanırsanız lütfen yaratıcıya saygı gösterin. ",
         "url": "Başka URL"
+    },
+    "theme": {
+        "dark": "Karanlık",
+        "light": "Aydınlık",
+        "system": "Sistem temasını kullan"
     },
     "win": {
         "furtherSteps": "Windows için başka adımlar"

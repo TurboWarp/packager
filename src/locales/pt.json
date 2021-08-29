@@ -16,6 +16,8 @@
         "advancedSummary": "Você provavelmente não quer mexer nessas. (Clique para abrir)",
         "application-linux64": "{type} Aplicativo para Linux (apenas 64-bit)",
         "application-mac": "{type} Aplicativo para macOS",
+        "application-win32": "{type} Aplicativo para Windows (32-bit ou 64-bit)",
+        "application-win64": "{type} Aplicativo para Windows (apenas 64-bit, não recomendado)",
         "applicationSettings": "Opções da Aplicação",
         "autoplay": "Rodar automaticamente",
         "backgroundColor": "Cor de fundo",
