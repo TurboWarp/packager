@@ -284,7 +284,13 @@ const downloadProject = async (data, progressCallback) => {
     if (isScratch1Project(bufferView)) {
       analysis = unknownAnalysis();
     } else {
-      const zip = await JSZip.loadAsync(data);
+      let zip;
+      try {
+        zip = await JSZip.loadAsync(data);
+      } catch (e) {
+        console.warn(e);
+        throw new Error('Cannot parse project');
+      }
       const projectDataFile = zip.file('project.json');
       const projectDataText = await projectDataFile.async('text');
       const projectData = JSON.parse(projectDataText);
