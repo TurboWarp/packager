@@ -60,3 +60,12 @@ test('sb', async () => {
   expect(project.blob.size).toBe(554);
   expect(project.type).toBe('blob');
 });
+
+test('invalid project', async () => {
+  try {
+    await downloadProject(readTestProject('invalid.txt'), () => {});
+  } catch (e) {
+    return;
+  }
+  throw new Error('Expected error, got success');
+});

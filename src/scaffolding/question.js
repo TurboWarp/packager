@@ -1,4 +1,4 @@
-import Dropper from './dropper';
+import DropArea from './drop-area';
 import styles from './style.css';
 
 class Question {
@@ -25,7 +25,7 @@ class Question {
     this.input.className = styles.questionInput;
     this.input.addEventListener('keypress', this.onkeypress.bind(this));
 
-    this.dropper = new Dropper(this.input, this.dropperCallback.bind(this));
+    this.dropper = new DropArea(this.input, this.dropperCallback.bind(this));
 
     this.submitButton = document.createElement('button');
     this.submitButton.className = styles.questionSubmitButton;

@@ -134,9 +134,12 @@
     e.target.select();
   };
   const handleDrop = ({detail: dataTransfer}) => {
-    $type = 'file';
-    files = dataTransfer.files;
-    fileInputElement.files = files;
+    const name = dataTransfer.files[0].name;
+    if (name.endsWith('.sb') || name.endsWith('.sb2') || name.endsWith('.sb3')) {
+      $type = 'file';
+      files = dataTransfer.files;
+      fileInputElement.files = files;
+    }
   };
 </script>
 
