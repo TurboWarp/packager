@@ -12,6 +12,16 @@ const identifyProjectType = (projectData) => {
   return null;
 };
 
+const isScratch1Project = (uint8array) => {
+  const MAGIC = 'ScratchV';
+  for (let i = 0; i < MAGIC.length; i++) {
+    if (uint8array[i] !== MAGIC.charCodeAt(i)) {
+      return false;
+    }
+  }
+  return true;
+};
+
 const unknownAnalysis = () => ({
   stageVariables: {},
   usesMusic: true
@@ -270,15 +280,11 @@ const downloadProject = async (data, progressCallback) => {
     });
     analysis = downloaded.analysis;
   } else {
-    // It's a binary blob
     blob = new Blob([data]);
-    let zip;
-    try {
-      zip = await JSZip.loadAsync(data);
-    } catch (e) {
-      // It's a Scratch 1 project, probably
-    }
-    if (zip) {
+    if (isScratch1Project(bufferView)) {
+      analysis = unknownAnalysis();
+    } else {
+      const zip = await JSZip.loadAsync(data);
       const projectDataFile = zip.file('project.json');
       const projectDataText = await projectDataFile.async('text');
       const projectData = JSON.parse(projectDataText);
@@ -288,8 +294,6 @@ const downloadProject = async (data, progressCallback) => {
       } else {
         analysis = analyzeScratch2(projectData);
       }
-    } else {
-      analysis = unknownAnalysis();
     }
   }
 
