@@ -1,5 +1,6 @@
 <script>
   import {_} from '../locales';
+  import DropArea from './DropArea.svelte';
 
   const ACCEPT = [
     '.png',
@@ -13,7 +14,7 @@
 
   export let file;
   export let previewSizes;
-  let dragging;
+  let dropping;
   let url;
 
   // This is a bit strange, there's probably a better way to do this
@@ -50,28 +51,10 @@
     input.remove();
   };
 
-  const handleDragOver = (e) => {
-    if (!e.dataTransfer.types.includes('Files')) {
-      return;
-    }
-    e.preventDefault();
-    e.dataTransfer.dropEffect = 'copy';
-    dragging = true;
-  };
-
-  const handleDragLeave = (e) => {
-    e.preventDefault();
-    dragging = false;
-  };
-
-  const handleDrop = (e) => {
-    e.preventDefault();
-    dragging = false;
-    if (e.dataTransfer.types.includes('Files')) {
-      const droppedFile = e.dataTransfer.files[0];
-      if (droppedFile && ACCEPT.some((ext) => droppedFile.name.endsWith(ext))) {
-        file = droppedFile;
-      }
+  const handleDrop = ({detail: dataTransfer}) => {
+    const droppedFile = dataTransfer.files[0];
+    if (ACCEPT.some((ext) => droppedFile.name.endsWith(ext))) {
+      file = droppedFile;
     }
   };
 </script>
@@ -98,12 +81,12 @@
   :global([theme="dark"]) .container {
     color: #aaa;
   }
-  .dragging,
+  .dropping,
   .container:focus-visible,
   .container:active {
     color: rgb(79, 123, 211);
   }
-  :global([theme="dark"]) .dragging,
+  :global([theme="dark"]) .dropping,
   :global([theme="dark"]) .container:focus-visible,
   :global([theme="dark"]) .container:active {
     color: rgb(178, 195, 228);
@@ -122,26 +105,25 @@
   }
 </style>
 
-<div
-  class="container"
-  class:dragging
-  role="button"
-  tabindex="0"
-  on:click={handleClickBackground}
-  on:dragover={handleDragOver}
-  on:dragleave={handleDragLeave}
-  on:drop={handleDrop}
->
-  {#if file}
-    <div class="selected">
-      {#each previewSizes as size}
-        <!-- svelte-ignore a11y-missing-attribute -->
-        <img src={url} width={size[0]} height={size[1]}>
-      {/each}
-      <div>{$_('fileInput.selected').replace('{file}', file.name)}</div>
-      <button on:click={clear}>{$_('fileInput.clear')}</button>
-    </div>
-  {:else}
-    <div class="placeholder">{$_('fileInput.select')}</div>
-  {/if}
-</div>
+<DropArea bind:dropping={dropping} on:drop={handleDrop}>
+  <div
+    class="container"
+    class:dropping
+    role="button"
+    tabindex="0"
+    on:click={handleClickBackground}
+  >
+    {#if file}
+      <div class="selected">
+        {#each previewSizes as size}
+          <!-- svelte-ignore a11y-missing-attribute -->
+          <img src={url} width={size[0]} height={size[1]}>
+        {/each}
+        <div>{$_('fileInput.selected').replace('{file}', file.name)}</div>
+        <button on:click={clear}>{$_('fileInput.clear')}</button>
+      </div>
+    {:else}
+      <div class="placeholder">{$_('fileInput.select')}</div>
+    {/if}
+  </div>
+</DropArea>

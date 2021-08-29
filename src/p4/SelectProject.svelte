@@ -4,6 +4,7 @@
   import {_} from '../locales';
   import Section from './Section.svelte';
   import Button from './Button.svelte';
+  import DropArea from './DropArea.svelte';
   import writablePersistentStore from './persistent-store';
   import {error, progress} from './stores';
   import {UserError} from './errors';
@@ -132,22 +133,10 @@
   const handleFocus = (e) => {
     e.target.select();
   };
-  const handleDrop = (e) => {
-    e.preventDefault();
-    if (e.dataTransfer.types.includes('Files') && e.dataTransfer.files[0]) {
-      $type = 'file';
-      tick().then(() => {
-        files = e.dataTransfer.files;
-        fileInputElement.files = files;
-      });
-    }
-  };
-  const handleDragOver = (e) => {
-    if (!e.dataTransfer.types.includes('Files')) {
-      return;
-    }
-    e.preventDefault();
-    e.dataTransfer.dropEffect = 'copy';
+  const handleDrop = ({detail: dataTransfer}) => {
+    $type = 'file';
+    files = dataTransfer.files;
+    fileInputElement.files = files;
   };
 </script>
 
@@ -166,7 +155,7 @@
   }
 </style>
 
-<div on:drop={handleDrop} on:dragover={handleDragOver}>
+<DropArea on:drop={handleDrop}>
   <Section accent="#4C97FF">
     <h2>{$_('select.select')}</h2>
     <p>{$_('select.selectHelp')}</p>
@@ -199,7 +188,7 @@
       <Button on:click={load} disabled={$progress.visible} text={$_('select.loadProject')} />
     </p>
   </Section>
-</div>
+</DropArea>
 
 {#if !$progress.visible && !projectData}
   <Section caption>
