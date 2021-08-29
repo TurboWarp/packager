@@ -1,7 +1,7 @@
 import styles from './style.css';
 import {readAsText} from '../common/readers';
 
-class Dropper {
+class DropArea {
   constructor (el, callback) {
     this.el = el;
     this.callback = callback;
@@ -32,4 +32,4 @@ class Dropper {
   }
 }
 
-export default Dropper;
+export default DropArea;

@@ -1,5 +1,5 @@
 import ContextMenu from './context-menu';
-import Dropper from './dropper';
+import DropArea from './drop-area';
 import styles from './style.css';
 import {readAsText} from '../common/readers';
 
@@ -269,7 +269,7 @@ class ListMonitor extends Monitor {
     this.root.appendChild(this.rowsOuter);
     this.root.appendChild(this.footer);
 
-    this.dropper = new Dropper(this.rowsOuter, this.dropperCallback.bind(this));
+    this.dropper = new DropArea(this.rowsOuter, this.dropperCallback.bind(this));
 
     this.handleImport = this.handleImport.bind(this);
     this.handleExport = this.handleExport.bind(this);
