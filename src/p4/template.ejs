@@ -4,9 +4,13 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" href="/favicon.ico?v=2" />
-    <% const appName = require('../packager/brand.js').LONG_NAME; %>
-    <title><%= appName %></title>
+    <% const {LONG_NAME, WEBSITE} = require('../packager/brand.js'); %>
+    <title><%= LONG_NAME %></title>
     <meta name="description" content="Converts Scratch projects into HTML files, zip archives, or executable programs for Windows, macOS, and Linux.">
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="<%= LONG_NAME %>" />
+    <meta property="og:description" content="Converts Scratch projects into HTML files, zip archives, or executable programs for Windows, macOS, and Linux." />
+    <meta property="og:url" content="<%= WEBSITE %>" />
     <style>
       body[p4-splash-theme="dark"]:not([p4-loaded]) {
         background-color: #111;
