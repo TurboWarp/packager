@@ -315,9 +315,7 @@ class ListMonitor extends Monitor {
       const files = e.target.files;
       if (files.length === 0) return;
       const file = files[0];
-      readAsText(file).then((text) => {
-        this.import(reader.result);
-      });
+      readAsText(file).then((text) => this.import(text));
     });
     fileSelector.click();
   }
