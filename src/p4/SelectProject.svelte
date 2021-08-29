@@ -184,9 +184,7 @@
         <input type="radio" bind:group={$type} value="file">
         {$_('select.file')}
       </label>
-      {#if $type === "file"}
-        <input bind:files={files} bind:this={fileInputElement} type="file" accept=".sb,.sb2,.sb3">
-      {/if}
+      <input hidden={$type !== "file"} bind:files={files} bind:this={fileInputElement} type="file" accept=".sb,.sb2,.sb3">
     </div>
     <div class="option">
       <label>
