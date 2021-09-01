@@ -900,10 +900,6 @@ if (acquiredLock) {
       scaffolding.setup();
       scaffolding.appendTo(appElement);
 
-      if (typeof ScaffoldingAddons !== "undefined") {
-        ScaffoldingAddons.run(scaffolding, ${JSON.stringify(this.options.chunks)});
-      }
-
       // Expose values expected by third-party plugins
       window.scaffolding = scaffolding;
       window.vm = scaffolding.vm;
@@ -1020,6 +1016,10 @@ if (acquiredLock) {
         enabled: ${this.options.compiler.enabled},
         warpTimer: ${this.options.compiler.warpTimer}
       });
+
+      if (typeof ScaffoldingAddons !== "undefined") {
+        ScaffoldingAddons.run(scaffolding, ${JSON.stringify(this.options.chunks)});
+      }
 
       for (const extension of ${JSON.stringify(this.options.extensions.map(i => i.url))}) {
         vm.extensionManager.loadExtensionURL(extension);
