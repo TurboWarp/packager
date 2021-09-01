@@ -9,6 +9,7 @@ const allMessages = {
   /*===*/
   "de": () => require("./de.json"),
   "es": () => require("./es.json"),
+  "fr": () => require("./fr.json"),
   "it": () => require("./it.json"),
   "ja": () => require("./ja.json"),
   "ko": () => require("./ko.json"),
