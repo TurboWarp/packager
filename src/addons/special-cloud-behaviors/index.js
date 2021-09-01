@@ -16,5 +16,10 @@ class SpecialCloudBehaviorsProvider {
 }
 
 export default function (scaffolding) {
-  scaffolding.addCloudProvider(new SpecialCloudBehaviorsProvider());
+  const provider = new SpecialCloudBehaviorsProvider();
+  scaffolding.addCloudProvider(provider);
+  scaffolding.addCloudProviderOverride('☁ url', provider);
+  scaffolding.addCloudProviderOverride('☁ redirect', provider);
+  scaffolding.addCloudProviderOverride('☁ open link', provider);
+  scaffolding.addCloudProviderOverride('☁ username', provider);
 }
