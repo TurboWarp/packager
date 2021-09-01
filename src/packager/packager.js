@@ -251,6 +251,15 @@ class Packager extends EventTarget {
     this.script = texts.join('\n').replace(/<\/script>/g,"</scri'+'pt>");
   }
 
+  computeWindowSize () {
+    let width = this.options.stageWidth;
+    let height = this.options.stageHeight;
+    if (this.options.controls.greenFlag || this.options.controls.stopAll) {
+      height += 48;
+    }
+    return {width, height};
+  }
+
   async addNwJS (projectZip) {
     const nwjsBuffer = await this.fetchLargeAsset(this.options.target);
     const nwjsZip = await (await getJSZip()).loadAsync(nwjsBuffer);
@@ -310,8 +319,8 @@ class Packager extends EventTarget {
       name: packageName,
       main: 'main.js',
       window: {
-        width: this.options.stageWidth,
-        height: this.options.stageHeight,
+        width: this.computeWindowSize().width,
+        height: this.computeWindowSize().height,
         icon: ICON_NAME
       }
     };
@@ -468,8 +477,8 @@ const isSafeOpenExternal = (url) => {
 
 const createWindow = () => {
   const options = {
-    width: ${this.options.stageWidth},
-    height: ${this.options.stageHeight},
+    width: ${this.computeWindowSize().width},
+    height: ${this.computeWindowSize().height},
     useContentSize: true,
     minWidth: 50,
     minHeight: 50,
@@ -584,8 +593,8 @@ if (acquiredLock) {
         // A [0-1]
         1
       ],
-      width: this.options.stageWidth,
-      height: this.options.stageHeight
+      width: this.computeWindowSize().width,
+      height: this.computeWindowSize().height
     };
     zip.file(`${resourcePrefix}application_config.json`, JSON.stringify(applicationConfig));
 
