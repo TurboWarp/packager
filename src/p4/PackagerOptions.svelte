@@ -388,6 +388,11 @@
     <p>{$_('options.cloudVariables-local-help')}</p>
     <p>{$_('options.cloudVariables-ignore-help')}</p>
     <p>{$_('options.cloudVariables-custom-help')}</p>
+    <label>
+      <input type="checkbox" bind:checked={$options.chunks.specialCloudBehaviors}>
+      <!-- Wording not finalized -->
+      Special cloud variable behaviors (like HTMLifier, <a href="https://github.com/TurboWarp/packager/issues/48" target="_blank" rel="noopener">experimental</a>)
+    </label>
   </Section>
 {/if}
 

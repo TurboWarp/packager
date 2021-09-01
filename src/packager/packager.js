@@ -232,6 +232,12 @@ class Packager extends EventTarget {
     return result;
   }
 
+  needsAddonBundle () {
+    return this.options.chunks.gamepad ||
+      this.options.chunks.pointerlock ||
+      this.options.chunks.specialCloudBehaviors;
+  }
+
   async loadResources () {
     const texts = [COPYRIGHT_HEADER];
     if (this.project.analysis.usesMusic) {
@@ -239,7 +245,7 @@ class Packager extends EventTarget {
     } else {
       texts.push(await this.fetchLargeAsset('scaffolding-min'));
     }
-    if (this.options.chunks.gamepad || this.options.chunks.pointerlock) {
+    if (this.needsAddonBundle()) {
       texts.push(await this.fetchLargeAsset('addons'));
     }
     this.script = texts.join('\n').replace(/<\/script>/g,"</scri'+'pt>");
@@ -1168,7 +1174,8 @@ Packager.DEFAULT_OPTIONS = () => ({
   },
   chunks: {
     gamepad: false,
-    pointerlock: false
+    pointerlock: false,
+    specialCloudBehaviors: false
   },
   cloudVariables: {
     mode: 'ws',
