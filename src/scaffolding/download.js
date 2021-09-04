@@ -1,6 +1,11 @@
 // Based on https://github.com/LLK/scratch-gui/blob/develop/src/lib/download-blob.js
 
 const downloadBlob = (filename, blob) => {
+  if (typeof ExternalDownloadHelper !== 'undefined') {
+    ExternalDownloadHelper.download(filename, blob);
+    return;
+  }
+
   const downloadLink = document.createElement('a');
   document.body.appendChild(downloadLink);
 
