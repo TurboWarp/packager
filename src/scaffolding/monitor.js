@@ -370,11 +370,12 @@ class ListMonitor extends Monitor {
     this.root.style.height = `${this.height}px`;
 
     this.value = monitor.get('value');
-    this.footer.textContent = this.parent.getMessage('list-length').replace('{n}', this.value.length);
     this.updateValue(this.value);
   }
 
   updateValue (value) {
+    this.footer.textContent = this.parent.getMessage('list-length').replace('{n}', value.length);
+
     this.endPoint.style.transform = `translateY(${value.length * ROW_HEIGHT}px)`;
 
     let startIndex = Math.floor(this.scrollTop / ROW_HEIGHT) - 5;
