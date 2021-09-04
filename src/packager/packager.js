@@ -254,7 +254,7 @@ class Packager extends EventTarget {
   computeWindowSize () {
     let width = this.options.stageWidth;
     let height = this.options.stageHeight;
-    if (this.options.controls.greenFlag || this.options.controls.stopAll) {
+    if (this.options.controls.greenFlag.enabled || this.options.controls.stopAll.enabled) {
       height += 48;
     }
     return {width, height};
