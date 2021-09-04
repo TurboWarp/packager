@@ -522,14 +522,12 @@
         {#if $options.target.includes('webview')}
           <h2>About WKWebView</h2>
           <p>WKWebView is the fastest and smallest way to package for macOS. It should run natively (without Rosetta) on both Intel and Apple silicon Macs running macOS 10.12 or later. However, it is only actively tested on macOS Big Sur on an Intel Mac.</p>
-          <p>Some features are not available in this environment:</p>
+          <p>Note that:</p>
           <ul>
-            <li>Exporting lists (but importing works)</li>
-            <li>Video sensing</li>
-            <li>Loudness</li>
-            <li>Very large projects may not work well</li>
+            <li>Video sensing and loudness blocks will not work</li>
+            <li>Extremely memory intensive projects may randomly reload (but most projects work fine)</li>
           </ul>
-          <p>If you need these features, use "Plain HTML" or "NW.js macOS Application" instead.</p>
+          <p>Use "Plain HTML" or "NW.js macOS Application" if these are problems for your project.</p>
         {:else if $options.target.includes('nwjs')}
           <h2>About NW.js</h2>
           <p>NW.js runs natively on Intel Macs but will use Rosetta on Apple silicon Macs.</p>

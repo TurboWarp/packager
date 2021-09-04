@@ -33,8 +33,8 @@ export default {
     type: 'arraybuffer'
   },
   'webview-mac': {
-    src: LARGE_ASSET_BASE + 'WebView-macos-2.zip',
-    sha256: '78990872aec9d1fc55d26897e5f7dd1b8b21237ffa8b19dfca69ec47d18ece90',
+    src: LARGE_ASSET_BASE + 'WebView-macos-3.zip',
+    sha256: '5d4086894f10549c61c20e5f770c808afc25c2e4793da75b5b1cede294449fac',
     type: 'arraybuffer'
   },
   scaffolding: {
