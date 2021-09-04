@@ -2,6 +2,7 @@ import ContextMenu from './context-menu';
 import DropArea from './drop-area';
 import styles from './style.css';
 import {readAsText} from '../common/readers';
+import downloadBlob from './download';
 
 class Monitor {
   constructor (parent, monitor) {
@@ -332,13 +333,7 @@ class ListMonitor extends Monitor {
     const blob = new Blob([exported], {
       type: 'text/plain'
     });
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement('a');
-    link.download = `${this.getLabel()}.txt`;
-    link.href = url;
-    document.body.appendChild(link);
-    link.click();
-    link.remove();
+    downloadBlob(`${this.getLabel()}.txt`, blob);
   }
 
   dropperCallback (texts) {
