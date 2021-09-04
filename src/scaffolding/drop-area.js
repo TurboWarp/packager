@@ -11,8 +11,11 @@ class DropArea {
   }
 
   ondragover (e) {
-    e.preventDefault();
-    this.el.classList.add(styles.dropping);
+    if (e.dataTransfer.types.includes('Files')) {
+      e.preventDefault();
+      e.dataTransfer.dropEffect = 'copy';
+      this.el.classList.add(styles.dropping);
+    }
   }
 
   ondragleave (e) {
