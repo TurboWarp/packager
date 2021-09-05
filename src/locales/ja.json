@@ -125,7 +125,8 @@
     },
     "theme": {
         "dark": "ダーク",
-        "light": "ライト"
+        "light": "ライト",
+        "system": "システムのテーマを使う"
     },
     "win": {
         "furtherSteps": "Windowsでの追加の手順"

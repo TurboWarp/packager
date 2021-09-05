@@ -16,6 +16,8 @@
         "advancedSummary": "Probablemente no quiera cambiar estas. (Click para abrir)",
         "application-linux64": "Aplicación {type} para Linux (64-bit only)",
         "application-mac": "Aplicación {type} para macOS",
+        "application-win32": "{type} Aplicación para Windows (32-bit o 64-bit)",
+        "application-win64": "{type} Aplicación para Windows (solo 64-bit, no recomendado)",
         "applicationSettings": "Ajustes de aplicación",
         "autoplay": "Reproducción Automática",
         "backgroundColor": "Color del fondo",
@@ -40,7 +42,7 @@
         "download": "Descargar {filename} ({size} MB)",
         "downloadsWillAppearHere": "Las descargas aparecerán aquí",
         "enableCompiler": "Activar Compilador",
-        "environment": "Ambiente",
+        "environment": "Entorno",
         "foregroundColor": "Color en primer plano (barra de progreso, algunos íconos, algunos textos)",
         "framerate": "FPS",
         "gamepad": "Soporte para mandos/controles USB o Bluetooth",
@@ -50,14 +52,18 @@
         "icon": "Ícono de la página",
         "infiniteClones": "Clones Infinitos",
         "interaction": "Entrada",
-        "interpolation": "Interpolació",
+        "interpolation": "Interpolación",
         "loadingScreen": "Pantalla de carga",
         "loadingScreenImage": "Imagen de la pantalla de carga",
         "loadingScreenText": "Cargando texto en pantalla",
         "loadingScreenTextPlaceholder": "(Nada)",
+        "manyOptions": "Hay un montón de opciones aquí, pero no se preocupe, la mayoría no es interesante. Para obtener su proyecto empacado, simplemente {scrollDown}, elija un entorno y haga click en el botón rojo grande.",
+        "manyOptions-scroll": "baje al final del todo",
         "mode": "Modo",
         "noCursor": "Sin puntero del ratón",
         "normalCursor": "Puntero del ratón normal",
+        "otherEnvironments": "Otros entornos (Click para abrir)",
+        "otherEnvironmentsHelp": "Los proyectos nuevos, en su mayoría, deben usar las opciones listadas arriba.",
         "package": "Empacar",
         "packageName": "Nombre del paquete",
         "packageNameHelp": "El nombre del paquete debe ser único, solo usado en tu aplicación. El mismo proyecto debería tener el mismo nombre del paquete siempre.",
@@ -77,8 +83,9 @@
         "sizeNormal": "Mostrar en tamaño normal",
         "sizeStretch": "Rellenar pantalla",
         "stageSize": "Tamaño del Escenario",
-        "turbo": "Modo Turb",
+        "turbo": "Modo Turbo",
         "username": "Nombre de usuario (cada \"#\" se reemplaza con un número aleatorio)",
+        "zip": "Zip (ideal para sitios web)",
         "zip-one-asset": "Zip, combinar assets a un solo archivo (no recomendado)"
     },
     "p4": {
@@ -115,6 +122,11 @@
         "select": "Seleccionar proyecto",
         "selectHelp": "Seleccione el proyecto que quiere empacar copiando y pegando el enlace de proyecto de Scratch o usando alguno de los otros modos. Si usa un proyecto que no creó, asegúrese de dar créditos al creador.",
         "url": "Otra URL"
+    },
+    "theme": {
+        "dark": "Oscuro",
+        "light": "Claro",
+        "system": "Usar tema del sistema"
     },
     "win": {
         "furtherSteps": "Pasos siguientes para Windows"
