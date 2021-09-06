@@ -8,9 +8,8 @@
   import SelectTheme from './SelectTheme.svelte';
   import PackagerOptions from './PackagerOptions.svelte';
   import Progress from './Progress.svelte';
-  import Button from './Button.svelte';
-  import {error, progress, theme} from './stores';
-  import {UserError} from './errors';
+  import Modals from './Modals.svelte';
+  import {progress, theme} from './stores';
   import isSupported from './browser-support';
   import {LONG_NAME, FEEDBACK_GITHUB, FEEDBACK_SCRATCH, SOURCE_CODE} from '../packager/brand';
 
@@ -25,24 +24,13 @@
   }
   $: document.documentElement.setAttribute('theme', $theme === 'system' ? systemTheme : $theme);
 
-  $: if ($error) {
-    document.body.setAttribute('modal-visible', '');
-    console.error($error);
-  } else {
-    document.body.removeAttribute('modal-visible');
-  }
-
-  const closeModal = () => {
-    $error = null;
-  };
-  const onKeyDown = (e) => {
-    if (e.key === 'Escape') {
-      closeModal();
-    }
-  };
+  let modalVisible = false;
 </script>
 
 <style>
+  :root {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  }
   :global([theme="dark"]) {
     background: #111;
     color: #eee;
@@ -79,9 +67,6 @@
     color: white;
     border-color: #888;
   }
-  :global([modal-visible]) {
-    overflow: hidden;
-  }
   :global(p), :global(h1), :global(h2) {
     margin: 12px 0;
   }
@@ -89,22 +74,10 @@
     cursor: pointer;
   }
   main {
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     padding-bottom: 10px;
   }
   footer {
     text-align: center;
-  }
-  .modal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: rgba(0, 0, 0, 0.75);
   }
   footer > div {
     margin-top: 12px;
@@ -114,9 +87,9 @@
   }
 </style>
 
-<svelte:window on:keydown={onKeyDown} />
+<Modals bind:modalVisible={modalVisible} />
 
-<main>
+<main aria-hidden={modalVisible}>
   <Section accent="#ff4c4c">
     <h1>{LONG_NAME}</h1>
     <p>{$_('p4.description1')}</p>
@@ -160,28 +133,6 @@
   {#if projectData}
     <div in:fade>
       <PackagerOptions projectData={projectData} />
-    </div>
-  {/if}
-
-  {#if $error}
-    <div class="modal" on:click|self={closeModal} on:key>
-      <Section modal>
-        <h2>{$_('p4.error')}</h2>
-        {#if $error instanceof UserError}
-          <p>{$error.message}</p>
-          <p>
-            <Button on:click={closeModal} text={$_('p4.close')} />
-          </p>
-        {:else}
-          <p>
-            {$_('p4.errorMessage').replace('{error}', $error)}
-          </p>
-          <p>
-            <Button on:click={closeModal} text={$_('p4.close')} />
-            <a href={FEEDBACK_SCRATCH}>{$_('p4.reportBug')}</a>
-          </p>
-        {/if}
-      </Section>
     </div>
   {/if}
 
