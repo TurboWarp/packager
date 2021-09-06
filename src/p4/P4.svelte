@@ -51,11 +51,33 @@
   :global(a) {
     color: blue;
   }
+  :global([theme="dark"] a) {
+    color: #56b2ff;
+  }
   :global(a:active) {
     color: red;
   }
-  :global([theme="dark"]) :global(a) {
-    color: #4af;
+  :global(input[type="text"]),
+  :global(input[type="number"]),
+  :global(textarea) {
+    padding: 2px;
+  }
+  :global(input[type="text"]),
+  :global(input[type="number"]),
+  :global(textarea),
+  :global(select) {
+    background-color: white;
+    color: black;
+    border: 1px solid rgb(160, 160, 160);
+    border-radius: 2px;
+  }
+  :global([theme="dark"] input[type="text"]),
+  :global([theme="dark"] input[type="number"]),
+  :global([theme="dark"] textarea),
+  :global([theme="dark"] select) {
+    background-color: #333;
+    color: white;
+    border-color: #888;
   }
   :global([modal-visible]) {
     overflow: hidden;
