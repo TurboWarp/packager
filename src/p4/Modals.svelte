@@ -68,6 +68,7 @@
     align-items: center;
     justify-content: center;
     background-color: rgba(0, 0, 0, 0.75);
+    word-break: break-word;
   }
 </style>
 
