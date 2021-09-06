@@ -61,6 +61,7 @@
 
 <style>
   .container {
+    background: transparent;
     color: #555;
     width: 100%;
     box-sizing: border-box;
@@ -68,12 +69,12 @@
     transition: .2s border-color, .2s color;
     border-radius: 20px;
     min-height: 90px;
+    font: inherit;
     display: flex;
     align-items: center;
     justify-content: center;
     text-align: center;
     overflow: hidden;
-    user-select: none;
     position: relative;
     cursor: pointer;
     padding: 4px;
@@ -106,13 +107,7 @@
 </style>
 
 <DropArea bind:dropping={dropping} on:drop={handleDrop}>
-  <div
-    class="container"
-    class:dropping
-    role="button"
-    tabindex="0"
-    on:click={handleClickBackground}
-  >
+  <button class="container" class:dropping on:click={handleClickBackground}>
     {#if file}
       <div class="selected">
         {#each previewSizes as size}
@@ -125,5 +120,5 @@
     {:else}
       <div class="placeholder">{$_('fileInput.select')}</div>
     {/if}
-  </div>
+  </button>
 </DropArea>
