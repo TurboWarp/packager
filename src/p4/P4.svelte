@@ -10,7 +10,7 @@
   import Progress from './Progress.svelte';
   import Modals from './Modals.svelte';
   import {progress, theme} from './stores';
-  import isSupported from './browser-support';
+  import {isSupported, isSafari} from './browser';
   import {LONG_NAME, FEEDBACK_GITHUB, FEEDBACK_SCRATCH, SOURCE_CODE} from '../packager/brand';
 
   let projectData;
@@ -53,7 +53,7 @@
   :global(input[type="text"]),
   :global(input[type="number"]),
   :global(textarea),
-  :global(select) {
+  :global(.is-not-safari select) {
     background-color: white;
     color: black;
     border: 1px solid rgb(160, 160, 160);
@@ -62,7 +62,7 @@
   :global([theme="dark"] input[type="text"]),
   :global([theme="dark"] input[type="number"]),
   :global([theme="dark"] textarea),
-  :global([theme="dark"] select) {
+  :global([theme="dark"] .is-not-safari select) {
     background-color: #333;
     color: white;
     border-color: #888;
@@ -89,7 +89,7 @@
 
 <Modals bind:modalVisible={modalVisible} />
 
-<main aria-hidden={modalVisible}>
+<main aria-hidden={modalVisible} class:is-not-safari={!isSafari}>
   <Section accent="#ff4c4c">
     <h1>{LONG_NAME}</h1>
     <p>{$_('p4.description1')}</p>
@@ -121,13 +121,13 @@
     </p>
   </Section>
 
-  {#if !isSupported}
+  {#if isSupported}
+    <SelectProject bind:projectData />
+  {:else}
     <Section accent="#4C97FF">
       <h2>Browser not supported</h2>
       <p>Please update your browser to use this site.</p>
     </Section>
-  {:else}
-    <SelectProject bind:projectData />
   {/if}
 
   {#if projectData}
