@@ -398,7 +398,7 @@
     <label>
       <input type="checkbox" bind:checked={$options.chunks.specialCloudBehaviors}>
       <!-- Wording not finalized -->
-      Special cloud variable behaviors (like HTMLifier, <a href="https://github.com/TurboWarp/packager/issues/48" target="_blank" rel="noopener">experimental</a>)
+      Special cloud variable behaviors (like HTMLifier, <a href="https://github.com/TurboWarp/packager/issues/48#issuecomment-909892294" target="_blank" rel="noopener">experimental</a>)
     </label>
   </Section>
 {/if}
