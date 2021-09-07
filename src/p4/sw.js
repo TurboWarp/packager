@@ -20,11 +20,10 @@ self.addEventListener('fetch', event => {
   if (event.request.method !== 'GET') return;
   const url = new URL(event.request.url);
   if (url.origin !== location.origin) return;
-  url.search = '';
-  const pathname = url.pathname;
-  const relativePathname = pathname.substr(base.length);
+  const relativePathname = url.pathname.substr(base.length);
   const isImmutable = ENV === 'production' && !!relativePathname && ASSETS.includes(relativePathname);
   if (isImmutable) {
+    url.search = '';
     event.respondWith(
       caches.match(new Request(url)).then((res) => res || fetch(event.request))
     );
