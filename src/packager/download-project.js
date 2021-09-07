@@ -232,7 +232,7 @@ const downloadJSONProject = (json, progressTarget) => {
   }
 };
 
-const downloadProject = async (data, progressCallback) => {
+export const downloadProject = async (data, progressCallback) => {
   let type;
   let blob;
   let analysis;
@@ -319,5 +319,3 @@ const downloadProject = async (data, progressCallback) => {
     analysis
   };
 };
-
-export default downloadProject;

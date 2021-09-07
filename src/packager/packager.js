@@ -1,6 +1,5 @@
-import * as Comlink from 'comlink';
 import EventTarget from '../common/event-target';
-import ChecksumWorker from 'worker-loader?name=checksum.worker.js!./checksum.worker.js'
+import ChecksumWorker from '../build/p4-worker-loader!./sha256'
 import defaultIcon from './images/default-icon.png';
 import {readAsArrayBuffer, readAsURL} from '../common/readers';
 import largeAssets from './large-assets';
@@ -29,10 +28,9 @@ const escapeXML = (v) => v.replace(/["'<>&]/g, (i) => {
 });
 
 const sha256 = async (buffer) => {
-  const worker = new ChecksumWorker();
-  const wrap = Comlink.wrap(worker);
-  const hash = await wrap.sha256(buffer);
-  worker.terminate();
+  const {worker, terminate} = new ChecksumWorker();
+  const hash = await worker.sha256(buffer);
+  terminate();
   return hash;
 };
 
