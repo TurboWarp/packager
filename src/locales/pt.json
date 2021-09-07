@@ -56,6 +56,8 @@
         "loadingScreenImage": "Imagem da tela de carregamento",
         "loadingScreenText": "Texto da tela de carregamento",
         "loadingScreenTextPlaceholder": "(Nada)",
+        "manyOptions": "Há muitas opções aqui, mas não se preocupe, a maioria não é interessante. Para empacotar o seu projeto, basta {scrollDown}, escolher um ambiente de execução e clicar no botão vermelho.",
+        "manyOptions-scroll": "descer ao final da página",
         "mode": "Modo",
         "noCursor": "Nenhum cursor",
         "normalCursor": "Cursor normal",
@@ -119,6 +121,11 @@
         "select": "Selecione um Projeto",
         "selectHelp": "Selecione o projeto que você quer empacotar copiando e colando o link do projeto no Scratch ou usando um dos outros meios. Se você usar um projeto criado por outra pessoa, lembre-se de dar créditos.",
         "url": "Outro URL"
+    },
+    "theme": {
+        "dark": "Escuro",
+        "light": "Claro",
+        "system": "Usar tema do sistema"
     },
     "win": {
         "furtherSteps": "Próximos passos para Windows"
