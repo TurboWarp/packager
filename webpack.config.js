@@ -111,7 +111,8 @@ const makeWebsite = () => ({
   },
   optimization: {
     splitChunks: {
-      chunks: 'all'
+      chunks: 'all',
+      minChunks: 2
     }
   },
   module: {
