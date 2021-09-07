@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import Blob from 'node-blob';
-import downloadProject from '../../src/packager/download-project'
+import {downloadProject} from '../../src/packager/download-project'
 
 global.Blob = Blob;
 
