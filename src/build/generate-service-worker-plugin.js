@@ -18,10 +18,7 @@ class GenerateServiceWorkerPlugin {
       const assetNames = Array.from(allAssetNames)
         .filter((name) => {
           if (name.endsWith('.map')) return false;
-          if (name.endsWith('.html')) return false;
-          if (name === SW_NAME) return false;
-          if (name === 'favicon.ico') return false;
-          return true;
+          return name.startsWith('assets/') || name.startsWith('js/')
         });
       const workerFile = compilation.getAsset(SW_NAME);
       const workerSource = workerFile.source.source().toString();
@@ -29,6 +26,7 @@ class GenerateServiceWorkerPlugin {
       const hash = crypto.createHash('sha256');
       hash.update(stringifiedAssets);
       const newSource = workerSource
+        .replace('__ENV__', process.env.NODE_ENV || 'development')
         .replace('[/* __ASSETS__ */]', stringifiedAssets)
         .replace('__CACHE_NAME__', `p4-${hash.digest('hex')}`);
       compilation.updateAsset(SW_NAME, new RawSource(newSource));
