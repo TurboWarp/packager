@@ -6,7 +6,6 @@
   import SelectProject from './SelectProject.svelte';
   import SelectLocale from './SelectLocale.svelte';
   import SelectTheme from './SelectTheme.svelte';
-  import PackagerOptions from './PackagerOptions.svelte';
   import Progress from './Progress.svelte';
   import Modals from './Modals.svelte';
   import {progress, theme} from './stores';
@@ -25,6 +24,13 @@
   $: document.documentElement.setAttribute('theme', $theme === 'system' ? systemTheme : $theme);
 
   let modalVisible = false;
+
+  const getPackagerOptionsComponent = () => import(
+    /* webpackChunkName: "packager-options-ui" */
+    './PackagerOptions.svelte'
+  );
+  // We know for sure we will need this component very soon, so start loading it immediately.
+  getPackagerOptionsComponent();
 </script>
 
 <style>
@@ -131,9 +137,19 @@
   {/if}
 
   {#if projectData}
-    <div in:fade>
-      <PackagerOptions projectData={projectData} />
-    </div>
+    {#await getPackagerOptionsComponent()}
+      <Section center>
+        <Progress text="Loading interface..." />
+      </Section>
+    {:then { default: PackagerOptions }}
+      <div in:fade>
+        <PackagerOptions projectData={projectData} />
+      </div>
+    {:catch}
+      <Section center>
+        Something went wrong, please refresh and try again.
+      </Section>
+    {/await}
   {/if}
 
   {#if $progress.visible}
