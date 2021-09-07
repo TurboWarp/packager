@@ -9,10 +9,12 @@ const app = new P4({
 document.body.setAttribute('p4-loaded', '');
 
 if (process.env.ENABLE_SERVICE_WORKER && 'serviceWorker' in navigator) {
-  navigator.serviceWorker.register(serviceWorker)
-    .then(() => {
-      console.log('SW registered');
-    }).catch((error) => {
-      console.log('SW error', error);
-    });
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register(serviceWorker)
+      .then(() => {
+        console.log('SW registered');
+      }).catch((error) => {
+        console.log('SW error', error);
+      });
+  });
 }
