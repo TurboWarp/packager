@@ -4,10 +4,14 @@ const crypto = require('crypto');
 const PLUGIN_NAME = 'GenerateServiceWorkerPlugin';
 const SW_NAME = 'sw.js';
 
+const CACHE_PAGES = [
+  // This is the homepage
+  ''
+];
+
 class GenerateServiceWorkerPlugin {
   apply(compiler) {
-    const allAssetNames = new Set();
-    allAssetNames.add('/');
+    const allAssetNames = new Set(CACHE_PAGES);
 
     compiler.hooks.emit.tap(PLUGIN_NAME, compilation => {
       const newAssetNames = compilation.getAssets()
@@ -18,7 +22,7 @@ class GenerateServiceWorkerPlugin {
       const assetNames = Array.from(allAssetNames)
         .filter((name) => {
           if (name.endsWith('.map')) return false;
-          return name.startsWith('assets/') || name.startsWith('js/')
+          return name.startsWith('assets/') || name.startsWith('js/') || CACHE_PAGES.includes(name);
         });
       const workerFile = compilation.getAsset(SW_NAME);
       const workerSource = workerFile.source.source().toString();

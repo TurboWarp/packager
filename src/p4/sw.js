@@ -1,13 +1,13 @@
 // These will be replaced at build-time by generate-service-worker-plugin.js
 const ASSETS = [/* __ASSETS__ */];
 const CACHE_NAME = '__CACHE_NAME__';
-const ENV = '__ENV__';
+const IS_PRODUCTION = '__ENV__' === 'production';
 
 const base = location.pathname.substr(0, location.pathname.indexOf('sw.js'));
 
 self.addEventListener('install', event => {
   self.skipWaiting();
-  event.waitUntil(caches.open(CACHE_NAME).then(cache => cache.addAll(ASSETS)));
+  event.waitUntil(caches.open(CACHE_NAME).then(cache => cache.addAll(ASSETS.map(i => i === '' ? '/' : i))));
 });
 
 self.addEventListener('activate', event => {
@@ -21,11 +21,17 @@ self.addEventListener('fetch', event => {
   const url = new URL(event.request.url);
   if (url.origin !== location.origin) return;
   const relativePathname = url.pathname.substr(base.length);
-  const isImmutable = ENV === 'production' && !!relativePathname && ASSETS.includes(relativePathname);
-  if (isImmutable) {
+  if (IS_PRODUCTION && ASSETS.includes(relativePathname)) {
     url.search = '';
-    event.respondWith(
-      caches.match(new Request(url)).then((res) => res || fetch(event.request))
-    );
+    const immutable = !!relativePathname;
+    if (immutable) {
+      event.respondWith(
+        caches.match(new Request(url)).then((res) => res || fetch(event.request))
+      );
+    } else {
+      event.respondWith(
+        fetch(event.request).catch(() => caches.match(new Request(url)))
+      );
+    }
   }
 });
