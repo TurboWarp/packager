@@ -120,25 +120,25 @@ class VariableMonitor extends Monitor {
     } else {
       this.inner = document.createElement('div');
       this.inner.className = styles.monitorInner;
-  
+
       this.valueRow = document.createElement('div');
       this.valueRow.className = styles.monitorRow;
-  
+
       this.label = document.createElement('div');
       this.label.className = styles.monitorLabel;
       this.label.textContent = this.getLabel();
-  
+
       this.valueElement = document.createElement('div');
       this.valueElement.className = styles.monitorValue + ' ' + styles.monitorValueColor;
-  
+
       this.valueRow.appendChild(this.label);
       this.valueRow.appendChild(this.valueElement);
       this.inner.appendChild(this.valueRow);
-  
+
       if (this.mode === 'slider') {
         this.sliderRow = document.createElement('div');
         this.sliderRow.className = styles.monitorRow;
-  
+
         this.slider = document.createElement('input');
         this.slider.className = styles.monitorSlider;
         this.slider.type = 'range';
@@ -146,7 +146,7 @@ class VariableMonitor extends Monitor {
         this.slider.max = monitor.get('sliderMax');
         this.slider.step = monitor.get('isDiscrete') ? 1 : 0.01;
         this.slider.addEventListener('input', this.onsliderchange.bind(this));
-  
+
         this.sliderRow.appendChild(this.slider);
         this.inner.appendChild(this.sliderRow);
       }
@@ -320,7 +320,7 @@ class ListMonitor extends Monitor {
     });
     fileSelector.click();
   }
-  
+
   import (text) {
     // TODO: Scratch uses a CSV parser
     const lines = text.split(/\r?\n/);
