@@ -1,5 +1,6 @@
 import JSZip from 'jszip';
 import EventTarget from '../common/event-target';
+import optimizeSb3Json from './minify/sb3';
 
 const ASSET_HOST = 'https://assets.scratch.mit.edu/internalapi/asset/$path/get/';
 
@@ -205,7 +206,7 @@ const loadScratch3 = (projectData, progressTarget) => {
     return result;
   }
 
-  zip.file('project.json', JSON.stringify(projectData));
+  zip.file('project.json', JSON.stringify(optimizeSb3Json(projectData)));
 
   const targets = projectData.targets;
   const costumes = [].concat.apply([], targets.map((t) => t.costumes || []));
@@ -299,6 +300,7 @@ export const downloadProject = async (data, progressCallback) => {
       const projectData = JSON.parse(projectDataText);
       type = identifyProjectType(projectData);
       if (type === 'sb3') {
+        zip.file('project.json', JSON.stringify(optimizeSb3Json(projectData)));
         analysis = analyzeScratch3(projectData);
       } else {
         analysis = analyzeScratch2(projectData);
