@@ -350,13 +350,6 @@ class ListMonitor extends Monitor {
     this.updateValue(value);
   }
 
-  getRow () {
-    if (this.rows.length) {
-      return this.rows.pop();
-    }
-    return new Row();
-  }
-
   update (monitor) {
     super.update(monitor);
 
