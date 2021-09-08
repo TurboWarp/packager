@@ -35,7 +35,7 @@ class Pool {
     if (this.generatedIds.has(originalId)) {
       return this.generatedIds.get(originalId);
     }
-    return originalId;
+    throw new Error(`getNewId called with unknown ID ${originalId}`);
   }
 }
 
@@ -46,133 +46,148 @@ const LIST_PRIMITIVE = 13;
 const optimizeSb3Json = (projectData) => {
   // Note: we modify projectData in-place
 
-  const pool = new Pool();
-
-  // Scan the project so that we can generate the most optimal IDs later
+  // Scan global attributes of the project so we can generate optimal IDs later
+  const variablePool = new Pool();
   for (const monitor of projectData.monitors) {
     const monitorOpcode = monitor.opcode;
     if (monitorOpcode === 'data_variable' || monitorOpcode === 'data_listcontents') {
       const monitorId = monitor.id;
-      pool.addReference(monitorId);
+      variablePool.addReference(monitorId);
     }
   }
   const scanCompressedNative = native => {
     const type = native[0];
     if (type === VAR_PRIMITIVE || type === LIST_PRIMITIVE) {
       const variableId = native[2];
-      pool.addReference(variableId);
+      variablePool.addReference(variableId);
     } else if (type === BROADCAST_PRIMITIVE) {
       const broadcastId = native[2];
-      pool.addReference(broadcastId);
+      variablePool.addReference(broadcastId);
     }
   };
   for (const target of projectData.targets) {
     for (const variableId of Object.keys(target.variables)) {
-      pool.addReference(variableId);
+      variablePool.addReference(variableId);
     }
     for (const variableId of Object.keys(target.lists)) {
-      pool.addReference(variableId);
+      variablePool.addReference(variableId);
     }
     for (const broadcastId of Object.keys(target.broadcasts)) {
-      pool.addReference(broadcastId);
+      variablePool.addReference(broadcastId);
     }
-    for (const [blockId, block] of Object.entries(target.blocks)) {
-      pool.addReference(blockId);
+    for (const block of Object.values(target.blocks)) {
       if (Array.isArray(block)) {
         scanCompressedNative(block);
         continue;
       }
-      if (block.parent) {
-        pool.addReference(block.parent);
-      }
-      if (block.next) {
-        pool.addReference(block.next);
-      }
       if (block.fields.VARIABLE) {
-        pool.addReference(block.fields.VARIABLE[1]);
+        variablePool.addReference(block.fields.VARIABLE[1]);
       }
       if (block.fields.LIST) {
-        pool.addReference(block.fields.LIST[1]);
+        variablePool.addReference(block.fields.LIST[1]);
       }
       if (block.fields.BROADCAST_OPTION) {
-        pool.addReference(block.fields.BROADCAST_OPTION[1]);
+        variablePool.addReference(block.fields.BROADCAST_OPTION[1]);
       }
       for (const input of Object.values(block.inputs)) {
         const inputValue = input[1];
         if (Array.isArray(inputValue)) {
           scanCompressedNative(inputValue);
-        } else if (typeof inputValue === 'string') {
-          const childBlockId = input[1];
-          pool.addReference(childBlockId);
         }
       }
     }
   }
+  variablePool.generateNewIds();
 
-  // Use gathered data to replace old IDs with the new, shorter ones, and apply other optimizations
-  pool.generateNewIds();
+  // Use gathered data to optimize the project
   for (const monitor of projectData.monitors) {
     const monitorOpcode = monitor.opcode;
     if (monitorOpcode === 'data_variable' || monitorOpcode === 'data_listcontents') {
       const monitorId = monitor.id;
-      monitor.id = pool.getNewId(monitorId);
+      monitor.id = variablePool.getNewId(monitorId);
     }
+
     // Remove redundant monitor values
     monitor.value = Array.isArray(monitor.value) ? [] : 0;
   }
+
   const optimizeCompressedNative = native => {
     const type = native[0];
     if (type === VAR_PRIMITIVE || type === LIST_PRIMITIVE) {
       const variableId = native[2];
-      native[2] = pool.getNewId(variableId);
+      native[2] = variablePool.getNewId(variableId);
     } else if (type === BROADCAST_PRIMITIVE) {
       const broadcastId = native[2];
-      native[2] = pool.getNewId(broadcastId);
+      native[2] = variablePool.getNewId(broadcastId);
     }
   };
   for (const target of projectData.targets) {
+    // Blocks get their own pool per-target
+    const blockPool = new Pool();
+    for (const [blockId, block] of Object.entries(target.blocks)) {
+      blockPool.addReference(blockId);
+      if (Array.isArray(block)) {
+        // Compressed native
+        continue;
+      }
+      if (block.parent) {
+        blockPool.addReference(block.parent);
+      }
+      if (block.next) {
+        blockPool.addReference(block.next);
+      }
+      for (const input of Object.values(block.inputs)) {
+        const inputValue = input[1];
+        if (typeof inputValue === 'string') {
+          const childBlockId = inputValue;
+          blockPool.addReference(childBlockId);
+        }
+      }
+    }
+    blockPool.generateNewIds();
+
     const newVariables = {};
     const newLists = {};
     const newBroadcasts = {};
     const newBlocks = {};
 
     for (const [variableId, variable] of Object.entries(target.variables)) {
-      newVariables[pool.getNewId(variableId)] = variable;
+      newVariables[variablePool.getNewId(variableId)] = variable;
     }
     for (const [variableId, variable] of Object.entries(target.lists)) {
-      newLists[pool.getNewId(variableId)] = variable;
+      newLists[variablePool.getNewId(variableId)] = variable;
     }
     for (const [broadcastId, broadcast] of Object.entries(target.broadcasts)) {
-      newBroadcasts[pool.getNewId(broadcastId)] = broadcast;
+      newBroadcasts[variablePool.getNewId(broadcastId)] = broadcast;
     }
     for (const [blockId, block] of Object.entries(target.blocks)) {
-      newBlocks[pool.getNewId(blockId)] = block;
+      newBlocks[blockPool.getNewId(blockId)] = block;
       if (Array.isArray(block)) {
         optimizeCompressedNative(block);
         continue;
       }
       if (block.parent) {
-        block.parent = pool.getNewId(block.parent);
+        block.parent = blockPool.getNewId(block.parent);
       }
       if (block.next) {
-        block.next = pool.getNewId(block.next);
+        block.next = blockPool.getNewId(block.next);
       }
       if (block.fields.VARIABLE) {
-        block.fields.VARIABLE[1] = pool.getNewId(block.fields.VARIABLE[1]);
+        block.fields.VARIABLE[1] = variablePool.getNewId(block.fields.VARIABLE[1]);
       }
       if (block.fields.LIST) {
-        block.fields.LIST[1] = pool.getNewId(block.fields.LIST[1]);
+        block.fields.LIST[1] = variablePool.getNewId(block.fields.LIST[1]);
       }
       if (block.fields.BROADCAST_OPTION) {
-        block.fields.BROADCAST_OPTION[1] = pool.getNewId(block.fields.BROADCAST_OPTION[1]);
+        block.fields.BROADCAST_OPTION[1] = variablePool.getNewId(block.fields.BROADCAST_OPTION[1]);
       }
       for (const input of Object.values(block.inputs)) {
         const inputValue = input[1];
         if (Array.isArray(inputValue)) {
           optimizeCompressedNative(inputValue);
         } else if (typeof inputValue === 'string') {
-          const childBlockId = input[1];
-          input[1] = pool.getNewId(childBlockId);
+          const childBlockId = inputValue;
+          input[1] = blockPool.getNewId(childBlockId);
         }
       }
       if (!block.shadow) {
