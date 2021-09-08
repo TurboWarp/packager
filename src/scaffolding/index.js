@@ -28,6 +28,7 @@ class Scaffolding extends EventTarget {
 
     this.width = 480;
     this.height = 360;
+    this.resizeToFill = false;
 
     this.messages = defaultMessages;
 
@@ -259,6 +260,17 @@ class Scaffolding extends EventTarget {
 
     const canvasWidth = Math.max(1, totalWidth - offsetFromLeft - offsetFromRight);
     const canvasHeight = Math.max(1, totalHeight - offsetFromTop - offsetFromBottom);
+
+    if (this.resizeToFill) {
+      this.width = canvasWidth;
+      this.height = canvasHeight;
+      this.renderer.setStageSize(
+        -this.width / 2,
+        this.width / 2,
+        -this.height / 2,
+        this.height / 2  
+      );
+    }
 
     let height = canvasHeight;
     let width = height / this.height * this.width;

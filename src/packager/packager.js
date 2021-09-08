@@ -895,6 +895,7 @@ if (acquiredLock) {
       const scaffolding = new Scaffolding.Scaffolding();
       scaffolding.width = ${this.options.stageWidth};
       scaffolding.height = ${this.options.stageHeight};
+      scaffolding.resizeToFill = ${this.options.resizeToFill};
       scaffolding.setup();
       scaffolding.appendTo(appElement);
 
@@ -1142,6 +1143,7 @@ Packager.DEFAULT_OPTIONS = () => ({
   miscLimits: true,
   stageWidth: 480,
   stageHeight: 360,
+  resizeToFill: false,
   autoplay: false,
   username: 'player####',
   custom: {

@@ -417,6 +417,10 @@
       {$_('options.warpTimer')}
       <LearnMore slug="warp-timer" />
     </label>
+    <label>
+      <input type="checkbox" bind:checked={$options.resizeToFill}>
+      Dynamically resize stage to fill page (overrides stage size setting, experimental)
+    </label>
     <!-- Ignore because CustomExtensions will have a <textarea> inside it -->
     <!-- svelte-ignore a11y-label-has-associated-control -->
     <label>
