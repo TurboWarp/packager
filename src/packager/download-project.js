@@ -24,20 +24,16 @@ const isScratch1Project = (uint8array) => {
 };
 
 const unknownAnalysis = () => ({
-  stageVariables: {},
+  stageVariables: [],
   usesMusic: true
 });
 
 const analyzeScratch2 = (projectData) => {
-  const stageVariables = {};
-  if (projectData.variables) {
-    for (const {name, isPersistent} of projectData.variables) {
-      stageVariables[name] = {
-        name,
-        isCloud: isPersistent
-      };
-    }
-  }
+  const stageVariables = (projectData.variables || [])
+    .map(({name, isPersistent}) => ({
+      name,
+      isCloud: isPersistent
+    }));
   // This may have some false positives, but that's okay.
   const stringified = JSON.stringify(projectData);
   const usesMusic = stringified.includes('drum:duration:elapsed:from:') ||
@@ -54,14 +50,11 @@ const analyzeScratch3 = (projectData) => {
   if (!stage || !stage.isStage) {
     throw new Error('Project does not have stage');
   }
-  const stageVariables = {};
-  for (const id of Object.keys(stage.variables)) {
-    const [name, value, cloud] = stage.variables[id];
-    stageVariables[id] = {
+  const stageVariables = Object.values(stage.variables)
+    .map(([name, _value, cloud]) => ({
       name,
       isCloud: !!cloud
-    };
-  }
+    }));
   const usesMusic = projectData.extensions.includes('music');
   return {
     stageVariables,

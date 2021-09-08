@@ -20,7 +20,7 @@
   // JSON can't easily parse Infinity, so we'll just store large numbers instead
   const ALMOST_INFINITY = 9999999999;
 
-  const cloudVariables = Object.values(projectData.project.analysis.stageVariables)
+  const cloudVariables = projectData.project.analysis.stageVariables
     .filter(i => i.isCloud)
     .map(i => i.name);
 

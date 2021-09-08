@@ -13,16 +13,16 @@ const readTestProject = (name) => {
 test('sb3', async () => {
   const project = await downloadProject(readTestProject('no-music.sb3'), () => {});
   expect(project.type).toBe('sb3');
-  expect(project.analysis.stageVariables).toEqual({
-    '`jEk@4|i[#Fk?(8x)AV.-my variable': {
+  expect(project.analysis.stageVariables).toEqual([
+    {
       name: 'my variable',
       isCloud: false
     },
-    'BHEUfE_ev.6Eib^2/3nu': {
+    {
       name: '☁ Cloud variable',
       isCloud: true
     }
-  });
+  ]);
   expect(project.analysis.usesMusic).toBe(false);
 });
 
@@ -36,16 +36,16 @@ test('sb2', async () => {
   expect(project.blob.size).toBe(6259);
   expect(project.type).toBe('blob');
   expect(project.analysis.usesMusic).toBe(false);
-  expect(project.analysis.stageVariables).toEqual({
-    '☁ Variable': {
+  expect(project.analysis.stageVariables).toEqual([
+    {
       name: '☁ Variable',
       isCloud: true
     },
-    'Variable 2': {
+    {
       name: 'Variable 2',
       isCloud: false
     }
-  });
+  ]);
 });
 
 test('sb2 with music', async () => {
