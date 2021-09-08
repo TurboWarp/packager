@@ -65,6 +65,9 @@
     border: 1px solid rgb(160, 160, 160);
     border-radius: 2px;
   }
+  :global(.is-not-safari select:hover) {
+    border-color: rgb(30, 30, 30);
+  }
   :global([theme="dark"] input[type="text"]),
   :global([theme="dark"] input[type="number"]),
   :global([theme="dark"] textarea),
@@ -72,6 +75,9 @@
     background-color: #333;
     color: white;
     border-color: #888;
+  }
+  :global([theme="dark"] .is-not-safari select:hover) {
+    border-color: #bbb;
   }
   :global(p), :global(h1), :global(h2) {
     margin: 12px 0;
