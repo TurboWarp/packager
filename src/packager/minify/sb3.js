@@ -40,8 +40,11 @@ class Pool {
 }
 
 const optimizeSb3Json = (projectData) => {
+  // Note: we modify projectData in-place
+
   const pool = new Pool();
 
+  // Scan the project so that we can generate the most optimal IDs later.
   for (const monitor of projectData.monitors) {
     const monitorOpcode = monitor.opcode;
     if (monitorOpcode === 'data_variable' || monitorOpcode === 'data_listcontents') {
@@ -83,9 +86,6 @@ const optimizeSb3Json = (projectData) => {
       if (block.next) {
         pool.addReference(block.next);
       }
-      if (block.comment) {
-        pool.addReference(block.comment);
-      }
       if (block.fields.VARIABLE) {
         pool.addReference(block.fields.VARIABLE[1]);
       }
@@ -106,16 +106,9 @@ const optimizeSb3Json = (projectData) => {
         }
       }
     }
-    for (const commentId of Object.keys(target.comments)) {
-      const comment = target.comments[commentId];
-      pool.addReference(commentId);
-      if (comment.blockId) {
-        pool.addReference(comment.blockId);
-      }
-    }
   }
 
-  // Used the data from the first scan to replace all the IDs with shorter versions
+  // Use gathered data to replace old IDs with the new, shorter ones, and apply other optimizations
   pool.generateNewIds();
   for (const monitor of projectData.monitors) {
     const monitorOpcode = monitor.opcode;
@@ -123,13 +116,14 @@ const optimizeSb3Json = (projectData) => {
       const monitorId = monitor.id;
       monitor.id = pool.getNewId(monitorId);
     }
+    // Remove redundant monitor values
+    monitor.value = Array.isArray(monitor.value) ? [] : 0;
   }
   for (const target of projectData.targets) {
     const newVariables = {};
     const newLists = {};
     const newBroadcasts = {};
     const newBlocks = {};
-    const newComments = {};
 
     const handleCompressedNative = native => {
       const type = native[0];
@@ -167,9 +161,6 @@ const optimizeSb3Json = (projectData) => {
       if (block.next) {
         block.next = pool.getNewId(block.next);
       }
-      if (block.comment) {
-        block.comment = pool.getNewId(block.comment);
-      }
       if (block.fields.VARIABLE) {
         block.fields.VARIABLE[1] = pool.getNewId(block.fields.VARIABLE[1]);
       }
@@ -189,21 +180,27 @@ const optimizeSb3Json = (projectData) => {
           input[1] = pool.getNewId(childBlockId);
         }
       }
-    }
-    for (const commentId of Object.keys(target.comments)) {
-      const comment = target.comments[commentId];
-      newComments[pool.getNewId(commentId)] = comment;
-      if (comment.blockId) {
-        comment.blockId = pool.getNewId(comment.blockId);
+      if (!block.shadow) {
+        delete block.shadow;
       }
+      if (!block.topLevel) {
+        delete block.topLevel;
+      }
+      delete block.x;
+      delete block.y;
+      delete block.comment;
     }
 
     target.variables = newVariables;
     target.lists = newLists;
     target.broadcasts = newBroadcasts;
     target.blocks = newBlocks;
-    target.comments = newComments;
+    target.comments = {};
   }
+
+  // Step 3 - Remove other unnecessary data
+  delete projectData.meta.agent;
+  delete projectData.meta.vm;
 
   return projectData;
 };
