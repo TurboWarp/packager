@@ -103,34 +103,36 @@
 
 <main aria-hidden={modalVisible} class:is-not-safari={!isSafari}>
   <Section accent="#ff4c4c">
-    <h1>{LONG_NAME}</h1>
-    <p>{$_('p4.description1')}</p>
-    <p>
-      <ComplexMessage
-        message={$_('p4.description2')}
-        values={{
-          embedding: {
-            text: $_('p4.description2-embedding'),
-            href: 'https://docs.turbowarp.org/embedding'
-          }
-        }}
-      />
-    </p>
-    <p>
-      <ComplexMessage
-        message={$_('p4.description3')}
-        values={{
-          onScratch: {
-            text: $_('p4.description3-scratch'),
-            href: FEEDBACK_SCRATCH
-          },
-          onGitHub: {
-            text: $_('p4.description3-github'),
-            href: FEEDBACK_GITHUB
-          }
-        }}
-      />
-    </p>
+    <div>
+      <h1>{LONG_NAME}</h1>
+      <p>{$_('p4.description1')}</p>
+      <p>
+        <ComplexMessage
+          message={$_('p4.description2')}
+          values={{
+            embedding: {
+              text: $_('p4.description2-embedding'),
+              href: 'https://docs.turbowarp.org/embedding'
+            }
+          }}
+        />
+      </p>
+      <p>
+        <ComplexMessage
+          message={$_('p4.description3')}
+          values={{
+            onScratch: {
+              text: $_('p4.description3-scratch'),
+              href: FEEDBACK_SCRATCH
+            },
+            onGitHub: {
+              text: $_('p4.description3-github'),
+              href: FEEDBACK_GITHUB
+            }
+          }}
+        />
+      </p>
+    </div>
   </Section>
 
   {#if isSupported}
