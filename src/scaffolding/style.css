@@ -231,13 +231,21 @@
   border-radius: calc(0.5rem / 2);
   flex-grow: 1;
 }
+.monitor-row-value-editing .monitor-row-value-outer {
+  background-color: rgb(226, 92, 40);
+}
 .monitor-row-value-inner {
   padding: 3px 5px;
+  width: 100%;
+  color: inherit;
+  background: none;
+  border: none;
+  font: inherit;
+  outline: none;
   overflow: hidden;
   text-overflow: ellipsis;
   user-select: text;
   -webkit-user-select: text;
-  white-space: pre;
 }
 .monitor-empty {
   text-align: center;

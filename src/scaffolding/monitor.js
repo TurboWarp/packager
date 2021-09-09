@@ -194,21 +194,71 @@ class VariableMonitor extends Monitor {
 const ROW_HEIGHT = 24;
 
 class Row {
-  constructor () {
+  constructor (monitor) {
+    this.monitor = monitor;
+
     this.index = -1;
     this.value = '';
+    this.locked = false;
 
-    this.root = document.createElement('div');
+    this.root = document.createElement('label');
     this.root.className = styles.monitorRowRoot;
+
     this.indexEl = document.createElement('div');
     this.indexEl.className = styles.monitorRowIndex;
+
     this.valueOuter = document.createElement('div');
     this.valueOuter.className = styles.monitorRowValueOuter;
-    this.valueInner = document.createElement('div');
+
+    this.valueInner = document.createElement('input');
     this.valueInner.className = styles.monitorRowValueInner;
+    this.valueInner.readOnly = true;
+    this.valueInner.addEventListener('focus', this._onclickinput.bind(this));
+    this.valueInner.addEventListener('blur', this._onblurinput.bind(this));
+    this.valueInner.addEventListener('keypress', this._onkeypressinput.bind(this));
     this.valueOuter.appendChild(this.valueInner);
+
     this.root.appendChild(this.indexEl);
     this.root.appendChild(this.valueOuter);
+  }
+
+  _onclickinput () {
+    if (this.locked) {
+      return;
+    }
+    this.valueInner.readOnly = false;
+    this.locked = true;
+    this.root.classList.add(styles.monitorRowValueEditing);
+    this.valueInner.focus();
+    this.valueInner.select();
+  }
+
+  _onblurinput () {
+    this.locked = false;
+    this.valueInner.readOnly = true;
+    this.root.classList.remove(styles.monitorRowValueEditing);
+
+    const value = [...this.monitor.value];
+    value[this.index] = this.valueInner.value;
+    this.monitor.setValue(value);
+  }
+
+  _onkeypressinput (e) {
+    if (e.key === 'Enter') {
+      this.valueInner.blur();
+
+      const value = [...this.monitor.value];
+      const newIndex = this.index + 1;
+      value.splice(newIndex, 0, '');
+      this.monitor.setValue(value);
+
+      setTimeout(() => {
+        const newValueRow = this.monitor.rows.get(newIndex);
+        if (newValueRow) {
+          newValueRow.valueInner.focus();
+        }
+      });
+    }
   }
 
   setIndex (index) {
@@ -222,7 +272,7 @@ class Row {
   setValue (value) {
     if (this.value !== value) {
       this.value = value;
-      this.valueInner.textContent = value;
+      this.valueInner.value = value;
     }
   }
 }
@@ -365,11 +415,12 @@ class ListMonitor extends Monitor {
 
     const rowsToRemove = [];
     for (const index of this.rows.keys()) {
-      const outOfViewport = index < startIndex || index > endIndex;
-      if (outOfViewport) {
+      if (index < startIndex || index > endIndex) {
         const row = this.rows.get(index);
-        this.rows.delete(index);
-        rowsToRemove.push(row);
+        if (!row.locked || index >= value.length) {
+          this.rows.delete(index);
+          rowsToRemove.push(row);
+        }
       }
     }
 
@@ -381,7 +432,7 @@ class ListMonitor extends Monitor {
         } else if (this.cachedRows.length) {
           row = this.cachedRows.pop();
         } else {
-          row = new Row();
+          row = new Row(this);
         }
         this.rows.set(i, row);
         let didInsert = false;
