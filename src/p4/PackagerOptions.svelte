@@ -502,16 +502,21 @@
   </div>
 </Section>
 
-{#if $options.target.startsWith('nwjs-') || $options.target.startsWith('electron-') || $options.target.startsWith('webview-')}
+{#if $options.target !== 'html'}
   <div in:fade|local>
     <Section accent="#FF661A">
       <div>
-        <h2>{$_('options.applicationSettings')}</h2>
-        <label>
-          {$_('options.packageName')}
-          <input type="text" bind:value={$options.app.packageName} pattern="[a-zA-Z -]+" minlength="1">
-        </label>
-        <p>{$_('options.packageNameHelp')}</p>
+        {#if $options.target.startsWith('zip')}
+          <h2>About Zip</h2>
+          <p>The zip environment is intended to be used for publishing to a website. Other uses such as sending your project to a friend over a chat app or email should use "Plain HTML" instead as zip will not work.</p>
+        {:else}
+          <h2>{$_('options.applicationSettings')}</h2>
+          <label>
+            {$_('options.packageName')}
+            <input type="text" bind:value={$options.app.packageName} pattern="[a-zA-Z -]+" minlength="1">
+          </label>
+          <p>{$_('options.packageNameHelp')}</p>
+        {/if}
 
         {#if $options.target.includes('win')}
           <div>
