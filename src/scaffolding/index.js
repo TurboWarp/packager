@@ -270,6 +270,8 @@ class Scaffolding extends EventTarget {
         -this.height / 2,
         this.height / 2  
       );
+      this.vm.runtime.stageWidth = this.width;
+      this.vm.runtime.stageHeight = this.height;  
     }
 
     let height = canvasHeight;
