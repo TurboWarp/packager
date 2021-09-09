@@ -195,9 +195,8 @@ const ROW_HEIGHT = 24;
 
 class Row {
   constructor () {
-    this._index = -1;
-    this._value = '';
-    this._visible = true;
+    this.index = -1;
+    this.value = '';
 
     this.root = document.createElement('div');
     this.root.className = styles.monitorRowRoot;
@@ -213,24 +212,17 @@ class Row {
   }
 
   setIndex (index) {
-    if (this._index !== index) {
-      this._index = index;
+    if (this.index !== index) {
+      this.index = index;
       this.root.style.transform = `translateY(${index * ROW_HEIGHT}px)`;
       this.indexEl.textContent = index + 1;
     }
   }
 
   setValue (value) {
-    if (this._value !== value) {
-      this._value = value;
+    if (this.value !== value) {
+      this.value = value;
       this.valueInner.textContent = value;
-    }
-  }
-
-  setVisible (visible) {
-    if (this._visible !== visible) {
-      this._visible = visible;
-      this.root.style.display = visible ? '' : 'none';
     }
   }
 }
@@ -239,8 +231,10 @@ class ListMonitor extends Monitor {
   constructor (parent, monitor) {
     super(parent, monitor);
 
-    this.rows = [];
+    this.rows = new Map();
+    this.cachedRows = [];
     this.scrollTop = 0;
+    this.oldLength = 0;
 
     this.label = document.createElement('div');
     this.label.className = styles.monitorListLabel;
@@ -278,15 +272,6 @@ class ListMonitor extends Monitor {
   }
 
   _onscroll (e) {
-    // If the list monitor is selected, we'll unselect it because the selection won't work properly.
-    if (window.getSelection) {
-      const selection = getSelection();
-      if (selection && (this.rowsInner.contains(selection.anchorNode) || this.rowsInner.contains(selection.focusNode))) {
-        if (selection.empty) {
-          selection.empty();
-        }
-      }
-    }
     this.scrollTop = e.target.scrollTop;
     this.updateValue(this.value);
   }
@@ -366,34 +351,61 @@ class ListMonitor extends Monitor {
   }
 
   updateValue (value) {
-    this.footer.textContent = this.parent.getMessage('list-length').replace('{n}', value.length);
-
-    this.endPoint.style.transform = `translateY(${value.length * ROW_HEIGHT}px)`;
+    if (value.length !== this.oldLength) {
+      this.oldLength = value.length;
+      this.footer.textContent = this.parent.getMessage('list-length').replace('{n}', value.length);
+      this.endPoint.style.transform = `translateY(${value.length * ROW_HEIGHT}px)`;
+      this.emptyLabel.style.display = value.length ? 'none' : '';
+    }
 
     let startIndex = Math.floor(this.scrollTop / ROW_HEIGHT) - 5;
     if (startIndex < 0) startIndex = 0;
-    let endIndex = Math.ceil((this.scrollTop + this.height) / ROW_HEIGHT) + 5;
-    if (endIndex > value.length - 1) endIndex = value.length - 1;
+    let endIndex = Math.ceil((this.scrollTop + this.height) / ROW_HEIGHT) + 4;
+    if (endIndex > value.length) endIndex = value.length;
 
-    this.emptyLabel.style.display = value.length ? 'none' : '';
+    const rowsToRemove = [];
+    for (const index of this.rows.keys()) {
+      const outOfViewport = index < startIndex || index > endIndex;
+      if (outOfViewport) {
+        const row = this.rows.get(index);
+        this.rows.delete(index);
+        rowsToRemove.push(row);
+      }
+    }
 
-    const rowsNeeded = endIndex - startIndex + 1;
-    while (this.rows.length < rowsNeeded) {
-      const row = new Row();
-      this.rows.push(row);
-      this.rowsInner.appendChild(row.root);
+    for (let i = startIndex; i < endIndex; i++) {
+      let row = this.rows.get(i);
+      if (!row) {
+        if (rowsToRemove.length) {
+          row = rowsToRemove.pop();
+        } else if (this.cachedRows.length) {
+          row = this.cachedRows.pop();
+        } else {
+          row = new Row();
+        }
+        this.rows.set(i, row);
+        let didInsert = false;
+        for (let j = i + 1; j < endIndex; j++) {
+          const otherRow = this.rows.get(j);
+          if (otherRow) {
+            didInsert = true;
+            this.rowsInner.insertBefore(row.root, otherRow.root);
+            break;
+          }
+        }
+        if (!didInsert) {
+          this.rowsInner.appendChild(row.root);
+        }
+        row.setIndex(i);
+      }
+      row.setValue(value[i]);
     }
-    for (var i = 0; i < rowsNeeded; i++) {
-      const row = this.rows[i];
-      const rowIndex = i + startIndex;
-      row.setIndex(rowIndex);
-      row.setValue(value[rowIndex]);
-      row.setVisible(true);
-    }
-    while (i < this.rows.length) {
-      const row = this.rows[i];
-      row.setVisible(false);
-      i++;
+
+    for (const row of rowsToRemove) {
+      if (this.cachedRows.length < 10) {
+        this.cachedRows.push(row);
+      }
+      row.root.remove();
     }
   }
 }
