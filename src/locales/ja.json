@@ -57,8 +57,6 @@
         "loadingScreenImage": "ロード時の画面の絵",
         "loadingScreenText": "ロード時の画面の文字",
         "loadingScreenTextPlaceholder": "(なし)",
-        "manyOptions": "たくさんのオプションがありますが、心配しないでください。そのほとんどが面白いものではないです。パッケージ化されたプロジェクトを手に入れるには、{scrollDown}をクリックし、環境を選んで、大きな赤いボタンを押すだけです。",
-        "manyOptions-scroll": "一番下までスクロールする",
         "mode": "モード",
         "noCursor": "カーソルを表示しない",
         "normalCursor": "通常のカーソル",

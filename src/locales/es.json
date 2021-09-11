@@ -57,8 +57,6 @@
         "loadingScreenImage": "Imagen de la pantalla de carga",
         "loadingScreenText": "Cargando texto en pantalla",
         "loadingScreenTextPlaceholder": "(Nada)",
-        "manyOptions": "Hay un montón de opciones aquí, pero no se preocupe, la mayoría no es interesante. Para obtener su proyecto empacado, simplemente {scrollDown}, elija un entorno y haga click en el botón rojo grande.",
-        "manyOptions-scroll": "baje al final del todo",
         "mode": "Modo",
         "noCursor": "Sin puntero del ratón",
         "normalCursor": "Puntero del ratón normal",

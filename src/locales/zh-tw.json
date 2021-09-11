@@ -57,8 +57,6 @@
         "loadingScreenImage": "載入畫面圖片",
         "loadingScreenText": "載入畫面文字",
         "loadingScreenTextPlaceholder": "（無）",
-        "manyOptions": "這裡選項一堆，不過別擔心，大部分選項你都不會感興趣。\n{scrollDown}並選擇你要的封裝方式後，按下那個紅色按鈕就可以了。",
-        "manyOptions-scroll": "滾動到最底部",
         "mode": "模式：",
         "noCursor": "隱藏指標",
         "normalCursor": "顯示指標",

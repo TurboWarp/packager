@@ -28,7 +28,6 @@
         "loadingScreenImage": "Image de l'écran de chargement",
         "loadingScreenText": "Texte de chargement",
         "loadingScreenTextPlaceholder": "(Rien)",
-        "manyOptions": "Il y a énormément d'options ici, mais franchement, tu veux que je te dise ? Passe ton chemin ! Tout ceci est bien futile ! La seule chose indispensable est de {scrollDown}, de choisir le type de fichier ainsi que le système d'exploitation, puis de cliquer sur le gros bouton rouge qui fait mal aux yeux.",
         "noCursor": "Aucun curseur",
         "normalCursor": "Curseur de base",
         "package": "Compiler",

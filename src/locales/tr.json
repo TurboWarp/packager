@@ -56,8 +56,6 @@
         "loadingScreenImage": "Yükleme ekran resimi",
         "loadingScreenText": "Yükleme ekran metini",
         "loadingScreenTextPlaceholder": "(Hiç birşey)",
-        "manyOptions": "Burada birçok seçenekler var, ancak endişelenmeyin, bunların çoğu ilgi çekici değiller. Paketlenmiş projenizi almak için, sadece {scrollDown}, bir ortam seç, ve büyük kırmızı butona bas.",
-        "manyOptions-scroll": " aşağının sonuna kadar kaydır",
         "mode": "Modu",
         "noCursor": "Kürsör yok",
         "normalCursor": "Normal kürsör",

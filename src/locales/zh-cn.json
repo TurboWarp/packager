@@ -57,8 +57,6 @@
         "loadingScreenImage": "加载页面图片",
         "loadingScreenText": "加载提示文本",
         "loadingScreenTextPlaceholder": "(无)",
-        "manyOptions": "这里选项很多哦，不过没关系，大多数选项都没什么意思。直接{scrollDown}，选择一个系统环境，然后按下那个红色的大按钮就能打包作品了。",
-        "manyOptions-scroll": "往下翻",
         "mode": "模式",
         "noCursor": "无光标",
         "normalCursor": "正常光标",

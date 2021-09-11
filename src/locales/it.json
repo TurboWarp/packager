@@ -54,8 +54,6 @@
         "loadingScreenImage": "Immagine della schermata di caricamento",
         "loadingScreenText": "Teso della schermata di caricamento",
         "loadingScreenTextPlaceholder": "(Nulla)",
-        "manyOptions": "Ci sono molte opzioni, ma la maggior parte non sono particolarmente interessanti. Per scaricare il progetto pacchettizzato  {scrollDown} scegli un ambiente e clicca poi il pulsante rosso.",
-        "manyOptions-scroll": "scrolla la pagina fino in fondo",
         "mode": "Modalità",
         "noCursor": "Nessun puntatore del mouse",
         "normalCursor": "Puntatore del mouse normale",

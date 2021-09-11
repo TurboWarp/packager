@@ -56,8 +56,6 @@
         "loadingScreenImage": "Imagem da tela de carregamento",
         "loadingScreenText": "Texto da tela de carregamento",
         "loadingScreenTextPlaceholder": "(Nada)",
-        "manyOptions": "Há muitas opções aqui, mas não se preocupe, a maioria não é interessante. Para empacotar o seu projeto, basta {scrollDown}, escolher um ambiente de execução e clicar no botão vermelho.",
-        "manyOptions-scroll": "descer ao final da página",
         "mode": "Modo",
         "noCursor": "Nenhum cursor",
         "normalCursor": "Cursor normal",
