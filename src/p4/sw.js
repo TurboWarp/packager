@@ -1,7 +1,7 @@
 // These will be replaced at build-time by generate-service-worker-plugin.js
 const ASSETS = [/* __ASSETS__ */];
-const CACHE_NAME = '__CACHE_NAME__';
-const IS_PRODUCTION = '__ENV__' === 'production';
+const CACHE_NAME = __CACHE_NAME__;
+const IS_PRODUCTION = __IS_PRODUCTION__;
 
 const base = location.pathname.substr(0, location.pathname.indexOf('sw.js'));
 
