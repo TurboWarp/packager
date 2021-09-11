@@ -48,11 +48,13 @@ const optimizeSb3Json = (projectData) => {
 
   // Scan global attributes of the project so we can generate optimal IDs later
   const variablePool = new Pool();
-  for (const monitor of projectData.monitors) {
-    const monitorOpcode = monitor.opcode;
-    if (monitorOpcode === 'data_variable' || monitorOpcode === 'data_listcontents') {
-      const monitorId = monitor.id;
-      variablePool.addReference(monitorId);
+  if (projectData.monitors) {
+    for (const monitor of projectData.monitors) {
+      const monitorOpcode = monitor.opcode;
+      if (monitorOpcode === 'data_variable' || monitorOpcode === 'data_listcontents') {
+        const monitorId = monitor.id;
+        variablePool.addReference(monitorId);
+      }
     }
   }
   const scanCompressedNative = native => {
@@ -100,15 +102,17 @@ const optimizeSb3Json = (projectData) => {
   variablePool.generateNewIds();
 
   // Use gathered data to optimize the project
-  for (const monitor of projectData.monitors) {
-    const monitorOpcode = monitor.opcode;
-    if (monitorOpcode === 'data_variable' || monitorOpcode === 'data_listcontents') {
-      const monitorId = monitor.id;
-      monitor.id = variablePool.getNewId(monitorId);
+  if (projectData.monitors) {
+    for (const monitor of projectData.monitors) {
+      const monitorOpcode = monitor.opcode;
+      if (monitorOpcode === 'data_variable' || monitorOpcode === 'data_listcontents') {
+        const monitorId = monitor.id;
+        monitor.id = variablePool.getNewId(monitorId);
+      }
+  
+      // Remove redundant monitor values
+      monitor.value = Array.isArray(monitor.value) ? [] : 0;
     }
-
-    // Remove redundant monitor values
-    monitor.value = Array.isArray(monitor.value) ? [] : 0;
   }
 
   const optimizeCompressedNative = native => {
