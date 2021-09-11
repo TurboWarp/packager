@@ -24,7 +24,7 @@ module.exports.pitch = function (request) {
     // extra whitespace here won't matter
     const source = `
     import {wrap} from 'comlink';
-    function createWorker() {
+    const createWorker = () => {
       const worker = new Worker(__webpack_public_path__ + ${JSON.stringify(file)});
       const terminate = () => {
         worker.terminate();

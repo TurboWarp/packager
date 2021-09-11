@@ -1,10 +1,10 @@
 import {transfer, proxy} from 'comlink';
-import DownloadWorker from '../build/p4-worker-loader!./download-project';
+import createDownloadWorker from '../build/p4-worker-loader!./download-project';
 import {readAsArrayBuffer} from '../common/readers';
 import xhr from './xhr';
 
 const downloadProject = async (buffer, progressCallback) => {
-  const {worker, terminate} = new DownloadWorker();
+  const {worker, terminate} = createDownloadWorker();
   const project = await worker.downloadProject(transfer(buffer, [buffer]), proxy(progressCallback));
   terminate();
   return project;
