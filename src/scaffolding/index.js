@@ -327,8 +327,12 @@ class Scaffolding extends EventTarget {
     this.storage = new Storage();
     this.vm.attachStorage(this.storage);
 
-    this.audioEngine = new AudioEngine();
-    this.vm.attachAudioEngine(this.audioEngine);
+    if (typeof AudioContext !== 'undefined' || typeof webkitAudioContext !== 'undefined') {
+      this.audioEngine = new AudioEngine();
+      this.vm.attachAudioEngine(this.audioEngine);
+    } else {
+      console.warn('AudioContext not supported. Sound will not work.');
+    }
 
     this.bitmapAdapter = new BitmapAdapter();
     this.vm.attachV2BitmapAdapter(this.bitmapAdapter);
