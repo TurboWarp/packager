@@ -482,6 +482,12 @@
       </div>
       <div class="option-group">
         <label>
+          <input type="radio" bind:group={$options.target} value="electron-win64">
+          {$_('options.application-win64').replace('{type}', 'Electron')}
+        </label>
+      </div>
+      <div class="option-group">
+        <label>
           <input type="radio" bind:group={$options.target} value="nwjs-win32">
           {$_('options.application-win32').replace('{type}', 'NW.js')}
         </label>
