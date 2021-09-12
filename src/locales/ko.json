@@ -4,12 +4,6 @@
         "select": "선택하거나 끌어다 놓기",
         "selected": "{file} 파일 선택됨 "
     },
-    "linux": {
-        "furtherSteps": "리눅스에 필요한 추가 단계"
-    },
-    "mac": {
-        "furtherSteps": "MacOS에 필요한 추가 단계"
-    },
     "options": {
         "accentColor": "강조 색상(활성/비활성 제어, 질문 프롬프트, 우클릭 메뉴)",
         "autoplay": "자동 실행",

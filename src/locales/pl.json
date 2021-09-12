@@ -4,12 +4,6 @@
         "select": "Wybierz lub upuść plik",
         "selected": "Wybrano {file}"
     },
-    "linux": {
-        "furtherSteps": "Dalsze kroki dla Linuxa"
-    },
-    "mac": {
-        "furtherSteps": "Dalsze kroki dla macOS"
-    },
     "options": {
         "accentColor": "Akcentowy kolor (aktywne/wskazane kontrolki, ekrany pytań, menu kontekstowe)",
         "advancedOptions": "Opcje Zaawansowane",
@@ -103,8 +97,5 @@
     "theme": {
         "dark": "Ciemny",
         "light": "Jasny"
-    },
-    "win": {
-        "furtherSteps": "Dalsze kroki dla Windowsa"
     }
 }

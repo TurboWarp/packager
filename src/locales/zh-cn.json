@@ -4,12 +4,6 @@
         "select": "选择或拖入文件",
         "selected": "已选择 {file}"
     },
-    "linux": {
-        "furtherSteps": "关于 Linux 的更多信息"
-    },
-    "mac": {
-        "furtherSteps": "关于 MacOS 的更多信息"
-    },
     "options": {
         "accentColor": "主题色 (提问，下拉框菜单等，在原版 Scratch 中展现为蓝色)",
         "advancedOptions": "高级选项",
@@ -127,8 +121,5 @@
         "dark": "暗黑主题",
         "light": "明亮主题",
         "system": "使用系统主题"
-    },
-    "win": {
-        "furtherSteps": "关于 Windows 的更多信息"
     }
 }

@@ -4,12 +4,6 @@
         "select": "Selecione ou arraste um arquivo.",
         "selected": "Selecionado {file}"
     },
-    "linux": {
-        "furtherSteps": "Próximos passos para Linux"
-    },
-    "mac": {
-        "furtherSteps": "Próximos passos para macOS"
-    },
     "options": {
         "accentColor": "Cor de destaque (controles ativos/em foco, caixa de pergunta, menus de contexto)",
         "advancedOptions": "Opções Avançadas",
@@ -124,8 +118,5 @@
         "dark": "Escuro",
         "light": "Claro",
         "system": "Usar tema do sistema"
-    },
-    "win": {
-        "furtherSteps": "Próximos passos para Windows"
     }
 }

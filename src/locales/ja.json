@@ -4,12 +4,6 @@
         "select": "選ぶかファイルをドロップする",
         "selected": "{file}を選ぶ"
     },
-    "linux": {
-        "furtherSteps": "Linuxでの追加の手順"
-    },
-    "mac": {
-        "furtherSteps": "macOSでの追加の手順"
-    },
     "options": {
         "accentColor": "アクセントカラー(アクティブ/ホバリングコントロール、質問バー、コンテキストメニュー)",
         "advancedOptions": "高度なオプション",
@@ -127,8 +121,5 @@
         "dark": "ダーク",
         "light": "ライト",
         "system": "システムのテーマを使う"
-    },
-    "win": {
-        "furtherSteps": "Windowsでの追加の手順"
     }
 }

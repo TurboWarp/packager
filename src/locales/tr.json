@@ -4,12 +4,6 @@
         "select": "Dosyayı şeçin yada buraya bırakın",
         "selected": "{file}seçilmiştir"
     },
-    "linux": {
-        "furtherSteps": "Linux için başka adımlar"
-    },
-    "mac": {
-        "furtherSteps": "macOS için başka adımlar"
-    },
     "options": {
         "accentColor": "Vurgu rengi (etkin/gezintili kontroller, soru istemi, bağlam menüleri)",
         "advancedOptions": "Gelişmiş ayarlar",
@@ -126,8 +120,5 @@
         "dark": "Karanlık",
         "light": "Aydınlık",
         "system": "Sistem temasını kullan"
-    },
-    "win": {
-        "furtherSteps": "Windows için başka adımlar"
     }
 }

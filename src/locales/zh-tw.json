@@ -4,12 +4,6 @@
         "select": "選擇或放入檔案",
         "selected": "已選擇「{file}」"
     },
-    "linux": {
-        "furtherSteps": "下一個步驟（Linux）"
-    },
-    "mac": {
-        "furtherSteps": "下一個步驟（macOS）"
-    },
     "options": {
         "accentColor": "主題色（按鈕背景、詢問框、右鍵選單等）",
         "advancedOptions": "進階選項",
@@ -127,8 +121,5 @@
         "dark": "黑暗主題",
         "light": "明亮主題",
         "system": "使用系統主題"
-    },
-    "win": {
-        "furtherSteps": "下一個步驟（Windows）"
     }
 }
