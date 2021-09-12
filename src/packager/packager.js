@@ -1044,6 +1044,20 @@ if (acquiredLock) {
         }
       });
     }
+
+    // Electron hook
+    if (${this.options.target.startsWith('electron-')}) {
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "F11") {
+          if (document.fullscreenElement) {
+            document.exitFullscreen();
+          } else {
+            document.body.requestFullscreen();
+          }
+        }
+      });
+    }
+
     ${this.options.custom.js}
   </script>
   ${await this.generateGetProjectData()}
