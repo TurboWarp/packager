@@ -305,6 +305,7 @@ class Scaffolding extends EventTarget {
   setup () {
     this.vm = new VM();
     this.vm.setCompatibilityMode(true);
+    this.vm.setLocale(navigator.language);
     this.vm.on('MONITORS_UPDATE', this._onmonitorsupdate.bind(this));
     this.vm.runtime.on('QUESTION', this._onquestion.bind(this));
     this.vm.on('PROJECT_RUN_START', () => this.dispatchEvent(new Event('PROJECT_RUN_START')));
