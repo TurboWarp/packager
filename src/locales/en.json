@@ -365,21 +365,6 @@
       "context": "Message indicating the name of the selected file"
     }
   },
-  "win": {
-    "furtherSteps": {
-      "string": "Further steps for Windows"
-    }
-  },
-  "mac": {
-    "furtherSteps": {
-      "string": "Further steps for macOS"
-    }
-  },
-  "linux": {
-    "furtherSteps": {
-      "string": "Further steps for Linux"
-    }
-  },
   "theme": {
     "system": {
       "string": "Use system theme",
