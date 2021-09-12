@@ -970,7 +970,7 @@ if (acquiredLock) {
             }
           } else {
             if (document.body.requestFullscreen) {
-              document.body.requestFullscreen()
+              document.body.requestFullscreen();
             } else if (document.body.webkitRequestFullscreen) {
               document.body.webkitRequestFullscreen();
             }
