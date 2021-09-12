@@ -1049,6 +1049,7 @@ if (acquiredLock) {
     if (${this.options.target.startsWith('electron-')}) {
       document.addEventListener("keydown", (e) => {
         if (e.key === "F11") {
+          e.preventDefault();
           if (document.fullscreenElement) {
             document.exitFullscreen();
           } else {
