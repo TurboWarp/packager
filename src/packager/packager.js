@@ -14,8 +14,11 @@ import {APP_NAME, SOURCE_CODE, WEBSITE} from './brand';
 
 const PROGRESS_LOADED_SCRIPTS = 0.1;
 const PROGRESS_LOADED_JSON_BUT_NEED_ASSETS = 0.2;
-const PROGRESS_FETCHED_INLINE_DATA_BUT_NOT_LOADED = 0.9;
-const PROGRESS_WAITING_FOR_VM_LOAD = 1;
+const PROGRESS_FETCHED_INLINE_DATA_BUT_NOT_LOADED = 0.8;
+// Used by environments that pass an entire compressed project into loadProject()
+const PROGRESS_WAITING_FOR_VM_LOAD_COMPRESSED = 0.9;
+// Used by environments that pass a project.json into loadProject() and fetch assets individually
+const PROGRESS_DONE_FETCHING_ALL_ASSETS = 1.0;
 
 const escapeXML = (v) => v.replace(/["'<>&]/g, (i) => {
   switch (i) {
@@ -650,7 +653,7 @@ if (acquiredLock) {
       const dataElement = document.getElementById("p4-encoded-project-data");
       const result = base85decode(dataElement.textContent);
       dataElement.remove();
-      setProgress(${PROGRESS_WAITING_FOR_VM_LOAD});
+      setProgress(${PROGRESS_WAITING_FOR_VM_LOAD_COMPRESSED});
       return result;
     };
   </script>`
@@ -659,7 +662,7 @@ if (acquiredLock) {
     let progressWeight;
     if (this.project.type === 'blob' || this.options.target === 'zip-one-asset') {
       src = './project.zip';
-      progressWeight = PROGRESS_WAITING_FOR_VM_LOAD - PROGRESS_LOADED_SCRIPTS;
+      progressWeight = PROGRESS_WAITING_FOR_VM_LOAD_COMPRESSED - PROGRESS_LOADED_SCRIPTS;
     } else {
       src = './assets/project.json';
       progressWeight = PROGRESS_LOADED_JSON_BUT_NEED_ASSETS - PROGRESS_LOADED_SCRIPTS;
@@ -909,7 +912,7 @@ if (acquiredLock) {
         (asset) => new URL("./assets/" + asset.assetId + "." + asset.dataFormat, location).href
       );
       storage.onprogress = (total, loaded) => {
-        setProgress(${PROGRESS_LOADED_JSON_BUT_NEED_ASSETS} + (loaded / total) * ${1 - PROGRESS_LOADED_JSON_BUT_NEED_ASSETS});
+        setProgress(${PROGRESS_LOADED_JSON_BUT_NEED_ASSETS} + (loaded / total) * ${PROGRESS_DONE_FETCHING_ALL_ASSETS - PROGRESS_LOADED_JSON_BUT_NEED_ASSETS});
       };
       setProgress(${PROGRESS_LOADED_SCRIPTS});
 
