@@ -7,6 +7,7 @@ const allMessages = {
   en: () => englishMessages,
   // Generated code:
   /*===*/
+  "cs": () => require("./cs.json"),
   "de": () => require("./de.json"),
   "es": () => require("./es.json"),
   "fr": () => require("./fr.json"),
