@@ -154,6 +154,7 @@ const optimizeSb3Json = (projectData) => {
     const newLists = {};
     const newBroadcasts = {};
     const newBlocks = {};
+    const newComments = {};
 
     for (const [variableId, variable] of Object.entries(target.variables)) {
       newVariables[variablePool.getNewId(variableId)] = variable;
@@ -204,17 +205,26 @@ const optimizeSb3Json = (projectData) => {
       delete block.y;
       delete block.comment;
     }
+    for (const [commentId, comment] of Object.entries(target.comments)) {
+      const text = comment.text;
+      const isSpecial = text.includes(' // _twconfig_') || text.includes(' // _gamepad_');
+      if (isSpecial) {
+        newComments[commentId] = comment;
+      }
+    }
 
     target.variables = newVariables;
     target.lists = newLists;
     target.broadcasts = newBroadcasts;
     target.blocks = newBlocks;
-    target.comments = {};
+    target.comments = newComments;
   }
 
   // Step 3 - Remove other unnecessary data
-  delete projectData.meta.agent;
-  delete projectData.meta.vm;
+  if (projectData.meta) {
+    delete projectData.meta.agent;
+    delete projectData.meta.vm;
+  }
 
   return projectData;
 };
