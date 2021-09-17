@@ -34,9 +34,11 @@
         "highQualityPen": "Stift mit Hoher Qualität",
         "html": "Einfaches HTML (alleinstehend, funktioniert überall)",
         "infiniteClones": "Unendliche Klone",
+        "loadingScreen": "Ladebildschirm",
         "loadingScreenTextPlaceholder": "(Nichts)",
         "mode": "Modus",
         "package": "Paketisieren",
+        "pageTitle": "Seitentitel",
         "playerOptions": "Player-Optionen",
         "preview": "Vorschau",
         "removeFencing": "Einzäunung entfernen",
@@ -45,6 +47,7 @@
         "runtimeOptions": "Laufzeit-Optionen",
         "showFlag": "Grüne flagge in Steuerelementen zeigen",
         "showFullscreen": "Vollbildknopf in Steuerungen anzeigen",
+        "showProgressBar": "Fortschrittleiste anzeigen",
         "showStop": "Stoppschildknopf in Steuerungen anzeigen",
         "stageSize": "Bühnengröße",
         "turbo": "Turbo-Modus",
@@ -69,6 +72,7 @@
     "progress": {
         "compressingProject": "Projekt wird komprimiert",
         "loadingAssets": "Ressourcen werden geladen ({complete}/{total})",
+        "loadingLargeAsset": "Laden {thing}",
         "loadingProjectData": "Projektdaten werden geladen",
         "loadingScripts": "Skripte werden geladen",
         "packagingProject": "Projekt wird paketisiert"
