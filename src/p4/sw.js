@@ -16,6 +16,19 @@ self.addEventListener('activate', event => {
   );
 });
 
+const fetchWithTimeout = (req) => new Promise((resolve, reject) => {
+  const timeout = setTimeout(reject, 5000);
+  fetch(req)
+    .then((res) => {
+      clearTimeout(timeout);
+      resolve(res);
+    })
+    .catch((err) => {
+      clearTimeout(timeout);
+      reject(err);
+    });
+});
+
 self.addEventListener('fetch', event => {
   if (event.request.method !== 'GET') return;
   const url = new URL(event.request.url);
@@ -30,7 +43,7 @@ self.addEventListener('fetch', event => {
       );
     } else {
       event.respondWith(
-        fetch(event.request).catch(() => caches.match(new Request(url)))
+        fetchWithTimeout(event.request).catch(() => caches.match(new Request(url)))
       );
     }
   }
