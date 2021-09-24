@@ -294,6 +294,12 @@ export const downloadProject = async (data, progressCallback) => {
       type = identifyProjectType(projectData);
       if (type === 'sb3') {
         zip.file('project.json', JSON.stringify(optimizeSb3Json(projectData)));
+        blob = await zip.generateAsync({
+          type: 'blob',
+          compression: 'DEFLATE'
+        }, (meta) => {
+          progressCallback('compress', meta.percent / 100);
+        });
         analysis = analyzeScratch3(projectData);
       } else {
         analysis = analyzeScratch2(projectData);
