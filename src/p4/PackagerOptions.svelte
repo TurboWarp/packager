@@ -402,8 +402,8 @@
       <p>{$_('options.cloudVariables-custom-help')}</p>
       <label>
         <input type="checkbox" bind:checked={$options.chunks.specialCloudBehaviors}>
-        <!-- Wording not finalized -->
-        Special cloud variable behaviors (like HTMLifier, <a href="https://github.com/TurboWarp/packager/issues/48#issuecomment-909892294" target="_blank" rel="noopener">experimental</a>)
+        {$_('options.specialCloudBehaviors')}
+        <LearnMore href="https://github.com/TurboWarp/packager/issues/48#issuecomment-909892294" />
       </label>
     </div>
   </Section>
@@ -426,7 +426,7 @@
       </label>
       <label>
         <input type="checkbox" bind:checked={$options.resizeToFill}>
-        Dynamically resize stage to fill page (overrides stage size setting, experimental)
+        {$_('options.dynamicResize')}
       </label>
       <!-- Ignore because CustomExtensions will have a <textarea> inside it -->
       <!-- svelte-ignore a11y-label-has-associated-control -->

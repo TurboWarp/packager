@@ -274,11 +274,18 @@
       "string": "You probably don't want to change these. (Click to open)",
       "context": "Text that can be clicked to expand the advanced options section."
     },
+    "specialCloudBehaviors": {
+      "string": "Special cloud variable behaviors like HTMLifier",
+      "context": "Do not translate \"HTMLifier\""
+    },
     "enableCompiler": {
       "string": "Enable Compiler"
     },
     "warpTimer": {
       "string": "Warp Timer"
+    },
+    "dynamicResize": {
+      "string": "Dynamically resize stage to fill page (overrides stage size setting)"
     },
     "customExtensions": {
       "string": "Custom extensions (one URL per line)"
