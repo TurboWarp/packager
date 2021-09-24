@@ -274,8 +274,8 @@ export const downloadProject = async (data, progressCallback) => {
     });
     analysis = downloaded.analysis;
   } else {
-    blob = new Blob([data]);
     if (isScratch1Project(bufferView)) {
+      blob = new Blob([data]);
       analysis = unknownAnalysis();
     } else {
       let zip;
@@ -302,6 +302,7 @@ export const downloadProject = async (data, progressCallback) => {
         });
         analysis = analyzeScratch3(projectData);
       } else {
+        blob = new Blob([data]);
         analysis = analyzeScratch2(projectData);
       }
     }
