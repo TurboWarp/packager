@@ -1,9 +1,7 @@
+import './polyfill';
 import fs from 'fs';
 import path from 'path';
-import Blob from 'node-blob';
 import {downloadProject} from '../../src/packager/download-project'
-
-global.Blob = Blob;
 
 const readTestProject = (name) => {
   const buffer = fs.readFileSync(path.resolve(__dirname, 'projects', name));
