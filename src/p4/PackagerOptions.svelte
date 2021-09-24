@@ -7,6 +7,7 @@
   import ImageInput from './ImageInput.svelte';
   import CustomExtensions from '../p4/CustomExtensions.svelte';
   import LearnMore from './LearnMore.svelte';
+  import ColorPicker from './ColorPicker.svelte';
   import writablePersistentStore from './persistent-store';
   import fileStore from './file-store';
   import {error, progress} from './stores';
@@ -302,16 +303,19 @@
     <p>{$_('options.controlsHelp')}</p>
 
     <h3>{$_('options.colors')}</h3>
+    <!-- svelte-ignore a11y-label-has-associated-control -->
     <label>
-      <input type="color" bind:value={$options.appearance.background}>
+      <ColorPicker bind:value={$options.appearance.background} />
       {$_('options.backgroundColor')}
     </label>
+    <!-- svelte-ignore a11y-label-has-associated-control -->
     <label>
-      <input type="color" bind:value={$options.appearance.foreground}>
+      <ColorPicker bind:value={$options.appearance.foreground} />
       {$_('options.foregroundColor')}
     </label>
+    <!-- svelte-ignore a11y-label-has-associated-control -->
     <label>
-      <input type="color" bind:value={$options.appearance.accent}>
+      <ColorPicker bind:value={$options.appearance.accent} />
       {$_('options.accentColor')}
     </label>
 
