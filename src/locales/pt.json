@@ -81,7 +81,7 @@
     },
     "p4": {
         "close": "Fechar",
-        "description1": "Converte projetos do Scratch em arquivos HTML ou programas executáveis.",
+        "description1": "Converte projetos do Scratch para arquivos HTML, ZIP, ou programas executáveis para Windows, macOS e Linux.",
         "description2": "Se você só quer um jeito fácil de colocar um projeto do TurboWarp no seu site, {embedding} pode ser uma escolha melhor.",
         "description2-embedding": "Incorporação",
         "description3": "Relate bugs, mande feedback e sugira ideias {onScratch} ou {onGitHub}.",
