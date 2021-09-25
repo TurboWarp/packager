@@ -21,7 +21,7 @@ const jsPath = pathUtil.join(dist, indexContent.match(/<script src="(.*)"><\/scr
 console.log(`packager.js: ${jsPath}`);
 let jsContent = fs.readFileSync(jsPath, 'utf-8');
 jsContent = `window.__ASSETS__=${JSON.stringify(scaffoldingAssets)};${jsContent}`;
-jsContent = jsContent.replace(/<\/script>/g, 'AAA');
+jsContent = jsContent.replace(/<\/script>/g, '\\u003c/script>');
 indexContent = indexContent.replace(/<script src=".*"><\/script>/, () => `<script>${jsContent}</script>`);
 
 const standalonePath = pathUtil.join(dist, 'standalone.html');
