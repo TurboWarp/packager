@@ -5,6 +5,7 @@ const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPl
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const AddBuildIDToOutputPlugin = require('./src/build/add-build-id-to-output-plugin');
 const GenerateServiceWorkerPlugin = require('./src/build/generate-service-worker-plugin');
+const StandalonePlugin = require('./src/build/standalone-plugin');
 
 const isProduction = process.env.NODE_ENV === 'production';
 const base = {
@@ -152,6 +153,7 @@ const makeWebsite = () => ({
       chunks: ['packager']
     }),
     new GenerateServiceWorkerPlugin(),
+    new StandalonePlugin(),
     ...(process.env.BUNDLE_ANALYZER === '3' ? [new BundleAnalyzerPlugin()] : [])
   ],
   devServer: {

@@ -37,7 +37,7 @@ const sha256 = async (buffer) => {
   return hash;
 };
 
-const getJSZip = async () => (await import(/* webpackChunkName: "jszip" */ /* webpackMode: "eager" */ 'jszip')).default;
+const getJSZip = async () => (await import(/* webpackChunkName: "jszip" */ 'jszip')).default;
 
 const setFileFast = (zip, path, data) => {
   zip.files[path] = data;
