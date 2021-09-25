@@ -120,11 +120,14 @@ const makeWebsite = () => ({
     rules: [
       {
         test: /\.png$/i,
-        use: [
-          {
-            loader: 'url-loader'
+        use: process.env.STANDALONE ? {
+          loader: 'url-loader'
+        } : {
+          loader: 'file-loader',
+          options: {
+            name: 'assets/[name].[contenthash].[ext]'
           }
-        ]
+        }
       },
       {
         test: /\.(html|svelte)$/,
@@ -153,7 +156,7 @@ const makeWebsite = () => ({
       chunks: ['packager']
     }),
     new GenerateServiceWorkerPlugin(),
-    new StandalonePlugin(),
+    ...(process.env.STANDALONE ? [new StandalonePlugin()] : []),
     ...(process.env.BUNDLE_ANALYZER === '3' ? [new BundleAnalyzerPlugin()] : [])
   ],
   devServer: {
