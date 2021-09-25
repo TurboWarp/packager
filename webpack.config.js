@@ -121,10 +121,7 @@ const makeWebsite = () => ({
         test: /\.png$/i,
         use: [
           {
-            loader: 'file-loader',
-            options: {
-              name: 'assets/[name].[contenthash].[ext]'
-            }
+            loader: 'url-loader'
           }
         ]
       },

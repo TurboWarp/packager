@@ -62,7 +62,7 @@ const source = `<!DOCTYPE html>
     const progressBar = document.querySelector(".preview-progress-inner");
     const progressText = document.querySelector(".preview-progress-text");
     window.addEventListener("message", (e) => {
-      if (e.origin !== location.origin) return;
+      // if (e.origin !== location.origin) return;
       if (hasRun) return;
       if (e.data.blob) {
         hasRun = true;
@@ -83,7 +83,7 @@ const source = `<!DOCTYPE html>
     });
     window.opener.postMessage({
       preview: "hello"
-    }, location.origin);
+    }, "*");
   })();
   </script>
 </body>
@@ -107,14 +107,14 @@ class Preview {
     windowToBlobMap.set(this.window, content);
     this.window.postMessage({
       blob: content
-    }, location.origin);
+    }, '*');
   }
 
   setProgress (progress, text) {
     this.window.postMessage({
       progress,
       text
-    }, location.origin);
+    }, '*');
   }
 
   close () {
@@ -123,9 +123,9 @@ class Preview {
 }
 
 window.addEventListener('message', (e) => {
-  if (e.origin !== location.origin) {
-    return;
-  }
+  // if (e.origin !== location.origin) {
+  //   return;
+  // }
   const data = e.data;
   if (data.preview === 'hello') {
     const source = e.source;
@@ -133,7 +133,7 @@ window.addEventListener('message', (e) => {
     if (blob) {
       source.postMessage({
         blob
-      }, location.origin);
+      }, '*');
     }
   }
 });

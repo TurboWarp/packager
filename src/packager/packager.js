@@ -37,7 +37,7 @@ const sha256 = async (buffer) => {
   return hash;
 };
 
-const getJSZip = async () => (await import(/* webpackChunkName: "jszip" */ 'jszip')).default;
+const getJSZip = async () => (await import(/* webpackChunkName: "jszip" */ /* webpackMode: "eager" */ 'jszip')).default;
 
 const setFileFast = (zip, path, data) => {
   zip.files[path] = data;
@@ -194,6 +194,9 @@ class Packager extends EventTarget {
     const asset = largeAssets[name];
     if (!asset) {
       throw new Error(`Invalid asset: ${name}`);
+    }
+    if (__ASSETS__[asset.src]) {
+      return __ASSETS__[asset.src];
     }
     const dispatchProgress = (progress) => this.dispatchEvent(new CustomEvent('large-asset-fetch', {
       detail: {
