@@ -50,6 +50,17 @@ Some assorted tips for people who want to fork this project (it's really easy):
  - Set the environment variable ENABLE_SERVICE_WORKER=1 to enable service worker for offline support
  - Be aware of the license of this project (see below)
 
+## Standalone builds
+
+To make a standalone build, run:
+
+```
+NODE_ENV=production STANDALONE=1 npm run build
+node src/build/generate-standalone.js
+```
+
+Output will be located in dist/standalone.html
+
 ## License
 
 Copyright (C) 2021 Thomas Weber
