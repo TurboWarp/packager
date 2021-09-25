@@ -175,6 +175,11 @@
   .group {
     margin: 12px 0;
   }
+  .color {
+    display: flex;
+    align-items: center;
+    margin-bottom: 4px;
+  }
   p {
     margin: 8px 0;
   }
@@ -403,21 +408,18 @@
     <p>{$_('options.controlsHelp')}</p>
 
     <h3>{$_('options.colors')}</h3>
-    <!-- svelte-ignore a11y-label-has-associated-control -->
-    <label class="option">
-      <ColorPicker bind:value={$options.appearance.background} />
+    <div class="option color">
+      <ColorPicker bind:value={$options.appearance.background} defaultColor={defaultOptions.appearance.background} />
       {$_('options.backgroundColor')}
-    </label>
-    <!-- svelte-ignore a11y-label-has-associated-control -->
-    <label class="option">
-      <ColorPicker bind:value={$options.appearance.foreground} />
+    </div>
+    <div class="option color">
+      <ColorPicker bind:value={$options.appearance.foreground} defaultColor={defaultOptions.appearance.foreground} />
       {$_('options.foregroundColor')}
-    </label>
-    <!-- svelte-ignore a11y-label-has-associated-control -->
-    <label class="option">
-      <ColorPicker bind:value={$options.appearance.accent} />
+    </div>
+    <div class="option color">
+      <ColorPicker bind:value={$options.appearance.accent} defaultColor={defaultOptions.appearance.accent} />
       {$_('options.accentColor')}
-    </label>
+    </div>
 
     <h3>{$_('options.monitors')}</h3>
     <label class="option">
