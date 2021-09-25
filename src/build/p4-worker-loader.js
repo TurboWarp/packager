@@ -21,16 +21,16 @@ module.exports.pitch = function (request) {
   compiler.runAsChild((err, entries, compilation) => {
     if (err) return callback(err);
     const file = entries[0].files[0];
-    const fileSource = compilation.assets[file].source();
+    const inline = !!process.env.STANDALONE;
     // extra whitespace here won't matter
     const source = `
     import {wrap} from 'comlink';
     const createWorker = () => {
-      const source = ${JSON.stringify(fileSource)};
+      ${inline ? `const source = ${JSON.stringify(compilation.assets[file].source())};
       const blob = new Blob([source]);
       const url = URL.createObjectURL(blob);
       const worker = new Worker(url);
-      URL.revokeObjectURL(url);
+      URL.revokeObjectURL(url);` : `const worker = new Worker(__webpack_public_path__ + ${JSON.stringify(file)});`}
       const terminate = () => {
         worker.terminate();
       };
