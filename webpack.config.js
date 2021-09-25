@@ -147,6 +147,7 @@ const makeWebsite = () => ({
       'process.env.SCAFFOLDING_BUILD_ID': buildId ? JSON.stringify(buildId) : 'Math.random().toString()',
       'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development'),
       'process.env.ENABLE_SERVICE_WORKER': JSON.stringify(process.env.ENABLE_SERVICE_WORKER),
+      'process.env.STANDALONE': JSON.stringify(process.env.STANDALONE),
       'process.env.PLAUSIBLE_API': JSON.stringify(process.env.PLAUSIBLE_API),
       'process.env.PLAUSIBLE_DOMAIN': JSON.stringify(process.env.PLAUSIBLE_DOMAIN),
     }),
