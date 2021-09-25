@@ -20,7 +20,7 @@ export const hexToRgb = (hex) => {
 };
 
 export const rgbToHex = (r, g, b) => {
-  return '#' + Math.round(r).toString(16).padStart(2, '0') + Math.round(b).toString(16).padStart(2, '0') + Math.round(g).toString(16).padStart(2, '0');
+  return '#' + Math.round(r).toString(16).padStart(2, '0') + Math.round(g).toString(16).padStart(2, '0') + Math.round(b).toString(16).padStart(2, '0');
 };
 
 export const rgbToHsv = (r, g, b) => {
@@ -33,9 +33,8 @@ export const rgbToHsv = (r, g, b) => {
   s = max == 0 ? 0 : d / max;
   if (max == min) {
     h = 0;
-    if (min === 0 || min === 1) {
-      // Saturation does not matter in the case of pure white or black
-      // In these cases we'll set saturation 1 to provide a better editing experience
+    if (min === 0) {
+      // Saturation does not matter in the case of pure black, so just set it to 1 instead so the editor makes more sense
       s = 1;
     }
   } else {
