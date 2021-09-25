@@ -1,13 +1,13 @@
-import {hexToRGb, rgbToHex, rgbToHsv, hsvToRgb} from '../../src/p4/color-utils';
+import {hexToRgb, rgbToHex, rgbToHsv, hsvToRgb} from '../../src/p4/color-utils';
 
-test('hexToRGb', () => {
-  expect(hexToRGb('#000000')).toEqual([0, 0, 0]);
-  expect(hexToRGb('#fffFFf')).toEqual([255, 255, 255]);
-  expect(hexToRGb('#abcdef')).toEqual([0xab, 0xcd, 0xef]);
-  expect(hexToRGb('abcdef')).toEqual([0xab, 0xcd, 0xef]);
-  expect(hexToRGb(' abcdef ')).toEqual([0xab, 0xcd, 0xef]);
-  expect(hexToRGb('#fff')).toEqual([255, 255, 255]);
-  expect(hexToRGb('abc')).toEqual([0xaa, 0xbb, 0xcc]);
+test('hexToRgb', () => {
+  expect(hexToRgb('#000000')).toEqual([0, 0, 0]);
+  expect(hexToRgb('#fffFFf')).toEqual([255, 255, 255]);
+  expect(hexToRgb('#abcdef')).toEqual([0xab, 0xcd, 0xef]);
+  expect(hexToRgb('abcdef')).toEqual([0xab, 0xcd, 0xef]);
+  expect(hexToRgb(' abcdef ')).toEqual([0xab, 0xcd, 0xef]);
+  expect(hexToRgb('#fff')).toEqual([255, 255, 255]);
+  expect(hexToRgb('abc')).toEqual([0xaa, 0xbb, 0xcc]);
 });
 
 test('rgbToHex', () => {

@@ -1,6 +1,6 @@
 <script>
   import ColorSlider from './ColorSlider.svelte';
-  import {hexToRGb, rgbToHex, rgbToHsv, hsvToRgb} from './color-utils';
+  import {hexToRgb, rgbToHex, rgbToHsv, hsvToRgb} from './color-utils';
   import {_} from '../locales';
 
   export let value;
@@ -26,7 +26,7 @@
     valueAsHsv = hsv;
   };
   const setHex = (hex) => {
-    const valueAsRgb = hexToRGb(hex);
+    const valueAsRgb = hexToRgb(hex);
     value = hex;
     valueAsHsv = rgbToHsv(...valueAsRgb);
   };

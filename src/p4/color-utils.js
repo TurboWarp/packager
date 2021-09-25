@@ -3,7 +3,7 @@
 //  - The H, S, V channels of HSV[A] are in [0-1]
 //  - The A channel is always in [0-1]
 
-export const hexToRGb = (hex) => {
+export const hexToRgb = (hex) => {
   hex = hex.trim();
   if (hex.startsWith('#')) {
     hex = hex.substr(1);
