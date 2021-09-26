@@ -46,7 +46,6 @@
     },
     "p4": {
         "close": "닫기",
-        "description1": "스크래치 프로젝트들은 독자적인 파일이나 실행 파일로 변환합니다.",
         "description2": "TurboWarp 프로젝트를 웹 사이트에 쉽게 임베드 할 수 있는 방법을 원하신다면 {embedding}을 확인해 보세요.",
         "description2-embedding": "임베딩",
         "description3-github": "GitHub",

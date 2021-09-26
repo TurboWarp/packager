@@ -82,7 +82,6 @@
     },
     "p4": {
         "close": "Kapat",
-        "description1": "Scratch projelerini HTML dosyalara veya uygulamaya dönüştürür.",
         "description2": "Bir TurboWarp projesini web sitenize yerleştirmenin kolay bir yolunu istiyorsanız, {embedding} ilginizi çekebilir.",
         "description2-embedding": "Gömmek",
         "description3": "Hataları bildirin, geri bildirimde ve yeni fikirleri göstermek için {onScratch} veya {onGitHub} ile yapınız. ",

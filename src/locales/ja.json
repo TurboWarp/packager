@@ -83,7 +83,6 @@
     },
     "p4": {
         "close": "閉じる",
-        "description1": "Scratchのプロジェクトをスタンドアロンファイルや実行プログラムに変換します。",
         "description2": "TurboWarpプロジェクトをウェブサイトに埋め込む簡単な方法を知りたいなら、{embedding}をご覧ください。",
         "description2-embedding": "埋め込みコード",
         "description3": "バグを報告、フィードバック、アイデアを提案する場合は{onScratch}または{onGitHub}ですることができます。",

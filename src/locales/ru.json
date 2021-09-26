@@ -44,7 +44,6 @@
     },
     "p4": {
         "close": "Закрыть",
-        "description1": "Преобразуйте проекты Scratch в отдельные файлы или исполняемые программы.",
         "description2": "Если вам просто нужен простой способ встроить проект TurboWarp на Ваш сайт, то вас может заинтересовать {embedding}.",
         "description2-embedding": "Встраивание",
         "description3-github": "на GitHub",

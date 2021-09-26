@@ -83,7 +83,6 @@
     },
     "p4": {
         "close": "關閉",
-        "description1": "將你的 Scratch 專案封裝成獨立檔案或可執行程式。",
         "description2": "如果你只是想把你的 TurboWarp 專案嵌入到你的網站，請嘗試{embedding}。",
         "description2-embedding": "嵌入",
         "description3": "在 {onScratch} 或 {onGitHub} 上回報錯誤、給予回饋或提出建議。",

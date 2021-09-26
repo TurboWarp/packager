@@ -57,7 +57,6 @@
     },
     "p4": {
         "close": "Fermer",
-        "description1": "Convertir des projets Scratch en fichiers exécutables.",
         "description2": "Si vous cherchez un moyen simple d'intégrer un projet TurboWarp à votre site web, cliquez ici : {embedding}.",
         "description2-embedding": "Intégrer",
         "description3": "Rapportez des bugs, envoyez votre avis ou suggérer vos idées {onScratch} ou {onGitHub}.",

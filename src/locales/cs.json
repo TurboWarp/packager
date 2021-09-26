@@ -83,7 +83,6 @@
     },
     "p4": {
         "close": "Zavřít",
-        "description1": "Zkonvertuje projekty Scratch do samostatných souborů nebo programů.",
         "description2": "Jestli chcete jen lehký způsob na vkládání projekt TurboWarp do vaší stránky, pravděpodobně se zajímáte o {embedding}.",
         "description2-embedding": "Vkládání",
         "description3": "Nahlašte chyby, dejte zpětnou vazbu, a navrhněte nápady {onScratch} nebo {onGitHub}.",
