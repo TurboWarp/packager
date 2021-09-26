@@ -35,6 +35,7 @@
         "customJS": "カスタム JS(何をするのか分からない場合は変更しないでください)",
         "download": "{filename}をダウンロード({size}MB)",
         "downloadsWillAppearHere": "ダウンロードでここに表示する",
+        "dynamicResize": "ページ全体に広がるようステージのサイズを動的に変更する（ステージサイズの設定を上書きする)",
         "enableCompiler": "コンパイラを有効にする",
         "environment": "環境",
         "foregroundColor": "主な色(読み込みの進捗バー、アイコンや文字の一部)",
@@ -74,6 +75,7 @@
         "showStop": "止めるボタンを表示する",
         "sizeNormal": "通常にサイズで表示",
         "sizeStretch": "フルスクリーン",
+        "specialCloudBehaviors": "HTMLifierのような挙動をする特別なクラウド変数",
         "stageSize": "ステージのサイズ",
         "turbo": "ターボモード",
         "username": "ユーザー名(#はそれぞれランダムな数に入れ替わります。)",
@@ -83,6 +85,7 @@
     },
     "p4": {
         "close": "閉じる",
+        "description1": "Scratchのプロジェクトを、HTMLファイル、ZIPアーカイブや、Windows、macOS、Linux用の実行形式プログラムに変換します。",
         "description2": "TurboWarpプロジェクトをウェブサイトに埋め込む簡単な方法を知りたいなら、{embedding}をご覧ください。",
         "description2-embedding": "埋め込みコード",
         "description3": "バグを報告、フィードバック、アイデアを提案する場合は{onScratch}または{onGitHub}ですることができます。",
