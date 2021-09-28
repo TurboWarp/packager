@@ -1,7 +1,8 @@
 import {writable} from 'svelte/store';
 
-const error = writable(null);
-const progress = writable({
+export const error = writable(null);
+
+export const progress = writable({
   progress: 0,
   visible: false,
   text: ''
@@ -14,13 +15,32 @@ progress.reset = () => {
   });
 };
 
+export const currentTask = writable(null);
+currentTask.replace = (newTask) => {
+  currentTask.update((old) => {
+    if (old) {
+      old.abort();
+    }
+    return newTask;
+  });
+};
+currentTask.abort = () => {
+  currentTask.update((old) => {
+    if (old) {
+      old.abort();
+      progress.reset();
+    }
+    return null;
+  });
+};
+
 const POSSIBLE_THEMES = [
   'system',
   'dark',
   'light'
 ];
 const THEME_KEY = 'P4.theme';
-const theme = writable('system');
+export const theme = writable('system');
 try {
   const storedTheme = localStorage.getItem(THEME_KEY);
   if (POSSIBLE_THEMES.includes(storedTheme)) {
@@ -40,9 +60,3 @@ theme.subscribe((value) => {
     // ignore
   }
 });
-
-export {
-  error,
-  progress,
-  theme
-};

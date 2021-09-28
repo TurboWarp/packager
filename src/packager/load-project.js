@@ -2,12 +2,28 @@ import {transfer, proxy} from 'comlink';
 import createDownloadWorker from '../build/p4-worker-loader!./download-project';
 import {readAsArrayBuffer} from '../common/readers';
 import xhr from './xhr';
+import {AbortError} from '../p4/errors';
 
 const downloadProject = async (buffer, progressCallback) => {
   const {worker, terminate} = createDownloadWorker();
-  const project = await worker.downloadProject(transfer(buffer, [buffer]), proxy(progressCallback));
-  terminate();
-  return project;
+  let terminateAndReject;
+  const downloadPromise = new Promise((resolve, reject) => {
+    worker.downloadProject(transfer(buffer, [buffer]), proxy(progressCallback))
+      .then((res) => {
+        resolve(res);
+      })
+      .catch((err) => {
+        reject(err)
+      });
+    terminateAndReject = () => {
+      terminate();
+      reject(new AbortError());
+    };
+  });
+  return {
+    promise: downloadPromise,
+    terminate: terminateAndReject
+  };
 };
 
 const fromURL = async (url, progressCallback) => {

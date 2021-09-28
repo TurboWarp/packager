@@ -10,11 +10,12 @@
   import ColorPicker from './ColorPicker.svelte';
   import writablePersistentStore from './persistent-store';
   import fileStore from './file-store';
-  import {error, progress} from './stores';
+  import {progress, currentTask} from './stores';
   import Preview from './preview';
   import deepClone from './deep-clone';
   import assetCache from '../packager/cache';
   import Packager from '../packager/packager';
+  import Task from './task';
 
   export let projectData;
 
@@ -35,13 +36,18 @@
   const options = writablePersistentStore(`PackagerOptions.${projectData.uniqueId}`, defaultOptions);
 
   let result = null;
-  let url = null;
-  $: $options, result = null, url = null;
-
   let previewer = null;
+  const reset = () => {
+    previewer = null;
+    if (result) {
+      URL.revokeObjectURL(result.url);
+    }
+    result = null;
+  }
   $: if (previewer) {
     previewer.setProgress($progress.progress, $progress.text);
   }
+  $: $options, reset(), currentTask.abort();
 
   const icon = fileStore.writableFileStore(`PackagerOptions.icon.${projectData.uniqueId}`);
   $: $options.app.icon = $icon;
@@ -60,26 +66,6 @@
     'electron-linux64'
   ].includes($options.target);
 
-  const handleLargeAssetFetchProgress = ({detail}) => {
-    let thing;
-    if (detail.asset.startsWith('nwjs-')) {
-      thing = 'NW.js';
-    } else if (detail.asset.startsWith('electron-')) {
-      thing = 'Electron';
-    } else if (detail.asset === 'webview-mac') {
-      thing = 'WKWebView';
-    }
-    if (thing) {
-      $progress.text = $_('progress.loadingLargeAsset').replace('{thing}', thing);
-    }
-    $progress.progress = detail.progress;
-  };
-
-  const handleZipProgress = ({detail}) => {
-    $progress.text = $_('progress.compressingProject');
-    $progress.progress = detail.progress;
-  };
-
   const downloadURL = (filename, url) => {
     const link = document.createElement('a');
     link.download = filename;
@@ -89,53 +75,66 @@
     link.remove();
   };
 
-  const runPackager = async (options) => {
-    try {
-      const packager = new Packager();
-      packager.options = options;
-      packager.project = projectData.project;
+  const runPackager = async (task, options) => {
+    const packager = new Packager();
+    packager.options = options;
+    packager.project = projectData.project;
 
-      $progress.visible = true;
-      $progress.text = $_('progress.loadingScripts');
+    task.addEventListener('abort', () => {
+      packager.abort();
+    });
 
-      if (url) {
-        URL.revokeObjectURL(url);
+
+    task.setProgressText($_('progress.loadingScripts'));
+
+    packager.addEventListener('large-asset-fetch', ({detail}) => {
+      let thing;
+      if (detail.asset.startsWith('nwjs-')) {
+        thing = 'NW.js';
+      } else if (detail.asset.startsWith('electron-')) {
+        thing = 'Electron';
+      } else if (detail.asset === 'webview-mac') {
+        thing = 'WKWebView';
       }
-      result = null;
-      url = null;
+      if (thing) {
+        task.setProgressText($_('progress.loadingLargeAsset').replace('{thing}', thing));
+      }
+      task.setProgress(detail.progress);
+    });
+    packager.addEventListener('zip-progress', ({detail}) => {
+      task.setProgressText($_('progress.compressingProject'));
+      task.setProgress(detail.progress);
+    });
 
-      packager.addEventListener('large-asset-fetch', handleLargeAssetFetchProgress);
-      packager.addEventListener('zip-progress', handleZipProgress);
-
-      result = await packager.package();
-      url = URL.createObjectURL(result.blob);
-    } catch (e) {
-      $error = e;
-    }
-    progress.reset();
+    const result = await packager.package();
+    result.url = URL.createObjectURL(result.blob);
+    return result;
   };
 
   const pack = async () => {
-    await runPackager(deepClone($options));
-    if (result) {
-      downloadURL(result.filename, url);
-    }
+    reset();
+    const task = new Task();
+    result = await task.do(runPackager(task, deepClone($options)));
+    task.done();
+    downloadURL(result.filename, result.url);
   };
 
   const preview = async () => {
+    reset();
     previewer = new Preview();
+    const task = new Task();
     const optionsClone = deepClone($options);
     optionsClone.target = 'html';
-    await runPackager(optionsClone);
-    if (result) {
+    try {
+      result = await task.do(runPackager(task, optionsClone));
+      task.done();
       previewer.setContent(result.blob);
-    } else {
+    } catch (e) {
       previewer.close();
     }
-    previewer = null;
   };
 
-  const reset = async () => {
+  const resetButton = async () => {
     if (confirm($_('options.confirmReload'))) {
       try {
         await assetCache.resetAll();
@@ -149,8 +148,8 @@
   };
 
   onDestroy(() => {
-    if (url) {
-      URL.revokeObjectURL(url);
+    if (result) {
+      URL.revokeObjectURL(result.url);
     }
   });
 </script>
@@ -580,15 +579,15 @@
 {/if}
 
 <Section>
-  <Button on:click={pack} disabled={$progress.visible} text={$_('options.package')} />
-  <Button on:click={preview} disabled={$progress.visible} secondary text={$_('options.preview')} />
-  <Button on:click={reset} danger text={$_('options.reset')} />
+  <Button on:click={pack} text={$_('options.package')} />
+  <Button on:click={preview} secondary text={$_('options.preview')} />
+  <Button on:click={resetButton} danger text={$_('options.reset')} />
 </Section>
 
-{#if result && url}
+{#if result}
   <Section center>
     <p>
-      <a href={url} download={result.filename}>
+      <a href={result.url} download={result.filename}>
         {$_('options.download')
           .replace('{filename}', result.filename)
           .replace('{size}', (result.blob.size / 1000 / 1000).toFixed(2))}

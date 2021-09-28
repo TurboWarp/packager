@@ -173,9 +173,24 @@ class Packager extends EventTarget {
     super();
     this.project = null;
     this.options = Packager.DEFAULT_OPTIONS();
+    this.aborted = false;
+  }
+
+  abort () {
+    if (!this.aborted) {
+      this.aborted = true;
+      this.dispatchEvent(new Event('abort'));
+    }
+  }
+
+  ensureNotAborted () {
+    if (this.aborted) {
+      throw new Error('Aborted');
+    }
   }
 
   async fetchLargeAsset (name) {
+    this.ensureNotAborted();
     const asset = largeAssets[name];
     if (!asset) {
       throw new Error(`Invalid asset: ${name}`);
@@ -210,7 +225,8 @@ class Packager extends EventTarget {
         estimatedSize: asset.estimatedSize,
         progressCallback: (progress) => {
           dispatchProgress(progress);
-        }
+        },
+        abortTarget: this
       });
     }
     if (asset.useBuildId && !verifyBuildId(buildId, result)) {
@@ -713,7 +729,9 @@ if (acquiredLock) {
   }
 
   async package () {
+    this.ensureNotAborted();
     await this.loadResources();
+    this.ensureNotAborted();
     const html = `<!DOCTYPE html>
 <!-- Created with ${WEBSITE} -->
 <html>
@@ -1087,6 +1105,7 @@ if (acquiredLock) {
 </body>
 </html>
 `;
+    this.ensureNotAborted();
 
     if (this.options.target !== 'html') {
       let zip;
@@ -1111,6 +1130,7 @@ if (acquiredLock) {
         zip = await this.addWebViewMac(zip);
       }
 
+      this.ensureNotAborted();
       return {
         blob: await zip.generateAsync({
           type: 'blob',

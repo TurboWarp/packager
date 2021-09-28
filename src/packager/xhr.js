@@ -5,10 +5,12 @@ const xhr = ({
   type,
   progressCallback,
   timeout,
-  estimatedSize
+  estimatedSize,
+  abortTarget
 }) => new Promise((resolve, reject) => {
   const xhr = new XMLHttpRequest();
   xhr.onload = () => {
+    cleanup();
     if (xhr.status === 200) {
       resolve(xhr.response);
     } else {
@@ -16,8 +18,10 @@ const xhr = ({
     }
   };
   xhr.onerror = () => {
+    cleanup();
     reject(new Error('Request failed, are you offline?'));
   };
+
   if (progressCallback) {
     xhr.onprogress = (e) => {
       if (e.lengthComputable) {
@@ -27,12 +31,34 @@ const xhr = ({
       }
     };
   }
+
   xhr.responseType = type;
   xhr.open('GET', url);
   xhr.send();
+
+  const cleanup = () => {
+    cleanupAbortCallback();
+  };
+
+  let cleanupAbortCallback;
+  if (abortTarget) {
+    const abortCallback = () => {
+      xhr.abort();
+      cleanup();
+      reject(new Error('Request aborted'));
+    };
+    abortTarget.addEventListener('abort', abortCallback);
+    cleanupAbortCallback = () => {
+      abortTarget.removeEventListener('abort', abortCallback);
+    };
+  } else {
+    cleanupAbortCallback = () => {};
+  }
+
   if (timeout) {
     setTimeout(() => {
       xhr.abort();
+      cleanup();
       reject(new Error('Request timed out'));
     }, timeout);
   }
