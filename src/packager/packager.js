@@ -526,12 +526,13 @@ if (acquiredLock) {
   app.enableSandbox();
 
   app.on('web-contents-created', (event, contents) => {
-    // TODO: new-window is deprecated
-    contents.on('new-window', (e, url) => {
-      e.preventDefault();
-      if (isSafeOpenExternal(url)) {
-        shell.openExternal(url);
+    contents.setWindowOpenHandler((details) => {
+      if (isSafeOpenExternal(details.url)) {
+        setImmediate(() => {
+          shell.openExternal(details.url);
+        });
       }
+      return {action: 'deny'};
     });
     contents.on('will-navigate', (e, url) => {
       e.preventDefault();

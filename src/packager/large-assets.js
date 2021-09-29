@@ -23,18 +23,18 @@ export default {
     type: 'arraybuffer'
   },
   'electron-win32': {
-    src: LARGE_ASSET_BASE + 'electron-v13.1.6-win32-ia32.zip',
-    sha256: 'bb6f34548879c9813897e2b023d195bf8b735198687db4448e19a13f71d77766',
+    src: LARGE_ASSET_BASE + 'electron-v15.0.0-win32-ia32.zip',
+    sha256: '5b69112b91010d78abf6012f387ea3fe5c0e36657c5f386a4c2bb42138aa1a8e',
     type: 'arraybuffer'
   },
   'electron-win64': {
-    src: LARGE_ASSET_BASE + 'electron-v13.1.6-win32-x64.zip',
-    sha256: 'd9b3edaa6d2b47a0bd3322322ab8f58863a16a14b0444b10c56939b562e0d11f',
+    src: LARGE_ASSET_BASE + 'electron-v15.0.0-win32-x64.zip',
+    sha256: '3d95422d9f2fccb07b745b31007548231d80ff63e3640f49a5f8591498a3afa2',
     type: 'arraybuffer'
   },
   'electron-linux64': {
-    src: LARGE_ASSET_BASE + 'electron-v13.1.6-linux-x64.zip',
-    sha256: '6f28af0a3ccb20b0d2e4f26ea4698d5b89b81e860cbd40a446c2a8223fdf0101',
+    src: LARGE_ASSET_BASE + 'electron-v15.0.0-linux-x64.zip',
+    sha256: '4f0c95f27402b1b39a7ef0d540940b99b5e3088624569607d6aa56276b43fcad',
     type: 'arraybuffer'
   },
   'webview-mac': {
