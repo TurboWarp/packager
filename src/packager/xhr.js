@@ -37,7 +37,12 @@ const xhr = ({
   xhr.send();
 
   const cleanup = () => {
-    cleanupAbortCallback();
+    if (cleanupAbortCallback) {
+      cleanupAbortCallback();
+    }
+    if (timeoutId) {
+      clearTimeout(timeoutId);
+    }
   };
 
   let cleanupAbortCallback;
@@ -51,12 +56,11 @@ const xhr = ({
     cleanupAbortCallback = () => {
       abortTarget.removeEventListener('abort', abortCallback);
     };
-  } else {
-    cleanupAbortCallback = () => {};
   }
 
+  let timeoutId;
   if (timeout) {
-    setTimeout(() => {
+    timeoutId = setTimeout(() => {
       xhr.abort();
       cleanup();
       reject(new Error('Request timed out'));
