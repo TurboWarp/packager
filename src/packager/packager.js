@@ -400,6 +400,10 @@ cd "$(dirname "$0")"
     const zip = new (await getJSZip());
     const packageName = this.options.app.packageName;
     for (const path of Object.keys(electronZip.files)) {
+      // Version is unused by us, and the contents of LICENSE are include elsewhere
+      if (path === 'version' || path === 'LICENSE') {
+        continue;
+      }
       const file = electronZip.files[path];
       // Create an inner folder inside the zip
       let newPath = `${packageName}/${path}`;
