@@ -81,6 +81,7 @@ class Task extends EventTarget {
       p.visible = false;
       return p;
     });
+    currentTask.set(null);
   }
 }
 
