@@ -367,7 +367,7 @@ cd "$(dirname "$0")"
     zip.file(dataPrefix + 'package.json', JSON.stringify(manifest, null, 4));
     zip.file(dataPrefix + 'main.js', `
     const start = () => nw.Window.open('index.html', {
-      position: "center",
+      position: 'center',
       new_instance: true
     });
     nw.App.on('open', start);
@@ -671,7 +671,7 @@ if (acquiredLock) {
     setProgress(${PROGRESS_FETCHED_INLINE_DATA_BUT_NOT_LOADED});
     const base85decode = ${decode.toString()};
     const getProjectData = async () => {
-      const dataElement = document.getElementById("p4-encoded-project-data");
+      const dataElement = document.getElementById('p4-encoded-project-data');
       const result = base85decode(dataElement.textContent);
       dataElement.remove();
       setProgress(${PROGRESS_WAITING_FOR_VM_LOAD_COMPRESSED});
@@ -696,9 +696,9 @@ if (acquiredLock) {
       };
       xhr.onerror = () => {
         if (location.protocol === 'file:') {
-          reject(new Error("Zip environment must be used from a website, not from a file URL."));
+          reject(new Error('Zip environment must be used from a website, not from a file URL.'));
         } else {
-          reject(new Error("Request to load project data failed."));
+          reject(new Error('Request to load project data failed.'));
         }
       };
       xhr.onprogress = (e) => {
@@ -706,7 +706,7 @@ if (acquiredLock) {
           setProgress(${PROGRESS_LOADED_SCRIPTS} + (e.loaded / e.total) * ${progressWeight});
         }
       };
-      xhr.responseType = "arraybuffer";
+      xhr.responseType = 'arraybuffer';
       xhr.open("GET", ${JSON.stringify(src)});
       xhr.send();
     });
@@ -921,13 +921,13 @@ if (acquiredLock) {
       console.error(error);
       if (!errorScreen.hidden) return;
       errorScreen.hidden = false;
-      errorScreenMessage.textContent = "" + error;
-      let debug = error && error.stack || "no stack";
-      debug += "\\nUser agent: " + navigator.userAgent;
+      errorScreenMessage.textContent = '' + error;
+      let debug = error && error.stack || 'no stack';
+      debug += '\\nUser agent: ' + navigator.userAgent;
       errorScreenStack.textContent = debug;
     };
     const setProgress = (progress) => {
-      if (loadingInner) loadingInner.style.width = progress * 100 + "%";
+      if (loadingInner) loadingInner.style.width = progress * 100 + '%';
     };
 
     try {
@@ -945,7 +945,7 @@ if (acquiredLock) {
       const {storage, vm} = scaffolding;
       storage.addWebStore(
         [storage.AssetType.ImageVector, storage.AssetType.ImageBitmap, storage.AssetType.Sound],
-        (asset) => new URL("./assets/" + asset.assetId + "." + asset.dataFormat, location).href
+        (asset) => new URL('./assets/' + asset.assetId + '.' + asset.dataFormat, location).href
       );
       storage.onprogress = (total, loaded) => {
         setProgress(${PROGRESS_LOADED_JSON_BUT_NEED_ASSETS} + (loaded / total) * ${PROGRESS_DONE_FETCHING_ALL_ASSETS - PROGRESS_LOADED_JSON_BUT_NEED_ASSETS});
@@ -965,7 +965,7 @@ if (acquiredLock) {
       };
 
       if (${this.options.controls.greenFlag.enabled}) {
-        const greenFlagButton = document.createElement("img");
+        const greenFlagButton = document.createElement('img');
         greenFlagButton.src = 'data:image/svg+xml,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16.63 17.5"><path d="M.75 2a6.44 6.44 0 017.69 0h0a6.44 6.44 0 007.69 0v10.4a6.44 6.44 0 01-7.69 0h0a6.44 6.44 0 00-7.69 0" fill="#4cbf56" stroke="#45993d" stroke-linecap="round" stroke-linejoin="round"/><path stroke-width="1.5" fill="#4cbf56" stroke="#45993d" stroke-linecap="round" stroke-linejoin="round" d="M.75 16.75v-16"/></svg>');
         greenFlagButton.className = 'control-button';
         greenFlagButton.addEventListener('click', () => {
@@ -984,7 +984,7 @@ if (acquiredLock) {
       }
 
       if (${this.options.controls.stopAll.enabled}) {
-        const stopAllButton = document.createElement("img");
+        const stopAllButton = document.createElement('img');
         stopAllButton.src = 'data:image/svg+xml,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 14 14"><path fill="#ec5959" stroke="#b84848" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="M4.3.5h5.4l3.8 3.8v5.4l-3.8 3.8H4.3L.5 9.7V4.3z"/></svg>');
         stopAllButton.className = 'control-button';
         stopAllButton.addEventListener('click', () => {
@@ -1019,7 +1019,7 @@ if (acquiredLock) {
         const fillColor = otherControlsExist ? '#575E75' : '${this.options.appearance.foreground}';
         const updateFullScreen = () => {
           isFullScreen = !!(document.fullscreenElement || document.webkitFullscreenElement);
-          document.body.classList.toggle("is-fullscreen", isFullScreen);
+          document.body.classList.toggle('is-fullscreen', isFullScreen);
           if (isFullScreen) {
             fullscreenButton.src = 'data:image/svg+xml,' + encodeURIComponent('<svg width="20" height="20" xmlns="http://www.w3.org/2000/svg"><g fill="' + fillColor + '" fill-rule="evenodd"><path d="M12.662 3.65l.89.891 3.133-2.374a.815.815 0 011.15.165.819.819 0 010 .986L15.467 6.46l.867.871c.25.25.072.664-.269.664L12.388 8A.397.397 0 0112 7.611V3.92c0-.341.418-.514.662-.27M7.338 16.35l-.89-.89-3.133 2.374a.817.817 0 01-1.15-.166.819.819 0 010-.985l2.37-3.143-.87-.871a.387.387 0 01.27-.664L7.612 12a.397.397 0 01.388.389v3.692a.387.387 0 01-.662.27M7.338 3.65l-.89.891-3.133-2.374a.815.815 0 00-1.15.165.819.819 0 000 .986l2.37 3.142-.87.871a.387.387 0 00.27.664L7.612 8A.397.397 0 008 7.611V3.92a.387.387 0 00-.662-.27M12.662 16.35l.89-.89 3.133 2.374a.817.817 0 001.15-.166.819.819 0 000-.985l-2.368-3.143.867-.871a.387.387 0 00-.269-.664L12.388 12a.397.397 0 00-.388.389v3.692c0 .342.418.514.662.27"/></g></svg>');
           } else {
@@ -1055,7 +1055,7 @@ if (acquiredLock) {
         warpTimer: ${this.options.compiler.warpTimer}
       });
 
-      if (typeof ScaffoldingAddons !== "undefined") {
+      if (typeof ScaffoldingAddons !== 'undefined') {
         ScaffoldingAddons.run(scaffolding, ${JSON.stringify(this.options.chunks)});
       }
 
@@ -1077,8 +1077,8 @@ if (acquiredLock) {
         policy.ignore();
         nw.Shell.openExternal(url);
       });
-      document.addEventListener("keydown", (e) => {
-        if (e.key === "Escape" && document.fullscreenElement) {
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && document.fullscreenElement) {
           document.exitFullscreen();
         }
       });
@@ -1086,8 +1086,8 @@ if (acquiredLock) {
 
     // Electron hook
     if (${this.options.target.startsWith('electron-')}) {
-      document.addEventListener("keydown", (e) => {
-        if (e.key === "F11") {
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'F11') {
           e.preventDefault();
           if (document.fullscreenElement) {
             document.exitFullscreen();
