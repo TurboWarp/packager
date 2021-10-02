@@ -830,8 +830,15 @@ if (acquiredLock) {
     .loading-image {
       margin: 0 0 16px;
     }
-    #error-info {
+    #error-message, #error-stack {
       font-family: monospace;
+      max-width: 600px;
+      white-space: pre-wrap;
+      user-select: text;
+      -webkit-user-select: text;
+    }
+    #error-stack {
+      text-align: left;
     }
     .control-button {
       width: 2rem;
@@ -894,8 +901,10 @@ if (acquiredLock) {
 
   <div id="error" class="screen" hidden>
     <h1>Error</h1>
-    <p>Something went wrong.</p>
-    <p id="error-info"></p>
+    <details>
+      <summary id="error-message"></summary>
+      <p id="error-stack"></p>
+    </details>
   </div>
 
   ${this.options.target === 'html' ? `<script>${this.script}</script>` : '<script src="script.js"></script>'}
@@ -905,13 +914,17 @@ if (acquiredLock) {
     const loadingScreen = document.getElementById('loading');
     const loadingInner = document.getElementById('loading-inner');
     const errorScreen = document.getElementById('error');
-    const errorScreenInfo = document.getElementById('error-info');
+    const errorScreenMessage = document.getElementById('error-message');
+    const errorScreenStack = document.getElementById('error-stack');
 
     const handleError = (error) => {
       console.error(error);
       if (!errorScreen.hidden) return;
       errorScreen.hidden = false;
-      errorScreenInfo.textContent = '' + error;
+      errorScreenMessage.textContent = "" + error;
+      let debug = error && error.stack || "no stack";
+      debug += "\\nUser agent: " + navigator.userAgent;
+      errorScreenStack.textContent = debug;
     };
     const setProgress = (progress) => {
       if (loadingInner) loadingInner.style.width = progress * 100 + "%";
