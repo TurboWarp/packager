@@ -839,6 +839,8 @@ if (acquiredLock) {
     }
     #error-stack {
       text-align: left;
+      max-height: 200px;
+      overflow: auto;
     }
     .control-button {
       width: 2rem;
