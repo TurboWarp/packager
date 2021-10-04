@@ -35,6 +35,7 @@
         "customJS": "Vlastní JS (Neměňte, pokud nevíte co děláte!)",
         "download": "Stáhnout {filename} ({size}MB)",
         "downloadsWillAppearHere": "Stažené soubory se ukážou zde",
+        "dynamicResize": "Dynamicky změní velikost scény, aby vyplnila stránku (přepíše nastavení velikosti scény)",
         "enableCompiler": "Aktivovat kompilátor",
         "environment": "Prostředí",
         "foregroundColor": "Barva popředí (průběh, některé ikony, některé texty)",
@@ -74,6 +75,7 @@
         "showStop": "Ukazovat tlačítko stopky v řízení",
         "sizeNormal": "Zobrazit na normální velikosti",
         "sizeStretch": "Vyplnit obrazovku",
+        "specialCloudBehaviors": "Speciální cloudové proměnné se chovají jako HTMLifier",
         "stageSize": "Velikost scény",
         "turbo": "Režim turb",
         "username": "Jméno (každý znak \"#\" bude nahrazen za náhodné číslo)",
@@ -83,6 +85,7 @@
     },
     "p4": {
         "close": "Zavřít",
+        "description1": "Zkonvertuje projekty Scratch do souborů HTML, zip archivů nebo programů pro Windows, macOS a Linux.",
         "description2": "Jestli chcete jen lehký způsob na vkládání projekt TurboWarp do vaší stránky, pravděpodobně se zajímáte o {embedding}.",
         "description2-embedding": "Vkládání",
         "description3": "Nahlašte chyby, dejte zpětnou vazbu, a navrhněte nápady {onScratch} nebo {onGitHub}.",
