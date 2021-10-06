@@ -31,11 +31,7 @@ class Question {
     this.submitButton.className = styles.questionSubmitButton;
     this.submitButton.addEventListener('click', this.onsubmitpressclick.bind(this));
 
-    this.submitButtonImage = document.createElement('div');
-    this.submitButtonImage.className = styles.questionSubmitButtonImage;
-
     this.inputContainer.appendChild(this.input);
-    this.submitButton.appendChild(this.submitButtonImage);
     this.inputContainer.appendChild(this.submitButton);
     if (this.textElement) {
       this.inner.appendChild(this.textElement);
