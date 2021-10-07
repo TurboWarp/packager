@@ -33,8 +33,8 @@ export default {
     type: 'arraybuffer'
   },
   'electron-linux64': {
-    src: LARGE_ASSET_BASE + 'electron-v15.0.0-linux-x64.zip',
-    sha256: '4f0c95f27402b1b39a7ef0d540940b99b5e3088624569607d6aa56276b43fcad',
+    src: LARGE_ASSET_BASE + 'electron-v15.1.1-linux-x64.zip',
+    sha256: '70de2da51c6a8591b88f08366c82166a51b1719243f67ef1a14eddbb806a115f',
     type: 'arraybuffer'
   },
   'webview-mac': {
