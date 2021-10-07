@@ -253,7 +253,7 @@
       "string": "Store in local storage"
     },
     "cloudVariables-local-help": {
-      "string": "\"Store in local storage\" stores the variables on the user's computer and restores them when the project is restarted."
+      "string": "\"Store in local storage\" stores variables on each user's computer and restores them when the project is opened. If a user has multiple windows/tabs of the project open, changes will sync between those windows."
     },
     "cloudVariables-ignore": {
       "string": "Ignore"
