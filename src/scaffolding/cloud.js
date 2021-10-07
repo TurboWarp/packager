@@ -185,6 +185,7 @@ class LocalStorageProvider {
   constructor (key='p4:cloudvariables') {
     this.key = key;
     this.variables = {};
+    this.handleStorageEvent = this.handleStorageEvent.bind(this);
   }
 
   readFromLocalStorage () {
@@ -211,8 +212,15 @@ class LocalStorageProvider {
     }
   }
 
+  handleStorageEvent (e) {
+    if (e.key === this.key && e.storageArea === localStorage) {
+      this.readFromLocalStorage();
+    }
+  }
+
   enable () {
     this.readFromLocalStorage();
+    window.addEventListener('storage', this.handleStorageEvent);
   }
 
   handleUpdateVariable (name, value) {
