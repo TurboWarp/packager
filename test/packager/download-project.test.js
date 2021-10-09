@@ -59,6 +59,11 @@ test('sb', async () => {
   expect(project.type).toBe('blob');
 });
 
+test('subdirectory', async () => {
+  const project = await downloadProject(readTestProject('subdirectory.sb3'), () => {});
+  expect(project.type).toBe('sb3');
+});
+
 test('invalid project', async () => {
   try {
     await downloadProject(readTestProject('invalid.txt'), () => {});
