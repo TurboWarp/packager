@@ -21,7 +21,7 @@
         "cloudVariables-ignore": "無視する",
         "cloudVariables-ignore-help": "「無視する」は、クラウド変数を通常の変数のように扱います。",
         "cloudVariables-local": "ローカルに保存する",
-        "cloudVariables-local-help": "「ローカルに保存する」はユーザーのコンピューターに変数を保存し、プロジェクトを再起動したときに復元します。",
+        "cloudVariables-local-help": "「ローカルに保存」はそれぞれのコンピューターに変数が保存され、プロジェクトをもう一度開いたときに復元できます。ユーザーがプロジェクトの複数のウィンドウ/タブを開いている場合、変更はそのウィンドウ同士で同期されます。",
         "cloudVariables-ws": "クラウド変数のサーバーにつなぐ",
         "cloudVariables-ws-help": "「クラウド変数のサーバーにつなぐ」は他のユーザーと変数を同期します。",
         "cloudVariablesHost": "クラウドのホスト",

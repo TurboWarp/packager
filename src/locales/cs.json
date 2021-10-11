@@ -21,7 +21,6 @@
         "cloudVariables-ignore": "Ignorovat",
         "cloudVariables-ignore-help": "\"Ignorovat\" považuje cloudové proměnné jako normální proměnné.",
         "cloudVariables-local": "Ukládat v místním úložišti",
-        "cloudVariables-local-help": "\"Ukládat v místním úložišti\" ukládá proměnné v počítači uživatele a obnovuje je, když je projekt restartován.",
         "cloudVariables-ws": "Připojit se do serveru cloudových proměň",
         "cloudVariables-ws-help": "\"Připojit se do serveru cloudových proměň\" synchronizuje proměnné s ostatními uživateli.",
         "cloudVariablesHost": "Cloudový host",

@@ -21,7 +21,6 @@
         "cloudVariables-ignore": "忽略",
         "cloudVariables-ignore-help": "\"忽略\" 让所有云变量和普通变量一样工作",
         "cloudVariables-local": "存储在localStorage（浏览器本地存储）中",
-        "cloudVariables-local-help": "“存储在localStorage”将变量存储在用户的计算机上，并在项目重新启动时恢复它们。 ",
         "cloudVariables-ws": "连接到云变量服务器",
         "cloudVariables-ws-help": "“连接到云变量服务器”使用 TurboWarp 的云变量服务器和其它用户同步变量",
         "cloudVariablesHost": "云变量服务器地址",

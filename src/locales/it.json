@@ -21,7 +21,7 @@
         "cloudVariables-ignore": "Ignora",
         "cloudVariables-ignore-help": "\"Ignora\" tratta le variabili cloud come variabili normali.",
         "cloudVariables-local": "Memorizza nella memoria locale",
-        "cloudVariables-local-help": "\"Memorizza nella memoria locale\" memorizza le variabili sul computer dell'utente e ripristina i valori quando il progetto viene riavviato.",
+        "cloudVariables-local-help": "\"Memorizza localmente\" memorizza le variabili sul computer del singolo utente e le ripristina quando il progetto viene riaperto. Se un utente ha diverse finestre/schede del progetto aperte i cambiamenti verranno sincronizzati con tutte le finestre.",
         "cloudVariables-ws": "Connessione al server delle variabili cloud",
         "cloudVariables-ws-help": "\"Connessione al server delle variabili cloud\" sincronizza le variabili con altri utenti.",
         "colors": "Colori",

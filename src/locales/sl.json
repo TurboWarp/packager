@@ -10,7 +10,6 @@
         "cloudVariables-ignore": "Ignoriraj",
         "cloudVariables-ignore-help": "\"Ignoriraj\" spremeni spremenljivke v oblaku v navadne spremenljivke.",
         "cloudVariables-local": "Shrani lokalno",
-        "cloudVariables-local-help": "\"Shrani lokalno\" shrani spremenljivke na uporabnikovem računalniku in jih znova naloži vsakič, ko je projekt odprt.",
         "cloudVariables-ws": "Poveži s stražnikom za spremenljivke v oblaku",
         "colors": "Barve",
         "confirmReload": "Ponastavi vse nastavitve in znova naloži stran?",

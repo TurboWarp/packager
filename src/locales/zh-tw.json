@@ -21,7 +21,6 @@
         "cloudVariables-ignore": "忽略",
         "cloudVariables-ignore-help": "忽略⸺以普通變數方式運行。",
         "cloudVariables-local": "存儲在本機",
-        "cloudVariables-local-help": "存儲在本機⸺存在玩家本機，專案重啟時延續。",
         "cloudVariables-ws": "連接到雲端變數主機",
         "cloudVariables-ws-help": "連接到雲端變數主機⸺與其他玩家同步。",
         "cloudVariablesHost": "雲端變數主機：",

@@ -21,7 +21,6 @@
         "cloudVariables-ignore": "무시하기",
         "cloudVariables-ignore-help": "\"무시하기\"는 클라우드 변수를 일반 변수처럼 사용합니다.",
         "cloudVariables-local": "로컬 저장소에 저장하기",
-        "cloudVariables-local-help": "\"로컬 저장소에 저장하기\"는 변수를 사용자의 컴퓨터에 저장해 프로젝트가 재시작되었을 때 복구됩니다.",
         "cloudVariables-ws": "클라우드 변수 서버에 연결하기",
         "cloudVariables-ws-help": "\"클라우드 변수 서버에 연결하기\"는 다른 사용자들과 변수가 동기화됩니다.",
         "cloudVariablesHost": "클라우드 호스트",

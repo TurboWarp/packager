@@ -21,7 +21,7 @@
         "cloudVariables-ignore": "Ignorar",
         "cloudVariables-ignore-help": "\"Ignorar\" trata variáveis nuvem como variáveis normais.",
         "cloudVariables-local": "Guardar localmente",
-        "cloudVariables-local-help": "\"Guardar localmente\" salva as variáveis no computador do usuário e carrega os valores quando o projeto é reiniciado.",
+        "cloudVariables-local-help": "\"Guardar localmente\" salva as variáveis no computador de cada usuário e carrega os valores quando o projeto é reiniciado. Se o usuário tiver várias janelas/abas do projeto abertas, as mudanças ficarão sincronizadas entre elas.",
         "cloudVariables-ws": "Conectar a servidor de variáveis nuvem",
         "cloudVariables-ws-help": "\"Conectar a servidor de variáveis nuvem\" sincroniza as variáveis com outros usuários.",
         "cloudVariablesHost": "Hospedagem Cloud",
