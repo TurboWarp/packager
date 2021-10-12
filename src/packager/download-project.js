@@ -188,7 +188,9 @@ const loadScratch3 = (projectData, progressTarget) => {
     const knownIds = new Set();
 
     for (const i of assets) {
-      const id = i.assetId;
+      // Use md5ext instead of assetId because there are a few projects that have assets with the same
+      // assetId but different md5ext. (eg. https://scratch.mit.edu/projects/531881458)
+      const id = i.md5ext;
       if (knownIds.has(id)) {
         continue;
       }
