@@ -665,13 +665,13 @@ if (acquiredLock) {
   async generateGetProjectData () {
     if (this.options.target === 'html') {
       const SEGMENT_LENGTH = 100000;
-      const data = await readAsArrayBuffer(this.project.blob);
-      const encoded = encode(data);
+      const arrayBuffer = await readAsArrayBuffer(this.project.blob);
+      const encoded = encode(arrayBuffer);
       let result = '';
       for (let i = 0; i < encoded.length; i += SEGMENT_LENGTH) {
         const segment = encoded.substr(i, SEGMENT_LENGTH);
-        const progress = PROGRESS_LOADED_SCRIPTS + PROGRESS_FETCHED_INLINE_DATA_BUT_NOT_LOADED * (i / encoded.length);
-        // Progress will always be a number between 0 and 1. We can remove the leading "0" and unnecessary decimals to save space.
+        const progress = PROGRESS_LOADED_SCRIPTS + (PROGRESS_FETCHED_INLINE_DATA_BUT_NOT_LOADED - PROGRESS_LOADED_SCRIPTS) * (i / encoded.length);
+        // Progress will always be a number between 0 and 1. We can remove the leading 0 and unnecessary decimals to save space.
         const shortenedProgress = progress.toString().substr(1, 4);
         result += `<script type="p4-project">${segment}</script><script>setProgress(${shortenedProgress})</script>`;
       }
