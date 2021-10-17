@@ -664,20 +664,31 @@ if (acquiredLock) {
 
   async generateGetProjectData () {
     if (this.options.target === 'html') {
+      const SEGMENT_LENGTH = 100000;
       const data = await readAsArrayBuffer(this.project.blob);
-      const base85 = encode(data);
-      return `<script id="p4-encoded-project-data" type="p4-encoded-project-data">${base85}</script>
+      const encoded = encode(data);
+      let result = '';
+      for (let i = 0; i < encoded.length; i += SEGMENT_LENGTH) {
+        const segment = encoded.substr(i, SEGMENT_LENGTH);
+        const progress = PROGRESS_LOADED_SCRIPTS + PROGRESS_FETCHED_INLINE_DATA_BUT_NOT_LOADED * (i / encoded.length);
+        // Progress will always be a number between 0 and 1. We can remove the leading "0" and unnecessary decimals to save space.
+        const shortenedProgress = progress.toString().substr(1, 4);
+        result += `<script type="p4-project">${segment}</script><script>setProgress(${shortenedProgress})</script>`;
+      }
+      // After decoding the individuals tags, remove them to reduce memory usage.
+      result += `
   <script>
     setProgress(${PROGRESS_FETCHED_INLINE_DATA_BUT_NOT_LOADED});
     const base85decode = ${decode.toString()};
     const getProjectData = async () => {
-      const dataElement = document.getElementById('p4-encoded-project-data');
-      const result = base85decode(dataElement.textContent);
-      dataElement.remove();
+      const dataElements = Array.from(document.querySelectorAll('script[type="p4-project"]'));
+      const result = base85decode(dataElements.map(i => i.textContent).join(''));
+      dataElements.forEach(i => i.remove());
       setProgress(${PROGRESS_WAITING_FOR_VM_LOAD_COMPRESSED});
       return result;
     };
-  </script>`
+  </script>`;
+      return result;
     }
     let src;
     let progressWeight;
