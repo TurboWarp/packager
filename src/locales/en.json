@@ -291,10 +291,12 @@
       "string": "Custom extensions (one URL per line)"
     },
     "customCSS": {
-      "string": "Custom CSS (Don't change if you don't know what you're doing!)"
+      "string": "Custom CSS (Don't change if you don't know what you're doing!)",
+      "context": "Do not translate \"CSS\""
     },
     "customJS": {
-      "string": "Custom JS (Don't change if you don't know what you're doing!)"
+      "string": "Custom JS (Don't change if you don't know what you're doing!)",
+      "context": "Do not translate \"JS\""
     },
     "environment": {
       "string": "Environment",
