@@ -312,7 +312,6 @@ class Scaffolding extends EventTarget {
     this.vm.on('PROJECT_RUN_STOP', () => this.dispatchEvent(new Event('PROJECT_RUN_STOP')));
     this.vm.runtime.stageWidth = this.width;
     this.vm.runtime.stageHeight = this.height;
-    this.vm.extensionManager.workerMode = 'iframe';
 
     this.cloudManager = new Cloud.CloudManager(this);
 
