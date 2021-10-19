@@ -30,6 +30,7 @@
         "controls": "Steuerelemente",
         "controlsHelp": "Falls alle Steuerelemente deaktiviert sind, wird die Steuerungsleiste komplett entfernt. Falls nur der Vollbildknopf aktiviert ist, wird er nicht im Steuerungsheader, sondern oben links platziert.",
         "cursorHelp": "Bilder bis zu 32x32 funktionieren am besten. Größere Bilder könnten nicht zuverlässig funktionieren.",
+        "customCSS": "Benutzerdefiniertes CSS (Nur ändern, wenn man weiß, was man tut!)",
         "customCursor": "Benutzerdefinierter Cursor",
         "customExtensions": "Benutzerdefinierte Erweiterungen (eine URL pro Zeile)",
         "customJS": "Benutzerdefiniertes JS (Nur ändern, wenn man weiß, was man tut!)",

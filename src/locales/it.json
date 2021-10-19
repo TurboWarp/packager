@@ -29,6 +29,7 @@
         "controls": "Controlli",
         "controlsHelp": "Se tutti i controlli sono disabilitati, la barra dei controlli viene rimossa. Se è abilitato solo il pulsante schermo intero lo trovi sempre nell'angolo in alto a sinistra, non nella barra dei controlli.",
         "cursorHelp": "Le immagini migliori sono quelle 32x32. Immagini più grandi possono non funzionare in modo affidabile.",
+        "customCSS": "CSS personalizzato (Non cambiare se non sai cosa stai facendo!)",
         "customCursor": "Puntatore del mouse personalizzato",
         "customExtensions": "Estensioni personalizzate (un URL per riga)",
         "customJS": "JS personalizzato (Non cambiare se non sai cosa stai facendo!)",
