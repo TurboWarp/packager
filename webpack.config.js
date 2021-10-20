@@ -5,6 +5,7 @@ const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPl
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const AddBuildIDToOutputPlugin = require('./src/build/add-build-id-to-output-plugin');
 const GenerateServiceWorkerPlugin = require('./src/build/generate-service-worker-plugin');
+const StandalonePlugin = require('./src/build/standalone-plugin');
 
 const isProduction = process.env.NODE_ENV === 'production';
 const base = {
@@ -119,14 +120,14 @@ const makeWebsite = () => ({
     rules: [
       {
         test: /\.png$/i,
-        use: [
-          {
-            loader: 'file-loader',
-            options: {
-              name: 'assets/[name].[contenthash].[ext]'
-            }
+        use: process.env.STANDALONE ? {
+          loader: 'url-loader'
+        } : {
+          loader: 'file-loader',
+          options: {
+            name: 'assets/[name].[contenthash].[ext]'
           }
-        ]
+        }
       },
       {
         test: /\.(html|svelte)$/,
@@ -146,6 +147,7 @@ const makeWebsite = () => ({
       'process.env.SCAFFOLDING_BUILD_ID': buildId ? JSON.stringify(buildId) : 'Math.random().toString()',
       'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development'),
       'process.env.ENABLE_SERVICE_WORKER': JSON.stringify(process.env.ENABLE_SERVICE_WORKER),
+      'process.env.STANDALONE': JSON.stringify(process.env.STANDALONE),
       'process.env.PLAUSIBLE_API': JSON.stringify(process.env.PLAUSIBLE_API),
       'process.env.PLAUSIBLE_DOMAIN': JSON.stringify(process.env.PLAUSIBLE_DOMAIN),
     }),
@@ -155,6 +157,7 @@ const makeWebsite = () => ({
       chunks: ['packager']
     }),
     new GenerateServiceWorkerPlugin(),
+    ...(process.env.STANDALONE ? [new StandalonePlugin()] : []),
     ...(process.env.BUNDLE_ANALYZER === '3' ? [new BundleAnalyzerPlugin()] : [])
   ],
   devServer: {

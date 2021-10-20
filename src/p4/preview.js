@@ -1,3 +1,5 @@
+const origin = process.env.STANDALONE ? '*' : location.origin;
+
 const source = `<!DOCTYPE html>
 <html>
 <head>
@@ -50,6 +52,7 @@ const source = `<!DOCTYPE html>
   </div>
   <script>
   (function() {
+    const origin = ${JSON.stringify(origin)};
     const err = (message) => {
       document.querySelector(".preview-error").hidden = false;
       document.querySelector(".preview-error-message").textContent = "Error: " + message;
@@ -62,7 +65,7 @@ const source = `<!DOCTYPE html>
     const progressBar = document.querySelector(".preview-progress-inner");
     const progressText = document.querySelector(".preview-progress-text");
     window.addEventListener("message", (e) => {
-      if (e.origin !== location.origin) return;
+      if (origin !== "*" && e.origin !== location.origin) return;
       if (hasRun) return;
       if (e.data.blob) {
         hasRun = true;
@@ -83,7 +86,7 @@ const source = `<!DOCTYPE html>
     });
     window.opener.postMessage({
       preview: "hello"
-    }, location.origin);
+    }, origin);
   })();
   </script>
 </body>
@@ -107,14 +110,14 @@ class Preview {
     windowToBlobMap.set(this.window, content);
     this.window.postMessage({
       blob: content
-    }, location.origin);
+    }, origin);
   }
 
   setProgress (progress, text) {
     this.window.postMessage({
       progress,
       text
-    }, location.origin);
+    }, origin);
   }
 
   close () {
@@ -123,7 +126,7 @@ class Preview {
 }
 
 window.addEventListener('message', (e) => {
-  if (e.origin !== location.origin) {
+  if (origin !== '*' && e.origin !== location.origin) {
     return;
   }
   const data = e.data;
@@ -133,7 +136,7 @@ window.addEventListener('message', (e) => {
     if (blob) {
       source.postMessage({
         blob
-      }, location.origin);
+      }, origin);
     }
   }
 });
