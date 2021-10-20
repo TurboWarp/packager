@@ -30,6 +30,7 @@
         "controls": "Controles",
         "controlsHelp": "Se todos os controles forem desativados, a barra de controle é completamente removida. Se só o botão de tela cheia for ativado, ele aparecerá no canto superior esquerdo ao invés da barra de controles.",
         "cursorHelp": "Imagens de até 32x32 pixels funcionam melhor. Imagens maiores podem não funcionar direito.",
+        "customCSS": "CSS customizado (Não mexa se não souber o que está fazendo!)",
         "customCursor": "Cursor curtomizado",
         "customExtensions": "Extensões customizadas (um URL por linha)",
         "customJS": "JS customizado (Não mexa se você não sabe o que está fazendo!)",
