@@ -9,7 +9,7 @@
   import Progress from './Progress.svelte';
   import Modals from './Modals.svelte';
   import {progress, theme} from './stores';
-  import {isSupported, isSafari} from './browser';
+  import {isSupported, isSafari, isStandalone} from './environment';
   import {LONG_NAME, FEEDBACK_GITHUB, FEEDBACK_SCRATCH, SOURCE_CODE} from '../packager/brand';
 
   let projectData;
@@ -105,6 +105,9 @@
   <Section accent="#ff4c4c">
     <div>
       <h1>{LONG_NAME}</h1>
+      {#if isStandalone}
+        <p><i>Standalone Version</i></p>
+      {/if}
       <p>{$_('p4.description1')}</p>
       <p>
         <ComplexMessage

@@ -195,8 +195,8 @@ class Packager extends EventTarget {
     if (!asset) {
       throw new Error(`Invalid asset: ${name}`);
     }
-    if (process.env.STANDALONE && window.__ASSETS__ && window.__ASSETS__[asset.src]) {
-      return window.__ASSETS__[asset.src];
+    if (typeof __ASSETS__ !== 'undefined' && __ASSETS__[asset.src]) {
+      return __ASSETS__[asset.src];
     }
     const dispatchProgress = (progress) => this.dispatchEvent(new CustomEvent('large-asset-fetch', {
       detail: {
