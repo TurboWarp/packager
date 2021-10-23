@@ -10,6 +10,7 @@
   import Modals from './Modals.svelte';
   import {progress, theme} from './stores';
   import {isSupported, isSafari, isStandalone} from './environment';
+  import version from '../build/version-loader!';
   import {LONG_NAME, FEEDBACK_GITHUB, FEEDBACK_SCRATCH, SOURCE_CODE} from '../packager/brand';
 
   let projectData;
@@ -106,7 +107,7 @@
     <div>
       <h1>{LONG_NAME}</h1>
       {#if isStandalone}
-        <p><i>Standalone Version</i></p>
+        <p><i>Standalone version ({version})</i></p>
       {/if}
       <p>{$_('p4.description1')}</p>
       <p>
