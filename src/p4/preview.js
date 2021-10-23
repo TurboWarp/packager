@@ -1,6 +1,8 @@
+import {isSafari} from './browser';
+
 const origin = process.env.STANDALONE ? '*' : location.origin;
-// Some browsers (Safari) do not let file: URIs open blob: URIs
-const canUseBlobWindow = origin !== '*';
+// Safari does not let file: URIs used by standalone version to open blob: URIs
+const canUseBlobWindow = !(process.env.STANDALONE && isSafari);
 
 const source = `<!DOCTYPE html>
 <html>
