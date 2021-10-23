@@ -431,16 +431,18 @@ cd "$(dirname "$0")"
     let dataPrefix;
     if (isWindows) {
       dataPrefix = `${packageName}/`;
+      const readme = `Open "${packageName}.exe" to start the app. Open "licenses.html" for information regarding software licenses used by the app.`;
+      zip.file(`${dataPrefix}README.txt`, readme);
     } else if (isMac) {
       // TODO
     } else if (isLinux) {
+      dataPrefix = `${packageName}/`;
       const startScript = `#!/bin/bash
 cd "$(dirname "$0")"
 ./${packageName}`;
-      zip.file(`${packageName}/start.sh`, startScript, {
+      zip.file(`${dataPrefix}start.sh`, startScript, {
         unixPermissions: 0o100755
       });
-      dataPrefix = `${packageName}/`;
     }
     for (const path of Object.keys(projectZip.files)) {
       setFileFast(zip, dataPrefix + path, projectZip.files[path]);
