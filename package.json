@@ -7,7 +7,10 @@
     "start": "webpack serve",
     "clean": "rimraf dist",
     "build": "npm run clean && webpack",
+    "build-prod": "cross-env NODE_ENV=production npm run build",
     "watch": "webpack --watch",
+    "build-standalone": "cross-env STANDALONE=1 npm run build && node src/build/generate-standalone.js",
+    "build-standalone-prod": "cross-env NODE_ENV=production npm run build-standalone",
     "test": "jest"
   },
   "author": "",
@@ -33,6 +36,7 @@
     "babel-jest": "^27.0.6",
     "babel-loader": "^8.2.2",
     "copy-webpack-plugin": "^6.4.1",
+    "cross-env": "^7.0.3",
     "css-loader": "^5.2.7",
     "file-loader": "^6.2.0",
     "html-webpack-plugin": "^4.5.2",
