@@ -1,4 +1,6 @@
 const origin = process.env.STANDALONE ? '*' : location.origin;
+// Some browsers (Safari) do not let file: URIs open blob: URIs
+const canUseBlobWindow = origin !== '*';
 
 const source = `<!DOCTYPE html>
 <html>
@@ -92,15 +94,22 @@ const source = `<!DOCTYPE html>
 </body>
 </html>
 `;
-const previewURL = URL.createObjectURL(new Blob([source], {
+const previewURL = canUseBlobWindow ? URL.createObjectURL(new Blob([source], {
   type: 'text/html'
-})) + '#do-not-share-this-link-it-will-not-work-for-others';
+})) + '#do-not-share-this-link-it-will-not-work-for-others' : null;
 
 const windowToBlobMap = new WeakMap();
 
 class Preview {
   constructor () {
-    this.window = window.open(previewURL);
+    if (canUseBlobWindow) {
+      this.window = window.open(previewURL);
+    } else {
+      this.window = window.open('about:blank');
+      if (this.window) {
+        this.window.document.write(source);
+      }
+    }
     if (!this.window) {
       throw new Error('Cannot open popup');
     }
