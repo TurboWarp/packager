@@ -96,7 +96,7 @@ const makeScaffolding = ({full}) => ({
 
 const makeWebsite = () => ({
   ...base,
-  devtool: 'source-map',
+  devtool: isStandalone ? '' : 'source-map',
   output: {
     filename: isProduction ? 'js/[name].[contenthash].js' : 'js/[name].js',
     path: dist
