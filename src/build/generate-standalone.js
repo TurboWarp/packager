@@ -16,14 +16,28 @@ for (const path of scaffoldingFiles) {
 
 const indexPath = pathUtil.join(dist, 'index.html');
 console.log(`index.html: ${indexPath}`);
-let indexContent = fs.readFileSync(indexPath, 'utf8');
+const indexContent = fs.readFileSync(indexPath, 'utf8');
+
 const jsPath = pathUtil.join(dist, indexContent.match(/<script src="(.*)"><\/script>/)[1]);
 console.log(`packager.js: ${jsPath}`);
-let jsContent = fs.readFileSync(jsPath, 'utf-8');
-jsContent = `window.__ASSETS__=${JSON.stringify(scaffoldingAssets)};${jsContent}`;
-jsContent = jsContent.replace(/<\/script>/g, '\\u003c/script>');
-indexContent = indexContent.replace(/<script src=".*"><\/script>/, () => `<script>${jsContent}</script>`);
+const jsContent = fs.readFileSync(jsPath, 'utf-8');
+
+const makeSafeForInlineScript = (content) => content.replace(/<\/script>/g, '\\u003c/script>');
+let standaloneJS = '';
+standaloneJS += Object.entries(scaffoldingAssets).map(([name, content]) => (
+  `<script type="p4-standalone-asset" data-name="${name}">${makeSafeForInlineScript(content)}</script>`
+)).join('');
+standaloneJS += `<script>
+window.__ASSETS__ = {};
+for (const el of Array.from(document.querySelectorAll('script[type="p4-standalone-asset"]'))) {
+  __ASSETS__[el.dataset.name] = el.textContent;
+  el.remove();
+}
+</script>`;
+const newContent = indexContent.replace(/<script src=".*"><\/script>/, () => (
+  `${standaloneJS}<script>${makeSafeForInlineScript(jsContent)}</script>`
+));
 
 const standalonePath = pathUtil.join(dist, 'standalone.html');
 console.log(`standalone.html: ${standalonePath}`);
-fs.writeFileSync(standalonePath, indexContent);
+fs.writeFileSync(standalonePath, newContent);
