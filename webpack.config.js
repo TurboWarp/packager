@@ -8,6 +8,7 @@ const GenerateServiceWorkerPlugin = require('./src/build/generate-service-worker
 const EagerDynamicImportPlugin = require('./src/build/eager-dynamic-import-plugin');
 
 const isProduction = process.env.NODE_ENV === 'production';
+const isStandalone = !!process.env.STANDALONE;
 const base = {
   mode: isProduction ? 'production' : 'development'
 };
@@ -120,7 +121,7 @@ const makeWebsite = () => ({
     rules: [
       {
         test: /\.png$/i,
-        use: process.env.STANDALONE ? {
+        use: isStandalone ? {
           loader: 'url-loader'
         } : {
           loader: 'file-loader',
@@ -147,7 +148,7 @@ const makeWebsite = () => ({
       'process.env.SCAFFOLDING_BUILD_ID': buildId ? JSON.stringify(buildId) : 'Math.random().toString()',
       'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development'),
       'process.env.ENABLE_SERVICE_WORKER': JSON.stringify(process.env.ENABLE_SERVICE_WORKER),
-      'process.env.STANDALONE': JSON.stringify(process.env.STANDALONE),
+      'process.env.STANDALONE': JSON.stringify(isStandalone ? true : false),
       'process.env.PLAUSIBLE_API': JSON.stringify(process.env.PLAUSIBLE_API),
       'process.env.PLAUSIBLE_DOMAIN': JSON.stringify(process.env.PLAUSIBLE_DOMAIN),
     }),
@@ -157,7 +158,7 @@ const makeWebsite = () => ({
       chunks: ['packager']
     }),
     new GenerateServiceWorkerPlugin(),
-    ...(process.env.STANDALONE ? [new EagerDynamicImportPlugin()] : []),
+    ...(isStandalone ? [new EagerDynamicImportPlugin()] : []),
     ...(process.env.BUNDLE_ANALYZER === '3' ? [new BundleAnalyzerPlugin()] : [])
   ],
   devServer: {
