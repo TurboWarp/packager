@@ -2,7 +2,7 @@
 
 https://packager.turbowarp.org/
 
-Converts Scratch projects to standalone files or executable programs. Built using TurboWarp, webpack, and Svelte.
+Converts Scratch projects into HTML files, zip archives, or executable programs for Windows, macOS, and Linux. Built using TurboWarp, webpack, and Svelte.
 
 ## Development
 
@@ -18,7 +18,7 @@ Start in development mode:
 npm start
 ```
 
-Then visit http://localhost:8947. Must manually refresh to apply updates.
+Then visit http://localhost:8947. Manually refresh to see changes.
 
 The general layout of `src` is:
 
@@ -30,13 +30,13 @@ The general layout of `src` is:
  - build: Unusual webpack customizations
  - locales: Translations
 
-Packaged projects generated while in development mode should not be distributed. Instead, you should run a production build by setting the NODE_ENV environment variable to production to significantly reduce file size of both the website and the packager:
+Packaged projects generated while in development mode should not be distributed. Instead, you should run a production build to significantly reduce file size of both the website and the packager.
 
 ```
-NODE_ENV=production npm run build
+npm run build-prod
 ```
 
-Output is in the `dist` folder.
+Output will be located in the `dist` folder.
 
 ## Tips for forks
 
@@ -52,14 +52,13 @@ Some assorted tips for people who want to fork this project (it's really easy):
 
 ## Standalone builds
 
-To make a standalone build, run:
+To make a production standalone build:
 
 ```
-NODE_ENV=production STANDALONE=1 npm run build
-node src/build/generate-standalone.js
+npm run build-standalone-prod
 ```
 
-Output will be located in dist/standalone.html
+Output will be located in `dist/standalone.html`.
 
 ## License
 
