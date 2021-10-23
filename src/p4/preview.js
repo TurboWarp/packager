@@ -1,6 +1,6 @@
 import {isSafari, isStandalone} from './environment';
 
-const origin = process.env.STANDALONE ? '*' : location.origin;
+const origin = isStandalone ? '*' : location.origin;
 // Safari does not let file: URIs used by standalone version to open blob: URIs
 const canUseBlobWindow = !(isStandalone && isSafari);
 
