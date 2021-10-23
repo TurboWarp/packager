@@ -153,6 +153,7 @@ ${SCRATCH_LICENSE.license}
 */\n`;
 
 const generateChromiumLicenseHTML = (licenses) => {
+  const style = `<style>body { font-family: sans-serif; }</style>`;
   const pretext = `<h2>The following entries were added by the ${APP_NAME}</h2>`;
   const convertedLicenses = licenses.map((({title, license, homepage}, index) => `
 <div class="product">
@@ -165,7 +166,7 @@ const generateChromiumLicenseHTML = (licenses) => {
 </div>
 </div>
 `));
-  return `${pretext}${convertedLicenses.join('\n')}`;
+  return `${style}${pretext}${convertedLicenses.join('\n')}`;
 };
 
 class Packager extends EventTarget {
