@@ -107,6 +107,10 @@
     "confirmReload": {
       "string": "Reset all settings to defaults and reload?"
     },
+    "learnMore": {
+      "string": "Learn more",
+      "context": "Hover text for \"(?)\" link to learn more about an option"
+    },
     "runtimeOptions": {
       "string": "Runtime Options"
     },

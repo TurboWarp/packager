@@ -1,4 +1,6 @@
 <script>
+  import {_} from '../locales/';
+
   export let slug;
   export let href;
 
@@ -14,4 +16,4 @@
   }
 </style>
 
-<a href={link} title="Learn more" target="_blank" rel="noopener noreferrer">(?)</a>
+<a href={link} title={$_('options.learnMore')} target="_blank" rel="noopener noreferrer">(?)</a>
