@@ -141,7 +141,7 @@ window.addEventListener('message', (e) => {
     return;
   }
   const data = e.data;
-  if (data.preview === 'hello') {
+  if (data && data.preview === 'hello') {
     const source = e.source;
     const blob = windowToBlobMap.get(source);
     if (blob) {
