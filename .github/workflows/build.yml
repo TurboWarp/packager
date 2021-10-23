@@ -18,3 +18,8 @@ jobs:
     - run: npm ci
     - run: npm run build
     - run: npm test
+    - run: npm run build-standalone-prod
+    - uses: actions/upload-artifact@v2
+      with:
+        name: standalone
+        path: dist/standalone.html
