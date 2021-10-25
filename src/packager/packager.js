@@ -10,7 +10,7 @@ import {buildId, verifyBuildId} from './build-id';
 import {encode, decode} from './base85';
 import generateAsar from './generate-asar';
 import {parsePlist, generatePlist} from './plist';
-import {APP_NAME, SOURCE_CODE, WEBSITE, COPYRIGHT_NOTICE} from './brand';
+import {APP_NAME, WEBSITE, COPYRIGHT_NOTICE} from './brand';
 
 const PROGRESS_LOADED_SCRIPTS = 0.1;
 const PROGRESS_LOADED_JSON_BUT_NEED_ASSETS = 0.2;
@@ -133,7 +133,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.`
 };
 
 const COPYRIGHT_HEADER = `/*!
-Parts of this script are from the ${APP_NAME} <${SOURCE_CODE}>, licensed as follows:
+Parts of this script are from the ${APP_NAME} <${WEBSITE}>, licensed as follows:
 ${SELF_LICENSE.license}
 
 Parts of this script are from Scratch <https://scratch.mit.edu/>, licensed as follows:
