@@ -42,12 +42,12 @@ Output will be located in the `dist` folder.
 
 Some assorted tips for people who want to fork this project (it's really easy):
 
+ - Please update `src/packager/brand.js` to use your own name and links. These appears in various places throughout the interface and packaged projects, including generated copyright notices.
  - The packager is deployed as a simple static website. You can host it anywhere by just copying the `dist` folder. We use GitHub Actions to deploy to GitHub Pages by running the "Deploy" workflow whenever we want to push to production (Actions > Deploy > Run workflow). This should be automatically available in forks after enabling GitHub Actions.
  - If you want to change the VM/renderer/etc. used, just `npm install` or `npm link` a different scratch-vm/scratch-render/etc and rebuild. You can even install a vanilla scratch-vm and all core functionality will still work (but optional features such as interpolation, high quality pen, stage size, etc. may not work)
- - src/packager/brand.js controls names and links that appear in various places
- - static/privacy.html is the privacy policy
- - Large files such as NW.js or Electron executables are stored on an external server outside of this repository and have no guarantee of existing long-term. It's easy to setup your own, see src/packager/large-assets.js for more information.
- - Set the environment variable ENABLE_SERVICE_WORKER=1 to enable service worker for offline support
+ - `static/privacy.html` is the privacy policy
+ - Large files such as NW.js or Electron executables are stored on an external server outside of this repository and have no guarantee of existing long-term. It's easy to setup your own, see `src/packager/large-assets.js` for more information.
+ - Set the environment variable ENABLE_SERVICE_WORKER = 1 to enable service worker for offline support.
  - Be aware of the license of this project (see below)
 
 ## Standalone builds
