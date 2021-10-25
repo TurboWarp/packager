@@ -4,7 +4,7 @@
       "string": "Converts Scratch projects into HTML files, zip archives, or executable programs for Windows, macOS, and Linux."
     },
     "description2": {
-      "string": "If you just want an easy way to embed a TurboWarp project into your website, you may be interested in {embedding}."
+      "string": "If you just want an easy way to embed a project into your website, you may be interested in {embedding}."
     },
     "description2-embedding": {
       "string": "Embedding"
