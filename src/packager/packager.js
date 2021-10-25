@@ -10,7 +10,7 @@ import {buildId, verifyBuildId} from './build-id';
 import {encode, decode} from './base85';
 import generateAsar from './generate-asar';
 import {parsePlist, generatePlist} from './plist';
-import {APP_NAME, SOURCE_CODE, WEBSITE} from './brand';
+import {APP_NAME, SOURCE_CODE, WEBSITE, COPYRIGHT_NOTICE} from './brand';
 
 const PROGRESS_LOADED_SCRIPTS = 0.1;
 const PROGRESS_LOADED_JSON_BUT_NEED_ASSETS = 0.2;
@@ -86,19 +86,7 @@ const getAppIcon = async (file) => {
 const SELF_LICENSE = {
   title: APP_NAME,
   homepage: WEBSITE,
-  license: `Copyright (C) 2021 Thomas Weber
-
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU Lesser General Public License version 3
-as published by the Free Software Foundation.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU Lesser General Public License for more details.
-
-You should have received a copy of the GNU Lesser General Public License
-along with this program. If not, see <https://www.gnu.org/licenses/>.`
+  license: COPYRIGHT_NOTICE
 };
 
 const SCRATCH_LICENSE = {

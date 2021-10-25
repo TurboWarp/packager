@@ -62,6 +62,8 @@ Output will be located in `dist/standalone.html`.
 
 ## License
 
+<!-- Also update src/packager/brand.js if you change this. -->
+
 Copyright (C) 2021 Thomas Weber
 
 This project is licensed under the GNU Lesser General Public License version 3. See COPYING and COPYING.LESSER for more information. We believe that packaging a project using the packager "makes use of an interface provided by the Library, but which is not otherwise based on the Library"
