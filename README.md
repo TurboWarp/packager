@@ -2,7 +2,7 @@
 
 https://packager.turbowarp.org/
 
-Converts Scratch projects into HTML files, zip archives, or executable programs for Windows, macOS, and Linux. Built using TurboWarp, webpack, and Svelte.
+Converts Scratch projects into HTML files, zip archives, or executable programs for Windows, macOS, and Linux.
 
 ## Development
 
@@ -40,15 +40,19 @@ Output will be located in the `dist` folder.
 
 ## Tips for forks
 
-Some assorted tips for people who want to fork this project (it's really easy):
+**Branding**
 
- - Please update `src/packager/brand.js` to use your own name and links. These appears in various places throughout the interface and packaged projects, including generated copyright notices.
- - The packager is deployed as a simple static website. You can host it anywhere by just copying the `dist` folder. We use GitHub Actions to deploy to GitHub Pages by running the "Deploy" workflow whenever we want to push to production (Actions > Deploy > Run workflow). This should be automatically available in forks after enabling GitHub Actions.
- - If you want to change the VM/renderer/etc. used, just `npm install` or `npm link` a different scratch-vm/scratch-render/etc and rebuild. You can even install a vanilla scratch-vm and all core functionality will still work (but optional features such as interpolation, high quality pen, stage size, etc. may not work)
- - `static/privacy.html` is the privacy policy
- - Large files such as NW.js or Electron executables are stored on an external server outside of this repository and have no guarantee of existing long-term. It's easy to setup your own, see `src/packager/large-assets.js` for more information.
- - Set the environment variable ENABLE_SERVICE_WORKER = 1 to enable service worker for offline support.
- - Be aware of the license of this project (see below)
+ - Please update the brand strings (`src/packager/brand.js`) to use your own name and links.
+ - Update the privacy policy (`static/privacy.html`) to reflect your privacy practices.
+ - Update this document (`README.md`) too.
+
+**Deploying**: The packager is deployed as a simple static website. You can host it anywhere by just copying the `dist` folder after a build. We use GitHub Actions to deploy to GitHub Pages by running the "Deploy" workflow whenever we want to push to production (Actions > Deploy > Run workflow). This should be automatically available in forks after enabling GitHub Actions.
+
+**Changing Scratch internals**: If you want to change the VM/renderer/etc. used, just `npm install` or `npm link` a different scratch-vm/scratch-render/etc and rebuild. You can even install a vanilla scratch-vm and all core functionality will still work (but optional features such as interpolation, high quality pen, stage size, etc. may not work)
+
+**Large files**: Large files such as NW.js or Electron executables are stored on an external server outside of this repository and have no guarantee of existing long-term. It's easy to setup your own, see `src/packager/large-assets.js` for more information.
+
+**Service worker**: Set the environment variable `ENABLE_SERVICE_WORKER` to `1` to enable service worker for offline support. Not recommended in development. Automatically used the GitHub Actions deploy script.
 
 ## Standalone builds
 
@@ -62,7 +66,7 @@ Output will be located in `dist/standalone.html`.
 
 ## License
 
-<!-- Also update src/packager/brand.js if you change this. -->
+<!-- Make sure to also update COPYRIGHT_NOTICE in src/packager/brand.js -->
 
 Copyright (C) 2021 Thomas Weber
 
