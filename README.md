@@ -22,13 +22,13 @@ Then visit http://localhost:8947. Manually refresh to see changes.
 
 The general layout of `src` is:
 
- - packager: The project packager
- - p4: The Svelte interface for the packager
- - scaffolding: A minimal Scratch project player used by the packager. Handles most of the boring details of playing Scratch projects such as handling basic mouse input
- - common: Files used by both scaffolding and the packager
- - addons: Optional addons such as gamepad support or pointerlock
- - build: Unusual webpack customizations
- - locales: Translations
+ - packager: The project packager.
+ - p4: The Svelte GUI for the packager. "p4" is the name that the packager uses internally to refer to itself.
+ - scaffolding: A minimal Scratch project player used by the packager. Handles most of the boring details of playing Scratch projects such as handling basic mouse input.
+ - common: Files used by both scaffolding and the packager.
+ - addons: Optional addons such as gamepad support or pointerlock.
+ - build: Various internal build tools including some webpack plugins and loaders.
+ - locales: Translations.
 
 Packaged projects generated while in development mode should not be distributed. Instead, you should run a production build to significantly reduce file size of both the website and the packager.
 
