@@ -184,6 +184,11 @@
     padding: 10px;
     border-radius: 10px;
   }
+  .small {
+    margin-top: 6px;
+    font-size: small;
+    opacity: 0.8;
+  }
 </style>
 
 <Section accent="#FFAB19">
@@ -241,10 +246,10 @@
       {$_('options.username')}
       <input type="text" bind:value={$options.username}>
     </label>
-    <label>
-      <input type="checkbox" bind:checked={$options.autoplay}>
-      {$_('options.autoplay')}
-    </label>
+    <!-- TODO: remove after ~1wk -->
+    <div class="small">
+      Update: The "Autoplay" option has been renamed and moved to the "Controls" section below.
+    </div>
   </div>
 </Section>
 
@@ -287,6 +292,12 @@
     {/if}
 
     <h3>{$_('options.controls')}</h3>
+    <div class="option-group">
+      <label>
+        <input type="checkbox" bind:checked={$options.autoplay}>
+        {$_('options.autoplay')}
+      </label>
+    </div>
     <label>
       <input type="checkbox" bind:checked={$options.controls.greenFlag.enabled}>
       {$_('options.showFlag')}

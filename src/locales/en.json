@@ -142,7 +142,7 @@
       "string": "Username (each \"#\" gets replaced with a random number)"
     },
     "autoplay": {
-      "string": "Autoplay"
+      "string": "Start project automatically instead of showing a big green flag"
     },
     "playerOptions": {
       "string": "Player Options",
