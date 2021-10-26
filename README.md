@@ -50,9 +50,9 @@ Output will be located in the `dist` folder.
 
 **Changing Scratch internals**: If you want to change the VM/renderer/etc. used, just `npm install` or `npm link` a different scratch-vm/scratch-render/etc and rebuild. You can even install a vanilla scratch-vm and all core functionality will still work (but optional features such as interpolation, high quality pen, stage size, etc. may not work)
 
-**Large files**: Large files such as NW.js or Electron executables are stored on an external server outside of this repository and have no guarantee of existing long-term. It's easy to setup your own, see `src/packager/large-assets.js` for more information.
+**Large files**: Large files such as NW.js, Electron, and WKWebView executables are stored on an external server outside of this repository. While we aren't actively removing old files (the server still serves files unused since November 2020), we can't promise they will exist forever. Forks are free to use our servers, but it's easy to setup your own if you'd prefer (it's just a static file server; see `src/packager/large-assets.js` for more information).
 
-**Service worker**: Set the environment variable `ENABLE_SERVICE_WORKER` to `1` to enable service worker for offline support. Not recommended in development. Automatically used the GitHub Actions deploy script.
+**Service worker**: Set the environment variable `ENABLE_SERVICE_WORKER` to `1` to enable service worker for offline support (experimental, not 100% reliable). Not recommended in development. Automatically used the GitHub Actions deploy script.
 
 ## Standalone builds
 
