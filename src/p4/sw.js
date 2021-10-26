@@ -7,7 +7,7 @@ const base = location.pathname.substr(0, location.pathname.indexOf('sw.js'));
 
 self.addEventListener('install', event => {
   self.skipWaiting();
-  event.waitUntil(caches.open(CACHE_NAME).then(cache => cache.addAll(ASSETS.map(i => i === '' ? '/' : i))));
+  event.waitUntil(caches.open(CACHE_NAME).then(cache => cache.addAll(ASSETS.map(i => i === '' ? base : i))));
 });
 
 self.addEventListener('activate', event => {
