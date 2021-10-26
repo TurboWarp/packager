@@ -13,7 +13,6 @@
         "application-win32": "Aplicativo {type} para Windows (32-bit ou 64-bit)",
         "application-win64": "Aplicativo {type} para Windows (apenas 64-bit, não recomendado)",
         "applicationSettings": "Opções da Aplicação",
-        "autoplay": "Rodar automaticamente",
         "backgroundColor": "Cor de fundo",
         "cloudVariables": "Variáveis Nuvem",
         "cloudVariables-custom": "Avançado",
@@ -86,7 +85,6 @@
     "p4": {
         "close": "Fechar",
         "description1": "Converte projetos do Scratch para arquivos HTML, ZIP, ou programas executáveis para Windows, macOS e Linux.",
-        "description2": "Se você só quer um jeito fácil de colocar um projeto do TurboWarp no seu site, {embedding} pode ser uma escolha melhor.",
         "description2-embedding": "Incorporação",
         "description3": "Relate bugs, mande feedback e sugira ideias {onScratch} ou {onGitHub}.",
         "description3-github": "no GitHub",

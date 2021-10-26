@@ -13,7 +13,6 @@
         "application-win32": "Windows 程序（32 位或 64 位，基于 {type}）",
         "application-win64": "Windows 程序（仅64位，基于 {type}）",
         "applicationSettings": "应用程序设置",
-        "autoplay": "自动绿旗",
         "backgroundColor": "背景色",
         "cloudVariables": "云变量",
         "cloudVariables-custom": "高级",
@@ -87,7 +86,6 @@
     "p4": {
         "close": "关闭",
         "description1": "将 Scratch 作品转换为 HTML 文件、ZIP 压缩包或 Windows、MacOS 和 Linux 的可执行文件。",
-        "description2": "如果您只是想以一种简单的方式将经过 TurboWarp 处理过的 Scratch 官网作品嵌入您的网站，您可能会对 {embedding} 感兴趣。 ",
         "description2-embedding": "网站嵌入",
         "description3": "{onScratch}，或者{onGitHub}报告错误，给予反馈，并提出建议。",
         "description3-github": "在 GitHub 上",

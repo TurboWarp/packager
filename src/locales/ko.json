@@ -13,7 +13,6 @@
         "application-win32": "{type} 윈도우 앱 (32비트 혹은 64비트)",
         "application-win64": "{type} 윈도우 앱 (64비트 전용, 권장되지 않음)",
         "applicationSettings": "앱 설정",
-        "autoplay": "자동 실행",
         "backgroundColor": "배경색",
         "cloudVariables": "클라우드 변수",
         "cloudVariables-custom": "고급 설정",
@@ -86,7 +85,6 @@
     "p4": {
         "close": "닫기",
         "description1": "스크래치 프로젝트를 HTML파일, zip저장, 또는 실행 가능한 윈도우, 맥OS, 리눅스 프로그램으로 변환합니다.",
-        "description2": "TurboWarp 프로젝트를 웹 사이트에 쉽게 임베드 할 수 있는 방법을 원하신다면 {embedding}을 확인해 보세요.",
         "description2-embedding": "임베딩",
         "description3": "버그를 제보, 문의, 아이디어 제보는 {onScratch}나 {onGitHub}로  제보하세요.",
         "description3-github": "깃허브",

@@ -86,7 +86,6 @@
     "p4": {
         "close": "Kapat",
         "description1": "Scratch Projeleri Windows, macOS, ve Linux ile HTML dosyalara, zip arçivelere yada uygulamaya dönüştürebilir.",
-        "description2": "Bir TurboWarp projesini web sitenize yerleştirmenin kolay bir yolunu istiyorsanız, {embedding} ilginizi çekebilir.",
         "description2-embedding": "Gömmek",
         "description3": "Hataları bildirin, geri bildirimde ve yeni fikirleri göstermek için {onScratch} veya {onGitHub} ile yapınız. ",
         "description3-github": "Githubda",

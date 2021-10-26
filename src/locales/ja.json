@@ -13,7 +13,7 @@
         "application-win32": "{type} Windowsのアプリケーション(32bitまたは64bit)",
         "application-win64": "{type} Windowsのアプリケーション（64bitのみ、非推奨)",
         "applicationSettings": "アプリケーションの設定",
-        "autoplay": "自動再生",
+        "autoplay": "大きな緑の旗を表示せずに自動でプロジェクトを始める",
         "backgroundColor": "背景の色",
         "cloudVariables": "クラウド変数",
         "cloudVariables-custom": "高度な設定",
@@ -88,7 +88,7 @@
     "p4": {
         "close": "閉じる",
         "description1": "Scratchのプロジェクトを、HTMLファイル、ZIPアーカイブや、Windows、macOS、Linux用の実行形式プログラムに変換します。",
-        "description2": "TurboWarpプロジェクトをウェブサイトに埋め込む簡単な方法を知りたいなら、{embedding}をご覧ください。",
+        "description2": "あなたのプロジェクトをウェブサイトに埋め込む簡単な方法を知りたいなら、{embedding}をご覧ください。",
         "description2-embedding": "埋め込みコード",
         "description3": "バグを報告、フィードバック、アイデアを提案する場合は{onScratch}または{onGitHub}ですることができます。",
         "description3-github": "GitHub",

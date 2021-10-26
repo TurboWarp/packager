@@ -13,7 +13,7 @@
         "application-win32": "{type} Windows-Anwendung (32- oder 64-bit)",
         "application-win64": "{type} Windows-Anwendung (nut 64-bit, nicht empfohlen)",
         "applicationSettings": "App-Einstellungen",
-        "autoplay": "Automatische Wiedergabe",
+        "autoplay": "Projekt automatisch starten, anstatt eine große grüne Flagge zu zeigen",
         "backgroundColor": "Hintergrundfarbe",
         "cloudVariables": "Cloudvariablen",
         "cloudVariables-custom": "Erweitert",
@@ -86,7 +86,7 @@
     "p4": {
         "close": "Schließen",
         "description1": "Wandelt Scratch-Projekte in alleinstehende Dateien oder ausführbare Programme um.",
-        "description2": "Falls du einfach ein TurboWarp-Projekt in deine Website einbetten willst, könntest du in {embedding} interessiert sein.",
+        "description2": "Falls du einfach ein Projekt in deine Website einbetten willst, könntest du in {embedding} interessiert sein.",
         "description2-embedding": "Einbettung",
         "description3": "{onScratch} oder {onGitHub} kannst du Fehler melden, Feedback geben oder Ideen vorschlagen.",
         "description3-github": "auf GitHub",

@@ -13,7 +13,6 @@
         "application-win32": "{type} Windows 應用程式（32 位或 64 位）",
         "application-win64": "{type} Windows 應用程式（僅 64 位，不推薦）",
         "applicationSettings": "應用程式選項",
-        "autoplay": "自動開始",
         "backgroundColor": "背景色",
         "cloudVariables": "雲端變數",
         "cloudVariables-custom": "個別更改",
@@ -82,7 +81,6 @@
     },
     "p4": {
         "close": "關閉",
-        "description2": "如果你只是想把你的 TurboWarp 專案嵌入到你的網站，請嘗試{embedding}。",
         "description2-embedding": "嵌入",
         "description3": "在 {onScratch} 或 {onGitHub} 上回報錯誤、給予回饋或提出建議。",
         "description3-github": "GitHub",

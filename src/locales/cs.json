@@ -13,7 +13,6 @@
         "application-win32": "{type} Aplikace Windows (32-bit nebo 64-bit)",
         "application-win64": "{type} Aplikace Windows (jen 64-bit, nedoporučeno)",
         "applicationSettings": "Nastavení aplikace",
-        "autoplay": "Automatické přehrávání",
         "backgroundColor": "Barva pozadí",
         "cloudVariables": "Cloudové proměnné",
         "cloudVariables-custom": "Pokročilé",
@@ -86,7 +85,6 @@
     "p4": {
         "close": "Zavřít",
         "description1": "Zkonvertuje projekty Scratch do souborů HTML, zip archivů nebo programů pro Windows, macOS a Linux.",
-        "description2": "Jestli chcete jen lehký způsob na vkládání projekt TurboWarp do vaší stránky, pravděpodobně se zajímáte o {embedding}.",
         "description2-embedding": "Vkládání",
         "description3": "Nahlašte chyby, dejte zpětnou vazbu, a navrhněte nápady {onScratch} nebo {onGitHub}.",
         "description3-github": "na GitHub",
