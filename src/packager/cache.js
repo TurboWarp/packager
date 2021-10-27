@@ -34,7 +34,6 @@ const removeExtraneous = async () => {
     };
   });
 };
-db.onopen = removeExtraneous;
 
 const get = async (asset) => {
   const {transaction, store} = await db.createTransaction('readonly');
@@ -69,6 +68,8 @@ const set = async (asset, content) => {
 };
 
 const resetAll = () => db.deleteEverything();
+
+removeExtraneous();
 
 export default {
   get,
