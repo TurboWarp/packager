@@ -8,7 +8,18 @@ const generateAsar = (files) => {
   };
   let offset = 0;
   for (const {path, data} of files) {
-    header.files[path] = {
+    const pathParts = path.split('/');
+    const lastPart = pathParts.pop();
+    let node = header.files;
+    for (const part of pathParts) {
+      if (!Object.prototype.hasOwnProperty.call(node, part)) {
+        node[part] = {
+          files: {}
+        };
+      }
+      node = node[part].files;
+    }
+    node[lastPart] = {
       offset: offset.toString(),
       size: data.length
     };

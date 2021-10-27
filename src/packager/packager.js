@@ -380,7 +380,6 @@ cd "$(dirname "$0")"
     const electronZip = await (await getJSZip()).loadAsync(buffer);
 
     const isWindows = this.options.target.includes('win');
-    const isMac = this.options.target.includes('mac');
     const isLinux = this.options.target.includes('linux');
 
     // Electron Windows/Linux folder structure:
@@ -392,73 +391,50 @@ cd "$(dirname "$0")"
     const zip = new (await getJSZip());
     const packageName = this.options.app.packageName;
     for (const path of Object.keys(electronZip.files)) {
-      // Version is unused by us, and the contents of LICENSE are include elsewhere
-      if (path === 'version' || path === 'LICENSE') {
-        continue;
-      }
       const file = electronZip.files[path];
       // Create an inner folder inside the zip
       let newPath = `${packageName}/${path}`;
       // Rename the executable file
       if (isWindows) {
         newPath = newPath.replace('electron.exe', `${packageName}.exe`);
-      } else if (isMac) {
-        // TODO
       } else if (isLinux) {
         newPath = newPath.replace(/electron$/, packageName);
       }
       setFileFast(zip, newPath, file);
     }
 
-    const ICON_NAME = 'icon.png';
-    const icon = await getAppIcon(this.options.app.icon);
-    const manifest = {
-      name: packageName,
-      main: 'main.js'
-    };
-
-    let dataPrefix;
-    if (isWindows) {
-      dataPrefix = `${packageName}/`;
-      const readme = `Open "${packageName}.exe" to start the app. Open "licenses.html" for information regarding software licenses used by the app.`;
-      zip.file(`${dataPrefix}README.txt`, readme);
-    } else if (isMac) {
-      // TODO
-    } else if (isLinux) {
-      dataPrefix = `${packageName}/`;
-      const startScript = `#!/bin/bash
-cd "$(dirname "$0")"
-./${packageName}`;
-      zip.file(`${dataPrefix}start.sh`, startScript, {
-        unixPermissions: 0o100755
-      });
-    }
-    for (const path of Object.keys(projectZip.files)) {
-      setFileFast(zip, dataPrefix + path, projectZip.files[path]);
-    }
-
     const creditsHtml = await zip.file(`${packageName}/LICENSES.chromium.html`).async('string');
-    zip.remove(`${packageName}/LICENSE.txt`);
-    zip.remove(`${packageName}/LICENSES.chromium.html`);
     zip.file(`${packageName}/licenses.html`, creditsHtml + generateChromiumLicenseHTML([
       SELF_LICENSE,
       SCRATCH_LICENSE,
       ELECTRON_LICENSE
     ]));
 
-    zip.file(`${dataPrefix}${ICON_NAME}`, icon);
-    zip.file(`${dataPrefix}resources/default_app.asar`, generateAsar([
+    zip.remove(`${packageName}/LICENSE.txt`);
+    zip.remove(`${packageName}/LICENSES.chromium.html`);
+    zip.remove(`${packageName}/LICENSE`);
+    zip.remove(`${packageName}/version`);
+
+    const dataPrefix = `${packageName}/`;
+    const resourcePrefix = `${dataPrefix}resources/`;
+    const electronMainPath = 'electron-main.js';
+    const iconName = 'icon.png';
+
+    const icon = await getAppIcon(this.options.app.icon);
+    zip.file(`${dataPrefix}${iconName}`, icon);
+
+    const manifest = {
+      name: packageName,
+      main: `../${electronMainPath}`
+    };
+    zip.file(`${resourcePrefix}default_app.asar`, generateAsar([
       {
         path: 'package.json',
         data: new TextEncoder().encode(JSON.stringify(manifest))
-      },
-      {
-        path: 'main.js',
-        data: new TextEncoder().encode('require("../../main.js")')
       }
     ]));
-    zip.file(`${dataPrefix}package.json`, JSON.stringify(manifest));
-    zip.file(`${dataPrefix}main.js`, `'use strict';
+
+    const mainJS = `'use strict';
 const {app, BrowserWindow, Menu, shell, screen} = require('electron');
 const path = require('path');
 
@@ -492,19 +468,19 @@ const isSafeOpenExternal = (url) => {
 
 const createWindow = () => {
   const options = {
+    backgroundColor: ${JSON.stringify(this.options.appearance.background)},
     width: ${this.computeWindowSize().width},
     height: ${this.computeWindowSize().height},
     useContentSize: true,
     minWidth: 50,
     minHeight: 50,
-    icon: path.resolve('${ICON_NAME}'),
+    icon: path.resolve(__dirname, ${JSON.stringify(`../${iconName}`)}),
     webPreferences: {
       contextIsolation: true,
       nodeIntegration: false,
       sandbox: true
     },
-    show: false,
-    backgroundColor: ${JSON.stringify(this.options.appearance.background)}
+    show: false
   };
 
   const activeScreen = screen.getDisplayNearestPoint(screen.getCursorScreenPoint());
@@ -516,7 +492,7 @@ const createWindow = () => {
   window.once('ready-to-show', () => {
     window.show();
   });
-  window.loadFile('../../index.html');
+  window.loadFile(path.resolve(__dirname, './index.html'));
 };
 
 const acquiredLock = app.requestSingleInstanceLock();
@@ -556,8 +532,25 @@ if (acquiredLock) {
   });
 } else {
   app.quit();
-}
-`);
+}`;
+    zip.file(`${resourcePrefix}${electronMainPath}`, mainJS);
+
+    for (const [path, data] of Object.entries(projectZip.files)) {
+      setFileFast(zip, `${resourcePrefix}${path}`, data);
+    }
+
+    if (isWindows) {
+      const readme = `Open "${packageName}.exe" to start the app. Open "licenses.html" for information regarding software licenses used by the app.`;
+      zip.file(`${dataPrefix}README.txt`, readme);
+    } else if (isLinux) {
+      // Some Linux distributions can't easily open the executable file from the GUI, so we'll add a simple wrapper that people can use instead.
+      const startScript = `#!/bin/bash
+cd "$(dirname "$0")"
+./${packageName}`;
+      zip.file(`${dataPrefix}start.sh`, startScript, {
+        unixPermissions: 0o100755
+      });
+    }
 
     return zip;
   }
