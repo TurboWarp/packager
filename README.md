@@ -40,11 +40,10 @@ Output will be located in the `dist` folder.
 
 ## Tips for forks
 
-**Branding**
+**Branding** At a bare minimum, please take the time to:
 
- - Please update the brand strings (`src/packager/brand.js`) to use your own name and links.
+ - Update the brand strings (`src/packager/brand.js`) to use your own name and links.
  - Update the privacy policy (`static/privacy.html`) to reflect your privacy practices.
- - Update this document (`README.md`) too.
 
 **Deploying**: The packager is deployed as a simple static website. You can host it anywhere by just copying the `dist` folder after a build. We use GitHub Actions to deploy to GitHub Pages by running the "Deploy" workflow whenever we want to push to production (Actions > Deploy > Run workflow). This should be automatically available in forks after enabling GitHub Actions.
 
@@ -52,7 +51,7 @@ Output will be located in the `dist` folder.
 
 **Large files**: Large files such as NW.js, Electron, and WKWebView executables are stored on an external server outside of this repository. While we aren't actively removing old files (the server still serves files unused since November 2020), we can't promise they will exist forever. Forks are free to use our servers, but it's easy to setup your own if you'd prefer (it's just a static file server; see `src/packager/large-assets.js` for more information).
 
-**Service worker**: Set the environment variable `ENABLE_SERVICE_WORKER` to `1` to enable service worker for offline support (experimental, not 100% reliable). Not recommended in development. Automatically used the GitHub Actions deploy script.
+**Service worker**: Set the environment variable `ENABLE_SERVICE_WORKER` to `1` to enable service worker for offline support (experimental, not 100% reliable). Not recommended in development. Automatically used by the GitHub Actions deploy script.
 
 ## Standalone builds
 
