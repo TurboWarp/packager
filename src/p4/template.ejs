@@ -15,9 +15,7 @@
       %>
         <link rel="shortcut icon" href="data:image/vnd.microsoft.icon;base64,<%= fs.readFileSync('static/favicon.ico').toString('base64') %>">
       <% } %>
-    <% } else {%>
-      <link rel="shortcut icon" href="favicon.ico?v=2">
-    <% }%>
+    <% } %>
     <style>
       body[p4-splash-theme="dark"]:not([p4-loaded]) {
         background-color: #111;
