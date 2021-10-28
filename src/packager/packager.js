@@ -421,7 +421,7 @@ cd "$(dirname "$0")"
     const iconName = 'icon.png';
 
     const icon = await getAppIcon(this.options.app.icon);
-    zip.file(`${dataPrefix}${iconName}`, icon);
+    zip.file(`${resourcePrefix}${iconName}`, icon);
 
     const manifest = {
       name: packageName,
@@ -474,7 +474,7 @@ const createWindow = () => {
     useContentSize: true,
     minWidth: 50,
     minHeight: 50,
-    icon: path.resolve(__dirname, ${JSON.stringify(`../${iconName}`)}),
+    icon: path.resolve(__dirname, ${JSON.stringify(iconName)}),
     webPreferences: {
       contextIsolation: true,
       nodeIntegration: false,
