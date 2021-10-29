@@ -480,7 +480,7 @@ const createWindow = () => {
       nodeIntegration: false,
       sandbox: true
     },
-    show: false
+    show: true
   };
 
   const activeScreen = screen.getDisplayNearestPoint(screen.getCursorScreenPoint());
@@ -489,9 +489,6 @@ const createWindow = () => {
   options.y = bounds.y + ((bounds.height - options.height) / 2);
 
   const window = new BrowserWindow(options);
-  window.once('ready-to-show', () => {
-    window.show();
-  });
   window.loadFile(path.resolve(__dirname, './index.html'));
 };
 
