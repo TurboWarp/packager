@@ -466,6 +466,7 @@ const createWindow = () => {
     backgroundColor: ${JSON.stringify(this.options.appearance.background)},
     width: ${this.computeWindowSize().width},
     height: ${this.computeWindowSize().height},
+    title: ${JSON.stringify(this.options.app.windowTitle)},
     useContentSize: true,
     minWidth: 50,
     minHeight: 50,
