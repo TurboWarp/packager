@@ -414,10 +414,11 @@ cd "$(dirname "$0")"
     zip.remove(`${packageName}/LICENSES.chromium.html`);
     zip.remove(`${packageName}/LICENSE`);
     zip.remove(`${packageName}/version`);
+    zip.remove(`${packageName}/resources/default_app.asar`);
 
     const dataPrefix = `${packageName}/`;
-    const resourcePrefix = `${dataPrefix}resources/`;
-    const electronMainPath = 'electron-main.js';
+    const resourcePrefix = `${dataPrefix}resources/app/`;
+    const electronMainName = 'electron-main.js';
     const iconName = 'icon.png';
 
     const icon = await getAppIcon(this.options.app.icon);
@@ -425,14 +426,9 @@ cd "$(dirname "$0")"
 
     const manifest = {
       name: packageName,
-      main: `../${electronMainPath}`
+      main: electronMainName
     };
-    zip.file(`${resourcePrefix}default_app.asar`, generateAsar([
-      {
-        path: 'package.json',
-        data: new TextEncoder().encode(JSON.stringify(manifest))
-      }
-    ]));
+    zip.file(`${resourcePrefix}package.json`, JSON.stringify(manifest));
 
     const mainJS = `'use strict';
 const {app, BrowserWindow, Menu, shell, screen} = require('electron');
@@ -522,7 +518,7 @@ app.whenReady().then(() => {
   });
 });
 `;
-    zip.file(`${resourcePrefix}${electronMainPath}`, mainJS);
+    zip.file(`${resourcePrefix}${electronMainName}`, mainJS);
 
     for (const [path, data] of Object.entries(projectZip.files)) {
       setFileFast(zip, `${resourcePrefix}${path}`, data);
