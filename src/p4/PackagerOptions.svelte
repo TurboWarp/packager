@@ -562,15 +562,15 @@
           <p>Due to Apple policy, packaging for their platforms is troublesome. You either have to:</p>
           <ul>
             <li>Instruct users to ignore scary Gatekeeper warnings by opening Finder > Navigating to the application > Right click > Open > Open. This website generates applications that require this workaround.</li>
-            <li>Or pay Apple $100/year for a developer account to sign and notarize the app. If you have already paid for a developer account, <a href="https://github.com/TurboWarp/packager/discussions">reach out on GitHub</a> and we'll help you set everything up (It is a very involved process).</li>
+            <li>Or pay Apple $100/year for a developer account to sign and notarize the app (very involved process; reach out in feedback for more information)</li>
           </ul>
           {#if $options.target.includes('webview')}
             <h2>WKWebView</h2>
-            <p>WKWebView is the fastest and smallest way to package for macOS. It should run natively (without Rosetta) on both Intel and Apple silicon Macs running macOS 10.12 or later. However, it is only actively tested on macOS Big Sur on an Intel Mac.</p>
+            <p>WKWebView is the fastest and smallest way to package for macOS. It should run natively (without Rosetta) on both Intel and Apple silicon Macs running macOS 10.12 or later.</p>
             <p>Note that:</p>
             <ul>
               <li>Video sensing and loudness blocks will not work</li>
-              <li>Extremely memory intensive projects may randomly reload (but most projects work fine)</li>
+              <li>Extremely memory intensive projects may not work well</li>
             </ul>
             <p>Use "Plain HTML" or "NW.js macOS Application" if these are problems for your project.</p>
           {:else if $options.target.includes('nwjs')}
