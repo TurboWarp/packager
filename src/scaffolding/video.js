@@ -37,7 +37,6 @@ const requestDisableVideo = () => {
   return true;
 };
 
-
 class VideoProvider {
   constructor() {
     this.mirror = true;

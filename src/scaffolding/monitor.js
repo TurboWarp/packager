@@ -291,7 +291,6 @@ class ListMonitor extends Monitor {
     this.updateValue(this.value);
   }
 
-
   _oncontextmenu (e) {
     e.preventDefault();
     const menu = new ContextMenu(this.parent);

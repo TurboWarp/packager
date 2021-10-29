@@ -84,7 +84,6 @@
       packager.abort();
     });
 
-
     task.setProgressText($_('progress.loadingScripts'));
 
     packager.addEventListener('large-asset-fetch', ({detail}) => {
