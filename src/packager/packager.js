@@ -8,7 +8,6 @@ import pngToAppleICNS from './icns';
 import assetCache from './cache';
 import {buildId, verifyBuildId} from './build-id';
 import {encode, decode} from './base85';
-import generateAsar from './generate-asar';
 import {parsePlist, generatePlist} from './plist';
 import {APP_NAME, WEBSITE, COPYRIGHT_NOTICE} from './brand';
 
