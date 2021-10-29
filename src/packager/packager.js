@@ -495,44 +495,36 @@ const createWindow = () => {
   window.loadFile(path.resolve(__dirname, './index.html'));
 };
 
-const acquiredLock = app.requestSingleInstanceLock();
-if (acquiredLock) {
-  app.enableSandbox();
+app.enableSandbox();
 
-  app.on('web-contents-created', (event, contents) => {
-    contents.setWindowOpenHandler((details) => {
-      if (isSafeOpenExternal(details.url)) {
-        setImmediate(() => {
-          shell.openExternal(details.url);
-        });
-      }
-      return {action: 'deny'};
-    });
-    contents.on('will-navigate', (e, url) => {
-      e.preventDefault();
-      if (isSafeOpenExternal(url)) {
-        shell.openExternal(url);
-      }
-    });
+app.on('web-contents-created', (event, contents) => {
+  contents.setWindowOpenHandler((details) => {
+    if (isSafeOpenExternal(details.url)) {
+      setImmediate(() => {
+        shell.openExternal(details.url);
+      });
+    }
+    return {action: 'deny'};
   });
+  contents.on('will-navigate', (e, url) => {
+    e.preventDefault();
+    if (isSafeOpenExternal(url)) {
+      shell.openExternal(url);
+    }
+  });
+});
 
-  app.on('window-all-closed', () => {
-    app.quit();
-  });
-
-  app.on('second-instance', () => {
-    createWindow();
-  });
-
-  app.whenReady().then(() => {
-    createWindow();
-    app.on('activate', () => {
-      if (BrowserWindow.getAllWindows().length === 0) createWindow();
-    });
-  });
-} else {
+app.on('window-all-closed', () => {
   app.quit();
-}`;
+});
+
+app.whenReady().then(() => {
+  createWindow();
+  app.on('activate', () => {
+    if (BrowserWindow.getAllWindows().length === 0) createWindow();
+  });
+});
+`;
     zip.file(`${resourcePrefix}${electronMainPath}`, mainJS);
 
     for (const [path, data] of Object.entries(projectZip.files)) {
