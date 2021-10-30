@@ -289,7 +289,7 @@ class Row {
     } else if (e.key === 'ArrowUp' || e.key === 'ArrowDown' || e.key === 'Tab') {
       e.preventDefault();
       let index = this.index;
-      if (e.key === 'ArrowUp') {
+      if (e.key === 'ArrowUp' || (e.key === 'Tab' && e.shiftKey)) {
         index--;
         if (index < 0) index = this.monitor.value.length - 1;
       } else {
