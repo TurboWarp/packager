@@ -233,6 +233,7 @@ class Row {
       this.valueInner = document.createElement('div');
       this.valueInner.className = styles.monitorRowValueInner;
       this.valueOuter.appendChild(this.valueInner);
+      this.valueInner.addEventListener('contextmenu', this._oncontextmenuuneditable.bind(this));
     }
 
     this.root.appendChild(this.indexEl);
@@ -298,11 +299,19 @@ class Row {
 
   _oncontextmenu (e) {
     if (this.locked) {
-      // Open native context menu instead of custom list one
+      // Open native context menu instead of custom list one when editing
       e.stopPropagation();
     } else {
       // Right clicking should not focus and highlight input
       e.preventDefault();
+    }
+  }
+
+  _oncontextmenuuneditable (e) {
+    // When row has been highlighted, eg. by triple click, open native context menu instead of custom
+    const selection = getSelection();
+    if (this.valueInner.contains(selection.anchorNode) && !selection.isCollapsed) {
+      e.stopPropagation();
     }
   }
 
