@@ -211,7 +211,8 @@
       "string": "Foreground color (progress bar, some icons, some text)"
     },
     "monitors": {
-      "string": "Monitors"
+      "string": "Monitors",
+      "context": "Monitors refers to variable and list monitors/watchers/displays that display on the stage"
     },
     "editableLists": {
       "string": "Editable lists"
