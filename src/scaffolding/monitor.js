@@ -234,11 +234,10 @@ class Row {
 
   _onclickinput () {
     this.valueInner.focus();
-    this.valueInner.select();
-
     if (this.locked) {
       return;
     }
+    this.valueInner.select();
     this.addNewValue = false;
     this.deleteValue = false;
     this.valueInner.readOnly = false;
