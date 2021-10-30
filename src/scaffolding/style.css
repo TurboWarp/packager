@@ -194,6 +194,7 @@
   flex-grow: 1;
 }
 .monitor-row-delete, .monitor-list-add {
+  font-weight: bold;
   background: none;
   border: none;
   outline: none;
