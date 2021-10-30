@@ -90,7 +90,7 @@ const makeScaffolding = ({full}) => ({
   },
   plugins: [
     ...(buildId ? [new AddBuildIDToOutputPlugin(buildId)] : []),
-    ...(process.env.BUNDLE_ANALYZER === (full ? '1' : '2') ? [new BundleAnalyzerPlugin()] : [])
+    ...(process.env.BUNDLE_ANALYZER === (full ? 'scaffolding' : 'scaffolding-min') ? [new BundleAnalyzerPlugin()] : [])
   ]
 });
 
@@ -159,7 +159,7 @@ const makeWebsite = () => ({
     }),
     new GenerateServiceWorkerPlugin(),
     ...(isStandalone ? [new EagerDynamicImportPlugin()] : []),
-    ...(process.env.BUNDLE_ANALYZER === '3' ? [new BundleAnalyzerPlugin()] : [])
+    ...(process.env.BUNDLE_ANALYZER === 'p4' ? [new BundleAnalyzerPlugin()] : [])
   ],
   devServer: {
     contentBase: './dist/',
