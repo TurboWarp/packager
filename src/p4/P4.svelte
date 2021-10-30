@@ -86,6 +86,9 @@
   :global(summary) {
     cursor: pointer;
   }
+  :global(input) {
+    font-size: 0.8em;
+  }
   main {
     padding-bottom: 10px;
   }
