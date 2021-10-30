@@ -3,7 +3,6 @@ import DropArea from './drop-area';
 import styles from './style.css';
 import {readAsText} from '../common/readers';
 import downloadBlob from './download';
-import {queueMicrotask} from './polyfill';
 
 class Monitor {
   constructor (parent, monitor) {
