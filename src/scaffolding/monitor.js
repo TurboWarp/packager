@@ -216,6 +216,7 @@ class Row {
     this.valueInner.addEventListener('focus', this._onclickinput.bind(this));
     this.valueInner.addEventListener('blur', this._onblurinput.bind(this));
     this.valueInner.addEventListener('keypress', this._onkeypressinput.bind(this));
+    this.valueInner.addEventListener('keydown', this._onkeypressdown.bind(this));
     this.valueOuter.appendChild(this.valueInner);
 
     this.deleteButton = document.createElement('button');
@@ -271,6 +272,12 @@ class Row {
   _onkeypressinput (e) {
     if (e.key === 'Enter') {
       this.addNewValue = true;
+      this.valueInner.blur();
+    }
+  }
+
+  _onkeypressdown (e) {
+    if (e.key === 'Escape') {
       this.valueInner.blur();
     }
   }
