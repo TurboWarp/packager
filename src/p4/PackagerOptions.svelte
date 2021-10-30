@@ -328,10 +328,10 @@
       {$_('options.accentColor')}
     </label>
 
-    <h3>Monitors</h3>
+    <h3>{$_('options.monitors')}</h3>
     <label>
       <input type="checkbox" bind:checked={$options.monitors.editable}>
-      Editable lists
+      {$_('options.editableLists')}
     </label>
 
     <h3>{$_('options.interaction')}</h3>
