@@ -211,6 +211,7 @@ class Row {
     this.valueOuter.className = styles.monitorRowValueOuter;
 
     this.valueInner = document.createElement('input');
+    this.valueInner.tabIndex = -1;
     this.valueInner.className = styles.monitorRowValueInner;
     this.valueInner.readOnly = true;
     this.valueInner.addEventListener('click', this._onclickinput.bind(this));
@@ -231,6 +232,9 @@ class Row {
   }
 
   _onclickinput () {
+    this.valueInner.focus();
+    this.valueInner.select();
+
     if (this.locked) {
       return;
     }
@@ -239,35 +243,31 @@ class Row {
     this.valueInner.readOnly = false;
     this.locked = true;
     this.root.classList.add(styles.monitorRowValueEditing);
-    this.valueInner.focus();
-    this.valueInner.select();
-  }
-
-  unlock () {
-    if (this.locked) {
-      this.locked = false;
-      this.valueInner.readOnly = true;
-      this.root.classList.remove(styles.monitorRowValueEditing);
-    }
   }
 
   _onblurinput () {
     if (!this.locked) {
       return;
     }
-    this.unlock();
+    this.locked = false;
+    this.valueInner.readOnly = true;
+    this.root.classList.remove(styles.monitorRowValueEditing);
     const value = [...this.monitor.value];
+    let indexToFocus = -1;
     if (this.deleteValue) {
       value.splice(this.index, 1);
-      this.monitor.tryToFocusRow(this.index);
+      indexToFocus = this.index;
     } else {
       value[this.index] = this.valueInner.value;
       if (this.addNewValue) {
         value.splice(this.index + 1, 0, '');
-        this.monitor.tryToFocusRow(this.index + 1);
+        indexToFocus = this.index + 1;
       }
     }
     this.monitor.setValue(value);
+    if (indexToFocus !== -1) {
+      this.monitor.tryToFocusRow(indexToFocus);
+    }
   }
 
   _onkeypressinput (e) {
@@ -283,19 +283,23 @@ class Row {
     }
   }
 
-  _onclickdelete () {
+  _onclickdelete (e) {
+    e.preventDefault();
     this.deleteValue = true;
     this.valueInner.blur();
   }
 
   _oncontextmenu (e) {
     if (this.locked) {
+      // Open native context menu instead of custom list one
       e.stopPropagation();
+    } else {
+      // Right clicking should not focus and highlight input
+      e.preventDefault();
     }
   }
 
   setIndex (index) {
-    this.unlock();
     if (this.index !== index) {
       this.index = index;
       this.root.style.transform = `translateY(${index * ROW_HEIGHT}px)`;
@@ -307,6 +311,13 @@ class Row {
     if (this.value !== value && !this.locked) {
       this.value = value;
       this.valueInner.value = value;
+    }
+  }
+
+  focus () {
+    this.valueInner.click();
+    if (document.activeElement !== this.valueInner) {
+      queueMicrotask(() => this.valueInner.click());
     }
   }
 }
@@ -371,12 +382,10 @@ class ListMonitor extends Monitor {
   }
 
   tryToFocusRow (index) {
-    setTimeout(() => {
-      const row = this.rows.get(index);
-      if (row) {
-        row.valueInner.focus();
-      }
-    });
+    const row = this.rows.get(index);
+    if (row) {
+      row.focus();
+    }
   }
 
   _onscroll (e) {
@@ -475,7 +484,7 @@ class ListMonitor extends Monitor {
     for (const index of this.rows.keys()) {
       if (index < startIndex || index >= endIndex) {
         const row = this.rows.get(index);
-        if (!row.locked || index >= value.length) {
+        if (!row.locked) {
           this.rows.delete(index);
           rowsToRemove.push(row);
         }
