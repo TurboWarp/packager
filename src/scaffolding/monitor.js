@@ -218,6 +218,12 @@ class Row {
     this.valueInner.addEventListener('keypress', this._onkeypressinput.bind(this));
     this.valueOuter.appendChild(this.valueInner);
 
+    this.deleteButton = document.createElement('button');
+    this.deleteButton.className = styles.monitorRowDelete;
+    this.deleteButton.textContent = '×';
+    this.deleteButton.addEventListener('mousedown', this._onclickdelete.bind(this));
+    this.valueOuter.appendChild(this.deleteButton);
+
     this.root.appendChild(this.indexEl);
     this.root.appendChild(this.valueOuter);
   }
@@ -252,13 +258,26 @@ class Row {
       value.splice(newIndex, 0, '');
       this.monitor.setValue(value);
 
-      setTimeout(() => {
-        const newValueRow = this.monitor.rows.get(newIndex);
-        if (newValueRow) {
-          newValueRow.valueInner.focus();
-        }
-      });
+      this._attemptToFocus(newIndex);
     }
+  }
+
+  _onclickdelete () {
+    this.valueInner.blur();
+    const value = [...this.monitor.value];
+    value.splice(this.index, 1);
+    this.monitor.setValue(value);
+    this._attemptToFocus(this.index);
+  }
+
+  _attemptToFocus (index) {
+    // TODO: remove the setTimeout
+    setTimeout(() => {
+      const newValueRow = this.monitor.rows.get(index);
+      if (newValueRow) {
+        newValueRow.valueInner.focus();
+      }
+    });
   }
 
   setIndex (index) {
@@ -270,7 +289,7 @@ class Row {
   }
 
   setValue (value) {
-    if (this.value !== value) {
+    if (this.value !== value && !this.locked) {
       this.value = value;
       this.valueInner.value = value;
     }
