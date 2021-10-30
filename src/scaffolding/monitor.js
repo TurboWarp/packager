@@ -288,6 +288,17 @@ class Row {
   _onkeypressdown (e) {
     if (e.key === 'Escape') {
       this.valueInner.blur();
+    } else if (e.key === 'ArrowUp' || e.key === 'ArrowDown' || e.key === 'Tab') {
+      e.preventDefault();
+      let index = this.index;
+      if (e.key === 'ArrowUp') {
+        index--;
+        if (index < 0) index = this.monitor.value.length - 1;
+      } else {
+        index++;
+        if (index >= this.monitor.value.length) index = 0;
+      }
+      this.monitor.tryToFocusRow(index);
     }
   }
 
@@ -406,6 +417,7 @@ class ListMonitor extends Monitor {
 
   tryToFocusRow (index) {
     const row = this.rows.get(index);
+    // TODO: handle case of navigating a locked offscreen row
     if (row) {
       row.focus();
     }
