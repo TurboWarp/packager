@@ -97,7 +97,6 @@ class Monitor {
   }
 
   update (monitor) {
-    // TODO: don't touch if not changed
     this.x = monitor.get('x');
     this.y = monitor.get('y');
     this.visible = monitor.get('visible');
@@ -194,43 +193,175 @@ class VariableMonitor extends Monitor {
 const ROW_HEIGHT = 24;
 
 class Row {
-  constructor () {
-    this._index = -1;
-    this._value = '';
-    this._visible = true;
+  constructor (monitor) {
+    this.monitor = monitor;
 
-    this.root = document.createElement('div');
+    this.index = -1;
+    this.value = '';
+    this.locked = false;
+
+    this.root = document.createElement('label');
     this.root.className = styles.monitorRowRoot;
+
     this.indexEl = document.createElement('div');
     this.indexEl.className = styles.monitorRowIndex;
+
     this.valueOuter = document.createElement('div');
     this.valueOuter.className = styles.monitorRowValueOuter;
-    this.valueInner = document.createElement('div');
-    this.valueInner.className = styles.monitorRowValueInner;
-    this.valueOuter.appendChild(this.valueInner);
+
+    this.editable = this.monitor.editable;
+    if (this.editable) {
+      this.valueInner = document.createElement('input');
+      this.valueInner.tabIndex = -1;
+      this.valueInner.className = styles.monitorRowValueInner;
+      this.valueInner.readOnly = true;
+      this.valueInner.addEventListener('click', this._onclickinput.bind(this));
+      this.valueInner.addEventListener('blur', this._onblurinput.bind(this));
+      this.valueInner.addEventListener('keypress', this._onkeypressinput.bind(this));
+      this.valueInner.addEventListener('keydown', this._onkeypressdown.bind(this));
+      this.valueInner.addEventListener('contextmenu', this._oncontextmenu.bind(this));
+      this.valueInner.addEventListener('input', this._oninput.bind(this));
+      this.valueOuter.appendChild(this.valueInner);
+
+      this.deleteButton = document.createElement('button');
+      this.deleteButton.className = styles.monitorRowDelete;
+      this.deleteButton.textContent = '×';
+      this.deleteButton.addEventListener('mousedown', this._onclickdelete.bind(this));
+      this.valueOuter.appendChild(this.deleteButton);
+    } else {
+      this.valueInner = document.createElement('div');
+      this.valueInner.className = styles.monitorRowValueInner;
+      this.valueOuter.appendChild(this.valueInner);
+      this.valueInner.addEventListener('contextmenu', this._oncontextmenuuneditable.bind(this));
+    }
+
     this.root.appendChild(this.indexEl);
     this.root.appendChild(this.valueOuter);
   }
 
+  _onclickinput () {
+    this.valueInner.focus();
+    if (this.locked) {
+      return;
+    }
+    this.valueInner.select();
+    this.valueInner.readOnly = false;
+    this.locked = true;
+    this.root.classList.add(styles.monitorRowValueEditing);
+
+    this.addNewValue = false;
+    this.deleteValue = false;
+    this.valueWasChanged = false;
+  }
+
+  _onblurinput () {
+    if (!this.locked) {
+      return;
+    }
+
+    this.unfocus();
+
+    if (this.deleteValue) {
+      const value = [...this.monitor.value];
+      value.splice(this.index, 1);
+      this.monitor.setValue(value);
+      this.monitor.tryToFocusRow(Math.min(value.length - 1, this.index))
+    } else if (this.valueWasChanged || this.addNewValue) {
+      const value = [...this.monitor.value];
+      value[this.index] = this.valueInner.value;
+      if (this.addNewValue) {
+        value.splice(this.index + 1, 0, '');
+      }
+      this.monitor.setValue(value);
+      if (this.addNewValue) {
+        this.monitor.tryToFocusRow(this.index + 1);
+      }
+    }
+  }
+
+  _oninput () {
+    this.valueWasChanged = true;
+  }
+
+  _onkeypressinput (e) {
+    if (e.key === 'Enter') {
+      this.addNewValue = true;
+      this.valueInner.blur();
+    }
+  }
+
+  _onkeypressdown (e) {
+    if (e.key === 'Escape') {
+      this.valueInner.blur();
+    } else if (e.key === 'ArrowUp' || e.key === 'ArrowDown' || e.key === 'Tab') {
+      e.preventDefault();
+      let index = this.index;
+      if (e.key === 'ArrowUp' || (e.key === 'Tab' && e.shiftKey)) {
+        index--;
+        if (index < 0) index = this.monitor.value.length - 1;
+      } else {
+        index++;
+        if (index >= this.monitor.value.length) index = 0;
+      }
+      this.monitor.tryToFocusRow(index);
+    }
+  }
+
+  _onclickdelete (e) {
+    e.preventDefault();
+    this.deleteValue = true;
+    this.valueInner.blur();
+  }
+
+  _oncontextmenu (e) {
+    if (this.locked) {
+      // Open native context menu instead of custom list one when editing
+      e.stopPropagation();
+    } else {
+      // Right clicking should not focus and highlight input
+      e.preventDefault();
+    }
+  }
+
+  _oncontextmenuuneditable (e) {
+    // When row has been highlighted, eg. by triple click, open native context menu instead of custom
+    const selection = getSelection();
+    if (this.valueInner.contains(selection.anchorNode) && !selection.isCollapsed) {
+      e.stopPropagation();
+    }
+  }
+
   setIndex (index) {
-    if (this._index !== index) {
-      this._index = index;
+    if (this.index !== index) {
+      this.index = index;
       this.root.style.transform = `translateY(${index * ROW_HEIGHT}px)`;
       this.indexEl.textContent = index + 1;
     }
   }
 
   setValue (value) {
-    if (this._value !== value) {
-      this._value = value;
-      this.valueInner.textContent = value;
+    if (this.value !== value && !this.locked) {
+      this.value = value;
+      if (this.editable) {
+        this.valueInner.value = value;
+      } else {
+        this.valueInner.textContent = value;
+      }
     }
   }
 
-  setVisible (visible) {
-    if (this._visible !== visible) {
-      this._visible = visible;
-      this.root.style.display = visible ? '' : 'none';
+  focus () {
+    this.valueInner.click();
+    if (document.activeElement !== this.valueInner) {
+      setTimeout(() => this.valueInner.click());
+    }
+  }
+
+  unfocus () {
+    if (this.locked) {
+      this.locked = false;
+      this.valueInner.readOnly = true;
+      this.root.classList.remove(styles.monitorRowValueEditing);
     }
   }
 }
@@ -239,8 +370,11 @@ class ListMonitor extends Monitor {
   constructor (parent, monitor) {
     super(parent, monitor);
 
-    this.rows = [];
+    this.editable = parent.editableLists;
+    this.rows = new Map();
+    this.cachedRows = [];
     this.scrollTop = 0;
+    this.oldLength = 0;
 
     this.label = document.createElement('div');
     this.label.className = styles.monitorListLabel;
@@ -248,6 +382,9 @@ class ListMonitor extends Monitor {
 
     this.footer = document.createElement('div');
     this.footer.className = styles.monitorListFooter;
+
+    this.footerText = document.createElement('div');
+    this.footerText.className = styles.monitorListFooterText;
 
     this.rowsOuter = document.createElement('div');
     this.rowsOuter.className = styles.monitorRowsOuter;
@@ -263,9 +400,18 @@ class ListMonitor extends Monitor {
     this.emptyLabel.textContent = parent.getMessage('list-empty');
     this.emptyLabel.className = styles.monitorEmpty;
 
+    if (this.editable) {
+      this.addButton = document.createElement('button');
+      this.addButton.className = styles.monitorListAdd;
+      this.addButton.textContent = '+';
+      this.addButton.addEventListener('click', this._onclickaddbutton.bind(this));
+      this.footer.appendChild(this.addButton);
+    }
+
     this.rowsInner.appendChild(this.endPoint);
     this.rowsInner.appendChild(this.emptyLabel);
     this.rowsOuter.appendChild(this.rowsInner);
+    this.footer.appendChild(this.footerText);
     this.root.appendChild(this.label);
     this.root.appendChild(this.rowsOuter);
     this.root.appendChild(this.footer);
@@ -277,16 +423,29 @@ class ListMonitor extends Monitor {
     this.root.addEventListener('contextmenu', this._oncontextmenu.bind(this));
   }
 
-  _onscroll (e) {
-    // If the list monitor is selected, we'll unselect it because the selection won't work properly.
-    if (window.getSelection) {
-      const selection = getSelection();
-      if (selection && (this.rowsInner.contains(selection.anchorNode) || this.rowsInner.contains(selection.focusNode))) {
-        if (selection.empty) {
-          selection.empty();
-        }
-      }
+  _onclickaddbutton (e) {
+    this.setValue([...this.value, '']);
+    this.tryToFocusRow(this.value.length - 1);
+  }
+
+  unfocusAllRows () {
+    for (const row of this.rows.values()) {
+      row.unfocus();
     }
+  }
+
+  tryToFocusRow (index) {
+    if (index >= 0 && index < this.value.length) {
+      this.unfocusAllRows();
+      let row = this.rows.get(index);
+      if (!row) {
+        row = this.createRow(index);
+      }
+      row.focus();
+    }
+  }
+
+  _onscroll (e) {
     this.scrollTop = e.target.scrollTop;
     this.updateValue(this.value);
   }
@@ -361,39 +520,55 @@ class ListMonitor extends Monitor {
     this.root.style.width = `${this.width}px`;
     this.root.style.height = `${this.height}px`;
 
-    this.value = monitor.get('value');
-    this.updateValue(this.value);
+    this.updateValue(monitor.get('value'));
+  }
+
+  createRow (index) {
+    const row = this.cachedRows.pop() || new Row(this);
+    row.setIndex(index);
+    row.setValue(this.value[index]);
+    this.rows.set(index, row);
+    // Order in DOM does not matter
+    this.rowsInner.appendChild(row.root);
+    return row;
   }
 
   updateValue (value) {
-    this.footer.textContent = this.parent.getMessage('list-length').replace('{n}', value.length);
+    this.value = value;
 
-    this.endPoint.style.transform = `translateY(${value.length * ROW_HEIGHT}px)`;
+    if (value.length !== this.oldLength) {
+      this.oldLength = value.length;
+      this.footerText.textContent = this.parent.getMessage('list-length').replace('{n}', value.length);
+      this.endPoint.style.transform = `translateY(${value.length * ROW_HEIGHT}px)`;
+      this.emptyLabel.style.display = value.length ? 'none' : '';
+    }
 
     let startIndex = Math.floor(this.scrollTop / ROW_HEIGHT) - 5;
     if (startIndex < 0) startIndex = 0;
-    let endIndex = Math.ceil((this.scrollTop + this.height) / ROW_HEIGHT) + 5;
+    let endIndex = Math.ceil((this.scrollTop + this.height) / ROW_HEIGHT) + 3;
     if (endIndex > value.length - 1) endIndex = value.length - 1;
 
-    this.emptyLabel.style.display = value.length ? 'none' : '';
+    for (const index of this.rows.keys()) {
+      if (index < startIndex || index > endIndex) {
+        const row = this.rows.get(index);
+        if (!row.locked || index >= value.length) {
+          row.unfocus();
+          row.root.remove();
+          this.rows.delete(index);
+          if (this.cachedRows.length < 10) {
+            this.cachedRows.push(row);
+          }
+        }
+      }
+    }
 
-    const rowsNeeded = endIndex - startIndex + 1;
-    while (this.rows.length < rowsNeeded) {
-      const row = new Row();
-      this.rows.push(row);
-      this.rowsInner.appendChild(row.root);
-    }
-    for (var i = 0; i < rowsNeeded; i++) {
-      const row = this.rows[i];
-      const rowIndex = i + startIndex;
-      row.setIndex(rowIndex);
-      row.setValue(value[rowIndex]);
-      row.setVisible(true);
-    }
-    while (i < this.rows.length) {
-      const row = this.rows[i];
-      row.setVisible(false);
-      i++;
+    for (let i = startIndex; i <= endIndex; i++) {
+      const row = this.rows.get(i);
+      if (row) {
+        row.setValue(value[i]);
+      } else {
+        this.createRow(i);
+      }
     }
   }
 }

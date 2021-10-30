@@ -183,10 +183,26 @@
   padding: 3px;
 }
 .monitor-list-footer {
+  display: flex;
   background-color: white;
   text-align: center;
   font-weight: bold;
   padding: 3px;
+}
+.monitor-list-footer-text {
+  text-align: center;
+  flex-grow: 1;
+}
+.monitor-row-delete, .monitor-list-add {
+  font-weight: bold;
+  background: none;
+  border: none;
+  outline: none;
+  font-family: inherit;
+  color: inherit;
+  cursor: pointer;
+  margin: 0;
+  padding: 0;
 }
 .monitor-rows-outer {
   flex-grow: 1;
@@ -222,6 +238,8 @@
   margin: 0 3px;
 }
 .monitor-row-value-outer {
+  display: flex;
+  align-items: center;
   min-width: 40px;
   height: 22px;
   border: 1px solid hsla(0, 0%, 0%, 0.15);
@@ -231,13 +249,33 @@
   border-radius: calc(0.5rem / 2);
   flex-grow: 1;
 }
+.monitor-row-value-editing .monitor-row-value-outer {
+  background-color: rgb(226, 92, 40);
+}
 .monitor-row-value-inner {
   padding: 3px 5px;
+  width: 100%;
+  color: inherit;
+  background: none;
+  border: none;
+  font: inherit;
+  outline: none;
   overflow: hidden;
   text-overflow: ellipsis;
   user-select: text;
   -webkit-user-select: text;
   white-space: pre;
+}
+.monitor-row-value-editing .monitor-row-value-inner {
+  padding-right: 0;
+}
+.monitor-row-delete {
+  display: none;
+  font-size: 150%;
+  padding: 0 2px;
+}
+.monitor-row-value-editing .monitor-row-delete {
+  display: block;
 }
 .monitor-empty {
   text-align: center;

@@ -210,6 +210,12 @@
     "foregroundColor": {
       "string": "Foreground color (progress bar, some icons, some text)"
     },
+    "monitors": {
+      "string": "Monitors"
+    },
+    "editableLists": {
+      "string": "Editable lists"
+    },
     "interaction": {
       "string": "Input",
       "context": "Input settings header"
