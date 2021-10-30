@@ -29,6 +29,7 @@ class Scaffolding extends EventTarget {
     this.width = 480;
     this.height = 360;
     this.resizeToFill = false;
+    this.editableMonitors = false;
 
     this.messages = defaultMessages;
 

@@ -263,6 +263,7 @@
   text-overflow: ellipsis;
   user-select: text;
   -webkit-user-select: text;
+  white-space: pre;
 }
 .monitor-row-value-editing .monitor-row-value-inner {
   padding-right: 0;

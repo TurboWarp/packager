@@ -211,22 +211,29 @@ class Row {
     this.valueOuter = document.createElement('div');
     this.valueOuter.className = styles.monitorRowValueOuter;
 
-    this.valueInner = document.createElement('input');
-    this.valueInner.tabIndex = -1;
-    this.valueInner.className = styles.monitorRowValueInner;
-    this.valueInner.readOnly = true;
-    this.valueInner.addEventListener('click', this._onclickinput.bind(this));
-    this.valueInner.addEventListener('blur', this._onblurinput.bind(this));
-    this.valueInner.addEventListener('keypress', this._onkeypressinput.bind(this));
-    this.valueInner.addEventListener('keydown', this._onkeypressdown.bind(this));
-    this.valueInner.addEventListener('contextmenu', this._oncontextmenu.bind(this));
-    this.valueOuter.appendChild(this.valueInner);
+    this.editable = this.monitor.editable;
+    if (this.editable) {
+      this.valueInner = document.createElement('input');
+      this.valueInner.tabIndex = -1;
+      this.valueInner.className = styles.monitorRowValueInner;
+      this.valueInner.readOnly = true;
+      this.valueInner.addEventListener('click', this._onclickinput.bind(this));
+      this.valueInner.addEventListener('blur', this._onblurinput.bind(this));
+      this.valueInner.addEventListener('keypress', this._onkeypressinput.bind(this));
+      this.valueInner.addEventListener('keydown', this._onkeypressdown.bind(this));
+      this.valueInner.addEventListener('contextmenu', this._oncontextmenu.bind(this));
+      this.valueOuter.appendChild(this.valueInner);
 
-    this.deleteButton = document.createElement('button');
-    this.deleteButton.className = styles.monitorRowDelete;
-    this.deleteButton.textContent = '×';
-    this.deleteButton.addEventListener('mousedown', this._onclickdelete.bind(this));
-    this.valueOuter.appendChild(this.deleteButton);
+      this.deleteButton = document.createElement('button');
+      this.deleteButton.className = styles.monitorRowDelete;
+      this.deleteButton.textContent = '×';
+      this.deleteButton.addEventListener('mousedown', this._onclickdelete.bind(this));
+      this.valueOuter.appendChild(this.deleteButton);
+    } else {
+      this.valueInner = document.createElement('div');
+      this.valueInner.className = styles.monitorRowValueInner;
+      this.valueOuter.appendChild(this.valueInner);
+    }
 
     this.root.appendChild(this.indexEl);
     this.root.appendChild(this.valueOuter);
@@ -310,7 +317,11 @@ class Row {
   setValue (value) {
     if (this.value !== value && !this.locked) {
       this.value = value;
-      this.valueInner.value = value;
+      if (this.editable) {
+        this.valueInner.value = value;
+      } else {
+        this.valueInner.textContent = value;
+      }
     }
   }
 
@@ -326,6 +337,7 @@ class ListMonitor extends Monitor {
   constructor (parent, monitor) {
     super(parent, monitor);
 
+    this.editable = parent.editableMonitors;
     this.rows = new Map();
     this.cachedRows = [];
     this.scrollTop = 0;
@@ -337,11 +349,6 @@ class ListMonitor extends Monitor {
 
     this.footer = document.createElement('div');
     this.footer.className = styles.monitorListFooter;
-
-    this.addButton = document.createElement('button');
-    this.addButton.className = styles.monitorListAdd;
-    this.addButton.textContent = '+';
-    this.addButton.addEventListener('click', this._onclickaddbutton.bind(this));
 
     this.footerText = document.createElement('div');
     this.footerText.className = styles.monitorListFooterText;
@@ -360,10 +367,17 @@ class ListMonitor extends Monitor {
     this.emptyLabel.textContent = parent.getMessage('list-empty');
     this.emptyLabel.className = styles.monitorEmpty;
 
+    if (this.editable) {
+      this.addButton = document.createElement('button');
+      this.addButton.className = styles.monitorListAdd;
+      this.addButton.textContent = '+';
+      this.addButton.addEventListener('click', this._onclickaddbutton.bind(this));
+      this.footer.appendChild(this.addButton);
+    }
+
     this.rowsInner.appendChild(this.endPoint);
     this.rowsInner.appendChild(this.emptyLabel);
     this.rowsOuter.appendChild(this.rowsInner);
-    this.footer.appendChild(this.addButton);
     this.footer.appendChild(this.footerText);
     this.root.appendChild(this.label);
     this.root.appendChild(this.rowsOuter);

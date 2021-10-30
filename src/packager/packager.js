@@ -921,6 +921,7 @@ cd "$(dirname "$0")"
       scaffolding.width = ${this.options.stageWidth};
       scaffolding.height = ${this.options.stageHeight};
       scaffolding.resizeToFill = ${this.options.resizeToFill};
+      scaffolding.editableMonitors = ${this.options.monitors.editable};
       scaffolding.setup();
       scaffolding.appendTo(appElement);
 
@@ -1213,6 +1214,9 @@ Packager.DEFAULT_OPTIONS = () => ({
     fullscreen: {
       enabled: false
     }
+  },
+  monitors: {
+    editable: false
   },
   compiler: {
     enabled: true,
