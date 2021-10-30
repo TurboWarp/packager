@@ -213,10 +213,11 @@ class Row {
     this.valueInner = document.createElement('input');
     this.valueInner.className = styles.monitorRowValueInner;
     this.valueInner.readOnly = true;
-    this.valueInner.addEventListener('focus', this._onclickinput.bind(this));
+    this.valueInner.addEventListener('click', this._onclickinput.bind(this));
     this.valueInner.addEventListener('blur', this._onblurinput.bind(this));
     this.valueInner.addEventListener('keypress', this._onkeypressinput.bind(this));
     this.valueInner.addEventListener('keydown', this._onkeypressdown.bind(this));
+    this.valueInner.addEventListener('contextmenu', this._oncontextmenu.bind(this));
     this.valueOuter.appendChild(this.valueInner);
 
     this.deleteButton = document.createElement('button');
@@ -285,6 +286,12 @@ class Row {
   _onclickdelete () {
     this.deleteValue = true;
     this.valueInner.blur();
+  }
+
+  _oncontextmenu (e) {
+    if (this.locked) {
+      e.stopPropagation();
+    }
   }
 
   setIndex (index) {
