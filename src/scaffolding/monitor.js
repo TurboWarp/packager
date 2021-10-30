@@ -221,6 +221,7 @@ class Row {
       this.valueInner.addEventListener('keypress', this._onkeypressinput.bind(this));
       this.valueInner.addEventListener('keydown', this._onkeypressdown.bind(this));
       this.valueInner.addEventListener('contextmenu', this._oncontextmenu.bind(this));
+      this.valueInner.addEventListener('input', this._oninput.bind(this));
       this.valueOuter.appendChild(this.valueInner);
 
       this.deleteButton = document.createElement('button');
@@ -245,35 +246,42 @@ class Row {
       return;
     }
     this.valueInner.select();
-    this.addNewValue = false;
-    this.deleteValue = false;
     this.valueInner.readOnly = false;
     this.locked = true;
     this.root.classList.add(styles.monitorRowValueEditing);
+
+    this.addNewValue = false;
+    this.deleteValue = false;
+    this.valueWasChanged = false;
   }
 
   _onblurinput () {
     if (!this.locked) {
       return;
     }
-    // TODO: do nothing if input unchanged
+
     this.unfocus();
-    const value = [...this.monitor.value];
-    let indexToFocus = -1;
+
     if (this.deleteValue) {
+      const value = [...this.monitor.value];
       value.splice(this.index, 1);
-      indexToFocus = Math.min(value.length - 1, this.index);
-    } else {
+      this.monitor.setValue(value);
+      this.monitor.tryToFocusRow(Math.min(value.length - 1, this.index))
+    } else if (this.valueWasChanged || this.addNewValue) {
+      const value = [...this.monitor.value];
       value[this.index] = this.valueInner.value;
       if (this.addNewValue) {
         value.splice(this.index + 1, 0, '');
-        indexToFocus = this.index + 1;
+      }
+      this.monitor.setValue(value);
+      if (this.addNewValue) {
+        this.monitor.tryToFocusRow(this.index + 1);
       }
     }
-    this.monitor.setValue(value);
-    if (indexToFocus !== -1) {
-      this.monitor.tryToFocusRow(indexToFocus);
-    }
+  }
+
+  _oninput () {
+    this.valueWasChanged = true;
   }
 
   _onkeypressinput (e) {
