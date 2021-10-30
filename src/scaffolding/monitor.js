@@ -98,7 +98,6 @@ class Monitor {
   }
 
   update (monitor) {
-    // TODO: don't touch if not changed
     this.x = monitor.get('x');
     this.y = monitor.get('y');
     this.visible = monitor.get('visible');
