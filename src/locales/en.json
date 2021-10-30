@@ -39,6 +39,10 @@
     "sourceCode": {
       "string": "Source Code"
     },
+    "documentation": {
+      "string": "Additional resources and help",
+      "context": "Link to a place with additional information describing advanced topics"
+    },
     "fosshost": {
       "string": "File hosting provided by Fosshost"
     }

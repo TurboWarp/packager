@@ -182,6 +182,9 @@
       <a href={SOURCE_CODE}>{$_('p4.sourceCode')}</a>
     </div>
     <div>
+      <a href="https://docs.turbowarp.org/packager">{$_('p4.documentation')}</a>
+    </div>
+    <div>
       <a href="https://fosshost.org/">{$_('p4.fosshost')}</a>
     </div>
     <div>
