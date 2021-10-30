@@ -257,9 +257,8 @@ class Row {
     if (!this.locked) {
       return;
     }
-    this.locked = false;
-    this.valueInner.readOnly = true;
-    this.root.classList.remove(styles.monitorRowValueEditing);
+    // TODO: do nothing if input unchanged
+    this.unfocus();
     const value = [...this.monitor.value];
     let indexToFocus = -1;
     if (this.deleteValue) {
@@ -348,7 +347,15 @@ class Row {
   focus () {
     this.valueInner.click();
     if (document.activeElement !== this.valueInner) {
-      queueMicrotask(() => this.valueInner.click());
+      setTimeout(() => this.valueInner.click());
+    }
+  }
+
+  unfocus () {
+    if (this.locked) {
+      this.locked = false;
+      this.valueInner.readOnly = true;
+      this.root.classList.remove(styles.monitorRowValueEditing);
     }
   }
 }
@@ -412,13 +419,22 @@ class ListMonitor extends Monitor {
 
   _onclickaddbutton (e) {
     this.setValue([...this.value, '']);
-    this.tryToFocusRow(this.value.length);
+    this.tryToFocusRow(this.value.length - 1);
+  }
+
+  unfocusAllRows () {
+    for (const row of this.rows.values()) {
+      row.unfocus();
+    }
   }
 
   tryToFocusRow (index) {
-    const row = this.rows.get(index);
-    // TODO: handle case of navigating a locked offscreen row
-    if (row) {
+    if (index >= 0 && index < this.value.length) {
+      this.unfocusAllRows();
+      let row = this.rows.get(index);
+      if (!row) {
+        row = this.createRow(index);
+      }
       row.focus();
     }
   }
@@ -498,11 +514,22 @@ class ListMonitor extends Monitor {
     this.root.style.width = `${this.width}px`;
     this.root.style.height = `${this.height}px`;
 
-    this.value = monitor.get('value');
-    this.updateValue(this.value);
+    this.updateValue(monitor.get('value'));
+  }
+
+  createRow (index) {
+    const row = this.cachedRows.pop() || new Row(this);
+    row.setIndex(index);
+    row.setValue(this.value[index]);
+    this.rows.set(index, row);
+    // Order in DOM does not matter
+    this.rowsInner.appendChild(row.root);
+    return row;
   }
 
   updateValue (value) {
+    this.value = value;
+
     if (value.length !== this.oldLength) {
       this.oldLength = value.length;
       this.footerText.textContent = this.parent.getMessage('list-length').replace('{n}', value.length);
@@ -512,53 +539,30 @@ class ListMonitor extends Monitor {
 
     let startIndex = Math.floor(this.scrollTop / ROW_HEIGHT) - 5;
     if (startIndex < 0) startIndex = 0;
-    let endIndex = Math.ceil((this.scrollTop + this.height) / ROW_HEIGHT) + 4;
-    if (endIndex > value.length) endIndex = value.length;
+    let endIndex = Math.ceil((this.scrollTop + this.height) / ROW_HEIGHT) + 3;
+    if (endIndex > value.length - 1) endIndex = value.length - 1;
 
-    const rowsToRemove = [];
     for (const index of this.rows.keys()) {
-      if (index < startIndex || index >= endIndex) {
+      if (index < startIndex || index > endIndex) {
         const row = this.rows.get(index);
-        if (!row.locked) {
+        if (!row.locked || index >= value.length) {
+          row.unfocus();
+          row.root.remove();
           this.rows.delete(index);
-          rowsToRemove.push(row);
-        }
-      }
-    }
-
-    for (let i = startIndex; i < endIndex; i++) {
-      let row = this.rows.get(i);
-      if (!row) {
-        if (rowsToRemove.length) {
-          row = rowsToRemove.pop();
-        } else if (this.cachedRows.length) {
-          row = this.cachedRows.pop();
-        } else {
-          row = new Row(this);
-        }
-        this.rows.set(i, row);
-        let didInsert = false;
-        for (let j = i + 1; j < endIndex; j++) {
-          const otherRow = this.rows.get(j);
-          if (otherRow) {
-            didInsert = true;
-            this.rowsInner.insertBefore(row.root, otherRow.root);
-            break;
+          if (this.cachedRows.length < 10) {
+            this.cachedRows.push(row);
           }
         }
-        if (!didInsert) {
-          this.rowsInner.appendChild(row.root);
-        }
-        row.setIndex(i);
       }
-      row.setValue(value[i]);
     }
 
-    for (const row of rowsToRemove) {
-      if (this.cachedRows.length < 10) {
-        this.cachedRows.push(row);
+    for (let i = startIndex; i <= endIndex; i++) {
+      const row = this.rows.get(i);
+      if (row) {
+        row.setValue(value[i]);
+      } else {
+        this.createRow(i);
       }
-      row.root.remove();
     }
   }
 }
