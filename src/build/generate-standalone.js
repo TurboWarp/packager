@@ -11,6 +11,7 @@ const scaffoldingFiles = glob.sync('scaffolding/*.js', {
 console.log(`scaffolding: ${scaffoldingFiles.join(', ')}`);
 const scaffoldingAssets = {};
 for (const path of scaffoldingFiles) {
+  if (path.includes('extension-worker')) continue;
   scaffoldingAssets[path] = fs.readFileSync(pathUtil.join(dist, path), 'utf-8');
 }
 
