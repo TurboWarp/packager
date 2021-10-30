@@ -440,6 +440,7 @@
       <label>
         <input type="checkbox" bind:checked={$options.resizeToFill}>
         {$_('options.dynamicResize')}
+        <LearnMore slug="packager/dynamic-stage-resize" />
       </label>
       <!-- Ignore because CustomExtensions will have a <textarea> inside it -->
       <!-- svelte-ignore a11y-label-has-associated-control -->
