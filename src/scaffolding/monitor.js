@@ -263,7 +263,7 @@ class Row {
     let indexToFocus = -1;
     if (this.deleteValue) {
       value.splice(this.index, 1);
-      indexToFocus = this.index;
+      indexToFocus = Math.min(value.length - 1, this.index);
     } else {
       value[this.index] = this.valueInner.value;
       if (this.addNewValue) {
