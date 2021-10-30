@@ -183,10 +183,25 @@
   padding: 3px;
 }
 .monitor-list-footer {
+  display: flex;
   background-color: white;
   text-align: center;
   font-weight: bold;
   padding: 3px;
+}
+.monitor-list-footer-text {
+  text-align: center;
+  flex-grow: 1;
+}
+.monitor-row-delete, .monitor-list-add {
+  background: none;
+  border: none;
+  outline: none;
+  font-family: inherit;
+  color: inherit;
+  cursor: pointer;
+  margin: 0;
+  padding: 0;
 }
 .monitor-rows-outer {
   flex-grow: 1;
@@ -253,16 +268,9 @@
   padding-right: 0;
 }
 .monitor-row-delete {
-  background: none;
-  border: none;
-  outline: none;
-  font-family: inherit;
-  font-size: 150%;
-  color: inherit;
-  cursor: pointer;
-  margin: 0;
-  padding: 0 2px;
   display: none;
+  font-size: 150%;
+  padding: 0 2px;
 }
 .monitor-row-value-editing .monitor-row-delete {
   display: block;

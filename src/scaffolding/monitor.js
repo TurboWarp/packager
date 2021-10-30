@@ -232,6 +232,8 @@ class Row {
     if (this.locked) {
       return;
     }
+    this.addNewValue = false;
+    this.deleteValue = false;
     this.valueInner.readOnly = false;
     this.locked = true;
     this.root.classList.add(styles.monitorRowValueEditing);
@@ -239,48 +241,47 @@ class Row {
     this.valueInner.select();
   }
 
-  _onblurinput () {
-    this.locked = false;
-    this.valueInner.readOnly = true;
-    this.root.classList.remove(styles.monitorRowValueEditing);
+  unlock () {
+    if (this.locked) {
+      this.locked = false;
+      this.valueInner.readOnly = true;
+      this.root.classList.remove(styles.monitorRowValueEditing);
+    }
+  }
 
+  _onblurinput () {
+    if (!this.locked) {
+      return;
+    }
+    this.unlock();
     const value = [...this.monitor.value];
-    value[this.index] = this.valueInner.value;
+    if (this.deleteValue) {
+      value.splice(this.index, 1);
+      this.monitor.tryToFocusRow(this.index);
+    } else {
+      value[this.index] = this.valueInner.value;
+      if (this.addNewValue) {
+        value.splice(this.index + 1, 0, '');
+        this.monitor.tryToFocusRow(this.index + 1);
+      }
+    }
     this.monitor.setValue(value);
   }
 
   _onkeypressinput (e) {
     if (e.key === 'Enter') {
+      this.addNewValue = true;
       this.valueInner.blur();
-
-      const value = [...this.monitor.value];
-      const newIndex = this.index + 1;
-      value.splice(newIndex, 0, '');
-      this.monitor.setValue(value);
-
-      this._attemptToFocus(newIndex);
     }
   }
 
   _onclickdelete () {
+    this.deleteValue = true;
     this.valueInner.blur();
-    const value = [...this.monitor.value];
-    value.splice(this.index, 1);
-    this.monitor.setValue(value);
-    this._attemptToFocus(this.index);
-  }
-
-  _attemptToFocus (index) {
-    // TODO: remove the setTimeout
-    setTimeout(() => {
-      const newValueRow = this.monitor.rows.get(index);
-      if (newValueRow) {
-        newValueRow.valueInner.focus();
-      }
-    });
   }
 
   setIndex (index) {
+    this.unlock();
     if (this.index !== index) {
       this.index = index;
       this.root.style.transform = `translateY(${index * ROW_HEIGHT}px)`;
@@ -312,6 +313,14 @@ class ListMonitor extends Monitor {
     this.footer = document.createElement('div');
     this.footer.className = styles.monitorListFooter;
 
+    this.addButton = document.createElement('button');
+    this.addButton.className = styles.monitorListAdd;
+    this.addButton.textContent = '+';
+    this.addButton.addEventListener('click', this._onclickaddbutton.bind(this));
+
+    this.footerText = document.createElement('div');
+    this.footerText.className = styles.monitorListFooterText;
+
     this.rowsOuter = document.createElement('div');
     this.rowsOuter.className = styles.monitorRowsOuter;
 
@@ -329,6 +338,8 @@ class ListMonitor extends Monitor {
     this.rowsInner.appendChild(this.endPoint);
     this.rowsInner.appendChild(this.emptyLabel);
     this.rowsOuter.appendChild(this.rowsInner);
+    this.footer.appendChild(this.addButton);
+    this.footer.appendChild(this.footerText);
     this.root.appendChild(this.label);
     this.root.appendChild(this.rowsOuter);
     this.root.appendChild(this.footer);
@@ -338,6 +349,20 @@ class ListMonitor extends Monitor {
     this.handleImport = this.handleImport.bind(this);
     this.handleExport = this.handleExport.bind(this);
     this.root.addEventListener('contextmenu', this._oncontextmenu.bind(this));
+  }
+
+  _onclickaddbutton (e) {
+    this.setValue([...this.value, '']);
+    this.tryToFocusRow(this.value.length);
+  }
+
+  tryToFocusRow (index) {
+    setTimeout(() => {
+      const row = this.rows.get(index);
+      if (row) {
+        row.valueInner.focus();
+      }
+    });
   }
 
   _onscroll (e) {
@@ -422,7 +447,7 @@ class ListMonitor extends Monitor {
   updateValue (value) {
     if (value.length !== this.oldLength) {
       this.oldLength = value.length;
-      this.footer.textContent = this.parent.getMessage('list-length').replace('{n}', value.length);
+      this.footerText.textContent = this.parent.getMessage('list-length').replace('{n}', value.length);
       this.endPoint.style.transform = `translateY(${value.length * ROW_HEIGHT}px)`;
       this.emptyLabel.style.display = value.length ? 'none' : '';
     }
@@ -434,7 +459,7 @@ class ListMonitor extends Monitor {
 
     const rowsToRemove = [];
     for (const index of this.rows.keys()) {
-      if (index < startIndex || index > endIndex) {
+      if (index < startIndex || index >= endIndex) {
         const row = this.rows.get(index);
         if (!row.locked || index >= value.length) {
           this.rows.delete(index);
