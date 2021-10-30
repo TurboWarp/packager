@@ -370,7 +370,7 @@ class ListMonitor extends Monitor {
   constructor (parent, monitor) {
     super(parent, monitor);
 
-    this.editable = parent.editableMonitors;
+    this.editable = parent.editableLists;
     this.rows = new Map();
     this.cachedRows = [];
     this.scrollTop = 0;

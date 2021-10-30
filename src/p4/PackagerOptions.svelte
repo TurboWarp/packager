@@ -330,7 +330,7 @@
 
     <h3>{$_('options.monitors')}</h3>
     <label>
-      <input type="checkbox" bind:checked={$options.monitors.editable}>
+      <input type="checkbox" bind:checked={$options.monitors.editableLists}>
       {$_('options.editableLists')}
     </label>
 

@@ -921,7 +921,7 @@ cd "$(dirname "$0")"
       scaffolding.width = ${this.options.stageWidth};
       scaffolding.height = ${this.options.stageHeight};
       scaffolding.resizeToFill = ${this.options.resizeToFill};
-      scaffolding.editableMonitors = ${this.options.monitors.editable};
+      scaffolding.editableLists = ${this.options.monitors.editableLists};
       scaffolding.setup();
       scaffolding.appendTo(appElement);
 
@@ -1216,7 +1216,7 @@ Packager.DEFAULT_OPTIONS = () => ({
     }
   },
   monitors: {
-    editable: false
+    editableLists: false
   },
   compiler: {
     enabled: true,
