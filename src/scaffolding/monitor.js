@@ -374,7 +374,7 @@ class ListMonitor extends Monitor {
     this.rows = new Map();
     this.cachedRows = [];
     this.scrollTop = 0;
-    this.oldLength = 0;
+    this.oldLength = -1;
 
     this.label = document.createElement('div');
     this.label.className = styles.monitorListLabel;
