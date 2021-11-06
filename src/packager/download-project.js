@@ -76,11 +76,11 @@ const loadScratch2 = (projectData, progressTarget) => {
   let soundAccumulator = 0;
   let imageAccumulator = 0;
 
-  function md5Of(thing) {
+  const md5Of = (thing) => {
     return thing.md5 || thing.baseLayerMD5 || thing.penLayerMD5 || thing.toString();
-  }
+  };
 
-  function claimAccumulatedID(extension) {
+  const claimAccumulatedID = (extension) => {
     if (IMAGE_EXTENSIONS.includes(extension)) {
       return imageAccumulator++;
     } else if (SOUND_EXTENSIONS.includes(extension)) {
@@ -88,9 +88,9 @@ const loadScratch2 = (projectData, progressTarget) => {
     } else {
       throw new Error('unknown extension: ' + extension);
     }
-  }
+  };
 
-  function addAsset(asset) {
+  const addAsset = (asset) => {
     const md5 = asset.md5;
     const extension = asset.extension;
     const accumulator = claimAccumulatedID(extension);
@@ -122,11 +122,11 @@ const loadScratch2 = (projectData, progressTarget) => {
           detail: md5
         }));
       });
-  }
+  };
 
   // Processes a list of assets
   // Finds and groups duplicate assets.
-  function processAssets(assets) {
+  const processAssets = (assets) => {
     // Records a list of all unique asset md5s and stores all references to an asset.
     const hashToAssetMap = Object.create(null);
     const allAssets = [];
@@ -146,7 +146,7 @@ const loadScratch2 = (projectData, progressTarget) => {
     }
 
     return allAssets;
-  }
+  };
 
   const children = projectData.children.filter((c) => !c.listName && !c.target);
   const targets = [].concat.apply([], [projectData, children]);
@@ -167,7 +167,7 @@ const loadScratch2 = (projectData, progressTarget) => {
 const loadScratch3 = (projectData, progressTarget) => {
   const zip = new JSZip();
 
-  function addFile(data) {
+  const addFile = (data) => {
     const path = data.md5ext || data.assetId + '.' + data.dataFormat;
     progressTarget.dispatchEvent(new CustomEvent('asset-fetch', {
       detail: path
@@ -180,10 +180,10 @@ const loadScratch3 = (projectData, progressTarget) => {
           detail: path
         }));
       });
-  }
+  };
 
   // Removes assets with the same ID
-  function dedupeAssets(assets) {
+  const dedupeAssets = (assets) => {
     const result = [];
     const knownIds = new Set();
 
@@ -199,7 +199,7 @@ const loadScratch3 = (projectData, progressTarget) => {
     }
 
     return result;
-  }
+  };
 
   zip.file('project.json', JSON.stringify(optimizeSb3Json(projectData)));
 
