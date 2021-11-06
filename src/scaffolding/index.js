@@ -311,8 +311,14 @@ class Scaffolding extends EventTarget {
     this.vm.runtime.on('QUESTION', this._onquestion.bind(this));
     this.vm.on('PROJECT_RUN_START', () => this.dispatchEvent(new Event('PROJECT_RUN_START')));
     this.vm.on('PROJECT_RUN_STOP', () => this.dispatchEvent(new Event('PROJECT_RUN_STOP')));
-    this.vm.runtime.stageWidth = this.width;
-    this.vm.runtime.stageHeight = this.height;
+
+    // TurboWarp-specific VM extensions
+    if (typeof this.vm.runtime.stageWidth === 'number') {
+      this.vm.runtime.stageWidth = this.width;
+    }
+    if (typeof this.vm.runtime.stageHeight === 'number') {
+      this.vm.runtime.stageHeight = this.height;
+    }
 
     this.cloudManager = new Cloud.CloudManager(this);
 
