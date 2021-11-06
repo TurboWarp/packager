@@ -17,7 +17,7 @@ const PROGRESS_FETCHED_INLINE_DATA_BUT_NOT_LOADED = 0.8;
 // Used by environments that pass an entire compressed project into loadProject()
 const PROGRESS_WAITING_FOR_VM_LOAD_COMPRESSED = 0.9;
 // Used by environments that pass a project.json into loadProject() and fetch assets individually
-const PROGRESS_DONE_FETCHING_ALL_ASSETS = 1.0;
+const PROGRESS_DONE_FETCHING_ALL_ASSETS = 0.98;
 
 const escapeXML = (v) => v.replace(/["'<>&]/g, (i) => {
   switch (i) {
