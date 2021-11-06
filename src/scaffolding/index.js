@@ -319,6 +319,9 @@ class Scaffolding extends EventTarget {
     if (typeof this.vm.runtime.stageHeight === 'number') {
       this.vm.runtime.stageHeight = this.height;
     }
+    if (this.vm.runtime.cloudOptions) {
+      this.vm.runtime.cloudOptions.limit = Infinity;
+    }
 
     this.cloudManager = new Cloud.CloudManager(this);
 
