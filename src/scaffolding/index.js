@@ -314,6 +314,7 @@ class Scaffolding extends EventTarget {
     this.vm.runtime.stageWidth = this.width;
     this.vm.runtime.stageHeight = this.height;
 
+    this.vm.runtime.canAddCloudVariable = () => true;
     this.cloudManager = new Cloud.CloudManager(this);
 
     this.renderer = new Renderer(
