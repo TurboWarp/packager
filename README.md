@@ -40,7 +40,7 @@ Output will be located in the `dist` folder.
 
 ## Tips for forks
 
-**Branding** At a bare minimum, please take the time to:
+**Branding:** At a bare minimum, please take the time to:
 
  - Update the brand strings (`src/packager/brand.js`) to use your own name and links.
  - Update the privacy policy (`static/privacy.html`) to reflect your privacy practices.
