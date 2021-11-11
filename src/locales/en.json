@@ -148,6 +148,9 @@
     "autoplay": {
       "string": "Start project automatically instead of showing a big green flag"
     },
+    "autoplayHint": {
+      "string": "Note: Many browsers will not allow websites to automatically play sound, so sounds might not play until the user interacts with the project."
+    },
     "playerOptions": {
       "string": "Player Options",
       "context": "Player options section header"

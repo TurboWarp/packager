@@ -292,6 +292,11 @@
         <input type="checkbox" bind:checked={$options.autoplay}>
         {$_('options.autoplay')}
       </label>
+      {#if $options.autoplay}
+        <div>
+          {$_('options.autoplayHint')}
+        </div>
+      {/if}
     </div>
     <label>
       <input type="checkbox" bind:checked={$options.controls.greenFlag.enabled}>
