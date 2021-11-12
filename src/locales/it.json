@@ -14,6 +14,7 @@
         "application-win64": "{type} applicazione Windows (solo 64-bit, non raccomandato)",
         "applicationSettings": "Impostazioni Applicazione",
         "autoplay": "Inizia il progetto automaticamente, senza mostrare la bandiera verde al centro",
+        "autoplayHint": "Nota: Alcuni browser non permettono ai siti web di riprodurre automaticamente suoni, quindi i suoni non verranno riprodotti fino a che l'utente non interagirà con il progetto.",
         "backgroundColor": "Colore sfondo",
         "cloudVariables": "Variabili Cloud",
         "cloudVariables-custom": "Impostazioni Avanzate",

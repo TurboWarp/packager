@@ -14,6 +14,7 @@
         "application-win64": "{type} Windows-Anwendung (nut 64-bit, nicht empfohlen)",
         "applicationSettings": "App-Einstellungen",
         "autoplay": "Projekt automatisch starten, anstatt eine große grüne Flagge zu zeigen",
+        "autoplayHint": "Anmerkung: Viele Browser lassen das automatische Abspielen von Ton nicht zu, deshalb könnten Klänge nicht abgespielt werden, bis der Nutzer mit dem Projekt interagiert.",
         "backgroundColor": "Hintergrundfarbe",
         "cloudVariables": "Cloudvariablen",
         "cloudVariables-custom": "Erweitert",
