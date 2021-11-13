@@ -29,6 +29,14 @@ const escapeXML = (v) => v.replace(/["'<>&]/g, (i) => {
   }
 });
 
+const removeUnnecessaryEmptyLines = (string) => string.split('\n')
+  .filter((line, index, array) => {
+    if (index === 0 || index === array.length - 1) return true;
+    if (line.trim().length === 0 && array[index - 1].trim().length === 0) return false;
+    return true;
+  })
+  .join('\n');
+
 const sha256 = async (buffer) => {
   const {worker, terminate} = createChecksumWorker();
   const hash = await worker.sha256(buffer);
@@ -899,7 +907,7 @@ cd "$(dirname "$0")"
   </div>
 
   ${this.options.target === 'html' ? `<script>${this.script}</script>` : '<script src="script.js"></script>'}
-  <script>
+  <script>${removeUnnecessaryEmptyLines(`
     const appElement = document.getElementById('app');
     const launchScreen = document.getElementById('launch');
     const loadingScreen = document.getElementById('loading');
@@ -1113,7 +1121,7 @@ cd "$(dirname "$0")"
     });` : ''}
 
     ${this.options.custom.js}
-  </script>
+  `)}</script>
   ${await this.generateGetProjectData()}
   <script>
     const run = async () => {
