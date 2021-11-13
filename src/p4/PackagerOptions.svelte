@@ -183,11 +183,6 @@
     padding: 10px;
     border-radius: 10px;
   }
-  .small {
-    margin-top: 6px;
-    font-size: small;
-    opacity: 0.8;
-  }
 </style>
 
 <Section accent="#FFAB19">
