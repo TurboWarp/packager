@@ -953,65 +953,63 @@ cd "$(dirname "$0")"
         `scaffolding.addCloudProvider(${this.makeLocalStorageProvider()})` :
         this.options.cloudVariables.mode === 'custom' ?
         this.makeCustomProvider() :
-        '/* no-op */'
+        ''
       };
 
-      if (${this.options.controls.greenFlag.enabled}) {
-        const greenFlagButton = document.createElement('img');
-        greenFlagButton.src = 'data:image/svg+xml,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16.63 17.5"><path d="M.75 2a6.44 6.44 0 017.69 0h0a6.44 6.44 0 007.69 0v10.4a6.44 6.44 0 01-7.69 0h0a6.44 6.44 0 00-7.69 0" fill="#4cbf56" stroke="#45993d" stroke-linecap="round" stroke-linejoin="round"/><path stroke-width="1.5" fill="#4cbf56" stroke="#45993d" stroke-linecap="round" stroke-linejoin="round" d="M.75 16.75v-16"/></svg>');
-        greenFlagButton.className = 'control-button';
-        greenFlagButton.addEventListener('click', () => {
-          scaffolding.greenFlag();
-        });
-        scaffolding.addEventListener('PROJECT_RUN_START', () => {
-          greenFlagButton.classList.add('active');
-        });
-        scaffolding.addEventListener('PROJECT_RUN_STOP', () => {
-          greenFlagButton.classList.remove('active');
-        });
-        scaffolding.addControlButton({
-          element: greenFlagButton,
-          where: 'top-left'
-        });
-      }
+      ${this.options.controls.greenFlag.enabled ? `
+      const greenFlagButton = document.createElement('img');
+      greenFlagButton.src = 'data:image/svg+xml,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16.63 17.5"><path d="M.75 2a6.44 6.44 0 017.69 0h0a6.44 6.44 0 007.69 0v10.4a6.44 6.44 0 01-7.69 0h0a6.44 6.44 0 00-7.69 0" fill="#4cbf56" stroke="#45993d" stroke-linecap="round" stroke-linejoin="round"/><path stroke-width="1.5" fill="#4cbf56" stroke="#45993d" stroke-linecap="round" stroke-linejoin="round" d="M.75 16.75v-16"/></svg>');
+      greenFlagButton.className = 'control-button';
+      greenFlagButton.addEventListener('click', () => {
+        scaffolding.greenFlag();
+      });
+      scaffolding.addEventListener('PROJECT_RUN_START', () => {
+        greenFlagButton.classList.add('active');
+      });
+      scaffolding.addEventListener('PROJECT_RUN_STOP', () => {
+        greenFlagButton.classList.remove('active');
+      });
+      scaffolding.addControlButton({
+        element: greenFlagButton,
+        where: 'top-left'
+      });` : ''}
 
-      if (${this.options.controls.pause.enabled}) {
-        const pauseButton = document.createElement('img');
-        pauseButton.className = 'control-button';
-        let paused = false;
-        pauseButton.addEventListener('click', () => {
-          paused = !paused;
-          vm.setPaused(paused);
-        });
-        const updatePause = () => {
-          if (paused) {
-            pauseButton.src = 'data:image/svg+xml,' + encodeURIComponent('<svg width="16" height="16" viewBox="0 0 4.2333332 4.2333335" xmlns="http://www.w3.org/2000/svg"><path d="m3.95163484 2.02835365-1.66643921.9621191-1.66643913.96211911V.10411543l1.66643922.9621191z" fill="#ffae00"/></svg>');
-          } else {
-            pauseButton.src = 'data:image/svg+xml,' + encodeURIComponent('<svg width="16" height="16" viewBox="0 0 4.2333332 4.2333335" xmlns="http://www.w3.org/2000/svg"><g fill="#ffae00"><path d="M.389.19239126h1.2631972v3.8485508H.389zM2.5810001.19239126h1.2631972v3.8485508H2.5810001z"/></g></svg>');
-          }
+      ${this.options.controls.pause.enabled ? `
+      const pauseButton = document.createElement('img');
+      pauseButton.className = 'control-button';
+      let isPaused = false;
+      pauseButton.addEventListener('click', () => {
+        isPaused = !isPaused;
+        vm.setPaused(isPaused);
+      });
+      const updatePause = () => {
+        if (isPaused) {
+          pauseButton.src = 'data:image/svg+xml,' + encodeURIComponent('<svg width="16" height="16" viewBox="0 0 4.2333332 4.2333335" xmlns="http://www.w3.org/2000/svg"><path d="m3.95163484 2.02835365-1.66643921.9621191-1.66643913.96211911V.10411543l1.66643922.9621191z" fill="#ffae00"/></svg>');
+        } else {
+          pauseButton.src = 'data:image/svg+xml,' + encodeURIComponent('<svg width="16" height="16" viewBox="0 0 4.2333332 4.2333335" xmlns="http://www.w3.org/2000/svg"><g fill="#ffae00"><path d="M.389.19239126h1.2631972v3.8485508H.389zM2.5810001.19239126h1.2631972v3.8485508H2.5810001z"/></g></svg>');
         }
-        vm.on('P4_PAUSE', updatePause);
-        updatePause();
-        scaffolding.addControlButton({
-          element: pauseButton,
-          where: 'top-left'
-        });
       }
+      vm.on('P4_PAUSE', updatePause);
+      updatePause();
+      scaffolding.addControlButton({
+        element: pauseButton,
+        where: 'top-left'
+      });` : ''}
 
-      if (${this.options.controls.stopAll.enabled}) {
-        const stopAllButton = document.createElement('img');
-        stopAllButton.src = 'data:image/svg+xml,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 14 14"><path fill="#ec5959" stroke="#b84848" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="M4.3.5h5.4l3.8 3.8v5.4l-3.8 3.8H4.3L.5 9.7V4.3z"/></svg>');
-        stopAllButton.className = 'control-button';
-        stopAllButton.addEventListener('click', () => {
-          scaffolding.stopAll();
-        });
-        scaffolding.addControlButton({
-          element: stopAllButton,
-          where: 'top-left'
-        });
-      }
+      ${this.options.controls.stopAll.enabled ? `
+      const stopAllButton = document.createElement('img');
+      stopAllButton.src = 'data:image/svg+xml,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 14 14"><path fill="#ec5959" stroke="#b84848" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="M4.3.5h5.4l3.8 3.8v5.4l-3.8 3.8H4.3L.5 9.7V4.3z"/></svg>');
+      stopAllButton.className = 'control-button';
+      stopAllButton.addEventListener('click', () => {
+        scaffolding.stopAll();
+      });
+      scaffolding.addControlButton({
+        element: stopAllButton,
+        where: 'top-left'
+      });` : ''}
 
-      if (${this.options.controls.fullscreen.enabled} && (document.fullscreenEnabled || document.webkitFullscreenEnabled)) {
+      ${this.options.controls.fullscreen.enabled ? `
+      if (document.fullscreenEnabled || document.webkitFullscreenEnabled) {
         let isFullScreen = !!(document.fullscreenElement || document.webkitFullscreenElement);
         const fullscreenButton = document.createElement('img');
         fullscreenButton.className = 'control-button fullscreen-button';
@@ -1054,7 +1052,7 @@ cd "$(dirname "$0")"
           fullscreenButton.className = 'standalone-fullscreen-button';
           document.body.appendChild(fullscreenButton);
         }
-      }
+      }` : ''}
 
       vm.setTurboMode(${this.options.turbo});
       if (vm.setInterpolation) vm.setInterpolation(${this.options.interpolation});
@@ -1084,7 +1082,7 @@ cd "$(dirname "$0")"
       handleError(e);
     }
 
-    // NW.js hook
+    ${this.options.target.startsWith('nwjs-') ? `
     if (typeof nw !== 'undefined') {
       const win = nw.Window.get();
       win.on('new-win-policy', (frame, url, policy) => {
@@ -1100,21 +1098,19 @@ cd "$(dirname "$0")"
           document.exitFullscreen();
         }
       });
-    }
+    }` : ''}
 
-    // Electron hook
-    if (${this.options.target.startsWith('electron-')}) {
-      document.addEventListener('keydown', (e) => {
-        if (e.key === 'F11') {
-          e.preventDefault();
-          if (document.fullscreenElement) {
-            document.exitFullscreen();
-          } else {
-            document.body.requestFullscreen();
-          }
+    ${this.options.target.startsWith('electron-') ? `
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'F11') {
+        e.preventDefault();
+        if (document.fullscreenElement) {
+          document.exitFullscreen();
+        } else {
+          document.body.requestFullscreen();
         }
-      });
-    }
+      }
+    });` : ''}
 
     ${this.options.custom.js}
   </script>
