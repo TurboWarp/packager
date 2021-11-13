@@ -197,6 +197,9 @@
     "showFullscreen": {
       "string": "Show fullscreen button in controls"
     },
+    "showPause": {
+      "string": "Show pause button in controls"
+    },
     "accentColor": {
       "string": "Accent color (active/hovered controls, ask prompt, context menus)"
     },

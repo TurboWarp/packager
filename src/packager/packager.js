@@ -243,7 +243,8 @@ class Packager extends EventTarget {
   needsAddonBundle () {
     return this.options.chunks.gamepad ||
       this.options.chunks.pointerlock ||
-      this.options.chunks.specialCloudBehaviors;
+      this.options.chunks.specialCloudBehaviors ||
+      this.options.controls.pause.enabled;
   }
 
   async loadResources () {
@@ -262,7 +263,11 @@ class Packager extends EventTarget {
   computeWindowSize () {
     let width = this.options.stageWidth;
     let height = this.options.stageHeight;
-    if (this.options.controls.greenFlag.enabled || this.options.controls.stopAll.enabled) {
+    if (
+      this.options.controls.greenFlag.enabled ||
+      this.options.controls.stopAll.enabled ||
+      this.options.controls.pause.enabled
+    ) {
       height += 48;
     }
     return {width, height};
@@ -970,6 +975,29 @@ cd "$(dirname "$0")"
         });
       }
 
+      if (${this.options.controls.pause.enabled}) {
+        const pauseButton = document.createElement('img');
+        pauseButton.className = 'control-button';
+        let paused = false;
+        pauseButton.addEventListener('click', () => {
+          paused = !paused;
+          vm.setPaused(paused);
+        });
+        const updatePause = () => {
+          if (paused) {
+            pauseButton.src = 'data:image/svg+xml,' + encodeURIComponent('<svg width="16" height="16" viewBox="0 0 4.2333332 4.2333335" xmlns="http://www.w3.org/2000/svg"><path d="m3.95163484 2.02835365-1.66643921.9621191-1.66643913.96211911V.10411543l1.66643922.9621191z" fill="#ffae00"/></svg>');
+          } else {
+            pauseButton.src = 'data:image/svg+xml,' + encodeURIComponent('<svg width="16" height="16" viewBox="0 0 4.2333332 4.2333335" xmlns="http://www.w3.org/2000/svg"><g fill="#ffae00"><path d="M.389.19239126h1.2631972v3.8485508H.389zM2.5810001.19239126h1.2631972v3.8485508H2.5810001z"/></g></svg>');
+          }
+        }
+        vm.on('P4_PAUSE', updatePause);
+        updatePause();
+        scaffolding.addControlButton({
+          element: pauseButton,
+          where: 'top-left'
+        });
+      }
+
       if (${this.options.controls.stopAll.enabled}) {
         const stopAllButton = document.createElement('img');
         stopAllButton.src = 'data:image/svg+xml,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 14 14"><path fill="#ec5959" stroke="#b84848" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="M4.3.5h5.4l3.8 3.8v5.4l-3.8 3.8H4.3L.5 9.7V4.3z"/></svg>');
@@ -1043,7 +1071,10 @@ cd "$(dirname "$0")"
       });
 
       if (typeof ScaffoldingAddons !== 'undefined') {
-        ScaffoldingAddons.run(scaffolding, ${JSON.stringify(this.options.chunks)});
+        ScaffoldingAddons.run(scaffolding, ${JSON.stringify({
+          ...this.options.chunks,
+          pause: this.options.controls.pause
+        })});
       }
 
       for (const extension of ${JSON.stringify(this.options.extensions.map(i => i.url))}) {
@@ -1212,6 +1243,9 @@ Packager.DEFAULT_OPTIONS = () => ({
       enabled: false,
     },
     fullscreen: {
+      enabled: false
+    },
+    pause: {
       enabled: false
     }
   },

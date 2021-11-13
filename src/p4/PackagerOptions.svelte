@@ -302,6 +302,10 @@
       {$_('options.showStop')}
     </label>
     <label>
+      <input type="checkbox" bind:checked={$options.controls.pause.enabled}>
+      {$_('options.showPause')}
+    </label>
+    <label>
       <input type="checkbox" bind:checked={$options.controls.fullscreen.enabled}>
       {$_('options.showFullscreen')}
     </label>
