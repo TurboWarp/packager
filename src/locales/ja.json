@@ -14,6 +14,7 @@
         "application-win64": "{type} Windowsのアプリケーション（64bitのみ、非推奨)",
         "applicationSettings": "アプリケーションの設定",
         "autoplay": "大きな緑の旗を表示せずに自動でプロジェクトを始める",
+        "autoplayHint": "注意：多くのブラウザでは、ウェブサイトが自動で音を再生することができません。そのため、ユーザーがプロジェクトに参加するまで音が再生されない場合があります。",
         "backgroundColor": "背景の色",
         "cloudVariables": "クラウド変数",
         "cloudVariables-custom": "高度な設定",
