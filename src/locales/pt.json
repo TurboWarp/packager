@@ -91,8 +91,6 @@
         "description2": "Se você só quer um jeito fácil de colocar um projeto do TurboWarp no seu site, {embedding} pode ser de seu interesse. ",
         "description2-embedding": "Incorporação",
         "description3": "Relate bugs, mande feedback e sugira ideias {onScratch} ou {onGitHub}.",
-        "description3-github": "no GitHub",
-        "description3-scratch": "no Scratch",
         "documentation": "Recursos e ajuda adicionais",
         "error": "Erro",
         "errorMessage": "Mensagem: {error}",

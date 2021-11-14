@@ -88,8 +88,6 @@
         "description1": "Scratch Projeleri Windows, macOS, ve Linux ile HTML dosyalara, zip arçivelere yada uygulamaya dönüştürebilir.",
         "description2-embedding": "Gömmek",
         "description3": "Hataları bildirin, geri bildirimde ve yeni fikirleri göstermek için {onScratch} veya {onGitHub} ile yapınız. ",
-        "description3-github": "Githubda",
-        "description3-scratch": "Scratch'te",
         "error": "Hata",
         "errorMessage": "Mesaj: {error}",
         "feedback": "Geribildirim",

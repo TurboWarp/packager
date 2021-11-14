@@ -87,8 +87,6 @@
         "description1": "Zkonvertuje projekty Scratch do souborů HTML, zip archivů nebo programů pro Windows, macOS a Linux.",
         "description2-embedding": "Vkládání",
         "description3": "Nahlašte chyby, dejte zpětnou vazbu, a navrhněte nápady {onScratch} nebo {onGitHub}.",
-        "description3-github": "na GitHub",
-        "description3-scratch": "na Scratchi",
         "error": "Chyba",
         "errorMessage": "Zpráva: {error}",
         "feedback": "Zpětná vazba",

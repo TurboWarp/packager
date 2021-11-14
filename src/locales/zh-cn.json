@@ -91,8 +91,6 @@
         "description2": "如果您只是想以一种简单的方式将 Scratch 官网作品嵌入您的网站，您可能会对 {embedding} 感兴趣。 ",
         "description2-embedding": "网站嵌入",
         "description3": "{onScratch}，或者{onGitHub}报告错误，给予反馈，并提出建议。",
-        "description3-github": "在 GitHub 上",
-        "description3-scratch": "在 Scratch 上",
         "error": "错误",
         "errorMessage": "错误：{error}",
         "feedback": "反馈",

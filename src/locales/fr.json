@@ -59,8 +59,6 @@
         "close": "Fermer",
         "description2-embedding": "Intégrer",
         "description3": "Rapportez des bugs, envoyez votre avis ou suggérer vos idées {onScratch} ou {onGitHub}.",
-        "description3-github": "sur GitHub",
-        "description3-scratch": "sur Scratch",
         "error": "Erreur",
         "errorMessage": "Message : {error}",
         "feedback": "Envoyer des commentaires",

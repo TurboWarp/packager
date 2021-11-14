@@ -83,8 +83,6 @@
         "close": "關閉",
         "description2-embedding": "嵌入",
         "description3": "在 {onScratch} 或 {onGitHub} 上回報錯誤、給予回饋或提出建議。",
-        "description3-github": "GitHub",
-        "description3-scratch": "Scratch",
         "error": "錯誤",
         "errorMessage": "訊息：{error}",
         "feedback": "回饋",

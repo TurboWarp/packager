@@ -47,8 +47,6 @@
     "p4": {
         "close": "Zapri",
         "description2-embedding": "Vgraditev",
-        "description3-github": "na GitHub",
-        "description3-scratch": "na Scratchu",
         "error": "Napaka",
         "errorMessage": "Sporočilo: {error}",
         "feedback": "Povratne informacije",

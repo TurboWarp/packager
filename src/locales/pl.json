@@ -66,8 +66,6 @@
     "p4": {
         "close": "Zamknij",
         "description2-embedding": "Osadzanie",
-        "description3-github": "w GitHub",
-        "description3-scratch": "w Scratch",
         "error": "Błąd",
         "errorMessage": "Wiadomość: {error}",
         "feedback": "Opinia Zwrotna",

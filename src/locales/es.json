@@ -87,8 +87,6 @@
         "description1": "Convierte proyectos de Scratch a archivos HTML, zip o programas ejecutables para Windows, macOS y Linux.",
         "description2-embedding": "Embedido",
         "description3": "Reporte bugs, dé comentarios y sugiera ideas {onScratch} o {onGitHub}.",
-        "description3-github": "en GitHub",
-        "description3-scratch": "en Scratch",
         "errorMessage": "Mensaje: {error}",
         "feedback": "Comentarios",
         "fosshost": "Hosteo de archivos proporcionado por Fosshost",

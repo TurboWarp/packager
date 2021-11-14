@@ -87,8 +87,6 @@
         "description1": "스크래치 프로젝트를 HTML파일, zip저장, 또는 실행 가능한 윈도우, 맥OS, 리눅스 프로그램으로 변환합니다.",
         "description2-embedding": "임베딩",
         "description3": "버그를 제보, 문의, 아이디어 제보는 {onScratch}나 {onGitHub}로  제보하세요.",
-        "description3-github": "깃허브",
-        "description3-scratch": "스크래치",
         "error": "오류",
         "errorMessage": "메시지: {error}",
         "feedback": "문의하기",
