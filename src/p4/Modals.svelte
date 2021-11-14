@@ -3,7 +3,7 @@
   import Button from './Button.svelte';
   import {UserError} from './errors';
   import {error} from './stores';
-  import {FEEDBACK_SCRATCH} from '../packager/brand';
+  import {FEEDBACK_PRIMARY} from '../packager/brand';
   import {_} from '../locales/';
 
   export let modalVisible;
@@ -89,7 +89,7 @@
         </p>
         <p>
           <Button on:click={closeModal} text={$_('p4.close')} />
-          <a href={FEEDBACK_SCRATCH}>{$_('p4.reportBug')}</a>
+          <a href={FEEDBACK_PRIMARY.link}>{$_('p4.reportBug')}</a>
         </p>
       {/if}
     </Section>

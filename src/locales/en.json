@@ -12,11 +12,9 @@
     "description3": {
       "string": "Report bugs, give feedback, and suggest ideas {onScratch} or {onGitHub}."
     },
-    "description3-scratch": {
-      "string": "on Scratch"
-    },
-    "description3-github": {
-      "string": "on GitHub"
+    "description3-on": {
+      "string": "on {brand}",
+      "context": "Example context: \"Report bugs on Scratch\"."
     },
     "error": {
       "string": "Error"

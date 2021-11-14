@@ -18,8 +18,8 @@ Also make sure to update the "License" section in README.md
 SOURCE_CODE is where users can find the app's source code. This link is included in the website.
 Note that due to the license used by the project (see README.md), you may be required to make the source code available to all visitors.
 
-FEEDBACK_SCRATCH and FEEDBACK_GITHUB are feedback/bug report links shown in various places throughout the website.
-These don't strictly need to be Scratch or GitHub links, but some parts of the interface label them that way.
+FEEDBACK_PRIMARY and FEEDBACK_SECONDARY are feedback/bug report links shown in various places throughout the website.
+name is how they will be labelled in the interface and link is of course a URL
 */
 
 module.exports = {
@@ -40,6 +40,12 @@ GNU Lesser General Public License for more details.
 You should have received a copy of the GNU Lesser General Public License
 along with this program. If not, see <https://www.gnu.org/licenses/>.`,
   SOURCE_CODE: 'https://github.com/TurboWarp/packager',
-  FEEDBACK_SCRATCH: 'https://scratch.mit.edu/users/GarboMuffin/#comments',
-  FEEDBACK_GITHUB: 'https://github.com/TurboWarp/packager/issues'
+  FEEDBACK_PRIMARY: {
+    name: 'Scratch',
+    link: 'https://scratch.mit.edu/users/GarboMuffin/#comments'
+  },
+  FEEDBACK_SECONDARY: {
+    name: 'GitHub',
+    link: 'https://github.com/TurboWarp/packager/issues'
+  }
 };

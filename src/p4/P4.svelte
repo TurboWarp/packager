@@ -11,7 +11,7 @@
   import {progress, theme} from './stores';
   import {isSupported, isSafari} from './environment';
   import version from '../build/version-loader!';
-  import {LONG_NAME, FEEDBACK_GITHUB, FEEDBACK_SCRATCH, SOURCE_CODE} from '../packager/brand';
+  import {LONG_NAME, FEEDBACK_PRIMARY, FEEDBACK_SECONDARY, SOURCE_CODE} from '../packager/brand';
 
   let projectData;
 
@@ -128,13 +128,14 @@
         <ComplexMessage
           message={$_('p4.description3')}
           values={{
+            // These placeholders are named this way for legacy reasons.
             onScratch: {
-              text: $_('p4.description3-scratch'),
-              href: FEEDBACK_SCRATCH
+              text: $_('p4.description3-on').replace('{brand}', FEEDBACK_PRIMARY.name),
+              href: FEEDBACK_PRIMARY.link
             },
             onGitHub: {
-              text: $_('p4.description3-github'),
-              href: FEEDBACK_GITHUB
+              text: $_('p4.description3-on').replace('{brand}', FEEDBACK_SECONDARY.name),
+              href: FEEDBACK_SECONDARY.link
             }
           }}
         />
@@ -177,7 +178,7 @@
     <div>
       <a href="privacy.html">{$_('p4.privacy')}</a>
       <span class="footer-spacer">-</span>
-      <a href={FEEDBACK_SCRATCH}>{$_('p4.feedback')}</a>
+      <a href={FEEDBACK_PRIMARY.link}>{$_('p4.feedback')}</a>
       <span class="footer-spacer">-</span>
       <a href={SOURCE_CODE}>{$_('p4.sourceCode')}</a>
     </div>
