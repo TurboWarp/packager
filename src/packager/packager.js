@@ -1119,9 +1119,8 @@ cd "$(dirname "$0")"
     } catch (e) {
       handleError(e);
     }
-
-    ${this.options.custom.js}
   `)}</script>
+  <script>${this.options.custom.js}</script>
   ${await this.generateGetProjectData()}
   <script>
     const run = async () => {
