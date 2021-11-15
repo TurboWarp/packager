@@ -1086,39 +1086,39 @@ cd "$(dirname "$0")"
       for (const extension of ${JSON.stringify(this.options.extensions.map(i => i.url))}) {
         vm.extensionManager.loadExtensionURL(extension);
       }
+
+      ${this.options.target.startsWith('nwjs-') ? `
+      if (typeof nw !== 'undefined') {
+        const win = nw.Window.get();
+        win.on('new-win-policy', (frame, url, policy) => {
+          policy.ignore();
+          nw.Shell.openExternal(url);
+        });
+        win.on('navigation', (frame, url, policy) => {
+          policy.ignore();
+          nw.Shell.openExternal(url);
+        });
+        document.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape' && document.fullscreenElement) {
+            document.exitFullscreen();
+          }
+        });
+      }` : ''}
+
+      ${this.options.target.startsWith('electron-') ? `
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'F11') {
+          e.preventDefault();
+          if (document.fullscreenElement) {
+            document.exitFullscreen();
+          } else {
+            document.body.requestFullscreen();
+          }
+        }
+      });` : ''}
     } catch (e) {
       handleError(e);
     }
-
-    ${this.options.target.startsWith('nwjs-') ? `
-    if (typeof nw !== 'undefined') {
-      const win = nw.Window.get();
-      win.on('new-win-policy', (frame, url, policy) => {
-        policy.ignore();
-        nw.Shell.openExternal(url);
-      });
-      win.on('navigation', (frame, url, policy) => {
-        policy.ignore();
-        nw.Shell.openExternal(url);
-      });
-      document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && document.fullscreenElement) {
-          document.exitFullscreen();
-        }
-      });
-    }` : ''}
-
-    ${this.options.target.startsWith('electron-') ? `
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'F11') {
-        e.preventDefault();
-        if (document.fullscreenElement) {
-          document.exitFullscreen();
-        } else {
-          document.body.requestFullscreen();
-        }
-      }
-    });` : ''}
 
     ${this.options.custom.js}
   `)}</script>
