@@ -248,11 +248,11 @@ class Packager extends EventTarget {
     return result;
   }
 
-  needsAddonBundle () {
-    return this.options.chunks.gamepad ||
-      this.options.chunks.pointerlock ||
-      this.options.chunks.specialCloudBehaviors ||
-      this.options.controls.pause.enabled;
+  getAddonOptions () {
+    return {
+      ...this.options.chunks,
+      pause: this.options.controls.pause.enabled
+    };
   }
 
   async loadResources () {
@@ -262,7 +262,7 @@ class Packager extends EventTarget {
     } else {
       texts.push(await this.fetchLargeAsset('scaffolding-min'));
     }
-    if (this.needsAddonBundle()) {
+    if (Object.values(this.getAddonOptions()).some((i) => i)) {
       texts.push(await this.fetchLargeAsset('addons'));
     }
     this.script = texts.join('\n').replace(/<\/script>/g,"</scri'+'pt>");
@@ -1077,10 +1077,7 @@ cd "$(dirname "$0")"
       });
 
       if (typeof ScaffoldingAddons !== 'undefined') {
-        ScaffoldingAddons.run(scaffolding, ${JSON.stringify({
-          ...this.options.chunks,
-          pause: this.options.controls.pause
-        })});
+        ScaffoldingAddons.run(scaffolding, ${JSON.stringify(this.getAddonOptions())});
       }
 
       for (const extension of ${JSON.stringify(this.options.extensions.map(i => i.url))}) {
