@@ -91,6 +91,7 @@
         "description2": "Se cerchi un modo semplice di includere un progetto nel tuo sito web puoi essere interessato all' {embedding}.",
         "description2-embedding": "Inclusione",
         "description3": "Segnala i bug, dacci un feedback o suggeriscici delle idee {onScratch} o {onGitHub}.",
+        "description3-on": "sul sito {brand}",
         "documentation": "Risorse aggiuntive e aiuto",
         "error": "Errore",
         "errorMessage": "Messaggio: {error}",

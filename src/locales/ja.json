@@ -76,7 +76,7 @@
         "runtimeOptions": "ランタイムのオプション",
         "showFlag": "緑の旗のボタンを表示する",
         "showFullscreen": "フルスクリーンボタンを表示する",
-        "showPause": "止めるボタンを表示する",
+        "showPause": "一時停止ボタンを表示する",
         "showProgressBar": "進捗バーを読み込む",
         "showStop": "止めるボタンを表示する",
         "sizeNormal": "通常にサイズで表示",

@@ -93,6 +93,7 @@
         "description2": "Falls du einfach ein Projekt in deine Website einbetten willst, könntest du in {embedding} interessiert sein.",
         "description2-embedding": "Einbettung",
         "description3": "{onScratch} oder {onGitHub} kannst du Fehler melden, Feedback geben oder Ideen vorschlagen.",
+        "description3-on": "auf {brand}",
         "documentation": "Zusätzliche Ressourcen und Hilfe",
         "error": "Fehler",
         "errorMessage": "Nachricht: {error}",
