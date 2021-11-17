@@ -63,99 +63,81 @@ const analyzeScratch3 = (projectData) => {
 };
 
 const loadScratch2 = (projectData, progressTarget) => {
-  const zip = new JSZip();
-
   const IMAGE_EXTENSIONS = ['svg', 'png', 'jpg', 'jpeg', 'bmp'];
   const SOUND_EXTENSIONS = ['wav', 'mp3'];
 
+  const zip = new JSZip();
+
   // sb2 files have two ways of storing references to files.
-  // In the online editor they use md5 hashes which point to an API destination.
-  // In the offline editor they use separate accumulative file IDs for images and sounds.
-  // The files served from the Scratch API don't contain the file IDs we need to export a valid .sb2, so we must create those ourselves.
+  // In the online editor they use md5 hashes ("md5ext" because they also have an extension).
+  // In the offline editor they use separate integer file IDs for images and sounds.
+  // We need the sb2 to use those integer file IDs, but the ones from the Scratch API don't have those, so we create them ourselves
 
   let soundAccumulator = 0;
   let imageAccumulator = 0;
 
-  const md5Of = (thing) => {
-    return thing.md5 || thing.baseLayerMD5 || thing.penLayerMD5 || thing.toString();
-  };
+  const getExtension = (md5ext) => md5ext.split('.')[1] || '';
 
-  const claimAccumulatedID = (extension) => {
+  const nextId = (md5) => {
+    const extension = getExtension(md5);
     if (IMAGE_EXTENSIONS.includes(extension)) {
       return imageAccumulator++;
     } else if (SOUND_EXTENSIONS.includes(extension)) {
       return soundAccumulator++;
-    } else {
-      throw new Error('unknown extension: ' + extension);
     }
+    console.warn('unknown extension: ' + extension);
+    return imageAccumulator++;
   };
 
-  const addAsset = (asset) => {
-    const md5 = asset.md5;
-    const extension = asset.extension;
-    const accumulator = claimAccumulatedID(extension);
-    const path = accumulator + '.' + extension;
-
-    // Update IDs in all references to match the accumulator
-    // Downloaded projects usually use -1 for all of these, but sometimes they exist and are just wrong since we're redoing them all.
-    for (const reference of asset.references) {
-      if ('baseLayerID' in reference) {
-        reference.baseLayerID = accumulator;
-      }
-      if ('soundID' in reference) {
-        reference.soundID = accumulator;
-      }
-      if ('penLayerID' in reference) {
-        reference.penLayerID = accumulator;
-      }
-    }
-
+  const fetchAndStoreAsset = (md5ext, id) => {
     progressTarget.dispatchEvent(new CustomEvent('asset-fetch', {
-      detail: md5
+      detail: md5ext
     }));
-
-    return fetch(ASSET_HOST.replace('$path', md5))
-      .then((request) => request.arrayBuffer())
-      .then((buffer) => {
-        zip.file(path, buffer);
+    return fetch(ASSET_HOST.replace('$path', md5ext))
+      .then((res) => res.arrayBuffer())
+      .then((arrayBuffer) => {
+        const path = `${id}.${getExtension(md5ext)}`;
+        zip.file(path, arrayBuffer);
         progressTarget.dispatchEvent(new CustomEvent('asset-fetched', {
-          detail: md5
+          detail: md5ext
         }));
       });
   };
 
-  // Processes a list of assets
-  // Finds and groups duplicate assets.
-  const processAssets = (assets) => {
-    // Records a list of all unique asset md5s and stores all references to an asset.
-    const hashToAssetMap = Object.create(null);
-    const allAssets = [];
+  const downloadAssets = (assets) => {
+    const md5extToId = new Map();
 
-    for (const data of assets) {
-      const md5ext = md5Of(data);
-      if (!(md5ext in hashToAssetMap)) {
-        const asset = {
-          md5: md5ext,
-          extension: md5ext.split('.').pop(),
-          references: [],
-        };
-        hashToAssetMap[md5ext] = asset;
-        allAssets.push(asset);
+    const handleAsset = (md5ext) => {
+      if (!md5extToId.has(md5ext)) {
+        md5extToId.set(md5ext, nextId(md5ext));
       }
-      hashToAssetMap[md5ext].references.push(data);
+      return md5extToId.get(md5ext);
+    };
+
+    for (const asset of assets) {
+      if (asset.md5) {
+        asset.soundID = handleAsset(asset.md5);
+      }
+      if (asset.baseLayerMD5) {
+        asset.baseLayerID = handleAsset(asset.baseLayerMD5);
+      }
+      if (asset.textLayerMD5) {
+        asset.textLayerID = handleAsset(asset.textLayerMD5);
+      }
     }
 
-    return allAssets;
+    return Promise.all(Array.from(md5extToId.entries()).map(([md5ext, id]) => fetchAndStoreAsset(md5ext, id)));
   };
 
-  const children = projectData.children.filter((c) => !c.listName && !c.target);
-  const targets = [].concat.apply([], [projectData, children]);
-  const costumes = [].concat.apply([], targets.map((c) => c.costumes || []));
-  const sounds = [].concat.apply([], targets.map((c) => c.sounds || []));
-  const assets = processAssets([].concat.apply([], [costumes, sounds, projectData]));
-  return Promise.all(assets.map((a) => addAsset(a)))
+  const targets = [
+    projectData,
+    ...projectData.children.filter((c) => !c.listName && !c.target)
+  ];
+  const costumes = targets.map((i) => i.costumes || []).flat();
+  const sounds = targets.map((i) => i.sounds || []).flat();
+  return downloadAssets([...costumes, ...sounds])
     .then(() => {
-      // We must add the project JSON at the end because it is changed during the loading due to updating asset IDs
+      // Project JSON is mutated during loading, so add it at the e nd.
       zip.file('project.json', JSON.stringify(projectData));
       return {
         zip,
