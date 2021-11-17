@@ -266,7 +266,6 @@ export const downloadProject = async (data, progressCallback) => {
       try {
         zip = await JSZip.loadAsync(data);
       } catch (e) {
-        console.warn(e);
         throw new Error('Cannot parse project: not a zip or sb');
       }
       const projectDataFile = zip.file(/^([^/]*\/)?project\.json$/)[0];
