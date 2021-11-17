@@ -95,6 +95,7 @@
         "description2": "あなたのプロジェクトをウェブサイトに埋め込む簡単な方法を知りたいなら、{embedding}をご覧ください。",
         "description2-embedding": "埋め込みコード",
         "description3": "バグを報告、フィードバック、アイデアを提案する場合は{onScratch}または{onGitHub}ですることができます。",
+        "description3-on": "{brand}で",
         "documentation": "その他のリソースとヘルプ",
         "error": "エラー",
         "errorMessage": "メッセージ: {error}",
