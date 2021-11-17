@@ -77,6 +77,7 @@
         "description2": "Если вы хотите простым способом встроить проект на ваш веб-сайт, вас может интересовать {embedding}.",
         "description2-embedding": "Встраивание",
         "description3": "Сообщайте про ошибки, предлагайте идеи, оставляйте отзывы {onScratch} или {onGitHub}.",
+        "description3-on": "на {brand}",
         "error": "Ошибка",
         "errorMessage": "Сообщение: {error}",
         "feedback": "Обратная связь",
