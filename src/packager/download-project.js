@@ -186,9 +186,9 @@ const loadScratch3 = (projectData, progressTarget) => {
   zip.file('project.json', JSON.stringify(optimizeSb3Json(projectData)));
 
   const targets = projectData.targets;
-  const costumes = [].concat.apply([], targets.map((t) => t.costumes || []));
-  const sounds = [].concat.apply([], targets.map((t) => t.sounds || []));
-  const assets = dedupeAssets([].concat.apply([], [costumes, sounds]));
+  const costumes = targets.map((t) => t.costumes || []).flat();
+  const sounds = targets.map((t) => t.sounds || []).flat();
+  const assets = dedupeAssets([...costumes, ...sounds]);
 
   return Promise.all(assets.map((a) => addFile(a)))
     .then(() => {
