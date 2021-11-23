@@ -25,6 +25,7 @@ const isScratch1Project = (uint8array) => {
 
 const unknownAnalysis = () => ({
   stageVariables: [],
+  stageComments: [],
   usesMusic: true
 });
 
@@ -40,6 +41,7 @@ const analyzeScratch2 = (projectData) => {
     stringified.includes('playDrum') ||
     stringified.includes('noteOn:duration:elapsed:from:');
   return {
+    ...unknownAnalysis(),
     stageVariables,
     usesMusic
   };
@@ -55,9 +57,14 @@ const analyzeScratch3 = (projectData) => {
       name,
       isCloud: !!cloud
     }));
+  const stageComments = Object.values(stage.comments)
+    .map((i) => i.text);
+  // TODO: usesMusic has possible false positives
   const usesMusic = projectData.extensions.includes('music');
   return {
+    ...unknownAnalysis(),
     stageVariables,
+    stageComments,
     usesMusic
   };
 };

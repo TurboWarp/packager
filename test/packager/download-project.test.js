@@ -24,6 +24,15 @@ test('sb3', async () => {
   expect(project.analysis.usesMusic).toBe(false);
 });
 
+test('sb3 with comments', async () => {
+  const project = await downloadProject(readTestProject('comments.sb3'), () => {});
+  expect(project.type).toBe('sb3');
+  expect(project.analysis.stageComments).toEqual([
+    'This comment contains configuration for gamepad support in third-party tools or websites such as https://turbowarp.org/\nDo not edit by hand\n{\"axes\":[{\"type\":\"virtual_cursor\",\"high\":\"+x\",\"low\":\"-x\",\"sensitivity\":0.6,\"deadZone\":0.2},{\"type\":\"virtual_cursor\",\"high\":\"-y\",\"low\":\"+y\",\"sensitivity\":0.6,\"deadZone\":0.2},{\"type\":\"virtual_cursor\",\"high\":\"+x\",\"low\":\"-x\",\"sensitivity\":0.6,\"deadZone\":0.2},{\"type\":\"virtual_cursor\",\"high\":\"-y\",\"low\":\"+y\",\"sensitivity\":0.6,\"deadZone\":0.2}],\"buttons\":[{\"type\":\"key\",\"high\":null},{\"type\":\"key\",\"high\":null},{\"type\":\"key\",\"high\":null},{\"type\":\"key\",\"high\":null},{\"type\":\"mousedown\"},{\"type\":\"mousedown\"},{\"type\":\"mousedown\"},{\"type\":\"mousedown\"},{\"type\":\"key\",\"high\":null},{\"type\":\"key\",\"high\":null},{\"type\":\"key\",\"high\":null},{\"type\":\"key\",\"high\":null},{\"type\":\"key\",\"high\":\"ArrowUp\"},{\"type\":\"key\",\"high\":\"ArrowDown\"},{\"type\":\"key\",\"high\":\"ArrowLeft\"},{\"type\":\"key\",\"high\":\"ArrowRight\"},{\"type\":\"key\",\"high\":null}]} // _gamepad_',
+    'Configuration for https://turbowarp.org/\nYou can move, resize, and minimize this comment, but don\'t edit it by hand. This comment can be deleted to remove the stored settings.\n{\"framerate\":30,\"runtimeOptions\":{\"maxClones\":300,\"miscLimits\":true,\"fencing\":true},\"interpolation\":false,\"turbo\":false,\"hq\":false} // _twconfig_'
+  ]);
+});
+
 test('sb3 with music', async () => {
   const project = await downloadProject(readTestProject('music.sb3'), () => {});
   expect(project.analysis.usesMusic).toBe(true);
