@@ -14,7 +14,7 @@
     },
     "description3-on": {
       "string": "on {brand}",
-      "context": "Example context: \"Report bugs on Scratch\"."
+      "context": "Used in the context 'Report bugs on Scratch'."
     },
     "error": {
       "string": "Error"
@@ -60,7 +60,7 @@
     },
     "loadingLargeAsset": {
       "string": "Loading {thing}",
-      "context": "Generic loading message used when loading a \"brand name\" file such as NW.js or Electron."
+      "context": "Generic loading message used when loading a 'brand name' file such as NW.js or Electron."
     },
     "loadingScripts": {
       "string": "Loading scripts"
@@ -111,7 +111,7 @@
     },
     "learnMore": {
       "string": "Learn more",
-      "context": "Hover text for \"(?)\" link to learn more about an option"
+      "context": "Hover text for '(?)' link to learn more about an option"
     },
     "runtimeOptions": {
       "string": "Runtime Options"
@@ -295,7 +295,7 @@
     },
     "specialCloudBehaviors": {
       "string": "Special cloud variable behaviors like HTMLifier",
-      "context": "Do not translate \"HTMLifier\""
+      "context": "Do not translate 'HTMLifier'"
     },
     "enableCompiler": {
       "string": "Enable Compiler"
@@ -311,11 +311,11 @@
     },
     "customCSS": {
       "string": "Custom CSS (Don't change if you don't know what you're doing!)",
-      "context": "Do not translate \"CSS\""
+      "context": "Do not translate 'CSS'"
     },
     "customJS": {
       "string": "Custom JS (Don't change if you don't know what you're doing!)",
-      "context": "Do not translate \"JS\""
+      "context": "Do not translate 'JS'"
     },
     "environment": {
       "string": "Environment",
@@ -332,19 +332,19 @@
     },
     "application-win32": {
       "string": "{type} Windows application (32-bit or 64-bit)",
-      "context": "type will become something like \"NW.js\" or \"Electron\". Do not translate \"Windows\"."
+      "context": "type will become something like 'NW.js' or 'Electron'. Do not translate 'Windows'."
     },
     "application-win64": {
       "string": "{type} Windows application (64-bit only, not recommended)",
-      "context": "type will become something like \"NW.js\" or \"Electron\". Do not translate \"Windows\"."
+      "context": "type will become something like 'NW.js' or 'Electron'. Do not translate 'Windows'."
     },
     "application-mac": {
       "string": "{type} macOS application",
-      "context": "type will become something like \"NW.js\" or \"Electron\". Do not translate \"macOS\"."
+      "context": "type will become something like 'NW.js' or 'Electron'. Do not translate 'macOS'."
     },
     "application-linux64": {
       "string": "{type} Linux application (64-bit only)",
-      "context": "type will become something like \"NW.js\" or \"Electron\". Do not translate \"Linux\"."
+      "context": "type will become something like 'NW.js' or 'Electron'. Do not translate 'Linux'."
     },
     "otherEnvironments": {
       "string": "Other environments (Click to open)",
@@ -352,7 +352,7 @@
     },
     "otherEnvironmentsHelp": {
       "string": "Most new projects should use the options listed above instead.",
-      "context": "Text describing the \"Other environments\" section."
+      "context": "Text describing the 'Other environments' section."
     },
     "applicationSettings": {
       "string": "Application Settings"
