@@ -35,6 +35,11 @@
   defaultOptions.app.windowTitle = Packager.getWindowTitleFromFileName(projectData.title);
   const options = writablePersistentStore(`PackagerOptions.${projectData.uniqueId}`, defaultOptions);
 
+  const hasMagicComment = (magic) => projectData.project.analysis.stageComments.find(
+    (text) => text.split('\n').find((line) => line.endsWith(magic))
+  );
+  const hasSettingsStoredInProject = hasMagicComment(' // _twconfig_');
+
   let result = null;
   let previewer = null;
   const reset = () => {
@@ -188,6 +193,12 @@
 <Section accent="#FFAB19">
   <div>
     <h2>{$_('options.runtimeOptions')}</h2>
+
+    {#if hasSettingsStoredInProject}
+      <div class="option-group">
+        {$_('options.storedWarning')}
+      </div>
+    {/if}
 
     <label>
       <input type="checkbox" bind:checked={$options.turbo}>

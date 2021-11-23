@@ -116,6 +116,9 @@
     "runtimeOptions": {
       "string": "Runtime Options"
     },
+    "storedWarning": {
+      "string": "Note: This project has settings stored in it, which may override these settings."
+    },
     "turbo": {
       "string": "Turbo Mode"
     },
