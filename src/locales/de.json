@@ -82,6 +82,7 @@
         "sizeStretch": "Bildschirm füllen",
         "specialCloudBehaviors": "Spezielle Verhalten für Cloudvariablen wie HTMLifier",
         "stageSize": "Bühnengröße",
+        "storedWarning": "Anmerkung: Dieses Projekt hat Einstellungen in sich gespeichert, deshalb könnten diese Einstellungen überschrieben werden.",
         "turbo": "Turbo-Modus",
         "username": "Benutzername (alle \"#\" werden mit einer zufälligen Zahl ersetzt)",
         "zip": "Zip (ideal für Websites)",

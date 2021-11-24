@@ -80,6 +80,7 @@
         "sizeStretch": "Riempi lo schermo",
         "specialCloudBehaviors": "Comportamento speciale delle variabili cloud come in HTMLifier",
         "stageSize": "Dimensione dello Stage",
+        "storedWarning": "Nota: Questo progetto contiene al suo interno delle impostazioni che possono sovrascrivere queste impostazioni.",
         "turbo": "Modalità Turbo",
         "username": "Username (ogni \"#\" viene rimpiazzato da un numero casuale)",
         "zip": "Zip (ideale Per i siti web)",
@@ -103,7 +104,7 @@
     "progress": {
         "compressingProject": "Compressione progetto",
         "loadingAssets": "Caricamento risorse ({complete}/{total})",
-        "loadingLargeAsset": "Caricamento {thing}",
+        "loadingLargeAsset": "Caricamento  di {thing}",
         "loadingProjectData": "Caricamento dei dati del progetto",
         "loadingScripts": "Caricamento script in corso",
         "packagingProject": "Pacchettizzazione progetto"
