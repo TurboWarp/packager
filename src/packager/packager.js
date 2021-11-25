@@ -251,6 +251,7 @@ class Packager extends EventTarget {
   getAddonOptions () {
     return {
       ...this.options.chunks,
+      specialCloudBehaviors: this.options.cloudVariables.specialCloudBehaviors,
       pause: this.options.controls.pause.enabled
     };
   }
@@ -1265,13 +1266,13 @@ Packager.DEFAULT_OPTIONS = () => ({
   chunks: {
     gamepad: false,
     pointerlock: false,
-    specialCloudBehaviors: false
   },
   cloudVariables: {
     mode: 'ws',
     id: 0,
     cloudHost: 'wss://clouddata.turbowarp.org',
-    custom: {}
+    custom: {},
+    specialCloudBehaviors: false,
   },
   cursor: {
     type: 'auto',

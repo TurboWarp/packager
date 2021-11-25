@@ -431,7 +431,7 @@
       <p>{$_('options.cloudVariables-ignore-help')}</p>
       <p>{$_('options.cloudVariables-custom-help')}</p>
       <label>
-        <input type="checkbox" bind:checked={$options.chunks.specialCloudBehaviors}>
+        <input type="checkbox" bind:checked={$options.cloudVariables.specialCloudBehaviors}>
         {$_('options.specialCloudBehaviors')}
         <LearnMore href="https://github.com/TurboWarp/packager/issues/48#issuecomment-909892294" />
       </label>
