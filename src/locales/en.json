@@ -374,10 +374,6 @@
       "string": "Preview",
       "context": "Button to preview the project"
     },
-    "reset": {
-      "string": "Reset",
-      "context": "Button to reset everything"
-    },
     "download": {
       "string": "Download {filename} ({size}MB)",
       "context": "Download link"
@@ -411,6 +407,16 @@
     "light": {
       "string": "Light",
       "context": "Light mode option"
+    }
+  },
+  "reset": {
+    "reset": {
+      "string": "Reset",
+      "context": "Hover text of button to reset settings within a section"
+    },
+    "confirm": {
+      "string": "Are you sure you want to reset these settings? This cannot be undone.",
+      "context": "Prompt to confirm user wants to reset settings"
     }
   }
 }

@@ -120,7 +120,7 @@ const makeWebsite = () => ({
   module: {
     rules: [
       {
-        test: /\.png$/i,
+        test: /\.png|\.svg$/i,
         use: isStandalone ? {
           loader: 'url-loader'
         } : {

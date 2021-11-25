@@ -1,8 +1,11 @@
 <script>
+  import ResetButton from './ResetButton.svelte';
+
   export let caption = false;
   export let center = false;
   export let modal = false;
   export let accent = '';
+  export let reset;
 </script>
 
 <style>
@@ -34,8 +37,16 @@
     align-items: center;
     text-align: center;
   }
+  .reset {
+    float: right;
+  }
 </style>
 
 <div class="card" class:caption class:modal class:center={caption || center} style={accent ? `border-top: 6px solid ${accent}` : ''}>
+  {#if reset}
+    <div class="reset">
+      <ResetButton on:click={reset} />
+    </div>
+  {/if}
   <slot></slot>
 </div>

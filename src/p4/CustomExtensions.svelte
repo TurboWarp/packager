@@ -1,8 +1,5 @@
 <script>
-  export let value;
-
-  let customExtensions = value.map(i => i.url).join('\n');
-  $: value = customExtensions.split('\n').filter(i => i).map(i => ({url: i}));
+  export let extensions;
 </script>
 
 <style>
@@ -14,4 +11,9 @@
   }
 </style>
 
-<textarea bind:value={customExtensions}></textarea>
+<textarea
+  value={extensions.map(i => i.url).join('\n')}
+  on:change={(e) => {
+    extensions = e.target.value.split('\n').filter(i => i).map(i => ({url: i}));
+  }}
+></textarea>

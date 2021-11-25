@@ -42,7 +42,7 @@
 
   let result = null;
   let previewer = null;
-  const reset = () => {
+  const resetResult = () => {
     previewer = null;
     if (result) {
       URL.revokeObjectURL(result.url);
@@ -52,7 +52,7 @@
   $: if (previewer) {
     previewer.setProgress($progress.progress, $progress.text);
   }
-  $: $options, reset(), currentTask.abort();
+  $: $options, resetResult(), currentTask.abort();
 
   const icon = fileStore.writableFileStore(`PackagerOptions.icon.${projectData.uniqueId}`);
   $: $options.app.icon = $icon;
@@ -116,7 +116,7 @@
   };
 
   const pack = async () => {
-    reset();
+    resetResult();
     const task = new Task();
     result = await task.do(runPackager(task, deepClone($options)));
     task.done();
@@ -124,7 +124,7 @@
   };
 
   const preview = async () => {
-    reset();
+    resetResult();
     previewer = new Preview();
     const task = new Task();
     const optionsClone = deepClone($options);
@@ -138,16 +138,9 @@
     }
   };
 
-  const resetButton = async () => {
-    if (confirm($_('options.confirmReload'))) {
-      try {
-        await assetCache.resetAll();
-        await fileStore.resetAll();
-      } catch (e) {
-        console.warn(e);
-      }
-      localStorage.clear();
-      location.reload();
+  const resetOptions = (properties) => {
+    for (const key of properties) {
+      $options[key] = deepClone(defaultOptions[key]);
     }
   };
 
@@ -190,7 +183,23 @@
   }
 </style>
 
-<Section accent="#FFAB19">
+<Section
+  accent="#FFAB19"
+  reset={() => {
+    resetOptions([
+      'turbo',
+      'framerate',
+      'interpolation',
+      'highQualityPen',
+      'maxClones',
+      'fencing',
+      'miscLimits',
+      'stageWidth',
+      'stageHeight',
+      'username'
+    ]);
+  }}
+>
   <div>
     <h2>{$_('options.runtimeOptions')}</h2>
 
@@ -254,7 +263,24 @@
   </div>
 </Section>
 
-<Section accent="#9966FF">
+<Section
+  accent="#9966FF"
+  reset={() => {
+    $icon = null;
+    $loadingScreenImage = null;
+    $customCursorIcon = null;
+    resetOptions([
+      'app',
+      'loadingScreen',
+      'autoplay',
+      'controls',
+      'appearance',
+      'monitors',
+      'cursor',
+      'chunks'
+    ]);
+  }}
+>
   <div>
     <h2>{$_('options.playerOptions')}</h2>
 
@@ -394,7 +420,14 @@
 </Section>
 
 {#if cloudVariables.length > 0}
-  <Section accent="#FF8C1A">
+  <Section
+    accent="#FF8C1A"
+    reset={() => {
+      resetOptions([
+        'cloudVariables'
+      ]);
+    }}
+  >
     <div>
       <h2>{$_('options.cloudVariables')}</h2>
       <label>
@@ -439,7 +472,17 @@
   </Section>
 {/if}
 
-<Section accent="#FF6680">
+<Section
+  accent="#FF6680"
+  reset={() => {
+    resetOptions([
+      'compiler',
+      'resizeToFill',
+      'extensions',
+      'custom'
+    ]);
+  }}
+>
   <div>
     <h2>{$_('options.advancedOptions')}</h2>
     <details>
@@ -465,7 +508,7 @@
         {$_('options.customExtensions')}
         <!-- TODO: use the user-facing documentation when that becomes available -->
         <LearnMore slug="development/custom-extensions" />
-        <CustomExtensions bind:value={$options.extensions} />
+        <CustomExtensions bind:extensions={$options.extensions} />
       </label>
       <label>
         {$_('options.customCSS')}
@@ -479,7 +522,14 @@
   </div>
 </Section>
 
-<Section accent="#0FBD8C">
+<Section
+  accent="#0FBD8C"
+  reset={() => {
+    resetOptions([
+      'target'
+    ])
+  }}
+>
   <div>
     <h2>{$_('options.environment')}</h2>
     <div class="option-group">
@@ -545,7 +595,14 @@
 
 {#if $options.target !== 'html'}
   <div in:fade|local>
-    <Section accent="#FF661A">
+    <Section
+      accent="#FF661A"
+      reset={() => {
+        resetOptions([
+          'app'
+        ])
+      }}
+    >
       <div>
         {#if $options.target.startsWith('zip')}
           <h2>Zip</h2>
@@ -614,7 +671,6 @@
 <Section>
   <Button on:click={pack} text={$_('options.package')} />
   <Button on:click={preview} secondary text={$_('options.preview')} />
-  <Button on:click={resetButton} danger text={$_('options.reset')} />
 </Section>
 
 {#if result}
