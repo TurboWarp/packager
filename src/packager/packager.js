@@ -1104,7 +1104,7 @@ cd "$(dirname "$0")"
 
       ${this.options.target.startsWith('electron-') ? `
       document.addEventListener('keydown', (e) => {
-        if (e.key === 'F11') {
+        if (e.key === 'F11' || (e.key === 'Enter' && e.altKey)) {
           e.preventDefault();
           if (document.fullscreenElement) {
             document.exitFullscreen();
