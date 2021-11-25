@@ -13,7 +13,6 @@
   import {progress, currentTask} from './stores';
   import Preview from './preview';
   import deepClone from './deep-clone';
-  import assetCache from '../packager/cache';
   import Packager from '../packager/packager';
   import Task from './task';
 
