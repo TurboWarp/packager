@@ -1,6 +1,5 @@
 <script>
   export let secondary;
-  export let danger;
   export let text;
 </script>
 
@@ -27,14 +26,8 @@
   .secondary:active {
     background-color: #03946b;
   }
-  .danger {
-    background-color: #FF8C1A;
-  }
-  .danger:active {
-    background-color: #c76c12;
-  }
 </style>
 
-<button on:click class:secondary class:danger>
+<button on:click class:secondary>
   {text}
 </button>
