@@ -9,7 +9,7 @@
   import Progress from './Progress.svelte';
   import Modals from './Modals.svelte';
   import {progress, theme} from './stores';
-  import {isSupported, isSafari} from './environment';
+  import {isSupported, isSafari, isStandalone} from './environment';
   import version from '../build/version-loader!';
   import {LONG_NAME, FEEDBACK_PRIMARY, FEEDBACK_SECONDARY, SOURCE_CODE} from '../packager/brand';
 
@@ -176,8 +176,10 @@
 
   <footer>
     <div>
-      <a href="privacy.html">{$_('p4.privacy')}</a>
-      <span class="footer-spacer">-</span>
+      {#if !isStandalone}
+        <a href="privacy.html">{$_('p4.privacy')}</a>
+        <span class="footer-spacer">-</span>
+      {/if}
       <a href={FEEDBACK_PRIMARY.link}>{$_('p4.feedback')}</a>
       <span class="footer-spacer">-</span>
       <a href={SOURCE_CODE}>{$_('p4.sourceCode')}</a>
