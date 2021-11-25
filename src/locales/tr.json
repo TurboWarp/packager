@@ -26,7 +26,6 @@
         "cloudVariables-ws-help": "\"Bulut değişkenler sunucuya bağlanın\" değişkenleri diğer kullanıcılarla senkronize eder.",
         "cloudVariablesHost": "Bulut ana bilgisayarı",
         "colors": "Renkler",
-        "confirmReload": "Tüm ayarlar varsayılanlara sıfırlansın ve yeniden yüklensin mi?",
         "controls": "Kontroller",
         "controlsHelp": "Eğer bütün kontroller devre dışı bırakılırsa kontrol çubuğu artık gösterilemez. Yalnızca tam ekran etkinleştirilirse, kontroller başlığında değil, her zaman sol üst köşede bulunur.",
         "cursorHelp": "32x32'ye kadar olan resimler en iyi görünebilir. Daha büyük resimler doğru düzgün bir şekilde çalışmayabilir. ",
@@ -70,7 +69,6 @@
         "preview": "Önizleme",
         "removeFencing": "Eskirimi çıkart",
         "removeMiscLimits": "Çeşitli Limitleri Kaldır",
-        "reset": "Sıfırla",
         "runtimeOptions": "Çalışma Zamanı Seçenekleri",
         "showFlag": "Yeşil bayrağı kontrollerde gösterin.",
         "showFullscreen": "Büyük ekranı tuşunu kontrollerde gösterin.",
@@ -108,6 +106,9 @@
         "loadingProjectData": "Proje verileri yükleniyor",
         "loadingScripts": "Kodlar yükleniyor",
         "packagingProject": "Proje paketleniyor"
+    },
+    "reset": {
+        "reset": "Sıfırla"
     },
     "select": {
         "file": "Dosya",

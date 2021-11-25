@@ -24,7 +24,6 @@
         "cloudVariables-ws-help": "\"Připojit se do serveru cloudových proměň\" synchronizuje proměnné s ostatními uživateli.",
         "cloudVariablesHost": "Cloudový host",
         "colors": "Barvy",
-        "confirmReload": "Obnovit všechna nastavení do výchozích hodnot a obnovit stránku?",
         "controls": "Řízení",
         "controlsHelp": "Jestliže jsou všechna řízení deaktivována, lišta řízení bude odstraněna. Jestli je aktivována jen plná obrazovka, vždy bude lišta v levým horním rohu, ne v hlavičce řízení.",
         "cursorHelp": "Obrázky do rozlišení 32x32 fungují nejlépe. Vetší obrázky nemusí spolehlivě fungovat.",
@@ -66,7 +65,6 @@
         "preview": "Náhled",
         "removeFencing": "Odstranit hranice",
         "removeMiscLimits": "Odstranit různé limity",
-        "reset": "Obnovit",
         "runtimeOptions": "Nastavení běhu",
         "showFlag": "Ukazovat tlačítko zelené vlajky v řízení",
         "showFullscreen": "Ukazovat tlačítko plné obrazovky v řízení",
@@ -102,6 +100,9 @@
         "loadingProjectData": "Načítám data projektu",
         "loadingScripts": "Načítám skripty",
         "packagingProject": "Balím projekt"
+    },
+    "reset": {
+        "reset": "Obnovit"
     },
     "select": {
         "file": "Soubor",

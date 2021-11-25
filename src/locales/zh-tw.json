@@ -24,7 +24,6 @@
         "cloudVariables-ws-help": "連接到雲端變數主機⸺與其他玩家同步。",
         "cloudVariablesHost": "雲端變數主機：",
         "colors": "顏色",
-        "confirmReload": "重設所有選項？",
         "controls": "控制欄",
         "controlsHelp": "若全部隱藏，控制欄不會顯示。\n若僅全螢幕按鈕顯示，它會被置於螢幕右上方，控制欄同樣不會顯示。",
         "cursorHelp": "圖片大小最好為 32×32，再大的圖片可能無法正常運行。",
@@ -64,7 +63,6 @@
         "preview": "預覽",
         "removeFencing": "移除屏障",
         "removeMiscLimits": "移除各類限制",
-        "reset": "重設",
         "runtimeOptions": "運行選項",
         "showFlag": "在控制欄顯示綠旗",
         "showFullscreen": "全螢幕按鈕",
@@ -98,6 +96,9 @@
         "loadingProjectData": "載入專案資料中……",
         "loadingScripts": "載入程式中……",
         "packagingProject": "封裝專案中……"
+    },
+    "reset": {
+        "reset": "重設"
     },
     "select": {
         "file": "檔案",

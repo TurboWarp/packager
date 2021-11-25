@@ -27,7 +27,6 @@
         "cloudVariables-ws-help": "\"Mit Cloudvariablenserver verbinden\" synchronisiert Variablen mit anderen Benutzern.",
         "cloudVariablesHost": "Cloud-Host",
         "colors": "Farben",
-        "confirmReload": "Alle Einstellungen auf ihre Standardwerte zurücksetzen und neu laden?",
         "controls": "Steuerelemente",
         "controlsHelp": "Falls alle Steuerelemente deaktiviert sind, wird die Steuerungsleiste komplett entfernt. Falls nur der Vollbildknopf aktiviert ist, wird er nicht im Steuerungsheader, sondern oben links platziert.",
         "cursorHelp": "Bilder bis zu 32x32 funktionieren am besten. Größere Bilder könnten nicht zuverlässig funktionieren.",
@@ -71,7 +70,6 @@
         "preview": "Vorschau",
         "removeFencing": "Einzäunung entfernen",
         "removeMiscLimits": "Verschiedene Begrenzungen entfernen",
-        "reset": "Zurücksetzen",
         "runtimeOptions": "Laufzeit-Optionen",
         "showFlag": "Grüne flagge in Steuerelementen zeigen",
         "showFullscreen": "Vollbildknopf in Steuerungen anzeigen",
@@ -110,6 +108,9 @@
         "loadingProjectData": "Projektdaten werden geladen",
         "loadingScripts": "Skripte werden geladen",
         "packagingProject": "Projekt wird paketisiert"
+    },
+    "reset": {
+        "reset": "Zurücksetzen"
     },
     "select": {
         "file": "Datei",

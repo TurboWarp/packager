@@ -26,7 +26,6 @@
         "cloudVariables-ws-help": "“连接到云变量服务器”使用 TurboWarp 的云变量服务器和其它用户同步变量",
         "cloudVariablesHost": "云变量服务器地址",
         "colors": "颜色",
-        "confirmReload": "重置所有已保存的打包信息，然后刷新？",
         "controls": "控制按钮",
         "controlsHelp": "如果此处的所有选项都不勾选，将会删除控制栏。如果只有全屏按钮被选中，则它会放在网页的左上角，而不是控制栏上。",
         "cursorHelp": "尺寸为 32x32 以下的图像表现得最好。更大的图像可能无法正常工作。",
@@ -69,7 +68,6 @@
         "preview": "预览",
         "removeFencing": "取消边缘",
         "removeMiscLimits": "移除其他限制",
-        "reset": "重置",
         "runtimeOptions": "运行选项",
         "showFlag": "在控制栏显示绿旗按钮",
         "showFullscreen": "在控制栏显示全屏按钮",
@@ -106,6 +104,9 @@
         "loadingProjectData": "加载作品数据中",
         "loadingScripts": "加载脚本中……",
         "packagingProject": "打包作品中"
+    },
+    "reset": {
+        "reset": "重置"
     },
     "select": {
         "file": "文件",

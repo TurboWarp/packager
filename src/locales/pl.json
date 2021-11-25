@@ -50,7 +50,6 @@
         "preview": "Przejżyj",
         "removeFencing": "Usuń Ograniczenia",
         "removeMiscLimits": "Usuń Różne Limity",
-        "reset": "Resetuj",
         "runtimeOptions": "Opcje Uruchamiania",
         "showFlag": "Pokaż przycisk zielonej flagi w kontroli",
         "showFullscreen": "Pokaż przycisk pełnego ekranu w kontroli",
@@ -80,6 +79,9 @@
         "loadingProjectData": "Ładowanie danych projektu",
         "loadingScripts": "Ładowanie skryptów",
         "packagingProject": "Pakowanie projektu"
+    },
+    "reset": {
+        "reset": "Resetuj"
     },
     "select": {
         "file": "Plik",

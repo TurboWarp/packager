@@ -14,7 +14,6 @@
         "cloudVariables-ws": "Connexion au serveur de variables globales (Cloud).",
         "cloudVariablesHost": "Serveur Cloud",
         "colors": "Couleurs",
-        "confirmReload": "Recharger tous les paramètres à leur valeur par défaut ?",
         "controls": "Commandes",
         "customCursor": "Curseur personnalisé",
         "download": "Télécharger {filename} ({size}MB)",
@@ -42,7 +41,6 @@
         "preview": "Prévisualiser",
         "removeFencing": "Supprimer les limites",
         "removeMiscLimits": "Supprimer diverses limites",
-        "reset": "Réinitialiser",
         "runtimeOptions": "Options d'exécution",
         "showFlag": "Afficher le drapeau vert",
         "showFullscreen": "Afficher le bouton de plein écran",
@@ -74,6 +72,9 @@
         "loadingProjectData": "Chargement des données du projet",
         "loadingScripts": "Lecture des assets",
         "packagingProject": "Compilation du projet"
+    },
+    "reset": {
+        "reset": "Réinitialiser"
     },
     "select": {
         "file": "Fichier",

@@ -26,7 +26,6 @@
         "cloudVariables-ws": "Connessione al server delle variabili cloud",
         "cloudVariables-ws-help": "\"Connessione al server delle variabili cloud\" sincronizza le variabili con altri utenti.",
         "colors": "Colori",
-        "confirmReload": "Riportare tutte le impostazioni ai loro valori predefiniti e ricaricare?",
         "controls": "Controlli",
         "controlsHelp": "Se tutti i controlli sono disabilitati, la barra dei controlli viene rimossa. Se è abilitato solo il pulsante schermo intero lo trovi sempre nell'angolo in alto a sinistra, non nella barra dei controlli.",
         "cursorHelp": "Le immagini migliori sono quelle 32x32. Immagini più grandi possono non funzionare in modo affidabile.",
@@ -69,7 +68,6 @@
         "preview": "Anteprima",
         "removeFencing": "Rimozione limiti Stage",
         "removeMiscLimits": "Rimozione Limiti Vari",
-        "reset": "Resetta",
         "runtimeOptions": "Opzioni Runtime",
         "showFlag": "Mostra la bandiera verde",
         "showFullscreen": "Mostra il pulsante schermo intero",
@@ -108,6 +106,9 @@
         "loadingProjectData": "Caricamento dei dati del progetto",
         "loadingScripts": "Caricamento script in corso",
         "packagingProject": "Pacchettizzazione progetto"
+    },
+    "reset": {
+        "reset": "Resetta"
     },
     "select": {
         "id": "ID o URL del Progetto Scratch",

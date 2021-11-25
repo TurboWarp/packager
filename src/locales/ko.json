@@ -27,7 +27,6 @@
         "cloudVariables-ws-help": "\"클라우드 변수 서버에 연결하기\" 기능은 다른 사용자들과 변수값이 동기화되도록 해줍니다.",
         "cloudVariablesHost": "클라우드 호스트",
         "colors": "색",
-        "confirmReload": "모든 설정을 초기화하고 재시작하시겠습니까?",
         "controls": "제어",
         "controlsHelp": "모든 제어가 꺼진다면, 제어줄은 모두 제거됩니다. 풀스크린만 켜져 있을 경우, 제어 헤더가 아닌 좌측 모서리에 항상 위치합니다.",
         "cursorHelp": "32x32 크기의 사진이 가장 좋습니다. 더 큰 사진은 안정적이지 않을 수 있습니다.",
@@ -72,7 +71,6 @@
         "preview": "미리보기",
         "removeFencing": "무대 밖 동작 제한 풀기",
         "removeMiscLimits": "기타 몇몇 제한 풀기",
-        "reset": "초기화하기",
         "runtimeOptions": "실행 설정",
         "showFlag": "제어에 '깃발을 클릭했을 때' 블럭 보이기",
         "showFullscreen": "제어에 전체 화면 버튼 보이기",
@@ -110,6 +108,9 @@
         "loadingProjectData": "프로젝트 자료를 불러옵니다",
         "loadingScripts": "스크립트를 불러오는 중입니다",
         "packagingProject": "프로젝트 패키징하기"
+    },
+    "reset": {
+        "reset": "초기화하기"
     },
     "select": {
         "file": "파일",

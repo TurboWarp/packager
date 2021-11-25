@@ -11,7 +11,6 @@
         "cloudVariables-local": "Shrani lokalno",
         "cloudVariables-ws": "Poveži s stražnikom za spremenljivke v oblaku",
         "colors": "Barve",
-        "confirmReload": "Ponastavi vse nastavitve in znova naloži stran?",
         "controls": "Gumbi",
         "controlsHelp": "Če so vsi gumbi izključeni, bo cela vrstica z gumbi odstranjena. Če je vključen le gumb za celoten zaslon, bo vedno v zgornjem levem kotu in ne v vrstici z gumbi.",
         "customExtensions": "Razširitve po meri (en URL v vsaki vrstici)",
@@ -34,7 +33,6 @@
         "preview": "Predogled",
         "removeFencing": "Odstrani omejitve premikanja figur",
         "removeMiscLimits": "Odstrani razne omejitve",
-        "reset": "Ponastavi",
         "runtimeOptions": "Možnosti izvajanja",
         "showFlag": "Pokaži gumb z zeleno zastavico",
         "showFullscreen": "Pokaži gumb za celoten zaslon",
@@ -60,6 +58,9 @@
         "loadingProjectData": "Nalaganje podatkov projekta",
         "loadingScripts": "Nalaganje skript",
         "packagingProject": "Pakiranje projekta"
+    },
+    "reset": {
+        "reset": "Ponastavi"
     },
     "select": {
         "file": "Datoteka",

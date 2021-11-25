@@ -25,7 +25,6 @@
         "cloudVariables-ws-help": "\"Conectar a servidor de variables en la nube\" sincroniza las variables con otros usuarios.",
         "cloudVariablesHost": "Hosteo de nube",
         "colors": "Colores",
-        "confirmReload": "¿Reiniciar todas las configuraciones a las predeterminadas y recargar?",
         "controls": "Controles",
         "controlsHelp": "Si todos los controles están desactivados, la barra de controles se remueve totalmente. Si solo se activa el botón de pantalla completa, siempre estará ubicado en la esquina superior izquierda, en vez de en la barra de controles.",
         "cursorHelp": "Imágenes de hasta 32x32 píxeles funcionan mejor. Imágenes más grandes no funcionarán.",
@@ -67,7 +66,6 @@
         "preview": "Previsualización",
         "removeFencing": "Quitar Fencing",
         "removeMiscLimits": "Quitar Límites Varios",
-        "reset": "Reiniciar",
         "runtimeOptions": "Opciones de Runtime",
         "showFlag": "Mostrar botón de bandera verde en controles",
         "showFullscreen": "Mostrar botón de pantalla completa en controles",
@@ -101,6 +99,9 @@
         "loadingProjectData": "Cargando información del proyecto",
         "loadingScripts": "Cargando scripts",
         "packagingProject": "Empacando proyecto"
+    },
+    "reset": {
+        "reset": "Reiniciar"
     },
     "select": {
         "file": "Archivo",
