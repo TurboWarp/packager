@@ -108,6 +108,7 @@
         "packagingProject": "Pacchettizzazione progetto"
     },
     "reset": {
+        "confirm": "Sei sicuro di voler resettare queste impostazioni? Questo non può essere annullato.",
         "reset": "Resetta"
     },
     "select": {
