@@ -139,6 +139,11 @@
       fileInputElement.files = files;
     }
   };
+
+  // Automatically start loading when a file is selected
+  $: if (files && files[0]) {
+    load();
+  }
 </script>
 
 <style>
