@@ -59,7 +59,7 @@ const analyzeScratch3 = (projectData) => {
     }));
   const stageComments = Object.values(stage.comments)
     .map((i) => i.text);
-  // TODO: usesMusic has possible false positives
+  // TODO: usesMusic has possible false negatives
   const usesMusic = projectData.extensions.includes('music');
   return {
     ...unknownAnalysis(),
