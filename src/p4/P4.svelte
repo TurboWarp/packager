@@ -11,7 +11,7 @@
   import {progress, theme} from './stores';
   import {isSupported, isSafari, isStandalone} from './environment';
   import version from '../build/version-loader!';
-  import {LONG_NAME, FEEDBACK_PRIMARY, FEEDBACK_SECONDARY, SOURCE_CODE} from '../packager/brand';
+  import {LONG_NAME, FEEDBACK_PRIMARY, FEEDBACK_SECONDARY, SOURCE_CODE, WEBSITE} from '../packager/brand';
 
   let projectData;
 
@@ -110,7 +110,7 @@
     <div>
       <h1>{LONG_NAME}</h1>
       {#if version}
-        <p><i>{version}</i></p>
+        <p><i>{version}</i> - <a href={WEBSITE}>Online version</a></p>
       {/if}
       <p>{$_('p4.description1')}</p>
       <p>
