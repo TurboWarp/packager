@@ -596,7 +596,7 @@
   <div in:fade|local>
     <Section
       accent="#FF661A"
-      reset={() => {
+      reset={$options.target === 'zip' ? null : () => {
         resetOptions([
           'app'
         ])
