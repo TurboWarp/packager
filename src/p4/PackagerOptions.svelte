@@ -17,6 +17,7 @@
   import Task from './task';
 
   export let projectData;
+  export let title;
 
   // JSON can't easily parse Infinity, so we'll just store large numbers instead
   const ALMOST_INFINITY = 9999999999;
@@ -61,6 +62,8 @@
 
   const loadingScreenImage = fileStore.writableFileStore(`PackagerOptions.loadingScreenImage.${projectData.uniqueId}`);
   $: $options.loadingScreen.image = $loadingScreenImage;
+
+  $: title = $options.app.windowTitle;
 
   const otherEnvironmentsInitiallyOpen = ![
     'html',
