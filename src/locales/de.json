@@ -110,6 +110,7 @@
         "packagingProject": "Projekt wird paketisiert"
     },
     "reset": {
+        "confirm": "Bist du sicher, dass du diese Einstellungen zurücksetzen möchtest? Dies kann nicht rückgängig gemacht werden.",
         "reset": "Zurücksetzen"
     },
     "select": {
