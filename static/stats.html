@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="robots" content="noindex">
+    <style>
+      body {
+        font-family: sans-serif;
+      }
+      td {
+        text-align: center;
+      }
+      a {
+        text-decoration: none;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Packager Standalone</h1>
+    <p>Note: These download counts are <i>especially</i> unreliable due to some automated file downloads for the desktop app.</p>
+    <main id="packager"><p>Loading...</p></main>
+    <h1>Packager Extras</h1>
+    <main id="packager-extras"><p>Loading...</p></main>
+    <script>
+      const fetchStats = (repo, main) => {
+        fetch(`https://api.github.com/repos/${repo}/releases`)
+          .then((r) => {
+            if (!r.ok) throw new Error('Unexpected status code: ' + r.status);
+            return r.json();
+          })
+          .then((releases) => {
+            while (main.firstChild) main.removeChild(main.firstChild);
+
+            for (const {assets, tag_name, html_url, prerelease} of releases) {
+              if (prerelease) {
+                continue;
+              }
+
+              const table = document.createElement('table');
+              table.border = '1';
+
+              const headerRow = document.createElement('tr');
+              headerRow.appendChild(Object.assign(document.createElement('th'), {
+                textContent: 'Asset'
+              }));
+              headerRow.appendChild(Object.assign(document.createElement('th'), {
+                textContent: 'Downloads'
+              }));
+              table.appendChild(headerRow);
+
+              for (const {download_count, name, browser_download_url} of assets.sort((a,b) => {
+                if (a.name > b.name) return 1;
+                if (b.name > a.name) return -1;
+                return 0;
+              })) {
+                if (name.endsWith('yml') || name.endsWith('blockmap')) continue;
+                const link = Object.assign(document.createElement('a'), {
+                  href: browser_download_url,
+                  textContent: name
+                });
+                const row = document.createElement('tr');
+
+                const downloadCell = document.createElement('td');
+                downloadCell.appendChild(link);
+                row.appendChild(downloadCell);
+
+                row.appendChild(Object.assign(document.createElement('td'), {
+                  textContent: download_count
+                }));
+                table.appendChild(row);
+              }
+
+              const tagLink = document.createElement('a');
+              tagLink.href = html_url;
+              tagLink.textContent = '*';
+
+              const header = document.createElement('h2');
+              header.textContent = `${tag_name} `;
+              header.appendChild(tagLink);
+
+              main.appendChild(header);
+              main.appendChild(table);
+            }
+          })
+          .catch((err) => {
+            console.error(err);
+            alert(err);
+          });
+      };
+      fetchStats('TurboWarp/packager', document.querySelector('#packager'));
+      fetchStats('TurboWarp/packager-extras', document.querySelector('#packager-extras'));
+    </script>
+  </body>
+</html>
