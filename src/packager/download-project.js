@@ -4,6 +4,21 @@ import optimizeSb3Json from './minify/sb3';
 
 const ASSET_HOST = 'https://assets.scratch.mit.edu/internalapi/asset/$path/get/';
 
+// Browser support for Array.prototype.flat is not good enough yet
+const flat = (array) => {
+  const result = [];
+  for (const i of array) {
+    if (Array.isArray(i)) {
+      for (const j of i) {
+        result.push(j);
+      }
+    } else {
+      result.push(i);
+    }
+  }
+  return result;
+};
+
 const identifyProjectType = (projectData) => {
   if ('targets' in projectData) {
     return 'sb3';
@@ -140,8 +155,8 @@ const loadScratch2 = (projectData, progressTarget) => {
     projectData,
     ...projectData.children.filter((c) => !c.listName && !c.target)
   ];
-  const costumes = targets.map((i) => i.costumes || []).flat();
-  const sounds = targets.map((i) => i.sounds || []).flat();
+  const costumes = flat(targets.map((i) => i.costumes || []));
+  const sounds = flat(targets.map((i) => i.sounds || []));
   return downloadAssets([...costumes, ...sounds])
     .then(() => {
       // Project JSON is mutated during loading, so add it at the e nd.
@@ -193,8 +208,8 @@ const loadScratch3 = (projectData, progressTarget) => {
   zip.file('project.json', JSON.stringify(optimizeSb3Json(projectData)));
 
   const targets = projectData.targets;
-  const costumes = targets.map((t) => t.costumes || []).flat();
-  const sounds = targets.map((t) => t.sounds || []).flat();
+  const costumes = flat(targets.map((t) => t.costumes || []));
+  const sounds = flat(targets.map((t) => t.sounds || []));
   const assets = dedupeAssets([...costumes, ...sounds]);
 
   return Promise.all(assets.map((a) => addFile(a)))
