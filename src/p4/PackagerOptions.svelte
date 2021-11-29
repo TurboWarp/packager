@@ -465,7 +465,7 @@
       <label>
         <input type="checkbox" bind:checked={$options.cloudVariables.specialCloudBehaviors}>
         {$_('options.specialCloudBehaviors')}
-        <LearnMore href="https://github.com/TurboWarp/packager/issues/48#issuecomment-909892294" />
+        <LearnMore slug="packager/special-cloud-behaviors" />
       </label>
     </div>
   </Section>
