@@ -308,11 +308,11 @@
     </div>
     {#if $loadingScreenImage}
       <label>
-        <input type="radio" value="normal" bind:group={$options.loadingScreen.imageMode}>
+        <input type="radio" name="loading-screen-mode" value="normal" bind:group={$options.loadingScreen.imageMode}>
         {$_('options.sizeNormal')}
       </label>
       <label>
-        <input type="radio" value="stretch" bind:group={$options.loadingScreen.imageMode}>
+        <input type="radio" name="loading-screen-mode" value="stretch" bind:group={$options.loadingScreen.imageMode}>
         {$_('options.sizeStretch')}
       </label>
     {/if}
@@ -373,15 +373,15 @@
     <h3>{$_('options.interaction')}</h3>
     <div class="option-group">
       <label>
-        <input type="radio" bind:group={$options.cursor.type} value="auto">
+        <input type="radio" name="cursor-type" bind:group={$options.cursor.type} value="auto">
         {$_('options.normalCursor')}
       </label>
       <label>
-        <input type="radio" bind:group={$options.cursor.type} value="none">
+        <input type="radio" name="cursor-type" bind:group={$options.cursor.type} value="none">
         {$_('options.noCursor')}
       </label>
       <label>
-        <input type="radio" bind:group={$options.cursor.type} value="custom">
+        <input type="radio" name="cursor-type" bind:group={$options.cursor.type} value="custom">
         {$_('options.customCursor')}
       </label>
     </div>
@@ -533,25 +533,25 @@
     <h2>{$_('options.environment')}</h2>
     <div class="option-group">
       <label>
-        <input type="radio" bind:group={$options.target} value="html">
+        <input type="radio" name="environment" bind:group={$options.target} value="html">
         {$_('options.html')}
       </label>
       <label>
-        <input type="radio" bind:group={$options.target} value="zip">
+        <input type="radio" name="environment" bind:group={$options.target} value="zip">
         {$_('options.zip')}
       </label>
     </div>
     <div class="option-group">
       <label>
-        <input type="radio" bind:group={$options.target} value="electron-win32">
+        <input type="radio" name="environment" bind:group={$options.target} value="electron-win32">
         {$_('options.application-win32').replace('{type}', 'Electron')}
       </label>
       <label>
-        <input type="radio" bind:group={$options.target} value="webview-mac">
+        <input type="radio" name="environment" bind:group={$options.target} value="webview-mac">
         {$_('options.application-mac').replace('{type}', 'WKWebView')}
       </label>
       <label>
-        <input type="radio" bind:group={$options.target} value="electron-linux64">
+        <input type="radio" name="environment" bind:group={$options.target} value="electron-linux64">
         {$_('options.application-linux64').replace('{type}', 'Electron')}
       </label>
     </div>
@@ -560,31 +560,31 @@
       <p>{$_('options.otherEnvironmentsHelp')}</p>
       <div class="option-group">
         <label>
-          <input type="radio" bind:group={$options.target} value="zip-one-asset">
+          <input type="radio" name="environment" bind:group={$options.target} value="zip-one-asset">
           {$_('options.zip-one-asset')}
         </label>
       </div>
       <div class="option-group">
         <label>
-          <input type="radio" bind:group={$options.target} value="electron-win64">
+          <input type="radio" name="environment" bind:group={$options.target} value="electron-win64">
           {$_('options.application-win64').replace('{type}', 'Electron')}
         </label>
       </div>
       <div class="option-group">
         <label>
-          <input type="radio" bind:group={$options.target} value="nwjs-win32">
+          <input type="radio" name="environment" bind:group={$options.target} value="nwjs-win32">
           {$_('options.application-win32').replace('{type}', 'NW.js')}
         </label>
         <label>
-          <input type="radio" bind:group={$options.target} value="nwjs-win64">
+          <input type="radio" name="environment" bind:group={$options.target} value="nwjs-win64">
           {$_('options.application-win64').replace('{type}', 'NW.js')}
         </label>
         <label>
-          <input type="radio" bind:group={$options.target} value="nwjs-mac">
+          <input type="radio" name="environment" bind:group={$options.target} value="nwjs-mac">
           {$_('options.application-mac').replace('{type}', 'NW.js')}
         </label>
         <label>
-          <input type="radio" bind:group={$options.target} value="nwjs-linux-x64">
+          <input type="radio" name="environment" bind:group={$options.target} value="nwjs-linux-x64">
           {$_('options.application-linux64').replace('{type}', 'NW.js')}
         </label>
       </div>

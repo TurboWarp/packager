@@ -167,7 +167,7 @@
     <p>{$_('select.selectHelp')}</p>
     <div class="option">
       <label>
-        <input type="radio" bind:group={$type} value="id">
+        <input type="radio" name="project-type" bind:group={$type} value="id">
         {$_('select.id')}
       </label>
       {#if $type === "id"}
@@ -176,14 +176,14 @@
     </div>
     <div class="option">
       <label>
-        <input type="radio" bind:group={$type} value="file">
+        <input type="radio"  name="project-type" bind:group={$type} value="file">
         {$_('select.file')}
       </label>
       <input hidden={$type !== "file"} bind:files={files} bind:this={fileInputElement} type="file" accept=".sb,.sb2,.sb3">
     </div>
     <div class="option">
       <label>
-        <input type="radio" bind:group={$type} value="url">
+        <input type="radio" name="project-type" bind:group={$type} value="url">
         {$_('select.url')}
       </label>
       {#if $type === "url"}
