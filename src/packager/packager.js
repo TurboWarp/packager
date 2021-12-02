@@ -734,7 +734,7 @@ cd "$(dirname "$0")"
         });
         return () => (${getProjectDataFunction})().then(async (data) => {
           zip = await Scaffolding.JSZip.loadAsync(data);
-          return zip.file('project.json').async('arraybuffer');    
+          return zip.file('project.json').async('arraybuffer');
         });` : `
         storage.addWebStore(
           [storage.AssetType.ImageVector, storage.AssetType.ImageBitmap, storage.AssetType.Sound],
