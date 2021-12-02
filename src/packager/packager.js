@@ -660,7 +660,7 @@ cd "$(dirname "$0")"
     let storageProgressEnd;
 
     if (this.options.target === 'html') {
-      isZip = true;
+      isZip = this.project.type !== 'blob';
       storageProgressStart = PROGRESS_FETCHED_COMPRESSED;
       storageProgressEnd = PROGRESS_EXTRACTED_COMPRESSED;
 
