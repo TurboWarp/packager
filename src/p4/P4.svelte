@@ -26,6 +26,9 @@
 
   let modalVisible = false;
 
+  let title = '';
+  $: document.title = projectData && title ? `${title} - ${LONG_NAME}` : LONG_NAME;
+
   const getPackagerOptionsComponent = () => import(
     /* webpackChunkName: "packager-options-ui" */
     './PackagerOptions.svelte'
@@ -159,7 +162,10 @@
       </Section>
     {:then { default: PackagerOptions }}
       <div in:fade>
-        <PackagerOptions projectData={projectData} />
+        <PackagerOptions
+          projectData={projectData}
+          bind:title={title}
+        />
       </div>
     {:catch}
       <Section center>
