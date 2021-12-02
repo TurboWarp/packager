@@ -28,7 +28,7 @@ class Database {
     if (this.db) {
       return this.db;
     }
-    if (!window.indexedDB) {
+    if (typeof indexedDB === 'undefined') {
       throw new Error('indexedDB is not supported');
     }
     await idbReady();
