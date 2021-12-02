@@ -12,12 +12,14 @@ import {parsePlist, generatePlist} from './plist';
 import {APP_NAME, WEBSITE, COPYRIGHT_NOTICE} from './brand';
 
 const PROGRESS_LOADED_SCRIPTS = 0.1;
-const PROGRESS_LOADED_JSON_BUT_NEED_ASSETS = 0.2;
-const PROGRESS_FETCHED_INLINE_DATA_BUT_NOT_LOADED = 0.8;
-// Used by environments that pass an entire compressed project into loadProject()
-const PROGRESS_WAITING_FOR_VM_LOAD_COMPRESSED = 0.9;
-// Used by environments that pass a project.json into loadProject() and fetch assets individually
-const PROGRESS_DONE_FETCHING_ALL_ASSETS = 0.98;
+
+// Used by environments that fetch the entire compressed project before calling loadProject()
+const PROGRESS_FETCHED_COMPRESSED = 0.75;
+const PROGRESS_EXTRACTED_COMPRESSED = 0.98;
+
+// Used by environments that pass a project.json into loadProject() and fetch assets separately
+const PROGRESS_FETCHED_PROJECT_JSON = 0.2;
+const PROGRESS_FETCHED_ASSETS = 0.98;
 
 const escapeXML = (v) => v.replace(/["'<>&]/g, (i) => {
   switch (i) {
@@ -49,6 +51,8 @@ const getJSZip = async () => (await import(/* webpackChunkName: "jszip" */ 'jszi
 const setFileFast = (zip, path, data) => {
   zip.files[path] = data;
 };
+
+const interpolate = (a, b, t) => a + t * (b - a);
 
 const getAppIcon = async (file) => {
   if (!file) {
@@ -649,65 +653,97 @@ cd "$(dirname "$0")"
   }
 
   async generateGetProjectData () {
+    let result = '';
+    let getProjectDataFunction = '';
+    let isZip = false;
+    let storageProgressStart;
+    let storageProgressEnd;
+
     if (this.options.target === 'html') {
+      isZip = true;
+      storageProgressStart = PROGRESS_FETCHED_COMPRESSED;
+      storageProgressEnd = PROGRESS_EXTRACTED_COMPRESSED;
+
+      // We break the project into a bunch of small segments to be able to show a good progress bar.
       const SEGMENT_LENGTH = 100000;
       const arrayBuffer = await readAsArrayBuffer(this.project.blob);
       const encoded = encode(arrayBuffer);
-      let result = '';
       for (let i = 0; i < encoded.length; i += SEGMENT_LENGTH) {
         const segment = encoded.substr(i, SEGMENT_LENGTH);
-        const progress = PROGRESS_LOADED_SCRIPTS + (PROGRESS_FETCHED_INLINE_DATA_BUT_NOT_LOADED - PROGRESS_LOADED_SCRIPTS) * (i / encoded.length);
+        const progress = interpolate(PROGRESS_LOADED_SCRIPTS, PROGRESS_FETCHED_COMPRESSED, i / encoded.length);
         // Progress will always be a number between 0 and 1. We can remove the leading 0 and unnecessary decimals to save space.
         const shortenedProgress = progress.toString().substr(1, 4);
         result += `<script type="p4-project">${segment}</script><script>setProgress(${shortenedProgress})</script>`;
       }
-      // After decoding the individuals tags, remove them to reduce memory usage.
-      result += `
-  <script>
-    setProgress(${PROGRESS_FETCHED_INLINE_DATA_BUT_NOT_LOADED});
-    const base85decode = ${decode.toString()};
-    const getProjectData = async () => {
-      const dataElements = Array.from(document.querySelectorAll('script[type="p4-project"]'));
-      const result = base85decode(dataElements.map(i => i.textContent).join(''));
-      dataElements.forEach(i => i.remove());
-      setProgress(${PROGRESS_WAITING_FOR_VM_LOAD_COMPRESSED});
-      return result;
-    };
-  </script>`;
-      return result;
-    }
-    let src;
-    let progressWeight;
-    if (this.project.type === 'blob' || this.options.target === 'zip-one-asset') {
-      src = './project.zip';
-      progressWeight = PROGRESS_WAITING_FOR_VM_LOAD_COMPRESSED - PROGRESS_LOADED_SCRIPTS;
+
+      getProjectDataFunction = `async () => {
+        const base85decode = ${decode};
+        const dataElements = Array.from(document.querySelectorAll('script[type="p4-project"]'));
+        const result = base85decode(dataElements.map(i => i.textContent).join(''));
+        dataElements.forEach(i => i.remove());
+        return result;
+      }`;
     } else {
-      src = './assets/project.json';
-      progressWeight = PROGRESS_LOADED_JSON_BUT_NEED_ASSETS - PROGRESS_LOADED_SCRIPTS;
+      let src;
+      if (this.project.type === 'blob' || this.options.target === 'zip-one-asset') {
+        isZip = true;
+        src = './project.zip';
+        storageProgressStart = PROGRESS_FETCHED_COMPRESSED;
+        storageProgressEnd = PROGRESS_EXTRACTED_COMPRESSED;
+      } else {
+        src = './assets/project.json';
+        storageProgressStart = PROGRESS_FETCHED_PROJECT_JSON;
+        storageProgressEnd = PROGRESS_FETCHED_ASSETS;
+      }
+
+      getProjectDataFunction = `() => new Promise((resolve, reject) => {
+        const xhr = new XMLHttpRequest();
+        xhr.onload = () => {
+          resolve(xhr.response);
+        };
+        xhr.onerror = () => {
+          if (location.protocol === 'file:') {
+            reject(new Error('Zip environment must be used from a website, not from a file URL.'));
+          } else {
+            reject(new Error('Request to load project data failed.'));
+          }
+        };
+        xhr.onprogress = (e) => {
+          if (e.lengthComputable) {
+            setProgress(interpolate(${PROGRESS_LOADED_SCRIPTS}, ${storageProgressStart}, e.loaded / e.total));
+          }
+        };
+        xhr.responseType = 'arraybuffer';
+        xhr.open('GET', ${JSON.stringify(src)});
+        xhr.send();
+      })`;
     }
-    return `<script>
-    const getProjectData = () => new Promise((resolve, reject) => {
-      const xhr = new XMLHttpRequest();
-      xhr.onload = () => {
-        resolve(xhr.response);
-      };
-      xhr.onerror = () => {
-        if (location.protocol === 'file:') {
-          reject(new Error('Zip environment must be used from a website, not from a file URL.'));
-        } else {
-          reject(new Error('Request to load project data failed.'));
-        }
-      };
-      xhr.onprogress = (e) => {
-        if (e.lengthComputable) {
-          setProgress(${PROGRESS_LOADED_SCRIPTS} + (e.loaded / e.total) * ${progressWeight});
-        }
-      };
-      xhr.responseType = 'arraybuffer';
-      xhr.open("GET", ${JSON.stringify(src)});
-      xhr.send();
-    });
-  </script>`;
+
+    result += `
+    <script>
+      const getProjectData = (function() {
+        const storage = scaffolding.storage;
+        storage.onprogress = (total, loaded) => {
+          setProgress(interpolate(${storageProgressStart}, ${storageProgressEnd}, loaded / total));
+        };
+        ${isZip ? `
+        storage.addHelper({
+          load: (assetType, assetId, dataFormat) => zip.file(assetId + '.' + dataFormat)
+            .async('uint8array')
+            .then((data) => new storage.Asset(assetType, assetId, dataFormat, data))
+        });
+        return () => (${getProjectDataFunction})().then(async (data) => {
+          zip = await Scaffolding.JSZip.loadAsync(data);
+          return zip.file('project.json').async('arraybuffer');    
+        });` : `
+        storage.addWebStore(
+          [storage.AssetType.ImageVector, storage.AssetType.ImageBitmap, storage.AssetType.Sound],
+          (asset) => new URL('./assets/' + asset.assetId + '.' + asset.dataFormat, location).href
+        );
+        return ${getProjectDataFunction};`}
+      })();
+    </script>`;
+    return result;
   }
 
   async generateFavicon () {
@@ -929,8 +965,11 @@ cd "$(dirname "$0")"
     const setProgress = (progress) => {
       if (loadingInner) loadingInner.style.width = progress * 100 + '%';
     };
+    const interpolate = (a, b, t) => a + t * (b - a);
 
     try {
+      setProgress(${PROGRESS_LOADED_SCRIPTS});
+
       const scaffolding = new Scaffolding.Scaffolding();
       scaffolding.width = ${this.options.stageWidth};
       scaffolding.height = ${this.options.stageHeight};
@@ -939,19 +978,9 @@ cd "$(dirname "$0")"
       scaffolding.setup();
       scaffolding.appendTo(appElement);
 
-      // Expose values expected by third-party plugins
       window.scaffolding = scaffolding;
       window.vm = scaffolding.vm;
-
-      const {storage, vm} = scaffolding;
-      storage.addWebStore(
-        [storage.AssetType.ImageVector, storage.AssetType.ImageBitmap, storage.AssetType.Sound],
-        (asset) => new URL('./assets/' + asset.assetId + '.' + asset.dataFormat, location).href
-      );
-      storage.onprogress = (total, loaded) => {
-        setProgress(${PROGRESS_LOADED_JSON_BUT_NEED_ASSETS} + (loaded / total) * ${PROGRESS_DONE_FETCHING_ALL_ASSETS - PROGRESS_LOADED_JSON_BUT_NEED_ASSETS});
-      };
-      setProgress(${PROGRESS_LOADED_SCRIPTS});
+      const vm = scaffolding.vm;
 
       scaffolding.setUsername(${JSON.stringify(this.options.username)}.replace(/#/g, () => Math.floor(Math.random() * 10)));
       scaffolding.setAccentColor(${JSON.stringify(this.options.appearance.accent)});
