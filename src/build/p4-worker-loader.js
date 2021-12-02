@@ -1,9 +1,19 @@
 const SingleEntryPlugin = require('webpack/lib/SingleEntryPlugin');
 const path = require('path');
+const loaderUtils = require('loader-utils');
 
 module.exports.pitch = function (request) {
   if (this.target !== 'web') {
-    return 'throw new Error("Not supported in non-web environment");';
+    return `
+    import * as mod from ${loaderUtils.stringifyRequest(this, request)};
+    const shimmedCreateWorker = () => {
+      return {
+        worker: mod,
+        terminate: () => {}
+      };
+    };
+    export default shimmedCreateWorker;
+    `;
   }
   const compilerOptions = this._compiler.options || {};
   const options = {
