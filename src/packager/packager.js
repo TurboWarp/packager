@@ -233,7 +233,7 @@ class Packager extends EventTarget {
       });
     }
     if (asset.useBuildId && !verifyBuildId(buildId, result)) {
-      throw new Error('Build ID mismatch');
+      throw new Error('Build ID mismatch; This should be fixed after refreshing the page.');
     }
     if (asset.sha256) {
       const hash = await sha256(result);
