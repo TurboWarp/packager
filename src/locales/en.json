@@ -306,6 +306,12 @@
     "dynamicResize": {
       "string": "Dynamically resize stage to fill page (overrides stage size setting)"
     },
+    "projectId": {
+      "string": "Project ID"
+    },
+    "projectIdHelp": {
+      "string": "Project ID is used when connecting to a cloud variable server. It can contain more than just numbers."
+    },
     "customExtensions": {
       "string": "Custom extensions (one URL per line)"
     },

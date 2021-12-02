@@ -478,7 +478,8 @@
       'compiler',
       'resizeToFill',
       'extensions',
-      'custom'
+      'custom',
+      'projectId'
     ]);
   }}
 >
@@ -517,6 +518,11 @@
         {$_('options.customJS')}
         <textarea bind:value={$options.custom.js}></textarea>
       </label>
+      <label>
+        {$_('options.projectId')}
+        <input type="text" bind:value={$options.projectId}>
+      </label>
+      <p>{$_('options.projectIdHelp')}</p>
     </details>
   </div>
 </Section>
