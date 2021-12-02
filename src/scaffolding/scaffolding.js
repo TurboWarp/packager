@@ -3,6 +3,7 @@ import Renderer from 'scratch-render';
 import Storage from './storage';
 import AudioEngine from 'scratch-audio';
 import {BitmapAdapter} from 'scratch-svg-renderer';
+import JSZip from 'jszip';
 
 import EventTarget from '../common/event-target';
 import VideoProvider from './video';
@@ -462,5 +463,6 @@ export {
   VM,
   Renderer,
   Storage,
-  AudioEngine
+  AudioEngine,
+  JSZip
 };
