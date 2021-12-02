@@ -712,7 +712,7 @@ cd "$(dirname "$0")"
 
   async generateFavicon () {
     if (this.options.app.icon === null) {
-      return '<!-- no favicon -->';
+      return '';
     }
     const data = await readAsURL(this.options.app.icon);
     return `<link rel="icon" href="${data}">`;
