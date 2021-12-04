@@ -126,34 +126,9 @@ const optimizeSb3Json = (projectData) => {
     }
   };
   for (const target of projectData.targets) {
-    // Blocks get their own pool per-target
-    const blockPool = new Pool();
-    for (const [blockId, block] of Object.entries(target.blocks)) {
-      blockPool.addReference(blockId);
-      if (Array.isArray(block)) {
-        // Compressed native
-        continue;
-      }
-      if (block.parent) {
-        blockPool.addReference(block.parent);
-      }
-      if (block.next) {
-        blockPool.addReference(block.next);
-      }
-      for (const input of Object.values(block.inputs)) {
-        const inputValue = input[1];
-        if (typeof inputValue === 'string') {
-          const childBlockId = inputValue;
-          blockPool.addReference(childBlockId);
-        }
-      }
-    }
-    blockPool.generateNewIds();
-
     const newVariables = {};
     const newLists = {};
     const newBroadcasts = {};
-    const newBlocks = {};
     const newComments = {};
 
     for (const [variableId, variable] of Object.entries(target.variables)) {
@@ -166,16 +141,9 @@ const optimizeSb3Json = (projectData) => {
       newBroadcasts[variablePool.getNewId(broadcastId)] = broadcast;
     }
     for (const [blockId, block] of Object.entries(target.blocks)) {
-      newBlocks[blockPool.getNewId(blockId)] = block;
       if (Array.isArray(block)) {
         optimizeCompressedNative(block);
         continue;
-      }
-      if (block.parent) {
-        block.parent = blockPool.getNewId(block.parent);
-      }
-      if (block.next) {
-        block.next = blockPool.getNewId(block.next);
       }
       if (block.fields.VARIABLE) {
         block.fields.VARIABLE[1] = variablePool.getNewId(block.fields.VARIABLE[1]);
@@ -190,9 +158,6 @@ const optimizeSb3Json = (projectData) => {
         const inputValue = input[1];
         if (Array.isArray(inputValue)) {
           optimizeCompressedNative(inputValue);
-        } else if (typeof inputValue === 'string') {
-          const childBlockId = inputValue;
-          input[1] = blockPool.getNewId(childBlockId);
         }
       }
       if (!block.shadow) {
@@ -216,7 +181,6 @@ const optimizeSb3Json = (projectData) => {
     target.variables = newVariables;
     target.lists = newLists;
     target.broadcasts = newBroadcasts;
-    target.blocks = newBlocks;
     target.comments = newComments;
   }
 
