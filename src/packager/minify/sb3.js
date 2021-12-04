@@ -48,6 +48,8 @@ const optimizeSb3Json = (projectData) => {
 
   // Scan global attributes of the project so we can generate optimal IDs later
   const variablePool = new Pool();
+  const blockPool = new Pool();
+
   if (projectData.monitors) {
     for (const monitor of projectData.monitors) {
       const monitorOpcode = monitor.opcode;
@@ -57,6 +59,7 @@ const optimizeSb3Json = (projectData) => {
       }
     }
   }
+
   const scanCompressedNative = native => {
     const type = native[0];
     if (type === VAR_PRIMITIVE || type === LIST_PRIMITIVE) {
@@ -67,6 +70,7 @@ const optimizeSb3Json = (projectData) => {
       variablePool.addReference(broadcastId);
     }
   };
+
   for (const target of projectData.targets) {
     for (const variableId of Object.keys(target.variables)) {
       variablePool.addReference(variableId);
@@ -77,11 +81,21 @@ const optimizeSb3Json = (projectData) => {
     for (const broadcastId of Object.keys(target.broadcasts)) {
       variablePool.addReference(broadcastId);
     }
-    for (const block of Object.values(target.blocks)) {
+
+    for (const [blockId, block] of Object.entries(target.blocks)) {
+      blockPool.addReference(blockId);
       if (Array.isArray(block)) {
         scanCompressedNative(block);
         continue;
       }
+
+      if (block.parent) {
+        blockPool.addReference(block.parent);
+      }
+      if (block.next) {
+        blockPool.addReference(block.next);
+      }
+
       if (block.fields.VARIABLE) {
         variablePool.addReference(block.fields.VARIABLE[1]);
       }
@@ -91,15 +105,22 @@ const optimizeSb3Json = (projectData) => {
       if (block.fields.BROADCAST_OPTION) {
         variablePool.addReference(block.fields.BROADCAST_OPTION[1]);
       }
+
       for (const input of Object.values(block.inputs)) {
-        const inputValue = input[1];
-        if (Array.isArray(inputValue)) {
-          scanCompressedNative(inputValue);
+        for (let i = 1; i < input.length; i++) {
+          const inputValue = input[i];
+          if (typeof inputValue === 'string') {
+            blockPool.addReference(inputValue);
+          } else if (Array.isArray(inputValue)) {
+            scanCompressedNative(inputValue);
+          }
         }
       }
     }
   }
+
   variablePool.generateNewIds();
+  blockPool.generateNewIds();
 
   // Use gathered data to optimize the project
   if (projectData.monitors) {
@@ -129,6 +150,7 @@ const optimizeSb3Json = (projectData) => {
     const newVariables = {};
     const newLists = {};
     const newBroadcasts = {};
+    const newBlocks = {};
     const newComments = {};
 
     for (const [variableId, variable] of Object.entries(target.variables)) {
@@ -140,11 +162,21 @@ const optimizeSb3Json = (projectData) => {
     for (const [broadcastId, broadcast] of Object.entries(target.broadcasts)) {
       newBroadcasts[variablePool.getNewId(broadcastId)] = broadcast;
     }
+
     for (const [blockId, block] of Object.entries(target.blocks)) {
+      newBlocks[blockPool.getNewId(blockId)] = block;
       if (Array.isArray(block)) {
         optimizeCompressedNative(block);
         continue;
       }
+
+      if (block.parent) {
+        block.parent = blockPool.getNewId(block.parent);
+      }
+      if (block.next) {
+        block.next = blockPool.getNewId(block.next);
+      }
+
       if (block.fields.VARIABLE) {
         block.fields.VARIABLE[1] = variablePool.getNewId(block.fields.VARIABLE[1]);
       }
@@ -154,10 +186,15 @@ const optimizeSb3Json = (projectData) => {
       if (block.fields.BROADCAST_OPTION) {
         block.fields.BROADCAST_OPTION[1] = variablePool.getNewId(block.fields.BROADCAST_OPTION[1]);
       }
+
       for (const input of Object.values(block.inputs)) {
-        const inputValue = input[1];
-        if (Array.isArray(inputValue)) {
-          optimizeCompressedNative(inputValue);
+        for (let i = 1; i < input.length; i++) {
+          const inputValue = input[i];
+          if (typeof inputValue === 'string') {
+            input[i] = blockPool.getNewId(inputValue);
+          } else if (Array.isArray(inputValue)) {
+            optimizeCompressedNative(inputValue);
+          }
         }
       }
       if (!block.shadow) {
@@ -181,10 +218,11 @@ const optimizeSb3Json = (projectData) => {
     target.variables = newVariables;
     target.lists = newLists;
     target.broadcasts = newBroadcasts;
+    target.blocks = newBlocks;
     target.comments = newComments;
   }
 
-  // Step 3 - Remove other unnecessary data
+  // Remove unnecessary metadata
   if (projectData.meta) {
     delete projectData.meta.agent;
     delete projectData.meta.vm;
