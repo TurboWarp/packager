@@ -40,14 +40,14 @@ The general layout of `src` is:
 
 ## Tips for forks
 
-**Branding**: At a bare minimum, please take the time to:
-
- - Update the brand strings (`src/packager/brand.js`) to use your own name and links.
- - Update the privacy policy (`static/privacy.html`) to reflect your privacy practices.
+**Changing Scratch internals**: If you want to change the VM/renderer/etc. used, just `npm install` or `npm link` a different scratch-vm/scratch-render/etc and rebuild. You can even install a vanilla scratch-vm and all core functionality will still work (but optional features such as interpolation, high quality pen, stage size, etc. may not work)
 
 **Deploying**: The packager is deployed as a simple static website. You can host it anywhere by just copying the `dist` folder after a build. We use GitHub Actions to deploy to GitHub Pages by running the "Deploy" workflow whenever we want to push to production (Actions > Deploy > Run workflow). This should be automatically available in forks after enabling GitHub Actions.
 
-**Changing Scratch internals**: If you want to change the VM/renderer/etc. used, just `npm install` or `npm link` a different scratch-vm/scratch-render/etc and rebuild. You can even install a vanilla scratch-vm and all core functionality will still work (but optional features such as interpolation, high quality pen, stage size, etc. may not work)
+**Branding**: If you want to rebrand the packager for a different Scratch fork, the bare minimum changes to make are:
+
+ - Update the brand strings (`src/packager/brand.js`) to use your own name and links.
+ - Update the privacy policy (`static/privacy.html`) to reflect your privacy practices.
 
 **Common problems**: 
 
