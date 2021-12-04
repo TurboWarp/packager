@@ -69,6 +69,8 @@
         "pointerlock": "マウスカーソルをロックする",
         "pointerlockHelp": "TurboWarpの実験に基づいています。",
         "preview": "プレビュー",
+        "projectId": "プロジェクトID",
+        "projectIdHelp": "プロジェクトIDは、変数のクラウドサーバーに接続する時に使用します。数字以外の文字も含めることができます。",
         "removeFencing": "動く範囲と大きさの制限を解除する",
         "removeMiscLimits": "その他の制限を解除",
         "runtimeOptions": "ランタイムのオプション",

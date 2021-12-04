@@ -68,6 +68,8 @@
         "pointerlock": "Mauscursor blockieren",
         "pointerlockHelp": "Basierend auf einem TurboWarp-Experiment",
         "preview": "Vorschau",
+        "projectId": "Projekt-ID",
+        "projectIdHelp": "Die Projekt-ID wird beim Verbinden mit einem Cloudvariablenserver verwendet. Sie kann mehr als nur Zahlen enthalten.",
         "removeFencing": "Einzäunung entfernen",
         "removeMiscLimits": "Verschiedene Begrenzungen entfernen",
         "runtimeOptions": "Laufzeit-Optionen",
