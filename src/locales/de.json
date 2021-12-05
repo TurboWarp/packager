@@ -36,7 +36,6 @@
         "customJS": "Benutzerdefiniertes JS (Nur ändern, wenn man weiß, was man tut!)",
         "download": "{filename} herunterladen ({size}MB)",
         "downloadsWillAppearHere": "Downloads weren hier erscheinen",
-        "dynamicResize": "Bühne dynamisch anpassen (ignoriert die Einstellung für die Bühnengröße)",
         "editableLists": "Bearbeitbare Listen",
         "enableCompiler": "Schalte Compiler an",
         "environment": "Umgebung",

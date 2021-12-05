@@ -35,7 +35,6 @@
         "customJS": "自定义 JS (如果你不确定你在做什么，别动它)",
         "download": "下载 {filename} (大小 {size}MB)",
         "downloadsWillAppearHere": "下载进度将显示在这里",
-        "dynamicResize": "动态调整舞台大小以填充整个页面（将会覆盖舞台大小设置）",
         "enableCompiler": "使用编译",
         "environment": "运行环境",
         "foregroundColor": "前景颜色（进度栏，一些图标，一些文本）",

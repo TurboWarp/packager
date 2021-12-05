@@ -36,7 +36,6 @@
         "customJS": "JS customizado (Não mexa se você não sabe o que está fazendo!)",
         "download": "Baixar {filename} ({size}MB)",
         "downloadsWillAppearHere": "Downloads aparecerão aqui",
-        "dynamicResize": "Mudar o tamanho do palco dinamicamente com o tamanho da janela (sobrescreve a opção de tamanho de palco customizado)",
         "editableLists": "Listas editáveis",
         "enableCompiler": "Ligar Compilador",
         "environment": "Ambiente",

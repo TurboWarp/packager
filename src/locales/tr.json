@@ -34,7 +34,6 @@
         "customJS": "Özel JS (Eğer sen ne yapmayı bilmiyorsan burada hiç bir şey yapma)",
         "download": "İndir {filename} ({size}MB)",
         "downloadsWillAppearHere": "İndirilenler burada görünecek",
-        "dynamicResize": "Sahne alanını dinamik olarak sahneyi doldur  (aşama boyutu ayarını geçersiz kılar)",
         "editableLists": "Düzenlenebilen listeler",
         "enableCompiler": "Derlemeyi aç",
         "environment": "Çevre",

@@ -36,7 +36,6 @@
         "customJS": "カスタム JS(何をするのか分からない場合は変更しないでください)",
         "download": "{filename}をダウンロード({size}MB)",
         "downloadsWillAppearHere": "ダウンロードでここに表示する",
-        "dynamicResize": "ページ全体に広がるようステージのサイズを動的に変更する（ステージサイズの設定を上書きする)",
         "editableLists": "編集できるリスト",
         "enableCompiler": "コンパイラを有効にする",
         "environment": "環境",

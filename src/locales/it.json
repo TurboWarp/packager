@@ -35,7 +35,6 @@
         "customJS": "JS personalizzato (Non cambiare se non sai cosa stai facendo!)",
         "download": "Scarica {filename} ({size}MB)",
         "downloadsWillAppearHere": "I download appariranno qui",
-        "dynamicResize": "Ridimensiona lo Stage dinamicamente per riempire la pagina (ignora le impostazioni della dimensioni dello Stage)",
         "editableLists": "Liste modificabili",
         "enableCompiler": "Abilita Compilatore",
         "environment": "Ambiente",

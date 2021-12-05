@@ -32,7 +32,6 @@
         "customJS": "Vlastní JS (Neměňte, pokud nevíte co děláte!)",
         "download": "Stáhnout {filename} ({size}MB)",
         "downloadsWillAppearHere": "Stažené soubory se ukážou zde",
-        "dynamicResize": "Dynamicky změní velikost scény, aby vyplnila stránku (přepíše nastavení velikosti scény)",
         "enableCompiler": "Aktivovat kompilátor",
         "environment": "Prostředí",
         "foregroundColor": "Barva popředí (průběh, některé ikony, některé texty)",

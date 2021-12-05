@@ -36,7 +36,6 @@
         "customJS": "사용자 지정 자바스크립트 파일 (이 기능에 대해 모르는 경우 변경하지 마세요!)",
         "download": "{filename} 다운로드하기 ({size}MB) ",
         "downloadsWillAppearHere": "다운로드는 여기에 표시됩니다",
-        "dynamicResize": "페이지를 채우기 위한 유동적인 무대 크기 조절(무대 크기 설정 덮어씌워짐)",
         "editableLists": "수정 가능한 리스트",
         "enableCompiler": "컴파일러 켜기",
         "environment": "환경",

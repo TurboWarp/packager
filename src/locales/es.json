@@ -33,7 +33,6 @@
         "customJS": "JS Personalizado (¡No cambie esto si no sabe lo que esta haciendo!)",
         "download": "Descargar {filename} ({size} MB)",
         "downloadsWillAppearHere": "Las descargas aparecerán aquí",
-        "dynamicResize": "Dinámicamente cambiar el tamaño del escenario para llenar la página (anula el ajuste del tamaño del escenario)",
         "enableCompiler": "Activar Compilador",
         "environment": "Entorno",
         "foregroundColor": "Color en primer plano (barra de progreso, algunos íconos, algunos textos)",
