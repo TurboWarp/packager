@@ -170,8 +170,12 @@
     min-width: 100%;
     height: 150px;
   }
+  /* TODO: fix the option-group mess */
   .option-group {
     margin-bottom: 12px;
+  }
+  .stage-size-section {
+    margin-top: 12px;
   }
   input:invalid {
     outline: 2px solid red;
@@ -198,6 +202,7 @@
       'miscLimits',
       'stageWidth',
       'stageHeight',
+      'resizeMode',
       'username'
     ]);
   }}
@@ -252,16 +257,31 @@
       <LearnMore slug="remove-misc-limits" />
     </label>
     <label>
-      {$_('options.stageSize')}
-      <input type="number" min="1" max="4096" step="1" bind:value={$options.stageWidth}>
-      &times;
-      <input type="number" min="1" max="4096" step="1" bind:value={$options.stageHeight}>
-      <LearnMore slug="custom-stage-size" />
-    </label>
-    <label>
       {$_('options.username')}
       <input type="text" bind:value={$options.username}>
     </label>
+    <div class="stage-size-section">
+      <label>
+        {$_('options.stageSize')}
+        <input type="number" min="1" max="4096" step="1" bind:value={$options.stageWidth}>
+        &times;
+        <input type="number" min="1" max="4096" step="1" bind:value={$options.stageHeight}>
+        <LearnMore slug="custom-stage-size" />
+      </label>
+      <label>
+        <input type="radio" name="resize-mode" value="preserve-ratio" bind:group={$options.resizeMode}>
+        {$_('options.preserveRatio')}
+      </label>
+      <label>
+        <input type="radio" name="resize-mode" value="stretch" bind:group={$options.resizeMode}>
+        {$_('options.stretch')}
+      </label>
+      <label>
+        <input type="radio" name="resize-mode" value="dynamic-resize" bind:group={$options.resizeMode}>
+        {$_('options.dynamicResize')}
+        <LearnMore slug="packager/dynamic-stage-resize" />
+      </label>
+    </div>
   </div>
 </Section>
 
@@ -479,7 +499,6 @@
   reset={() => {
     resetOptions([
       'compiler',
-      'resizeToFill',
       'extensions',
       'custom',
       'projectId'
@@ -499,11 +518,6 @@
         <input type="checkbox" bind:checked={$options.compiler.warpTimer}>
         {$_('options.warpTimer')}
         <LearnMore slug="warp-timer" />
-      </label>
-      <label>
-        <input type="checkbox" bind:checked={$options.resizeToFill}>
-        {$_('options.dynamicResize')}
-        <LearnMore slug="packager/dynamic-stage-resize" />
       </label>
       <!-- Ignore because CustomExtensions will have a <textarea> inside it -->
       <!-- svelte-ignore a11y-label-has-associated-control -->

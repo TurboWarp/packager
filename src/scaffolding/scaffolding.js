@@ -29,7 +29,7 @@ class Scaffolding extends EventTarget {
 
     this.width = 480;
     this.height = 360;
-    this.resizeToFill = false;
+    this.resizeMode = 'preserve-ratio';
     this.editableLists = false;
 
     this.messages = defaultMessages;
@@ -260,12 +260,12 @@ class Scaffolding extends EventTarget {
     const offsetFromLeft = this._offsetFromLeft;
     const offsetFromRight = this._offsetFromRight;
 
-    const canvasWidth = Math.max(1, totalWidth - offsetFromLeft - offsetFromRight);
-    const canvasHeight = Math.max(1, totalHeight - offsetFromTop - offsetFromBottom);
+    const projectAreaWidth = Math.max(1, totalWidth - offsetFromLeft - offsetFromRight);
+    const projectAreaHeight = Math.max(1, totalHeight - offsetFromTop - offsetFromBottom);
 
-    if (this.resizeToFill) {
-      this.width = canvasWidth;
-      this.height = canvasHeight;
+    if (this.resizeMode === 'dynamic-resize') {
+      this.width = projectAreaWidth;
+      this.height = projectAreaHeight;
       this.renderer.setStageSize(
         -this.width / 2,
         this.width / 2,
@@ -276,13 +276,14 @@ class Scaffolding extends EventTarget {
       this.vm.runtime.stageHeight = this.height;  
     }
 
-    let height = canvasHeight;
-    let width = height / this.height * this.width;
-    let scale = height / this.height;
-    if (width > canvasWidth) {
-      scale = canvasWidth / this.width;
-      height = canvasWidth / this.width * this.height;
-      width = canvasWidth;
+    let width = projectAreaWidth;
+    let height = projectAreaHeight;
+    if (this.resizeMode !== 'stretch') {
+      width = height / this.height * this.width;
+      if (width > projectAreaWidth) {
+        height = projectAreaWidth / this.width * this.height;
+        width = projectAreaWidth;
+      }
     }
 
     const distanceFromTop = totalHeight - height;
@@ -293,7 +294,7 @@ class Scaffolding extends EventTarget {
     this._layers.style.transform = `translate(${translateY}px, ${translateX}px)`;
     this._layers.style.width = `${width}px`;
     this._layers.style.height = `${height}px`;
-    this._overlays.style.transform = `scale(${scale})`;
+    this._overlays.style.transform = `scale(${width / this.width}, ${height / this.height})`;
     this.renderer.resize(width, height);
 
     this.layersRect = this._layers.getBoundingClientRect();

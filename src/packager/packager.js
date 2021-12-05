@@ -973,7 +973,7 @@ cd "$(dirname "$0")"
       const scaffolding = new Scaffolding.Scaffolding();
       scaffolding.width = ${this.options.stageWidth};
       scaffolding.height = ${this.options.stageHeight};
-      scaffolding.resizeToFill = ${this.options.resizeToFill};
+      scaffolding.resizeMode = ${JSON.stringify(this.options.resizeMode)};
       scaffolding.editableLists = ${this.options.monitors.editableLists};
       scaffolding.setup();
       scaffolding.appendTo(appElement);
@@ -1247,7 +1247,7 @@ Packager.DEFAULT_OPTIONS = () => ({
   miscLimits: true,
   stageWidth: 480,
   stageHeight: 360,
-  resizeToFill: false,
+  resizeMode: 'preserve-ratio',
   autoplay: false,
   username: 'player####',
   custom: {

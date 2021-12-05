@@ -140,6 +140,15 @@
     "stageSize": {
       "string": "Stage Size"
     },
+    "preserveRatio": {
+      "string": "Preserve aspect ratio when resized (recommended)"
+    },
+    "stretch": {
+      "string": "Stretch stage to fill screen without changing actual size (experimental)"
+    },
+    "dynamicResize": {
+      "string": "Dynamically resize size to match window size (experimental)"
+    },
     "username": {
       "string": "Username (each \"#\" gets replaced with a random number)"
     },
@@ -302,9 +311,6 @@
     },
     "warpTimer": {
       "string": "Warp Timer"
-    },
-    "dynamicResize": {
-      "string": "Dynamically resize stage to fill page (overrides stage size setting)"
     },
     "projectId": {
       "string": "Project ID"
