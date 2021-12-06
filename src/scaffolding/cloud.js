@@ -173,6 +173,13 @@ class WebSocketProvider {
   }
 
   handleUpdateVariable (name, value) {
+    // If this variable already has a scheduled update, we'll replace its value instead of scheduling another update.
+    for (const i of this.messageQueue) {
+      if (i.name === name) {
+        i.value = value;
+        return;
+      }
+    }
     this.throttledWriteToServer({
       method: 'set',
       name,
