@@ -36,6 +36,7 @@
         "customJS": "JS customizado (Não mexa se você não sabe o que está fazendo!)",
         "download": "Baixar {filename} ({size}MB)",
         "downloadsWillAppearHere": "Downloads aparecerão aqui",
+        "dynamicResize": "Redimensionar dinamicamente para combinar com o tamanho da janela (experimental)",
         "editableLists": "Listas editáveis",
         "enableCompiler": "Ligar Compilador",
         "environment": "Ambiente",
@@ -66,7 +67,10 @@
         "playerOptions": "Opções do Player",
         "pointerlock": "Bloquear o cursor",
         "pointerlockHelp": "Baseado em um Experimento do TurboWarp",
+        "preserveRatio": "Preservar a relação de aspecto quando redimensionada (recomendado)",
         "preview": "Previsualizar",
+        "projectId": "ID do projeto",
+        "projectIdHelp": "O ID do projeto é usado ao conectar a um servidor de variáveis na nuvem. Ele não precisa ser feito apenas de números.",
         "removeFencing": "Remover Borda",
         "removeMiscLimits": "Remover Outros Limites",
         "runtimeOptions": "Opções de Execução",
@@ -79,6 +83,8 @@
         "sizeStretch": "Cobrir a tela",
         "specialCloudBehaviors": "Comportamento especial para variáveis na nuvem específicos, como no HTMLifier",
         "stageSize": "Tamanho do Palco",
+        "storedWarning": "Nota: Este projeto tem configurações armazenadas nele, que podem sobrepor-se a estas configurações.",
+        "stretch": "Esticar o palco para preencher a tela sem alterar o tamanho real (experimental)",
         "turbo": "Modo Turbo",
         "username": "Nome de usuário (cada \"#\" vira um número aleatório)",
         "zip": "Zip (ideal para websites)",
@@ -108,6 +114,7 @@
         "packagingProject": "Exportando projeto"
     },
     "reset": {
+        "confirm": "Tem certeza que quer resetar essas configurações? Isto não pode ser desfeito.",
         "reset": "Resetar"
     },
     "select": {
