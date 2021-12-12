@@ -10,7 +10,7 @@ const run = async () => {
   const progressCallback = (type, a, b) => {
     console.log('Progress', type, a, b);
   };
-  const loadedProject = await Packager.downloadProject(projectData, progressCallback);
+  const loadedProject = await Packager.loadProject(projectData, progressCallback);
   console.log('Loaded project', loadedProject);
 
   const packager = new Packager.Packager();

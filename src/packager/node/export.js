@@ -6,5 +6,5 @@ Packager.adapter = new NodeAdapter();
 
 export {
   Packager,
-  downloadProject
+  downloadProject as loadProject
 };
