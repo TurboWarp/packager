@@ -94,6 +94,13 @@ const makeScaffolding = ({full}) => ({
   ]
 });
 
+const commonFrontendPlugins = () => [
+  new webpack.DefinePlugin({
+    'process.env.SCAFFOLDING_BUILD_ID': buildId ? JSON.stringify(buildId) : 'Math.random().toString()',
+    'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development')
+  })
+];
+
 const makeWebsite = () => ({
   ...base,
   devtool: isStandalone ? '' : 'source-map',
@@ -137,6 +144,7 @@ const makeWebsite = () => ({
     ]
   },
   plugins: [
+    ...commonFrontendPlugins(),
     new CopyWebpackPlugin({
       patterns: [
         {
@@ -145,8 +153,6 @@ const makeWebsite = () => ({
       ]
     }),
     new webpack.DefinePlugin({
-      'process.env.SCAFFOLDING_BUILD_ID': buildId ? JSON.stringify(buildId) : 'Math.random().toString()',
-      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development'),
       'process.env.ENABLE_SERVICE_WORKER': JSON.stringify(process.env.ENABLE_SERVICE_WORKER),
       'process.env.STANDALONE': JSON.stringify(isStandalone ? true : false),
       'process.env.PLAUSIBLE_API': JSON.stringify(process.env.PLAUSIBLE_API),
@@ -171,8 +177,44 @@ const makeWebsite = () => ({
   },
 });
 
+const makeNode = () => ({
+  ...base,
+  devtool: '',
+  target: 'node',
+  output: {
+    filename: '[name].js',
+    path: dist,
+    library: 'packager',
+    libraryTarget: 'umd'
+  },
+  node: {
+    __dirname: false,
+  },
+  entry: {
+    packager: './src/packager/node/export.js'
+  },
+  module: {
+    rules: [
+      {
+        test: /\.png|\.svg$/i,
+        use: {
+          loader: 'url-loader'
+        }
+      }
+    ]
+  },
+  plugins: [
+    ...commonFrontendPlugins(),
+    ...(process.env.BUNDLE_ANALYZER === 'node' ? [new BundleAnalyzerPlugin()] : [])
+  ],
+});
+
 module.exports = [
   makeScaffolding({full: true}),
   makeScaffolding({full: false}),
-  makeWebsite()
+  ...(process.env.BUILD_MODE === 'node' ? [
+    makeNode()
+  ] : [
+    makeWebsite()
+  ])
 ];

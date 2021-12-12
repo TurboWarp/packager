@@ -1,4 +1,5 @@
 import JSZip from 'jszip';
+import fetch from 'cross-fetch';
 import {EventTarget, CustomEvent} from '../common/event-target';
 import optimizeSb3Json from './minify/sb3';
 
