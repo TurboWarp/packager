@@ -164,6 +164,7 @@ class Packager extends EventTarget {
     this.project = null;
     this.options = Packager.DEFAULT_OPTIONS();
     this.aborted = false;
+    this.used = false;
   }
 
   abort () {
@@ -759,6 +760,10 @@ cd "$(dirname "$0")"
     if (!Packager.adapter) {
       throw new Error('Missing adapter');
     }
+    if (this.used) {
+      throw new Error('Packager was already used');
+    }
+    this.used = true;
     this.ensureNotAborted();
     await this.loadResources();
     this.ensureNotAborted();
