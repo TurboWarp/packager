@@ -4,14 +4,17 @@ import {promisify} from 'util';
 
 const readFile = promisify(fs.readFile);
 
+const scaffoldingDirectory = path.join(__dirname, 'scaffolding');
+
 class NodeAdapter {
   async getCachedAsset (asset) {
     if (asset.src.startsWith('scaffolding/')) {
-      // TODO: secure against path traversal?
       const file = path.join(__dirname, asset.src);
-      return readFile(file, 'utf-8');
+      if (file.startsWith(scaffoldingDirectory)) {
+        return readFile(file, 'utf-8');
+      }
     }
-    // TODO: other large asset caching
+    // TODO: non-scaffolding asset caching
   }
 
   cacheAsset (asset, result) {
