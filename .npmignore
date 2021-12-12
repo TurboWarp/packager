@@ -5,3 +5,5 @@ webpack.config.js
 babel.config.js
 .browserslistrc
 .github
+.packager-cache
+demo_output*
