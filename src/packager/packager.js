@@ -1,4 +1,4 @@
-import EventTarget from '../common/event-target';
+import {EventTarget, CustomEvent} from '../common/event-target';
 import createChecksumWorker from '../build/p4-worker-loader!./sha256'
 import defaultIcon from './images/default-icon.png';
 import {readAsArrayBuffer, readAsURL} from '../common/readers';

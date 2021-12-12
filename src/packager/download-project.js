@@ -1,5 +1,5 @@
 import JSZip from 'jszip';
-import EventTarget from '../common/event-target';
+import {EventTarget, CustomEvent} from '../common/event-target';
 import optimizeSb3Json from './minify/sb3';
 
 const ASSET_HOST = 'https://assets.scratch.mit.edu/internalapi/asset/$path/get/';

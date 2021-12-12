@@ -1,4 +1,4 @@
-import EventTarget from '../common/event-target';
+import {EventTarget} from '../common/event-target';
 import {AbortError} from './errors';
 import {progress, error, currentTask} from './stores';
 

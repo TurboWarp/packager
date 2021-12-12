@@ -1,4 +1,4 @@
-import EventTarget from '../../common/event-target';
+import {EventTarget, CustomEvent} from '../../common/event-target';
 
 let console = window.console;
 
