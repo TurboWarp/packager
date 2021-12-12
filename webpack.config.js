@@ -193,6 +193,12 @@ const makeNode = () => ({
   entry: {
     packager: './src/packager/node/export.js'
   },
+  externals: {
+    jszip: 'jszip',
+    'cross-fetch': 'cross-fetch',
+    'sha.js': 'sha.js',
+    '@fiahfy/icns': '@fiahfy/icns'
+  },
   module: {
     rules: [
       {
