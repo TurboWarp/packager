@@ -479,7 +479,7 @@
 
 <Section
   accent="#FF8C1A"
-  reset={() => {
+  reset={cloudVariables.length === 0 ? null : () => {
     resetOptions([
       'cloudVariables'
     ]);
