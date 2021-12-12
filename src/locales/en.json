@@ -268,6 +268,10 @@
       "string": "Cloud Variables",
       "context": "Cloud variables section header"
     },
+    "noCloudVariables": {
+      "string": "This project does not contain cloud variables.",
+      "context": "Message that appears when the project contain no cloud variables."
+    },
     "mode": {
       "string": "Mode",
       "context": "Label to choose how to handle cloud variables"

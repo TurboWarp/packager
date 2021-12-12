@@ -455,17 +455,18 @@
   </div>
 </Section>
 
-{#if cloudVariables.length > 0}
-  <Section
-    accent="#FF8C1A"
-    reset={() => {
-      resetOptions([
-        'cloudVariables'
-      ]);
-    }}
-  >
-    <div>
-      <h2>{$_('options.cloudVariables')}</h2>
+<Section
+  accent="#FF8C1A"
+  reset={() => {
+    resetOptions([
+      'cloudVariables'
+    ]);
+  }}
+>
+  <div>
+    <h2>{$_('options.cloudVariables')}</h2>
+
+    {#if cloudVariables.length > 0}
       <label class="option">
         {$_('options.mode')}
         <select bind:value={$options.cloudVariables.mode}>
@@ -510,9 +511,11 @@
         </label>
         <LearnMore slug="packager/special-cloud-behaviors" />
       </div>
-    </div>
-  </Section>
-{/if}
+    {:else}
+      <p>{$_('options.noCloudVariables')}</p>
+    {/if}
+  </div>
+</Section>
 
 <Section
   accent="#FF6680"
