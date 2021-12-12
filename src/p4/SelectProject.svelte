@@ -151,6 +151,9 @@
     max-width: 300px;
     flex-grow: 1;
   }
+  .options {
+    margin: 12px 0;
+  }
   .option {
     min-height: 25px;
     display: flex;
@@ -165,34 +168,36 @@
   <Section accent="#4C97FF">
     <h2>{$_('select.select')}</h2>
     <p>{$_('select.selectHelp')}</p>
-    <div class="option">
-      <label>
-        <input type="radio" name="project-type" bind:group={$type} value="id">
-        {$_('select.id')}
-      </label>
-      {#if $type === "id"}
-        <input type="text" value={getDisplayedProjectURL()} spellcheck="false" on:keypress={submitOnEnter} on:input={handleInput} on:focus={handleFocus}>
-      {/if}
+
+    <div class="options">
+      <div class="option">
+        <label>
+          <input type="radio" name="project-type" bind:group={$type} value="id">
+          {$_('select.id')}
+        </label>
+        {#if $type === "id"}
+          <input type="text" value={getDisplayedProjectURL()} spellcheck="false" on:keypress={submitOnEnter} on:input={handleInput} on:focus={handleFocus}>
+        {/if}
+      </div>
+      <div class="option">
+        <label>
+          <input type="radio"  name="project-type" bind:group={$type} value="file">
+          {$_('select.file')}
+        </label>
+        <input hidden={$type !== "file"} bind:files={files} bind:this={fileInputElement} type="file" accept=".sb,.sb2,.sb3">
+      </div>
+      <div class="option">
+        <label>
+          <input type="radio" name="project-type" bind:group={$type} value="url">
+          {$_('select.url')}
+        </label>
+        {#if $type === "url"}
+          <input type="text" bind:value={$projectUrl} spellcheck="false" placeholder="https://..." on:keypress={submitOnEnter}>
+        {/if}
+      </div>
     </div>
-    <div class="option">
-      <label>
-        <input type="radio"  name="project-type" bind:group={$type} value="file">
-        {$_('select.file')}
-      </label>
-      <input hidden={$type !== "file"} bind:files={files} bind:this={fileInputElement} type="file" accept=".sb,.sb2,.sb3">
-    </div>
-    <div class="option">
-      <label>
-        <input type="radio" name="project-type" bind:group={$type} value="url">
-        {$_('select.url')}
-      </label>
-      {#if $type === "url"}
-        <input type="text" bind:value={$projectUrl} spellcheck="false" placeholder="https://..." on:keypress={submitOnEnter}>
-      {/if}
-    </div>
-    <p>
-      <Button on:click={load} text={$_('select.loadProject')} />
-    </p>
+
+    <Button on:click={load} text={$_('select.loadProject')} />
   </Section>
 </DropArea>
 
