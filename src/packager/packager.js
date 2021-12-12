@@ -1299,7 +1299,7 @@ Packager.DEFAULT_OPTIONS = () => ({
   cloudVariables: {
     mode: 'ws',
     id: 0,
-    cloudHost: 'wss://clouddata.turbowarp.org',
+    cloudHost: 'wss://clouddata.turbowarp.xyz',
     custom: {},
     specialCloudBehaviors: false,
   },
