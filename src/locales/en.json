@@ -137,8 +137,13 @@
     "removeMiscLimits": {
       "string": "Remove Miscellaneous Limits"
     },
+    "stage": {
+      "string": "Stage",
+      "context": "Header of option group related to the stage, its size, etc."
+    },
     "stageSize": {
-      "string": "Stage Size"
+      "string": "Custom Stage Size",
+      "context": "Custom stage size option"
     },
     "preserveRatio": {
       "string": "Preserve aspect ratio when resized (recommended)"

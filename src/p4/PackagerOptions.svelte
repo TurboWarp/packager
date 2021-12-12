@@ -154,28 +154,24 @@
 </script>
 
 <style>
-  label {
+  .option {
     display: block;
-    margin-bottom: 4px;
+    margin: 4px 0;
   }
-  input[type=number] {
-    width: 60px;
+  .group {
+    margin: 12px 0;
   }
-  input[type=text] {
-    width: 150px;
+  p {
+    margin: 8px 0;
+  }
+  .group:last-child, .option:last-child, p:last-child {
+    margin-bottom: 0;
   }
   textarea {
     box-sizing: border-box;
     width: 100%;
     min-width: 100%;
     height: 150px;
-  }
-  /* TODO: fix the option-group mess */
-  .option-group {
-    margin-bottom: 12px;
-  }
-  .stage-size-section {
-    margin-top: 12px;
   }
   input:invalid {
     outline: 2px solid red;
@@ -211,72 +207,86 @@
     <h2>{$_('options.runtimeOptions')}</h2>
 
     {#if hasSettingsStoredInProject}
-      <div class="option-group">
+      <div class="group">
         {$_('options.storedWarning')}
       </div>
     {/if}
 
-    <label>
+    <label class="option">
       <input type="checkbox" bind:checked={$options.turbo}>
       {$_('options.turbo')}
     </label>
-    <label>
-      {$_('options.framerate')}
-      <input type="number" min="0" max="240" bind:value={$options.framerate}>
-      <LearnMore slug="custom-fps" />
-    </label>
-    <label>
-      <input type="checkbox" bind:checked={$options.interpolation}>
-      {$_('options.interpolation')}
-      <LearnMore slug="interpolation" />
-    </label>
-    <label>
-      <input type="checkbox" bind:checked={$options.highQualityPen}>
-      {$_('options.highQualityPen')}
-      <LearnMore slug="high-quality-pen" />
-    </label>
-    <label>
-      <input type="checkbox" checked={$options.maxClones === ALMOST_INFINITY} on:change={(e) => {
-        $options.maxClones = e.target.checked ? ALMOST_INFINITY : 300;
-      }}>
-      {$_('options.infiniteClones')}
-      <LearnMore slug="infinite-clones" />
-    </label>
-    <label>
-      <input type="checkbox" checked={!$options.fencing} on:change={(e) => {
-        $options.fencing = !e.target.checked;
-      }}>
-      {$_('options.removeFencing')}
-      <LearnMore slug="remove-fencing" />
-    </label>
-    <label>
-      <input type="checkbox" checked={!$options.miscLimits} on:change={(e) => {
-        $options.miscLimits = !e.target.checked;
-      }}>
-      {$_('options.removeMiscLimits')}
-      <LearnMore slug="remove-misc-limits" />
-    </label>
-    <label>
-      {$_('options.username')}
-      <input type="text" bind:value={$options.username}>
-    </label>
-    <div class="stage-size-section">
+    <div class="option">
       <label>
-        {$_('options.stageSize')}
-        <input type="number" min="1" max="4096" step="1" bind:value={$options.stageWidth}>
-        &times;
-        <input type="number" min="1" max="4096" step="1" bind:value={$options.stageHeight}>
-        <LearnMore slug="custom-stage-size" />
+        {$_('options.framerate')}
+        <input type="number" min="0" max="240" bind:value={$options.framerate} size="3">
       </label>
+      <LearnMore slug="custom-fps" />
+    </div>
+    <div class="option">
       <label>
+        <input type="checkbox" bind:checked={$options.interpolation}>
+        {$_('options.interpolation')}
+      </label>
+      <LearnMore slug="interpolation" />
+    </div>
+    <div class="option">
+      <label>
+        <input type="checkbox" bind:checked={$options.highQualityPen}>
+        {$_('options.highQualityPen')}
+      </label>
+      <LearnMore slug="high-quality-pen" />
+    </div>
+    <div class="option">
+      <label>
+        <input type="checkbox" checked={$options.maxClones === ALMOST_INFINITY} on:change={(e) => {
+          $options.maxClones = e.target.checked ? ALMOST_INFINITY : 300;
+        }}>
+        {$_('options.infiniteClones')}
+      </label>
+      <LearnMore slug="infinite-clones" />
+    </div>
+    <div class="option">
+      <label>
+        <input type="checkbox" checked={!$options.fencing} on:change={(e) => {
+          $options.fencing = !e.target.checked;
+        }}>
+        {$_('options.removeFencing')}
+      </label>
+      <LearnMore slug="remove-fencing" />
+    </div>
+    <div class="option">
+      <label>
+        <input type="checkbox" checked={!$options.miscLimits} on:change={(e) => {
+          $options.miscLimits = !e.target.checked;
+        }}>
+        {$_('options.removeMiscLimits')}
+      </label>
+      <LearnMore slug="remove-misc-limits" />
+    </div>
+    <label class="option">
+      {$_('options.username')}
+      <input type="text" bind:value={$options.username} size="14">
+    </label>
+
+    <h3>{$_('options.stage')}</h3>
+    <label class="option">
+      {$_('options.stageSize')}
+      <input type="number" min="1" max="4096" step="1" size="3" bind:value={$options.stageWidth}>
+      &times;
+      <input type="number" min="1" max="4096" step="1" size="3" bind:value={$options.stageHeight}>
+      <LearnMore slug="custom-stage-size" />
+    </label>
+    <div class="group">
+      <label class="option">
         <input type="radio" name="resize-mode" value="preserve-ratio" bind:group={$options.resizeMode}>
         {$_('options.preserveRatio')}
       </label>
-      <label>
+      <label class="option">
         <input type="radio" name="resize-mode" value="stretch" bind:group={$options.resizeMode}>
         {$_('options.stretch')}
       </label>
-      <label>
+      <label class="option">
         <input type="radio" name="resize-mode" value="dynamic-resize" bind:group={$options.resizeMode}>
         {$_('options.dynamicResize')}
         <LearnMore slug="packager/dynamic-stage-resize" />
@@ -290,7 +300,6 @@
   reset={() => {
     $icon = null;
     $loadingScreenImage = null;
-    $customCursorIcon = null;
     resetOptions([
       'app',
       'loadingScreen',
@@ -298,73 +307,69 @@
       'controls',
       'appearance',
       'monitors',
-      'cursor',
-      'chunks'
     ]);
   }}
 >
   <div>
     <h2>{$_('options.playerOptions')}</h2>
 
-    <label>
+    <label class="option">
       {$_('options.pageTitle')}
       <input type="text" bind:value={$options.app.windowTitle}>
     </label>
-    <div>
+    <div class="option">
       {$_('options.icon')}
       <ImageInput bind:file={$icon} previewSizes={[[64, 64], [32, 32], [16, 16]]} />
     </div>
 
     <h3>{$_('options.loadingScreen')}</h3>
-    <label>
+    <label class="option">
       <input type="checkbox" bind:checked={$options.loadingScreen.progressBar}>
       {$_('options.showProgressBar')}
     </label>
-    <label>
+    <label class="option">
       {$_('options.loadingScreenText')}
       <input type="text" bind:value={$options.loadingScreen.text} placeholder={$_('options.loadingScreenTextPlaceholder')}>
     </label>
-    <div class="option-group">
+    <div class="option">
       {$_('options.loadingScreenImage')}
       <!-- Display preview at image's native size -->
       <ImageInput bind:file={$loadingScreenImage} previewSizes={[['', '']]} />
     </div>
     {#if $loadingScreenImage}
-      <label>
+      <label class="option">
         <input type="radio" name="loading-screen-mode" value="normal" bind:group={$options.loadingScreen.imageMode}>
         {$_('options.sizeNormal')}
       </label>
-      <label>
+      <label class="option">
         <input type="radio" name="loading-screen-mode" value="stretch" bind:group={$options.loadingScreen.imageMode}>
         {$_('options.sizeStretch')}
       </label>
     {/if}
 
     <h3>{$_('options.controls')}</h3>
-    <div class="option-group">
-      <label>
+    <div class="group">
+      <label class="option">
         <input type="checkbox" bind:checked={$options.autoplay}>
         {$_('options.autoplay')}
       </label>
       {#if $options.autoplay}
-        <div>
-          {$_('options.autoplayHint')}
-        </div>
+        {$_('options.autoplayHint')}
       {/if}
     </div>
-    <label>
+    <label class="option">
       <input type="checkbox" bind:checked={$options.controls.greenFlag.enabled}>
       {$_('options.showFlag')}
     </label>
-    <label>
+    <label class="option">
       <input type="checkbox" bind:checked={$options.controls.stopAll.enabled}>
       {$_('options.showStop')}
     </label>
-    <label>
+    <label class="option">
       <input type="checkbox" bind:checked={$options.controls.pause.enabled}>
       {$_('options.showPause')}
     </label>
-    <label>
+    <label class="option">
       <input type="checkbox" bind:checked={$options.controls.fullscreen.enabled}>
       {$_('options.showFullscreen')}
     </label>
@@ -372,71 +377,80 @@
 
     <h3>{$_('options.colors')}</h3>
     <!-- svelte-ignore a11y-label-has-associated-control -->
-    <label>
+    <label class="option">
       <ColorPicker bind:value={$options.appearance.background} />
       {$_('options.backgroundColor')}
     </label>
     <!-- svelte-ignore a11y-label-has-associated-control -->
-    <label>
+    <label class="option">
       <ColorPicker bind:value={$options.appearance.foreground} />
       {$_('options.foregroundColor')}
     </label>
     <!-- svelte-ignore a11y-label-has-associated-control -->
-    <label>
+    <label class="option">
       <ColorPicker bind:value={$options.appearance.accent} />
       {$_('options.accentColor')}
     </label>
 
     <h3>{$_('options.monitors')}</h3>
-    <label>
+    <label class="option">
       <input type="checkbox" bind:checked={$options.monitors.editableLists}>
       {$_('options.editableLists')}
     </label>
+  </div>
+</Section>
 
-    <h3>{$_('options.interaction')}</h3>
-    <div class="option-group">
-      <label>
+<Section
+  accent="#4CBFE6"
+  reset={() => {
+    $customCursorIcon = null;
+    resetOptions([
+      'cursor',
+      'chunks',
+    ]);
+  }}
+>
+  <div>
+    <h2>{$_('options.interaction')}</h2>
+    <div class="group">
+      <label class="option">
         <input type="radio" name="cursor-type" bind:group={$options.cursor.type} value="auto">
         {$_('options.normalCursor')}
       </label>
-      <label>
+      <label class="option">
         <input type="radio" name="cursor-type" bind:group={$options.cursor.type} value="none">
         {$_('options.noCursor')}
       </label>
-      <label>
+      <label class="option">
         <input type="radio" name="cursor-type" bind:group={$options.cursor.type} value="custom">
         {$_('options.customCursor')}
       </label>
     </div>
     {#if $options.cursor.type === 'custom'}
-      <div in:slide|self>
+      <div in:slide|self class="option">
         <ImageInput bind:file={$customCursorIcon} previewSizes={[[32, 32], [16, 16]]} />
         <p>{$_('options.cursorHelp')}</p>
       </div>
     {/if}
 
-    <div class="option-group">
-      <label>
+    <div class="group">
+      <label class="option">
         <input type="checkbox" bind:checked={$options.chunks.pointerlock}>
         {$_('options.pointerlock')}
       </label>
-      <div>
-        <a href="https://experiments.turbowarp.org/pointerlock/" target="_blank" rel="noopener">
-          {$_('options.pointerlockHelp')}
-        </a>
-      </div>
+      <a href="https://experiments.turbowarp.org/pointerlock/" target="_blank" rel="noopener">
+        {$_('options.pointerlockHelp')}
+      </a>
     </div>
 
-    <div class="option-group">
-      <label>
+    <div class="group">
+      <label class="option">
         <input type="checkbox" bind:checked={$options.chunks.gamepad}>
         {$_('options.gamepad')}
       </label>
-      <div>
-        <a href="https://turbowarp.org/addons#gamepad" target="_blank" rel="noopener">
-          {$_('options.gamepadHelp')}
-        </a>
-      </div>
+      <a href="https://turbowarp.org/addons#gamepad" target="_blank" rel="noopener">
+        {$_('options.gamepadHelp')}
+      </a>
     </div>
   </div>
 </Section>
@@ -452,7 +466,7 @@
   >
     <div>
       <h2>{$_('options.cloudVariables')}</h2>
-      <label>
+      <label class="option">
         {$_('options.mode')}
         <select bind:value={$options.cloudVariables.mode}>
           <option value="ws">{$_('options.cloudVariables-ws')}</option>
@@ -461,10 +475,11 @@
           <option value="custom">{$_('options.cloudVariables-custom')}</option>
         </select>
       </label>
+
       {#if $options.cloudVariables.mode === "custom"}
-        <div transition:slide|local>
+        <div transition:fade|local>
           {#each cloudVariables as variable}
-            <label>
+            <label class="option">
               <select bind:value={$options.cloudVariables.custom[variable]}>
                 <option value="ws">{$_('options.cloudVariables-ws')}</option>
                 <option value="local">{$_('options.cloudVariables-local')}</option>
@@ -475,21 +490,26 @@
           {/each}
         </div>
       {/if}
+
       {#if $options.cloudVariables.mode === 'ws' || $options.cloudVariables.mode === 'custom'}
-        <label transition:slide|local>
+        <label transition:fade|local class="option">
           {$_('options.cloudVariablesHost')}
           <input type="text" bind:value={$options.cloudVariables.cloudHost}>
         </label>
       {/if}
+
       <p>{$_('options.cloudVariables-ws-help')}</p>
       <p>{$_('options.cloudVariables-local-help')}</p>
       <p>{$_('options.cloudVariables-ignore-help')}</p>
       <p>{$_('options.cloudVariables-custom-help')}</p>
-      <label>
-        <input type="checkbox" bind:checked={$options.cloudVariables.specialCloudBehaviors}>
-        {$_('options.specialCloudBehaviors')}
+
+      <div class="option">
+        <label>
+          <input type="checkbox" bind:checked={$options.cloudVariables.specialCloudBehaviors}>
+          {$_('options.specialCloudBehaviors')}
+        </label>
         <LearnMore slug="packager/special-cloud-behaviors" />
-      </label>
+      </div>
     </div>
   </Section>
 {/if}
@@ -509,33 +529,41 @@
     <h2>{$_('options.advancedOptions')}</h2>
     <details>
       <summary>{$_('options.advancedSummary')}</summary>
-      <label>
-        <input type="checkbox" bind:checked={$options.compiler.enabled}>
-        {$_('options.enableCompiler')}
+
+      <div class="option">
+        <label>
+          <input type="checkbox" bind:checked={$options.compiler.enabled}>
+          {$_('options.enableCompiler')}
+        </label>
         <LearnMore slug="disable-compiler" />
-      </label>
-      <label>
-        <input type="checkbox" bind:checked={$options.compiler.warpTimer}>
-        {$_('options.warpTimer')}
+      </div>
+      <div class="option">
+        <label>
+          <input type="checkbox" bind:checked={$options.compiler.warpTimer}>
+          {$_('options.warpTimer')}
+        </label>
         <LearnMore slug="warp-timer" />
-      </label>
+      </div>
+
       <!-- Ignore because CustomExtensions will have a <textarea> inside it -->
       <!-- svelte-ignore a11y-label-has-associated-control -->
-      <label>
+      <label class="option">
         {$_('options.customExtensions')}
         <!-- TODO: use the user-facing documentation when that becomes available -->
         <LearnMore slug="development/custom-extensions" />
         <CustomExtensions bind:extensions={$options.extensions} />
       </label>
-      <label>
+
+      <label class="option">
         {$_('options.customCSS')}
         <textarea bind:value={$options.custom.css}></textarea>
       </label>
-      <label>
+      <label class="option">
         {$_('options.customJS')}
         <textarea bind:value={$options.custom.js}></textarea>
       </label>
-      <label>
+
+      <label class="option">
         {$_('options.projectId')}
         <input type="text" bind:value={$options.projectId}>
       </label>
@@ -554,59 +582,62 @@
 >
   <div>
     <h2>{$_('options.environment')}</h2>
-    <div class="option-group">
-      <label>
+
+    <div class="group">
+      <label class="option">
         <input type="radio" name="environment" bind:group={$options.target} value="html">
         {$_('options.html')}
       </label>
-      <label>
+      <label class="option">
         <input type="radio" name="environment" bind:group={$options.target} value="zip">
         {$_('options.zip')}
       </label>
     </div>
-    <div class="option-group">
-      <label>
+
+    <div class="group">
+      <label class="option">
         <input type="radio" name="environment" bind:group={$options.target} value="electron-win32">
         {$_('options.application-win32').replace('{type}', 'Electron')}
       </label>
-      <label>
+      <label class="option">
         <input type="radio" name="environment" bind:group={$options.target} value="webview-mac">
         {$_('options.application-mac').replace('{type}', 'WKWebView')}
       </label>
-      <label>
+      <label class="option">
         <input type="radio" name="environment" bind:group={$options.target} value="electron-linux64">
         {$_('options.application-linux64').replace('{type}', 'Electron')}
       </label>
     </div>
+
     <details open={otherEnvironmentsInitiallyOpen}>
       <summary>{$_('options.otherEnvironments')}</summary>
       <p>{$_('options.otherEnvironmentsHelp')}</p>
-      <div class="option-group">
-        <label>
+      <div class="group">
+        <label class="option">
           <input type="radio" name="environment" bind:group={$options.target} value="zip-one-asset">
           {$_('options.zip-one-asset')}
         </label>
       </div>
-      <div class="option-group">
-        <label>
+      <div class="group">
+        <label class="option">
           <input type="radio" name="environment" bind:group={$options.target} value="electron-win64">
           {$_('options.application-win64').replace('{type}', 'Electron')}
         </label>
       </div>
-      <div class="option-group">
-        <label>
+      <div class="group">
+        <label class="option">
           <input type="radio" name="environment" bind:group={$options.target} value="nwjs-win32">
           {$_('options.application-win32').replace('{type}', 'NW.js')}
         </label>
-        <label>
+        <label class="option">
           <input type="radio" name="environment" bind:group={$options.target} value="nwjs-win64">
           {$_('options.application-win64').replace('{type}', 'NW.js')}
         </label>
-        <label>
+        <label class="option">
           <input type="radio" name="environment" bind:group={$options.target} value="nwjs-mac">
           {$_('options.application-mac').replace('{type}', 'NW.js')}
         </label>
-        <label>
+        <label class="option">
           <input type="radio" name="environment" bind:group={$options.target} value="nwjs-linux-x64">
           {$_('options.application-linux64').replace('{type}', 'NW.js')}
         </label>
@@ -631,7 +662,7 @@
           <p>The zip environment is intended to be used for publishing to a website. Other uses such as sending your project to a friend over a chat app or email should use "Plain HTML" instead as zip will not work.</p>
         {:else}
           <h2>{$_('options.applicationSettings')}</h2>
-          <label>
+          <label class="option">
             {$_('options.packageName')}
             <input type="text" bind:value={$options.app.packageName} pattern="[a-zA-Z -]+" minlength="1">
           </label>
