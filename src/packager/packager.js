@@ -1,7 +1,5 @@
 import {EventTarget, CustomEvent} from '../common/event-target';
 import createChecksumWorker from '../build/p4-worker-loader!./sha256'
-import defaultIcon from './images/default-icon.png';
-import {readAsArrayBuffer, readAsURL} from '../common/readers';
 import escapeXML from '../common/escape-xml';
 import largeAssets from './large-assets';
 import request from '../common/request';
@@ -43,46 +41,6 @@ const setFileFast = (zip, path, data) => {
 };
 
 const interpolate = (a, b, t) => a + t * (b - a);
-
-const getAppIcon = async (file) => {
-  if (!file) {
-    return request({
-      url: defaultIcon,
-      type: 'arraybuffer'
-    });
-  }
-  // Convert to PNG
-  if (file.type === 'image/png') {
-    return readAsArrayBuffer(file);
-  }
-  return new Promise((resolve, reject) => {
-    const url = URL.createObjectURL(file);
-    const image = new Image();
-    image.onload = () => {
-      image.onload = null;
-      image.onerror = null;
-      const canvas = document.createElement('canvas');
-      const ctx = canvas.getContext('2d');
-      if (!ctx) {
-        reject(new Error('Cannot get rendering context for icon conversion'));
-        return;
-      }
-      canvas.width = image.width;
-      canvas.height = image.height;
-      ctx.drawImage(image, 0, 0);
-      canvas.toBlob((blob) => {
-        URL.revokeObjectURL(url);
-        resolve(readAsArrayBuffer(blob));
-      });
-    };
-    image.onerror = () => {
-      image.onload = null;
-      image.onerror = null;
-      reject(new Error('Cannot load icon'));
-    };
-    image.src = url;
-  });
-};
 
 const SELF_LICENSE = {
   title: APP_NAME,
@@ -331,7 +289,7 @@ class Packager extends EventTarget {
     }
 
     const ICON_NAME = 'icon.png';
-    const icon = await getAppIcon(this.options.app.icon);
+    const icon = await Packager.adapter.getAppIcon(this.options.app.icon);
     const manifest = {
       name: packageName,
       main: 'main.js',
@@ -429,7 +387,7 @@ cd "$(dirname "$0")"
     const electronMainName = 'electron-main.js';
     const iconName = 'icon.png';
 
-    const icon = await getAppIcon(this.options.app.icon);
+    const icon = await Packager.adapter.getAppIcon(this.options.app.icon);
     zip.file(`${resourcePrefix}${iconName}`, icon);
 
     const manifest = {
@@ -580,7 +538,7 @@ cd "$(dirname "$0")"
       setFileFast(zip, `${resourcePrefix}${path}`, data);
     }
 
-    const icon = await getAppIcon(this.options.app.icon);
+    const icon = await Packager.adapter.getAppIcon(this.options.app.icon);
     const icns = await pngToAppleICNS(icon);
     zip.file(`${resourcePrefix}AppIcon.icns`, icns);
     zip.remove(`${resourcePrefix}Assets.car`);
@@ -740,7 +698,7 @@ cd "$(dirname "$0")"
     if (this.options.app.icon === null) {
       return '';
     }
-    const data = await readAsURL(this.options.app.icon);
+    const data = await Packager.adapter.readAsURL(this.options.app.icon);
     return `<link rel="icon" href="${data}">`;
   }
 
@@ -752,7 +710,7 @@ cd "$(dirname "$0")"
       // Set to custom but no data, so ignore
       return 'auto';
     }
-    const data = await readAsURL(this.options.cursor.custom);
+    const data = await Packager.adapter.readAsURL(this.options.cursor.custom);
     return `url(${data}), auto`;
   }
 
@@ -835,7 +793,7 @@ cd "$(dirname "$0")"
     }
     #loading {
       ${this.options.loadingScreen.image && this.options.loadingScreen.imageMode === 'stretch'
-        ? `background-image: url(${await readAsURL(this.options.loadingScreen.image)});
+        ? `background-image: url(${await Packager.adapter.readAsURL(this.options.loadingScreen.image)});
       background-repeat: no-repeat;
       background-size: contain;
       background-position: center;`
@@ -928,7 +886,7 @@ cd "$(dirname "$0")"
 
   <div id="loading" class="screen">
     ${this.options.loadingScreen.text ? `<h1 class="loading-text">${escapeXML(this.options.loadingScreen.text)}</h1>` : ''}
-    ${this.options.loadingScreen.image && this.options.loadingScreen.imageMode === 'normal' ? `<div class="loading-image"><img src="${await readAsURL(this.options.loadingScreen.image)}"></div>` : ''}
+    ${this.options.loadingScreen.image && this.options.loadingScreen.imageMode === 'normal' ? `<div class="loading-image"><img src="${await Packager.adapter.readAsURL(this.options.loadingScreen.image)}"></div>` : ''}
     ${this.options.loadingScreen.progressBar ? '<div class="progress-bar-outer"><div class="progress-bar-inner" id="loading-inner"></div></div>' : ''}
   </div>
 

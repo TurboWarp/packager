@@ -20,6 +20,16 @@ class NodeAdapter {
   cacheAsset (asset, result) {
     // TODO
   }
+
+  getAppIcon (file) {
+    // TODO
+    throw new Error('app icon option not implemented in Node.js');
+  }
+
+  readAsURL (file) {
+    // TODO
+    throw new Error('image features not implemented in Node.js');
+  }
 }
 
 export default NodeAdapter;
