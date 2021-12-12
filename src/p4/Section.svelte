@@ -10,7 +10,7 @@
 
 <style>
   .card {
-    max-width: 600px;
+    max-width: 625px;
     margin: auto;
     border-radius: 0.3em;
     background-color: #fff;
