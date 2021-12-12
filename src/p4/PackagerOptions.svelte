@@ -142,8 +142,17 @@
 
   const resetOptions = (properties) => {
     for (const key of properties) {
-      $options[key] = deepClone(defaultOptions[key]);
+      let current = $options;
+      let defaults = defaultOptions;
+      const parts = key.split('.');
+      const lastPart = parts.pop();
+      for (const i of parts) {
+        current = current[i];
+        defaults = defaults[i];
+      }
+      current[lastPart] = deepClone(defaults[lastPart]);
     }
+    $options = $options;
   };
 
   onDestroy(() => {
@@ -301,7 +310,7 @@
     $icon = null;
     $loadingScreenImage = null;
     resetOptions([
-      'app',
+      'app.windowTitle',
       'loadingScreen',
       'autoplay',
       'controls',
@@ -655,7 +664,7 @@
       accent="#FF661A"
       reset={$options.target === 'zip' ? null : () => {
         resetOptions([
-          'app'
+          'app.packageName'
         ])
       }}
     >
