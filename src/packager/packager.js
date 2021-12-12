@@ -1105,6 +1105,23 @@ cd "$(dirname "$0")"
         vm.extensionManager.loadExtensionURL(extension);
       }
 
+      ${this.options.target === 'android' ? `
+      // By default, storage will try to use fetch() in a Worker
+      // That doesn't work in an Android WebView, but XHR does, so...
+      scaffolding.storage.addHelper({
+        load: (assetType, assetId, dataFormat) => new Promise((resolve, reject) => {
+          const xhr = new XMLHttpRequest();
+          xhr.responseType = "arraybuffer";
+          xhr.onerror = () => reject(new Error("Request failed"));
+          xhr.onload = () => resolve(new scaffolding.storage.Asset(assetType, assetId, dataFormat, new Uint8Array(xhr.response)));
+          xhr.open("GET", './assets/' + assetId + '.' + dataFormat);
+          xhr.send();
+        }),
+        // Above default tool, below "builtin" tool
+        priority: 50
+      });
+      ` : ''}
+
       ${this.options.target.startsWith('nwjs-') ? `
       if (typeof nw !== 'undefined') {
         const win = nw.Window.get();

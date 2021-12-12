@@ -83,7 +83,7 @@
   :global([theme="dark"] .is-not-safari select:hover) {
     border-color: #bbb;
   }
-  :global(p), :global(h1), :global(h2), :global(h3) {
+  :global(p), :global(pre), :global(h1), :global(h2), :global(h3) {
     margin: 12px 0;
   }
   :global(summary) {

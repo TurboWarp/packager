@@ -203,8 +203,9 @@
     font-weight: bold;
     background: yellow;
     color: black;
-    padding: 10px;
-    border-radius: 10px;
+    padding: 12px;
+    border-radius: 12px;
+    margin: 12px 0;
   }
   .small {
     font-size: small;
@@ -648,6 +649,13 @@
       </label>
     </div>
 
+    <div class="group">
+      <label class="option">
+        <input type="radio" name="environment" bind:group={$options.target} value="android">
+        {$_('options.application-android')}
+      </label>
+    </div>
+
     <details open={otherEnvironmentsInitiallyOpen}>
       <summary>{$_('options.otherEnvironments')}</summary>
       <p>{$_('options.otherEnvironmentsHelp')}</p>
@@ -699,7 +707,8 @@
         {#if $options.target.startsWith('zip')}
           <h2>Zip</h2>
           <p>The zip environment is intended to be used for publishing to a website. Other uses such as sending your project to a friend over a chat app or email should use "Plain HTML" instead as zip will not work.</p>
-        {:else}
+        {/if}
+        {#if !$options.target.startsWith('zip')}
           <h2>{$_('options.applicationSettings')}</h2>
           <label class="option">
             {$_('options.packageName')}
@@ -765,6 +774,124 @@
               <p>For further help and steps, see <a href="https://docs.nwjs.io/en/latest/For%20Users/Package%20and%20Distribute/#linux">NW.js Documentation</a>.</p>
             {/if}
           {/if}
+        {:else if $options.target === 'android'}
+          <h2>Android</h2>
+
+          <div class="warning">
+            Unlike the other environments, Android support is not fully automated. You must manually create an app. This section will try to guide you through the process.
+          </div>
+
+          <p>This section assumes you have complete access to a Windows, macOS, or Linux computer.</p>
+
+          <h3>Install Android Studio</h3>
+          <p><a href="https://developer.android.com/studio/">Install Android Studio.</a></p>
+          <p>This quite large and may take a while.</p>
+
+          <h3>Create a new project</h3>
+          <p>Create a new project in Android studio.</p>
+          <ul>
+            <li>Use the "Empty Activity" template</li>
+            <li>Set Name to your app's name, for example "<code>{$options.app.windowTitle}</code>"</li>
+            <li>Set Package name to "<code>org.turbowarp.packager.userland.{$options.app.packageName}</code>"</li>
+            <li>Choose a save location that you won't forget</li>
+            <li>Set Language to Kotlin</li>
+            <li>Set Minimum SDK to "API 21: Android 5.0 (Lollipop)"</li>
+          </ul>
+
+          <h3>Create assets folder</h3>
+          <p>In the sidebar on the left, right click on "app", then select "New" > "Folder" > "Assets folder". Use the default settings.</p>
+
+          <h3>Prepare project</h3>
+          <p>
+            <Button on:click={pack} text={'Package the project as a zip'} />
+          </p>
+          <p>Extract the zip and drag its files into "assets" folder you created. (You can directly drag and drop files over the assets folder in Android Studio)</p>
+
+          <h3>Making the app</h3>
+          <p>In the sidebar on the left, navigate to app > src > main > MainActivity. This will open a short Kotlin file.</p>
+          <p>Replace everything after line 2 with the following:</p>
+          <pre>
+            {[
+              'import android.annotation.SuppressLint',
+              'import androidx.appcompat.app.AppCompatActivity',
+              'import android.os.Bundle',
+              'import android.webkit.WebView',
+              '',
+              'class MainActivity : AppCompatActivity() {',
+              '    private lateinit var web: WebView',
+              '',
+              '    @SuppressLint("SetJavaScriptEnabled")',
+              '    override fun onCreate(savedInstanceState: Bundle?) {',
+              '        super.onCreate(savedInstanceState)',
+              '        web = WebView(this)',
+              '        web.settings.javaScriptEnabled = true',
+              '        web.loadUrl("file:///android_asset/index.html")',
+              '        setContentView(web)',
+              '        actionBar?.hide()',
+              '        supportActionBar?.hide()',
+              '    }',
+              '',
+              '    override fun onDestroy() {',
+              '        super.onDestroy()',
+              '        web.destroy()',
+              '    }',
+              '}'
+            ].join('\n')}
+          </pre>
+          <p>At this point, you now have a fully functional Android app. However, there are still a few more things you should change.</p>
+
+          <h3>Fixing screen orientation issues</h3>
+          <p>In the sidebar on the left, open app > main > AndroidManifest.xml</p>
+          <p>Find the section that looks like this:</p>
+          <pre>
+            {[
+              '        <activity',
+              '            android:name=".MainActivity"',
+              '            android:exported="true">',
+            ].join('\n')}
+          </pre>
+          <p>And replace it with this:</p>
+          <pre>
+            {[
+              '        <activity',
+              '            android:configChanges="orientation|screenSize"',
+              '            android:screenOrientation="sensor"',
+              '            android:name=".MainActivity"',
+              '            android:exported="true">',
+            ].join('\n')}
+          </pre>
+
+          <h3>Updating colors</h3>
+          <p>If you ran the app now, it would have a purple color scheme, which may not be what you want. This can be changed.</p>
+          <p>In the sidebar on the left, open app > main > res > values > color.xml.</p>
+          <p>You will see these lines:</p>
+          <pre>
+            {[
+              '    <color name="purple_200">#FFBB86FC</color>',
+              '    <color name="purple_500">#FF6200EE</color>',
+              '    <color name="purple_700">#FF3700B3</color>',
+            ].join('\n')}
+          </pre>
+          <p>Replace those lines with:</p>
+          <pre>
+            {[
+              `    <color name="purple_200">#FF${$options.appearance.background.substr(1)}</color>`,
+              `    <color name="purple_500">#FF${$options.appearance.background.substr(1)}</color>`,
+              `    <color name="purple_700">#FF${$options.appearance.background.substr(1)}</color>`,
+            ].join('\n')}
+          </pre>
+          <p>Do not change the other lines.</p>
+          <p>The above snippet will make the status bar match your app's background color. For advanced users, note that these color codes are a bit unusual in that the "alpha" or "transparency" byte goes first instead of last.</p>
+          <p>Ignore the bits about <code>purple_yyy</code> -- just them as is. While it would be a good idea to these colors, you will be making more work for yourself because you'll have to update some other files to reflect the new names.</p>
+
+          <h3>Updating the project</h3>
+          <p>It's likely that at some point you will want to update the project without redoing this entire guide. Updating is much simpler:</p>
+          <ol>
+            <li>Open Android Studio and open the project</li>
+            <li>Delete everything inside the assets folder</li>
+            <li>Re-run the packager</li>
+            <li>Extract the zip and put all of its files into the assets folder</li>
+          </ol>
         {/if}
       </div>
     </Section>
