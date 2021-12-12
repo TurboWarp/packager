@@ -232,7 +232,7 @@ const downloadJSONProject = (json, progressTarget) => {
   }
 };
 
-export const downloadProject = async (data, progressCallback) => {
+export const downloadProject = async (data, progressCallback = () => {}) => {
   let type;
   let arrayBuffer;
   let analysis;
