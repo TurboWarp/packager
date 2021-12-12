@@ -1,8 +1,6 @@
-import largeAssets from './large-assets';
-import {buildId} from './build-id';
-import Database from './idb';
-
-// We can't trust the HTTP cache to reliably cache these large assets
+import largeAssets from '../large-assets';
+import {buildId} from '../build-id';
+import Database from '../../common/idb';
 
 const DATABASE_NAME = 'p4-large-assets';
 const DATABASE_VERSION = 1;

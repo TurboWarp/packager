@@ -6,7 +6,6 @@ import escapeXML from '../common/escape-xml';
 import largeAssets from './large-assets';
 import xhr from './xhr';
 import pngToAppleICNS from './icns';
-import assetCache from './cache';
 import {buildId, verifyBuildId} from './build-id';
 import {encode, decode} from './base85';
 import {parsePlist, generatePlist} from './plist';
@@ -199,7 +198,7 @@ class Packager extends EventTarget {
     let result;
     let cameFromCache = false;
     try {
-      const cached = await assetCache.get(asset);
+      const cached = await Packager.adapter.getCachedAsset(asset);
       if (cached) {
         result = cached;
         cameFromCache = true;
@@ -234,7 +233,7 @@ class Packager extends EventTarget {
     }
     if (!cameFromCache) {
       try {
-        await assetCache.set(asset, result);
+        await Packager.adapter.cacheAsset(asset, result);
       } catch (e) {
         console.warn(e);
       }
@@ -758,6 +757,9 @@ cd "$(dirname "$0")"
   }
 
   async package () {
+    if (!Packager.adapter) {
+      throw new Error('Missing adapter');
+    }
     this.ensureNotAborted();
     await this.loadResources();
     this.ensureNotAborted();
@@ -1212,6 +1214,8 @@ cd "$(dirname "$0")"
     };
   }
 }
+
+Packager.adapter = null;
 
 Packager.getDefaultPackageNameFromFileName = (title) => {
   // Remove file extension
