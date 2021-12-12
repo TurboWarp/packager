@@ -5,7 +5,7 @@ import AudioEngine from 'scratch-audio';
 import {BitmapAdapter} from 'scratch-svg-renderer';
 import JSZip from 'jszip';
 
-import EventTarget from '../common/event-target';
+import {EventTarget} from '../common/event-target';
 import VideoProvider from './video';
 import Cloud from './cloud';
 import Question from './question';

@@ -1,7 +1,7 @@
 import {transfer, proxy} from 'comlink';
 import createDownloadWorker from '../build/p4-worker-loader!./download-project';
 import {readAsArrayBuffer} from '../common/readers';
-import xhr from './xhr';
+import request from '../common/request';
 import {AbortError} from '../p4/errors';
 
 const downloadProject = async (buffer, progressCallback) => {
@@ -27,7 +27,7 @@ const downloadProject = async (buffer, progressCallback) => {
 };
 
 const fromURL = async (url, progressCallback) => {
-  const buffer = await xhr({
+  const buffer = await request({
     url,
     type: 'arraybuffer',
     progressCallback: (progress) => {

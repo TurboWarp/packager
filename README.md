@@ -53,7 +53,7 @@ The general layout of `src` is:
 
  - Sometimes when you `npm install` a package here, npm breaks and packages don't install properly. To fix this just run `npm install` and everything should get fixed.
 
-**Large files**: Large files such as NW.js, Electron, and WKWebView executables are stored on an external server outside of this repository. While we aren't actively removing old files (the server still serves files unused since November 2020), we can't promise they will exist forever. Forks are free to use our servers, but it's easy to setup your own if you'd prefer (it's just a static file server; see `src/packager/large-assets.js` for more information).
+**Large files**: Large files such as NW.js, Electron, and WKWebView executables are stored on an external server outside of this repository. While we aren't actively removing old files (the server still serves files unused since November 2020), we can't promise they will exist forever. The packager uses a secure checksum to validate these downloads. Forks are free to use our servers, but it's easy to setup your own if you'd prefer (it's just a static file server; see `src/packager/large-assets.js` for more information).
 
 **Service worker**: Set the environment variable `ENABLE_SERVICE_WORKER` to `1` to enable service worker for offline support (experimental, not 100% reliable). Not recommended in development. Automatically used by the GitHub Actions deploy script.
 
@@ -66,6 +66,16 @@ npm run build-standalone-prod
 ```
 
 Output will be located in `dist/standalone.html`.
+
+## Node.js module and API
+
+See [api/README.md](api/README.md) for Node.js API documentation.
+
+To build the Node.js module locally:
+
+```
+npm run build-node-prod
+```
 
 ## License
 

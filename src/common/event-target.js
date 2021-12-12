@@ -1,3 +1,6 @@
+// Browser support for EventTarget constructor is surprisingly poor, so we always polyfill it
+// We also need to polyfill CustomEvent for Node.js
+
 class EventTargetShim {
   constructor () {
     this._events = {};
@@ -27,4 +30,13 @@ class EventTargetShim {
   }
 }
 
-export default EventTargetShim;
+class CustomEventShim {
+  constructor ({ details }) {
+    this.details = details;
+  }
+}
+
+export {
+  EventTargetShim as EventTarget,
+  CustomEventShim as CustomEvent
+};

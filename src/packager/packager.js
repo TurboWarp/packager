@@ -1,12 +1,9 @@
-import EventTarget from '../common/event-target';
+import {EventTarget, CustomEvent} from '../common/event-target';
 import createChecksumWorker from '../build/p4-worker-loader!./sha256'
-import defaultIcon from './images/default-icon.png';
-import {readAsArrayBuffer, readAsURL} from '../common/readers';
 import escapeXML from '../common/escape-xml';
 import largeAssets from './large-assets';
-import xhr from './xhr';
+import request from '../common/request';
 import pngToAppleICNS from './icns';
-import assetCache from './cache';
 import {buildId, verifyBuildId} from './build-id';
 import {encode, decode} from './base85';
 import {parsePlist, generatePlist} from './plist';
@@ -44,46 +41,6 @@ const setFileFast = (zip, path, data) => {
 };
 
 const interpolate = (a, b, t) => a + t * (b - a);
-
-const getAppIcon = async (file) => {
-  if (!file) {
-    return xhr({
-      url: defaultIcon,
-      type: 'arraybuffer'
-    });
-  }
-  // Convert to PNG
-  if (file.type === 'image/png') {
-    return readAsArrayBuffer(file);
-  }
-  return new Promise((resolve, reject) => {
-    const url = URL.createObjectURL(file);
-    const image = new Image();
-    image.onload = () => {
-      image.onload = null;
-      image.onerror = null;
-      const canvas = document.createElement('canvas');
-      const ctx = canvas.getContext('2d');
-      if (!ctx) {
-        reject(new Error('Cannot get rendering context for icon conversion'));
-        return;
-      }
-      canvas.width = image.width;
-      canvas.height = image.height;
-      ctx.drawImage(image, 0, 0);
-      canvas.toBlob((blob) => {
-        URL.revokeObjectURL(url);
-        resolve(readAsArrayBuffer(blob));
-      });
-    };
-    image.onerror = () => {
-      image.onload = null;
-      image.onerror = null;
-      reject(new Error('Cannot load icon'));
-    };
-    image.src = url;
-  });
-};
 
 const SELF_LICENSE = {
   title: APP_NAME,
@@ -165,6 +122,7 @@ class Packager extends EventTarget {
     this.project = null;
     this.options = Packager.DEFAULT_OPTIONS();
     this.aborted = false;
+    this.used = false;
   }
 
   abort () {
@@ -199,7 +157,7 @@ class Packager extends EventTarget {
     let result;
     let cameFromCache = false;
     try {
-      const cached = await assetCache.get(asset);
+      const cached = await Packager.adapter.getCachedAsset(asset);
       if (cached) {
         result = cached;
         cameFromCache = true;
@@ -213,7 +171,7 @@ class Packager extends EventTarget {
       if (asset.useBuildId) {
         url += `?${buildId}`;
       }
-      result = await xhr({
+      result = await request({
         url,
         type: asset.type,
         estimatedSize: asset.estimatedSize,
@@ -234,7 +192,7 @@ class Packager extends EventTarget {
     }
     if (!cameFromCache) {
       try {
-        await assetCache.set(asset, result);
+        await Packager.adapter.cacheAsset(asset, result);
       } catch (e) {
         console.warn(e);
       }
@@ -331,7 +289,7 @@ class Packager extends EventTarget {
     }
 
     const ICON_NAME = 'icon.png';
-    const icon = await getAppIcon(this.options.app.icon);
+    const icon = await Packager.adapter.getAppIcon(this.options.app.icon);
     const manifest = {
       name: packageName,
       main: 'main.js',
@@ -429,7 +387,7 @@ cd "$(dirname "$0")"
     const electronMainName = 'electron-main.js';
     const iconName = 'icon.png';
 
-    const icon = await getAppIcon(this.options.app.icon);
+    const icon = await Packager.adapter.getAppIcon(this.options.app.icon);
     zip.file(`${resourcePrefix}${iconName}`, icon);
 
     const manifest = {
@@ -580,7 +538,7 @@ cd "$(dirname "$0")"
       setFileFast(zip, `${resourcePrefix}${path}`, data);
     }
 
-    const icon = await getAppIcon(this.options.app.icon);
+    const icon = await Packager.adapter.getAppIcon(this.options.app.icon);
     const icns = await pngToAppleICNS(icon);
     zip.file(`${resourcePrefix}AppIcon.icns`, icns);
     zip.remove(`${resourcePrefix}Assets.car`);
@@ -657,8 +615,7 @@ cd "$(dirname "$0")"
 
       // We break the project into a bunch of small segments to be able to show a good progress bar.
       const SEGMENT_LENGTH = 100000;
-      const arrayBuffer = await readAsArrayBuffer(this.project.blob);
-      const encoded = encode(arrayBuffer);
+      const encoded = encode(this.project.arrayBuffer);
       for (let i = 0; i < encoded.length; i += SEGMENT_LENGTH) {
         const segment = encoded.substr(i, SEGMENT_LENGTH);
         const progress = interpolate(PROGRESS_LOADED_SCRIPTS, PROGRESS_FETCHED_COMPRESSED, i / encoded.length);
@@ -741,7 +698,7 @@ cd "$(dirname "$0")"
     if (this.options.app.icon === null) {
       return '';
     }
-    const data = await readAsURL(this.options.app.icon);
+    const data = await Packager.adapter.readAsURL(this.options.app.icon);
     return `<link rel="icon" href="${data}">`;
   }
 
@@ -753,11 +710,18 @@ cd "$(dirname "$0")"
       // Set to custom but no data, so ignore
       return 'auto';
     }
-    const data = await readAsURL(this.options.cursor.custom);
+    const data = await Packager.adapter.readAsURL(this.options.cursor.custom);
     return `url(${data}), auto`;
   }
 
   async package () {
+    if (!Packager.adapter) {
+      throw new Error('Missing adapter');
+    }
+    if (this.used) {
+      throw new Error('Packager was already used');
+    }
+    this.used = true;
     this.ensureNotAborted();
     await this.loadResources();
     this.ensureNotAborted();
@@ -829,7 +793,7 @@ cd "$(dirname "$0")"
     }
     #loading {
       ${this.options.loadingScreen.image && this.options.loadingScreen.imageMode === 'stretch'
-        ? `background-image: url(${await readAsURL(this.options.loadingScreen.image)});
+        ? `background-image: url(${await Packager.adapter.readAsURL(this.options.loadingScreen.image)});
       background-repeat: no-repeat;
       background-size: contain;
       background-position: center;`
@@ -922,7 +886,7 @@ cd "$(dirname "$0")"
 
   <div id="loading" class="screen">
     ${this.options.loadingScreen.text ? `<h1 class="loading-text">${escapeXML(this.options.loadingScreen.text)}</h1>` : ''}
-    ${this.options.loadingScreen.image && this.options.loadingScreen.imageMode === 'normal' ? `<div class="loading-image"><img src="${await readAsURL(this.options.loadingScreen.image)}"></div>` : ''}
+    ${this.options.loadingScreen.image && this.options.loadingScreen.imageMode === 'normal' ? `<div class="loading-image"><img src="${await Packager.adapter.readAsURL(this.options.loadingScreen.image)}"></div>` : ''}
     ${this.options.loadingScreen.progressBar ? '<div class="progress-bar-outer"><div class="progress-bar-inner" id="loading-inner"></div></div>' : ''}
   </div>
 
@@ -1167,14 +1131,14 @@ cd "$(dirname "$0")"
     if (this.options.target !== 'html') {
       let zip;
       if (this.project.type === 'sb3' && this.options.target !== 'zip-one-asset') {
-        zip = await (await getJSZip()).loadAsync(this.project.blob);
+        zip = await (await getJSZip()).loadAsync(this.project.arrayBuffer);
         for (const file of Object.keys(zip.files)) {
           zip.files[`assets/${file}`] = zip.files[file];
           delete zip.files[file];
         }
       } else {
         zip = new (await getJSZip());
-        zip.file('project.zip', this.project.blob);
+        zip.file('project.zip', this.project.arrayBuffer);
       }
       zip.file('index.html', html);
       zip.file('script.js', this.script);
@@ -1189,8 +1153,8 @@ cd "$(dirname "$0")"
 
       this.ensureNotAborted();
       return {
-        blob: await zip.generateAsync({
-          type: 'blob',
+        data: await zip.generateAsync({
+          type: 'arraybuffer',
           compression: 'DEFLATE',
           // Use UNIX permissions so that executable bits are properly set for macOS and Linux
           platform: 'UNIX'
@@ -1201,17 +1165,19 @@ cd "$(dirname "$0")"
             }
           }));
         }),
+        type: 'application/zip',
         filename: this.generateFilename('zip')
       };
     }
     return {
-      blob: new Blob([html], {
-        type: 'text/html'
-      }),
+      data: html,
+      type: 'text/html',
       filename: this.generateFilename('html')
     };
   }
 }
+
+Packager.adapter = null;
 
 Packager.getDefaultPackageNameFromFileName = (title) => {
   // Remove file extension

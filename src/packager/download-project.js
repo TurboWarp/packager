@@ -1,5 +1,6 @@
 import JSZip from 'jszip';
-import EventTarget from '../common/event-target';
+import fetch from 'cross-fetch';
+import {EventTarget, CustomEvent} from '../common/event-target';
 import optimizeSb3Json from './minify/sb3';
 
 const ASSET_HOST = 'https://assets.scratch.mit.edu/internalapi/asset/$path/get/';
@@ -232,9 +233,9 @@ const downloadJSONProject = (json, progressTarget) => {
   }
 };
 
-export const downloadProject = async (data, progressCallback) => {
+export const downloadProject = async (data, progressCallback = () => {}) => {
   let type;
-  let blob;
+  let arrayBuffer;
   let analysis;
 
   const bufferView = new Uint8Array(data);
@@ -272,8 +273,8 @@ export const downloadProject = async (data, progressCallback) => {
     progressCallback('assets', totalAssets, totalAssets);
     isDoneLoadingProject = true;
 
-    blob = await downloaded.zip.generateAsync({
-      type: 'blob',
+    arrayBuffer = await downloaded.zip.generateAsync({
+      type: 'arraybuffer',
       compression: 'DEFLATE'
     }, (meta) => {
       progressCallback('compress', meta.percent / 100);
@@ -281,7 +282,7 @@ export const downloadProject = async (data, progressCallback) => {
     analysis = downloaded.analysis;
   } else {
     if (isScratch1Project(bufferView)) {
-      blob = new Blob([data]);
+      arrayBuffer = data;
       analysis = unknownAnalysis();
     } else {
       let zip;
@@ -303,15 +304,15 @@ export const downloadProject = async (data, progressCallback) => {
       type = identifyProjectType(projectData);
       if (type === 'sb3') {
         zip.file('project.json', JSON.stringify(optimizeSb3Json(projectData)));
-        blob = await zip.generateAsync({
-          type: 'blob',
+        arrayBuffer = await zip.generateAsync({
+          type: 'arraybuffer',
           compression: 'DEFLATE'
         }, (meta) => {
           progressCallback('compress', meta.percent / 100);
         });
         analysis = analyzeScratch3(projectData);
       } else {
-        blob = new Blob([data]);
+        arrayBuffer = data;
         analysis = analyzeScratch2(projectData);
       }
     }
@@ -320,13 +321,13 @@ export const downloadProject = async (data, progressCallback) => {
   if (type === 'sb3') {
     return {
       type: 'sb3',
-      blob,
+      arrayBuffer,
       analysis
     }
   }
   return {
     type: 'blob',
-    blob,
+    arrayBuffer,
     analysis
   };
 };
