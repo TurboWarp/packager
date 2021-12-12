@@ -1,6 +1,6 @@
 const clampProgress = (n) => Math.max(0, Math.min(1, n));
 
-const xhr = ({
+const request = ({
   url,
   type,
   progressCallback,
@@ -68,4 +68,4 @@ const xhr = ({
   }
 });
 
-export default xhr;
+export default request;

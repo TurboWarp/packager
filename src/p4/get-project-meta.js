@@ -1,8 +1,8 @@
-import xhr from '../packager/xhr';
+import request from '../common/request';
 
 const getProjectTitle = async (id) => {
   try {
-    const meta = await xhr({
+    const meta = await request({
       url: `https://trampoline.turbowarp.org/proxy/projects/${id}`,
       timeout: 10000,
       type: 'json'

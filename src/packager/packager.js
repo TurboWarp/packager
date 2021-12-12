@@ -4,7 +4,7 @@ import defaultIcon from './images/default-icon.png';
 import {readAsArrayBuffer, readAsURL} from '../common/readers';
 import escapeXML from '../common/escape-xml';
 import largeAssets from './large-assets';
-import xhr from './xhr';
+import request from '../common/request';
 import pngToAppleICNS from './icns';
 import {buildId, verifyBuildId} from './build-id';
 import {encode, decode} from './base85';
@@ -46,7 +46,7 @@ const interpolate = (a, b, t) => a + t * (b - a);
 
 const getAppIcon = async (file) => {
   if (!file) {
-    return xhr({
+    return request({
       url: defaultIcon,
       type: 'arraybuffer'
     });
@@ -212,7 +212,7 @@ class Packager extends EventTarget {
       if (asset.useBuildId) {
         url += `?${buildId}`;
       }
-      result = await xhr({
+      result = await request({
         url,
         type: asset.type,
         estimatedSize: asset.estimatedSize,
