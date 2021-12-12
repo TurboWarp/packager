@@ -203,9 +203,7 @@ const makeNode = () => ({
     rules: [
       {
         test: /\.png|\.svg$/i,
-        use: {
-          loader: 'url-loader'
-        }
+        use: 'file-loader'
       }
     ]
   },
