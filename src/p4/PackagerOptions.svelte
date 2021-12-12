@@ -182,6 +182,15 @@
     min-width: 100%;
     height: 150px;
   }
+  input[type="text"] {
+    width: 200px;
+  }
+  input[type="text"].shorter {
+    width: 150px;
+  }
+  input[type="number"] {
+    width: 50px;
+  }
   input:invalid {
     outline: 2px solid red;
   }
@@ -228,7 +237,7 @@
     <div class="option">
       <label>
         {$_('options.framerate')}
-        <input type="number" min="0" max="240" bind:value={$options.framerate} size="3">
+        <input type="number" min="0" max="240" bind:value={$options.framerate}>
       </label>
       <LearnMore slug="custom-fps" />
     </div>
@@ -275,15 +284,15 @@
     </div>
     <label class="option">
       {$_('options.username')}
-      <input type="text" bind:value={$options.username} size="14">
+      <input type="text" class="shorter" bind:value={$options.username}>
     </label>
 
     <h3>{$_('options.stage')}</h3>
     <label class="option">
       {$_('options.stageSize')}
-      <input type="number" min="1" max="4096" step="1" size="3" bind:value={$options.stageWidth}>
+      <input type="number" min="1" max="4096" step="1" bind:value={$options.stageWidth}>
       &times;
-      <input type="number" min="1" max="4096" step="1" size="3" bind:value={$options.stageHeight}>
+      <input type="number" min="1" max="4096" step="1" bind:value={$options.stageHeight}>
       <LearnMore slug="custom-stage-size" />
     </label>
     <div class="group">
