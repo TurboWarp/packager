@@ -14,6 +14,7 @@
         "application-win64": "Windows 程序（仅64位，基于 {type}）",
         "applicationSettings": "应用程序设置",
         "autoplay": "加载完成时自动开始运行而不是显示一个大绿旗",
+        "autoplayHint": "注意：很多浏览器不允许网站自动播放声音，因此在用户与作品交互前，声音可能不会播放。",
         "backgroundColor": "背景色",
         "cloudVariables": "云变量",
         "cloudVariables-custom": "高级",
@@ -35,6 +36,8 @@
         "customJS": "自定义 JS (如果你不确定你在做什么，别动它)",
         "download": "下载 {filename} (大小 {size}MB)",
         "downloadsWillAppearHere": "下载进度将显示在这里",
+        "dynamicResize": "动态匹配窗口大小（实验性）",
+        "editableLists": "可编辑列表",
         "enableCompiler": "使用编译",
         "environment": "运行环境",
         "foregroundColor": "前景颜色（进度栏，一些图标，一些文本）",
@@ -53,6 +56,8 @@
         "loadingScreenText": "加载提示文本",
         "loadingScreenTextPlaceholder": "(无)",
         "mode": "模式",
+        "monitors": "侦测",
+        "noCloudVariables": "该作品不含云变量。",
         "noCursor": "无光标",
         "normalCursor": "正常光标",
         "otherEnvironments": "其它平台（点击打开）",
@@ -64,17 +69,25 @@
         "playerOptions": "格式选项",
         "pointerlock": "锁定光标",
         "pointerlockHelp": "基于一项 TurboWarp 实验性设置",
+        "preserveRatio": "调整大小时保留纵横比（推荐）",
         "preview": "预览",
+        "projectId": "作品ID",
+        "projectIdHelp": "作品ID用于连接云变量服务器。可以包含非数字内容。",
         "removeFencing": "取消边缘",
         "removeMiscLimits": "移除其他限制",
         "runtimeOptions": "运行选项",
         "showFlag": "在控制栏显示绿旗按钮",
         "showFullscreen": "在控制栏显示全屏按钮",
+        "showPause": "在控制栏显示暂停按钮",
         "showProgressBar": "显示进度",
         "showStop": "在控制栏显示停止按钮",
         "sizeNormal": "以正常尺寸展示",
         "sizeStretch": "全屏",
         "specialCloudBehaviors": "兼容HTMLifier的特殊云变量",
+        "stage": "舞台",
+        "stageSize": "默认舞台大小",
+        "storedWarning": "注意：此项目中已经存储了设置信息，可能会被覆盖。",
+        "stretch": "拉伸舞台以填充屏幕而不改变实际大小（实验性）",
         "turbo": "启用加速模式",
         "username": "用户名 (每个 \"#\" 号代表一位随机数字 )",
         "warpTimer": "循环计时器",
@@ -87,6 +100,8 @@
         "description2": "如果您只是想以一种简单的方式将 Scratch 官网作品嵌入您的网站，您可能会对 {embedding} 感兴趣。 ",
         "description2-embedding": "网站嵌入",
         "description3": "{onScratch}，或者{onGitHub}报告错误，给予反馈，并提出建议。",
+        "description3-on": "开 {brand}",
+        "documentation": "更多资源和帮助",
         "error": "错误",
         "errorMessage": "错误：{error}",
         "feedback": "反馈",
@@ -94,6 +109,9 @@
         "privacy": "隐私政策",
         "reportBug": "反馈问题",
         "sourceCode": "源代码"
+    },
+    "preview": {
+        "loading": "加载预览"
     },
     "progress": {
         "compressingProject": "压缩作品中",
@@ -104,6 +122,7 @@
         "packagingProject": "打包作品中"
     },
     "reset": {
+        "confirm": "该操作不可撤销，确定要重置吗？",
         "reset": "重置"
     },
     "select": {

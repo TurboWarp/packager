@@ -56,6 +56,7 @@
         "loadingScreenTextPlaceholder": "(Nichts)",
         "mode": "Modus",
         "monitors": "Daten",
+        "noCloudVariables": "Dieses Projekt enthält keine Cloudvariablen",
         "noCursor": "Kein Cursor",
         "normalCursor": "Normaler Cursor",
         "otherEnvironments": "Weitere Umgebungen (Zum Öffnen klicken)",
@@ -82,6 +83,8 @@
         "sizeNormal": "Normalgröße anzeigen",
         "sizeStretch": "Bildschirm füllen",
         "specialCloudBehaviors": "Spezielle Verhalten für Cloudvariablen wie HTMLifier",
+        "stage": "Bühne",
+        "stageSize": "Bühnengröße",
         "storedWarning": "Anmerkung: Dieses Projekt hat Einstellungen in sich gespeichert, deshalb könnten diese Einstellungen überschrieben werden.",
         "stretch": "Bühne erweitern, um den BIldschirm zu füllen, ohne die aktuelle Größe zu ändern (experimentell)",
         "turbo": "Turbo-Modus",
@@ -103,6 +106,9 @@
         "privacy": "Datenschutzerklärung",
         "reportBug": "Fehler melden",
         "sourceCode": "Quellcode"
+    },
+    "preview": {
+        "loading": "Vorschau wird geladen"
     },
     "progress": {
         "compressingProject": "Projekt wird komprimiert",
