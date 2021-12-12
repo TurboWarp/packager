@@ -82,7 +82,6 @@
         "sizeNormal": "Mostrar em tamanho normal",
         "sizeStretch": "Cobrir a tela",
         "specialCloudBehaviors": "Comportamento especial para variáveis na nuvem específicos, como no HTMLifier",
-        "stageSize": "Tamanho do Palco",
         "storedWarning": "Nota: Este projeto tem configurações armazenadas nele, que podem sobrepor-se a estas configurações.",
         "stretch": "Esticar o palco para preencher a tela sem alterar o tamanho real (experimental)",
         "turbo": "Modo Turbo",

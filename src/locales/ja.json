@@ -83,7 +83,6 @@
         "sizeNormal": "通常にサイズで表示",
         "sizeStretch": "フルスクリーン",
         "specialCloudBehaviors": "HTMLifierのような挙動をする特別なクラウド変数",
-        "stageSize": "ステージのサイズ",
         "storedWarning": "注意：このプロジェクトの設定は保存されて、設定を上書きする可能性があります。",
         "stretch": "実際のサイズは変えずに、画面いっぱいにステージを引き伸ばす（実験的）",
         "turbo": "ターボモード",

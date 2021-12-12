@@ -75,7 +75,6 @@
         "sizeNormal": "以正常尺寸展示",
         "sizeStretch": "全屏",
         "specialCloudBehaviors": "兼容HTMLifier的特殊云变量",
-        "stageSize": "舞台大小",
         "turbo": "启用加速模式",
         "username": "用户名 (每个 \"#\" 号代表一位随机数字 )",
         "warpTimer": "循环计时器",

@@ -48,7 +48,6 @@
         "showStop": "Afficher le panneau stop",
         "sizeNormal": "Afficher en taille normale",
         "sizeStretch": "Remplir l'écran",
-        "stageSize": "Taille de la scène",
         "turbo": "Mode Turbo",
         "username": "Nom d'utilisateur (chaque \"#\" est remplacé par un chiffre aléatoire entre 0 et 9)",
         "warpTimer": "Vérificateur de boucles infinies."
