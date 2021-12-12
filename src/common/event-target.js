@@ -31,8 +31,9 @@ class EventTargetShim {
 }
 
 class CustomEventShim {
-  constructor ({ details }) {
-    this.details = details;
+  constructor (type, { detail }) {
+    this.type = type;
+    this.detail = detail;
   }
 }
 
