@@ -13,7 +13,8 @@
     "build-standalone-prod": "cross-env NODE_ENV=production npm run build-standalone",
     "build-node": "cross-env BUILD_MODE=node npm run build",
     "build-node-prod": "cross-env NODE_ENV=production npm run build-node",
-    "test": "jest"
+    "test": "jest",
+    "prepublishOnly": "npm run test && npm run build-node-prod"
   },
   "author": "",
   "license": "LGPL-3.0-only",
