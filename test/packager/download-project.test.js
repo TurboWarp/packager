@@ -1,4 +1,3 @@
-import './polyfill';
 import fs from 'fs';
 import path from 'path';
 import {downloadProject} from '../../src/packager/download-project'
@@ -40,7 +39,7 @@ test('sb3 with music', async () => {
 
 test('sb2', async () => {
   const project = await downloadProject(readTestProject('no-music.sb2'), () => {});
-  expect(project.blob.size).toBe(6259);
+  expect(project.arrayBuffer.byteLength).toBe(6259);
   expect(project.type).toBe('blob');
   expect(project.analysis.usesMusic).toBe(false);
   expect(project.analysis.stageVariables).toEqual([
@@ -57,14 +56,14 @@ test('sb2', async () => {
 
 test('sb2 with music', async () => {
   const project = await downloadProject(readTestProject('music.sb2'), () => {});
-  expect(project.blob.size).toBe(6293);
+  expect(project.arrayBuffer.byteLength).toBe(6293);
   expect(project.type).toBe('blob');
   expect(project.analysis.usesMusic).toBe(true);
 });
 
 test('sb', async () => {
   const project = await downloadProject(readTestProject('project.sb'), () => {});
-  expect(project.blob.size).toBe(554);
+  expect(project.arrayBuffer.byteLength).toBe(554);
   expect(project.type).toBe('blob');
 });
 

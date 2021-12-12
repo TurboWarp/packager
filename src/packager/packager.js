@@ -656,8 +656,7 @@ cd "$(dirname "$0")"
 
       // We break the project into a bunch of small segments to be able to show a good progress bar.
       const SEGMENT_LENGTH = 100000;
-      const arrayBuffer = await readAsArrayBuffer(this.project.blob);
-      const encoded = encode(arrayBuffer);
+      const encoded = encode(this.project.arrayBuffer);
       for (let i = 0; i < encoded.length; i += SEGMENT_LENGTH) {
         const segment = encoded.substr(i, SEGMENT_LENGTH);
         const progress = interpolate(PROGRESS_LOADED_SCRIPTS, PROGRESS_FETCHED_COMPRESSED, i / encoded.length);
@@ -1169,14 +1168,14 @@ cd "$(dirname "$0")"
     if (this.options.target !== 'html') {
       let zip;
       if (this.project.type === 'sb3' && this.options.target !== 'zip-one-asset') {
-        zip = await (await getJSZip()).loadAsync(this.project.blob);
+        zip = await (await getJSZip()).loadAsync(this.project.arrayBuffer);
         for (const file of Object.keys(zip.files)) {
           zip.files[`assets/${file}`] = zip.files[file];
           delete zip.files[file];
         }
       } else {
         zip = new (await getJSZip());
-        zip.file('project.zip', this.project.blob);
+        zip.file('project.zip', this.project.arrayBuffer);
       }
       zip.file('index.html', html);
       zip.file('script.js', this.script);
@@ -1191,8 +1190,8 @@ cd "$(dirname "$0")"
 
       this.ensureNotAborted();
       return {
-        blob: await zip.generateAsync({
-          type: 'blob',
+        data: await zip.generateAsync({
+          type: 'arraybuffer',
           compression: 'DEFLATE',
           // Use UNIX permissions so that executable bits are properly set for macOS and Linux
           platform: 'UNIX'
@@ -1203,13 +1202,13 @@ cd "$(dirname "$0")"
             }
           }));
         }),
+        type: 'application/zip',
         filename: this.generateFilename('zip')
       };
     }
     return {
-      blob: new Blob([html], {
-        type: 'text/html'
-      }),
+      data: html,
+      type: 'text/html',
       filename: this.generateFilename('html')
     };
   }

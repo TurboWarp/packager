@@ -115,6 +115,9 @@
     });
 
     const result = await packager.package();
+    result.blob = new Blob([result.data], {
+      type: result.type
+    });
     result.url = URL.createObjectURL(result.blob);
     return result;
   };
