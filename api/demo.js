@@ -7,11 +7,20 @@ const Packager = require('../dist/packager');
 const run = async () => {
   const projectData = await (await fetch('https://projects.scratch.mit.edu/1')).arrayBuffer();
 
-  const loadedProject = await Packager.downloadProject(projectData, () => {});
+  const progressCallback = (type, a, b) => {
+    console.log('Progress', type, a, b);
+  };
+  const loadedProject = await Packager.downloadProject(projectData, progressCallback);
   console.log('Loaded project', loadedProject);
 
   const packager = new Packager.Packager();
   packager.project = loadedProject;
+  packager.addEventListener('large-asset-fetch', ({detail}) => {
+    console.log('Packager progress large-asset-fetch', detail);
+  });
+  packager.addEventListener('zip-progress', ({detail}) => {
+    console.log('Packager progress zip-progress', detail);
+  });
   console.log('Options', packager.options);
 
   const result = await packager.package();

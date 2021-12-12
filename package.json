@@ -11,6 +11,8 @@
     "watch": "webpack --watch",
     "build-standalone": "cross-env STANDALONE=1 npm run build && node src/build/generate-standalone.js",
     "build-standalone-prod": "cross-env NODE_ENV=production npm run build-standalone",
+    "build-node": "cross-env BUILD_MODE=node npm run build",
+    "build-node-prod": "cross-env NODE_ENV=production npm run build-node",
     "test": "jest"
   },
   "author": "",

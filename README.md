@@ -67,6 +67,16 @@ npm run build-standalone-prod
 
 Output will be located in `dist/standalone.html`.
 
+## Node.js module and API
+
+See [api/README.md](api/README.md) for Node.js API documentation.
+
+To build the Node.js module locally:
+
+```
+npm run build-node-prod
+```
+
 ## License
 
 <!-- Make sure to also update COPYRIGHT_NOTICE in src/packager/brand.js -->
