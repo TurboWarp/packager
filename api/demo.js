@@ -27,7 +27,13 @@ const run = async () => {
   console.log('Filename', result.filename);
   console.log('Type', result.type);
 
-  fs.writeFileSync(path.join(__dirname, 'demo_output.html'), result.data);
+  let data = result.data;
+  if (data instanceof ArrayBuffer) {
+    // If packager.options.target wasn't "html", data will be an ArrayBuffer instead of a string.
+    // Node.js filesystem API doesn't like ArrayBuffers, so we'll convert it to something it understands.
+    data = new Uint8Array(data);
+  }
+  fs.writeFileSync(path.join(__dirname, 'demo_output.html'), data);
 };
 
 run()

@@ -3,24 +3,38 @@
 ## Installing
 
 ```bash
-Not ready yet
+npm install --save-exact @turbowarp/packager
 ```
 
-## Release cadence
+Note the `--save-exact`: this is important.
+
+## About the API
+
+### Stability
+
+There are no promises of stability between updates. Make sure to pin your versions and don't blindly bump without testing. We don't go out of our way to break the Node.js API, but we also don't let it stop us from making changes. See [CHANGELOG.md](CHANGELOG.md) for a list of API changes.
+
+### Release cadence
 
 The plan is to release an updated version of the npm module after every release of the standalone version of the packager. Effectively that means there won't be more than a couple releases per month.
 
-## Stability
+### Feature support
 
-There are no promises of stability of any sort. You should assume that every update is a semver-major change. Make sure to pin your releases and don't blindly bump versions without testing. We don't go out of our way to break the Node.js API, but we also don't let it stop us from making changes.
+The following are currently known to not work:
 
-## Feature support
+ - App icon (environments such as Electron currently always use default)
+ - Custom cursor
+ - Loading screen image
 
-*Most* features of the packager work. Not everything does, and not everything works as well as it does on the website. Do understand that Node.js support is not particularly high priority for us.
+### Browser support
 
-## Browser support
+The Node.js module is not intended to work in a browser regardless of any tool you try to use such as webpack. If you need browser support, fork the packager (this repository) directly.
 
-The Node.js module does not work in a browser regardless of webpack and whatever other tool you try. If you need browser support, fork the packager (this repository) directly.
+### Large assets
+
+Large assets such as Electron binaries are not stored in this repository and will be downloaded from a remote server as-needed. While we aren't actively removing old files, we can't promise they will exist forever. Downloads are cached locally and validated with a secure checksum.
+
+Large assets are cached in `node_modules/@turbowarp/packager/.packager-cache`. You may want to periodically clean this folder.
 
 ## Using the API
 
@@ -32,22 +46,27 @@ First, you can import the module like this:
 const Packager = require('@turbowarp/packager');
 ```
 
-Next you have to get a project file from somewhere. It can be a project.json or a full sb, sb2, or sb3 file. You will have to do this on your own as the packager does not have any way to help you. The easiest way to get a project is probably to fetch one from `https://projects.scratch.mit.edu/1`.
+Next you have to get a project file from somewhere. It can be a project.json or a full sb, sb2, or sb3 file. You will have to do this on your own as the packager does not have any way to help you. The easiest way to get a project is probably to fetch one from https://projects.scratch.mit.edu/1.
 
-Then, convert your project data to an ArrayBuffer. Typed array views such as Uint8Array or node's Buffer might also work but we don't test those.
+Then, convert your project data to an ArrayBuffer, Uint8Array, or Node.js Buffer.
 
 ```js
 const fetch = require('cross-fetch').default; // or whatever your favorite HTTP library is
 const projectData = await (await fetch('https://projects.scratch.mit.edu/1')).arrayBuffer();
+
+// or:
+
+const fs = require('fs');
+const projectData = fs.readFileSync('project.sb3');
 ```
 
-Now you have to tell the packager to process the project. The packager will parse it, do some analysis, and download any needed assets (if the input was just a project.json). This must be done once for each project. The result of this processes can be reused as many times as you want.
+Now you have to tell the packager to load the project. The packager will parse it, do some analysis, and download any needed assets if the input was just a project.json. This must be done once for every project. The result of this processes can be reused as many times as you want.
 
-You may specify a "progress callback" that the downloader may call periodically with progress updates. `type` will be a string like `assets` or `compress`. Depending on the type, `a` might be "loaded" and `b` might be "total", or `a` might be a percent [0-1] and b is unused.
+You may specify a "progress callback" that the loader may call periodically with progress updates. `type` will be a string like `assets` or `compress`. Depending on the type, `a` might be "loaded" and `b` might be "total", or `a` might be a percent [0-1] in which case `b` is unused.
 
 ```js
 const progressCallback = (type, a, b) => {};
-const loadedProject = await Packager.downloadProject(projectData, progressCallback);
+const loadedProject = await Packager.loadProject(projectData, progressCallback);
 ```
 
 Now you can make a Packager.
@@ -57,9 +76,9 @@ const packager = new Packager.Packager();
 packager.project = loadedProject;
 ```
 
-`packager.options` has a lot of options on it for you to consider. You can log the object or see [packager.js](../src/packager/packager.js) and look for "DEFAULT_OPTIONS" to see what options are available.
+`packager.options` has a lot of options on it for you to consider. You can log the object or see [packager.js](../src/packager/packager.js) and look for `DEFAULT_OPTIONS` to see what options are available.
 
-Note that Packager is a single-use object; trying to re-use it will not work. You must make a new Packager each time you want to package a project.
+Note that a Packager is a single-use object; you must make a new Packager each time you want to package a project.
 
 Now, you're finally ready to actually package the project.
 
@@ -73,13 +92,13 @@ const type = result.type;
 const data = result.data;
 ```
 
-After starting the packager, it is possible to cancel. Whether or not this actually cancels any ongoing work is not guaranteed, but it will guarantee that package() eventually rejects.
+After calling package(), it is possible to cancel the process. This should stop any ongoing work, although that isn't guaranteed.
 
 ```js
 packager.abort();
 ```
 
-You can also add progress listeners on the packager using something similar to the addEventListener you're certainly familiar with. Note that these aren't actually EventTargets, just a tiny shim that looks similar, so some things like `once` won't work.
+You can also add progress listeners on the packager using something similar to the addEventListener you're familiar with. Note that these aren't actually EventTargets, just a tiny shim that looks similar, so some things like `once` won't work and the events don't have very many properties on them.
 
 ```js
 packager.addEventListener('zip-progress', ({detail}) => {
