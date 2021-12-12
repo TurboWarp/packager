@@ -1,7 +1,7 @@
 {
   "name": "@turbowarp/packager",
   "version": "0.4.0-alpha.1",
-  "description": "Packager for Scratch projects",
+  "description": "Converts Scratch projects into HTML files, zip archives, or executable programs for Windows, macOS, and Linux.",
   "main": "dist/packager.js",
   "scripts": {
     "start": "webpack serve",
@@ -16,7 +16,15 @@
     "test": "jest",
     "prepublishOnly": "npm run test && npm run build-node-prod"
   },
-  "author": "",
+  "author": "GarboMuffin",
+  "homepage": "https://github.com/TurboWarp/packager#readme",
+  "bugs": {
+    "url": "https://github.com/TurboWarp/packager/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/TurboWarp/packager.git"
+  },
   "license": "LGPL-3.0-only",
   "dependencies": {
     "@fiahfy/icns": "0.0.7",
