@@ -201,6 +201,10 @@
     padding: 10px;
     border-radius: 10px;
   }
+  .small {
+    font-size: small;
+    opacity: 0.8;
+  }
 </style>
 
 <Section
@@ -511,10 +515,16 @@
       {/if}
 
       {#if $options.cloudVariables.mode === 'ws' || $options.cloudVariables.mode === 'custom'}
-        <label transition:fade|local class="option">
-          {$_('options.cloudVariablesHost')}
-          <input type="text" bind:value={$options.cloudVariables.cloudHost}>
-        </label>
+        <div transition:fade|local>
+          <label class="option">
+            {$_('options.cloudVariablesHost')}
+            <input type="text" bind:value={$options.cloudVariables.cloudHost}>
+          </label>
+          <!-- TODO: Remove 12/20 -->
+          <p class="small">
+            Update: The default cloud variable server has changed from clouddata.turbowarp.org to clouddata.turbowarp.xyz. It's the same server with the same variables, just a different name.
+          </p>
+        </div>
       {/if}
 
       <p>{$_('options.cloudVariables-ws-help')}</p>
