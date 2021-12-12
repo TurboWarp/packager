@@ -1241,6 +1241,7 @@ Packager.DEFAULT_OPTIONS = () => ({
   resizeMode: 'preserve-ratio',
   autoplay: false,
   username: 'player####',
+  projectId: '',
   custom: {
     css: '',
     js: ''
@@ -1289,7 +1290,6 @@ Packager.DEFAULT_OPTIONS = () => ({
   },
   cloudVariables: {
     mode: 'ws',
-    id: 0,
     cloudHost: 'wss://clouddata.turbowarp.xyz',
     custom: {},
     specialCloudBehaviors: false,
