@@ -677,7 +677,7 @@ cd "$(dirname "$0")"
     } else {
       let src;
       if (this.project.type === 'blob' || this.options.target === 'zip-one-asset') {
-        isZip = true;
+        isZip = this.project.type !== 'blob';
         src = './project.zip';
         storageProgressStart = PROGRESS_FETCHED_COMPRESSED;
         storageProgressEnd = PROGRESS_EXTRACTED_COMPRESSED;
