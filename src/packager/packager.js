@@ -2,6 +2,7 @@ import EventTarget from '../common/event-target';
 import createChecksumWorker from '../build/p4-worker-loader!./sha256'
 import defaultIcon from './images/default-icon.png';
 import {readAsArrayBuffer, readAsURL} from '../common/readers';
+import escapeXML from '../common/escape-xml';
 import largeAssets from './large-assets';
 import xhr from './xhr';
 import pngToAppleICNS from './icns';
@@ -20,16 +21,6 @@ const PROGRESS_EXTRACTED_COMPRESSED = 0.98;
 // Used by environments that pass a project.json into loadProject() and fetch assets separately
 const PROGRESS_FETCHED_PROJECT_JSON = 0.2;
 const PROGRESS_FETCHED_ASSETS = 0.98;
-
-const escapeXML = (v) => v.replace(/["'<>&]/g, (i) => {
-  switch (i) {
-    case '"': return '&quot;';
-    case '\'': return '&apos;';
-    case '<': return '&lt;';
-    case '>': return '&gt;';
-    case '&': return '&amp;';
-  }
-});
 
 const removeUnnecessaryEmptyLines = (string) => string.split('\n')
   .filter((line, index, array) => {
