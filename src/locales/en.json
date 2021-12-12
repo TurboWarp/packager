@@ -432,5 +432,10 @@
       "string": "Are you sure you want to reset these settings? This cannot be undone.",
       "context": "Prompt to confirm user wants to reset settings"
     }
+  },
+  "preview": {
+    "loading": {
+      "string": "Loading Preview"
+    }
   }
 }

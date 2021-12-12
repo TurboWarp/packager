@@ -62,9 +62,11 @@ const translate = derived(locale, (locale) => {
    * @param {string} id Message ID
    * @returns {string} Translated message
    */
-  return (id) => {
+  const translateMessage = (id) => {
     return getProperty(localMessages, id) || getProperty(englishMessages, id) || id;
   };
+  translate.translate = translateMessage;
+  return translateMessage;
 });
 
 export {

@@ -1,13 +1,13 @@
 import {isSafari, isStandalone} from './environment';
+import escapeXML from '../common/escape-xml';
+import {_} from '../locales';
 
 const origin = isStandalone ? '*' : location.origin;
-// Safari does not let file: URIs used by standalone version to open blob: URIs
-const canUseBlobWindow = !(isStandalone && isSafari);
 
-const source = `<!DOCTYPE html>
+const getPreviewSource = () => `<!DOCTYPE html>
 <html>
 <head>
-  <title>Loading Preview</title>
+  <title>${escapeXML(_.translate('preview.loading'))}</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <style>
@@ -96,20 +96,23 @@ const source = `<!DOCTYPE html>
 </body>
 </html>
 `;
-const previewURL = canUseBlobWindow ? URL.createObjectURL(new Blob([source], {
-  type: 'text/html'
-})) + '#do-not-share-this-link-it-will-not-work-for-others' : null;
-
 const windowToBlobMap = new WeakMap();
 
 class Preview {
   constructor () {
+    const preview = getPreviewSource();
+
+    // Safari does not let file: URIs used by standalone version to open blob: URIs
+    const canUseBlobWindow = !(isStandalone && isSafari);
     if (canUseBlobWindow) {
-      this.window = window.open(previewURL);
+      const url = URL.createObjectURL(new Blob([preview], {
+        type: 'text/html'
+      })) + '#do-not-share-this-link-it-will-not-work-for-others';
+      this.window = window.open(url);
     } else {
       this.window = window.open('about:blank');
       if (this.window) {
-        this.window.document.write(source);
+        this.window.document.write(preview);
       }
     }
     if (!this.window) {
