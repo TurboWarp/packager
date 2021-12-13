@@ -54,6 +54,7 @@
         "loadingScreenTextPlaceholder": "(Nulla)",
         "mode": "Modalità",
         "monitors": "Monitor",
+        "noCloudVariables": "Questo progetto non contiene variabili cloud.",
         "noCursor": "Nessun puntatore del mouse",
         "normalCursor": "Puntatore del mouse normale",
         "otherEnvironments": "Altri ambienti (Cliccare per aprire)",
@@ -80,6 +81,7 @@
         "sizeNormal": "Mostra a dimensione normale",
         "sizeStretch": "Riempi lo schermo",
         "specialCloudBehaviors": "Comportamento speciale delle variabili cloud come in HTMLifier",
+        "stageSize": "Dimensioni Stage Personalizzate",
         "storedWarning": "Nota: Questo progetto contiene al suo interno delle impostazioni che possono sovrascrivere queste impostazioni.",
         "stretch": "Allarga lo stage per riempire lo schermo senza cambiare le dimensioni attuali (sperimentale)",
         "turbo": "Modalità Turbo",
@@ -101,6 +103,9 @@
         "privacy": "Politica della Privacy",
         "reportBug": "Segnala Problema",
         "sourceCode": "Codice Sorgente"
+    },
+    "preview": {
+        "loading": "Caricamento Anteprima"
     },
     "progress": {
         "compressingProject": "Compressione progetto",
