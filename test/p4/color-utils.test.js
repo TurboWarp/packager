@@ -1,4 +1,4 @@
-import {hexToRgb, rgbToHex, rgbToHsv, hsvToRgb} from '../../src/p4/color-utils';
+import {hexToRgb, rgbToHex, rgbToHsv, hsvToRgb, normalizeHex} from '../../src/p4/colors/color-utils';
 
 test('hexToRgb', () => {
   expect(hexToRgb('#000000')).toEqual([0, 0, 0]);
@@ -18,6 +18,12 @@ test('rgbToHex', () => {
   expect(rgbToHex(0, 0, 255)).toEqual('#0000ff');
   expect(rgbToHex(0xab, 0xcd, 0x12)).toEqual('#abcd12');
   expect(rgbToHex(1, 2, 255)).toEqual('#0102ff');
+});
+
+test('normalizeHex', () => {
+  expect(normalizeHex('#AbCdEf')).toEqual('#abcdef');
+  expect(normalizeHex('AbCdEf')).toEqual('#abcdef');
+  expect(normalizeHex('111')).toEqual('#111111');
 });
 
 test('rgbToHsv', () => {

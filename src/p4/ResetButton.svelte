@@ -3,10 +3,12 @@
   import {_} from '../locales/';
   import icon from './reset.svg';
 
+  export let confirm = true;
+
   const dispatch = createEventDispatcher();
 
   const click = () => {
-    if (confirm($_('reset.confirm'))) {
+    if (!confirm || window.confirm($_('reset.confirm'))) {
       dispatch('click');
     }
   };

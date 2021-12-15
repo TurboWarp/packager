@@ -6,27 +6,38 @@
 
   const dispatch = createEventDispatcher();
 
-  let rect;
-  let element;
-  let isMoving = false;
+  let sliderRect;
+  let sliderElement;
+  let knobRect;
+  let knobElement;
 
-  $: background = `linear-gradient(to right, ${steps.join(',')})`;
+  let isMoving = false;
+  let distanceFromLeft = 0;
 
   const setMousePosition = (clientX) => {
-    const unclamped = (clientX - rect.left - 10) / rect.width;
-    value = Math.max(0, Math.min(1, unclamped));
+    const unclampedValue = (clientX - sliderRect.left) / (sliderRect.width - knobRect.width);
+    value = Math.max(0, Math.min(1, unclampedValue));
+    distanceFromLeft = value * (sliderRect.width - knobRect.width);
     dispatch('change', value);
   };
   const onMouseMove = (e) => {
     if (!isMoving) return;
     setMousePosition(e.clientX);
   };
-  const onMouseDown = (e) => {
-    rect = element.getBoundingClientRect();
+
+  const startMoving = () => {
+    sliderRect = sliderElement.getBoundingClientRect();
+    knobRect = knobElement.getBoundingClientRect();
     isMoving = true;
+  };
+  const onMouseDownSlider = (e) => {
+    startMoving();
+  };
+  const onMouseDownKnob = (e) => {
+    startMoving();
     setMousePosition(e.clientX);
   };
-  const onMouseUp = (e) => {
+  const onMouseUp = () => {
     if (!isMoving) return;
     isMoving = false;
   }
@@ -54,9 +65,14 @@
 
 <div
   class="slider"
-  on:mousedown|preventDefault={onMouseDown}
-  bind:this={element}
-  style={`background: ${background}`}
+  style={`background: linear-gradient(to right, ${steps.join(',')})`}
+  on:mousedown|preventDefault={onMouseDownSlider}
+  bind:this={sliderElement}
 >
-  <div class="knob" style={`left: ${value * 100}%; transform: translateX(-50%);`}></div>
+  <div
+    class="knob"
+    style={`left: ${distanceFromLeft}px`}
+    on:mousedown|preventDefault={onMouseDownKnob}
+    bind:this={knobElement}
+  />
 </div>

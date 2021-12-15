@@ -23,6 +23,11 @@ export const rgbToHex = (r, g, b) => {
   return '#' + Math.round(r).toString(16).padStart(2, '0') + Math.round(g).toString(16).padStart(2, '0') + Math.round(b).toString(16).padStart(2, '0');
 };
 
+export const normalizeHex = (hex) => {
+  const [r, g, b] = hexToRgb(hex);
+  return rgbToHex(r, g, b);
+};
+
 export const rgbToHsv = (r, g, b) => {
   r /= 255;
   g /= 255;
