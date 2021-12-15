@@ -7,7 +7,7 @@
   import ImageInput from './ImageInput.svelte';
   import CustomExtensions from '../p4/CustomExtensions.svelte';
   import LearnMore from './LearnMore.svelte';
-  import ColorPicker from './ColorPicker.svelte';
+  import ColorPicker from './colors/ColorPicker.svelte';
   import writablePersistentStore from './persistent-store';
   import fileStore from './file-store';
   import {progress, currentTask} from './stores';

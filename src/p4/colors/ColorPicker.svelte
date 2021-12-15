@@ -1,7 +1,7 @@
 <script>
   import ColorSlider from './ColorSlider.svelte';
   import {hexToRgb, rgbToHex, rgbToHsv, hsvToRgb} from './color-utils';
-  import {_} from '../locales';
+  import {_} from '../../locales';
 
   export let value;
   export let defaultColor;
