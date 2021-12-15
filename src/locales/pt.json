@@ -56,6 +56,7 @@
         "loadingScreenTextPlaceholder": "(Nada)",
         "mode": "Modo",
         "monitors": "Monitores",
+        "noCloudVariables": "Esse projeto não contém variáveis na nuvem.",
         "noCursor": "Nenhum cursor",
         "normalCursor": "Cursor normal",
         "otherEnvironments": "Outras plataformas (Clique para abrir)",
@@ -82,6 +83,8 @@
         "sizeNormal": "Mostrar em tamanho normal",
         "sizeStretch": "Cobrir a tela",
         "specialCloudBehaviors": "Comportamento especial para variáveis na nuvem específicos, como no HTMLifier",
+        "stage": "Palco",
+        "stageSize": "Tamanho Customizado do Palco",
         "storedWarning": "Nota: Este projeto tem configurações armazenadas nele, que podem sobrepor-se a estas configurações.",
         "stretch": "Esticar o palco para preencher a tela sem alterar o tamanho real (experimental)",
         "turbo": "Modo Turbo",
@@ -103,6 +106,9 @@
         "privacy": "Política de Privacidade",
         "reportBug": "Reportar Bug",
         "sourceCode": "Código fonte"
+    },
+    "preview": {
+        "loading": "Carregando Previsualização"
     },
     "progress": {
         "compressingProject": "Comprimindo projeto",
