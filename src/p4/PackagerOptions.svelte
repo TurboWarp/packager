@@ -785,7 +785,7 @@
 
           <h3>Install Android Studio</h3>
           <p><a href="https://developer.android.com/studio/">Install Android Studio.</a></p>
-          <p>This quite large and may take a while.</p>
+          <p>This is quite large and may take a while.</p>
 
           <h3>Create a new project</h3>
           <p>Create a new project in Android studio.</p>
