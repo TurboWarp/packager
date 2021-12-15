@@ -1,6 +1,7 @@
 import assetCache from './cache';
 import request from '../../common/request';
 import {readAsURL, readAsArrayBuffer} from '../../common/readers';
+import defaultIcon from '../images/default-icon.png';
 
 class WebAdapter {
   getCachedAsset (asset) {
