@@ -698,7 +698,7 @@ cd "$(dirname "$0")"
     if (this.options.app.icon === null) {
       return '';
     }
-    const data = await Packager.adapter.readAsURL(this.options.app.icon);
+    const data = await Packager.adapter.readAsURL(this.options.app.icon, 'app icon');
     return `<link rel="icon" href="${data}">`;
   }
 
@@ -710,7 +710,7 @@ cd "$(dirname "$0")"
       // Set to custom but no data, so ignore
       return 'auto';
     }
-    const data = await Packager.adapter.readAsURL(this.options.cursor.custom);
+    const data = await Packager.adapter.readAsURL(this.options.cursor.custom, 'custom cursor');
     return `url(${data}), auto`;
   }
 
@@ -793,7 +793,7 @@ cd "$(dirname "$0")"
     }
     #loading {
       ${this.options.loadingScreen.image && this.options.loadingScreen.imageMode === 'stretch'
-        ? `background-image: url(${await Packager.adapter.readAsURL(this.options.loadingScreen.image)});
+        ? `background-image: url(${await Packager.adapter.readAsURL(this.options.loadingScreen.image, 'stretched loading screen')});
       background-repeat: no-repeat;
       background-size: contain;
       background-position: center;`
@@ -886,7 +886,7 @@ cd "$(dirname "$0")"
 
   <div id="loading" class="screen">
     ${this.options.loadingScreen.text ? `<h1 class="loading-text">${escapeXML(this.options.loadingScreen.text)}</h1>` : ''}
-    ${this.options.loadingScreen.image && this.options.loadingScreen.imageMode === 'normal' ? `<div class="loading-image"><img src="${await Packager.adapter.readAsURL(this.options.loadingScreen.image)}"></div>` : ''}
+    ${this.options.loadingScreen.image && this.options.loadingScreen.imageMode === 'normal' ? `<div class="loading-image"><img src="${await Packager.adapter.readAsURL(this.options.loadingScreen.image, 'loading-screen')}"></div>` : ''}
     ${this.options.loadingScreen.progressBar ? '<div class="progress-bar-outer"><div class="progress-bar-inner" id="loading-inner"></div></div>' : ''}
   </div>
 

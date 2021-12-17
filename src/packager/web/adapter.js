@@ -52,8 +52,11 @@ class WebAdapter {
     });
   }
 
-  readAsURL (file) {
-    return readAsURL(file);
+  readAsURL (file, debugInfo) {
+    return readAsURL(file)
+      .catch((err) => {
+        throw new Error(`${debugInfo}: ${err}`);
+      });
   }
 }
 
