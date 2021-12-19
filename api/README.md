@@ -1,4 +1,4 @@
-# Node.js API for Packager
+# Node.js API
 
 ## Installing
 
@@ -6,17 +6,19 @@
 npm install --save-exact @turbowarp/packager
 ```
 
-Note the `--save-exact`: this is important.
+We suggest that you use `--save-exact` (or, with yarn, `--exact`) to make sure you always install the same version. This is important because we don't promise API stability.
 
 ## About the API
 
 ### Stability
 
-There are no promises of stability between updates. Make sure to pin your versions and don't blindly bump without testing. We don't go out of our way to break the Node.js API, but we also don't let it stop us from making changes. See [CHANGELOG.md](CHANGELOG.md) for a list of API changes.
+The Node.js API is still in beta. Expect to find bugs.
+
+There are no promises of API stability between updates. Always pin to an exact version and don't update without testing. We don't go out of our way to break the Node.js API, but we don't let it stop us from making changes. We will try to mention noteworthy changes in the [GitHub releases](https://github.com/TurboWarp/packager/releases) changelog.
 
 ### Release cadence
 
-The plan is to release an updated version of the npm module after every release of the standalone version of the packager. Effectively that means there won't be more than a couple releases per month.
+The plan is to release an updated version of the npm module with every release of the standalone version of the packager, which currently happens about once a month.
 
 ### Feature support
 
@@ -38,7 +40,7 @@ Large assets are cached in `node_modules/@turbowarp/packager/.packager-cache`. Y
 
 ## Using the API
 
-See demo.js for a full example.
+See demo.js or demo-simple.js for a full example.
 
 First, you can import the module like this:
 
@@ -46,7 +48,9 @@ First, you can import the module like this:
 const Packager = require('@turbowarp/packager');
 ```
 
-Next you have to get a project file from somewhere. It can be a project.json or a full sb, sb2, or sb3 file. You will have to do this on your own as the packager does not have any way to help you. The easiest way to get a project is probably to fetch one from https://projects.scratch.mit.edu/1.
+### Load a project
+
+Next you have to get a project file from somewhere. It can be a project.json or a full sb, sb2, or sb3 file. The packager doesn't provide any API for this, you have to find it on your own. The easiest way to get a project is probably to fetch one from https://projects.scratch.mit.edu/1.
 
 Then, convert your project data to an ArrayBuffer, Uint8Array, or Node.js Buffer.
 
@@ -69,6 +73,8 @@ const progressCallback = (type, a, b) => {};
 const loadedProject = await Packager.loadProject(projectData, progressCallback);
 ```
 
+### Package the project
+
 Now you can make a Packager.
 
 ```js
@@ -78,9 +84,15 @@ packager.project = loadedProject;
 
 `packager.options` has a lot of options on it for you to consider. You can log the object or see [packager.js](../src/packager/packager.js) and look for `DEFAULT_OPTIONS` to see what options are available.
 
+We recommend that you avoid overwriting the entirety of `packager.options` as this may cause issues when you try to update the packager as options change. Instead, just update what you need to.
+
+```js
+packager.options.turbo = true;
+```
+
 Note that a Packager is a single-use object; you must make a new Packager each time you want to package a project.
 
-Now, you're finally ready to actually package the project.
+Now you can finally actually package the project.
 
 ```js
 const result = await packager.package();
@@ -92,15 +104,10 @@ const type = result.type;
 const data = result.data;
 ```
 
-After calling package(), it is possible to cancel the process. This should stop any ongoing work, although that isn't guaranteed.
-
-```js
-packager.abort();
-```
-
 You can also add progress listeners on the packager using something similar to the addEventListener you're familiar with. Note that these aren't actually EventTargets, just a tiny shim that looks similar, so some things like `once` won't work and the events don't have very many properties on them.
 
 ```js
+// do this before calling package()
 packager.addEventListener('zip-progress', ({detail}) => {
   // Used when compressing projects as zips
   console.log('Packager progress zip-progress', detail);
