@@ -418,6 +418,48 @@ if (isMac) {
   Menu.setApplicationMenu(null);
 }
 
+app.enableSandbox();
+
+const createWindow = (windowOptions) => {
+  const options = {
+    title: ${JSON.stringify(this.options.app.windowTitle)},
+    icon: path.resolve(__dirname, ${JSON.stringify(iconName)}),
+    useContentSize: true,
+    webPreferences: {
+      contextIsolation: true,
+      nodeIntegration: false,
+    },
+    show: true,
+    width: 480,
+    height: 360,
+    ...windowOptions,
+  };
+
+  const activeScreen = screen.getDisplayNearestPoint(screen.getCursorScreenPoint());
+  const bounds = activeScreen.workArea;
+  options.x = bounds.x + ((bounds.width - options.width) / 2);
+  options.y = bounds.y + ((bounds.height - options.height) / 2);
+
+  const window = new BrowserWindow(options);
+  return window;
+};
+
+const createProjectWindow = () => {
+  const window = createWindow({
+    backgroundColor: ${JSON.stringify(this.options.appearance.background)},
+    width: ${this.computeWindowSize().width},
+    height: ${this.computeWindowSize().height},
+    minWidth: 50,
+    minHeight: 50,
+  });
+  window.loadFile(path.resolve(__dirname, './index.html'));
+};
+
+const createDataWindow = (dataURI) => {
+  const window = createWindow({});
+  window.loadURL(dataURI);
+};
+
 const isSafeOpenExternal = (url) => {
   try {
     const parsedUrl = new URL(url);
@@ -428,49 +470,34 @@ const isSafeOpenExternal = (url) => {
   return false;
 };
 
-const createWindow = () => {
-  const options = {
-    backgroundColor: ${JSON.stringify(this.options.appearance.background)},
-    width: ${this.computeWindowSize().width},
-    height: ${this.computeWindowSize().height},
-    title: ${JSON.stringify(this.options.app.windowTitle)},
-    useContentSize: true,
-    minWidth: 50,
-    minHeight: 50,
-    icon: path.resolve(__dirname, ${JSON.stringify(iconName)}),
-    webPreferences: {
-      contextIsolation: true,
-      nodeIntegration: false,
-      sandbox: true
-    },
-    show: true
-  };
-
-  const activeScreen = screen.getDisplayNearestPoint(screen.getCursorScreenPoint());
-  const bounds = activeScreen.workArea;
-  options.x = bounds.x + ((bounds.width - options.width) / 2);
-  options.y = bounds.y + ((bounds.height - options.height) / 2);
-
-  const window = new BrowserWindow(options);
-  window.loadFile(path.resolve(__dirname, './index.html'));
+const isDataURL = (url) => {
+  try {
+    const parsedUrl = new URL(url);
+    return parsedUrl.protocol === 'data:';
+  } catch (e) {
+    // ignore
+  }
+  return false;
 };
 
-app.enableSandbox();
+const openLink = (url) => {
+  if (isSafeOpenExternal(url)) {
+    shell.openExternal(url);
+  } else if (isDataURL(url)) {
+    createDataWindow(url);
+  }
+};
 
 app.on('web-contents-created', (event, contents) => {
   contents.setWindowOpenHandler((details) => {
-    if (isSafeOpenExternal(details.url)) {
-      setImmediate(() => {
-        shell.openExternal(details.url);
-      });
-    }
+    setImmediate(() => {
+      openLink(details.url);
+    });
     return {action: 'deny'};
   });
   contents.on('will-navigate', (e, url) => {
     e.preventDefault();
-    if (isSafeOpenExternal(url)) {
-      shell.openExternal(url);
-    }
+    openLink(url);
   });
 });
 
@@ -479,9 +506,11 @@ app.on('window-all-closed', () => {
 });
 
 app.whenReady().then(() => {
-  createWindow();
+  createProjectWindow();
   app.on('activate', () => {
-    if (BrowserWindow.getAllWindows().length === 0) createWindow();
+    if (BrowserWindow.getAllWindows().length === 0) {
+      createProjectWindow();
+    }
   });
 });
 `;
