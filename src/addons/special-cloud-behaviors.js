@@ -7,6 +7,15 @@ const isSafeURL = (url) => {
   }
 };
 
+const isDataURL = (url) => {
+  try {
+    const u = new URL(url, location.href);
+    return u.protocol === 'data:';
+  } catch (e) {
+    return false;
+  }
+};
+
 class SpecialCloudBehaviorsProvider {
   enable () {
     this.manager.setVariable(this, '☁ url', location.href);
@@ -14,12 +23,14 @@ class SpecialCloudBehaviorsProvider {
 
   handleUpdateVariable (name, value) {
     if (name === '☁ redirect') {
-      if (isSafeURL(value)) {
+      if (isDataURL(value)) {
+        // Browsers don't allow navigating to data: URIs, so we'll always convert a redirect to opening a new page
+        window.open(value);
+      } else if (isSafeURL(value)) {
         location.href = value;
       }
     } else if (name === '☁ open link') {
       if (isSafeURL(value)) {
-        // Unreliable
         window.open(value);
       }
     } else if (name === '☁ username') {
