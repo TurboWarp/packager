@@ -23,6 +23,17 @@ test('sb3', async () => {
   expect(project.analysis.usesMusic).toBe(false);
 });
 
+test('sb3 with implied cloud variables', async () => {
+  const project = await downloadProject(readTestProject('implied-cloud-variables.sb3'), () => {});
+  expect(project.type).toBe('sb3');
+  expect(project.analysis.stageVariables).toEqual([
+    {
+      name: '☁ Implied',
+      isCloud: true
+    }
+  ]);
+});
+
 test('sb3 with comments', async () => {
   const project = await downloadProject(readTestProject('comments.sb3'), () => {});
   expect(project.type).toBe('sb3');

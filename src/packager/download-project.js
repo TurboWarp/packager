@@ -85,6 +85,23 @@ const analyzeScratch3 = (projectData) => {
   };
 };
 
+const mutateScratch3InPlace = (projectData) => {
+  const makeImpliedCloudVariables = (projectData) => {
+    const stage = projectData.targets.find((i) => i.isStage);
+    if (stage) {
+      for (const variable of Object.values(stage.variables)) {
+        const name = variable[0];
+        if (name.startsWith('☁')) {
+          variable[2] = true;
+        }
+      }
+    }
+  };
+  
+  makeImpliedCloudVariables(projectData);
+  optimizeSb3Json(projectData);
+};
+
 const loadScratch2 = (projectData, progressTarget) => {
   const IMAGE_EXTENSIONS = ['svg', 'png', 'jpg', 'jpeg', 'bmp'];
   const SOUND_EXTENSIONS = ['wav', 'mp3'];
@@ -206,7 +223,7 @@ const loadScratch3 = (projectData, progressTarget) => {
     return result;
   };
 
-  zip.file('project.json', JSON.stringify(optimizeSb3Json(projectData)));
+  zip.file('project.json', JSON.stringify(mutateScratch3InPlace(projectData)));
 
   const targets = projectData.targets;
   const costumes = flat(targets.map((t) => t.costumes || []));
@@ -303,7 +320,7 @@ export const downloadProject = async (data, progressCallback = () => {}) => {
       const projectData = JSON.parse(projectDataText);
       type = identifyProjectType(projectData);
       if (type === 'sb3') {
-        zip.file('project.json', JSON.stringify(optimizeSb3Json(projectData)));
+        zip.file('project.json', JSON.stringify(mutateScratch3InPlace(projectData)));
         arrayBuffer = await zip.generateAsync({
           type: 'arraybuffer',
           compression: 'DEFLATE'
