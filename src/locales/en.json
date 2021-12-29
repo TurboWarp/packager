@@ -325,7 +325,7 @@
       "string": "Project ID"
     },
     "projectIdHelp": {
-      "string": "Project ID is used when connecting to a cloud variable server. It can contain more than just numbers."
+      "string": "Project ID is used when connecting to a cloud variable server and storing local cloud variables. It can contain more than just numbers."
     },
     "customExtensions": {
       "string": "Custom extensions (one URL per line)"
