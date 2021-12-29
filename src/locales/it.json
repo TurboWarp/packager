@@ -69,7 +69,7 @@
         "preserveRatio": "Mantieni le proporzioni quando si ridimensiona (raccomandato)",
         "preview": "Anteprima",
         "projectId": "ID progetto",
-        "projectIdHelp": "L'ID del progetto è usato quando ci si collega ad un server di variabili cloud. Non è obbligatorio che contenga solo numeri.",
+        "projectIdHelp": "L'ID del progetto è usato quando ci si collega ad un server di variabili cloud e quando si quando si memorizzano le variabili cloud locali. Non è obbligatorio che contenga solo numeri.",
         "removeFencing": "Rimozione limiti Stage",
         "removeMiscLimits": "Rimozione Limiti Vari",
         "runtimeOptions": "Opzioni Runtime",
