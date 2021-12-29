@@ -100,6 +100,8 @@ const mutateScratch3InPlace = (projectData) => {
   
   makeImpliedCloudVariables(projectData);
   optimizeSb3Json(projectData);
+
+  return projectData;
 };
 
 const loadScratch2 = (projectData, progressTarget) => {
