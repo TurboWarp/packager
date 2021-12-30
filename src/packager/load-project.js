@@ -10,9 +10,11 @@ const downloadProject = async (buffer, progressCallback) => {
   const downloadPromise = new Promise((resolve, reject) => {
     worker.downloadProject(transfer(buffer, [buffer]), proxy(progressCallback))
       .then((res) => {
+        terminate();
         resolve(res);
       })
       .catch((err) => {
+        terminate();
         reject(err)
       });
     terminateAndReject = () => {
