@@ -525,10 +525,13 @@
             {$_('options.cloudVariablesHost')}
             <input type="text" bind:value={$options.cloudVariables.cloudHost}>
           </label>
-          <!-- TODO: Remove 12/20 -->
-          <p class="small">
-            Update: The default cloud variable server has changed from clouddata.turbowarp.org to clouddata.turbowarp.xyz. It's the same server with the same variables, just a different name.
-          </p>
+          <!-- TODO: Remove mid January 2021 -->
+          {#if $options.cloudVariables.cloudHost === 'wss://clouddata.turbowarp.org'}
+            <p class="small">
+              Another update: The packager will try to connect to clouddata.turbowarp.org first, and if that fails, it will try clouddata.turbowarp.xyz instead.
+              This should make connections more reliable on filtered internet connections.
+            </p>
+          {/if}
         </div>
       {/if}
 

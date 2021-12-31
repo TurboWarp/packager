@@ -600,7 +600,14 @@ cd "$(dirname "$0")"
   }
 
   makeWebSocketProvider () {
-    return `new Scaffolding.Cloud.WebSocketProvider(${JSON.stringify(this.options.cloudVariables.cloudHost)}, ${JSON.stringify(this.options.projectId)})`;
+    // If using the default turbowarp.org server, we'll add a fallback for the turbowarp.xyz alias.
+    // This helps work around web filters as turbowarp.org can be blocked for games and turbowarp.xyz uses
+    // a problematic TLD. These are the same server and same variables, just different domain.
+    const cloudHost = this.options.cloudVariables.cloudHost === 'wss://clouddata.turbowarp.org' ? [
+      'wss://clouddata.turbowarp.org',
+      'wss://clouddata.turbowarp.xyz'
+    ] : this.options.cloudVariables.cloudHost;
+    return `new Scaffolding.Cloud.WebSocketProvider(${JSON.stringify(cloudHost)}, ${JSON.stringify(this.options.projectId)})`;
   }
 
   makeLocalStorageProvider () {
@@ -1285,7 +1292,7 @@ Packager.DEFAULT_OPTIONS = () => ({
   },
   cloudVariables: {
     mode: 'ws',
-    cloudHost: 'wss://clouddata.turbowarp.xyz',
+    cloudHost: 'wss://clouddata.turbowarp.org',
     custom: {},
     specialCloudBehaviors: false,
   },

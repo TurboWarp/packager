@@ -79,14 +79,19 @@ class CloudManager {
 }
 
 class WebSocketProvider {
+  /**
+   * @param {string[]|string} cloudHost URLs of servers to connect to, including ws:// or wss://
+   * If cloudHost is an array, the server will consecutively try each server until one connects.
+   * @param {string} projectId The ID of the project
+   */
   constructor(cloudHost, projectId) {
-    this.cloudHost = cloudHost;
+    this.cloudHosts = Array.isArray(cloudHost) ? cloudHost : [cloudHost];
     this.projectId = projectId;
-    this.connectionAttempts = 0;
-    this.openConnection = this.openConnection.bind(this);
-    this._throttleTimeoutFinished = this._throttleTimeoutFinished.bind(this);
+    this.attemptedConnections = 0;
     this.messageQueue = [];
     this.throttleTimeout = null;
+    this.openConnection = this.openConnection.bind(this);
+    this._throttleTimeoutFinished = this._throttleTimeoutFinished.bind(this);
   }
 
   enable () {
@@ -94,8 +99,10 @@ class WebSocketProvider {
   }
 
   openConnection () {
-    this.connectionAttempts += 1;
-    this.ws = new WebSocket(this.cloudHost);
+    this.currentCloudHost = this.cloudHosts[this.attemptedConnections % this.cloudHosts.length];
+    this.attemptedConnections++;
+    console.log(`Connecting to ${this.currentCloudHost}`);
+    this.ws = new WebSocket(this.currentCloudHost);
     this.ws.onerror = this.onerror.bind(this);
     this.ws.onmessage = this.onmessage.bind(this);
     this.ws.onopen = this.onopen.bind(this);
@@ -118,7 +125,7 @@ class WebSocketProvider {
   }
 
   onopen () {
-    this.connectionAttempts = 1;
+    this.attemptedConnections = 0;
     this.writeToServer({
       method: 'handshake'
     });
@@ -131,8 +138,8 @@ class WebSocketProvider {
       console.log('WebSocket username is invalid, not reconnecting.');
       return;
     }
-    const timeout = Math.random() * (Math.pow(2, Math.min(this.connectionAttempts, 5)) - 1) * 1000;
-    console.log(`Reconnecting in ${(timeout / 1000).toFixed(1)}s, attempt ${this.connectionAttempts}`);
+    const timeout = Math.random() * (Math.pow(2, Math.min(this.attemptedConnections + 1, 5)) - 1) * 1000;
+    console.log(`Reconnecting in ${Math.round(timeout)}ms`);
     setTimeout(this.openConnection, timeout);
   }
 
