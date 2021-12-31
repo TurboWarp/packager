@@ -133,13 +133,17 @@ class WebSocketProvider {
   }
 
   onclose (e) {
-    console.log('WebSocket closed');
+    // https://github.com/TurboWarp/cloud-server/blob/master/doc/protocol.md#status-codes
     if (e && e.code === 4002) {
-      console.log('WebSocket username is invalid, not reconnecting.');
+      console.log('Username is invalid; not reconnecting.');
+      return;
+    }
+    if (e && e.code === 4004) {
+      console.log('Project is blocked; not reconnecting.');
       return;
     }
     const timeout = Math.random() * (Math.pow(2, Math.min(this.attemptedConnections + 1, 5)) - 1) * 1000;
-    console.log(`Reconnecting in ${Math.round(timeout)}ms`);
+    console.log(`Connection lost; reconnecting in ${Math.round(timeout)}ms`);
     setTimeout(this.openConnection, timeout);
   }
 
