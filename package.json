@@ -50,7 +50,7 @@
     "scratch-audio": "0.1.0-prerelease.20200528195344",
     "scratch-render": "github:TurboWarp/scratch-render#develop",
     "scratch-render-fonts": "^1.0.0-prerelease.20210401210003",
-    "scratch-storage": "github:TurboWarp/scratch-storage",
+    "scratch-storage": "github:TurboWarp/scratch-storage#develop",
     "scratch-svg-renderer": "github:TurboWarp/scratch-svg-renderer#develop",
     "scratch-vm": "github:TurboWarp/scratch-vm#develop",
     "style-loader": "^2.0.0",
