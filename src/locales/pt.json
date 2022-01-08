@@ -71,7 +71,7 @@
         "preserveRatio": "Preservar a relação de aspecto quando redimensionada (recomendado)",
         "preview": "Previsualizar",
         "projectId": "ID do projeto",
-        "projectIdHelp": "O ID do projeto é usado ao conectar a um servidor de variáveis na nuvem. Ele não precisa ser feito apenas de números.",
+        "projectIdHelp": "O ID do projeto é usado ao conectar a um servidor de variáveis na nuvem e ao guardar variáveis na nuvem localmente. Ele não precisa ser um número.",
         "removeFencing": "Remover Borda",
         "removeMiscLimits": "Remover Outros Limites",
         "runtimeOptions": "Opções de Execução",
