@@ -547,6 +547,17 @@
         </label>
         <LearnMore slug="packager/special-cloud-behaviors" />
       </div>
+
+      <div class="option">
+        <label>
+          <input type="checkbox" bind:checked={$options.cloudVariables.unsafeCloudBehaviors}>
+          {$_('options.unsafeCloudBehaviors')}
+        </label>
+        <LearnMore slug="packager/special-cloud-behaviors#eval" />
+      </div>
+      {#if $options.cloudVariables.unsafeCloudBehaviors}
+        <p class="warning">{$_('options.unsafeCloudBehaviorsWarning')}</p>
+      {/if}
     {:else}
       <p>{$_('options.noCloudVariables')}</p>
     {/if}

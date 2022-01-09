@@ -205,6 +205,7 @@ class Packager extends EventTarget {
     return {
       ...this.options.chunks,
       specialCloudBehaviors: this.options.cloudVariables.specialCloudBehaviors,
+      unsafeCloudBehaviors: this.options.cloudVariables.unsafeCloudBehaviors,
       pause: this.options.controls.pause.enabled
     };
   }
@@ -1295,6 +1296,7 @@ Packager.DEFAULT_OPTIONS = () => ({
     cloudHost: 'wss://clouddata.turbowarp.org',
     custom: {},
     specialCloudBehaviors: false,
+    unsafeCloudBehaviors: false,
   },
   cursor: {
     type: 'auto',
