@@ -319,7 +319,7 @@
       "string": "Additional unsafe special cloud behaviors"
     },
     "unsafeCloudBehaviorsWarning": {
-      "string": "Unsafe special cloud behaviors allow the packaged project to execute arbitrary code outside of the normal script sandbox. Depending on the environment you're packaging for, this grants projects full control over your computer, including the ability to install viruses. If you do not trust the project you're packaging, please turn off this option.",
+      "string": "Unsafe cloud behaviors allows the packaged project to execute arbitrary code outside of the \"sandbox\" that projects are typically executed in. Depending on the environment you're packaging for, this grants projects full control over your computer, including the ability to install viruses. If you do not trust the project you're packaging, please turn off this option.",
       "context": "Warning that appears when unsafe cloud behaviors is enabled."
     },
     "enableCompiler": {
