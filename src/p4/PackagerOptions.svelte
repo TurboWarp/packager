@@ -702,8 +702,9 @@
       accent="#FF661A"
       reset={$options.target === 'zip' ? null : () => {
         resetOptions([
-          'app.packageName'
-        ])
+          'app.packageName',
+          'app.windowMode'
+        ]);
       }}
     >
       <div>
@@ -717,6 +718,23 @@
             <input type="text" bind:value={$options.app.packageName} pattern="[a-zA-Z -]+" minlength="1">
           </label>
           <p>{$_('options.packageNameHelp')}</p>
+
+          {#if $options.target.includes('electron')}
+            <div class="group">
+              <label class="option">
+                <input type="radio" name="app-window-mode" bind:group={$options.app.windowMode} value="window">
+                {$_('options.startWindow')}
+              </label>
+              <label class="option">
+                <input type="radio" name="app-window-mode" bind:group={$options.app.windowMode} value="maximize">
+                {$_('options.startMaximized')}
+              </label>
+              <label class="option">
+                <input type="radio" name="app-window-mode" bind:group={$options.app.windowMode} value="fullscreen">
+                {$_('options.startFullscreen')}
+              </label>
+            </div>
+          {/if}
 
           <div class="warning">
             <div>Creating native applications for specific platforms is discouraged. In most cases, Plain HTML or Zip will have numerous advantages:</div>

@@ -453,6 +453,9 @@ const createProjectWindow = () => {
     minWidth: 50,
     minHeight: 50,
   });
+  const windowMode = ${JSON.stringify(this.options.app.windowMode)};
+  if (windowMode === "maximize") window.maximize();
+  if (windowMode === "fullscreen") window.setFullScreen(true);
   window.loadFile(path.resolve(__dirname, './index.html'));
 };
 
@@ -499,6 +502,15 @@ app.on('web-contents-created', (event, contents) => {
   contents.on('will-navigate', (e, url) => {
     e.preventDefault();
     openLink(url);
+  });
+  contents.on('before-input-event', (e, input) => {
+    const window = BrowserWindow.fromWebContents(contents);
+    if (!window || input.type !== "keyDown") return;
+    if (input.key === 'F11' || (input.key === 'Enter' && input.alt)) {
+      window.setFullScreen(!window.isFullScreen());
+    } else if (input.key === 'Escape' && window.isFullScreen()) {
+      window.setFullScreen(false);
+    }
   });
 });
 
@@ -1130,18 +1142,6 @@ cd "$(dirname "$0")"
           }
         });
       }` : ''}
-
-      ${this.options.target.startsWith('electron-') ? `
-      document.addEventListener('keydown', (e) => {
-        if (e.key === 'F11' || (e.key === 'Enter' && e.altKey)) {
-          e.preventDefault();
-          if (document.fullscreenElement) {
-            document.exitFullscreen();
-          } else {
-            document.body.requestFullscreen();
-          }
-        }
-      });` : ''}
     } catch (e) {
       handleError(e);
     }
@@ -1292,7 +1292,8 @@ Packager.DEFAULT_OPTIONS = () => ({
   app: {
     icon: null,
     packageName: Packager.getDefaultPackageNameFromFileName(''),
-    windowTitle: Packager.getWindowTitleFromFileName('')
+    windowTitle: Packager.getWindowTitleFromFileName(''),
+    windowMode: 'window'
   },
   chunks: {
     gamepad: false,

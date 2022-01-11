@@ -391,6 +391,15 @@
     "packageNameHelp": {
       "string": "Package name should be a unique name used only by your application. The same project should always have the same package name."
     },
+    "startWindow": {
+      "string": "Start as window"
+    },
+    "startMaximized": {
+      "string": "Start as maximized window"
+    },
+    "startFullscreen": {
+      "string": "Start in fullscreen"
+    },
     "package": {
       "string": "Package",
       "context": "Button to package the project"
