@@ -7,7 +7,7 @@ import pngToAppleICNS from './icns';
 import {buildId, verifyBuildId} from './build-id';
 import {encode, decode} from './base85';
 import {parsePlist, generatePlist} from './plist';
-import {APP_NAME, WEBSITE, COPYRIGHT_NOTICE} from './brand';
+import {APP_NAME, WEBSITE, COPYRIGHT_NOTICE, ACCENT_COLOR} from './brand';
 
 const PROGRESS_LOADED_SCRIPTS = 0.1;
 
@@ -1259,7 +1259,7 @@ Packager.DEFAULT_OPTIONS = () => ({
   appearance: {
     background: '#000000',
     foreground: '#ffffff',
-    accent: '#ff4c4c'
+    accent: ACCENT_COLOR
   },
   loadingScreen: {
     progressBar: true,

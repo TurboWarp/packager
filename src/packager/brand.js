@@ -15,6 +15,9 @@ WEBSITE is your app's website. This link is included in packaged projects.
 COPYRIGHT_NOTICE is A copyright notice regarding the app. This text is included in packaged projects.
 Also make sure to update the "License" section in README.md
 
+ACCENT_COLOR is a color used in various parts of the interface and as the default value for the accent
+color option. It should be a 6-character hex color (#123abc)
+
 SOURCE_CODE is where users can find the app's source code. This link is included in the website.
 Note that due to the license used by the project (see README.md), you may be required to make the source code available to all visitors.
 
@@ -39,6 +42,7 @@ GNU Lesser General Public License for more details.
 
 You should have received a copy of the GNU Lesser General Public License
 along with this program. If not, see <https://www.gnu.org/licenses/>.`,
+  ACCENT_COLOR: '#ff4c4c',
   SOURCE_CODE: 'https://github.com/TurboWarp/packager',
   FEEDBACK_PRIMARY: {
     name: 'Scratch',
