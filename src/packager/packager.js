@@ -446,17 +446,21 @@ const createWindow = (windowOptions) => {
 };
 
 const createProjectWindow = () => {
+  const windowMode = ${JSON.stringify(this.options.app.windowMode)};
   const window = createWindow({
+    show: false,
     backgroundColor: ${JSON.stringify(this.options.appearance.background)},
     width: ${this.computeWindowSize().width},
     height: ${this.computeWindowSize().height},
     minWidth: 50,
     minHeight: 50,
+    fullscreen: windowMode === 'fullscreen',
   });
-  const windowMode = ${JSON.stringify(this.options.app.windowMode)};
-  if (windowMode === "maximize") window.maximize();
-  if (windowMode === "fullscreen") window.setFullScreen(true);
+  if (windowMode === 'maximize') {
+    window.maximize();
+  }
   window.loadFile(path.resolve(__dirname, './index.html'));
+  window.show();
 };
 
 const createDataWindow = (dataURI) => {
