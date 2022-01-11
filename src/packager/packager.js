@@ -963,6 +963,7 @@ cd "$(dirname "$0")"
       setProgress(${PROGRESS_LOADED_SCRIPTS});
 
       const scaffolding = new Scaffolding.Scaffolding();
+      const vm = scaffolding.vm;
       scaffolding.width = ${this.options.stageWidth};
       scaffolding.height = ${this.options.stageHeight};
       scaffolding.resizeMode = ${JSON.stringify(this.options.resizeMode)};
@@ -972,12 +973,11 @@ cd "$(dirname "$0")"
 
       window.scaffolding = scaffolding;
       window.vm = scaffolding.vm;
-      const vm = scaffolding.vm;
-      window.Scratch= {
-        vm: scaffolding.vm,
-        renderer: scaffolding.vm.renderer,
-        audioEngine: scaffolding.vm.runtime.audioEngine,
-        bitmapAdapter: scaffolding.vm.runtime.v2BitmapAdapter,
+      window.Scratch = {
+        vm,
+        renderer: vm.renderer,
+        audioEngine: vm.runtime.audioEngine,
+        bitmapAdapter: vm.runtime.v2BitmapAdapter,
         videoProvider: vm.runtime.ioDevices.video.provider
       };
 
