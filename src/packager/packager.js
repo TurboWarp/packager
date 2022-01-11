@@ -973,6 +973,13 @@ cd "$(dirname "$0")"
       window.scaffolding = scaffolding;
       window.vm = scaffolding.vm;
       const vm = scaffolding.vm;
+      window.Scratch= {
+        vm: scaffolding.vm,
+        renderer: scaffolding.vm.renderer,
+        audioEngine: scaffolding.vm.runtime.audioEngine,
+        bitmapAdapter: scaffolding.vm.runtime.v2BitmapAdapter,
+        videoProvider: vm.runtime.ioDevices.video.provider
+      };
 
       scaffolding.setUsername(${JSON.stringify(this.options.username)}.replace(/#/g, () => Math.floor(Math.random() * 10)));
       scaffolding.setAccentColor(${JSON.stringify(this.options.appearance.accent)});
