@@ -963,7 +963,6 @@ cd "$(dirname "$0")"
       setProgress(${PROGRESS_LOADED_SCRIPTS});
 
       const scaffolding = new Scaffolding.Scaffolding();
-      const vm = scaffolding.vm;
       scaffolding.width = ${this.options.stageWidth};
       scaffolding.height = ${this.options.stageHeight};
       scaffolding.resizeMode = ${JSON.stringify(this.options.resizeMode)};
@@ -971,6 +970,7 @@ cd "$(dirname "$0")"
       scaffolding.setup();
       scaffolding.appendTo(appElement);
 
+      const vm = scaffolding.vm;
       window.scaffolding = scaffolding;
       window.vm = scaffolding.vm;
       window.Scratch = {
