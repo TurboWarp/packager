@@ -88,6 +88,8 @@
         "storedWarning": "Nota: Este projeto tem configurações armazenadas nele, que podem sobrepor-se a estas configurações.",
         "stretch": "Esticar o palco para preencher a tela sem alterar o tamanho real (experimental)",
         "turbo": "Modo Turbo",
+        "unsafeCloudBehaviors": "Funções inseguras para variáveis na nuvem especiais",
+        "unsafeCloudBehaviorsWarning": "Comportamentos inseguros de variáveis na nuvem permitem que o projeto exportado execute código arbitrário fora da \"caixa de areia\" na qual os projetos normalmente rodam. Dependendo do ambiente para o qual você está exportando, isto concede aos projetos controle total sobre seu computador, incluindo a capacidade de instalar vírus. Se você não confiar no projeto que está empacotando, por favor, desligue esta opção.",
         "username": "Nome de usuário (cada \"#\" vira um número aleatório)",
         "zip": "Zip (ideal para websites)",
         "zip-one-asset": "Zip, todos os recursos em um único arquivo (não recomendado)"

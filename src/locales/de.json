@@ -88,6 +88,8 @@
         "storedWarning": "Anmerkung: Dieses Projekt hat Einstellungen in sich gespeichert, deshalb könnten diese Einstellungen überschrieben werden.",
         "stretch": "Bühne erweitern, um den BIldschirm zu füllen, ohne die aktuelle Größe zu ändern (experimentell)",
         "turbo": "Turbo-Modus",
+        "unsafeCloudBehaviors": "Zusätzliche unsichere Cloud-Verhaltensweisen",
+        "unsafeCloudBehaviorsWarning": "Unsichere Cloud-Verhaltensweisen ermöglichen es dem paketisierten Projekt, beliebigen Code außerhalb der \"Sandbox\" auszuführen, in der Projekte normalerweise ausgeführt werden. Abhängig von der Umgebung, für die du paketisierst, bietet dies die volle Kontrolle über deinen Computer, einschließlich der Möglichkeit, Viren zu installieren. Wenn du dem paketisierten Projekt nicht vertraust, deaktiviere diese Option.",
         "username": "Benutzername (alle \"#\" werden mit einer zufälligen Zahl ersetzt)",
         "zip": "Zip (ideal für Websites)",
         "zip-one-asset": "Zip, Ressourcen in einer einzelnen Datei kombinieren (nicht empfohlen)"
