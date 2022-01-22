@@ -139,6 +139,7 @@
 }
 .monitor-slider {
   margin: 0;
+  width: 100%;
 }
 .monitor-value {
   min-width: 40px;
