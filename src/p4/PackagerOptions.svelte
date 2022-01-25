@@ -693,7 +693,7 @@
   <div in:fade|local>
     <Section
       accent="#FF661A"
-      reset={$options.target === 'zip' ? null : () => {
+      reset={$options.target.startsWith('zip') ? null : () => {
         resetOptions([
           'app.packageName',
           'app.windowMode'
