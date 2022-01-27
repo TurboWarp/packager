@@ -322,6 +322,9 @@
       "string": "Unsafe cloud behaviors allows the packaged project to execute arbitrary code outside of the \"sandbox\" that projects are typically executed in. Depending on the environment you're packaging for, this grants projects full control over your computer, including the ability to install viruses. If you do not trust the project you're packaging, please turn off this option.",
       "context": "Warning that appears when unsafe cloud behaviors is enabled."
     },
+    "implicitCloudHint": {
+      "string": "Tip: Any variable with a name starting with \"{cloud}\" will be converted to a cloud variable regardless of whether it was marked as one."
+    },
     "enableCompiler": {
       "string": "Enable Compiler"
     },

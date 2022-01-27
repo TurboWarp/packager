@@ -551,6 +551,7 @@
       {#if $options.cloudVariables.unsafeCloudBehaviors}
         <p class="warning">{$_('options.unsafeCloudBehaviorsWarning')}</p>
       {/if}
+      <p>{$_('options.implicitCloudHint').replace('{cloud}', '☁')}</p>
     {:else}
       <p>{$_('options.noCloudVariables')}</p>
     {/if}
