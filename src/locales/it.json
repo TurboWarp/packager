@@ -45,6 +45,7 @@
         "highQualityPen": "Penna Alta Qualità",
         "html": "Puro HTML (autonomo, funziona ovunque)",
         "icon": "Icona della pagina",
+        "implicitCloudHint": "Suggerimento: Qualunque variabile il cui nome inizia con \"{cloud}\" sarà convertita in una variabile cloud anche se non è stata esplicitamente indicata come variabile cloud.",
         "infiniteClones": "Cloni Infiniti",
         "interpolation": "Interpolazione",
         "learnMore": "Ulteriori informazioni",
