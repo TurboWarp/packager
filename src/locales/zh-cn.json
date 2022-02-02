@@ -47,6 +47,7 @@
         "highQualityPen": "高清画笔",
         "html": "HTML 文件 (单个文件，在大部分现代浏览器上工作)",
         "icon": "窗口图标",
+        "implicitCloudHint": "提示：任何名称以\"{cloud}\"开头的变量都将被转换为云变量，无论它们创建时是否是云变量。",
         "infiniteClones": "无限克隆",
         "interaction": "输入",
         "interpolation": "补帧",
