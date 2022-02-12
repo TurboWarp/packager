@@ -313,6 +313,9 @@ class Scaffolding extends EventTarget {
     this.vm.on('PROJECT_RUN_STOP', () => this.dispatchEvent(new Event('PROJECT_RUN_STOP')));
 
     // TurboWarp-specific VM extensions
+    if (this.vm.convertToPackagedRuntime) {
+      this.vm.convertToPackagedRuntime();
+    }
     if (this.vm.setStageSize) {
       this.vm.setStageSize(this.width, this.height);
     }
