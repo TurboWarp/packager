@@ -33,6 +33,7 @@
         "customCursor": "Puntatore del mouse personalizzato",
         "customExtensions": "Estensioni personalizzate (un URL per riga)",
         "customJS": "JS personalizzato (Non cambiare se non sai cosa stai facendo!)",
+        "customUsernameWarning": "Fai attenzione quando cambi il nome utente predefinito perché può causare il blocco delle connessioni al server predefinito delle variabili cloud. Solo il nome utente predefinito è garantito funzionare.",
         "download": "Scarica {filename} ({size}MB)",
         "downloadsWillAppearHere": "I download appariranno qui",
         "dynamicResize": "Aggiusta le dimensioni dinamicamente per adattarsi alle dimensioni della finestra (sperimentale)",
