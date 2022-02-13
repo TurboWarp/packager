@@ -6,24 +6,20 @@
     <% const {LONG_NAME, WEBSITE} = require('../packager/brand.js'); %>
     <title><%= LONG_NAME %></title>
     <meta name="description" content="Converts Scratch projects into HTML files, zip archives, or executable programs for Windows, macOS, Linux, and Android.">
-    <% if (process.env.STANDALONE) { %>
-      <%
-        const fs = require('fs');
-        const path = require('path');
-        const faviconPath = path.resolve('static/favicon.ico');
-        if (fs.existsSync(faviconPath)) {
-      %>
-        <link rel="shortcut icon" href="data:image/vnd.microsoft.icon;base64,<%= fs.readFileSync('static/favicon.ico').toString('base64') %>">
-      <% } %>
-    <% } %>
     <style>
       body[p4-splash-theme="dark"]:not([p4-loaded]) {
         background-color: #111;
+        color-scheme: dark;
+      }
+      .input-for-remembering-project-file {
+        display: none;
       }
     </style>
   </head>
   <body>
     <noscript>This page requires JavaScript.</noscript>
+    <!-- This element needs to exist in the HTML for some browsers to autocomplete it. -->
+    <input type="file" class="input-for-remembering-project-file" autocomplete="on">
     <div id="app"></div>
     <script>
       (function() {

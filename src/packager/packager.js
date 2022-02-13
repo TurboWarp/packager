@@ -7,7 +7,7 @@ import pngToAppleICNS from './icns';
 import {buildId, verifyBuildId} from './build-id';
 import {encode, decode} from './base85';
 import {parsePlist, generatePlist} from './plist';
-import {APP_NAME, WEBSITE, COPYRIGHT_NOTICE} from './brand';
+import {APP_NAME, WEBSITE, COPYRIGHT_NOTICE, ACCENT_COLOR} from './brand';
 
 const PROGRESS_LOADED_SCRIPTS = 0.1;
 
@@ -205,6 +205,7 @@ class Packager extends EventTarget {
     return {
       ...this.options.chunks,
       specialCloudBehaviors: this.options.cloudVariables.specialCloudBehaviors,
+      unsafeCloudBehaviors: this.options.cloudVariables.unsafeCloudBehaviors,
       pause: this.options.controls.pause.enabled
     };
   }
@@ -445,14 +446,21 @@ const createWindow = (windowOptions) => {
 };
 
 const createProjectWindow = () => {
+  const windowMode = ${JSON.stringify(this.options.app.windowMode)};
   const window = createWindow({
+    show: false,
     backgroundColor: ${JSON.stringify(this.options.appearance.background)},
     width: ${this.computeWindowSize().width},
     height: ${this.computeWindowSize().height},
     minWidth: 50,
     minHeight: 50,
+    fullscreen: windowMode === 'fullscreen',
   });
+  if (windowMode === 'maximize') {
+    window.maximize();
+  }
   window.loadFile(path.resolve(__dirname, './index.html'));
+  window.show();
 };
 
 const createDataWindow = (dataURI) => {
@@ -498,6 +506,15 @@ app.on('web-contents-created', (event, contents) => {
   contents.on('will-navigate', (e, url) => {
     e.preventDefault();
     openLink(url);
+  });
+  contents.on('before-input-event', (e, input) => {
+    const window = BrowserWindow.fromWebContents(contents);
+    if (!window || input.type !== "keyDown") return;
+    if (input.key === 'F11' || (input.key === 'Enter' && input.alt)) {
+      window.setFullScreen(!window.isFullScreen());
+    } else if (input.key === 'Escape' && window.isFullScreen()) {
+      window.setFullScreen(false);
+    }
   });
 });
 
@@ -969,9 +986,16 @@ cd "$(dirname "$0")"
       scaffolding.setup();
       scaffolding.appendTo(appElement);
 
+      const vm = scaffolding.vm;
       window.scaffolding = scaffolding;
       window.vm = scaffolding.vm;
-      const vm = scaffolding.vm;
+      window.Scratch = {
+        vm,
+        renderer: vm.renderer,
+        audioEngine: vm.runtime.audioEngine,
+        bitmapAdapter: vm.runtime.v2BitmapAdapter,
+        videoProvider: vm.runtime.ioDevices.video.provider
+      };
 
       scaffolding.setUsername(${JSON.stringify(this.options.username)}.replace(/#/g, () => Math.floor(Math.random() * 10)));
       scaffolding.setAccentColor(${JSON.stringify(this.options.appearance.accent)});
@@ -1139,18 +1163,6 @@ cd "$(dirname "$0")"
           }
         });
       }` : ''}
-
-      ${this.options.target.startsWith('electron-') ? `
-      document.addEventListener('keydown', (e) => {
-        if (e.key === 'F11' || (e.key === 'Enter' && e.altKey)) {
-          e.preventDefault();
-          if (document.fullscreenElement) {
-            document.exitFullscreen();
-          } else {
-            document.body.requestFullscreen();
-          }
-        }
-      });` : ''}
     } catch (e) {
       handleError(e);
     }
@@ -1268,7 +1280,7 @@ Packager.DEFAULT_OPTIONS = () => ({
   appearance: {
     background: '#000000',
     foreground: '#ffffff',
-    accent: '#ff4c4c'
+    accent: ACCENT_COLOR
   },
   loadingScreen: {
     progressBar: true,
@@ -1301,7 +1313,8 @@ Packager.DEFAULT_OPTIONS = () => ({
   app: {
     icon: null,
     packageName: Packager.getDefaultPackageNameFromFileName(''),
-    windowTitle: Packager.getWindowTitleFromFileName('')
+    windowTitle: Packager.getWindowTitleFromFileName(''),
+    windowMode: 'window'
   },
   chunks: {
     gamepad: false,
@@ -1312,6 +1325,7 @@ Packager.DEFAULT_OPTIONS = () => ({
     cloudHost: 'wss://clouddata.turbowarp.org',
     custom: {},
     specialCloudBehaviors: false,
+    unsafeCloudBehaviors: false,
   },
   cursor: {
     type: 'auto',

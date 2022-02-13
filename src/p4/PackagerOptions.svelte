@@ -296,6 +296,11 @@
       {$_('options.username')}
       <input type="text" class="shorter" bind:value={$options.username}>
     </label>
+    {#if $options.username !== defaultOptions.username && cloudVariables.length !== 0}
+      <p class="warning">
+        {$_('options.customUsernameWarning')}
+      </p>
+    {/if}
 
     <h3>{$_('options.stage')}</h3>
     <label class="option">
@@ -526,13 +531,6 @@
             {$_('options.cloudVariablesHost')}
             <input type="text" bind:value={$options.cloudVariables.cloudHost}>
           </label>
-          <!-- TODO: Remove mid January 2021 -->
-          {#if $options.cloudVariables.cloudHost === 'wss://clouddata.turbowarp.org'}
-            <p class="small">
-              Another update: The packager will try to connect to clouddata.turbowarp.org first, and if that fails, it will try clouddata.turbowarp.xyz instead.
-              This should make connections more reliable on filtered internet connections.
-            </p>
-          {/if}
         </div>
       {/if}
 
@@ -548,6 +546,18 @@
         </label>
         <LearnMore slug="packager/special-cloud-behaviors" />
       </div>
+
+      <div class="option">
+        <label>
+          <input type="checkbox" bind:checked={$options.cloudVariables.unsafeCloudBehaviors}>
+          {$_('options.unsafeCloudBehaviors')}
+        </label>
+        <LearnMore slug="packager/special-cloud-behaviors#eval" />
+      </div>
+      {#if $options.cloudVariables.unsafeCloudBehaviors}
+        <p class="warning">{$_('options.unsafeCloudBehaviorsWarning')}</p>
+      {/if}
+      <p>{$_('options.implicitCloudHint').replace('{cloud}', '☁')}</p>
     {:else}
       <p>{$_('options.noCloudVariables')}</p>
     {/if}
@@ -697,10 +707,11 @@
   <div in:fade|local>
     <Section
       accent="#FF661A"
-      reset={$options.target === 'zip' ? null : () => {
+      reset={$options.target.startsWith('zip') ? null : () => {
         resetOptions([
-          'app.packageName'
-        ])
+          'app.packageName',
+          'app.windowMode'
+        ]);
       }}
     >
       <div>
@@ -714,6 +725,23 @@
             <input type="text" bind:value={$options.app.packageName} pattern="[a-zA-Z -]+" minlength="1">
           </label>
           <p>{$_('options.packageNameHelp')}</p>
+
+          {#if $options.target.includes('electron')}
+            <div class="group">
+              <label class="option">
+                <input type="radio" name="app-window-mode" bind:group={$options.app.windowMode} value="window">
+                {$_('options.startWindow')}
+              </label>
+              <label class="option">
+                <input type="radio" name="app-window-mode" bind:group={$options.app.windowMode} value="maximize">
+                {$_('options.startMaximized')}
+              </label>
+              <label class="option">
+                <input type="radio" name="app-window-mode" bind:group={$options.app.windowMode} value="fullscreen">
+                {$_('options.startFullscreen')}
+              </label>
+            </div>
+          {/if}
 
           <div class="warning">
             <div>Creating native applications for specific platforms is discouraged. In most cases, Plain HTML or Zip will have numerous advantages:</div>

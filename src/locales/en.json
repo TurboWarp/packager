@@ -157,6 +157,10 @@
     "username": {
       "string": "Username (each \"#\" gets replaced with a random number)"
     },
+    "customUsernameWarning": {
+      "string": "Be careful when changing the default username as it can cause connections to the default cloud variable server to be blocked. Only the default username is guaranteed to work.",
+      "context": "Warning that appears when using custom username and cloud variables at the same time."
+    },
     "autoplay": {
       "string": "Start project automatically instead of showing a big green flag"
     },
@@ -315,6 +319,16 @@
       "string": "Special cloud variable behaviors like HTMLifier",
       "context": "Do not translate 'HTMLifier'"
     },
+    "unsafeCloudBehaviors": {
+      "string": "Additional unsafe special cloud behaviors"
+    },
+    "unsafeCloudBehaviorsWarning": {
+      "string": "Unsafe cloud behaviors allows the packaged project to execute arbitrary code outside of the \"sandbox\" that projects are typically executed in. Depending on the environment you're packaging for, this grants projects full control over your computer, including the ability to install viruses. If you do not trust the project you're packaging, please turn off this option.",
+      "context": "Warning that appears when unsafe cloud behaviors is enabled."
+    },
+    "implicitCloudHint": {
+      "string": "Tip: Any variable with a name starting with \"{cloud}\" will be converted to a cloud variable regardless of whether it was marked as one."
+    },
     "enableCompiler": {
       "string": "Enable Compiler"
     },
@@ -386,6 +400,15 @@
     },
     "packageNameHelp": {
       "string": "Package name should be a unique name used only by your application. The same project should always have the same package name."
+    },
+    "startWindow": {
+      "string": "Start as window"
+    },
+    "startMaximized": {
+      "string": "Start as maximized window"
+    },
+    "startFullscreen": {
+      "string": "Start in fullscreen"
     },
     "package": {
       "string": "Package",

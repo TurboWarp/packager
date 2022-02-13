@@ -23,6 +23,10 @@ const jsPath = pathUtil.join(dist, indexContent.match(/<script src="(.*)"><\/scr
 console.log(`packager.js: ${jsPath}`);
 const jsContent = fs.readFileSync(jsPath, 'utf-8');
 
+const faviconPath = pathUtil.join(__dirname, '../../static/favicon.ico');
+const faviconData = fs.existsSync(faviconPath) ? fs.readFileSync(faviconPath) : null;
+console.log(`favicon.ico: ${faviconData ? faviconPath : 'none'}`);
+
 const makeSafeForInlineScript = (content) => content.replace(/<\/script>/g, '\\u003c/script>');
 let standaloneJS = '';
 standaloneJS += Object.entries(scaffoldingAssets).map(([name, content]) => (
@@ -35,7 +39,12 @@ for (const el of Array.from(document.querySelectorAll('script[type="p4-standalon
   el.remove();
 }
 </script>`;
-const newContent = indexContent.replace(/<script src=".*"><\/script>/, () => (
+
+let newContent = indexContent;
+if (faviconData) {
+  newContent = newContent.replace(/<\/head>/, `<link rel="shortcut icon" href="data:image/vnd.microsoft.icon;base64,${faviconData.toString('base64')}"></head>`);
+}
+newContent = newContent.replace(/<script src=".*"><\/script>/, () => (
   `${standaloneJS}<script>${makeSafeForInlineScript(jsContent)}</script>`
 ));
 

@@ -11,7 +11,7 @@
   import {progress, theme} from './stores';
   import {isSupported, isSafari, isStandalone} from './environment';
   import version from '../build/version-loader!';
-  import {LONG_NAME, FEEDBACK_PRIMARY, FEEDBACK_SECONDARY, SOURCE_CODE, WEBSITE} from '../packager/brand';
+  import {LONG_NAME, FEEDBACK_PRIMARY, FEEDBACK_SECONDARY, ACCENT_COLOR, SOURCE_CODE, WEBSITE} from '../packager/brand';
 
   let projectData;
 
@@ -109,7 +109,7 @@
 <Modals bind:modalVisible={modalVisible} />
 
 <main aria-hidden={modalVisible} class:is-not-safari={!isSafari}>
-  <Section accent="#ff4c4c">
+  <Section accent={ACCENT_COLOR}>
     <div>
       <h1>{LONG_NAME}</h1>
       {#if version}

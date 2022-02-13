@@ -14,12 +14,12 @@ const request = ({
     if (xhr.status === 200) {
       resolve(xhr.response);
     } else {
-      reject(new Error(`Request failed with status code: ${xhr.status}`));
+      reject(new Error(`Couldn't fetch ${url}: status code ${xhr.status}`));
     }
   };
   xhr.onerror = () => {
     cleanup();
-    reject(new Error('Request failed, are you offline?'));
+    reject(new Error(`Couldn't fetch ${url}, are you offline?`));
   };
 
   if (progressCallback) {
@@ -50,7 +50,7 @@ const request = ({
     const abortCallback = () => {
       xhr.abort();
       cleanup();
-      reject(new Error('Request aborted'));
+      reject(new Error(`Couldn't fetch ${url}: aborted`));
     };
     abortTarget.addEventListener('abort', abortCallback);
     cleanupAbortCallback = () => {
@@ -63,7 +63,7 @@ const request = ({
     timeoutId = setTimeout(() => {
       xhr.abort();
       cleanup();
-      reject(new Error('Request timed out'));
+      reject(new Error(`Couldn't fetch ${url}: timed out`));
     }, timeout);
   }
 });

@@ -1,33 +1,48 @@
 <script>
+  import {ACCENT_COLOR} from '../packager/brand';
   export let secondary;
   export let text;
+  const color = secondary ? '#0FBD8C' : ACCENT_COLOR;
 </script>
 
 <style>
   button {
+    position: relative;
     font-family: inherit;
     font-size: 14px;
-    background-color: #ff4c4c;
     color: white;
     border: none;
     padding: 0.5rem 1rem;
     margin: 0;
     border-radius: 4px;
+    overflow: hidden;
     cursor: pointer;
     font-family: inherit;
     font-weight: bold;
   }
-  button:active {
-    background-color: #b92828;
+  .text {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    z-index: 10;
   }
-  .secondary {
-    background-color: #0FBD8C;
+  /* Because we want color to be settable from brand.js, it becomes complicated to make it dim while active */
+  .dimmer {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.25);
   }
-  .secondary:active {
-    background-color: #03946b;
+  button:active .dimmer {
+    display: block;
   }
 </style>
 
-<button on:click class:secondary>
-  {text}
+<button on:click style={`background-color: ${color}`}>
+  <div class="dimmer"></div>
+  <div class="text">{text}</div>
 </button>

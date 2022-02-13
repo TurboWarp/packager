@@ -334,6 +334,7 @@ class Row {
   setIndex (index) {
     if (this.index !== index) {
       this.index = index;
+      this.root.dataset.index = index;
       this.root.style.transform = `translateY(${index * ROW_HEIGHT}px)`;
       this.indexEl.textContent = index + 1;
     }
@@ -528,8 +529,24 @@ class ListMonitor extends Monitor {
     row.setIndex(index);
     row.setValue(this.value[index]);
     this.rows.set(index, row);
-    // Order in DOM does not matter
-    this.rowsInner.appendChild(row.root);
+
+    let foundPlaceInDOM = false;
+    for (const root of this.rowsInner.children) {
+      const otherIndexString = root.dataset.index;
+      if (!otherIndexString) {
+        continue;
+      }
+      const otherIndexNumber = +otherIndexString;
+      if (otherIndexNumber > index) {
+        this.rowsInner.insertBefore(row.root, root);
+        foundPlaceInDOM = true;
+        break;
+      }
+    }
+    if (!foundPlaceInDOM) {
+      this.rowsInner.appendChild(row.root);
+    }
+
     return row;
   }
 
