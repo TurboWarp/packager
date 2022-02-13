@@ -101,7 +101,7 @@ class WebSocketProvider {
   openConnection () {
     this.currentCloudHost = this.cloudHosts[this.attemptedConnections % this.cloudHosts.length];
     this.attemptedConnections++;
-    console.log(`Connecting to ${this.currentCloudHost}`);
+    console.log(`Connecting to ${this.currentCloudHost} with ID ${this.projectId}, username ${this.manager.getUsername()}`);
     this.ws = new WebSocket(this.currentCloudHost);
     this.ws.onerror = this.onerror.bind(this);
     this.ws.onmessage = this.onmessage.bind(this);
