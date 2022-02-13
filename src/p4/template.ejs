@@ -21,10 +21,15 @@
         background-color: #111;
         color-scheme: dark;
       }
+      .input-for-remembering-project-file {
+        display: none;
+      }
     </style>
   </head>
   <body>
     <noscript>This page requires JavaScript.</noscript>
+    <!-- This element needs to exist in the HTML for some browsers to autocomplete it. -->
+    <input type="file" class="input-for-remembering-project-file" autocomplete="on">
     <div id="app"></div>
     <script>
       (function() {
