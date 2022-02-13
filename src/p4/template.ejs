@@ -6,16 +6,6 @@
     <% const {LONG_NAME, WEBSITE} = require('../packager/brand.js'); %>
     <title><%= LONG_NAME %></title>
     <meta name="description" content="Converts Scratch projects into HTML files, zip archives, or executable programs for Windows, macOS, and Linux.">
-    <% if (process.env.STANDALONE) { %>
-      <%
-        const fs = require('fs');
-        const path = require('path');
-        const faviconPath = path.resolve('static/favicon.ico');
-        if (fs.existsSync(faviconPath)) {
-      %>
-        <link rel="shortcut icon" href="data:image/vnd.microsoft.icon;base64,<%= fs.readFileSync('static/favicon.ico').toString('base64') %>">
-      <% } %>
-    <% } %>
     <style>
       body[p4-splash-theme="dark"]:not([p4-loaded]) {
         background-color: #111;
