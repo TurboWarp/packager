@@ -910,7 +910,7 @@
             </pre>
             <p>Do not change the other lines.</p>
             <p>For advanced users, note that these color codes are a bit unusual in that the "alpha" or "transparency" byte (typically <code>255</code> or <code>FF</code>) goes first instead of last.</p>
-            <p>Ignore the bits about <code>purple_yyy</code>; just them as is. It would typically be a good idea to rename these colors, but you will be making more work for yourself because you'll have to update some other files to reflect the new names.</p>
+            <p>Ignore the bits about <code>purple_yyy</code>; just leave them as is. It would typically be a good idea to rename these colors, but you will be making more work for yourself because you'll have to update some other files to reflect the new names.</p>
 
             <h3>Updating the project</h3>
             <p>It's likely that at some point you will want to update the project without redoing this entire guide. Updating a project is much simpler:</p>
