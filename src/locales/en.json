@@ -157,6 +157,10 @@
     "username": {
       "string": "Username (each \"#\" gets replaced with a random number)"
     },
+    "customUsernameWarning": {
+      "string": "Be careful when changing the default username as it can cause connections to the default cloud variable server to be blocked. Only the default username is guaranteed to work.",
+      "context": "Warning that appears when using custom username and cloud variables at the same time."
+    },
     "autoplay": {
       "string": "Start project automatically instead of showing a big green flag"
     },

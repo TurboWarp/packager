@@ -295,6 +295,11 @@
       {$_('options.username')}
       <input type="text" class="shorter" bind:value={$options.username}>
     </label>
+    {#if $options.username !== defaultOptions.username && cloudVariables.length !== 0}
+      <p class="warning">
+        {$_('options.customUsernameWarning')}
+      </p>
+    {/if}
 
     <h3>{$_('options.stage')}</h3>
     <label class="option">
