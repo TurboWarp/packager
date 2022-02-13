@@ -7,7 +7,7 @@ export class UserError extends Error {
 
 export class AbortError extends Error {
   constructor (message) {
-    super(message || 'The operation was aborted.');
+    super(message || 'Aborted. Although this looks like a scary error, it\'s perfectly normal if you interrupted a loading bar.');
     this.name = 'AbortError';
   }
 }
