@@ -34,6 +34,7 @@
         "customCursor": "自定义光标",
         "customExtensions": "自定义拓展 (每行一个网页链接)",
         "customJS": "自定义 JS (如果你不确定你在做什么，别动它)",
+        "customUsernameWarning": "如果您修改了缺省用户名，请小心，因为它能造成缺省云变量服务器被断开。只有缺省用户名保证可以用。",
         "download": "下载 {filename} (大小 {size}MB)",
         "downloadsWillAppearHere": "下载进度将显示在这里",
         "dynamicResize": "动态匹配窗口大小（实验性）",
