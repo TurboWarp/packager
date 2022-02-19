@@ -210,9 +210,10 @@
           <input type="text" value={getDisplayedProjectURL()} spellcheck="false" on:keypress={submitOnEnter} on:input={handleInput} on:focus={handleFocus}>
         {/if}
       </div>
-      <div class="option">
+      <!-- TurboWarp Desktop looks for the file-input-option class for special handling, so be careful when modifying this. -->
+      <div class="option file-input-option">
         <label>
-          <input type="radio"  name="project-type" bind:group={$type} value="file">
+          <input type="radio" name="project-type" bind:group={$type} value="file">
           {$_('select.file')}
         </label>
         <input hidden={$type !== "file"} on:change={handleFileInputChange} bind:this={fileInputElement} type="file" accept=".sb,.sb2,.sb3">
