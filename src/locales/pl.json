@@ -8,6 +8,10 @@
         "accentColor": "Akcentowy kolor (aktywne/wskazane kontrolki, ekrany pytań, menu kontekstowe)",
         "advancedOptions": "Opcje Zaawansowane",
         "advancedSummary": "Prawdopodobnie nie chcesz tego zmieniać. (Kliknij, aby otworzyć)",
+        "application-linux64": "{type}Aplikacja systemu Linux (Tylko 64-bitowa)",
+        "application-mac": "{type}Aplikacja systemu macOS",
+        "application-win32": "{type}Aplikacja systemu Windows (32-bitowa lub 64-bitowa)",
+        "application-win64": "{type}Aplikacja systemu Windows (Tylko 64-bitowa, odradzane)",
         "applicationSettings": "Ustawienia Aplikacji",
         "backgroundColor": "Kolor tła",
         "cloudVariables": "Zmienne w Chmurze",
@@ -21,10 +25,13 @@
         "colors": "Kolory",
         "controls": "Kontrola",
         "controlsHelp": "Jeżeli wszystkie kontrolki są wyłączone, pasek kontrolek zostanie usunięty całkowicie. Jeżeli tylko kontrolka pełnego ekranu jest aktywna, to będzie ona zawsze umieszczona w lewym górnym rogu, nie w pasku kontrolek.",
+        "customCSS": "Własne CSS (Nie zmieniaj, jeżeli nie wiesz co robisz!)",
         "customCursor": "Niestandardowy kursor",
         "customExtensions": "Niestandardowe rozszerzenia (jedno URL na linię)",
+        "customJS": "Własne JS (Nie zmieniaj, jeżeli nie wiesz co robisz!)",
         "download": "Ściągnij {filename}({size}MB) ",
         "downloadsWillAppearHere": "Tutaj pojawią się pliki do pobrania ",
+        "dynamicResize": "Dynamicznie zmień rozmiar, żeby dopasować rozmiar do wielkości okna (eksperymentalne)",
         "editableLists": "Edytowalne listy",
         "enableCompiler": "Włączony Kompilator",
         "environment": "Środowisko",
@@ -48,12 +55,15 @@
         "noCloudVariables": "Ten projekt nie zawiera zmiennych w chmurze.",
         "noCursor": "Brak kursora",
         "normalCursor": "Normalny kursor",
+        "otherEnvironments": "Inne środowiska (Kliknij aby otworzyć)",
+        "otherEnvironmentsHelp": "Większość nowych projektów powinna używać powyższych opcji.",
         "package": "Paczka",
         "packageName": "Nazwa pakietu",
         "pageTitle": "Strona tytułowa",
         "playerOptions": "Opcje gracza",
         "pointerlock": "Zablokuj kursor myszy",
         "pointerlockHelp": "Na podstawie TurboWarp Eksperyment",
+        "preserveRatio": "Zachowaj stosunek pomiędzy wysokością a szerokością okna po zmienieniu rozmiaru (rekomendowane)",
         "preview": "Przejżyj",
         "projectId": "ID projektu",
         "removeFencing": "Usuń Ograniczenia",
@@ -71,13 +81,17 @@
         "startFullscreen": "Zacznij w trybie pełnoekranowym",
         "startMaximized": "Zacznij jako zmaksymalizowane okno",
         "startWindow": "Zacznij jako okno",
+        "stretch": "Rozciąnij scenę, żeby zapełnić cały ekran bez zmieniania rozmiaru (eksperymentalne)",
         "turbo": "Tryb Turbo",
         "username": "Nazwa użytkownika (\"#\" zostanie zmieniony na losową cyfrę)",
-        "warpTimer": "Warp Stoper"
+        "warpTimer": "Warp Stoper",
+        "zip": "Zip (idealne dla stron internetowych)",
+        "zip-one-asset": "Zip, zapakuj pliki projektu do jednego pliku (odradzane)"
     },
     "p4": {
         "close": "Zamknij",
         "description2-embedding": "Osadzanie",
+        "description3": "Zgloś błędy, wyraź swoją opinię i zasugeruj pomysły w {onScratch} lub {onGitHub}.",
         "description3-on": "w {brand}",
         "documentation": "Dodatkowe treści i pomoc",
         "error": "Błąd",
@@ -112,6 +126,7 @@
     },
     "theme": {
         "dark": "Ciemny",
-        "light": "Jasny"
+        "light": "Jasny",
+        "system": "Użyj motywu systemowego"
     }
 }
