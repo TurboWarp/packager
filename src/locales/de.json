@@ -34,6 +34,7 @@
         "customCursor": "Benutzerdefinierter Cursor",
         "customExtensions": "Benutzerdefinierte Erweiterungen (eine URL pro Zeile)",
         "customJS": "Benutzerdefiniertes JS (Nur ändern, wenn man weiß, was man tut!)",
+        "customUsernameWarning": "Sei beim Ändern des Standard-Benutzernamens vorsichtig, da dadurch Verbindungen mit dem Standardmäßigen Server blockiert werden könnten. Nur der standardmäßige Benutzername wird garantiert funktionieren.",
         "download": "{filename} herunterladen ({size}MB)",
         "downloadsWillAppearHere": "Downloads weren hier erscheinen",
         "dynamicResize": "Bühne dynamisch anpassen (experimentell)",
