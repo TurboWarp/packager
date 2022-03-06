@@ -34,6 +34,7 @@
         "customCursor": "Cursor customizado",
         "customExtensions": "Extensões customizadas (um URL por linha)",
         "customJS": "JS customizado (Não mexa se você não sabe o que está fazendo!)",
+        "customUsernameWarning": "Tome cuidado ao trocar o nome de usuário padrão pois ele pode ser bloqueado de se conectar ao servidor de nuvem padrão. Apenas o nome de usuário padrão é garantido de funcionar.",
         "download": "Baixar {filename} ({size}MB)",
         "downloadsWillAppearHere": "Downloads aparecerão aqui",
         "dynamicResize": "Redimensionar dinamicamente para combinar com o tamanho da janela (experimental)",

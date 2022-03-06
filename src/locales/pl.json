@@ -6,7 +6,7 @@
     },
     "options": {
         "accentColor": "Akcentowy kolor (aktywne/wskazane kontrolki, ekrany pytań, menu kontekstowe)",
-        "advancedOptions": "Opcje Zaawansowane",
+        "advancedOptions": "Zaawansowane Opcje",
         "advancedSummary": "Prawdopodobnie nie chcesz tego zmieniać. (Kliknij, aby otworzyć)",
         "application-linux64": "{type}Aplikacja systemu Linux (Tylko 64-bitowa)",
         "application-mac": "{type}Aplikacja systemu macOS",
@@ -29,7 +29,7 @@
         "customCursor": "Niestandardowy kursor",
         "customExtensions": "Niestandardowe rozszerzenia (jedno URL na linię)",
         "customJS": "Własne JS (Nie zmieniaj, jeżeli nie wiesz co robisz!)",
-        "download": "Ściągnij {filename}({size}MB) ",
+        "download": "Pobierz {filename}({size}MB) ",
         "downloadsWillAppearHere": "Tutaj pojawią się pliki do pobrania ",
         "dynamicResize": "Dynamicznie zmień rozmiar, żeby dopasować rozmiar do wielkości okna (eksperymentalne)",
         "editableLists": "Edytowalne listy",
