@@ -12,6 +12,9 @@
     "description3": {
       "string": "Report bugs, give feedback, and suggest ideas {onScratch} or {onGitHub}."
     },
+    "disclaimer": {
+      "string": "This site is not affiliated with Scratch, the Scratch Team, or the Scratch Foundation."
+    },
     "description3-on": {
       "string": "on {brand}",
       "context": "Used in the context 'Report bugs on Scratch'."

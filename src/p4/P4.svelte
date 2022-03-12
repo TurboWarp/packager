@@ -104,6 +104,9 @@
   .footer-spacer {
     margin: 0 3px;
   }
+  .disclaimer {
+    font-style: italic;
+  }
 </style>
 
 <Modals bind:modalVisible={modalVisible} />
@@ -142,6 +145,9 @@
             }
           }}
         />
+      </p>
+      <p class="disclaimer">
+        {$_('p4.disclaimer')}
       </p>
     </div>
   </Section>
