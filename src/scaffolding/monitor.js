@@ -100,7 +100,7 @@ class Monitor {
     this.x = monitor.get('x');
     this.y = monitor.get('y');
     this.visible = monitor.get('visible');
-    this.root.style.transform = `translate(${this.x}px, ${this.y}px)`;
+    this.root.style.transform = `translate(${Math.round(this.x)}px, ${Math.round(this.y)}px)`;
     this.root.style.display = this.visible ? '' : 'none';
   }
 }
