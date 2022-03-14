@@ -106,6 +106,7 @@
         "description2-embedding": "Einbettung",
         "description3": "{onScratch} oder {onGitHub} kannst du Fehler melden, Feedback geben oder Ideen vorschlagen.",
         "description3-on": "auf {brand}",
+        "disclaimer": "Diese Seite ist nicht mit Scratch, dem Scratch Team oder der Scratch-Stiftung verbunden.",
         "documentation": "Zusätzliche Ressourcen und Hilfe",
         "error": "Fehler",
         "errorMessage": "Nachricht: {error}",

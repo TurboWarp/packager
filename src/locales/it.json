@@ -103,6 +103,7 @@
         "description2-embedding": "Inclusione",
         "description3": "Segnala i bug, dacci un feedback o suggeriscici delle idee {onScratch} o {onGitHub}.",
         "description3-on": "sul sito {brand}",
+        "disclaimer": "Questo sito non è affiliato a Scratch, allo Scratch Team o alla Scratch Foundation.",
         "documentation": "Risorse aggiuntive e aiuto",
         "error": "Errore",
         "errorMessage": "Messaggio: {error}",
