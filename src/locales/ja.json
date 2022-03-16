@@ -108,6 +108,7 @@
         "description2-embedding": "埋め込みコード",
         "description3": "バグを報告、フィードバック、アイデアを提案する場合は{onScratch}または{onGitHub}ですることができます。",
         "description3-on": "{brand}",
+        "disclaimer": "このウェブサイトはScratch、Scratch Team、Scratch財団と提携していません。",
         "documentation": "その他のリソースとヘルプ",
         "error": "エラー",
         "errorMessage": "メッセージ: {error}",

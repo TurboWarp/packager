@@ -108,6 +108,7 @@
         "description2-embedding": "网站嵌入",
         "description3": "在{onScratch}或者{onGitHub}报告错误，给予反馈，并提出建议。",
         "description3-on": " {brand} ",
+        "disclaimer": "此网站不属于 Scratch、Scratch 团队或 Scratch 基金会。",
         "documentation": "更多资源和帮助",
         "error": "错误",
         "errorMessage": "错误：{error}",
