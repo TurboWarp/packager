@@ -182,7 +182,7 @@ class Packager extends EventTarget {
       });
     }
     if (asset.useBuildId && !verifyBuildId(buildId, result)) {
-      throw new Error('Build ID mismatch; This should be fixed after refreshing the page.');
+      throw new Error('Detected an outdated version of the packager; please refresh and try again.');
     }
     if (asset.sha256) {
       const hash = await sha256(result);
