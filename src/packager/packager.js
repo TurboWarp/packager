@@ -138,7 +138,7 @@ class Packager extends EventTarget {
     }
   }
 
-  async fetchLargeAsset (name) {
+  async fetchLargeAsset (name, type) {
     this.ensureNotAborted();
     const asset = largeAssets[name];
     if (!asset) {
@@ -173,7 +173,7 @@ class Packager extends EventTarget {
       }
       result = await request({
         url,
-        type: asset.type,
+        type,
         estimatedSize: asset.estimatedSize,
         progressCallback: (progress) => {
           dispatchProgress(progress);
@@ -213,12 +213,12 @@ class Packager extends EventTarget {
   async loadResources () {
     const texts = [COPYRIGHT_HEADER];
     if (this.project.analysis.usesMusic) {
-      texts.push(await this.fetchLargeAsset('scaffolding'));
+      texts.push(await this.fetchLargeAsset('scaffolding', 'text'));
     } else {
-      texts.push(await this.fetchLargeAsset('scaffolding-min'));
+      texts.push(await this.fetchLargeAsset('scaffolding-min', 'text'));
     }
     if (Object.values(this.getAddonOptions()).some((i) => i)) {
-      texts.push(await this.fetchLargeAsset('addons'));
+      texts.push(await this.fetchLargeAsset('addons', 'text'));
     }
     this.script = texts.join('\n').replace(/<\/script>/g,"</scri'+'pt>");
   }
@@ -237,7 +237,7 @@ class Packager extends EventTarget {
   }
 
   async addNwJS (projectZip) {
-    const nwjsBuffer = await this.fetchLargeAsset(this.options.target);
+    const nwjsBuffer = await this.fetchLargeAsset(this.options.target, 'arraybuffer');
     const nwjsZip = await (await getJSZip()).loadAsync(nwjsBuffer);
 
     const isWindows = this.options.target.startsWith('nwjs-win');
@@ -343,7 +343,7 @@ cd "$(dirname "$0")"
   }
 
   async addElectron (projectZip) {
-    const buffer = await this.fetchLargeAsset(this.options.target);
+    const buffer = await this.fetchLargeAsset(this.options.target, 'arraybuffer');
     const electronZip = await (await getJSZip()).loadAsync(buffer);
 
     const isWindows = this.options.target.includes('win');
@@ -554,7 +554,7 @@ cd "$(dirname "$0")"
   }
 
   async addWebViewMac (projectZip) {
-    const buffer = await this.fetchLargeAsset(this.options.target);
+    const buffer = await this.fetchLargeAsset(this.options.target, 'arraybuffer');
     const appZip = await (await getJSZip()).loadAsync(buffer);
 
     // +-- WebView.app
