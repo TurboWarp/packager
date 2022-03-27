@@ -108,6 +108,7 @@
         "description2-embedding": "Встраивание",
         "description3": "Сообщайте о багах, предлагайте идеи, оставляйте отзывы {onScratch} или {onGitHub}.",
         "description3-on": "на {brand}",
+        "disclaimer": "Этот сайт не связан со Scratch, Командой Scratch или Фондом Scratch.",
         "documentation": "Дополнительные ресурсы и помощь",
         "error": "Ошибка",
         "errorMessage": "Сообщение: {error}",
