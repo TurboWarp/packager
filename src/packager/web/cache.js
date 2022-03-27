@@ -9,7 +9,9 @@ const STORE_NAME = 'assets';
 const db = new Database(DATABASE_NAME, DATABASE_VERSION, STORE_NAME);
 
 const getAssetId = (asset) => {
-  return `${asset.src}-${asset.type}-${asset.sha256 || buildId}`;
+  const urls = asset.src;
+  const firstURL = Array.isArray(urls) ? urls[0] : urls;
+  return `${firstURL}-${asset.type}-${asset.sha256 || buildId}`;
 };
 
 const removeExtraneous = async () => {
