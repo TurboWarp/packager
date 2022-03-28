@@ -1,7 +1,7 @@
 <script>
   import Section from './Section.svelte';
   import Button from './Button.svelte';
-  import {UserError} from '../common/errors';
+  import {UnknownNetworkError, UserError} from '../common/errors';
   import {error} from './stores';
   import {FEEDBACK_PRIMARY} from '../packager/brand';
   import {_} from '../locales/';
@@ -81,6 +81,11 @@
       <h2>{$_('p4.error')}</h2>
       {#if $error instanceof UserError}
         <p>{$error.message}</p>
+        <p>
+          <Button on:click={closeModal} text={$_('p4.close')} />
+        </p>
+      {:else if $error instanceof UnknownNetworkError}
+        <p>{$_('p4.networkError').replace('{url}', $error.url)}</p>
         <p>
           <Button on:click={closeModal} text={$_('p4.close')} />
         </p>

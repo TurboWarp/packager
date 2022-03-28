@@ -11,3 +11,10 @@ export class AbortError extends Error {
     this.name = 'AbortError';
   }
 }
+
+export class UnknownNetworkError extends Error {
+  constructor (url) {
+    super(`Could not fetch ${url}`);
+    this.url = url;
+  }
+}

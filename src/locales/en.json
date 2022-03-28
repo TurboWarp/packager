@@ -25,6 +25,10 @@
     "errorMessage": {
       "string": "Message: {error}"
     },
+    "networkError": {
+      "string": "Couldn't download {url}. Make sure you're connected to the internet and try disabling any browser extensions.",
+      "context": "Error displayed when an attempt to download a file failed for an unknown reason."
+    },
     "close": {
       "string": "Close"
     },

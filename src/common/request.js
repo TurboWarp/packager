@@ -1,3 +1,5 @@
+import {UnknownNetworkError} from './errors';
+
 const clampProgress = (n) => Math.max(0, Math.min(1, n));
 
 const request = async (options) => {
@@ -21,7 +23,7 @@ const request = async (options) => {
     };
     xhr.onerror = () => {
       cleanup();
-      reject(new Error(`Couldn't fetch ${url}, are you offline?`));
+      reject(new UnknownNetworkError(url));
     };
   
     if (progressCallback) {
