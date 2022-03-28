@@ -36,14 +36,17 @@ const arrayBufferToNodeBuffer = (buffer) => Buffer.from(buffer);
 
 class NodeAdapter {
   async getCachedAsset (asset) {
-    if (asset.src.startsWith('scaffolding/')) {
-      const file = safeJoin(__dirname, asset.src);
+    const urls = asset.src;
+    const src = Array.isArray(urls) ? urls[0] : urls;
+
+    if (src.startsWith('scaffolding/')) {
+      const file = safeJoin(__dirname, src);
       if (file) {
         return readFile(file, 'utf-8');
       }
     }
 
-    if (asset.src.startsWith('https:')) {
+    if (src.startsWith('https:')) {
       const cachePath = await getCachePath(asset);
       if (cachePath) {
         try {
@@ -52,8 +55,8 @@ class NodeAdapter {
           // ignore
         }
       }
-      console.log(`[${name}]: downloading large asset ${asset.src}; this may take a while`);
-      const res = await fetch(asset.src);
+      console.log(`[${name}]: downloading large asset ${src}; this may take a while`);
+      const res = await fetch(src);
       if (!res.ok) {
         throw new Error(`Unexpected status code: ${res.status}`);
       }
