@@ -7,7 +7,7 @@
   import DropArea from './DropArea.svelte';
   import writablePersistentStore from './persistent-store';
   import {progress, currentTask} from './stores';
-  import {UserError} from './errors';
+  import {UserError} from '../common/errors';
   import getProjectTitle from './get-project-meta';
   import loadProject from '../packager/load-project';
   import {extractProjectId, isValidURL, getTitleFromURL} from './url-utils';
