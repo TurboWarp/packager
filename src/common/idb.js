@@ -16,6 +16,8 @@ const idbReady = () => {
   }).finally(() => clearInterval(intervalId));
 };
 
+const allDatabases = [];
+
 class Database {
   constructor (name, version, storeName) {
     this.name = name;
@@ -23,9 +25,10 @@ class Database {
     this.storeName = storeName;
     this.db = null;
     this.dbPromise = null;
+    allDatabases.push(this);
   }
 
-  async open () {
+  open () {
     if (this.db) {
       return this.db;
     }
@@ -66,6 +69,19 @@ class Database {
     return this.dbPromise;
   }
 
+  close () {
+    if (this.db) {
+      this.db.close();
+      this.db = null;
+    }
+    if (this.dbPromise) {
+      this.dbPromise.then((db) => {
+        db.close();
+      });
+      this.dbPromise = null;
+    }
+  }
+
   async createTransaction (readwrite) {
     const db = await this.open();
     const transaction = db.transaction(this.storeName, readwrite);
@@ -100,5 +116,13 @@ Database.setTransactionErrorHandler = (transaction, reject) => {
     reject(new Error(`Transaction error: ${transaction.error}`))
   };
 };
+
+const closeAllDatabases = () => {
+  for (const database of allDatabases) {
+    database.close();
+  }
+};
+// Closing databases makes us more likely to be put in the browser's back/forward cache
+window.addEventListener('pagehide', closeAllDatabases);
 
 export default Database;
