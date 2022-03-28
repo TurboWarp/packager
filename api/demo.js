@@ -25,6 +25,11 @@ const run = async () => {
   });
   console.log('Options', packager.options);
 
+  // Example of changing simple boolean option:
+  packager.options.turbo = false;
+  // Example of using an image option:
+  packager.options.app.icon = new Packager.Image('image/png', fs.readFileSync(path.join(__dirname, 'test-icon.png')));
+
   const result = await packager.package();
   console.log('Filename', result.filename);
   console.log('Type', result.type);
@@ -35,7 +40,8 @@ const run = async () => {
     // Node.js filesystem API doesn't like ArrayBuffers, so we'll convert it to something it understands.
     data = new Uint8Array(data);
   }
-  fs.writeFileSync(path.join(__dirname, 'demo_output.html'), data);
+  const extension = result.type === 'text/html' ? '.html' : '.zip';
+  fs.writeFileSync(path.join(__dirname, 'demo_output' + extension), data);
 };
 
 run()
