@@ -22,38 +22,48 @@ class Database {
     this.version = version;
     this.storeName = storeName;
     this.db = null;
+    this.dbPromise = null;
   }
 
   async open () {
     if (this.db) {
       return this.db;
     }
+    if (this.dbPromise) {
+      return this.dbPromise;
+    }
     if (typeof indexedDB === 'undefined') {
       throw new Error('indexedDB is not supported');
     }
-    await idbReady();
-    return new Promise((resolve, reject) => {
-      const request = indexedDB.open(this.name, this.version);
-      request.onupgradeneeded = (e) => {
-        const db = e.target.result;
-        db.createObjectStore(this.storeName, {
-          keyPath: 'id'
-        });
-      };
-      request.onsuccess = (e) => {
-        this.db = e.target.result;
-        this.onopen()
-          .then(() => {
-            resolve(this.db);
-          })
-          .catch((err) => {
-            reject(err);
+
+    this.dbPromise = idbReady()
+      .then(() => new Promise((resolve, reject) => {
+        const request = indexedDB.open(this.name, this.version);
+        request.onupgradeneeded = (e) => {
+          const db = e.target.result;
+          db.createObjectStore(this.storeName, {
+            keyPath: 'id'
           });
-      };
-      request.onerror = (e) => {
-        reject(new Error(`IDB Error ${e.target.error}`));
-      };
-    });
+        };
+        request.onsuccess = (e) => {
+          const db = e.target.result;
+          resolve(db);
+        };
+        request.onerror = (e) => {
+          reject(new Error(`IDB Error ${e.target.error}`));
+        };
+      }))
+      .then((db) => {
+        this.dbPromise = null;
+        this.db = db;
+        return db;
+      })
+      .catch((err) => {
+        this.dbPromise = null;
+        throw err;
+      });
+
+    return this.dbPromise;
   }
 
   async createTransaction (readwrite) {
@@ -82,10 +92,6 @@ class Database {
         }
       };
     });
-  }
-
-  onopen () {
-    return Promise.resolve();
   }
 }
 
