@@ -3,7 +3,8 @@ import path from 'path';
 import {promisify} from 'util';
 import fetch from 'cross-fetch';
 import {name} from '../../../package.json';
-import icon from '../images/default-icon.png';
+import defaultIcon from '../images/default-icon.png';
+import Image from './image';
 
 const readFile = promisify(fs.readFile);
 const writeFile = promisify(fs.writeFile);
@@ -73,14 +74,16 @@ class NodeAdapter {
   }
 
   async getAppIcon (file) {
-    // TODO
-    const buffer = await readFile(path.join(__dirname, icon));
+    // TODO: currently only supports default image
+    const buffer = await readFile(path.join(__dirname, defaultIcon));
     return buffer.buffer.slice(buffer.byteOffset, buffer.byteOffset + buffer.byteLength);
   }
 
   readAsURL (file) {
-    // TODO
-    throw new Error('image features not implemented in Node.js module');
+    if (!(file instanceof Image)) {
+      throw new Error('file must be an instance of Packager.Image but found ' + file + ' instead.');
+    }
+    return file.readAsURL();
   }
 }
 
