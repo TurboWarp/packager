@@ -91,6 +91,7 @@ const makeScaffolding = ({full}) => ({
           {
             loader: 'style-loader',
             options: {
+              // This function is stringified and run in a web environment
               insert: (styleElement) => {
                 var el = document.head || document.body || document.documentElement;
                 el.insertBefore(styleElement, el.firstChild);

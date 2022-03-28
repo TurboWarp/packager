@@ -304,7 +304,8 @@
       "string": "Editable lists"
     },
     "variableColor": {
-      "string": "Variable color"
+      "string": "Variable color",
+      "context": "Name of option that controls the color of variable monitors that appear over the stage"
     },
     "interaction": {
       "string": "Input",
