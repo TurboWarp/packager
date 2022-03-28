@@ -54,23 +54,24 @@
   },
   "progress": {
     "loadingAssets": {
-      "string": "Loading assets ({complete}/{total})"
+      "string": "Downloading assets ({complete}/{total})"
     },
     "compressingProject": {
       "string": "Compressing project"
     },
     "loadingProjectData": {
-      "string": "Loading project data"
+      "string": "Downloading project data"
     },
     "packagingProject": {
       "string": "Packaging project"
     },
     "loadingLargeAsset": {
-      "string": "Loading {thing}",
+      "string": "Downloading {thing}",
       "context": "Generic loading message used when loading a 'brand name' file such as NW.js or Electron."
     },
     "loadingScripts": {
-      "string": "Loading scripts"
+      "string": "Downloading scripts",
+      "context": "Loading message used when loading the Scratch runtime"
     }
   },
   "select": {
