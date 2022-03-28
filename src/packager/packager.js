@@ -941,7 +941,7 @@ cd "$(dirname "$0")"
       cursor: ${await this.generateCursor()};
     }
     .sc-monitor-root[opcode^="data_"] .sc-monitor-value-color {
-      background-color: ${this.options.monitors.variableColor} !important;
+      background-color: ${this.options.monitors.variableColor};
     }
     ${this.options.custom.css}
   </style>

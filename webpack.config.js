@@ -87,15 +87,26 @@ const makeScaffolding = ({full}) => ({
       }]),
       {
         test: /\.css$/i,
-        use: ['style-loader', {
-          loader: 'css-loader',
-          options: {
-            modules: {
-              localIdentName: 'sc-[local]',
-              exportLocalsConvention: 'camelCase',
-            },
+        use: [
+          {
+            loader: 'style-loader',
+            options: {
+              insert: (styleElement) => {
+                var el = document.head || document.body || document.documentElement;
+                el.insertBefore(styleElement, el.firstChild);
+              }
+            }
+          },
+          {
+            loader: 'css-loader',
+            options: {
+              modules: {
+                localIdentName: 'sc-[local]',
+                exportLocalsConvention: 'camelCase',
+              },
+            }
           }
-        }],
+        ],
       }
     ]
   },
