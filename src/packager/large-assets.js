@@ -30,16 +30,16 @@ export default {
     sha256: '53651a3a12d29ad096cff5b44d9f1e3aa09e9fad970bdcfe8bda07ea23d960d8'
   },
   'electron-win32': {
-    src: externalFile('electron-v15.0.0-win32-ia32.zip'),
-    sha256: '5b69112b91010d78abf6012f387ea3fe5c0e36657c5f386a4c2bb42138aa1a8e'
+    src: externalFile('electron-v17.2.0-win32-ia32.zip'),
+    sha256: '7216d0ae35c95fcdd488c720909d2320480288ef02d3f95bcb574c9ef38169b8'
   },
   'electron-win64': {
-    src: externalFile('electron-v15.0.0-win32-x64.zip'),
-    sha256: '3d95422d9f2fccb07b745b31007548231d80ff63e3640f49a5f8591498a3afa2'
+    src: externalFile('electron-v17.2.0-win32-x64.zip'),
+    sha256: '64451d98e574d8f78754aeb73258814b4fd1a9ef4266bae5e53cdd09273a0b23'
   },
   'electron-linux64': {
-    src: externalFile('electron-v15.1.1-linux-x64.zip'),
-    sha256: '70de2da51c6a8591b88f08366c82166a51b1719243f67ef1a14eddbb806a115f'
+    src: externalFile('electron-v17.2.0-linux-x64.zip'),
+    sha256: '2d56903d91635ca7117723b5a2bc926d7f5b391c989da4233c8babf73e6e6584'
   },
   'webview-mac': {
     src: externalFile('WebView-macos-3.zip'),
