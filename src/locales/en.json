@@ -242,6 +242,9 @@
     "editableLists": {
       "string": "Editable lists"
     },
+    "variableColor": {
+      "string": "Variable color"
+    },
     "interaction": {
       "string": "Input",
       "context": "Input settings header"

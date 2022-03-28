@@ -917,6 +917,9 @@ cd "$(dirname "$0")"
     .sc-canvas {
       cursor: ${await this.generateCursor()};
     }
+    .sc-monitor-root[opcode^="data_"] .sc-monitor-value-color {
+      background-color: ${this.options.monitors.variableColor} !important;
+    }
     ${this.options.custom.css}
   </style>
   <meta name="theme-color" content="${this.options.appearance.background}">
@@ -1286,7 +1289,8 @@ Packager.DEFAULT_OPTIONS = () => ({
     }
   },
   monitors: {
-    editableLists: false
+    editableLists: false,
+    variableColor: '#ff8c1a'
   },
   compiler: {
     enabled: true,

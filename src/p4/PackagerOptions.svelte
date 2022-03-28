@@ -429,6 +429,11 @@
       <input type="checkbox" bind:checked={$options.monitors.editableLists}>
       {$_('options.editableLists')}
     </label>
+    <!-- svelte-ignore a11y-label-has-associated-control -->
+    <label class="option">
+      <ColorPicker bind:value={$options.monitors.variableColor} />
+      {$_('options.variableColor')}
+    </label>
   </div>
 </Section>
 
