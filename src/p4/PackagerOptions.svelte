@@ -206,10 +206,6 @@
     padding: 10px;
     border-radius: 10px;
   }
-  .small {
-    font-size: small;
-    opacity: 0.8;
-  }
 </style>
 
 <Section
