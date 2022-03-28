@@ -74,9 +74,18 @@ class NodeAdapter {
   }
 
   async getAppIcon (file) {
-    // TODO: currently only supports default image
-    const buffer = await readFile(path.join(__dirname, defaultIcon));
-    return buffer.buffer.slice(buffer.byteOffset, buffer.byteOffset + buffer.byteLength);
+    if (!file) {
+      // Use the default icon when no icon is given
+      const buffer = await readFile(path.join(__dirname, defaultIcon));
+      return buffer.buffer.slice(buffer.byteOffset, buffer.byteOffset + buffer.byteLength);
+    }
+    if (file instanceof Image) {
+      if (file.mimeType === 'image/png') {
+        return file.readAsBuffer();
+      }
+      throw new Error('icon must be of type image/png but found ' + file.mimeType + ' instead.');
+    }
+    throw new Error('file must be an instance of Packager.Image or null but found ' + file + ' instead.');
   }
 
   readAsURL (file) {

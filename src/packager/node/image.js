@@ -7,6 +7,10 @@ class Image {
   readAsURL() {
     return `data:${this.mimeType};base64,${this.buffer.toString('base64')}`;
   }
+
+  readAsBuffer() {
+    return this.buffer;
+  }
 }
 
 export default Image;
