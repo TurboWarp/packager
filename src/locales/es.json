@@ -97,6 +97,7 @@
         "unsafeCloudBehaviors": "Comportamientos inseguros adicionales de variables en la nube",
         "unsafeCloudBehaviorsWarning": "Comportamientos inseguros de nube le permite al proyecto empaquetado ejecutar código arbitrario por fuera del \"sandbox\" donde suelen ejecutarse los proyectos. Dependiendo del entorno para donde está empaquetando, esto concede control completo a su computadora al proyecto, incluyendo la habilidad de instalar virus. Si no confía en el proyecto que esta empaquetando, por favor desactive esta opción.",
         "username": "Nombre de usuario (cada \"#\" se reemplaza con un número aleatorio)",
+        "variableColor": "Color de variable",
         "zip": "Zip (ideal para sitios web)",
         "zip-one-asset": "Zip, combinar assets a un solo archivo (no recomendado)"
     },
@@ -107,10 +108,12 @@
         "description2-embedding": "Embedido",
         "description3": "Reporte bugs, dé comentarios y sugiera ideas {onScratch} o {onGitHub}.",
         "description3-on": "en {brand}",
+        "disclaimer": "Esta página web no está afiliada con Scratch, el Equipo de Scratch o la Fundación de Scratch",
         "documentation": "Recursos adicionales y ayuda",
         "errorMessage": "Mensaje: {error}",
         "feedback": "Comentarios",
         "fosshost": "Hosteo de archivos proporcionado por Fosshost",
+        "networkError": "No se ha podido descargar {url}. Asegurate de estar conectado a Internet e intenta deshabilitar cualquier extensión de navegador.",
         "privacy": "Política de Privacidad",
         "reportBug": "Reportar Bug",
         "sourceCode": "Código Fuente"
@@ -120,10 +123,10 @@
     },
     "progress": {
         "compressingProject": "Comprimiendo proyecto",
-        "loadingAssets": "Cargando archivos ({complete}/{total})",
-        "loadingLargeAsset": "Cargando {thing}",
-        "loadingProjectData": "Cargando información del proyecto",
-        "loadingScripts": "Cargando scripts",
+        "loadingAssets": "Descargando recursos ({complete}/{total})",
+        "loadingLargeAsset": "Descargando {thing}",
+        "loadingProjectData": "Descargando la información del proyecto",
+        "loadingScripts": "Descargando scripts",
         "packagingProject": "Empacando proyecto"
     },
     "reset": {
