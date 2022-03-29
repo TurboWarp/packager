@@ -5,6 +5,7 @@
   import {error} from './stores';
   import {FEEDBACK_PRIMARY} from '../packager/brand';
   import {_} from '../locales/';
+  import ComplexMessage from './ComplexMessage.svelte';
 
   export let modalVisible;
   let modalElement;
@@ -90,7 +91,18 @@
           <Button on:click={closeModal} text={$_('p4.close')} />
         </p>
       {:else if $error instanceof UnknownNetworkError}
-        <p>{$_('p4.networkError').replace('{url}', $error.url)}</p>
+        <p>
+          <ComplexMessage
+            message={$_('p4.networkError')}
+            values={{
+              url: {
+                text: $error.url,
+                href: $error.url,
+                newTab: true
+              }
+            }}
+          />
+        </p>
         <p>
           <Button on:click={closeModal} text={$_('p4.close')} />
         </p>
