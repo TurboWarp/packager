@@ -1,7 +1,7 @@
 <script>
   import Section from './Section.svelte';
   import Button from './Button.svelte';
-  import {UnknownNetworkError, UserError} from '../common/errors';
+  import {OutdatedPackagerError, UnknownNetworkError, UserError} from '../common/errors';
   import {error} from './stores';
   import {FEEDBACK_PRIMARY} from '../packager/brand';
   import {_} from '../locales/';
@@ -52,6 +52,8 @@
       closeModal();
     }
   };
+
+  const refresh = () => location.reload();
 </script>
 
 <style>
@@ -71,6 +73,9 @@
     background-color: rgba(0, 0, 0, 0.75);
     word-break: break-word;
   }
+  .technical {
+    font-style: italic;
+  }
 </style>
 
 <svelte:window on:keydown={onKeyDown} />
@@ -89,10 +94,15 @@
         <p>
           <Button on:click={closeModal} text={$_('p4.close')} />
         </p>
-      {:else}
+      {:else if $error instanceof OutdatedPackagerError}
+        <p>{$_('p4.outdated')}</p>
+        <p class="technical">{$error}</p>
         <p>
-          {$_('p4.errorMessage').replace('{error}', $error)}
+          <Button on:click={refresh} text={$_('p4.refresh')} />
+          <Button secondary on:click={closeModal} text={$_('p4.close')} />
         </p>
+      {:else}
+        <p>{$_('p4.errorMessage').replace('{error}', $error)}</p>
         <p>
           <Button on:click={closeModal} text={$_('p4.close')} />
           <a href={FEEDBACK_PRIMARY.link}>{$_('p4.reportBug')}</a>

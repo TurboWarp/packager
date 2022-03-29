@@ -29,8 +29,16 @@
       "string": "Couldn't download {url}. Make sure you're connected to the internet and try disabling any browser extensions.",
       "context": "Error displayed when an attempt to download a file failed for an unknown reason."
     },
+    "outdated": {
+      "string": "This version of the packager appears to be outdated. Please refresh and try again.",
+      "context": "Error displayed when the packager detects that you are using an old version and that you must refresh to continue."
+    },
     "close": {
       "string": "Close"
+    },
+    "refresh": {
+      "string": "Refresh",
+      "context": "Button in some error messages that refreshes the page"
     },
     "reportBug": {
       "string": "Report Bug"

@@ -8,6 +8,7 @@ import {buildId, verifyBuildId} from './build-id';
 import {encode, decode} from './base85';
 import {parsePlist, generatePlist} from './plist';
 import {APP_NAME, WEBSITE, COPYRIGHT_NOTICE, ACCENT_COLOR} from './brand';
+import {OutdatedPackagerError} from '../common/errors';
 
 const PROGRESS_LOADED_SCRIPTS = 0.1;
 
@@ -182,7 +183,7 @@ class Packager extends EventTarget {
       });
     }
     if (asset.useBuildId && !verifyBuildId(buildId, result)) {
-      throw new Error('Detected an outdated version of the packager; please refresh and try again.');
+      throw new OutdatedPackagerError('Build ID does not match.');
     }
     if (asset.sha256) {
       const hash = await sha256(result);

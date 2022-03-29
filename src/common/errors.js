@@ -18,3 +18,7 @@ export class UnknownNetworkError extends Error {
     this.url = url;
   }
 }
+
+export class OutdatedPackagerError extends Error {
+
+}
