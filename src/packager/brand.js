@@ -8,8 +8,6 @@ These values control branding strings throughout the entire app. If you're forki
 
 APP_NAME is the name of the app. This text is included in packaged projects.
 
-LONG_NAME a longer form of the app's name. Used by the website. Can just be the same as APP_NAME
-
 WEBSITE is your app's website. This link is included in packaged projects.
 
 COPYRIGHT_NOTICE is A copyright notice regarding the app. This text is included in packaged projects.
@@ -27,7 +25,6 @@ name is how they will be labelled in the interface and link is of course a URL
 
 module.exports = {
   APP_NAME: 'TurboWarp Packager',
-  LONG_NAME: 'TurboWarp Packager for Scratch',
   WEBSITE: 'https://packager.turbowarp.org/',
   COPYRIGHT_NOTICE: `Copyright (C) 2021 Thomas Weber
 
