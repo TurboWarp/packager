@@ -129,6 +129,7 @@ class WebSocketProvider {
     this.writeToServer({
       method: 'handshake'
     });
+    this.sendBufferedMessages();
     console.log('WebSocket connected');
   }
 
