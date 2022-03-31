@@ -40,6 +40,8 @@ The general layout of `src` is:
 
 ## Tips for forks
 
+We strive to make the packager easy to fork for any Scratch mod, even ones that aren't based on TurboWarp. Reading this section, at least the first half, should make it much easier to do so.
+
 **Changing Scratch internals**: If you want to change the VM/renderer/etc. used, just `npm install` or `npm link` a different scratch-vm/scratch-render/etc and rebuild. You can even install a vanilla scratch-vm and all core functionality will still work (but optional features such as interpolation, high quality pen, stage size, etc. may not work)
 
 **Deploying**: The packager is deployed as a simple static website. You can host it anywhere by just copying the `dist` folder after a build. We use GitHub Actions to deploy to GitHub Pages by running the "Deploy" workflow whenever we want to push to production (Actions > Deploy > Run workflow). This should be automatically available in forks after enabling GitHub Actions.
