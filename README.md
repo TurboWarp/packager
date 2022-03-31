@@ -81,6 +81,6 @@ npm run build-node-prod
 
 <!-- Make sure to also update COPYRIGHT_NOTICE in src/packager/brand.js -->
 
-Copyright (C) 2021 Thomas Weber
+Copyright (C) 2021-2022 Thomas Weber
 
 This project is licensed under the GNU Lesser General Public License version 3. See COPYING and COPYING.LESSER for more information. We believe that packaging a project using the packager "makes use of an interface provided by the Library, but which is not otherwise based on the Library"

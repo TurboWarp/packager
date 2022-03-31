@@ -26,7 +26,7 @@ name is how they will be labelled in the interface and link is of course a URL
 module.exports = {
   APP_NAME: 'TurboWarp Packager',
   WEBSITE: 'https://packager.turbowarp.org/',
-  COPYRIGHT_NOTICE: `Copyright (C) 2021 Thomas Weber
+  COPYRIGHT_NOTICE: `Copyright (C) 2021-2022 Thomas Weber
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU Lesser General Public License version 3
