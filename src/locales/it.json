@@ -110,7 +110,9 @@
         "errorMessage": "Messaggio: {error}",
         "fosshost": "Hosting dei file fornito da Fosshost",
         "networkError": "Impossibile scaricare {url}. Assicurati di essere collegato a internet e prova a disabilitare le estensioni del browser.",
+        "outdated": "Questa versione del packager è scaduta. Aggiorna la pagina e prova di nuovo.",
         "privacy": "Politica della Privacy",
+        "refresh": "Aggiorna",
         "reportBug": "Segnala Problema",
         "sourceCode": "Codice Sorgente"
     },
