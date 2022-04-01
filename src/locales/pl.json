@@ -84,6 +84,7 @@
         "stretch": "Rozciąnij scenę, żeby zapełnić cały ekran bez zmieniania rozmiaru (eksperymentalne)",
         "turbo": "Tryb Turbo",
         "username": "Nazwa użytkownika (\"#\" zostanie zmieniony na losową cyfrę)",
+        "variableColor": "Kolor zmiennej",
         "warpTimer": "Warp Stoper",
         "zip": "Zip (idealne dla stron internetowych)",
         "zip-one-asset": "Zip, zapakuj pliki projektu do jednego pliku (odradzane)"
@@ -104,10 +105,8 @@
     },
     "progress": {
         "compressingProject": "Kompresowanie projektu",
-        "loadingAssets": "Ładowanie danych ({complete}/{total})",
-        "loadingLargeAsset": "Ładowanie {thing}",
-        "loadingProjectData": "Ładowanie danych projektu",
-        "loadingScripts": "Ładowanie skryptów",
+        "loadingLargeAsset": "Pobieranie {thing}",
+        "loadingProjectData": "Pobieranie danych projektu",
         "packagingProject": "Pakowanie projektu"
     },
     "reset": {

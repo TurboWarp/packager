@@ -96,7 +96,7 @@
         "unsafeCloudBehaviors": "Zusätzliche unsichere Cloud-Verhaltensweisen",
         "unsafeCloudBehaviorsWarning": "Unsichere Cloud-Verhaltensweisen ermöglichen es dem paketisierten Projekt, beliebigen Code außerhalb der \"Sandbox\" auszuführen, in der Projekte normalerweise ausgeführt werden. Abhängig von der Umgebung, für die du paketisierst, bietet dies die volle Kontrolle über deinen Computer, einschließlich der Möglichkeit, Viren zu installieren. Wenn du dem paketisierten Projekt nicht vertraust, deaktiviere diese Option.",
         "username": "Benutzername (alle \"#\" werden mit einer zufälligen Zahl ersetzt)",
-        "variableColor": "Variablenfarbe#",
+        "variableColor": "Variablenfarbe",
         "zip": "Zip (ideal für Websites)",
         "zip-one-asset": "Zip, Ressourcen in einer einzelnen Datei kombinieren (nicht empfohlen)"
     },
@@ -112,6 +112,8 @@
         "error": "Fehler",
         "errorMessage": "Nachricht: {error}",
         "fosshost": "Dateien von Fosshost gehostet",
+        "networkError": "Fehler beim Herunterladen von {url}. Stelle sicher, dass du mit dem Internet verbunden bist und versuche, jegliche Browsererweiterungen auszuschalten.",
+        "outdated": "Diese Packagerversion scheint veraltet zu sein. Bitte aktualisiere die Seite und versuche es erneut.",
         "privacy": "Datenschutzerklärung",
         "refresh": "Aktualisieren",
         "reportBug": "Fehler melden",
