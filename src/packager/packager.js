@@ -407,7 +407,6 @@ const isMac = process.platform === 'darwin';
 const isLinux = process.platform === 'linux';
 
 if (isMac) {
-  // TODO
   Menu.setApplicationMenu(Menu.buildFromTemplate([
     { role: 'appMenu' },
     { role: 'fileMenu' },
