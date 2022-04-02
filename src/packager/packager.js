@@ -399,7 +399,7 @@ cd "$(dirname "$0")"
     zip.file(`${resourcePrefix}package.json`, JSON.stringify(manifest));
 
     const mainJS = `'use strict';
-const {app, BrowserWindow, Menu, shell, screen} = require('electron');
+const {app, BrowserWindow, Menu, shell, screen, dialog} = require('electron');
 const path = require('path');
 
 const isWindows = process.platform === 'win32';
@@ -513,6 +513,15 @@ const openLink = (url) => {
     createDataWindow(url);
   }
 };
+
+app.on('render-process-gone', (event, webContents, details) => {
+  const window = BrowserWindow.fromWebContents(webContents);
+  dialog.showMessageBoxSync(window, {
+    type: 'error',
+    title: 'Error',
+    message: 'Renderer process crashed: ' + details.reason + ' (' + details.exitCode + ')'
+  });
+});
 
 app.on('web-contents-created', (event, contents) => {
   contents.setWindowOpenHandler((details) => {
