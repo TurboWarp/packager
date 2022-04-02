@@ -486,6 +486,7 @@ const isResourceURL = (url) => {
 const SAFE_PROTOCOLS = [
   'https:',
   'http:',
+  'mailto:',
 ];
 
 const isSafeOpenExternal = (url) => {
