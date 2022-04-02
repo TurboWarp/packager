@@ -420,6 +420,11 @@ if (isMac) {
   Menu.setApplicationMenu(null);
 }
 
+const resourcesURL = Object.assign(new URL('file://'), {
+  pathname: path.join(__dirname, '/')
+}).href;
+const defaultProjectURL = new URL('./index.html', resourcesURL).href;
+
 app.enableSandbox();
 
 const createWindow = (windowOptions) => {
@@ -446,7 +451,7 @@ const createWindow = (windowOptions) => {
   return window;
 };
 
-const createProjectWindow = () => {
+const createProjectWindow = (url) => {
   const windowMode = ${JSON.stringify(this.options.app.windowMode)};
   const window = createWindow({
     show: false,
@@ -460,13 +465,23 @@ const createProjectWindow = () => {
   if (windowMode === 'maximize') {
     window.maximize();
   }
-  window.loadFile(path.resolve(__dirname, './index.html'));
+  window.loadURL(url);
   window.show();
 };
 
 const createDataWindow = (dataURI) => {
   const window = createWindow({});
   window.loadURL(dataURI);
+};
+
+const isResourceURL = (url) => {
+  try {
+    const parsedUrl = new URL(url);
+    return parsedUrl.protocol === 'file:' && parsedUrl.href.startsWith(resourcesURL);
+  } catch (e) {
+    // ignore
+  }
+  return false;
 };
 
 const isSafeOpenExternal = (url) => {
@@ -490,7 +505,9 @@ const isDataURL = (url) => {
 };
 
 const openLink = (url) => {
-  if (isSafeOpenExternal(url)) {
+  if (isResourceURL(url)) {
+    createProjectWindow(url);
+  } else if (isSafeOpenExternal(url)) {
     shell.openExternal(url);
   } else if (isDataURL(url)) {
     createDataWindow(url);
@@ -505,8 +522,10 @@ app.on('web-contents-created', (event, contents) => {
     return {action: 'deny'};
   });
   contents.on('will-navigate', (e, url) => {
-    e.preventDefault();
-    openLink(url);
+    if (!isResourceURL(url)) {
+      e.preventDefault();
+      openLink(url);
+    }
   });
   contents.on('before-input-event', (e, input) => {
     const window = BrowserWindow.fromWebContents(contents);
@@ -524,10 +543,10 @@ app.on('window-all-closed', () => {
 });
 
 app.whenReady().then(() => {
-  createProjectWindow();
+  createProjectWindow(defaultProjectURL);
   app.on('activate', () => {
     if (BrowserWindow.getAllWindows().length === 0) {
-      createProjectWindow();
+      createProjectWindow(defaultProjectURL);
     }
   });
 });
