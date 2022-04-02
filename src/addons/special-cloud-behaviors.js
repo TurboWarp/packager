@@ -1,9 +1,17 @@
+const SAFE_PROTOCOLS = [
+  // The only protocol that's critical to block is javascript:
+  // file: is indeed unsafe in places like Electron, but it's the Electron environment's job to protect against that
+  // Navigating between file: is safe on the web
+  'http:',
+  'https:',
+  'data:',
+  'file:',
+];
+
 const isSafeURL = (url) => {
   try {
     const u = new URL(url, location.href);
-    // The only protocol that's important to prevent is javascript:
-    // file: is indeed unsafe in places like Electron, but there are extra checks in the Electron environment to keep this safe
-    return u.protocol === 'http:' || u.protocol === 'https:' || u.protocol === 'data:' || u.protocol === 'file:';
+    return SAFE_PROTOCOLS.includes(u.protocol);
   } catch (e) {
     return false;
   }

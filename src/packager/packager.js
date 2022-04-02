@@ -483,10 +483,15 @@ const isResourceURL = (url) => {
   return false;
 };
 
+const SAFE_PROTOCOLS = [
+  'https:',
+  'http:',
+];
+
 const isSafeOpenExternal = (url) => {
   try {
     const parsedUrl = new URL(url);
-    return parsedUrl.protocol === 'https:' || parsedUrl.protocol === 'http:';
+    return SAFE_PROTOCOLS.includes(parsedUrl.protocol);
   } catch (e) {
     // ignore
   }
