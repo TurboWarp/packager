@@ -544,11 +544,6 @@ app.on('window-all-closed', () => {
 
 app.whenReady().then(() => {
   createProjectWindow(defaultProjectURL);
-  app.on('activate', () => {
-    if (BrowserWindow.getAllWindows().length === 0) {
-      createProjectWindow(defaultProjectURL);
-    }
-  });
 });
 `;
     zip.file(`${resourcePrefix}${electronMainName}`, mainJS);
