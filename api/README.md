@@ -18,23 +18,21 @@ There are no promises of API stability between updates. Always pin to an exact v
 
 ### Release cadence
 
-The plan is to release an updated version of the npm module with every release of the standalone version of the packager, which currently happens about once a month.
+We intend to release an updated version of the npm module to npm with every update of [TurboWarp Desktop](https://github.com/TurboWarp/desktop), which currently happens about once a month.
 
 ### Feature support
 
-The following are currently known to not work:
+All features are assumed to work, with the following exceptions:
 
- - App icon (environments such as Electron currently always use default)
- - Custom cursor
- - Loading screen image
+ - macOS apps in the NW.js or WKWebView environments do not support custom icons and must always use the default icon
 
 ### Browser support
 
-The Node.js module is not intended to work in a browser regardless of any tool you try to use such as webpack. If you need browser support, fork the packager (this repository) directly.
+The Node.js module as published on npm is not intended to work in a browser regardless of any build tool such as webpack. If you need to run in a browser, fork this repository directly and modify the interface as you see fit.
 
 ### Large assets
 
-Large assets such as Electron binaries are not stored in this repository and will be downloaded from a remote server as-needed. While we aren't actively removing old files, we can't promise they will exist forever. Downloads are cached locally and validated with a secure checksum.
+Large assets such as Electron binaries are not stored in this repository and will be downloaded from a remote server on demand. While we aren't actively removing old files, we can't promise they will exist forever. Downloads are validated with a SHA-256 checksum and cached locally.
 
 Large assets are cached in `node_modules/@turbowarp/packager/.packager-cache`. You may want to periodically clean this folder.
 
@@ -84,10 +82,16 @@ packager.project = loadedProject;
 
 `packager.options` has a lot of options on it for you to consider. You can log the object or see [packager.js](../src/packager/packager.js) and look for `DEFAULT_OPTIONS` to see what options are available.
 
-We recommend that you avoid overwriting the entirety of `packager.options` as this may cause issues when you try to update the packager as options change. Instead, just update what you need to.
+We recommend that you avoid overwriting the entirety of `packager.options` as this will cause issues when you update the packager due to different options existing. Instead, just update what you need to.
 
 ```js
 packager.options.turbo = true;
+```
+
+Some options expect an image as an argument. In the Node.js module, there is a special class you're supposed to use for these, `new Packager.Image(mimeType, buffer)`:
+
+```js
+packager.options.app.icon = new Packager.Image('image/png', fs.readFileSync('icon.png'));
 ```
 
 Note that a Packager is a single-use object; you must make a new Packager each time you want to package a project.
@@ -98,9 +102,9 @@ Now you can finally actually package the project.
 const result = await packager.package();
 // Suggested filename. This is not sanitized so it could contain eg. path traversal exploits. Be careful.
 const filename = result.filename;
-// Mime type. "text/html" or "application/zip"
+// MIME type of the packaged project. Either "text/html" or "application/zip"
 const type = result.type;
-// The packaged project. Could be a string or ArrayBuffer depending on type.
+// The packaged project's data. Will be either a string (text/html) or ArrayBuffer (application/zip) depending on type.
 const data = result.data;
 ```
 
