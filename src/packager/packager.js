@@ -424,34 +424,21 @@ const resourcesURL = Object.assign(new URL('file://'), {
 }).href;
 const defaultProjectURL = new URL('./index.html', resourcesURL).href;
 
-const defaultWindowOptionsForAllWindows = {
-  title: ${JSON.stringify(this.options.app.windowTitle)},
-  icon: path.resolve(__dirname, ${JSON.stringify(iconName)}),
-  webPreferences: {
-    contextIsolation: true,
-    nodeIntegration: false,
-  },
-  useContentSize: true,
-  width: 480,
-  height: 360,
-};
-
-const defaultWindowOptionsForProjects = {
-  show: false,
-  backgroundColor: ${JSON.stringify(this.options.appearance.background)},
-  width: ${this.computeWindowSize().width},
-  height: ${this.computeWindowSize().height},
-  minWidth: 50,
-  minHeight: 50,
-};
-
 app.enableSandbox();
 
-const getWindowOptions = (windowOptions) => {
+const createWindow = (windowOptions) => {
   const options = {
-    ...defaultWindowOptionsForAllWindows,
-    ...windowOptions,
+    title: ${JSON.stringify(this.options.app.windowTitle)},
+    icon: path.resolve(__dirname, ${JSON.stringify(iconName)}),
+    useContentSize: true,
+    webPreferences: {
+      contextIsolation: true,
+      nodeIntegration: false,
+    },
     show: true,
+    width: 480,
+    height: 360,
+    ...windowOptions,
   };
 
   const activeScreen = screen.getDisplayNearestPoint(screen.getCursorScreenPoint());
@@ -459,17 +446,20 @@ const getWindowOptions = (windowOptions) => {
   options.x = bounds.x + ((bounds.width - options.width) / 2);
   options.y = bounds.y + ((bounds.height - options.height) / 2);
 
-  return options;
+  const window = new BrowserWindow(options);
+  return window;
 };
-
-const createWindow = (windowOptions) => new BrowserWindow(getWindowOptions(windowOptions));
 
 const createProjectWindow = (url) => {
   const windowMode = ${JSON.stringify(this.options.app.windowMode)};
   const window = createWindow({
-    fullscreen: windowMode === 'fullscreen',
-    ...defaultWindowOptionsForProjects,
     show: false,
+    backgroundColor: ${JSON.stringify(this.options.appearance.background)},
+    width: ${this.computeWindowSize().width},
+    height: ${this.computeWindowSize().height},
+    minWidth: 50,
+    minHeight: 50,
+    fullscreen: windowMode === 'fullscreen',
   });
   if (windowMode === 'maximize') {
     window.maximize();
@@ -520,7 +510,9 @@ const isDataURL = (url) => {
 };
 
 const openLink = (url) => {
-  if (isSafeOpenExternal(url)) {
+  if (isResourceURL(url)) {
+    createProjectWindow(url);
+  } else if (isSafeOpenExternal(url)) {
     shell.openExternal(url);
   } else if (isDataURL(url)) {
     createDataWindow(url);
@@ -538,17 +530,8 @@ app.on('render-process-gone', (event, webContents, details) => {
 
 app.on('web-contents-created', (event, contents) => {
   contents.setWindowOpenHandler((details) => {
-    const url = details.url;
-    if (isResourceURL(url)) {
-      return {
-        action: 'allow',
-        overrideBrowserWindowOptions: getWindowOptions({
-          ...defaultWindowOptionsForProjects,
-        })
-      };
-    }
     setImmediate(() => {
-      openLink(url);
+      openLink(details.url);
     });
     return {action: 'deny'};
   });
