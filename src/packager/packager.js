@@ -510,12 +510,12 @@ const isDataURL = (url) => {
 };
 
 const openLink = (url) => {
-  if (isResourceURL(url)) {
+  if (isDataURL(url)) {
+    createDataWindow(url);
+  } else if (isResourceURL(url)) {
     createProjectWindow(url);
   } else if (isSafeOpenExternal(url)) {
     shell.openExternal(url);
-  } else if (isDataURL(url)) {
-    createDataWindow(url);
   }
 };
 
