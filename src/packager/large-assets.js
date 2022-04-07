@@ -1,8 +1,15 @@
 // This defines where files are fetched from when the packager needs to download files.
 // Files fetched from an external server have a SHA-256 checksum used to validate the download.
+
 // src is the URL that will be fetched to download the asset. If it's an array of URLs, each URL
 // will be tried in succession if the previous one fails, perhaps because it's blocked by a school
 // network filter.
+
+// estimatedSize is used for the download progress bar if the server or browser does not tell us
+// automatically. It's size in bytes after decoding Content-Encoding.
+// If you change these, use numbers from a production build, not a development build.
+
+// useBuildId is used for various cache related things. It shouldn't be changed.
 
 const externalFile = (name) => [
   // Hopefully one of these URLs will not be blocked.
@@ -47,17 +54,17 @@ export default {
   },
   scaffolding: {
     src: relativeScaffolding('scaffolding.js'),
-    estimatedSize: 4775503,
+    estimatedSize: 4564032,
     useBuildId: true
   },
   'scaffolding-min': {
     src: relativeScaffolding('scaffolding-min.js'),
-    estimatedSize: 2540321,
+    estimatedSize: 2530463,
     useBuildId: true
   },
   addons: {
     src: relativeScaffolding('addons.js'),
-    estimatedSize: 14339,
+    estimatedSize: 19931,
     useBuildId: true
   }
 };
