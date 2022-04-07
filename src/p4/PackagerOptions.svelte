@@ -759,7 +759,7 @@
                 <p>The application will only run on 64-bit x86 computers.</p>
               {:else if $options.target.endsWith('32')}
                 <p>The application will run on 32-bit and 64-bit x86 computers.</p>
-                <p>If large projects tend to crash, use 64-bit only mode instead (in Other environments).</p>
+                <p>If your project is very large and crashes often, use 64-bit only mode instead (in Other environments) as it can access more memory.</p>
               {/if}
             </div>
           {:else if $options.target.includes('mac')}
