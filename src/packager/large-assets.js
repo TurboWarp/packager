@@ -54,17 +54,17 @@ export default {
   },
   scaffolding: {
     src: relativeScaffolding('scaffolding.js'),
-    estimatedSize: 4775503,
+    estimatedSize: 4564032,
     useBuildId: true
   },
   'scaffolding-min': {
     src: relativeScaffolding('scaffolding-min.js'),
-    estimatedSize: 2540321,
+    estimatedSize: 2530463,
     useBuildId: true
   },
   addons: {
     src: relativeScaffolding('addons.js'),
-    estimatedSize: 14339,
+    estimatedSize: 19931,
     useBuildId: true
   }
 };
