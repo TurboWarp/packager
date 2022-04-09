@@ -38,7 +38,7 @@
     },
     "refresh": {
       "string": "Refresh",
-      "context": "Button in some error messages that refreshes the page"
+      "context": "Button in some error messages that refreshes/reloads the page"
     },
     "reportBug": {
       "string": "Report Bug"
