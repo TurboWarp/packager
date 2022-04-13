@@ -18,7 +18,7 @@ const files = [
   path.join(root, 'webpack.config.js'),
   path.join(root, 'package.json'),
   path.join(root, 'package-lock.json')
-].sort();
+];
 for (const file of files) {
   const stat = fs.statSync(file);
   if (!stat.isDirectory()) {
