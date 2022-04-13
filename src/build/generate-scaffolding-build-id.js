@@ -20,7 +20,6 @@ const files = [
   path.join(root, 'package-lock.json')
 ].sort();
 for (const file of files) {
-  console.log(file);
   const stat = fs.statSync(file);
   if (!stat.isDirectory()) {
     hash.update(fs.readFileSync(file, 'utf-8'));
