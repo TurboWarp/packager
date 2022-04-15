@@ -755,10 +755,10 @@
           <div class="warning">
             <div>Creating native applications for specific platforms is discouraged. In most cases, Plain HTML or Zip will have numerous advantages:</div>
             <ul>
-              <li>Can be run directly from a website</li>
-              <li>Users are less likely to be suspicious of a virus</li>
+              <li>Can be run directly from a website on any platform, even phones</li>
+              <li>Users are significantly less likely to be suspicious of a virus</li>
               <li>Significantly smaller file size</li>
-              <li>The same file will work on almost every platform</li>
+              <li>Can still be downloaded locally and run offline</li>
             </ul>
             <div>If you don't truly need to make a self-contained application for each platform (we understand there are some cases where this is necessary), we recommend you don't.</div>
           </div>
