@@ -13,8 +13,7 @@
   import {progress, currentTask} from './stores';
   import Preview from './preview';
   import deepClone from './deep-clone';
-  import Packager from '../packager/packager';
-  import WebAdapter from '../packager/web/adapter';
+  import Packager from '../packager/web/export';
   import Task from './task';
 
   export let projectData;
@@ -84,7 +83,6 @@
   };
 
   const runPackager = async (task, options) => {
-    Packager.adapter = new WebAdapter();
     const packager = new Packager();
     packager.options = options;
     packager.project = projectData.project;

@@ -9,6 +9,7 @@ import {encode, decode} from './base85';
 import {parsePlist, generatePlist} from './plist';
 import {APP_NAME, WEBSITE, COPYRIGHT_NOTICE, ACCENT_COLOR} from './brand';
 import {OutdatedPackagerError} from '../common/errors';
+import {Adapter} from './adapter';
 
 const PROGRESS_LOADED_SCRIPTS = 0.1;
 
@@ -158,7 +159,7 @@ class Packager extends EventTarget {
     let result;
     let cameFromCache = false;
     try {
-      const cached = await Packager.adapter.getCachedAsset(asset);
+      const cached = await Adapter.getCachedAsset(asset);
       if (cached) {
         result = cached;
         cameFromCache = true;
@@ -193,7 +194,7 @@ class Packager extends EventTarget {
     }
     if (!cameFromCache) {
       try {
-        await Packager.adapter.cacheAsset(asset, result);
+        await Adapter.cacheAsset(asset, result);
       } catch (e) {
         console.warn(e);
       }
@@ -291,7 +292,7 @@ class Packager extends EventTarget {
     }
 
     const ICON_NAME = 'icon.png';
-    const icon = await Packager.adapter.getAppIcon(this.options.app.icon);
+    const icon = await Adapter.getAppIcon(this.options.app.icon);
     const manifest = {
       name: packageName,
       main: 'main.js',
@@ -389,7 +390,7 @@ cd "$(dirname "$0")"
     const electronMainName = 'electron-main.js';
     const iconName = 'icon.png';
 
-    const icon = await Packager.adapter.getAppIcon(this.options.app.icon);
+    const icon = await Adapter.getAppIcon(this.options.app.icon);
     zip.file(`${resourcePrefix}${iconName}`, icon);
 
     const manifest = {
@@ -613,7 +614,7 @@ cd "$(dirname "$0")"
       setFileFast(zip, `${resourcePrefix}${path}`, data);
     }
 
-    const icon = await Packager.adapter.getAppIcon(this.options.app.icon);
+    const icon = await Adapter.getAppIcon(this.options.app.icon);
     const icns = await pngToAppleICNS(icon);
     zip.file(`${resourcePrefix}AppIcon.icns`, icns);
     zip.remove(`${resourcePrefix}Assets.car`);
@@ -780,7 +781,7 @@ cd "$(dirname "$0")"
     if (this.options.app.icon === null) {
       return '';
     }
-    const data = await Packager.adapter.readAsURL(this.options.app.icon, 'app icon');
+    const data = await Adapter.readAsURL(this.options.app.icon, 'app icon');
     return `<link rel="icon" href="${data}">`;
   }
 
@@ -792,12 +793,12 @@ cd "$(dirname "$0")"
       // Set to custom but no data, so ignore
       return 'auto';
     }
-    const data = await Packager.adapter.readAsURL(this.options.cursor.custom, 'custom cursor');
+    const data = await Adapter.readAsURL(this.options.cursor.custom, 'custom cursor');
     return `url(${data}), auto`;
   }
 
   async package () {
-    if (!Packager.adapter) {
+    if (!Adapter) {
       throw new Error('Missing adapter');
     }
     if (this.used) {
@@ -875,7 +876,7 @@ cd "$(dirname "$0")"
     }
     #loading {
       ${this.options.loadingScreen.image && this.options.loadingScreen.imageMode === 'stretch'
-        ? `background-image: url(${await Packager.adapter.readAsURL(this.options.loadingScreen.image, 'stretched loading screen')});
+        ? `background-image: url(${await Adapter.readAsURL(this.options.loadingScreen.image, 'stretched loading screen')});
       background-repeat: no-repeat;
       background-size: contain;
       background-position: center;`
@@ -971,7 +972,7 @@ cd "$(dirname "$0")"
 
   <div id="loading" class="screen">
     ${this.options.loadingScreen.text ? `<h1 class="loading-text">${escapeXML(this.options.loadingScreen.text)}</h1>` : ''}
-    ${this.options.loadingScreen.image && this.options.loadingScreen.imageMode === 'normal' ? `<div class="loading-image"><img src="${await Packager.adapter.readAsURL(this.options.loadingScreen.image, 'loading-screen')}"></div>` : ''}
+    ${this.options.loadingScreen.image && this.options.loadingScreen.imageMode === 'normal' ? `<div class="loading-image"><img src="${await Adapter.readAsURL(this.options.loadingScreen.image, 'loading-screen')}"></div>` : ''}
     ${this.options.loadingScreen.progressBar ? '<div class="progress-bar-outer"><div class="progress-bar-inner" id="loading-inner"></div></div>' : ''}
   </div>
 
@@ -1256,8 +1257,6 @@ cd "$(dirname "$0")"
     };
   }
 }
-
-Packager.adapter = null;
 
 Packager.getDefaultPackageNameFromFileName = (title) => {
   // Remove file extension
