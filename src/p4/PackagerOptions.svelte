@@ -160,6 +160,15 @@
     $options = $options;
   };
 
+  const resetAll = () => {
+    if (confirm($_('reset.confirmAll'))) {
+      resetOptions(Object.keys($options));
+      $icon = null;
+      $customCursorIcon = null;
+      $loadingScreenImage = null;
+    }
+  };
+
   onDestroy(() => {
     if (result) {
       URL.revokeObjectURL(result.url);
@@ -205,6 +214,15 @@
     color: black;
     padding: 10px;
     border-radius: 10px;
+  }
+  .buttons {
+    display: flex;
+  }
+  .button {
+    margin-right: 4px;
+  }
+  .reset-button {
+    margin-left: auto;
   }
 </style>
 
@@ -801,8 +819,17 @@
 {/if}
 
 <Section>
-  <Button on:click={pack} text={$_('options.package')} />
-  <Button on:click={preview} secondary text={$_('options.preview')} />
+  <div class="buttons">
+    <div class="button">
+      <Button on:click={pack} text={$_('options.package')} />
+    </div>
+    <div clas="button">
+      <Button on:click={preview} secondary text={$_('options.preview')} />
+    </div>
+    <div class="reset-button">
+      <Button on:click={resetAll} dangerous text={$_('options.resetAll')} />
+    </div>
+  </div>
 </Section>
 
 {#if result}

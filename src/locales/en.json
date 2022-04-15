@@ -434,6 +434,10 @@
       "string": "Preview",
       "context": "Button to preview the project"
     },
+    "resetAll": {
+      "string": "Reset All",
+      "context": "Button that resets all settings"
+    },
     "download": {
       "string": "Download {filename} ({size}MB)",
       "context": "Download link"
@@ -476,7 +480,11 @@
     },
     "confirm": {
       "string": "Are you sure you want to reset these settings? This cannot be undone.",
-      "context": "Prompt to confirm user wants to reset settings"
+      "context": "Prompt to confirm user wants to reset a specific subsection's settings"
+    },
+    "confirmAll": {
+      "string": "Are you sure you want to reset ALL settings? This cannot be undone.",
+      "context": "Prompt to confirm user wants to reset ALL settings for the current project"
     }
   },
   "preview": {
