@@ -48,7 +48,7 @@
   }
 </style>
 
-<button on:click style={`background-color: ${getColor()}`}>
+<button on:click style:background-color={getColor()}>
   <div class="dimmer"></div>
   <div class="text">{text}</div>
 </button>
