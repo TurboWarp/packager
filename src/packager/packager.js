@@ -1,5 +1,5 @@
 import {EventTarget, CustomEvent} from '../common/event-target';
-import createChecksumWorker from '../build/p4-worker-loader!./sha256'
+import sha256 from './sha256';
 import escapeXML from '../common/escape-xml';
 import largeAssets from './large-assets';
 import request from '../common/request';
@@ -28,13 +28,6 @@ const removeUnnecessaryEmptyLines = (string) => string.split('\n')
     return true;
   })
   .join('\n');
-
-const sha256 = async (buffer) => {
-  const {worker, terminate} = createChecksumWorker();
-  const hash = await worker.sha256(buffer);
-  terminate();
-  return hash;
-};
 
 const getJSZip = async () => (await import(/* webpackChunkName: "jszip" */ 'jszip')).default;
 
