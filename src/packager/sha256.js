@@ -7,9 +7,12 @@ const sha256 = async (arrayBuffer) => {
     return Array.from(new Uint8Array(rawData)).map(b => b.toString(16).padStart(2, '0')).join('');
   }
 
-  const shajs = await import(/* webpackChunkName: "shajs" */ 'sha.js');
-  // Note: this will block the main thread for a while.
-  return shajs.default('sha256').update(new Uint8Array(arrayBuffer)).digest('hex');
+  // The checksum will be performed on the main thread and may take a while.
+  const SHA256 = (await import(/* webpackChunkName: "sha256" */ 'sha.js/sha256')).default;
+  const hash = new SHA256();
+  // new Uint8Array() is necessary to make this work in Node
+  hash.update(new Uint8Array(arrayBuffer));
+  return hash.digest('hex');
 };
 
 export default sha256;
