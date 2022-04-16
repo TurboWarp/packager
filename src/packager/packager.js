@@ -783,11 +783,11 @@ cd "$(dirname "$0")"
       return this.options.cursor.type;
     }
     if (!this.options.cursor.custom) {
-      // Set to custom but no data, so ignore
+      // Configured to use a custom cursor but no image was selected
       return 'auto';
     }
     const data = await Adapter.readAsURL(this.options.cursor.custom, 'custom cursor');
-    return `url(${data}), auto`;
+    return `url(${data}) ${this.options.cursor.center.x} ${this.options.cursor.center.y}, auto`;
   }
 
   async package () {
@@ -1336,7 +1336,11 @@ Packager.DEFAULT_OPTIONS = () => ({
   },
   cursor: {
     type: 'auto',
-    custom: null
+    custom: null,
+    center: {
+      x: 0,
+      y: 0
+    }
   },
   extensions: []
 });

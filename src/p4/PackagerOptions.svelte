@@ -479,6 +479,11 @@
       <div in:slide|self class="option">
         <ImageInput bind:file={$customCursorIcon} previewSizes={[[32, 32], [16, 16]]} />
         <p>{$_('options.cursorHelp')}</p>
+        <label class="option">
+          {$_('options.cursorCenter')}
+          X: <input type="number" min="0" bind:value={$options.cursor.center.x}>
+          Y: <input type="number" min="0" bind:value={$options.cursor.center.y}>
+        </label>
       </div>
     {/if}
 

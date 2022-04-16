@@ -271,6 +271,10 @@
     "customCursor": {
       "string": "Custom cursor"
     },
+    "cursorCenter": {
+      "string": "Cursor center:",
+      "context": "Option to configure the center of a custom cursor. Followed by 'X: (input) Y: (input)'"
+    },
     "cursorHelp": {
       "string": "Images up to 32x32 work best. Larger images may not work reliably."
     },
