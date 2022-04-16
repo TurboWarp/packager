@@ -17,11 +17,15 @@
       if (isText) {
         el.appendChild(document.createTextNode(part));
       } else {
-        const value = values[part];
+        const value = values && values[part];
         if (value) {
           const node = document.createElement('a');
           node.href = value.href;
           node.textContent = value.text;
+          if (value.newTab) {
+            node.target = '_blank';
+            node.rel = 'noopener noreferrer';
+          }
           el.appendChild(node);
         } else {
           console.warn('Missing placeholder', part);

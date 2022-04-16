@@ -88,10 +88,10 @@ class WebSocketProvider {
     this.cloudHosts = Array.isArray(cloudHost) ? cloudHost : [cloudHost];
     this.projectId = projectId;
     this.attemptedConnections = 0;
-    this.messageQueue = [];
-    this.throttleTimeout = null;
+    this.bufferedMessages = [];
+    this.scheduledBufferedSend = null;
     this.openConnection = this.openConnection.bind(this);
-    this._throttleTimeoutFinished = this._throttleTimeoutFinished.bind(this);
+    this._scheduledSendBufferedMessages = this._scheduledSendBufferedMessages.bind(this);
   }
 
   enable () {
@@ -129,6 +129,7 @@ class WebSocketProvider {
     this.writeToServer({
       method: 'handshake'
     });
+    this.sendBufferedMessages();
     console.log('WebSocket connected');
   }
 
@@ -148,33 +149,33 @@ class WebSocketProvider {
   }
 
   canWriteToServer () {
-    return this.ws && this.ws.readyState === WebSocket.OPEN && this.throttleTimeout === null;
+    return this.ws && this.ws.readyState === WebSocket.OPEN;
   }
 
-  _scheduleThrottledSend () {
-    if (this.throttleTimeout === null) {
-      this.throttleTimeout = setTimeout(this._throttleTimeoutFinished, 1000 / 30);
+  scheduleBufferedSend () {
+    if (!this.scheduledBufferedSend) {
+      this.scheduledBufferedSend = true;
+      Promise.resolve().then(this._scheduledSendBufferedMessages);
     }
   }
 
-  _throttleTimeoutFinished () {
-    this.throttleTimeout = null;
-    if (this.messageQueue.length === 0) {
-      return;
-    }
+  _scheduledSendBufferedMessages () {
+    this.scheduledBufferedSend = false;
     if (this.canWriteToServer()) {
-      this.writeToServer(this.messageQueue.shift());
+      this.sendBufferedMessages();
     }
-    this._scheduleThrottledSend();
   }
 
-  throttledWriteToServer (message) {
-    if (this.canWriteToServer()) {
+  sendBufferedMessages () {
+    for (const message of this.bufferedMessages) {
       this.writeToServer(message);
-    } else {
-      this.messageQueue.push(message);
     }
-    this._scheduleThrottledSend();
+    this.bufferedMessages.length = 0;
+  }
+
+  bufferedWriteToServer (message) {
+    this.bufferedMessages.push(message);
+    this.scheduleBufferedSend();
   }
 
   writeToServer (message) {
@@ -184,14 +185,14 @@ class WebSocketProvider {
   }
 
   handleUpdateVariable (name, value) {
-    // If this variable already has a scheduled update, we'll replace its value instead of scheduling another update.
-    for (const i of this.messageQueue) {
+    // If this variable already has an update queued, we'll replace its value instead of adding another update.
+    for (const i of this.bufferedMessages) {
       if (i.name === name) {
         i.value = value;
         return;
       }
     }
-    this.throttledWriteToServer({
+    this.bufferedWriteToServer({
       method: 'set',
       name,
       value

@@ -1,21 +1,49 @@
+const SAFE_PROTOCOLS = [
+  // The only protocol that's critical to block is javascript:
+  // file: is indeed unsafe in places like Electron, but it's the Electron environment's job to protect against that
+  // Navigating between file: is safe on the web
+  'http:',
+  'https:',
+  'data:',
+  'file:',
+  'mailto:',
+];
+
 const isSafeURL = (url) => {
   try {
     const u = new URL(url, location.href);
-    // The only protocol that's important to prevent is javascript:
-    // file: is indeed unsafe in places like Electron, but there are extra checks in the Electron environment to keep this safe
-    return u.protocol === 'http:' || u.protocol === 'https:' || u.protocol === 'data:' || u.protocol === 'file:';
+    return SAFE_PROTOCOLS.includes(u.protocol);
   } catch (e) {
     return false;
   }
 };
 
-const isDataURL = (url) => {
+const shouldAlwaysOpenInNewTab = (url) => {
   try {
     const u = new URL(url, location.href);
+    // Browsers don't allow opening new tabs with data: URIs
     return u.protocol === 'data:';
   } catch (e) {
     return false;
   }
+};
+
+const shouldAlwaysOpenInCurrentTab = (url) => {
+  try {
+    const u = new URL(url, location.href);
+    // If you open a mailto: in a new tab, the browser will convert it to about:blank and just leave an empty tab
+    return u.protocol === 'mailto:';
+  } catch (e) {
+    return false;
+  }
+};
+
+const openInNewTab = (url) => {
+  window.open(url);
+};
+
+const openInCurrentTab = (url) => {
+  location.href = url;
 };
 
 class SpecialCloudBehaviorsProvider {
@@ -25,15 +53,20 @@ class SpecialCloudBehaviorsProvider {
 
   handleUpdateVariable (name, value) {
     if (name === '☁ redirect') {
-      if (isDataURL(value)) {
-        // Browsers don't allow navigating to data: URIs, so we'll always convert a redirect to opening a new page
-        window.open(value);
-      } else if (isSafeURL(value)) {
-        location.href = value;
+      if (isSafeURL(value)) {
+        if (shouldAlwaysOpenInNewTab(value)) {
+          openInNewTab(value);
+        } else {
+          openInCurrentTab(value);
+        }
       }
     } else if (name === '☁ open link') {
       if (isSafeURL(value)) {
-        window.open(value);
+        if (shouldAlwaysOpenInCurrentTab(value)) {
+          openInCurrentTab(value);
+        } else {
+          openInNewTab(value);
+        }
       }
     } else if (name === '☁ username') {
       this.manager.parent.setUsername(value);

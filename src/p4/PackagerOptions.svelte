@@ -10,11 +10,10 @@
   import ColorPicker from './ColorPicker.svelte';
   import writablePersistentStore from './persistent-store';
   import fileStore from './file-store';
-  import {progress, currentTask} from './stores';
+  import {progress, currentTask, error} from './stores';
   import Preview from './preview';
   import deepClone from './deep-clone';
-  import Packager from '../packager/packager';
-  import WebAdapter from '../packager/web/adapter';
+  import Packager from '../packager/web/export';
   import Task from './task';
 
   export let projectData;
@@ -74,6 +73,28 @@
     'electron-linux64'
   ].includes($options.target);
 
+  const automaticallyCenterCursor = () => {
+    const icon = $customCursorIcon;
+    const url = URL.createObjectURL(icon)
+    const image = new Image();
+    const cleanup = () => {
+      image.onerror = null;
+      image.onload = null;
+      URL.revokeObjectURL(url);
+    };
+    image.onload = () => {
+      $options.cursor.center.x = Math.round(image.width / 2);
+      $options.cursor.center.y = Math.round(image.height / 2);
+      cleanup();
+    };
+    image.onerror = () => {
+      cleanup();
+      $error = new Error('Image could not be loaded');
+      throw $error;
+    };
+    image.src = url;
+  };
+
   const downloadURL = (filename, url) => {
     const link = document.createElement('a');
     link.download = filename;
@@ -84,7 +105,6 @@
   };
 
   const runPackager = async (task, options) => {
-    Packager.adapter = new WebAdapter();
     const packager = new Packager();
     packager.options = options;
     packager.project = projectData.project;
@@ -160,6 +180,15 @@
     $options = $options;
   };
 
+  const resetAll = () => {
+    if (confirm($_('reset.confirmAll'))) {
+      resetOptions(Object.keys($options));
+      $icon = null;
+      $customCursorIcon = null;
+      $loadingScreenImage = null;
+    }
+  };
+
   onDestroy(() => {
     if (result) {
       URL.revokeObjectURL(result.url);
@@ -207,9 +236,14 @@
     border-radius: 12px;
     margin: 12px 0;
   }
-  .small {
-    font-size: small;
-    opacity: 0.8;
+  .buttons {
+    display: flex;
+  }
+  .button {
+    margin-right: 4px;
+  }
+  .reset-button {
+    margin-left: auto;
   }
 </style>
 
@@ -430,6 +464,11 @@
       <input type="checkbox" bind:checked={$options.monitors.editableLists}>
       {$_('options.editableLists')}
     </label>
+    <!-- svelte-ignore a11y-label-has-associated-control -->
+    <label class="option">
+      <ColorPicker bind:value={$options.monitors.variableColor} />
+      {$_('options.variableColor')}
+    </label>
   </div>
 </Section>
 
@@ -463,6 +502,18 @@
       <div in:slide|self class="option">
         <ImageInput bind:file={$customCursorIcon} previewSizes={[[32, 32], [16, 16]]} />
         <p>{$_('options.cursorHelp')}</p>
+        <label class="option">
+          {$_('options.cursorCenter')}
+          <!-- X: and Y: intentionally not translated -->
+          X: <input type="number" min="0" bind:value={$options.cursor.center.x}>
+          Y: <input type="number" min="0" bind:value={$options.cursor.center.y}>
+          <button
+            on:click={automaticallyCenterCursor}
+            disabled={!$customCursorIcon}
+          >
+            {$_('options.automaticallyCenter')}
+          </button>
+        </label>
       </div>
     {/if}
 
@@ -746,10 +797,10 @@
           <div class="warning">
             <div>Creating native applications for specific platforms is discouraged. In most cases, Plain HTML or Zip will have numerous advantages:</div>
             <ul>
-              <li>Can be run directly from a website</li>
-              <li>Users are less likely to be suspicious of a virus</li>
+              <li>Can be run directly from a website on any platform, even phones</li>
+              <li>Users are significantly less likely to be suspicious of a virus</li>
               <li>Significantly smaller file size</li>
-              <li>The same file will work on almost every platform</li>
+              <li>Can still be downloaded locally and run offline</li>
             </ul>
             <div>If you don't truly need to make a self-contained application for each platform (we understand there are some cases where this is necessary), we recommend you don't.</div>
           </div>
@@ -766,7 +817,7 @@
                 <p>The application will only run on 64-bit x86 computers.</p>
               {:else if $options.target.endsWith('32')}
                 <p>The application will run on 32-bit and 64-bit x86 computers.</p>
-                <p>If large projects tend to crash, use 64-bit only mode instead (in Other environments).</p>
+                <p>If your project is very large and crashes often, use 64-bit only mode instead (in Other environments) as it can access more memory.</p>
               {/if}
             </div>
           {:else if $options.target.includes('mac')}
@@ -928,8 +979,17 @@
 {/if}
 
 <Section>
-  <Button on:click={pack} text={$_('options.package')} />
-  <Button on:click={preview} secondary text={$_('options.preview')} />
+  <div class="buttons">
+    <div class="button">
+      <Button on:click={pack} text={$_('options.package')} />
+    </div>
+    <div clas="button">
+      <Button on:click={preview} secondary text={$_('options.preview')} />
+    </div>
+    <div class="reset-button">
+      <Button on:click={resetAll} dangerous text={$_('options.resetAll')} />
+    </div>
+  </div>
 </Section>
 
 {#if result}

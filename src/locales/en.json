@@ -12,6 +12,9 @@
     "description3": {
       "string": "Report bugs, give feedback, and suggest ideas {onScratch} or {onGitHub}."
     },
+    "disclaimer": {
+      "string": "This site is not affiliated with Scratch, the Scratch Team, or the Scratch Foundation."
+    },
     "description3-on": {
       "string": "on {brand}",
       "context": "Used in the context 'Report bugs on Scratch'."
@@ -22,8 +25,20 @@
     "errorMessage": {
       "string": "Message: {error}"
     },
+    "networkError": {
+      "string": "Couldn't download {url}. Make sure you're connected to the internet and try disabling any browser extensions.",
+      "context": "Error displayed when an attempt to download a file failed for an unknown reason."
+    },
+    "outdated": {
+      "string": "This version of the packager appears to be outdated. Please refresh and try again.",
+      "context": "Error displayed when the packager detects that you are using an old version and that you must refresh to continue."
+    },
     "close": {
       "string": "Close"
+    },
+    "refresh": {
+      "string": "Refresh",
+      "context": "Button in some error messages that refreshes/reloads the page"
     },
     "reportBug": {
       "string": "Report Bug"
@@ -47,23 +62,24 @@
   },
   "progress": {
     "loadingAssets": {
-      "string": "Loading assets ({complete}/{total})"
+      "string": "Downloading assets ({complete}/{total})"
     },
     "compressingProject": {
       "string": "Compressing project"
     },
     "loadingProjectData": {
-      "string": "Loading project data"
+      "string": "Downloading project data"
     },
     "packagingProject": {
       "string": "Packaging project"
     },
     "loadingLargeAsset": {
-      "string": "Loading {thing}",
+      "string": "Downloading {thing}",
       "context": "Generic loading message used when loading a 'brand name' file such as NW.js or Electron."
     },
     "loadingScripts": {
-      "string": "Loading scripts"
+      "string": "Downloading scripts",
+      "context": "Loading message used when loading the Scratch runtime"
     }
   },
   "select": {
@@ -239,6 +255,9 @@
     "editableLists": {
       "string": "Editable lists"
     },
+    "variableColor": {
+      "string": "Variable color"
+    },
     "interaction": {
       "string": "Input",
       "context": "Input settings header"
@@ -251,6 +270,14 @@
     },
     "customCursor": {
       "string": "Custom cursor"
+    },
+    "cursorCenter": {
+      "string": "Cursor center:",
+      "context": "Option to configure the center of a custom cursor. Followed by 'X: (input) Y: (input)'"
+    },
+    "automaticallyCenter": {
+      "string": "Automatically center",
+      "context": "Button that automatically centers a custom cursor"
     },
     "cursorHelp": {
       "string": "Images up to 32x32 work best. Larger images may not work reliably."
@@ -418,6 +445,10 @@
       "string": "Preview",
       "context": "Button to preview the project"
     },
+    "resetAll": {
+      "string": "Reset All",
+      "context": "Button that resets all settings"
+    },
     "download": {
       "string": "Download {filename} ({size}MB)",
       "context": "Download link"
@@ -460,7 +491,11 @@
     },
     "confirm": {
       "string": "Are you sure you want to reset these settings? This cannot be undone.",
-      "context": "Prompt to confirm user wants to reset settings"
+      "context": "Prompt to confirm user wants to reset a specific subsection's settings"
+    },
+    "confirmAll": {
+      "string": "Are you sure you want to reset ALL settings? This cannot be undone.",
+      "context": "Prompt to confirm user wants to reset ALL settings for the current project"
     }
   },
   "preview": {

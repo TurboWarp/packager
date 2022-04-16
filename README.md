@@ -35,27 +35,45 @@ The general layout of `src` is:
  - scaffolding: A minimal Scratch project player. Handles most of the boring details of running Scratch projects like handling mouse inputs.
  - common: Some files used by both scaffolding and the packager.
  - addons: Optional addons such as gamepad support or pointerlock.
- - locales: Translations. en.json contains the original English messages. The other languages are translated by volunteers. ([you can help](https://docs.turbowarp.org/translate))
+ - locales: Translations. en.json contains the original English messages. The other languages are translated by volunteers and imported by an automated script. ([you can help](https://docs.turbowarp.org/translate))
  - build: Various build-time scripts such as webpack plugins and loaders.
 
 ## Tips for forks
 
-**Changing Scratch internals**: If you want to change the VM/renderer/etc. used, just `npm install` or `npm link` a different scratch-vm/scratch-render/etc and rebuild. You can even install a vanilla scratch-vm and all core functionality will still work (but optional features such as interpolation, high quality pen, stage size, etc. may not work)
+We strive to make the packager easy to fork, even for mods that aren't based on TurboWarp. Reading this section, at least the first half, should make it much easier to do so.
 
-**Deploying**: The packager is deployed as a simple static website. You can host it anywhere by just copying the `dist` folder after a build. We use GitHub Actions to deploy to GitHub Pages by running the "Deploy" workflow whenever we want to push to production (Actions > Deploy > Run workflow). This should be automatically available in forks after enabling GitHub Actions.
+### Packages
 
-**Branding**: If you want to rebrand the packager for a different Scratch fork, the bare minimum changes to make are:
+If you want to change the VM/renderer/etc. used, just `npm install` or `npm link` a different scratch-vm/scratch-render/etc. and rebuild. You can even install a vanilla scratch-vm and all core functionality will still work (but optional features such as interpolation, high quality pen, stage size, etc. may not work)
 
- - Update the brand strings (`src/packager/brand.js`) to use your own name and links.
+If you encounter errors about dependencies missing, usually these will be fixed after running another `npm install`.
+
+### Deployment
+
+The packager is deployed as a simple static website. You can host it anywhere by just copying the `dist` folder after a build.
+
+We use GitHub Actions and GitHub Pages to manage our deployment. If you want to do this too:
+
+ - Fork the repository on GitHub and push your changes.
+ - Go to your fork's settings on GitHub and enable GitHub Pages with the source set to the gh-pages branch.
+ - Go to the "Actions" tab and enable GitHub Actions if it isn't already enabled
+ - Go to your fork > Actions > Deploy > Manually run the action on the branch of your choice (probably master).
+ - Your site will be automatically built and deployed.
+
+### Branding
+
+We ask that you at least take a moment to rename the website.
+
+ - Update the brand strings (`src/packager/brand.js`) to use your own app name, links, etc.
  - Update the privacy policy (`static/privacy.html`) to reflect your privacy practices.
 
-**Common problems**: 
+### Large files
 
- - Sometimes when you `npm install` a package here, npm breaks and packages don't install properly. To fix this just run `npm install` and everything should get fixed.
+Large files such as NW.js, Electron, and WKWebView executables are stored on an external server outside of this repository. While we aren't actively removing old files (the server still serves files unused since November 2020), we can't promise they will exist forever. The packager uses a secure checksum to validate these downloads. Forks are free to use our servers, but it's easy to setup your own if you'd prefer (it's just a static file server; see `src/packager/large-assets.js` for more information).
 
-**Large files**: Large files such as NW.js, Electron, and WKWebView executables are stored on an external server outside of this repository. While we aren't actively removing old files (the server still serves files unused since November 2020), we can't promise they will exist forever. The packager uses a secure checksum to validate these downloads. Forks are free to use our servers, but it's easy to setup your own if you'd prefer (it's just a static file server; see `src/packager/large-assets.js` for more information).
+### Service worker
 
-**Service worker**: Set the environment variable `ENABLE_SERVICE_WORKER` to `1` to enable service worker for offline support (experimental, not 100% reliable). Not recommended in development. Automatically used by the GitHub Actions deploy script.
+Set the environment variable `ENABLE_SERVICE_WORKER` to `1` to enable service worker for offline support (experimental, not 100% reliable). This is not recommended in development. Our GitHub Actions deploy script uses this by default.
 
 ## Standalone builds
 
@@ -81,6 +99,6 @@ npm run build-node-prod
 
 <!-- Make sure to also update COPYRIGHT_NOTICE in src/packager/brand.js -->
 
-Copyright (C) 2021 Thomas Weber
+Copyright (C) 2021-2022 Thomas Weber
 
 This project is licensed under the GNU Lesser General Public License version 3. See COPYING and COPYING.LESSER for more information. We believe that packaging a project using the packager "makes use of an interface provided by the Library, but which is not otherwise based on the Library"

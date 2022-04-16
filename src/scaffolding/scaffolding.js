@@ -322,6 +322,14 @@ class Scaffolding extends EventTarget {
     if (this.vm.runtime.cloudOptions) {
       this.vm.runtime.cloudOptions.limit = Infinity;
     }
+    // TODO: remove when https://github.com/TurboWarp/packager/issues/213 is fixed
+    this.vm.on('STAGE_SIZE_CHANGED', (width, height) => {
+      if (this.width !== width || this.height !== height) {
+        this.width = width;
+        this.height = height;
+        this.relayout();
+      }
+    });
 
     this.cloudManager = new Cloud.CloudManager(this);
 

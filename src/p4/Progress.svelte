@@ -31,7 +31,10 @@
 
 <div class="progress">
   <div class="bar-outer">
-    <div class="bar-inner" style={`width:${progress*100}%`}></div>
+    <div
+      class="bar-inner"
+      style:width={`${progress * 100}%`}
+    ></div>
   </div>
   <div class="text">
     {text}

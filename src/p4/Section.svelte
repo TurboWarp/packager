@@ -42,7 +42,13 @@
   }
 </style>
 
-<div class="card" class:caption class:modal class:center={caption || center} style={accent ? `border-top: 6px solid ${accent}` : ''}>
+<div
+  class="card"
+  class:caption
+  class:modal
+  class:center={caption || center}
+  style:border-top={accent ? `6px solid ${accent}` : ''}
+>
   {#if reset}
     <div class="reset">
       <ResetButton on:click={reset} />

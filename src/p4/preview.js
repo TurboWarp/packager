@@ -48,6 +48,7 @@ const getPreviewSource = () => `<!DOCTYPE html>
 </head>
 <body>
   <div class="preview-message">
+    <noscript>Enable JavaScript</noscript>
     <div class="preview-progress-outer"><div class="preview-progress-inner"></div></div>
   </div>
   <div class="preview-message preview-error" hidden>

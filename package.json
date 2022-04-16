@@ -1,6 +1,6 @@
 {
   "name": "@turbowarp/packager",
-  "version": "0.5.0",
+  "version": "0.7.2",
   "description": "Converts Scratch projects into HTML files, zip archives, or executable programs for Windows, macOS, and Linux.",
   "main": "dist/packager.js",
   "scripts": {

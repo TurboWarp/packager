@@ -34,6 +34,7 @@
         "customCursor": "Benutzerdefinierter Cursor",
         "customExtensions": "Benutzerdefinierte Erweiterungen (eine URL pro Zeile)",
         "customJS": "Benutzerdefiniertes JS (Nur ändern, wenn man weiß, was man tut!)",
+        "customUsernameWarning": "Sei beim Ändern des Standard-Benutzernamens vorsichtig, da dadurch Verbindungen mit dem Standardmäßigen Server blockiert werden könnten. Nur der standardmäßige Benutzername wird garantiert funktionieren.",
         "download": "{filename} herunterladen ({size}MB)",
         "downloadsWillAppearHere": "Downloads weren hier erscheinen",
         "dynamicResize": "Bühne dynamisch anpassen (experimentell)",
@@ -95,6 +96,7 @@
         "unsafeCloudBehaviors": "Zusätzliche unsichere Cloud-Verhaltensweisen",
         "unsafeCloudBehaviorsWarning": "Unsichere Cloud-Verhaltensweisen ermöglichen es dem paketisierten Projekt, beliebigen Code außerhalb der \"Sandbox\" auszuführen, in der Projekte normalerweise ausgeführt werden. Abhängig von der Umgebung, für die du paketisierst, bietet dies die volle Kontrolle über deinen Computer, einschließlich der Möglichkeit, Viren zu installieren. Wenn du dem paketisierten Projekt nicht vertraust, deaktiviere diese Option.",
         "username": "Benutzername (alle \"#\" werden mit einer zufälligen Zahl ersetzt)",
+        "variableColor": "Variablenfarbe",
         "zip": "Zip (ideal für Websites)",
         "zip-one-asset": "Zip, Ressourcen in einer einzelnen Datei kombinieren (nicht empfohlen)"
     },
@@ -105,11 +107,15 @@
         "description2-embedding": "Einbettung",
         "description3": "{onScratch} oder {onGitHub} kannst du Fehler melden, Feedback geben oder Ideen vorschlagen.",
         "description3-on": "auf {brand}",
+        "disclaimer": "Diese Seite ist nicht mit Scratch, dem Scratch Team oder der Scratch-Stiftung verbunden.",
         "documentation": "Zusätzliche Ressourcen und Hilfe",
         "error": "Fehler",
         "errorMessage": "Nachricht: {error}",
         "fosshost": "Dateien von Fosshost gehostet",
+        "networkError": "Fehler beim Herunterladen von {url}. Stelle sicher, dass du mit dem Internet verbunden bist und versuche, jegliche Browsererweiterungen auszuschalten.",
+        "outdated": "Diese Packagerversion scheint veraltet zu sein. Bitte aktualisiere die Seite und versuche es erneut.",
         "privacy": "Datenschutzerklärung",
+        "refresh": "Aktualisieren",
         "reportBug": "Fehler melden",
         "sourceCode": "Quellcode"
     },
@@ -118,10 +124,10 @@
     },
     "progress": {
         "compressingProject": "Projekt wird komprimiert",
-        "loadingAssets": "Ressourcen werden geladen ({complete}/{total})",
-        "loadingLargeAsset": "Laden {thing}",
-        "loadingProjectData": "Projektdaten werden geladen",
-        "loadingScripts": "Skripte werden geladen",
+        "loadingAssets": "Ressourcen werden heruntergeladen ({complete}/{total})",
+        "loadingLargeAsset": "{thing} wird heruntergeladen",
+        "loadingProjectData": "Projektdaten werden heruntergeladen",
+        "loadingScripts": "Skripte werden heruntergeladen",
         "packagingProject": "Projekt wird paketisiert"
     },
     "reset": {

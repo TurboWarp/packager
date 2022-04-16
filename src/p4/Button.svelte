@@ -1,8 +1,14 @@
 <script>
   import {ACCENT_COLOR} from '../packager/brand';
   export let secondary;
+  export let dangerous;
   export let text;
-  const color = secondary ? '#0FBD8C' : ACCENT_COLOR;
+
+  const getColor = () => {
+    if (secondary) return '#0FBD8C';
+    if (dangerous) return '#FF8C1A';
+    return ACCENT_COLOR;
+  };
 </script>
 
 <style>
@@ -42,7 +48,7 @@
   }
 </style>
 
-<button on:click style={`background-color: ${color}`}>
+<button on:click style:background-color={getColor()}>
   <div class="dimmer"></div>
   <div class="text">{text}</div>
 </button>

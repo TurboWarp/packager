@@ -19,8 +19,10 @@ jobs:
         ENABLE_SERVICE_WORKER: 1
     - run: npm test
     - name: Deploy
-      uses: JamesIves/github-pages-deploy-action@4.1.4
+      uses: JamesIves/github-pages-deploy-action@v4.2.5
       with:
         branch: gh-pages
         folder: dist
         single-commit: true
+        git-config-name: "packager build bot"
+        git-config-email: "packagerbuildbot@turbowarp.org"

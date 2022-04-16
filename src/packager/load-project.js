@@ -2,7 +2,7 @@ import {transfer, proxy} from 'comlink';
 import createDownloadWorker from '../build/p4-worker-loader!./download-project';
 import {readAsArrayBuffer} from '../common/readers';
 import request from '../common/request';
-import {AbortError} from '../p4/errors';
+import {AbortError} from '../common/errors';
 
 const downloadProject = async (buffer, progressCallback) => {
   const {worker, terminate} = createDownloadWorker();

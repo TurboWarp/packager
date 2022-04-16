@@ -11,7 +11,7 @@
   import {progress, theme} from './stores';
   import {isSupported, isSafari, isStandalone} from './environment';
   import version from '../build/version-loader!';
-  import {LONG_NAME, FEEDBACK_PRIMARY, FEEDBACK_SECONDARY, ACCENT_COLOR, SOURCE_CODE, WEBSITE} from '../packager/brand';
+  import {APP_NAME, FEEDBACK_PRIMARY, FEEDBACK_SECONDARY, ACCENT_COLOR, SOURCE_CODE, WEBSITE} from '../packager/brand';
 
   let projectData;
 
@@ -26,8 +26,9 @@
 
   let modalVisible = false;
 
+  const defaultTitle = document.title;
   let title = '';
-  $: document.title = projectData && title ? `${title} - ${LONG_NAME}` : LONG_NAME;
+  $: document.title = projectData && title ? `${title} - ${APP_NAME}` : defaultTitle;
 
   const getPackagerOptionsComponent = () => import(
     /* webpackChunkName: "packager-options-ui" */
@@ -104,6 +105,9 @@
   .footer-spacer {
     margin: 0 3px;
   }
+  .disclaimer {
+    font-style: italic;
+  }
 </style>
 
 <Modals bind:modalVisible={modalVisible} />
@@ -111,7 +115,7 @@
 <main aria-hidden={modalVisible} class:is-not-safari={!isSafari}>
   <Section accent={ACCENT_COLOR}>
     <div>
-      <h1>{LONG_NAME}</h1>
+      <h1>{APP_NAME}</h1>
       {#if version}
         <p><i>{version}</i> - <a href={WEBSITE}>Online version</a></p>
       {/if}
@@ -142,6 +146,9 @@
             }
           }}
         />
+      </p>
+      <p class="disclaimer">
+        {$_('p4.disclaimer')}
       </p>
     </div>
   </Section>

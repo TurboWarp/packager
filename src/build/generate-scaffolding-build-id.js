@@ -5,15 +5,16 @@ const path = require('path');
 
 const hash = crypto.createHash('sha256');
 
+const getAllFiles = (g) => glob.sync(g, {
+  cwd: root
+});
+
 const root = path.join(__dirname, '..', '..');
 const files = [
   __filename,
-  ...glob.sync('./src/scaffolding/**/*', {
-    cwd: root
-  }),
-  ...glob.sync('./src/addons/**/*', {
-    cwd: root
-  }),
+  ...getAllFiles('./src/scaffolding/**/*'),
+  ...getAllFiles('./src/addons/**/*'),
+  ...getAllFiles('./src/common/**/*'),
   path.join(root, 'webpack.config.js'),
   path.join(root, 'package.json'),
   path.join(root, 'package-lock.json')
