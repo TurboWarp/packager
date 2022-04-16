@@ -10,7 +10,7 @@
   import ColorPicker from './ColorPicker.svelte';
   import writablePersistentStore from './persistent-store';
   import fileStore from './file-store';
-  import {progress, currentTask} from './stores';
+  import {progress, currentTask, error} from './stores';
   import Preview from './preview';
   import deepClone from './deep-clone';
   import Packager from '../packager/web/export';
@@ -72,6 +72,28 @@
     'webview-mac',
     'electron-linux64'
   ].includes($options.target);
+
+  const automaticallyCenterCursor = () => {
+    const icon = $customCursorIcon;
+    const url = URL.createObjectURL(icon)
+    const image = new Image();
+    const cleanup = () => {
+      image.onerror = null;
+      image.onload = null;
+      URL.revokeObjectURL(url);
+    };
+    image.onload = () => {
+      $options.cursor.center.x = Math.round(image.width / 2);
+      $options.cursor.center.y = Math.round(image.height / 2);
+      cleanup();
+    };
+    image.onerror = () => {
+      cleanup();
+      $error = new Error('Image could not be loaded');
+      throw $error;
+    };
+    image.src = url;
+  };
 
   const downloadURL = (filename, url) => {
     const link = document.createElement('a');
@@ -481,8 +503,15 @@
         <p>{$_('options.cursorHelp')}</p>
         <label class="option">
           {$_('options.cursorCenter')}
+          <!-- X: and Y: intentionally not translated -->
           X: <input type="number" min="0" bind:value={$options.cursor.center.x}>
           Y: <input type="number" min="0" bind:value={$options.cursor.center.y}>
+          <button
+            on:click={automaticallyCenterCursor}
+            disabled={!$customCursorIcon}
+          >
+            {$_('options.automaticallyCenter')}
+          </button>
         </label>
       </div>
     {/if}
