@@ -13,6 +13,7 @@
         "application-win32": "Windows 程序（32 位或 64 位，基于 {type}）",
         "application-win64": "Windows 程序（仅64位，基于 {type}）",
         "applicationSettings": "应用程序设置",
+        "automaticallyCenter": "自动设为中心",
         "autoplay": "加载完成时自动开始运行而不是显示一个大绿旗",
         "autoplayHint": "注意：很多浏览器不允许网站自动播放声音，因此在用户与作品交互前，声音可能不会播放。",
         "backgroundColor": "背景色",
@@ -29,6 +30,7 @@
         "colors": "颜色",
         "controls": "控制按钮",
         "controlsHelp": "如果此处的所有选项都不勾选，将会删除控制栏。如果只有全屏按钮被选中，则它会放在网页的左上角，而不是控制栏上。",
+        "cursorCenter": "鼠标中心：",
         "cursorHelp": "尺寸为 32x32 以下的图像表现得最好。更大的图像可能无法正常工作。",
         "customCSS": "自定义 CSS (如果你不确定你在做什么，别动它)",
         "customCursor": "自定义光标",
@@ -77,6 +79,7 @@
         "projectIdHelp": "作品ID用于连接云变量服务器或存储本地云变量。可以包含非数字内容。",
         "removeFencing": "角色可穿过边缘",
         "removeMiscLimits": "移除其他限制",
+        "resetAll": "重置全部",
         "runtimeOptions": "运行选项",
         "showFlag": "在控制栏显示绿旗按钮",
         "showFullscreen": "在控制栏显示全屏按钮",
@@ -135,6 +138,7 @@
     },
     "reset": {
         "confirm": "该操作不可撤销，确定要重置吗？",
+        "confirmAll": "你确认要重置 *所有的* 设置吗？这操作撤销不了！",
         "reset": "重置"
     },
     "select": {

@@ -13,6 +13,7 @@
         "application-win32": "{type} Windows-Anwendung (32- oder 64-bit)",
         "application-win64": "{type} Windows-Anwendung (nut 64-bit, nicht empfohlen)",
         "applicationSettings": "App-Einstellungen",
+        "automaticallyCenter": "Automatisch zentrieren",
         "autoplay": "Projekt automatisch starten, anstatt eine große grüne Flagge zu zeigen",
         "autoplayHint": "Anmerkung: Viele Browser lassen das automatische Abspielen von Ton nicht zu, deshalb könnten Klänge nicht abgespielt werden, bis der Nutzer mit dem Projekt interagiert.",
         "backgroundColor": "Hintergrundfarbe",
@@ -29,6 +30,7 @@
         "colors": "Farben",
         "controls": "Steuerelemente",
         "controlsHelp": "Falls alle Steuerelemente deaktiviert sind, wird die Steuerungsleiste komplett entfernt. Falls nur der Vollbildknopf aktiviert ist, wird er nicht im Steuerungsheader, sondern oben links platziert.",
+        "cursorCenter": "Cursormitte:",
         "cursorHelp": "Bilder bis zu 32x32 funktionieren am besten. Größere Bilder könnten nicht zuverlässig funktionieren.",
         "customCSS": "Benutzerdefiniertes CSS (Nur ändern, wenn man weiß, was man tut!)",
         "customCursor": "Benutzerdefinierter Cursor",
@@ -76,6 +78,7 @@
         "projectIdHelp": "Die Projekt-ID wird beim Verbinden mit einem Cloudvariablenserver verwendet. Sie kann mehr als nur Zahlen enthalten.",
         "removeFencing": "Einzäunung entfernen",
         "removeMiscLimits": "Verschiedene Begrenzungen entfernen",
+        "resetAll": "Alle zurücksetzen",
         "runtimeOptions": "Laufzeit-Optionen",
         "showFlag": "Grüne flagge in Steuerelementen zeigen",
         "showFullscreen": "Vollbildknopf in Steuerungen anzeigen",
@@ -132,6 +135,7 @@
     },
     "reset": {
         "confirm": "Bist du sicher, dass du diese Einstellungen zurücksetzen möchtest? Dies kann nicht rückgängig gemacht werden.",
+        "confirmAll": "Bist du sicher, dass du ALLE Einstallungen zurücksetzen willst? Dies kann nicht rückgängig gemacht werden.",
         "reset": "Zurücksetzen"
     },
     "select": {
