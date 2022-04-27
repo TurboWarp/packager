@@ -1,224 +1,76 @@
 {
-    "ab": {
-        "name": "Аҧсшәа"
-    },
-    "af": {
-        "name": "Afrikaans"
-    },
-    "ar": {
-        "name": "العربية"
-    },
-    "am": {
-        "name": "አማርኛ"
-    },
-    "an": {
-        "name": "Aragonés"
-    },
-    "az": {
-        "name": "Azeri"
-    },
-    "id": {
-        "name": "Bahasa Indonesia"
-    },
-    "bn": {
-        "name": "বাংলা"
-    },
-    "be": {
-        "name": "Беларуская"
-    },
-    "bg": {
-        "name": "Български"
-    },
-    "ca": {
-        "name": "Català"
-    },
-    "cs": {
-        "name": "Česky"
-    },
-    "cy": {
-        "name": "Cymraeg"
-    },
-    "da": {
-        "name": "Dansk"
-    },
-    "de": {
-        "name": "Deutsch"
-    },
-    "et": {
-        "name": "Eesti"
-    },
-    "el": {
-        "name": "Ελληνικά"
-    },
-    "en": {
-        "name": "English"
-    },
-    "es": {
-        "name": "Español (España)"
-    },
-    "es-419": {
-        "name": "Español Latinoamericano"
-    },
-    "eu": {
-        "name": "Euskara"
-    },
-    "fa": {
-        "name": "فارسی"
-    },
-    "fr": {
-        "name": "Français"
-    },
-    "fy": {
-        "name": "Frysk"
-    },
-    "ga": {
-        "name": "Gaeilge"
-    },
-    "gd": {
-        "name": "Gàidhlig"
-    },
-    "gl": {
-        "name": "Galego"
-    },
-    "ko": {
-        "name": "한국어"
-    },
-    "hy": {
-        "name": "Հայերեն"
-    },
-    "he": {
-        "name": "עִבְרִית"
-    },
-    "hr": {
-        "name": "Hrvatski"
-    },
-    "xh": {
-        "name": "isiXhosa"
-    },
-    "zu": {
-        "name": "isiZulu"
-    },
-    "is": {
-        "name": "Íslenska"
-    },
-    "it": {
-        "name": "Italiano"
-    },
-    "ka": {
-        "name": "ქართული ენა"
-    },
-    "kk": {
-        "name": "қазақша"
-    },
-    "qu": {
-        "name": "Kichwa"
-    },
-    "sw": {
-        "name": "Kiswahili"
-    },
-    "ht": {
-        "name": "Kreyòl ayisyen"
-    },
-    "ku": {
-        "name": "Kurdî"
-    },
-    "ckb": {
-        "name": "کوردیی ناوەندی"
-    },
-    "lv": {
-        "name": "Latviešu"
-    },
-    "lt": {
-        "name": "Lietuvių"
-    },
-    "hu": {
-        "name": "Magyar"
-    },
-    "mi": {
-        "name": "Māori"
-    },
-    "mn": {
-        "name": "Монгол хэл"
-    },
-    "nl": {
-        "name": "Nederlands"
-    },
-    "ja": {
-        "name": "日本語"
-    },
-    "ja-Hira": {
-        "name": "にほんご"
-    },
-    "nb": {
-        "name": "Norsk Bokmål"
-    },
-    "nn": {
-        "name": "Norsk Nynorsk"
-    },
-    "or": {
-        "name": "ଓଡ଼ିଆ"
-    },
-    "uz": {
-        "name": "Oʻzbekcha"
-    },
-    "th": {
-        "name": "ไทย"
-    },
-    "km": {
-        "name": "ភាសាខ្មែរ"
-    },
-    "pl": {
-        "name": "Polski"
-    },
-    "pt": {
-        "name": "Português"
-    },
-    "pt-br": {
-        "name": "Português Brasileiro"
-    },
-    "rap": {
-        "name": "Rapa Nui"
-    },
-    "ro": {
-        "name": "Română"
-    },
-    "ru": {
-        "name": "Русский"
-    },
-    "nso": {
-        "name": "Sepedi"
-    },
-    "tn": {
-        "name": "Setswana"
-    },
-    "sk": {
-        "name": "Slovenčina"
-    },
-    "sl": {
-        "name": "Slovenščina"
-    },
-    "sr": {
-        "name": "Српски"
-    },
-    "fi": {
-        "name": "Suomi"
-    },
-    "sv": {
-        "name": "Svenska"
-    },
-    "vi": {
-        "name": "Tiếng Việt"
-    },
-    "tr": {
-        "name": "Türkçe"
-    },
-    "uk": {
-        "name": "Українська"
-    },
-    "zh-cn": {
-        "name": "简体中文"
-    },
-    "zh-tw": {
-        "name": "繁體中文"
-    }
+    "ab": "Аҧсшәа",
+    "af": "Afrikaans",
+    "am": "አማርኛ",
+    "an": "Aragonés",
+    "ar": "العربية",
+    "az": "Azeri",
+    "be": "Беларуская",
+    "bg": "Български",
+    "bn": "বাংলা",
+    "ca": "Català",
+    "ckb": "کوردیی ناوەندی",
+    "cs": "Česky",
+    "cy": "Cymraeg",
+    "da": "Dansk",
+    "de": "Deutsch",
+    "el": "Ελληνικά",
+    "en": "English",
+    "es": "Español (España)",
+    "es-419": "Español Latinoamericano",
+    "et": "Eesti",
+    "eu": "Euskara",
+    "fa": "فارسی",
+    "fi": "Suomi",
+    "fr": "Français",
+    "fy": "Frysk",
+    "ga": "Gaeilge",
+    "gd": "Gàidhlig",
+    "gl": "Galego",
+    "he": "עִבְרִית",
+    "hr": "Hrvatski",
+    "ht": "Kreyòl ayisyen",
+    "hu": "Magyar",
+    "hy": "Հայերեն",
+    "id": "Bahasa Indonesia",
+    "is": "Íslenska",
+    "it": "Italiano",
+    "ja": "日本語",
+    "ja-Hira": "にほんご",
+    "ka": "ქართული ენა",
+    "kk": "қазақша",
+    "km": "ភាសាខ្មែរ",
+    "ko": "한국어",
+    "ku": "Kurdî",
+    "lt": "Lietuvių",
+    "lv": "Latviešu",
+    "mi": "Māori",
+    "mn": "Монгол хэл",
+    "nb": "Norsk Bokmål",
+    "nl": "Nederlands",
+    "nn": "Norsk Nynorsk",
+    "nso": "Sepedi",
+    "or": "ଓଡ଼ିଆ",
+    "pl": "Polski",
+    "pt": "Português",
+    "pt-br": "Português Brasileiro",
+    "qu": "Kichwa",
+    "rap": "Rapa Nui",
+    "ro": "Română",
+    "ru": "Русский",
+    "sk": "Slovenčina",
+    "sl": "Slovenščina",
+    "sr": "Српски",
+    "sv": "Svenska",
+    "sw": "Kiswahili",
+    "th": "ไทย",
+    "tn": "Setswana",
+    "tr": "Türkçe",
+    "uk": "Українська",
+    "uz": "Oʻzbekcha",
+    "vi": "Tiếng Việt",
+    "xh": "isiXhosa",
+    "zh-cn": "简体中文",
+    "zh-tw": "繁體中文",
+    "zu": "isiZulu"
 }
