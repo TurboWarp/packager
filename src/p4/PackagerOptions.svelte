@@ -334,6 +334,10 @@
         {$_('options.customUsernameWarning')}
       </p>
     {/if}
+    <label class="option">
+      <input type="checkbox" bind:checked={$options.closeWhenStopped}>
+      {$_('options.closeWhenStopped')}
+    </label>
 
     <h3>{$_('options.stage')}</h3>
     <label class="option">

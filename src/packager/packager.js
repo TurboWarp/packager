@@ -1154,6 +1154,8 @@ cd "$(dirname "$0")"
         vm.extensionManager.loadExtensionURL(extension);
       }
 
+      ${this.options.closeWhenStopped ? `vm.runtime.on('PROJECT_RUN_STOP', () => window.close());` : ''}
+
       ${this.options.target.startsWith('nwjs-') ? `
       if (typeof nw !== 'undefined') {
         const win = nw.Window.get();
@@ -1278,6 +1280,7 @@ Packager.DEFAULT_OPTIONS = () => ({
   resizeMode: 'preserve-ratio',
   autoplay: false,
   username: 'player####',
+  closeWhenStopped: false,
   projectId: '',
   custom: {
     css: '',
