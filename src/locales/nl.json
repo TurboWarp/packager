@@ -60,16 +60,15 @@
         "description2": "Als je een makkelijke manier zoekt om een project in je website in te voegen, ben je misschien geïnteresseerd in {embedding}.",
         "description2-embedding": "invoeging",
         "description3": "Meld bugs, geef feedback, en stel ideeën voor {onScratch}of {onGitHub}.",
-        "description3-on": "aan 1{brand}",
+        "description3-on": "aan {brand}",
         "errorMessage": "bericht: {error}",
         "feedback": "feedback",
         "privacy": "Privacy Beleid",
         "reportBug": "Meld bug",
         "sourceCode": "Broncode"
     },
-    "progress": {
-        "loadingLargeAsset": "Aan het laden{thing}",
-        "loadingScripts": "Scrips laden"
+    "preview": {
+        "loading": "Voorbeeld Laden"
     },
     "select": {
         "file": "Bestand",

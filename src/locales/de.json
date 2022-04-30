@@ -17,6 +17,7 @@
         "autoplay": "Projekt automatisch starten, anstatt eine große grüne Flagge zu zeigen",
         "autoplayHint": "Anmerkung: Viele Browser lassen das automatische Abspielen von Ton nicht zu, deshalb könnten Klänge nicht abgespielt werden, bis der Nutzer mit dem Projekt interagiert.",
         "backgroundColor": "Hintergrundfarbe",
+        "closeWhenStopped": "Fenster schließen, wenn das Projekt gestoppt wird",
         "cloudVariables": "Cloudvariablen",
         "cloudVariables-custom": "Erweitert",
         "cloudVariables-custom-help": "\"Erweitert\" verwendet für jede Variable einen anderen Modus, damit manche Variablen zum Beispiel mit anderen Benutzern synchronisiert und andere lokal gespeichert werden.",

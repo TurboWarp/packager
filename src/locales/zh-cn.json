@@ -17,6 +17,7 @@
         "autoplay": "加载完成时自动开始运行而不是显示一个大绿旗",
         "autoplayHint": "注意：很多浏览器不允许网站自动播放声音，因此在用户与作品交互前，声音可能不会播放。",
         "backgroundColor": "背景色",
+        "closeWhenStopped": "当项目停止时关闭窗口",
         "cloudVariables": "云变量",
         "cloudVariables-custom": "高级",
         "cloudVariables-custom-help": "\"高级\"可以给每个云变量不同的设置，例如，有些变量可以和他人同步，有些变量就在本地储存。",

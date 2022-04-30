@@ -13,9 +13,11 @@
         "application-win32": "{type} Aplicación para Windows (32-bit o 64-bit)",
         "application-win64": "{type} Aplicación para Windows (solo 64-bit, no recomendado)",
         "applicationSettings": "Ajustes de aplicación",
+        "automaticallyCenter": "Centrar automáticamente",
         "autoplay": "Empezar proyecto automáticamente en vez de mostrar una bandera verde grande",
         "autoplayHint": "Nota: muchos navegadores no le permiten a las páginas web automáticamente reproducir sonido, por lo que los sonidos podrían no reproducirse hasta que el usuario interactúa con el proyecto.",
         "backgroundColor": "Color del fondo",
+        "closeWhenStopped": "Cerrar ventana cuando el proyecto se para",
         "cloudVariables": "Variables en la Nube",
         "cloudVariables-custom": "Avanzado",
         "cloudVariables-custom-help": "\"Avanzado\" usa un modo diferente para cada variable, por lo que algunas variables se pueden sincronizar con otros usuarios pero otras pueden guardarse localmente, por ejemplo.",
@@ -29,6 +31,7 @@
         "colors": "Colores",
         "controls": "Controles",
         "controlsHelp": "Si todos los controles están desactivados, la barra de controles se remueve totalmente. Si solo se activa el botón de pantalla completa, siempre estará ubicado en la esquina superior izquierda, en vez de en la barra de controles.",
+        "cursorCenter": "Centro del cursor",
         "cursorHelp": "Imágenes de hasta 32x32 píxeles funcionan mejor. Imágenes más grandes no funcionarán.",
         "customCSS": "CSS Personalizado (¡No cambie esto si no sabe lo que esta haciendo!)",
         "customCursor": "Puntero del ratón personalizado",
@@ -77,6 +80,7 @@
         "projectIdHelp": "El ID del proyecto es usado al conectar a un servidor de variables en la nube y para guardar variables en la nube locales. Puede contener más que solo números.",
         "removeFencing": "Quitar Fencing",
         "removeMiscLimits": "Quitar Límites Varios",
+        "resetAll": "Reestablecer Todo",
         "runtimeOptions": "Opciones de Runtime",
         "showFlag": "Mostrar botón de bandera verde en controles",
         "showFullscreen": "Mostrar botón de pantalla completa en controles",
@@ -133,6 +137,7 @@
     },
     "reset": {
         "confirm": "¿Está seguro de que quiere reiniciar estos ajustes? Esto no se puede deshacer.",
+        "confirmAll": "Estás seguro de que quieres reestablecer TODOS los ajustes? Esta acción es irreversible",
         "reset": "Reiniciar"
     },
     "select": {

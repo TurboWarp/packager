@@ -17,6 +17,7 @@
         "autoplay": "Inizia il progetto automaticamente, senza mostrare la bandiera verde al centro",
         "autoplayHint": "Nota: Alcuni browser non permettono ai siti web di riprodurre automaticamente suoni, quindi i suoni non verranno riprodotti fino a che l'utente non interagirà con il progetto.",
         "backgroundColor": "Colore sfondo",
+        "closeWhenStopped": "Chiudi la finestra quando il progetto termina",
         "cloudVariables": "Variabili Cloud",
         "cloudVariables-custom": "Impostazioni Avanzate",
         "cloudVariables-custom-help": "\"Avanzate\" usa una diversa modalità per ogni variabile, ad esempio alcune variabili possono sincronizzarsi con altri utenti mentre altre possono essere memorizzate localmente.  ",
