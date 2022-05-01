@@ -19,6 +19,7 @@
   },
   "author": "GarboMuffin",
   "homepage": "https://github.com/TurboWarp/packager#readme",
+  "keywords": ["scratch"],
   "bugs": {
     "url": "https://github.com/TurboWarp/packager/issues"
   },
