@@ -14,7 +14,8 @@
     "build-node": "cross-env BUILD_MODE=node npm run build",
     "build-node-prod": "cross-env NODE_ENV=production npm run build-node",
     "test": "jest",
-    "prepublishOnly": "npm run test && npm run build-node-prod"
+    "prepublishOnly": "npm run test && npm run build-node-prod && node src/build/nodejs/update-readme.js node",
+    "postpublish": "node src/build/nodejs/update-readme.js restore"
   },
   "author": "GarboMuffin",
   "homepage": "https://github.com/TurboWarp/packager#readme",
