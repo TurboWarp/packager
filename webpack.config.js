@@ -15,6 +15,21 @@ const base = {
 const dist = path.resolve(__dirname, 'dist');
 const buildId = isProduction ? require('./src/build/generate-scaffolding-build-id') : null;
 
+const getVersion = () => {
+  if (process.env.VERSION) {
+    return process.env.VERSION;
+  }
+  if (isStandalone) {
+    const now = new Date();
+    const dateString = `${now.getFullYear()}-${(now.getMonth() + 1).toString().padStart(2, '0')}-${now.getDate().toString().padStart(2, '0')}`;
+    const packageJSON = require('./package.json');
+    const version = packageJSON.version;
+    return `Standalone v${version} (${dateString})`;
+  }
+  return null;
+};
+const version = getVersion();
+
 const makeScaffolding = ({full}) => ({
   ...base,
   devtool: isProduction ? '' : 'source-map',
@@ -155,6 +170,7 @@ const makeWebsite = () => ({
     new webpack.DefinePlugin({
       'process.env.ENABLE_SERVICE_WORKER': JSON.stringify(process.env.ENABLE_SERVICE_WORKER),
       'process.env.STANDALONE': JSON.stringify(isStandalone ? true : false),
+      'process.env.VERSION': JSON.stringify(version),
       'process.env.PLAUSIBLE_API': JSON.stringify(process.env.PLAUSIBLE_API),
       'process.env.PLAUSIBLE_DOMAIN': JSON.stringify(process.env.PLAUSIBLE_DOMAIN),
     }),

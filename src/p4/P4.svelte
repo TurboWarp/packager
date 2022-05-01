@@ -9,8 +9,7 @@
   import Progress from './Progress.svelte';
   import Modals from './Modals.svelte';
   import {progress, theme} from './stores';
-  import {isSupported, isSafari, isStandalone} from './environment';
-  import version from '../build/version-loader!';
+  import {isSupported, isSafari, isStandalone, version} from './environment';
   import {APP_NAME, FEEDBACK_PRIMARY, FEEDBACK_SECONDARY, ACCENT_COLOR, SOURCE_CODE, WEBSITE} from '../packager/brand';
 
   let projectData;
@@ -108,6 +107,13 @@
   .disclaimer {
     font-style: italic;
   }
+  .version {
+    font-size: small;
+    opacity: 0.8;
+  }
+  .version a {
+    color: inherit;
+  }
 </style>
 
 <Modals bind:modalVisible={modalVisible} />
@@ -117,7 +123,12 @@
     <div>
       <h1>{APP_NAME}</h1>
       {#if version}
-        <p><i>{version}</i> - <a href={WEBSITE}>Online version</a></p>
+        <p class="version">
+          {version}
+          {#if isStandalone}
+            - <a href={WEBSITE}>{WEBSITE}</a>
+          {/if}
+        </p>
       {/if}
       <p>{$_('p4.description1')}</p>
       <p>
