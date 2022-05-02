@@ -25,7 +25,7 @@
     <main id="packager-extras"><p>Loading...</p></main>
     <script>
       const fetchStats = (repo, main) => {
-        fetch(`https://api.github.com/repos/${repo}/releases`)
+        fetch(`https://api.github.com/repos/${repo}/releases?per_page=100`)
           .then((r) => {
             if (!r.ok) throw new Error('Unexpected status code: ' + r.status);
             return r.json();
