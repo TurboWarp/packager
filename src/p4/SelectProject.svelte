@@ -243,9 +243,6 @@
           }}
         />
       </p>
-      <p>
-        {$_('select.uncertaintyWorkaround')}
-      </p>
     {/if}
 
     <Button on:click={load} text={$_('select.loadProject')} />
