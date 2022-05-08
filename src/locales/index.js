@@ -14,6 +14,7 @@ const allMessages = {
   "it": () => require("./it.json"),
   "ja": () => require("./ja.json"),
   "ko": () => require("./ko.json"),
+  "lt": () => require("./lt.json"),
   "nl": () => require("./nl.json"),
   "pl": () => require("./pl.json"),
   "pt": () => require("./pt.json"),

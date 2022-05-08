@@ -17,6 +17,7 @@
         "autoplay": "Começar projeto automaticamente ao invés de mostrar a bandeira verde",
         "autoplayHint": "Nota: Muitos navegadores não permitem que websites toquem sons automaticamente, então pode ser que os sons não toquem até que o usuário interaja com o projeto.",
         "backgroundColor": "Cor de fundo",
+        "closeWhenStopped": "Fechar a janela quando projeto parar",
         "cloudVariables": "Variáveis na nuvem",
         "cloudVariables-custom": "Avançado",
         "cloudVariables-custom-help": "\"Avançado\" utiliza um modo diferente para cada variável para que, por exemplo, sincronizem algumas variáveis com outros usuários e que outras sejam salvas localmente.",

@@ -145,6 +145,8 @@
         "noFileSelected": "Nessun file selezionato",
         "select": "Seleziona il Progetto",
         "selectHelp": "Seleziona il progetto che vuoi pacchettizzare copiando e incollando il link del progetto Scratch o usando uno degli altri metodi. Se usi un progetto che non hai creato tu stesso assicurati di dare il giusto credito.",
+        "uncertainty": "8 Maggio 2022 - Il futuro della pacchettizzazione di progetti non condivisi non è per ora noto, a causa di prossimi cambiamenti della API di Scratch. {moreInformation}.",
+        "uncertaintyMore": "Ulteriori Informazioni",
         "url": "Altro URL"
     },
     "theme": {
