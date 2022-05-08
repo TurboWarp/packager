@@ -121,7 +121,7 @@
       "context": "Error message"
     },
     "uncertainty": {
-      "string": "May 7, 2022 - The future of packaging unshared projects is uncertain and may no longer be possible in the future due to upcoming changes from the Scratch Team. {moreInformation}.",
+      "string": "May 7, 2022 - The future of packaging unshared projects is uncertain and may no longer be possible in the future due to upcoming API changes from the Scratch Team. This includes your own unshared projects. {moreInformation}.",
       "context": "The Scratch Team is probably going to prevent third-party sites from accessing unshared projects. This describes the situation. The date is when this notice was added so that people can understand that this is a new notice."
     },
     "uncertaintyMore": {
