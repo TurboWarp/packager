@@ -5,6 +5,7 @@
   import Section from './Section.svelte';
   import Button from './Button.svelte';
   import DropArea from './DropArea.svelte';
+  import ComplexMessage from './ComplexMessage.svelte';
   import writablePersistentStore from './persistent-store';
   import {progress, currentTask} from './stores';
   import {UserError} from '../common/errors';
@@ -228,6 +229,24 @@
         {/if}
       </div>
     </div>
+
+    {#if $type === "id"}
+      <p>
+        <ComplexMessage
+          message={$_('select.uncertainty')}
+          values={{
+            moreInformation: {
+              text: $_('select.uncertaintyMore'),
+              href: 'https://docs.turbowarp.org/unshared-projects',
+              newTab: true
+            }
+          }}
+        />
+      </p>
+      <p>
+        {$_('select.uncertaintyWorkaround')}
+      </p>
+    {/if}
 
     <Button on:click={load} text={$_('select.loadProject')} />
   </Section>
