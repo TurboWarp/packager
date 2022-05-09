@@ -141,4 +141,4 @@ packager.addEventListener('large-asset-fetch', ({detail}) => {
 
 What you do with `data` is now entirely up to you.
 
-Be mindful of the copyright on the projects you package and on the packager itself (see [README.md](../README.md) for more information).
+Be mindful of the copyright on the projects you package.

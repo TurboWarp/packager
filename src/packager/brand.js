@@ -17,7 +17,6 @@ ACCENT_COLOR is a color used in various parts of the interface and as the defaul
 color option. It should be a 6-character hex color (#123abc)
 
 SOURCE_CODE is where users can find the app's source code. This link is included in the website.
-Note that due to the license used by the project (see README.md), you may be required to make the source code available to all visitors.
 
 FEEDBACK_PRIMARY and FEEDBACK_SECONDARY are feedback/bug report links shown in various places throughout the website.
 name is how they will be labelled in the interface and link is of course a URL
