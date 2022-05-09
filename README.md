@@ -101,4 +101,4 @@ npm run build-node-prod
 
 Copyright (C) 2021-2022 Thomas Weber
 
-This project is licensed under the GNU Lesser General Public License version 3. See COPYING and COPYING.LESSER for more information. We believe that packaging a project using the packager "makes use of an interface provided by the Library, but which is not otherwise based on the Library"
+This project is licensed under the Apache License, version 2.0. See LICENSE for more information.
