@@ -149,6 +149,8 @@
         "noFileSelected": "Keine Datei ausgewählt",
         "select": "Projekt auswählen",
         "selectHelp": "Wähle das Projekt, das du paketisieren willst, indem du den Link dazu kopierst und einfügst oder einen der anderen Modi verwendest. Falls das Projekt jemand anderem gehört, vergewissere dich, dass du dich dafür bedankst.",
+        "uncertainty": "8. Mai 2022 - Die Zukunft des Paketisierens von unveröffentlichten Projekten ist aufgrund von kommenden Änderungen an der Scratch-API unbekannt. {moreInformation}.",
+        "uncertaintyMore": "Weitere Informationen",
         "url": "Andere URL"
     },
     "theme": {

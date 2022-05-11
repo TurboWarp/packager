@@ -150,6 +150,8 @@
         "noFileSelected": "Ningún archivo seleccionado",
         "select": "Seleccionar proyecto",
         "selectHelp": "Seleccione el proyecto que quiere empacar copiando y pegando el enlace de proyecto de Scratch o usando alguno de los otros modos. Si usa un proyecto que no creó, asegúrese de dar créditos al creador.",
+        "uncertainty": "8 de Mayo, 2022 - El futuro de poder ver proyectos no copartidos en TurboWarp es actualmente desconocido debido a cambios por venir en el API de Scratch. {moreInformation}.",
+        "uncertaintyMore": "Más información.",
         "url": "Otra URL"
     },
     "theme": {
