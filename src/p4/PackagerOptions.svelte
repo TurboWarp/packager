@@ -16,6 +16,7 @@
   import deepClone from './deep-clone';
   import Packager from '../packager/web/export';
   import Task from './task';
+  import downloadURL from './download-url';
 
   export let projectData;
   export let title;
@@ -94,15 +95,6 @@
       throw $error;
     };
     image.src = url;
-  };
-
-  const downloadURL = (filename, url) => {
-    const link = document.createElement('a');
-    link.download = filename;
-    link.href = url;
-    document.body.appendChild(link);
-    link.click();
-    link.remove();
   };
 
   const runPackager = async (task, options) => {
@@ -872,5 +864,5 @@
 <Downloads
   name={result ? result.filename : null}
   url={result ? result.url : null}
-  byteLength={result ? result.blob.size : null}
+  blob={result ? result.blob : null}
 />
