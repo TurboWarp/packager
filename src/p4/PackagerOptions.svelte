@@ -861,8 +861,14 @@
   </div>
 </Section>
 
-<Downloads
-  name={result ? result.filename : null}
-  url={result ? result.url : null}
-  blob={result ? result.blob : null}
-/>
+{#if result}
+  <Downloads
+    name={result ? result.filename : null}
+    url={result ? result.url : null}
+    blob={result ? result.blob : null}
+  />
+{:else if !$progress.visible}
+  <Section caption>
+    <p>{$_('options.downloadsWillAppearHere')}</p>
+  </Section>
+{/if}

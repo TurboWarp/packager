@@ -46,36 +46,28 @@
   }
 </style>
 
-{#if url}
-  <Section center>
-    <div>
-      <p>
-        <a href={url} download={name}>
-          {$_('downloads.link')
-            .replace('{size}', `${(blob.size / 1000 / 1000).toFixed(2)}MB`)
-            .replace('{filename}', name)}
-        </a>
-      </p>
-      {#if isChromeOS && name.endsWith('.html')}
-        <p class="alternative">
-          <button
-            on:click={useAlternativeDownloadToBypassChromeOSBugs}
-            disabled={zipping}
-          >
-            {#if zipping}
-              {$_('downloads.workaroundInProgress')}
-            {:else}
-              {$_('downloads.useWorkaround')}
-            {/if}
-          </button>
-        </p>
-      {/if}
-    </div>
-  </Section>
-{:else}
-  <Section caption>
+<Section center>
+  <div>
     <p>
-      {$_('downloads.placeholder')}
+      <a href={url} download={name}>
+        {$_('downloads.link')
+          .replace('{size}', `${(blob.size / 1000 / 1000).toFixed(2)}MB`)
+          .replace('{filename}', name)}
+      </a>
     </p>
-  </Section>
-{/if}
+    {#if isChromeOS && name.endsWith('.html')}
+      <p class="alternative">
+        <button
+          on:click={useAlternativeDownloadToBypassChromeOSBugs}
+          disabled={zipping}
+        >
+          {#if zipping}
+            {$_('downloads.workaroundInProgress')}
+          {:else}
+            {$_('downloads.useWorkaround')}
+          {/if}
+        </button>
+      </p>
+    {/if}
+  </div>
+</Section>
