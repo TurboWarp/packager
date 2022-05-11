@@ -9,7 +9,7 @@
   export let url;
   export let blob;
 
-  let zipping;
+  let workaroundInProgress;
 
   const useAlternativeDownloadToBypassChromeOSBugs = async () => {
     // We've had a lot of bug reports about people on Chrome OS devices not being able to download
@@ -17,7 +17,7 @@
     // fault so we have to work around it (I want to blame whatever surveillance extensions
     // they're being forced to install).
 
-    zipping = true;
+    workaroundInProgress = true;
 
     try {
       const JSZip = await getJSZip();
@@ -36,7 +36,7 @@
       console.error(e);
     }
 
-    zipping = false;
+    workaroundInProgress = false;
   };
 </script>
 
@@ -59,13 +59,9 @@
       <p class="alternative">
         <button
           on:click={useAlternativeDownloadToBypassChromeOSBugs}
-          disabled={zipping}
+          disabled={workaroundInProgress}
         >
-          {#if zipping}
-            {$_('downloads.workaroundInProgress')}
-          {:else}
-            {$_('downloads.useWorkaround')}
-          {/if}
+          {$_('downloads.useWorkaround')}
         </button>
       </p>
     {/if}

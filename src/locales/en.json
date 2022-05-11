@@ -471,10 +471,6 @@
     "useWorkaround": {
       "string": "Click here if download link doesn't work",
       "context": "Buttons that appears when downloading certain file types on certain systems to work around system bugs that prevent downloading files."
-    },
-    "workaroundInProgress": {
-      "string": "Zipping...",
-      "context": "Message that appears when button to work around system download bugs is clicked as the process may take a few seconds."
     }
   },
   "fileInput": {
