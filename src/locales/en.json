@@ -457,13 +457,16 @@
     "resetAll": {
       "string": "Reset All",
       "context": "Button that resets all settings"
+    }
+  },
+  "downloads": {
+    "link": {
+      "string": "Download {filename} ({size})",
+      "context": "Link to download project after it has been packaged. filename might be \"Packaged Project.html\" and size might be \"6.2MB\""
     },
-    "download": {
-      "string": "Download {filename} ({size}MB)",
-      "context": "Download link"
-    },
-    "downloadsWillAppearHere": {
-      "string": "Downloads will appear here"
+    "placeholder": {
+      "string": "Downloads will appear here",
+      "context": "Placeholder that appears when no project has been packaged yet so there is nothing to download"
     }
   },
   "fileInput": {

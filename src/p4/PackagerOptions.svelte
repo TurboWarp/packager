@@ -8,6 +8,7 @@
   import CustomExtensions from '../p4/CustomExtensions.svelte';
   import LearnMore from './LearnMore.svelte';
   import ColorPicker from './ColorPicker.svelte';
+  import Downloads from './Downloads.svelte';
   import writablePersistentStore from './persistent-store';
   import fileStore from './file-store';
   import {progress, currentTask, error} from './stores';
@@ -868,18 +869,8 @@
   </div>
 </Section>
 
-{#if result}
-  <Section center>
-    <p>
-      <a href={result.url} download={result.filename}>
-        {$_('options.download')
-          .replace('{filename}', result.filename)
-          .replace('{size}', (result.blob.size / 1000 / 1000).toFixed(2))}
-      </a>
-    </p>
-  </Section>
-{:else if !$progress.visible}
-  <Section caption>
-    <p>{$_('options.downloadsWillAppearHere')}</p>
-  </Section>
-{/if}
+<Downloads
+  name={result ? result.filename : null}
+  url={result ? result.url : null}
+  byteLength={result ? result.blob.size : null}
+/>
