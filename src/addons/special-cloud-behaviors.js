@@ -49,6 +49,11 @@ const openInCurrentTab = (url) => {
 class SpecialCloudBehaviorsProvider {
   enable () {
     this.manager.setVariable(this, '☁ url', location.href);
+
+    document.addEventListener('paste', (e) => {
+      const text = (e.clipboardData || window.clipboardData).getData('text');
+      this.manager.setVariable(this, '☁ pasted', text);
+    });
   }
 
   handleUpdateVariable (name, value) {
@@ -70,6 +75,8 @@ class SpecialCloudBehaviorsProvider {
       }
     } else if (name === '☁ username') {
       this.manager.parent.setUsername(value);
+    } else if (name === '☁ set clipboard') {
+      navigator.clipboard.writeText(value);
     }
   }
 }
