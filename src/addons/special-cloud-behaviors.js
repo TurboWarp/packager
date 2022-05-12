@@ -81,7 +81,7 @@ class SpecialCloudBehaviorsProvider {
   }
 }
 
-export default function (scaffolding) {
+export default function ({ scaffolding }) {
   const provider = new SpecialCloudBehaviorsProvider();
   scaffolding.addCloudProvider(provider);
   scaffolding.addCloudProviderOverride('☁ url', provider);

@@ -1,4 +1,4 @@
-export default function (scaffolding) {
+export default function ({ scaffolding }) {
   // This file is based on the `pause` addon from Scratch Addons
   // All major portions of this file were written by me, so the GPL does not apply
 

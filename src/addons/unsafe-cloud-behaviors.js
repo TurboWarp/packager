@@ -43,7 +43,7 @@ class UnsafeCloudBehaviorsProvider {
   }
 }
 
-export default function (scaffolding) {
+export default function ({ scaffolding }) {
   const provider = new UnsafeCloudBehaviorsProvider();
   scaffolding.addCloudProvider(provider);
   scaffolding.addCloudProviderOverride('☁ eval', provider);

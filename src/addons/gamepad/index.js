@@ -7,7 +7,7 @@ const addStylesheet = (css) => {
   document.head.appendChild(stylesheet);
 };
 
-const run = (scaffolding) => {
+const run = ({ scaffolding }) => {
   gamepadUserscript(scaffolding);
   addStylesheet(gamepadUserstyle);
 };

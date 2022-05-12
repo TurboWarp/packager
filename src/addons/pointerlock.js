@@ -1,4 +1,4 @@
-const run = (scaffolding) => {
+const run = ({ scaffolding }) => {
   const canvas = scaffolding._canvas;
   const vm = scaffolding.vm;
   const mouse = vm.runtime.ioDevices.mouse;
