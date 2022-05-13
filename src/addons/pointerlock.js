@@ -59,6 +59,14 @@ const run = ({ scaffolding }) => {
     console.error('Pointer lock error', e);
   });
 
+  vm.pointerLockMove = (deltaX, deltaY) => {
+    postMouseData({
+      // Essentially constructing a fake MouseEvent
+      movementX: deltaX,
+      movementY: deltaY
+    });
+  };
+
   const oldStep = vm.runtime._step;
   vm.runtime._step = function (...args) {
     const ret = oldStep.call(this, ...args);

@@ -222,15 +222,14 @@ export default async function (scaffolding, pointerlock) {
       virtualX = x;
       virtualY = y;
       // Coordinates that pointerlock accepts are in "screen space" but virtual cursor is in "stage space"
-      const SPEED_MULTIPLIER = 3.0;
+      const SPEED_MULTIPLIER = 4.0;
       const zoomMultiplierX = scaffolding.layersRect.width / vm.runtime.stageWidth;
       const zoomMultiplierY = scaffolding.layersRect.height / vm.runtime.stageHeight;
-      // It's a bit of a hack, but pointerlock will listen for this event
-      // It only uses the movement[X|Y] properties
-      scaffolding._canvas.dispatchEvent(new MouseEvent('mousemove', {
-        movementX: deltaX * SPEED_MULTIPLIER * zoomMultiplierX,
-        movementY: deltaY * SPEED_MULTIPLIER * zoomMultiplierY
-      }));
+      // This is defined in pointerlock addon
+      vm.pointerLockMove(
+        deltaX * SPEED_MULTIPLIER * zoomMultiplierX,
+        deltaY * SPEED_MULTIPLIER * zoomMultiplierY
+      );
     } else {
       virtualX = x;
       virtualY = y;
