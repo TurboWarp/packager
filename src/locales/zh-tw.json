@@ -32,7 +32,6 @@
         "customCursor": "自訂指標",
         "customExtensions": "自訂擴充功能（一行一個網址）",
         "customJS": "自訂 JS（如果你不知道你在做什麼，千萬別更改它！）",
-        "download": "下載「{filename}（{size} MB）」中……",
         "downloadsWillAppearHere": "這裡會顯示下載連結",
         "editableLists": "可編輯鏈表",
         "enableCompiler": "編譯器",

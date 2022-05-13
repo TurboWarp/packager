@@ -35,7 +35,6 @@
         "customExtensions": "Extensions personnalisées (une URL par ligne)",
         "customJS": "JS personnalisé (ne changez pas si vous ne savez pas ce que vous faites !)",
         "customUsernameWarning": "Soyez prudent lorsque vous modifiez le nom d'utilisateur par défaut, car cela peut entraîner le blocage des connexions au serveur de variables cloud par défaut. Seul le nom d'utilisateur par défaut est garanti de fonctionner.",
-        "download": "Télécharger {filename} ({size}MB)",
         "downloadsWillAppearHere": "Les téléchargements vont apparaître ici",
         "dynamicResize": "Redimensionner dynamiquement la taille pour correspondre à la taille de la fenêtre (expérimental)",
         "editableLists": "Listes modifiables",
@@ -121,10 +120,6 @@
     },
     "progress": {
         "compressingProject": "Compression du projet",
-        "loadingAssets": "Chargement des assets ({complete} / {total})",
-        "loadingLargeAsset": "Chargement {thing}",
-        "loadingProjectData": "Chargement des données du projet",
-        "loadingScripts": "Lecture des assets",
         "packagingProject": "Compilation du projet"
     },
     "reset": {

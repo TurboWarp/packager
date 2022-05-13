@@ -15,7 +15,6 @@
         "controlsHelp": "Če so vsi gumbi izključeni, bo cela vrstica z gumbi odstranjena. Če je vključen le gumb za celoten zaslon, bo vedno v zgornjem levem kotu in ne v vrstici z gumbi.",
         "customExtensions": "Razširitve po meri (en URL v vsaki vrstici)",
         "customJS": "JS po meri (Ne spreminjajte, če ne veste, kaj počnete!)",
-        "download": "Prenesi {filename} ({size} MB)",
         "downloadsWillAppearHere": "Prenosi bodo prikazani tu",
         "enableCompiler": "Omogoči prevajalnik",
         "environment": "Okolje",
@@ -54,8 +53,6 @@
     },
     "progress": {
         "compressingProject": "Stiskanje projekta",
-        "loadingProjectData": "Nalaganje podatkov projekta",
-        "loadingScripts": "Nalaganje skript",
         "packagingProject": "Pakiranje projekta"
     },
     "reset": {

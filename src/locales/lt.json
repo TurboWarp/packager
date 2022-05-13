@@ -1,4 +1,8 @@
 {
+    "downloads": {
+        "link": "Atsisiųsti {filename} ({size})",
+        "useWorkaround": "Spustelėkite čia jei atsisiuntimo nuoroda neveikia"
+    },
     "fileInput": {
         "clear": "Išvalyti pasirinkimus",
         "select": "Pasirinkite arba numeskite failą",
@@ -38,7 +42,6 @@
         "customExtensions": "Pasirinktiniai papildiniai (vienas URL per eilutę)",
         "customJS": "Pasirinktinis JS (nekeiskite jei nežinote ką darote!)",
         "customUsernameWarning": "Būkite atsargūs keisdami numatytąjį naudotojo vardą, nes dėl to gali būti užblokuoti prisijungimai prie numatytojo debesies kintamojo serverio. Garantuojama, kad veiks tik numatytasis naudotojo vardas.",
-        "download": "Atsisiųsti {filename} ({size} MB)",
         "downloadsWillAppearHere": "Atsisiuntimai atsiras čia",
         "dynamicResize": "Dinamiškai keisti dydį, kad jis atitiktų lango dydį (eksperimentinis)",
         "editableLists": "Redaguojami sąrašai",
@@ -66,7 +69,7 @@
         "noCursor": "Jokio žymeklio",
         "normalCursor": "Įprastas žymeklis",
         "otherEnvironments": "Kitos aplinkos (Spustėlkite kad atidarytumėte)",
-        "otherEnvironmentsHelp": "Daugiausia naujų projektų turėtų naudoti pasirinktus nustatymus viršujė.",
+        "otherEnvironmentsHelp": "Daugiausia naujų projektų turėtų naudoti pasirinktus nustatymus viršuje.",
         "package": "Pakuotė",
         "packageName": "Pakuotės vardas",
         "packageNameHelp": "Pakuotės vardas turėtų būti originalus vardas naudojamas tik jūsų programos. Tas pats projektas turėtų turėti tą patį pakuotės vardą.",

@@ -35,7 +35,6 @@
         "customExtensions": "Öze eklentiler (satır başına bir URL)",
         "customJS": "Özel JS (Eğer sen ne yapmayı bilmiyorsan burada hiç bir şey yapma)",
         "customUsernameWarning": "Varsayılan bulut değişken sunucusuna olan bağlantıları engelleyebileceğinden dolayı, lütfen varsayılan kullanıcı adını değiştirirken dikkatli olun. Sadece varsayılan kullanıcı adının çalışacağı garanti edilmiştir.",
-        "download": "İndir {filename} ({size}MB)",
         "downloadsWillAppearHere": "İndirilenler burada görünecek",
         "dynamicResize": "Pencere büyüklüğüyle eşitlemek için dinamik olarak yeniden boyutlandır (deneysel)",
         "editableLists": "Düzenlenebilen listeler",
@@ -122,10 +121,6 @@
     },
     "progress": {
         "compressingProject": "Projeyi sıkıştıryor",
-        "loadingAssets": " 97% match \nVarlıklar yükleniyor ({complete}/{total})",
-        "loadingLargeAsset": "Yükleniyor {thing}",
-        "loadingProjectData": "Proje verileri yükleniyor",
-        "loadingScripts": "Kodlar yükleniyor",
         "packagingProject": "Proje paketleniyor"
     },
     "reset": {

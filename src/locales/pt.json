@@ -118,10 +118,6 @@
     },
     "progress": {
         "compressingProject": "Comprimindo projeto",
-        "loadingAssets": "Carregando recursos ({complete}/{total})",
-        "loadingLargeAsset": "Carregando {thing}",
-        "loadingProjectData": "Carregando dados do projeto",
-        "loadingScripts": "Carregando scripts",
         "packagingProject": "Exportando projeto"
     },
     "reset": {

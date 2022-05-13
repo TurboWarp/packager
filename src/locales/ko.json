@@ -35,7 +35,6 @@
         "customExtensions": "사용자 지정 확장 기능 (한 줄당 한 URL)",
         "customJS": "사용자 지정 자바스크립트 파일 (이 기능에 대해 모르는 경우 변경하지 마세요!)",
         "customUsernameWarning": "기본값으로 지정된 사용자 이름을 변경하면 기본 클라우드 변수 서버와 통신이 불가능할 수 있으므로 주의해야 합니다. 기본값으로 지정된 사용자 이름은 기본 클라우드 변수 서버와 반드시 통신이 가능합니다.",
-        "download": "{filename} 다운로드하기 ({size}MB) ",
         "downloadsWillAppearHere": "다운로드는 여기에 표시됩니다",
         "dynamicResize": "무대 크기를 창 크기에 맞춰 재설정하기 (실험 기능)",
         "editableLists": "리스트를 직접 수정 가능하도록 하기",

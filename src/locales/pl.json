@@ -33,7 +33,6 @@
         "customCursor": "Niestandardowy kursor",
         "customExtensions": "Niestandardowe rozszerzenia (jedno URL na linię)",
         "customJS": "Własne JS (Nie zmieniaj, jeżeli nie wiesz co robisz!)",
-        "download": "Pobierz {filename} ({size}MB) ",
         "downloadsWillAppearHere": "Tutaj pojawią się pliki do pobrania ",
         "dynamicResize": "Dynamicznie zmień rozmiar, żeby dopasować rozmiar do wielkości okna (eksperymentalne)",
         "editableLists": "Edytowalne listy",

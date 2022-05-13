@@ -36,7 +36,6 @@
         "customExtensions": "カスタム拡張機能(1行にURLを1つ)",
         "customJS": "カスタム JS(何をするのか分からない場合は変更しないでください)",
         "customUsernameWarning": "デフォルトのユーザー名を変更すると、デフォルトのクラウド変数サーバーへの接続がブロックされることがありますので、ご注意ください。デフォルトのユーザー名のみ動作が保証されています。",
-        "download": "{filename}をダウンロード({size}MB)",
         "downloadsWillAppearHere": "ダウンロードでここに表示する",
         "dynamicResize": "ウィンドウの大きさに合わせて、サイズを動的に変更する（実験的）",
         "editableLists": "編集できるリスト",
