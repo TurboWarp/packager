@@ -173,7 +173,7 @@
   {#if projectData}
     {#await getPackagerOptionsComponent()}
       <Section center>
-        <Progress text="Loading interface..." />
+        <Progress text={$_('p4.importingInterface')} />
       </Section>
     {:then { default: PackagerOptions }}
       <div in:fade>

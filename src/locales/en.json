@@ -48,6 +48,10 @@
       "string": "Please update your browser.",
       "description": "Additional text that appears when the user's browser does not support required features."
     },
+    "importingInterface": {
+      "string": "Loading options...",
+      "description": "Can appear when downloading additional UI scripts. Typically never seen."
+    },
     "reportBug": {
       "string": "Report Bug"
     },
