@@ -40,6 +40,14 @@
       "string": "Refresh",
       "context": "Button in some error messages that refreshes/reloads the page"
     },
+    "browserNotSupported": {
+      "string": "Browser not supported",
+      "description": "Message that appears when the user's browser does not support required features."
+    },
+    "browserNotSupportedDescription": {
+      "string": "Please update your browser.",
+      "description": "Additional text that appears when the user's browser does not support required features."
+    },
     "reportBug": {
       "string": "Report Bug"
     },

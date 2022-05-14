@@ -165,8 +165,8 @@
     <SelectProject bind:projectData />
   {:else}
     <Section accent="#4C97FF">
-      <h2>Browser not supported</h2>
-      <p>Please update your browser to use this site.</p>
+      <h2>{$_('p4.browserNotSupported')}</h2>
+      <p>{$_('p4.browserNotSupportedDescription')}</p>
     </Section>
   {/if}
 
