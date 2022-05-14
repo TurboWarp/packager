@@ -101,9 +101,6 @@
   footer > div {
     margin-top: 12px;
   }
-  .footer-spacer {
-    margin: 0 3px;
-  }
   .disclaimer {
     font-style: italic;
   }
@@ -202,11 +199,11 @@
     <div>
       {#if !isStandalone}
         <a href="privacy.html">{$_('p4.privacy')}</a>
-        <span class="footer-spacer">-</span>
+        <span> - </span>
       {/if}
       <a href={FEEDBACK_PRIMARY.link}>{$_('p4.feedback')}</a>
       {#if SOURCE_CODE}
-        <span class="footer-spacer">-</span>
+        <span> - </span>
         <a href={SOURCE_CODE}>{$_('p4.sourceCode')}</a>
       {/if}
     </div>
