@@ -20,6 +20,17 @@ const flat = (array) => {
   return result;
 };
 
+const fetchAsArrayBuffer = (url) => fetch(url)
+  .then((r) => {
+    if (r.ok) {
+      return r.arrayBuffer();
+    }
+    throw new Error(`Failed to fetch ${url}: status code ${r.status}`);
+  })
+  .catch((err) => {
+    throw new Error(`Failed to fetch ${url}: ${err}`);
+  });
+
 const identifyProjectType = (projectData) => {
   if ('targets' in projectData) {
     return 'sb3';
@@ -135,8 +146,7 @@ const loadScratch2 = (projectData, progressTarget) => {
     progressTarget.dispatchEvent(new CustomEvent('asset-fetch', {
       detail: md5ext
     }));
-    return fetch(ASSET_HOST.replace('$path', md5ext))
-      .then((res) => res.arrayBuffer())
+    return fetchAsArrayBuffer(ASSET_HOST.replace('$path', md5ext))
       .then((arrayBuffer) => {
         const path = `${id}.${getExtension(md5ext)}`;
         zip.file(path, arrayBuffer);
@@ -196,8 +206,7 @@ const loadScratch3 = (projectData, progressTarget) => {
     progressTarget.dispatchEvent(new CustomEvent('asset-fetch', {
       detail: path
     }));
-    return fetch(ASSET_HOST.replace('$path', path))
-      .then((request) => request.arrayBuffer())
+    return fetchAsArrayBuffer(ASSET_HOST.replace('$path', path))
       .then((buffer) => {
         zip.file(path, buffer);
         progressTarget.dispatchEvent(new CustomEvent('asset-fetched', {
