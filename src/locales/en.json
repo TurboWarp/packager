@@ -73,7 +73,8 @@
       "context": "Link to a place with additional information describing advanced topics"
     },
     "fosshost": {
-      "string": "File hosting provided by Fosshost"
+      "string": "Thank you to Fosshost for providing servers used by the packager",
+      "context": "Link in the site's footer thanking Fosshost.org"
     }
   },
   "progress": {
