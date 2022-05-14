@@ -184,7 +184,9 @@
       </div>
     {:catch}
       <Section center>
-        Something went wrong, please refresh and try again.
+        <p>
+          {$_('p4.unknownImportError')}
+        </p>
       </Section>
     {/await}
   {/if}

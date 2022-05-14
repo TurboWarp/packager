@@ -52,6 +52,10 @@
       "string": "Loading options...",
       "description": "Can appear when downloading additional UI scripts. Typically never seen."
     },
+    "unknownImportError": {
+      "string": "Something went wrong. Please refresh and try again.",
+      "description": "Appears when an unknown error happens while downloading additional UI scripts."
+    },
     "reportBug": {
       "string": "Report Bug"
     },
