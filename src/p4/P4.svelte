@@ -8,7 +8,7 @@
   import SelectTheme from './SelectTheme.svelte';
   import Progress from './Progress.svelte';
   import Modals from './Modals.svelte';
-  import {progress, theme} from './stores';
+  import {progress, theme, error} from './stores';
   import {isSupported, isSafari, isStandalone, version} from './environment';
   import {APP_NAME, FEEDBACK_PRIMARY, FEEDBACK_SECONDARY, ACCENT_COLOR, SOURCE_CODE, WEBSITE} from '../packager/brand';
 
@@ -32,7 +32,10 @@
   const getPackagerOptionsComponent = () => import(
     /* webpackChunkName: "packager-options-ui" */
     './PackagerOptions.svelte'
-  );
+  ).catch((err) => {
+    $error = err;
+  });
+
   // We know for sure we will need this component very soon, so start loading it immediately.
   getPackagerOptionsComponent();
 </script>
