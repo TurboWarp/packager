@@ -1,7 +1,7 @@
 import JSZip from 'jszip';
-import fetch from 'cross-fetch';
 import {EventTarget, CustomEvent} from '../common/event-target';
 import optimizeSb3Json from './minify/sb3';
+import fetchAsArrayBuffer from './safer-fetch';
 
 const ASSET_HOST = 'https://assets.scratch.mit.edu/internalapi/asset/$path/get/';
 
@@ -19,17 +19,6 @@ const flat = (array) => {
   }
   return result;
 };
-
-const fetchAsArrayBuffer = (url) => fetch(url)
-  .then((r) => {
-    if (r.ok) {
-      return r.arrayBuffer();
-    }
-    throw new Error(`Failed to fetch ${url}: status code ${r.status}`);
-  })
-  .catch((err) => {
-    throw new Error(`Failed to fetch ${url}: ${err}`);
-  });
 
 const identifyProjectType = (projectData) => {
   if ('targets' in projectData) {
