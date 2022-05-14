@@ -205,8 +205,10 @@
         <span class="footer-spacer">-</span>
       {/if}
       <a href={FEEDBACK_PRIMARY.link}>{$_('p4.feedback')}</a>
-      <span class="footer-spacer">-</span>
-      <a href={SOURCE_CODE}>{$_('p4.sourceCode')}</a>
+      {#if SOURCE_CODE}
+        <span class="footer-spacer">-</span>
+        <a href={SOURCE_CODE}>{$_('p4.sourceCode')}</a>
+      {/if}
     </div>
     <div>
       <a href="https://docs.turbowarp.org/packager">{$_('p4.documentation')}</a>
