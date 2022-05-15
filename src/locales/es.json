@@ -109,6 +109,8 @@
         "zip-one-asset": "Zip, combinar assets a un solo archivo (no recomendado)"
     },
     "p4": {
+        "browserNotSupported": "Navegador no compatible",
+        "browserNotSupportedDescription": "Por favor actualiza tu navegador.",
         "close": "Cerrar",
         "description1": "Convierte proyectos de Scratch a archivos HTML, zip o programas ejecutables para Windows, macOS y Linux.",
         "description2": "Si simplemente quiere una manera fácil de incrustar un proyecto en una página web, podría estar interesado en {embedding}.",
@@ -119,13 +121,15 @@
         "documentation": "Recursos adicionales y ayuda",
         "errorMessage": "Mensaje: {error}",
         "feedback": "Comentarios",
-        "fosshost": "Hosteo de archivos proporcionado por Fosshost",
+        "fosshost": "Gracias a Fosshost por proveer servidores usados por el convertidor",
+        "importingInterface": "Cargando opciones...",
         "networkError": "No se ha podido descargar {url}. Asegúrate de estar conectado a Internet e intenta deshabilitar cualquier extensión de navegador.",
         "outdated": "La versión del creador de paquetes parece estar desactualizada. Por favor, actualiza la página e inténtalo de nuevo.",
         "privacy": "Política de Privacidad",
         "refresh": "Actualizar",
         "reportBug": "Reportar Bug",
-        "sourceCode": "Código Fuente"
+        "sourceCode": "Código Fuente",
+        "unknownImportError": "Algo salió mal. Por favor actualiza e intenta de nuevo."
     },
     "preview": {
         "loading": "Cargando Previsualización"

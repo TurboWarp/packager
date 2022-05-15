@@ -121,7 +121,6 @@
         "error": "Klaida",
         "errorMessage": "Žinutė: {error}",
         "feedback": "Atsiliepimas",
-        "fosshost": "Failų Hosting'as Fosshost",
         "networkError": "Nepavyksta atsisiųsti {url}. Įsitikinkite kad jūs esate prisijungę prie interneto ir pabandykite išjungti visus naršyklės papildinius.",
         "outdated": "Atrodo kad ši pakuotojo versija pasenusi. Prašau perkrauti ir bandyti vėl.",
         "privacy": "Privatumo politika",

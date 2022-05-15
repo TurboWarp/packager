@@ -117,7 +117,6 @@
         "error": "错误",
         "errorMessage": "错误：{error}",
         "feedback": "反馈",
-        "fosshost": "托管服务由 Fosshost 提供",
         "networkError": "无法下载 {url}。请确保你已连接到互联网，并尝试禁用浏览器扩展。",
         "outdated": "这个版本的 TurboWarp Packager 似乎已经过期。请刷新并重试。",
         "privacy": "隐私政策",

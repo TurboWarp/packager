@@ -114,7 +114,6 @@
         "documentation": "Recursos e ajuda adicionais",
         "error": "Erro",
         "errorMessage": "Mensagem: {error}",
-        "fosshost": "Hospedagem de arquivos por Fosshost",
         "networkError": "Não foi possível baixar {url}. Verifique se está conectado a internet e tente desativar quaisquer extensão de navegador.",
         "outdated": "Esta versão do exportador aparenta estar desatualizada. Por favor, renicie a página e tente novamente.",
         "privacy": "Política de Privacidade",

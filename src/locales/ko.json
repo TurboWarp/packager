@@ -113,7 +113,6 @@
         "error": "오류",
         "errorMessage": "메시지: {error}",
         "feedback": "문의하기",
-        "fosshost": "Fosshost가 파일을 호스팅함",
         "networkError": "{url}에서 다운로드할 수 없습니다. 인터넷에 연결되었는지 확인 후 인터넷 확장 프로그램을 비활성화 해보세요.",
         "outdated": "이 버전의 패키저는 구버전으로 확인됩니다. 새로고침 후 다시 시도해 주세요.",
         "privacy": "개인정보 보호 정책",
