@@ -1,4 +1,7 @@
 {
+    "downloads": {
+        "link": "Pobierz {filename} ({size})"
+    },
     "fileInput": {
         "clear": "Wyczyść Zaznaczenie",
         "select": "Wybierz lub upuść plik",
@@ -103,6 +106,7 @@
         "error": "Błąd",
         "errorMessage": "Wiadomość: {error}",
         "feedback": "Opinia Zwrotna",
+        "importingInterface": "Ładowanie opcji...",
         "privacy": "Polityka Prywatności",
         "refresh": "Odśwież",
         "reportBug": "Zgłoś Błąd",
@@ -131,6 +135,7 @@
         "loadToContinue": "Załaduj projekt, aby kontynuować",
         "noFileSelected": "Nie wybrano pliku",
         "select": "Wybierz Projekt",
+        "uncertaintyMore": "Więcej informacji",
         "url": "Inne URL"
     },
     "theme": {
