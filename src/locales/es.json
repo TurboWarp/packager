@@ -124,7 +124,7 @@
         "fosshost": "Gracias a Fosshost por proveer servidores usados por el convertidor",
         "importingInterface": "Cargando opciones...",
         "networkError": "No se ha podido descargar {url}. Asegúrate de estar conectado a Internet e intenta deshabilitar cualquier extensión de navegador.",
-        "outdated": "La versión del creador de paquetes parece estar desactualizada. Por favor, actualiza la página e inténtalo de nuevo.",
+        "outdated": "La versión del convertidor parece estar desactualizada. Por favor, actualiza la página e inténtalo de nuevo.",
         "privacy": "Política de Privacidad",
         "refresh": "Actualizar",
         "reportBug": "Reportar Bug",
