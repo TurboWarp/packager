@@ -33,6 +33,14 @@
       "string": "This version of the packager appears to be outdated. Please refresh and try again.",
       "context": "Error displayed when the packager detects that you are using an old version and that you must refresh to continue."
     },
+    "cannotAccessProject": {
+      "string": "Can't access project metadata. This probably means the project is unshared, never existed, or the ID is invalid.",
+      "context": "Part of the error modal when loading an unshared project."
+    },
+    "cannotAccessProjectCaching": {
+      "string": "If the project was shared recently, it may take up to an hour for this message to go away.",
+      "context": "Part of the error modal when loading an unshared project."
+    },
     "close": {
       "string": "Close"
     },
@@ -83,6 +91,9 @@
     },
     "compressingProject": {
       "string": "Compressing project"
+    },
+    "loadingProjectMetadata": {
+      "string": "Downloading project metadata"
     },
     "loadingProjectData": {
       "string": "Downloading project data"
@@ -137,13 +148,13 @@
       "string": "No file selected",
       "context": "Error message"
     },
-    "uncertainty": {
-      "string": "May 8, 2022 - The future of packaging unshared projects is unknown due to upcoming changes to the Scratch API. {moreInformation}.",
-      "context": "The Scratch Team is probably going to prevent third-party sites from accessing unshared projects. This describes the situation. The date is when this notice was added so that people can understand that this is a new notice."
+    "unsharedProjects": {
+      "string": "Unshared projects are no longer accessible using their project ID due to Scratch API changes. Instead, you can save the project to your computer (File > Save to your computer) and load the file in the packager. {moreInformation}.",
+      "context": "Warning message about unshared projects no longer being accessible."
     },
-    "uncertaintyMore": {
+    "unsharedProjectsMore": {
       "string": "More information",
-      "context": "Link to more information about the Scratch Team probably going to prevent third-party sites from accessing unshared projects."
+      "context": "Link to more information about unshared projects no longer being accessible."
     }
   },
   "options": {

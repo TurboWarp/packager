@@ -235,10 +235,10 @@
     {#if $type === "id"}
       <p>
         <ComplexMessage
-          message={$_('select.uncertainty')}
+          message={$_('select.unsharedProjects')}
           values={{
             moreInformation: {
-              text: $_('select.uncertaintyMore'),
+              text: $_('select.unsharedProjectsMore'),
               href: 'https://docs.turbowarp.org/unshared-projects',
               newTab: true
             }

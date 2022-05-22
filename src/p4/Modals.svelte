@@ -1,7 +1,7 @@
 <script>
   import Section from './Section.svelte';
   import Button from './Button.svelte';
-  import {OutdatedPackagerError, UnknownNetworkError, UserError} from '../common/errors';
+  import {CannotAccessProjectError, OutdatedPackagerError, UnknownNetworkError, UserError} from '../common/errors';
   import {error} from './stores';
   import {FEEDBACK_PRIMARY} from '../packager/brand';
   import {_} from '../locales/';
@@ -112,6 +112,28 @@
         <p>
           <Button on:click={refresh} text={$_('p4.refresh')} />
           <Button secondary on:click={closeModal} text={$_('p4.close')} />
+        </p>
+      {:else if $error instanceof CannotAccessProjectError}
+        <p>
+          {$_('p4.cannotAccessProject')}
+        </p>
+        <p>
+          <ComplexMessage
+            message={$_('select.unsharedProjects')}
+            values={{
+              moreInformation: {
+                text: $_('select.unsharedProjectsMore'),
+                href: 'https://docs.turbowarp.org/unshared-projects',
+                newTab: true
+              }
+            }}
+          />
+        </p>
+        <p>
+          {$_('p4.cannotAccessProjectCaching')}
+        </p>
+        <p>
+          <Button on:click={closeModal} text={$_('p4.close')} />
         </p>
       {:else}
         <p>{$_('p4.errorMessage').replace('{error}', $error)}</p>
