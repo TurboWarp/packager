@@ -38,3 +38,14 @@ export class OutdatedPackagerError extends Error {
     this.name = 'OutdatedPackagerError';
   }
 }
+
+/**
+ * Error indicating an HTTP status error.
+ */
+export class HTTPError extends Error {
+  constructor (message, status) {
+    super(message);
+    this.status = status;
+    this.name = 'HTTPError';
+  }
+}

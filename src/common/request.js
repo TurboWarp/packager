@@ -1,4 +1,4 @@
-import {UnknownNetworkError} from './errors';
+import {HTTPError, UnknownNetworkError} from './errors';
 
 const clampProgress = (n) => Math.max(0, Math.min(1, n));
 
@@ -18,7 +18,7 @@ const request = async (options) => {
       if (xhr.status === 200) {
         resolve(xhr.response);
       } else {
-        reject(new Error(`Couldn't fetch ${url}: status code ${xhr.status}`));
+        reject(new HTTPError(`Couldn't fetch ${url}: status code ${xhr.status}`, xhr.status));
       }
     };
     xhr.onerror = () => {
