@@ -1,5 +1,5 @@
 <script>
-  import {onMount, tick} from 'svelte';
+  import {onMount} from 'svelte';
   import {writable} from 'svelte/store';
   import {_} from '../locales';
   import Section from './Section.svelte';
