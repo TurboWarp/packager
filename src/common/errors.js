@@ -49,3 +49,13 @@ export class HTTPError extends Error {
     this.name = 'HTTPError';
   }
 }
+
+/**
+ * Error indicating a project cannot be accessed, perhaps because it's unshared, doesn't exist, or has an invalid ID.
+ */
+export class CannotAccessProjectError extends Error {
+  constructor (message) {
+    super(message);
+    this.name = 'CannotAccessProjectError';
+  }
+}

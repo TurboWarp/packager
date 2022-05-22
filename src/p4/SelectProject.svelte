@@ -9,7 +9,7 @@
   import writablePersistentStore from './persistent-store';
   import {progress, currentTask} from './stores';
   import {UserError} from '../common/errors';
-  import getProjectTitle from './get-project-meta';
+  import getProjectMetadata from './get-project-metadata';
   import loadProject from '../packager/load-project';
   import {extractProjectId, isValidURL, getTitleFromURL} from './url-utils';
   import Task from './task';
@@ -133,13 +133,15 @@
         throw new UserError($_('select.invalidId'));
       }
       uniqueId = `#${id}`;
-      task.setProgressText($_('progress.loadingProjectData'));
-      const {promise: loadProjectPromise, terminate} = await loadProject.fromID(id, progressCallback);
+
+      task.setProgressText($_('progress.loadingProjectMetadata'));
+      const metadata = await getProjectMetadata(id);
+      const token = metadata.token;
+      projectTitle = metadata.title;
+
+      const {promise: loadProjectPromise, terminate} = await loadProject.fromID(id, token, progressCallback);
       task.whenAbort(terminate);
-      [projectTitle, project] = await Promise.all([
-        getProjectTitle(id),
-        loadProjectPromise
-      ]);
+      project = await loadProjectPromise;
     } else if ($type === 'file') {
       const files = fileInputElement.files;
       const file = files && files[0];
