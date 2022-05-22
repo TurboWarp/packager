@@ -81,7 +81,12 @@ const request = async (options) => {
     try {
       return await requestURL(url);
     } catch (e) {
-      if (!errorToThrow) {
+      // We'll record this error if this is the first error, or if the current error provides more information than
+      // the old error. This is useful because:
+      //  trampoline.turbowarp.org/... -> blocked by filter (appears to us as generic network error)
+      //  trampoline.turbowarp.xyz/... -> returns 404
+      // should return the 404 error, not the generic network error.
+      if (!errorToThrow || (errorToThrow instanceof UnknownNetworkError && !(e instanceof UnknownNetworkError))) {
         errorToThrow = e;
       }
     }
