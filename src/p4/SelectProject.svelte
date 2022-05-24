@@ -135,9 +135,17 @@
       uniqueId = `#${id}`;
 
       task.setProgressText($_('progress.loadingProjectMetadata'));
-      const metadata = await getProjectMetadata(id);
-      const token = metadata.token;
-      projectTitle = metadata.title;
+
+      let metadata;
+      try {
+        metadata = await getProjectMetadata(id);
+      } catch (e) {
+        // For now, we'll treat this as non-critical.
+        // In the future, this will probably be a critical error.
+      }
+
+      const token = metadata ? metadata.token : null;
+      projectTitle = metadata ? metadata.title : '';
 
       const {promise: loadProjectPromise, terminate} = await loadProject.fromID(id, token, progressCallback);
       task.whenAbort(terminate);
