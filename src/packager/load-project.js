@@ -39,7 +39,11 @@ const fromURL = async (url, progressCallback) => {
   return downloadProject(buffer, progressCallback);
 };
 
-const fromID = (id, progressCallback) => fromURL(`https://projects.scratch.mit.edu/${id}`, progressCallback);
+const fromID = (id, token, progressCallback) => {
+  const tokenPart = token ? `?token=${token}` : '';
+  let url = `https://projects.scratch.mit.edu/${id}${tokenPart}`;
+  return fromURL(url, progressCallback);
+};
 
 const fromFile = async (file, progressCallback) => {
   const buffer = await readAsArrayBuffer(file);

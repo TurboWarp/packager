@@ -9,7 +9,7 @@
   import writablePersistentStore from './persistent-store';
   import {progress, currentTask} from './stores';
   import {UserError} from '../common/errors';
-  import getProjectTitle from './get-project-meta';
+  import getProjectMetadata from './get-project-metadata';
   import loadProject from '../packager/load-project';
   import {extractProjectId, isValidURL, getTitleFromURL} from './url-utils';
   import Task from './task';
@@ -133,13 +133,24 @@
         throw new UserError($_('select.invalidId'));
       }
       uniqueId = `#${id}`;
+
+      task.setProgressText($_('progress.loadingProjectMetadata'));
+      let metadata;
+      try {
+        metadata = await getProjectMetadata(id);
+      } catch (e) {
+        // For now, we'll treat this as non-critical.
+        // In the future, this will probably be a critical error.
+        console.error(e);
+      }
+
+      const token = metadata ? metadata.token : null;
+      projectTitle = metadata ? metadata.title : '';
+
       task.setProgressText($_('progress.loadingProjectData'));
-      const {promise: loadProjectPromise, terminate} = await loadProject.fromID(id, progressCallback);
+      const {promise: loadProjectPromise, terminate} = await loadProject.fromID(id, token, progressCallback);
       task.whenAbort(terminate);
-      [projectTitle, project] = await Promise.all([
-        getProjectTitle(id),
-        loadProjectPromise
-      ]);
+      project = await loadProjectPromise;
     } else if ($type === 'file') {
       const files = fileInputElement.files;
       const file = files && files[0];
@@ -232,11 +243,14 @@
 
     {#if $type === "id"}
       <p>
+        {$_('select.unsharedProjectsTemporary')}
+      </p>
+      <p>
         <ComplexMessage
-          message={$_('select.uncertainty')}
+          message={$_('select.unsharedProjectsMore')}
           values={{
-            moreInformation: {
-              text: $_('select.uncertaintyMore'),
+            link: {
+              text: 'https://docs.turbowarp.org/unshared-projects',
               href: 'https://docs.turbowarp.org/unshared-projects',
               newTab: true
             }
