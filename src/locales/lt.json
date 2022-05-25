@@ -154,8 +154,6 @@
         "noFileSelected": "Nėra pasirinkto failo",
         "select": "Pasirinkti Projektą",
         "selectHelp": "Pasirinkite projektą, kurį norite supakuoti, nukopijuodami ir įklijuodami Scratch projekto nuorodą arba naudodami vieną iš kitų režimų. Jei naudojate ne savo sukurtą projektą, būtinai padėkokite jo kūrėjui.",
-        "uncertainty": "Gegužės 8, 2022 - Privačių projektų pakavimo ateitis nežinoma dėl ateinančių Scratch API pakeitimų. {moreInformation}.",
-        "uncertaintyMore": "Daugiau informacijos",
         "url": "Kitas URL"
     },
     "theme": {

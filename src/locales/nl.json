@@ -112,8 +112,6 @@
         "noFileSelected": "Geen bestand geselecteerd",
         "select": "Project Selecteren",
         "selectHelp": "Selecteer het project dat je wilt packagen door de Scratch-projectlink te kopiëren en te plakken of door een andere methode te gebruiken. Als je een project gebruikt die niet van jezelf is, zorg dat je de maker bedankt.",
-        "uncertainty": "8 Mei 2022 - De toekomst van het packagen van niet-gedeelde projecten is onbekend wegens aanstaande veranderingen in de API van Scratch. {moreInformation}.",
-        "uncertaintyMore": "Meer informatie",
         "url": "Andere URL"
     }
 }

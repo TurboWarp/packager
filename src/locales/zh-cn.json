@@ -1,4 +1,8 @@
 {
+    "downloads": {
+        "link": "下载{filename}（{size}）",
+        "useWorkaround": "如果下载链接不起作用，请单击此处"
+    },
     "fileInput": {
         "clear": "清除选择",
         "select": "选择或拖入文件",
@@ -106,6 +110,8 @@
         "zip-one-asset": "Zip 压缩包，把所有素材打包在一个文件中（不推荐）"
     },
     "p4": {
+        "browserNotSupported": "不支持浏览器",
+        "browserNotSupportedDescription": "请更新您的浏览器。",
         "close": "关闭",
         "description1": "将 Scratch 作品转换为 HTML 文件、ZIP 压缩包或 Windows、MacOS 和 Linux 的可执行文件。",
         "description2": "如果您只是想以一种简单的方式将 Scratch 官网作品嵌入您的网站，您可能会对 {embedding} 感兴趣。 ",
@@ -117,12 +123,15 @@
         "error": "错误",
         "errorMessage": "错误：{error}",
         "feedback": "反馈",
+        "fosshost": "感谢Fosshost提供打包机使用的服务器",
+        "importingInterface": "正在加载选项...",
         "networkError": "无法下载 {url}。请确保你已连接到互联网，并尝试禁用浏览器扩展。",
         "outdated": "这个版本的 TurboWarp Packager 似乎已经过期。请刷新并重试。",
         "privacy": "隐私政策",
         "refresh": "刷新",
         "reportBug": "反馈问题",
-        "sourceCode": "源代码"
+        "sourceCode": "源代码",
+        "unknownImportError": "出问题了。请刷新并重试。"
     },
     "preview": {
         "loading": "加载预览"
