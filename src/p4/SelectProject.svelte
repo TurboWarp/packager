@@ -142,6 +142,7 @@
       } catch (e) {
         // For now, we'll treat this as non-critical.
         // In the future, this will probably be a critical error.
+        console.error(e);
       }
 
       const token = metadata ? metadata.token : null;
