@@ -149,12 +149,16 @@
       "context": "Error message"
     },
     "unsharedProjects": {
-      "string": "Unshared projects are no longer accessible using their project ID due to Scratch API changes. Instead, you can either share the project or save the project to your computer (File > Save to your computer) and load the file in the packager.",
+      "string": "Unshared projects are no longer accessible using their project ID due to Scratch API changes.",
       "context": "Warning message about unshared projects no longer being accessible."
     },
     "unsharedProjectsTemporary": {
-      "string": "Unshared projects will no longer accessible using their project ID in the near future due to upcoming Scratch API changes. Instead, you can either share the project or save the project to your computer (File > Save to your computer) and load the file in the packager.",
+      "string": "Unshared projects will no longer accessible using their project ID in the near future due to upcoming Scratch API changes.",
       "context": "Temporary warning message about unshared projects not being accessible in the FUTURE. Will be replaced with similar message after the changes are implemented."
+    },
+    "unsharedProjectsWorkaround": {
+      "string": "Instead, you can either share the project or save the project to your computer (File > Save to your computer) and load the file in the packager.",
+      "context": "Suggested alternatives to continue accessing unshared projects."
     },
     "unsharedProjectsMore": {
       "string": "For more information, visit: {link}",

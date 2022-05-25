@@ -246,6 +246,9 @@
         {$_('select.unsharedProjectsTemporary')}
       </p>
       <p>
+        {$_('select.unsharedProjectsWorkaround')}
+      </p>
+      <p>
         <ComplexMessage
           message={$_('select.unsharedProjectsMore')}
           values={{
