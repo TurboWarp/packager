@@ -164,14 +164,6 @@
     </div>
   </Section>
 
-  <!-- TODO: remove this after about 1 week -->
-  {#if !isStandalone && WEBSITE === "https://packager.turbowarp.org/"}
-    <Section accent="#b117f8">
-      <p>May 18, 2022 - The source code of the packager has been <a href="https://github.com/TurboWarp/packager/blob/master/LICENSE">relicensed to Apache 2.0</a> from LGPL3.0. This removes some requirements that were difficult to follow and will never be enforced anyways. We want you to be able to do <i>anything</i> with the packager without legal ambiguity.</p>
-      <p>Also, <a href="https://github.com/sponsors/GarboMuffin">the TurboWarp project now accepts donations</a>.</p>
-    </Section>
-  {/if}
-
   {#if isSupported}
     <SelectProject bind:projectData />
   {:else}
