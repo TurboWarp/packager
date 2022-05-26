@@ -111,6 +111,8 @@
     "p4": {
         "browserNotSupported": "Navegador no compatible",
         "browserNotSupportedDescription": "Por favor actualiza tu navegador.",
+        "cannotAccessProject": "No se puede acceder a los metadatos del proyecto. Esto probeblemente significa que el proyecto no está compartido, nunca existió, o la ID es inválida.",
+        "cannotAccessProjectCaching": "Si el proyecto fue compartido recientemente, este mensaje puede tardar hasta una hora en irse.",
         "close": "Cerrar",
         "description1": "Convierte proyectos de Scratch a archivos HTML, zip o programas ejecutables para Windows, macOS y Linux.",
         "description2": "Si simplemente quiere una manera fácil de incrustar un proyecto en una página web, podría estar interesado en {embedding}.",
@@ -139,6 +141,7 @@
         "loadingAssets": "Descargando recursos ({complete}/{total})",
         "loadingLargeAsset": "Descargando {thing}",
         "loadingProjectData": "Descargando la información del proyecto",
+        "loadingProjectMetadata": "Descargando los metadatos del proyecto",
         "loadingScripts": "Descargando scripts",
         "packagingProject": "Empacando proyecto"
     },
@@ -157,6 +160,10 @@
         "noFileSelected": "Ningún archivo seleccionado",
         "select": "Seleccionar proyecto",
         "selectHelp": "Seleccione el proyecto que quiere empacar copiando y pegando el enlace de proyecto de Scratch o usando alguno de los otros modos. Si usa un proyecto que no creó, asegúrese de dar créditos al creador.",
+        "unsharedProjects": "Proyectos no compartidos ya no son accesibles usando su ID debido a cambios en el API de Scratch.",
+        "unsharedProjectsMore": "Para más información, visita: {link}",
+        "unsharedProjectsTemporary": "Proyectos no compartidos no serán accesibles usando su ID en un futuro cercano debido a cambios en el API de Scratch por venir.",
+        "unsharedProjectsWorkaround": "En cambio, puedes compartir o guardar el proyecto en tu computadora(Archivo > Guardar en tu ordenador) y cargar el archivo en el convertidor.",
         "url": "Otra URL"
     },
     "theme": {

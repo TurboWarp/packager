@@ -110,6 +110,8 @@
     "p4": {
         "browserNotSupported": "Dein Browser wird nicht unterstützt.",
         "browserNotSupportedDescription": "Bitte aktualisiere deinen Brower.",
+        "cannotAccessProject": "Kein Zugriff auf Projekt-Metadaten. Dies bedeutet wahrscheinlich, dass das Projekt nicht veröffentlicht, nicht existiert oder die ID ungültig ist.",
+        "cannotAccessProjectCaching": "Falls das Projekt erst vor Kurzem veröffentlicht wurde, könnte es bis zu einer Stunde dauern, bis diese Nachricht verschwindet.",
         "close": "Schließen",
         "description1": "Wandelt Scratch-Projekte in alleinstehende Dateien oder ausführbare Programme um.",
         "description2": "Falls du einfach ein Projekt in deine Website einbetten willst, könntest du in {embedding} interessiert sein.",
@@ -138,6 +140,7 @@
         "loadingAssets": "Ressourcen werden heruntergeladen ({complete}/{total})",
         "loadingLargeAsset": "{thing} wird heruntergeladen",
         "loadingProjectData": "Projektdaten werden heruntergeladen",
+        "loadingProjectMetadata": "Projektmetadaten werden heruntergeladen",
         "loadingScripts": "Skripte werden heruntergeladen",
         "packagingProject": "Projekt wird paketisiert"
     },
@@ -156,6 +159,10 @@
         "noFileSelected": "Keine Datei ausgewählt",
         "select": "Projekt auswählen",
         "selectHelp": "Wähle das Projekt, das du paketisieren willst, indem du den Link dazu kopierst und einfügst oder einen der anderen Modi verwendest. Falls das Projekt jemand anderem gehört, vergewissere dich, dass du dich dafür bedankst.",
+        "unsharedProjects": "Der Zugriff auf nicht veröffentlichte Projekte ist aufgrund von Änderungen in der Scratch-API nicht mehr möglich.",
+        "unsharedProjectsMore": "Mehr Informationen unter: {link}",
+        "unsharedProjectsTemporary": "Der Zugriff auf nicht veröffentlichte Projekte wird in naher Zukunft aufgrund von kommende Änderungen in der Scratch-API nicht mehr möglich.",
+        "unsharedProjectsWorkaround": "Du kannst stattdessen entweder das Projekt veröffentlichen oder es auf deinem Computer speichern (Datei > Auf deinem Computer speichern) und die Datei dann im Packager laden.",
         "url": "Andere URL"
     },
     "theme": {
