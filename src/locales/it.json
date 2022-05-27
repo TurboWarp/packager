@@ -157,7 +157,6 @@
         "selectHelp": "Seleziona il progetto che vuoi pacchettizzare copiando e incollando il link del progetto Scratch o usando uno degli altri metodi. Se usi un progetto che non hai creato tu stesso assicurati di dare il giusto credito.",
         "unsharedProjects": "I progetti non convidisi, a causa di cambiamenti alla API di Scratch, non sono più accessibili.",
         "unsharedProjectsMore": "Per ulteriori informazioni vai a {link}",
-        "unsharedProjectsTemporary": "I progetti non convidisi, a causa di cambiamenti alla API di Scratch, non sono saranno a breve più accessibili.",
         "unsharedProjectsWorkaround": "Per ovviare al problema, puoi condividere il progetto o salvarlo sul tuo computer (File > Salva sul tuo computer) e caricare il file nel packager.",
         "url": "Altro URL"
     },

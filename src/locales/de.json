@@ -161,7 +161,6 @@
         "selectHelp": "Wähle das Projekt, das du paketisieren willst, indem du den Link dazu kopierst und einfügst oder einen der anderen Modi verwendest. Falls das Projekt jemand anderem gehört, vergewissere dich, dass du dich dafür bedankst.",
         "unsharedProjects": "Der Zugriff auf nicht veröffentlichte Projekte ist aufgrund von Änderungen in der Scratch-API nicht mehr möglich.",
         "unsharedProjectsMore": "Mehr Informationen unter: {link}",
-        "unsharedProjectsTemporary": "Der Zugriff auf nicht veröffentlichte Projekte wird in naher Zukunft aufgrund von kommende Änderungen in der Scratch-API nicht mehr möglich.",
         "unsharedProjectsWorkaround": "Du kannst stattdessen entweder das Projekt veröffentlichen oder es auf deinem Computer speichern (Datei > Auf deinem Computer speichern) und die Datei dann im Packager laden.",
         "url": "Andere URL"
     },
