@@ -162,6 +162,7 @@
         "selectHelp": "Seleccione el proyecto que quiere empacar copiando y pegando el enlace de proyecto de Scratch o usando alguno de los otros modos. Si usa un proyecto que no creó, asegúrese de dar créditos al creador.",
         "unsharedProjects": "Proyectos no compartidos ya no son accesibles usando su ID debido a cambios en el API de Scratch.",
         "unsharedProjectsMore": "Para más información, visita: {link}",
+        "unsharedProjectsTemporary": "Los proyectos no compartidos PROBABLEMENTE ya no serán accesibles usando su ID en algún punto debido a cambios en el API de Scratch por venir.",
         "unsharedProjectsWorkaround": "En cambio, puedes compartir o guardar el proyecto en tu computadora(Archivo > Guardar en tu ordenador) y cargar el archivo en el convertidor.",
         "url": "Otra URL"
     },
