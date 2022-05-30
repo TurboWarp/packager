@@ -576,7 +576,10 @@
         <div transition:fade|local>
           <label class="option">
             {$_('options.cloudVariablesHost')}
-            <input type="text" bind:value={$options.cloudVariables.cloudHost}>
+            <!-- Examples of valid values: -->
+            <!-- wss://clouddata.turbowarp.org -->
+            <!-- ws:localhost:8080 -->
+            <input type="text" bind:value={$options.cloudVariables.cloudHost} pattern="wss?:.*">
           </label>
         </div>
       {/if}
