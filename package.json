@@ -49,7 +49,6 @@
     "file-loader": "^6.2.0",
     "html-webpack-plugin": "^4.5.2",
     "jest": "^27.4.5",
-    "node-blob": "0.0.2",
     "rimraf": "^2.7.1",
     "scratch-audio": "0.1.0-prerelease.20200528195344",
     "scratch-render": "git+https://github.com/TurboWarp/scratch-render.git#develop",

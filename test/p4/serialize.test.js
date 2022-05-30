@@ -1,7 +1,6 @@
-import Blob from 'node-blob';
 import serialize from '../../src/p4/serialize';
 
-global.Blob = Blob;
+global.Blob = class Blob {};
 
 test('no changes returns null', () => {
   expect(serialize({
