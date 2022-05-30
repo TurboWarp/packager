@@ -5,7 +5,7 @@ import request from '../common/request';
 import {AbortError} from '../common/errors';
 
 const downloadProject = async (buffer, progressCallback) => {
-  const {worker, terminate} = createDownloadWorker();
+  const {worker, terminate} = await createDownloadWorker();
   let terminateAndReject;
   const downloadPromise = new Promise((resolve, reject) => {
     worker.downloadProject(transfer(buffer, [buffer]), proxy(progressCallback))

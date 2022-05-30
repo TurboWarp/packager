@@ -36,16 +36,39 @@ module.exports.pitch = function (request) {
     const source = `
     import {wrap} from 'comlink';
     const createWorker = () => {
-      ${inline ? `const source = ${JSON.stringify(compilation.assets[file].source())};
-      const blob = new Blob([source]);
-      const url = URL.createObjectURL(blob);
-      const worker = new Worker(url);
-      URL.revokeObjectURL(url);` : `const worker = new Worker(__webpack_public_path__ + ${JSON.stringify(file)});`}
-      const terminate = () => {
-        worker.terminate();
-      };
-      const wrapped = wrap(worker);
-      return {worker: wrapped, terminate};
+      ${inline ? `
+        const source = ${JSON.stringify(compilation.assets[file].source())};
+        const blob = new Blob([source]);
+        const url = URL.createObjectURL(blob);
+        const worker = new Worker(url);
+        URL.revokeObjectURL(url);
+      ` : `
+        const worker = new Worker(__webpack_public_path__ + ${JSON.stringify(file)});
+      `}
+      return new Promise((resolve, reject) => {
+        const terminate = () => {
+          worker.terminate();
+        };
+        const onMessage = (e) => {
+          if (e.data === 'ready') {
+            cleanup();
+            resolve({
+              worker: wrap(worker),
+              terminate
+            });
+          }
+        };
+        const onError = () => {
+          cleanup();
+          reject(new Error(${JSON.stringify(`Worker ${file} failed to load.`)}));
+        };
+        const cleanup = () => {
+          worker.removeEventListener('message', onMessage);
+          worker.removeEventListener('error', onError);
+        };
+        worker.addEventListener('message', onMessage);
+        worker.addEventListener('error', onError);
+      });
     };
     export default createWorker;
     `;

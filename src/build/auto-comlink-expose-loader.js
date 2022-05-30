@@ -5,6 +5,7 @@ module.exports.pitch = function (request) {
   return `
   import {expose} from 'comlink';
   import * as mod from ${loaderUtils.stringifyRequest(this, request)};
+  postMessage('ready');
   expose(mod);
   `;
 };
