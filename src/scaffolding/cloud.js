@@ -78,14 +78,26 @@ class CloudManager {
   }
 }
 
+const validateCloudHost = (host) => {
+  if (!host.startsWith('ws:') && !host.startsWith('wss:')) {
+    throw new Error(`Cloud host ${host} does not start with ws: or wss:`);
+  }
+  if (location.protocol === 'https:' && host.startsWith('ws:')) {
+    throw new Error(`Cloud host ${host} must use wss:// on secure page`);
+  }
+};
+
 class WebSocketProvider {
   /**
-   * @param {string[]|string} cloudHost URLs of servers to connect to, including ws:// or wss://
+   * @param {string[]|string} cloudHost URLs of servers to connect to. Must include ws:// or wss://
    * If cloudHost is an array, the server will consecutively try each server until one connects.
    * @param {string} projectId The ID of the project
    */
   constructor(cloudHost, projectId) {
     this.cloudHosts = Array.isArray(cloudHost) ? cloudHost : [cloudHost];
+    for (const host of this.cloudHosts) {
+      validateCloudHost(host);
+    }
     this.projectId = projectId;
     this.attemptedConnections = 0;
     this.bufferedMessages = [];
