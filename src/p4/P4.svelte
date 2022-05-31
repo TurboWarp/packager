@@ -10,7 +10,7 @@
   import Modals from './Modals.svelte';
   import {progress, theme, error} from './stores';
   import {isSupported, isSafari, isStandalone, version} from './environment';
-  import {APP_NAME, FEEDBACK_PRIMARY, FEEDBACK_SECONDARY, ACCENT_COLOR, SOURCE_CODE, WEBSITE} from '../packager/brand';
+  import {APP_NAME, FEEDBACK_PRIMARY, FEEDBACK_SECONDARY, ACCENT_COLOR, SOURCE_CODE, WEBSITE, DONATE} from '../packager/brand';
 
   let projectData;
 
@@ -210,6 +210,10 @@
       {#if SOURCE_CODE}
         <span> - </span>
         <a href={SOURCE_CODE}>{$_('p4.sourceCode')}</a>
+      {/if}
+      {#if DONATE}
+        <span> - </span>
+        <a href={DONATE}>{$_('p4.donate')}</a>
       {/if}
     </div>
     <div>

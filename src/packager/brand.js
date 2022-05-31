@@ -21,6 +21,9 @@ If this is set to an empty string, the link is removed.
 
 FEEDBACK_PRIMARY and FEEDBACK_SECONDARY are feedback/bug report links shown in various places throughout the website.
 name is how they will be labelled in the interface and link is of course a URL
+
+DONATE is a link that people can visit to donate.
+If this is set to an empty string, the link is removed.
 */
 
 module.exports = {
@@ -48,5 +51,6 @@ limitations under the License.`,
   FEEDBACK_SECONDARY: {
     name: 'GitHub',
     link: 'https://github.com/TurboWarp/packager/issues'
-  }
+  },
+  DONATE: 'https://github.com/sponsors/GarboMuffin',
 };

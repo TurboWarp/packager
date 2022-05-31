@@ -76,6 +76,10 @@
     "sourceCode": {
       "string": "Source Code"
     },
+    "donate": {
+      "string": "Donate",
+      "context": "Link to donation page"
+    },
     "documentation": {
       "string": "Additional resources and help",
       "context": "Link to a place with additional information describing advanced topics"
