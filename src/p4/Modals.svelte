@@ -118,11 +118,14 @@
           {$_('p4.cannotAccessProject')}
         </p>
         <p>
+          {$_('select.unsharedProjects')}
+        </p>
+        <p>
           <ComplexMessage
-            message={$_('select.unsharedProjects')}
+            message={$_('select.unsharedProjectsMore')}
             values={{
-              moreInformation: {
-                text: $_('select.unsharedProjectsMore'),
+              link: {
+                text: 'https://docs.turbowarp.org/unshared-projects',
                 href: 'https://docs.turbowarp.org/unshared-projects',
                 newTab: true
               }
