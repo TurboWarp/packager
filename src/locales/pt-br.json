@@ -1,4 +1,8 @@
 {
+    "downloads": {
+        "link": "Baixar {filename} ({size})",
+        "useWorkaround": "Clique aqui se o link do download não estiver funcionando"
+    },
     "fileInput": {
         "clear": "Limpar Seleção",
         "select": "Selecione ou arraste um arquivo",
@@ -104,6 +108,10 @@
         "zip-one-asset": "Zip, juntar todos os recursos em um único arquivo (não recomendado)"
     },
     "p4": {
+        "browserNotSupported": "Navegador incompatível",
+        "browserNotSupportedDescription": "Por favor, atualize o seu navegador.",
+        "cannotAccessProject": "Não foi possível acessar os dados do projeto. Isto significa que o projeto está descompartilhado, nunca existiu, ou o ID é inválido.",
+        "cannotAccessProjectCaching": "Se o projeto foi compartilhado recentemente, demorará até uma hora para esta mensagem sumir.",
         "close": "Fechar",
         "description1": "Converte projetos do Scratch para arquivos HTML, ZIP, ou programas executáveis para Windows, macOS e Linux.",
         "description2": "Se você apenas quer um jeito fácil de colocar um projeto do TurboWarp no seu site, {embedding} pode ser de seu interesse. ",
@@ -114,12 +122,15 @@
         "documentation": "Recursos e ajuda adicionais",
         "error": "Erro",
         "errorMessage": "Mensagem: {error}",
+        "fosshost": "Agradecemos ao Fosshost por providenciar servidores usados pelo exportador.",
+        "importingInterface": "Carregando opções...",
         "networkError": "Não foi possível baixar {url}. Verifique se está conectado a internet e tente desativar quaisquer extensão de navegador.",
         "outdated": "Esta versão do exportador aparenta estar desatualizada. Por favor, renicie a página e tente novamente.",
         "privacy": "Política de Privacidade",
         "refresh": "Atualizar",
         "reportBug": "Relatar Bug",
-        "sourceCode": "Código-fonte"
+        "sourceCode": "Código-fonte",
+        "unknownImportError": "Algo deu errado. Por favor, renicie e tente novamente."
     },
     "preview": {
         "loading": "Carregando Pré-visualização"
@@ -129,6 +140,7 @@
         "loadingAssets": "Baixando recursos ({complete}/{total})",
         "loadingLargeAsset": "Baixando {thing}",
         "loadingProjectData": "Baixando conteúdo do projeto",
+        "loadingProjectMetadata": "Baixando dados do projeto",
         "loadingScripts": "Baixando scripts",
         "packagingProject": "Exportando projeto"
     },
@@ -147,6 +159,10 @@
         "noFileSelected": "Nenhum arquivo selecionado",
         "select": "Selecionar Projeto",
         "selectHelp": "Selecione o projeto que você quer exportar copiando e colando o link do projeto no Scratch ou usando um dos outros meios. Se você usar um projeto criado por outra pessoa, lembre-se de dar créditos ao autor.",
+        "unsharedProjects": "Projetos não compartilhados não serão mais acessíveis através do ID do projeto devido a mudanças da API do Scratch.",
+        "unsharedProjectsMore": "Para mais informações, visite: {link}",
+        "unsharedProjectsTemporary": "Projetos não compartilhados TALVEZ não serão mais acessíveis através do ID do projeto em algum momento futuro devido a mudanças que irão acontecer na API do Scratch.",
+        "unsharedProjectsWorkaround": "Ao invés disso, você pode compartilhar o projeto ou baixar o projeto para o computador ( Arquivo > Baixar para computador) e abrir o arquivo no exportador.",
         "url": "Outro URL"
     },
     "theme": {
