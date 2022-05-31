@@ -10,7 +10,7 @@
   import Modals from './Modals.svelte';
   import {progress, theme, error} from './stores';
   import {isSupported, isSafari, isStandalone, version} from './environment';
-  import {APP_NAME, FEEDBACK_PRIMARY, FEEDBACK_SECONDARY, ACCENT_COLOR, SOURCE_CODE, WEBSITE, DONATE} from '../packager/brand';
+  import {APP_NAME, FEEDBACK_PRIMARY, FEEDBACK_SECONDARY, ACCENT_COLOR, SOURCE_CODE, WEBSITE, DONATE, DOCS_BASE} from '../packager/brand';
 
   let projectData;
 
@@ -137,7 +137,7 @@
           values={{
             embedding: {
               text: $_('p4.description2-embedding'),
-              href: 'https://docs.turbowarp.org/embedding'
+              href: `${DOCS_BASE}/embedding`
             }
           }}
         />
@@ -217,7 +217,7 @@
       {/if}
     </div>
     <div>
-      <a href="https://docs.turbowarp.org/packager">{$_('p4.documentation')}</a>
+      <a href={`${DOCS_BASE}/packager`}>{$_('p4.documentation')}</a>
     </div>
     <div>
       <a href="https://fosshost.org/">{$_('p4.fosshost')}</a>

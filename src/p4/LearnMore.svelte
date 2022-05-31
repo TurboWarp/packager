@@ -1,10 +1,11 @@
 <script>
   import {_} from '../locales/';
+  import {DOCS_BASE} from '../packager/brand';
 
   export let slug;
   export let href;
 
-  const link = slug ? `https://docs.turbowarp.org/${slug}` : href;
+  const link = slug ? `${DOCS_BASE}${slug}` : href;
 </script>
 
 <style>

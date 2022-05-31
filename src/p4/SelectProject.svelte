@@ -13,6 +13,7 @@
   import loadProject from '../packager/load-project';
   import {extractProjectId, isValidURL, getTitleFromURL} from './url-utils';
   import Task from './task';
+  import {DOCS_BASE} from '../packager/brand';
 
   const hasProjectIdInURL = location.hash && /^#\d+$/.test(location.hash);
   const initialProjectId = hasProjectIdInURL ? location.hash.substring(1) : '60917032';
@@ -253,8 +254,8 @@
           message={$_('select.unsharedProjectsMore')}
           values={{
             link: {
-              text: 'https://docs.turbowarp.org/unshared-projects',
-              href: 'https://docs.turbowarp.org/unshared-projects',
+              text: `${DOCS_BASE}/unshared-projects`,
+              href: `${DOCS_BASE}/unshared-projects`,
               newTab: true
             }
           }}

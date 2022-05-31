@@ -24,6 +24,9 @@ name is how they will be labelled in the interface and link is of course a URL
 
 DONATE is a link that people can visit to donate.
 If this is set to an empty string, the link is removed.
+
+DOCS_BASE is a link to an instance of docs.turbowarp.org. This is used for various links in the website.
+This should not have a trailing slash.
 */
 
 module.exports = {
@@ -53,4 +56,5 @@ limitations under the License.`,
     link: 'https://github.com/TurboWarp/packager/issues'
   },
   DONATE: 'https://github.com/sponsors/GarboMuffin',
+  DOCS_BASE: 'https://docs.turbowarp.org',
 };

@@ -3,7 +3,7 @@
   import Button from './Button.svelte';
   import {CannotAccessProjectError, OutdatedPackagerError, UnknownNetworkError, UserError} from '../common/errors';
   import {error} from './stores';
-  import {FEEDBACK_PRIMARY} from '../packager/brand';
+  import {FEEDBACK_PRIMARY, DOCS_BASE} from '../packager/brand';
   import {_} from '../locales/';
   import ComplexMessage from './ComplexMessage.svelte';
 
@@ -125,8 +125,8 @@
             message={$_('select.unsharedProjectsMore')}
             values={{
               link: {
-                text: 'https://docs.turbowarp.org/unshared-projects',
-                href: 'https://docs.turbowarp.org/unshared-projects',
+                text: `${DOCS_BASE}/unshared-projects`,
+                href: `${DOCS_BASE}/unshared-projects`,
                 newTab: true
               }
             }}
