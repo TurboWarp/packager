@@ -201,6 +201,7 @@
     min-height: 25px;
     display: flex;
     align-items: center;
+    flex-wrap: wrap;
   }
   input[type="text"], input[type="file"] {
     margin-left: 4px;
