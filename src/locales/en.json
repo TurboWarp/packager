@@ -157,7 +157,7 @@
       "context": "Warning message about unshared projects no longer being accessible."
     },
     "unsharedProjectsTemporary": {
-      "string": "Unshared projects will PROBABLY be no longer accessible using their project ID at some point in the future due to upcoming Scratch API changes.",
+      "string": "Unshared projects will no longer be accessible using their project ID at some point in the future due to upcoming Scratch API changes.",
       "context": "Temporary warning message about unshared projects not being accessible in the FUTURE. Will be replaced with similar message after the changes are implemented."
     },
     "unsharedProjectsWorkaround": {
