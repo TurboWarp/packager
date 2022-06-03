@@ -8,6 +8,7 @@
   import SelectTheme from './SelectTheme.svelte';
   import Progress from './Progress.svelte';
   import Modals from './Modals.svelte';
+  import News from './News.svelte';
   import {progress, theme, error} from './stores';
   import {isSupported, isSafari, isStandalone, version} from './environment';
   import {APP_NAME, FEEDBACK_PRIMARY, FEEDBACK_SECONDARY, ACCENT_COLOR, SOURCE_CODE, WEBSITE, DONATE} from '../packager/brand';
@@ -163,6 +164,8 @@
       </p>
     </div>
   </Section>
+
+  <News />
 
   {#if isSupported}
     <SelectProject bind:projectData />
