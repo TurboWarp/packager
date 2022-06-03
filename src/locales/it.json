@@ -117,6 +117,7 @@
         "description3-on": "sul sito {brand}",
         "disclaimer": "Questo sito non è affiliato a Scratch, allo Scratch Team o alla Scratch Foundation.",
         "documentation": "Risorse aggiuntive e aiuto",
+        "donate": "Dona",
         "error": "Errore",
         "errorMessage": "Messaggio: {error}",
         "fosshost": "Grazie a Fosshost per aver fornito i server usati da questo packager",
@@ -157,8 +158,8 @@
         "selectHelp": "Seleziona il progetto che vuoi pacchettizzare copiando e incollando il link del progetto Scratch o usando uno degli altri metodi. Se usi un progetto che non hai creato tu stesso assicurati di dare il giusto credito.",
         "unsharedProjects": "I progetti non convidisi, a causa di cambiamenti alla API di Scratch, non sono più accessibili.",
         "unsharedProjectsMore": "Per ulteriori informazioni vai a {link}",
-        "unsharedProjectsTemporary": "I progetti non convidisi non saranno PROBABILMENTE accessibili in futuro tramite il loro ID a causa di cambiamenti alla API di Scratch.",
-        "unsharedProjectsWorkaround": "Per ovviare al problema, puoi condividere il progetto o salvarlo sul tuo computer (File > Salva sul tuo computer) e caricare il file nel packager.",
+        "unsharedProjectsTemporary": "I progetti non convidisi non saranno più accessibili in futuro tramite il loro ID a causa di cambiamenti alla API di Scratch.",
+        "unsharedProjectsWorkaround": "Per ovviare al problema, puoi condividere il progetto o salvarlo sul tuo computer (File > Salva sul tuo computer) e caricare il file nel packager. I file generati dal packager sono autosufficienti e non risentono di queste modifiche alla API di Scratch.",
         "url": "Altro URL"
     },
     "theme": {

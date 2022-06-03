@@ -161,8 +161,6 @@
         "selectHelp": "Selecione o projeto que você quer exportar copiando e colando o link do projeto no Scratch ou usando um dos outros meios. Se você usar um projeto criado por outra pessoa, lembre-se de dar créditos ao autor.",
         "unsharedProjects": "Projetos não compartilhados não serão mais acessíveis através do ID do projeto devido a mudanças da API do Scratch.",
         "unsharedProjectsMore": "Para mais informações, visite: {link}",
-        "unsharedProjectsTemporary": "Projetos não compartilhados TALVEZ não serão mais acessíveis através do ID do projeto em algum momento futuro devido a mudanças que irão acontecer na API do Scratch.",
-        "unsharedProjectsWorkaround": "Ao invés disso, você pode compartilhar o projeto ou baixar o projeto para o computador ( Arquivo > Baixar para computador) e abrir o arquivo no exportador.",
         "url": "Outro URL"
     },
     "theme": {

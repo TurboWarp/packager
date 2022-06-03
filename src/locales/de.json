@@ -103,7 +103,7 @@
         "unsafeCloudBehaviors": "Zusätzliche unsichere Cloud-Verhaltensweisen",
         "unsafeCloudBehaviorsWarning": "Unsichere Cloud-Verhaltensweisen ermöglichen es dem paketisierten Projekt, beliebigen Code außerhalb der \"Sandbox\" auszuführen, in der Projekte normalerweise ausgeführt werden. Abhängig von der Umgebung, für die du paketisierst, bietet dies die volle Kontrolle über deinen Computer, einschließlich der Möglichkeit, Viren zu installieren. Wenn du dem paketisierten Projekt nicht vertraust, deaktiviere diese Option.",
         "username": "Benutzername (alle \"#\" werden mit einer zufälligen Zahl ersetzt)",
-        "variableColor": "Variablenfarbe",
+        "variableColor": "Variablenfarbe#",
         "zip": "Zip (ideal für Websites)",
         "zip-one-asset": "Zip, Ressourcen in einer einzelnen Datei kombinieren (nicht empfohlen)"
     },
@@ -120,6 +120,7 @@
         "description3-on": "auf {brand}",
         "disclaimer": "Diese Seite ist nicht mit Scratch, dem Scratch Team oder der Scratch-Stiftung verbunden.",
         "documentation": "Zusätzliche Ressourcen und Hilfe",
+        "donate": "Spenden",
         "error": "Fehler",
         "errorMessage": "Nachricht: {error}",
         "fosshost": "Danke an Fosshost für die vom Packager verwendeten Server.",
@@ -161,8 +162,8 @@
         "selectHelp": "Wähle das Projekt, das du paketisieren willst, indem du den Link dazu kopierst und einfügst oder einen der anderen Modi verwendest. Falls das Projekt jemand anderem gehört, vergewissere dich, dass du dich dafür bedankst.",
         "unsharedProjects": "Der Zugriff auf nicht veröffentlichte Projekte ist aufgrund von Änderungen in der Scratch-API nicht mehr möglich.",
         "unsharedProjectsMore": "Mehr Informationen unter: {link}",
-        "unsharedProjectsTemporary": "Der Zugriff auf nicht veröffentlichte Projekte wird in Zukunft aufgrund von kommenden Änderungen in der Scratch-API WAHRSCHEINLICH nicht mehr möglich sein.",
-        "unsharedProjectsWorkaround": "Du kannst stattdessen entweder das Projekt veröffentlichen oder es auf deinem Computer speichern (Datei > Auf deinem Computer speichern) und die Datei dann im Packager laden.",
+        "unsharedProjectsTemporary": "Der Zugriff auf nicht veröffentlichte Projekte wird in Zukunft aufgrund von kommenden Änderungen in der Scratch-API nicht mehr möglich sein.",
+        "unsharedProjectsWorkaround": "Du kannst stattdessen entweder das Projekt veröffentlichen oder es auf deinem Computer speichern (Datei > Auf deinem Computer speichern) und die Datei dann im Packager laden. Vom Packager generierte Dateien sind vollkommen selbstenthalten und nicht von diesen Änderungen betroffen.",
         "url": "Andere URL"
     },
     "theme": {
