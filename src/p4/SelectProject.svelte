@@ -6,6 +6,7 @@
   import Button from './Button.svelte';
   import DropArea from './DropArea.svelte';
   import ComplexMessage from './ComplexMessage.svelte';
+  import ImportingProject from './ImportProject.svelte';
   import writablePersistentStore from './persistent-store';
   import {progress, currentTask} from './stores';
   import {UserError} from '../common/errors';
@@ -13,23 +14,45 @@
   import loadProject from '../packager/load-project';
   import {extractProjectId, isValidURL, getTitleFromURL} from './url-utils';
   import Task from './task';
+  import importProjectFromOpener from './import-project-from-opener';
 
-  const hasProjectIdInURL = location.hash && /^#\d+$/.test(location.hash);
-  const initialProjectId = hasProjectIdInURL ? location.hash.substring(1) : '60917032';
+  const defaultProjectId = '60917032';
 
-  let type;
-  let projectId;
-  if (hasProjectIdInURL) {
-    type = writable('id');
-    projectId = writable(initialProjectId);
-    onMount(() => {
-      load();
+  const type = writablePersistentStore('SelectProject.type', 'id');
+  const projectId = writablePersistentStore('SelectProject.id', defaultProjectId);
+  const projectUrl = writablePersistentStore('SelectProject.url', '');
+
+  let isImportingProject = false;
+
+  const searchParams = new URLSearchParams(location.search);
+  if (searchParams.has('import')) {
+    $type = 'file';
+    importProjectFromOpener({
+      onStartImporting: () => {
+        isImportingProject = true;
+      },
+      onCancelImporting: () => {
+        isImportingProject = false;
+      },
+      onFinishImporting: (file) => {
+        if (!isImportingProject) {
+          // Import was cancelled.
+          return;
+        }
+        isImportingProject = false;
+        const dataTransfer = new DataTransfer();
+        dataTransfer.items.add(file);
+        fileInputElement.files = dataTransfer.files;
+        setFiles(fileInputElement.files);
+      }
     });
   } else {
-    type = writablePersistentStore('SelectProject.type', 'id');
-    projectId = writablePersistentStore('SelectProject.id', initialProjectId);
+    const projectIdInURL = /^#\d+$/.test(location.hash) ? location.hash.substring(1) : null;
+    if (projectIdInURL) {
+      $type = 'id';
+      $projectId = initialProjectId;
+    }
   }
-  const projectUrl = writablePersistentStore('SelectProject.url', '');
 
   export let projectData = null;
   const resetProjectAndCancelTask = () => {
@@ -207,6 +230,12 @@
     margin-left: 4px;
   }
 </style>
+
+{#if isImportingProject}
+  <ImportingProject on:cancel={() => {
+    isImportingProject = false;
+  }} />
+{/if}
 
 <DropArea on:drop={handleDrop}>
   <Section accent="#4C97FF">

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      iframe {
+        display: block;
+      }
+    </style>
+  </head>
+  <body>
+    <p>Iframe:</p>
+    <iframe src="/#import_v1" width="600" height="600"></iframe>
+
+    <p>
+      <a href="/#import_v1" target="_blank" rel="opener">Open packager in new tab</a>
+    </p>
+
+    <script>
+      const frame = document.getElementById('frame');
+
+      const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+
+      window.addEventListener('message', async (e) => {
+        // In production make sure e.origin === 'https://packager.turbowarp.org'
+
+        const data = e.data && e.data.p4;
+        if (data) {
+          if (data.type === 'ready-for-import') {
+            e.source.postMessage({
+              p4: {
+                type: 'start-import'
+              }
+            }, '*');
+
+            await sleep(Math.random() * 2000);
+
+            const res = await fetch('./example.sb3');
+            const buffer = await res.arrayBuffer();
+            e.source.postMessage({
+              p4: {
+                type: 'finish-import',
+                data: buffer,
+                name: 'example.sb3'
+              }
+            }, '*', [buffer]);
+          } else {
+            console.warn('Unknown message', data);
+          }
+        }
+      });
+    </script>
+  </body>
+</html>
