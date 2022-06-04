@@ -559,5 +559,15 @@
     "loading": {
       "string": "Loading Preview"
     }
+  },
+  "import": {
+    "header": {
+      "string": "Importing project...",
+      "description": "Appears when importing a project from an external site"
+    },
+    "cancel": {
+      "string": "Cancel",
+      "description": "Button to cancel import"
+    }
   }
 }
