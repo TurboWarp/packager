@@ -54,6 +54,9 @@ class SpecialCloudBehaviorsProvider {
       const text = (e.clipboardData || window.clipboardData).getData('text');
       this.manager.setVariable(this, '☁ pasted', text);
     });
+
+    this.webSocketProvider = this.manager.providers.find(i => typeof i.setProjectId === 'function');
+    this.initialProjectId = this.webSocketProvider ? this.webSocketProvider.projectId : null;
   }
 
   handleUpdateVariable (name, value) {
@@ -77,6 +80,11 @@ class SpecialCloudBehaviorsProvider {
       this.manager.parent.setUsername(value);
     } else if (name === '☁ set clipboard') {
       navigator.clipboard.writeText(value);
+    } else if (name === '☁ room id') {
+      if (this.webSocketProvider) {
+        const newId = this.initialProjectId + (value ? `-${value}` : '');
+        this.webSocketProvider.setProjectId(newId);
+      }
     }
   }
 }

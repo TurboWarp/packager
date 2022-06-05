@@ -98,6 +98,11 @@ class WebSocketProvider {
     this.openConnection();
   }
 
+  setProjectId (id) {
+    this.ws.close();
+    this.projectId = id;
+  }
+
   openConnection () {
     this.currentCloudHost = this.cloudHosts[this.attemptedConnections % this.cloudHosts.length];
     this.attemptedConnections++;
