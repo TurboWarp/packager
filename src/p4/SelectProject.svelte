@@ -25,9 +25,9 @@
   let isImportingProject = false;
 
   const searchParams = new URLSearchParams(location.search);
-  if (searchParams.has('import')) {
+  if (searchParams.has('import_from')) {
     $type = 'file';
-    const origin = searchParams.get('import');
+    const origin = searchParams.get('import_from');
     importProjectFromOpener({
       origin,
       onStartImporting: () => {
