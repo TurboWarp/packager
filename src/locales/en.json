@@ -563,6 +563,10 @@
   "import": {
     "header": {
       "string": "Importing project...",
+      "description": "Header that appears when importing a project from an external site"
+    },
+    "description": {
+      "string": "This may take a while if the project is large.",
       "description": "Appears when importing a project from an external site"
     },
     "cancel": {

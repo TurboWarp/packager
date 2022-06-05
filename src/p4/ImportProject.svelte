@@ -31,9 +31,17 @@
     background: rgba(0, 0, 0, 0.8);
     color: white;
   }
+  .inner {
+    max-width: 480px;
+  }
 </style>
 
 <div class="outer" out:fade={{duration: 200}}>
-  <h1>{$_('import.header')}</h1>
-  <button on:click={cancel}>{$_('import.cancel')}</button>
+  <div class="inner">
+    <h2>{$_('import.header')}</h2>
+    <p>
+      {$_('import.description')}
+    </p>
+    <button on:click={cancel}>{$_('import.cancel')}</button>
+  </div>
 </div>
