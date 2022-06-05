@@ -1,42 +1,67 @@
 const importProjectFromOpener = ({
+  origin,
   onStartImporting,
   onFinishImporting,
   onCancelImporting
 }) => {
-  // TODO: check origin
-
   const opener = window.opener || window.parent;
   if (!opener || opener === window) {
     console.warn('Import ignored: cannot find parent window');
     return;
   }
 
+  if (!origin.startsWith('http:') && !origin.startsWith('https:')) {
+    console.warn('Import ignored: invalid origin');
+    return;
+  }
+
   const post = (data) => opener.postMessage({
     p4: data
-  }, '*');
+  }, origin);
+
+  let hasStarted = false;
+  let hasFinishedOrCancelled = false;
 
   const onMessage = (e) => {
+    if (e.origin !== origin) {
+      return;
+    }
+
     const data = e.data && e.data.p4;
-    if (data) {
+    if (!data) {
+      return;
+    }
+
+    if (!hasStarted) {
       if (data.type === 'start-import') {
+        hasStarted = true;
         onStartImporting();
-      } else if (data.type === 'finish-import') {
+      }
+    } else if (!hasFinishedOrCancelled) {
+      if (data.type === 'finish-import') {
+        cleanup();
+
+        // Convert data to File
         const buffer = data.data;
+        // Default title should not be changed.
         const name = data.name || 'Untitled';
         const file = new File([buffer], name);
-        cleanup();
-        onFinishImporting(file);
+
+        // Convert File to FileList
+        const dataTransfer = new DataTransfer();
+        dataTransfer.items.add(file);
+
+        onFinishImporting(dataTransfer.files);
       } else if (data.type === 'cancel-import') {
         cleanup();
         onCancelImporting();
-      } else {
-        console.warn('Unknown import message', data);
       }
     }
   };
   window.addEventListener('message', onMessage);
 
   const cleanup = () => {
+    hasFinishedOrCancelled = true;
     window.removeEventListener('message', onMessage);
   };
 
