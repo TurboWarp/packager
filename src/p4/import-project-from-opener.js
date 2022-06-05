@@ -15,9 +15,16 @@ const importProjectFromOpener = ({
     return;
   }
 
-  const post = (data) => opener.postMessage({
-    p4: data
-  }, origin);
+  const post = (data) => {
+    // postMessage could throw if origin is invalid
+    try {
+      opener.postMessage({
+        p4: data
+      }, origin);
+    } catch (e) {
+      console.warn('Cannot post message', e);
+    }
+  };
 
   let hasStarted = false;
   let hasFinishedOrCancelled = false;
