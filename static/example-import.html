@@ -26,32 +26,37 @@
 
       const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
+      // In production, the expected origin is 'https://packager.turbowarp.org'
+      const expectedOrigin = location.origin;
+
       window.addEventListener('message', async (e) => {
-        // In production make sure e.origin === 'https://packager.turbowarp.org'
+        if (e.origin !== expectedOrigin) {
+          return;
+        }
 
         const data = e.data && e.data.p4;
-        if (data) {
-          if (data.type === 'ready-for-import') {
-            e.source.postMessage({
-              p4: {
-                type: 'start-import'
-              }
-            }, '*');
+        if (!data) {
+          return;
+        }
 
-            await sleep(Math.random() * 2000);
+        if (data.type === 'ready-for-import') {
+          e.source.postMessage({
+            p4: {
+              type: 'start-import'
+            }
+          }, expectedOrigin);
 
-            const res = await fetch('./example.sb3');
-            const buffer = await res.arrayBuffer();
-            e.source.postMessage({
-              p4: {
-                type: 'finish-import',
-                data: buffer,
-                name: 'example.sb3'
-              }
-            }, '*', [buffer]);
-          } else {
-            console.warn('Unknown message', data);
-          }
+          await sleep(Math.random() * 2000);
+
+          const res = await fetch('./example.sb3');
+          const buffer = await res.arrayBuffer();
+          e.source.postMessage({
+            p4: {
+              type: 'finish-import',
+              data: buffer,
+              name: 'example.sb3'
+            }
+          }, expectedOrigin, [buffer]);
         }
       });
     </script>
