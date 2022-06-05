@@ -96,4 +96,7 @@ export default function ({ scaffolding }) {
   scaffolding.addCloudProviderOverride('☁ redirect', provider);
   scaffolding.addCloudProviderOverride('☁ open link', provider);
   scaffolding.addCloudProviderOverride('☁ username', provider);
+  scaffolding.addCloudProviderOverride('☁ set clipboard', provider);
+  scaffolding.addCloudProviderOverride('☁ pasted', provider);
+  scaffolding.addCloudProviderOverride('☁ room id', provider);
 }
