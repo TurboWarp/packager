@@ -50,7 +50,7 @@
     const projectIdInURL = /^#\d+$/.test(location.hash) ? location.hash.substring(1) : null;
     if (projectIdInURL) {
       $type = 'id';
-      $projectId = initialProjectId;
+      $projectId = projectIdInURL;
     }
   }
 
