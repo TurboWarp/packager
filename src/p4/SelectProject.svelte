@@ -27,23 +27,23 @@
   const searchParams = new URLSearchParams(location.search);
   if (searchParams.has('import')) {
     $type = 'file';
+    const origin = searchParams.get('import');
     importProjectFromOpener({
+      origin,
       onStartImporting: () => {
         isImportingProject = true;
       },
       onCancelImporting: () => {
         isImportingProject = false;
       },
-      onFinishImporting: (file) => {
+      onFinishImporting: (files) => {
         if (!isImportingProject) {
           // Import was cancelled.
           return;
         }
         isImportingProject = false;
-        const dataTransfer = new DataTransfer();
-        dataTransfer.items.add(file);
-        fileInputElement.files = dataTransfer.files;
-        setFiles(fileInputElement.files);
+        fileInputElement.files = files;
+        setFiles(files);
       }
     });
   } else {

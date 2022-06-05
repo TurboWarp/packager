@@ -6,17 +6,23 @@
         display: block;
       }
     </style>
+    <meta name="robots" content="noindex">
   </head>
   <body>
     <p>Iframe:</p>
-    <iframe src="/#import_v1" width="600" height="600"></iframe>
+    <iframe width="600" height="600"></iframe>
 
     <p>
-      <a href="/#import_v1" target="_blank" rel="opener">Open packager in new tab</a>
+      <a href="" target="_blank" rel="opener">Open packager in new tab</a>
     </p>
 
     <script>
-      const frame = document.getElementById('frame');
+      const frame = document.querySelector('iframe');
+      const link = document.querySelector('a');
+
+      const url = `/?import=${location.origin}`;
+      frame.src = url;
+      link.href = url;
 
       const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
