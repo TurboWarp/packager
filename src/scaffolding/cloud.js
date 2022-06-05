@@ -90,6 +90,7 @@ class WebSocketProvider {
     this.attemptedConnections = 0;
     this.bufferedMessages = [];
     this.scheduledBufferedSend = null;
+    this.reconnectTimeout = null;
     this.openConnection = this.openConnection.bind(this);
     this._scheduledSendBufferedMessages = this._scheduledSendBufferedMessages.bind(this);
   }
@@ -99,8 +100,8 @@ class WebSocketProvider {
   }
 
   setProjectId (id) {
-    this.ws.close();
     this.projectId = id;
+    this.closeAndReconnect();
   }
 
   openConnection () {
@@ -158,7 +159,20 @@ class WebSocketProvider {
     }
     const timeout = Math.random() * (Math.pow(2, Math.min(this.attemptedConnections + 1, 5)) - 1) * 1000;
     console.log(`Connection lost; reconnecting in ${Math.round(timeout)}ms`);
-    setTimeout(this.openConnection, timeout);
+    this.reconnectTimeout = setTimeout(this.openConnection, timeout);
+  }
+
+  closeAndReconnect () {
+    console.log('Closing connection and reconnecting.');
+    if (this.ws) {
+      this.ws.onclose = null;
+      this.ws.onerror = null;
+      this.ws.close();
+    }
+    clearTimeout(this.reconnectTimeout);
+    // There should be a slight delay so that repeated project ID changes won't trigger too many connections.
+    const delay = 1000 / 30;
+    this.reconnectTimeout = setTimeout(this.openConnection, delay);
   }
 
   canWriteToServer () {
