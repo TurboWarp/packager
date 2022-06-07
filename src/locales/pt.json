@@ -4,6 +4,9 @@
         "select": "Selecione ou arraste um arquivo",
         "selected": "Selecionado {file}"
     },
+    "import": {
+        "cancel": "Cancelar"
+    },
     "options": {
         "accentColor": "Cor de destaque (controles ativos/em foco, caixa de pergunta, menus de contexto)",
         "advancedOptions": "Opções Avançadas",

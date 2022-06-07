@@ -8,6 +8,9 @@
         "select": "Pasirinkite arba numeskite failą",
         "selected": "Pasirinktas {file}"
     },
+    "import": {
+        "cancel": "Atšaukti"
+    },
     "options": {
         "accentColor": "Akcento spalva (matomos/paslėptos kontrolės, klausimo užklausa, konteksto meniu)",
         "advancedOptions": "Išplėstiniai nustatymai",

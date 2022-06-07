@@ -4,6 +4,9 @@
         "select": "Sélectionne ou dépose un fichier",
         "selected": "Sélectionné {file}"
     },
+    "import": {
+        "cancel": "Annuler"
+    },
     "options": {
         "accentColor": "Couleur d'accentuation (contrôles actifs/survolés, invite de demande, menus contextuels)",
         "advancedOptions": "Paramètres avancés",

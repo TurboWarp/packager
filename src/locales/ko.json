@@ -4,6 +4,9 @@
         "select": "선택하거나 끌어다 놓기",
         "selected": "{file} 파일 선택됨 "
     },
+    "import": {
+        "cancel": "취소"
+    },
     "options": {
         "accentColor": "밑줄 색상(활성/비활성 제어, 질문 프롬프트, 우클릭 메뉴)",
         "advancedOptions": "고급 설정",

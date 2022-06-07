@@ -4,6 +4,9 @@
         "select": "選擇或放入檔案",
         "selected": "已選擇「{file}」"
     },
+    "import": {
+        "cancel": "取消"
+    },
     "options": {
         "accentColor": "主題色（按鈕背景、詢問框、右鍵選單等）",
         "advancedOptions": "進階選項",

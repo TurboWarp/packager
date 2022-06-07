@@ -8,6 +8,9 @@
         "select": "Datei auswählen oder ziehen",
         "selected": "{file} ausgewählt"
     },
+    "import": {
+        "cancel": "Abbrechen"
+    },
     "options": {
         "accentColor": "Akzentfarbe (aktive/gehoverte Steuerelemente, Eingabeaufforderungen, Kontextmenüs)",
         "advancedOptions": "Erweiterte Optionen",

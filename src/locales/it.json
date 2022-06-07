@@ -8,6 +8,11 @@
         "select": "Seleziona o trascina qui un file",
         "selected": "Selezionato {file}"
     },
+    "import": {
+        "cancel": "Annulla",
+        "description": "Può richiedere un po' se il progetto è grande.",
+        "header": "Importazione del progetto in corso …"
+    },
     "options": {
         "accentColor": "Colore di evidenziazione (controlli attivi, casella chiedi, menu contestuali) ",
         "advancedOptions": "Opzioni Avanzate",

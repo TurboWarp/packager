@@ -1,4 +1,7 @@
 {
+    "import": {
+        "cancel": "Prekliči"
+    },
     "options": {
         "accentColor": "Barva poudarkov (aktivni gumbi, polje za vnos odgovora, kontekstni meniji)",
         "advancedOptions": "Napredne možnosti",

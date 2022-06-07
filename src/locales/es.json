@@ -8,6 +8,10 @@
         "select": "Selecciona o suelta aquí un archivo",
         "selected": "{file} seleccionados"
     },
+    "import": {
+        "cancel": "Cancelar",
+        "header": "Importando proyecto..."
+    },
     "options": {
         "accentColor": "Color de resaltado (controles activos o con el cursor sobre ellos, entrada de respuestas, menús al dar click derecho)",
         "advancedOptions": "Opciones Avanzadas",

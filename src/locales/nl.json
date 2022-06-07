@@ -8,6 +8,11 @@
         "select": "Bestand selecteren of neerzetten",
         "selected": "{file} geselecteerd"
     },
+    "import": {
+        "cancel": "Annuleren",
+        "description": "Dit kan even duren als het project groot is.",
+        "header": "Project aan het importeren..."
+    },
     "options": {
         "accentColor": "Accentkleur (actieve/zwevende besturing, vraagveld, rechterklikmenu's)",
         "advancedOptions": "Geavanceerde Opties",

@@ -4,6 +4,9 @@
         "select": "Vyberte nebo přetáhněte soubor",
         "selected": "Vybrán {file}"
     },
+    "import": {
+        "cancel": "Storno"
+    },
     "options": {
         "accentColor": "Dekorační barva (aktivní/podržené řízení, zeptání, kontextové menu)",
         "advancedOptions": "Pokročilé nastavení",

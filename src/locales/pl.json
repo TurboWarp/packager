@@ -7,6 +7,9 @@
         "select": "Wybierz lub upuść plik",
         "selected": "Wybrano {file}"
     },
+    "import": {
+        "cancel": "Anuluj"
+    },
     "options": {
         "accentColor": "Akcentowy kolor (aktywne/wskazane kontrolki, ekrany pytań, menu kontekstowe)",
         "advancedOptions": "Zaawansowane Opcje",

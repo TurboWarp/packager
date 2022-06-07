@@ -4,6 +4,9 @@
         "select": "選ぶかファイルをドロップする",
         "selected": "{file}を選ぶ"
     },
+    "import": {
+        "cancel": "キャンセル"
+    },
     "options": {
         "accentColor": "アクセントカラー(アクティブ/ホバリングコントロール、質問バー、コンテキストメニュー)",
         "advancedOptions": "高度なオプション",

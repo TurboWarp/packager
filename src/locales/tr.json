@@ -4,6 +4,9 @@
         "select": "Dosyayı şeçin yada buraya bırakın",
         "selected": "{file}seçilmiştir"
     },
+    "import": {
+        "cancel": "İptal"
+    },
     "options": {
         "accentColor": "Vurgu rengi (etkin/gezintili kontroller, soru istemi, bağlam menüleri)",
         "advancedOptions": "Gelişmiş ayarlar",
