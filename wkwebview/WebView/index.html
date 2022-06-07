@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<body>
+<h1>It works!</h1>
+<button onclick="download()">Test file download</button>
+<script>
+const download = async () => {
+    const blob = new Blob([
+        new Uint8Array("Hello, world!".split("").map(i => i.charCodeAt(0)))
+    ], {
+        type: "text/plain"
+    });
+    ExternalDownloadHelper.download("test.txt", blob);
+};
+</script>
+</body>
+</html>
