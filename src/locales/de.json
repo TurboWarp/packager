@@ -9,7 +9,9 @@
         "selected": "{file} ausgewählt"
     },
     "import": {
-        "cancel": "Abbrechen"
+        "cancel": "Abbrechen",
+        "description": "Dies könnte eine Weile dauern, wenn das Projekt groß ist.",
+        "header": "Projekt wird importiert..."
     },
     "options": {
         "accentColor": "Akzentfarbe (aktive/gehoverte Steuerelemente, Eingabeaufforderungen, Kontextmenüs)",
