@@ -29,6 +29,7 @@
     "type": "git",
     "url": "https://github.com/TurboWarp/packager.git"
   },
+  "funding": "https://github.com/sponsors/GarboMuffin",
   "license": "Apache-2.0",
   "dependencies": {
     "@fiahfy/icns": "0.0.7",
