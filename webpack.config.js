@@ -38,7 +38,7 @@ const makeScaffolding = ({full}) => ({
     path: dist
   },
   entry: full ? {
-    scaffolding: './src/scaffolding/export.js',
+    'scaffolding-full': './src/scaffolding/export.js',
     addons: './src/addons/index.js'
   } : {
     'scaffolding-min': './src/scaffolding/export.js'
@@ -117,7 +117,7 @@ const makeScaffolding = ({full}) => ({
   },
   plugins: [
     ...(buildId ? [new AddBuildIDToOutputPlugin(buildId)] : []),
-    ...(process.env.BUNDLE_ANALYZER === (full ? 'scaffolding' : 'scaffolding-min') ? [new BundleAnalyzerPlugin()] : [])
+    ...(process.env.BUNDLE_ANALYZER === (full ? 'scaffolding-full' : 'scaffolding-min') ? [new BundleAnalyzerPlugin()] : [])
   ]
 });
 

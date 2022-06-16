@@ -53,7 +53,7 @@ export default {
     sha256: '5d4086894f10549c61c20e5f770c808afc25c2e4793da75b5b1cede294449fac'
   },
   scaffolding: {
-    src: relativeScaffolding('scaffolding.js'),
+    src: relativeScaffolding('scaffolding-full.js'),
     estimatedSize: 4564032,
     useBuildId: true
   },
