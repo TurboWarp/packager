@@ -3,7 +3,7 @@ const path = require('path');
 
 const root = path.join(__dirname, '..', '..', '..');
 const readme = path.join(root, 'README.md');
-const nodeReadme = path.join(root, 'api', 'README.md');
+const nodeReadme = path.join(root, 'node-api-docs', 'README.md');
 const storedOriginalReadme = path.join(root, 'OLD_README.md');
 
 if (!fs.existsSync(readme)) {
