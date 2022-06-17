@@ -115,6 +115,7 @@
     "p4": {
         "browserNotSupported": "不支持浏览器",
         "browserNotSupportedDescription": "请更新您的浏览器。",
+        "cannotAccessProject": "无法访问作品数据。这可能意味着此作品未共享、没有存在、或ID 数字无效。",
         "close": "关闭",
         "description1": "将 Scratch 作品转换为 HTML 文件、ZIP 压缩包或 Windows、MacOS 和 Linux 的可执行文件。",
         "description2": "如果您只是想以一种简单的方式将 Scratch 官网作品嵌入您的网站，您可能会对 {embedding} 感兴趣。 ",
@@ -123,6 +124,7 @@
         "description3-on": " {brand} ",
         "disclaimer": "此网站不属于 Scratch、Scratch 团队或 Scratch 基金会。",
         "documentation": "更多资源和帮助",
+        "donate": "捐赠",
         "error": "错误",
         "errorMessage": "错误：{error}",
         "feedback": "反馈",
@@ -144,6 +146,7 @@
         "loadingAssets": "下载素材中（第 {complete} 个，共 {total} 个）",
         "loadingLargeAsset": "下载 {thing} 中",
         "loadingProjectData": "下载作品数据中",
+        "loadingProjectMetadata": "下载作品元数据中。",
         "loadingScripts": "下载脚本中",
         "packagingProject": "打包作品中"
     },
