@@ -1259,7 +1259,8 @@ cd "$(dirname "$0")"
 }
 
 Packager.getDefaultPackageNameFromFileName = (title) => {
-  // Remove file extension
+  // Note: Changing this logic is very dangerous because changing the defaults will cause already packaged projects
+  // to loose any data when they are updated.
   title = title.split('.')[0];
   title = title.replace(/[^\-a-z ]/gi, '');
   title = title.trim();
