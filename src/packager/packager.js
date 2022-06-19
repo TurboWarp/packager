@@ -1268,8 +1268,11 @@ Packager.getDefaultPackageNameFromFileName = (title) => {
 };
 
 Packager.getWindowTitleFromFileName = (title) => {
-  title = title.trim();
-  title = title.split('.')[0];
+  const split = title.split('.');
+  if (split.length > 1) {
+    split.pop();
+  }
+  title = split.join('.').trim();
   return title || 'Packaged Project';
 };
 
