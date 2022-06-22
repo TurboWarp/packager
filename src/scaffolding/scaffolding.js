@@ -11,6 +11,7 @@ import Cloud from './cloud';
 import Question from './question';
 import {ListMonitor, VariableMonitor} from './monitor';
 import ControlBar from './control-bar';
+import {isValidListValue, isValidVariableValue} from './verify-value';
 import defaultMessages from './messages.json';
 import styles from './style.css';
 
@@ -461,6 +462,34 @@ class Scaffolding extends EventTarget {
 
   stopAll () {
     this.vm.stopAll();
+  }
+
+  _lookupVariable(name, type) {
+    const variable = this.vm.runtime.getTargetForStage().lookupVariableByNameAndType(name, type);
+    if (!variable) throw new Error(`Global ${type || 'variable'} does not exist: ${name}`);
+    return variable;
+  }
+
+  getVariable (name) {
+    return this._lookupVariable(name, '').value;
+  }
+
+  setVariable(name, value) {
+    if (!isValidVariableValue(value)) {
+      throw new Error('Invalid variable value');
+    }
+    this._lookupVariable(name, '').value = value;
+  }
+
+  getList(name) {
+    return this._lookupVariable(name, 'list').value;
+  }
+
+  setList(name, value) {
+    if (!isValidListValue(value)) {
+      throw new Error('Invalid list value');
+    }
+    this._lookupVariable(name, 'list').value = value;
   }
 }
 
