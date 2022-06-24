@@ -118,7 +118,10 @@
       <p>See console for more information</p>
     </div>
 
+    <!-- If using Scaffolding as a library, update this path to where your scaffolding-[full|min].js is located. -->
+    <!-- This could also be a jsdelivr URL. -->
     <script src="scaffolding/scaffolding-full.js"></script>
+
     <script>
       const PROJECT_ID = location.hash.substr(1) || '1';
 
@@ -215,15 +218,15 @@
 
       scaffolding.addCloudProvider(new Scaffolding.Cloud.WebSocketProvider('wss://clouddata.turbowarp.org', PROJECT_ID));
 
-      const getProjectJSON = async () => {
+      const getProjectData = async () => {
         const asset = await storage.load(Scaffolding.Storage.AssetType.Project, PROJECT_ID);
         return asset.data;
       };
 
       const run = async () => {
-        const projectJSON = await getProjectJSON();
+        const projectData = await getProjectData();
         setProgress(0.1);
-        await scaffolding.loadProject(projectJSON);
+        await scaffolding.loadProject(projectData);
         scaffolding.setUsername('123');
         setProgress(1);
         loadingScreen.hidden = true;
