@@ -2,6 +2,8 @@
 
 ## Scaffolding's API is in an ALPHA state. It WILL change in ways that are backwards incompatible. Please pin to exact versions to avoid pain later!
 
+## This documentation is very work in progress. Report any errors you find or any issues you encounter.
+
 Scaffolding is the project player used by the packager.
 
 Here's what Scaffolding does for you:
