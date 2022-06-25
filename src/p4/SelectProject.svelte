@@ -1,6 +1,5 @@
 <script>
-  import {onMount} from 'svelte';
-  import {writable} from 'svelte/store';
+  import {onMount, tick} from 'svelte';
   import {_} from '../locales';
   import Section from './Section.svelte';
   import Button from './Button.svelte';
@@ -15,6 +14,7 @@
   import {extractProjectId, isValidURL, getTitleFromURL} from './url-utils';
   import Task from './task';
   import importProjectFromOpener from './import-project-from-opener';
+  import {isSearchEngineBot} from './environment';
 
   const defaultProjectId = '60917032';
 
@@ -210,6 +210,13 @@
     projectData = await task.do(internalLoad(task));
     task.done();
   };
+
+  // We want search engines to see our entire page, not just the landing page
+  if (isSearchEngineBot) {
+    $type = 'id';
+    $projectId = '104';
+    tick().then(load);
+  }
 </script>
 
 <style>

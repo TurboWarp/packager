@@ -8,3 +8,5 @@ export const isChromeOS = navigator.userAgent.includes('CrOS');
 export const isStandalone = !!process.env.STANDALONE;
 
 export const version = process.env.VERSION;
+
+export const isSearchEngineBot = navigator.userAgent.includes('Googlebot');
