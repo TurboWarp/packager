@@ -382,13 +382,47 @@ cd "$(dirname "$0")"
     const electronZip = await (await getJSZip()).loadAsync(buffer);
 
     const isWindows = this.options.target.includes('win');
+    const isMac = this.options.target.includes('mac');
     const isLinux = this.options.target.includes('linux');
+
+    // See https://www.electronjs.org/docs/latest/tutorial/application-distribution#manual-distribution
 
     // Electron Windows/Linux folder structure:
     // * (root)
     // +-- electron.exe (executable)
-    // +-- LICENSES.chromium.html
-    // +-- ...
+    // +-- resources
+    //    +-- default_app.asar (we will delete this)
+    //    +-- app (we will create this)
+    //      +-- index.html and the other project files (we will create this)
+    // +-- LICENSES.chromium.html and everything else
+
+    // Electron macOS folder structure:
+    // * (root)
+    // +-- Electron.app
+    //    +-- Contents
+    //      +-- Info.plist (we must update)
+    //      +-- MacOS
+    //        +-- Electron (executable)
+    //      +-- Frameworks
+    //        +-- Electron Helper.app
+    //          +-- Contents
+    //            +-- Info.plist (we must update)
+    //        +-- Electron Helper (GPU).app
+    //          +-- Contents
+    //            +-- Info.plist (we must update)
+    //        +-- Electron Helper (Renderer).app
+    //          +-- Contents
+    //            +-- Info.plist (we must update)
+    //        +-- Electron Helper (Plugin).app
+    //          +-- Contents
+    //            +-- Info.plist (we must update)
+    //        +-- and several other helpers which we won't touch
+    //      +-- Resources
+    //        +-- default_app.asar (we will delete this)
+    //        +-- electron.icns (we will update this)
+    //        +-- app (we will create this)
+    //          +-- index.html and the other project files (we will create this)
+    // +-- LICENSES.chromium.html and other license files
 
     const zip = new (await getJSZip());
     const packageName = this.options.app.packageName;
@@ -399,14 +433,23 @@ cd "$(dirname "$0")"
       // Rename the executable file
       if (isWindows) {
         newPath = newPath.replace('electron.exe', `${packageName}.exe`);
+      } else if (isMac) {
+        newPath = newPath.replace('Electron.app', `${packageName}.app`);
+        // newPath = newPath.replace(/Electron Helper/g, `${packageName} Helper`);
+        newPath = newPath.replace(/Electron$/, packageName);
       } else if (isLinux) {
         newPath = newPath.replace(/electron$/, packageName);
       }
       setFileFast(zip, newPath, file);
     }
 
+    // This is the path to put things that are meant to be read by end users.
+    // On macOS, looking inside the .app is annoying, so put the files in the root of the zip.
+    const humanReadableFilePrefix = isMac ? '' : packageName;
+
     const creditsHtml = await zip.file(`${packageName}/LICENSES.chromium.html`).async('string');
-    zip.file(`${packageName}/licenses.html`, creditsHtml + generateChromiumLicenseHTML([
+
+    zip.file(`${humanReadableFilePrefix}/licenses.html`, creditsHtml + generateChromiumLicenseHTML([
       SELF_LICENSE,
       SCRATCH_LICENSE,
       ELECTRON_LICENSE
@@ -418,20 +461,20 @@ cd "$(dirname "$0")"
     zip.remove(`${packageName}/version`);
     zip.remove(`${packageName}/resources/default_app.asar`);
 
-    const dataPrefix = `${packageName}/`;
-    const resourcePrefix = `${dataPrefix}resources/app/`;
+    const contentsPrefix = isMac ? `${packageName}/${packageName}.app/Contents/` : `${packageName}/`;
+    const resourcesPrefix = isMac ? `${contentsPrefix}Resources/app/` : `${contentsPrefix}resources/app/`;
     const electronMainName = 'electron-main.js';
     const iconName = 'icon.png';
 
     const icon = await Adapter.getAppIcon(this.options.app.icon);
-    zip.file(`${resourcePrefix}${iconName}`, icon);
+    zip.file(`${resourcesPrefix}${iconName}`, icon);
 
     const manifest = {
       name: packageName,
       main: electronMainName,
       version: this.options.app.version
     };
-    zip.file(`${resourcePrefix}package.json`, JSON.stringify(manifest, null, 4));
+    zip.file(`${resourcesPrefix}package.json`, JSON.stringify(manifest, null, 4));
 
     const mainJS = `'use strict';
 const {app, BrowserWindow, Menu, shell, screen, dialog} = require('electron');
@@ -595,23 +638,34 @@ app.whenReady().then(() => {
   createProjectWindow(defaultProjectURL);
 });
 `;
-    zip.file(`${resourcePrefix}${electronMainName}`, mainJS);
+    zip.file(`${resourcesPrefix}${electronMainName}`, mainJS);
 
     for (const [path, data] of Object.entries(projectZip.files)) {
-      setFileFast(zip, `${resourcePrefix}${path}`, data);
+      setFileFast(zip, `${resourcesPrefix}${path}`, data);
     }
 
     if (isWindows) {
       const readme = `Open "${packageName}.exe" to start the app. Open "licenses.html" for information regarding software licenses used by the app.`;
-      zip.file(`${dataPrefix}README.txt`, readme);
+      zip.file(`${humanReadableFilePrefix}README.txt`, readme);
     } else if (isLinux) {
       // Some Linux distributions can't easily open the executable file from the GUI, so we'll add a simple wrapper that people can use instead.
       const startScript = `#!/bin/bash
 cd "$(dirname "$0")"
 ./${packageName}`;
-      zip.file(`${dataPrefix}start.sh`, startScript, {
+      zip.file(`${humanReadableFilePrefix}start.sh`, startScript, {
         unixPermissions: 0o100755
       });
+    } else if (isMac) {
+      await this.updatePlistInZip(zip, `${contentsPrefix}Info.plist`);
+      const HELPERS = [
+        '',
+        ' (GPU)',
+        ' (Renderer)',
+        ' (Plugin)',
+      ];
+      for (const type of HELPERS) {
+        await this.updatePlistInZip(zip, `${contentsPrefix}Frameworks/Electron Helper${type}.app/Contents/Info.plist`);
+      }
     }
 
     return zip;
