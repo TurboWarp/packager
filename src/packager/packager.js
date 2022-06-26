@@ -672,6 +672,9 @@ cd "$(dirname "$0")"
       for (const type of HELPERS) {
         await this.updatePlistInZip(zip, `${contentsPrefix}Frameworks/Electron Helper${type}.app/Contents/Info.plist`);
       }
+
+      const icns = await pngToAppleICNS(icon);
+      zip.file(`${contentsPrefix}Resources/electron.icns`, icns);
     }
 
     return zip;
