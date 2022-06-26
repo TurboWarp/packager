@@ -388,7 +388,8 @@ cd "$(dirname "$0")"
 
     const manifest = {
       name: packageName,
-      main: electronMainName
+      main: electronMainName,
+      version: this.options.app.version
     };
     zip.file(`${resourcePrefix}package.json`, JSON.stringify(manifest, null, 4));
 
