@@ -231,6 +231,45 @@ class Packager extends EventTarget {
     return {width, height};
   }
 
+  updatePlist (source) {
+    const plist = parsePlist(source);
+
+    // If CFBundleIdentifier changes, then things like saved local cloud variables will be reset.
+    // https://developer.apple.com/documentation/bundleresources/information_property_list/cfbundleidentifier
+    plist.CFBundleIdentifier = `org.turbowarp.packager.userland.${this.options.app.packageName}`;
+
+    // These strings appears in the menu bar.
+    // Documentation says that CFBundleName is only supposed to be 15 characters and that CFBundleDisplayName
+    // should be used for longer names, but in reality CFBundleName seems to not have a length limit.
+    // We'll just set both of these to the same value to remove any old values.
+    // https://developer.apple.com/documentation/bundleresources/information_property_list/cfbundlename
+    // https://developer.apple.com/documentation/bundleresources/information_property_list/cfbundledisplayname
+    plist.CFBundleName = this.options.app.windowTitle;
+    plist.CFBundleDisplayName = this.options.app.windowTitle;
+
+    // Account for previous step where we renamed the WebView executable.
+    // https://developer.apple.com/documentation/bundleresources/information_property_list/cfbundleexecutable
+    plist.CFBundleExecutable = this.options.app.packageName;
+
+    // macOS's "About" screen will display: "Version {CFBundleShortVersionString} ({CFBundleVersion})"
+    // Apple's own apps are inconsistent about what they display here. Some apps set both of these to the same thing
+    // so you see eg. "Version 15.0 (15.0)" while others set CFBundleShortVersionString to a semver-like and
+    // treat CFBundleVersion as a simple build number eg. "Version 1.4.0 (876)"
+    // Apple's documentation says both of these are supposed to be major.minor.patch, but in reality it doesn't
+    // even have to have numbers.
+    // To keep things simple, we'll just set both of these to the same thing.
+    // https://developer.apple.com/documentation/bundleresources/information_property_list/cfbundleversion
+    // https://developer.apple.com/documentation/bundleresources/information_property_list/cfbundleshortversionstring
+    plist.CFBundleVersion = this.options.app.version;
+    plist.CFBundleShortVersionString = this.options.app.version;
+
+    return generatePlist(plist);
+  }
+
+  async updatePlistInZip (zip, name) {
+    zip.file(name, this.updatePlist(await zip.file(name).async('string')));
+  }
+
   async addNwJS (projectZip) {
     const nwjsBuffer = await this.fetchLargeAsset(this.options.target, 'arraybuffer');
     const nwjsZip = await (await getJSZip()).loadAsync(nwjsBuffer);
@@ -594,7 +633,7 @@ cd "$(dirname "$0")"
 
     const newAppName = `${this.options.app.packageName}.app`;
     const contentsPrefix = `${newAppName}/Contents/`;
-    const resourcePrefix = `${newAppName}/Contents/Resources/`;
+    const resourcesPrefix = `${newAppName}/Contents/Resources/`;
 
     const zip = new (await getJSZip());
     for (const [path, data] of Object.entries(appZip.files)) {
@@ -606,13 +645,13 @@ cd "$(dirname "$0")"
       setFileFast(zip, newPath, data);
     }
     for (const [path, data] of Object.entries(projectZip.files)) {
-      setFileFast(zip, `${resourcePrefix}${path}`, data);
+      setFileFast(zip, `${resourcesPrefix}${path}`, data);
     }
 
     const icon = await Adapter.getAppIcon(this.options.app.icon);
     const icns = await pngToAppleICNS(icon);
-    zip.file(`${resourcePrefix}AppIcon.icns`, icns);
-    zip.remove(`${resourcePrefix}Assets.car`);
+    zip.file(`${resourcesPrefix}AppIcon.icns`, icns);
+    zip.remove(`${resourcesPrefix}Assets.car`);
 
     const parsedBackgroundColor = parseInt(this.options.appearance.background.substr(1), 16);
     const applicationConfig = {
@@ -628,36 +667,9 @@ cd "$(dirname "$0")"
       width: this.computeWindowSize().width,
       height: this.computeWindowSize().height
     };
-    zip.file(`${resourcePrefix}application_config.json`, JSON.stringify(applicationConfig));
+    zip.file(`${resourcesPrefix}application_config.json`, JSON.stringify(applicationConfig));
 
-    const plist = parsePlist(await zip.file(`${contentsPrefix}Info.plist`).async('string'));
-
-    // If CFBundleIdentifier changes, then things like saved local cloud variables will be reset.
-    // https://developer.apple.com/documentation/bundleresources/information_property_list/cfbundleidentifier
-    plist.CFBundleIdentifier = `org.turbowarp.packager.userland.${this.options.app.packageName}`;
-
-    // This string appears in the menu bar
-    // Although the documentation says this can only be up to 15 characters, in reality it accepts much longer.
-    // https://developer.apple.com/documentation/bundleresources/information_property_list/cfbundlename
-    plist.CFBundleName = this.options.app.windowTitle;
-
-    // Account for previous step where we renamed the WebView executable.
-    // https://developer.apple.com/documentation/bundleresources/information_property_list/cfbundleexecutable
-    plist.CFBundleExecutable = this.options.app.packageName;
-
-    // macOS's "About" screen will display: "Version {CFBundleShortVersionString} ({CFBundleVersion})"
-    // Apple's own apps are inconsistent about what they display here. Some apps set both of these to the same thing
-    // so you see eg. "Version 15.0 (15.0)" while others set CFBundleShortVersionString to a semver-like and
-    // treat CFBundleVersion as a simple build number eg. "Version 1.4.0 (876)"
-    // Apple's documentation says both of these are supposed to be major.minor.patch, but in reality it doesn't
-    // even have to have numbers.
-    // To keep things simple, we'll just set both of these to the same thing.
-    // https://developer.apple.com/documentation/bundleresources/information_property_list/cfbundleversion
-    // https://developer.apple.com/documentation/bundleresources/information_property_list/cfbundleshortversionstring
-    plist.CFBundleVersion = this.options.app.version;
-    plist.CFBundleShortVersionString = this.options.app.version;
-
-    zip.file(`${contentsPrefix}Info.plist`, generatePlist(plist));
+    await this.updatePlistInZip(zip, `${contentsPrefix}Info.plist`);
 
     return zip;
   }
