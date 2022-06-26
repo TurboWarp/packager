@@ -289,6 +289,7 @@ class Packager extends EventTarget {
     const manifest = {
       name: packageName,
       main: 'main.js',
+      version: this.options.app.version,
       window: {
         width: this.computeWindowSize().width,
         height: this.computeWindowSize().height,
