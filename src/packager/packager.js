@@ -653,14 +653,6 @@ app.whenReady().then(() => {
     if (isWindows) {
       const readme = `Open "${packageName}.exe" to start the app. Open "licenses.html" for information regarding software licenses used by the app.`;
       zip.file(`${rootPrefix}README.txt`, readme);
-    } else if (isLinux) {
-      // Some Linux distributions can't easily open the executable file from the GUI, so we'll add a simple wrapper that people can use instead.
-      const startScript = `#!/bin/bash
-cd "$(dirname "$0")"
-./${packageName}`;
-      zip.file(`${rootPrefix}start.sh`, startScript, {
-        unixPermissions: 0o100755
-      });
     } else if (isMac) {
       await this.updatePlistInZip(zip, `${contentsPrefix}Info.plist`);
       const HELPERS = [
@@ -675,6 +667,14 @@ cd "$(dirname "$0")"
 
       const icns = await pngToAppleICNS(icon);
       zip.file(`${contentsPrefix}Resources/electron.icns`, icns);
+    } else if (isLinux) {
+      // Some Linux distributions can't easily open the executable file from the GUI, so we'll add a simple wrapper that people can use instead.
+      const startScript = `#!/bin/bash
+cd "$(dirname "$0")"
+./${packageName}`;
+      zip.file(`${rootPrefix}start.sh`, startScript, {
+        unixPermissions: 0o100755
+      });
     }
 
     return zip;
