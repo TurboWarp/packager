@@ -115,6 +115,7 @@
         "description3-on": "{brand}",
         "disclaimer": "このウェブサイトはScratch、Scratch Team、Scratch財団と提携していません。",
         "documentation": "その他のリソースとヘルプ",
+        "donate": "寄付する",
         "error": "エラー",
         "errorMessage": "メッセージ: {error}",
         "feedback": "フィードバック",

@@ -88,7 +88,7 @@
         "projectIdHelp": "作品 ID 用于连接云变量服务器或存储本地云变量。可以包含非数字内容。",
         "removeFencing": "角色可穿过边缘",
         "removeMiscLimits": "移除其他限制",
-        "resetAll": "重置全部",
+        "resetAll": "全部重置",
         "runtimeOptions": "运行选项",
         "showFlag": "在控制栏显示绿旗按钮",
         "showFullscreen": "在控制栏显示全屏按钮",
