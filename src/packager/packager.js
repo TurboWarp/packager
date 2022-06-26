@@ -390,7 +390,7 @@ cd "$(dirname "$0")"
       name: packageName,
       main: electronMainName
     };
-    zip.file(`${resourcePrefix}package.json`, JSON.stringify(manifest));
+    zip.file(`${resourcePrefix}package.json`, JSON.stringify(manifest, null, 4));
 
     const mainJS = `'use strict';
 const {app, BrowserWindow, Menu, shell, screen, dialog} = require('electron');
