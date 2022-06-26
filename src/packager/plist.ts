@@ -59,25 +59,33 @@
 </plist>
 */
 
-const xmlToValue = (node) => {
+type PlistValue = string | Plist | PlistValue[];
+interface Plist {
+	[s: string]: PlistValue;
+}
+
+const xmlToValue = (node: Element): PlistValue => {
   if (node.tagName === 'dict') {
-    const result = {};
+    const result: Plist = {};
     for (const child of node.children) {
       if (child.tagName === 'key') {
-        result[child.textContent] = xmlToValue(child.nextElementSibling);
+				const next = child.nextElementSibling;
+				if (!next) {
+					throw new Error('Plist dict key is missing value');
+				}
+        result[child.textContent!] = xmlToValue(next);
       }
     }
     return result;
   } else if (node.tagName === 'array') {
     return Array.from(node.children).map(xmlToValue);
   } else if (node.tagName === 'string') {
-    return node.textContent;
+    return node.textContent!;
   }
-  console.warn('unknown plist xml', node);
-  return null;
+	throw new Error('Failed to parse plist value');
 };
 
-const valueToXml = (doc, value) => {
+const valueToXml = (doc: XMLDocument, value: PlistValue): Element => {
   if (Array.isArray(value)) {
     const node = doc.createElement('array');
     for (const listItem of value) {
@@ -103,14 +111,18 @@ const valueToXml = (doc, value) => {
   return valueToXml(doc, `${value}`);
 };
 
-export const parsePlist = (string) => {
+export const parsePlist = (string: string): Plist => {
   const xml = new DOMParser().parseFromString(string, 'text/xml');
   const rootNode = xml.children[0];
   const rootDict = rootNode.children[0];
-  return xmlToValue(rootDict);
+  const plist = xmlToValue(rootDict);
+	if (typeof plist !== 'object' || Array.isArray(plist)) {
+		throw new Error('Top level object in plist was not a dict');
+	}
+	return plist;
 };
 
-export const generatePlist = (values) => {
+export const generatePlist = (values: Plist): string => {
   const xml = document.implementation.createDocument(null, "plist");
   const rootNode = xml.documentElement;
   rootNode.setAttribute('version', '1.0');
