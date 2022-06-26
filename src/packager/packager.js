@@ -428,40 +428,46 @@ cd "$(dirname "$0")"
     const packageName = this.options.app.packageName;
     for (const path of Object.keys(electronZip.files)) {
       const file = electronZip.files[path];
-      // Create an inner folder inside the zip
-      let newPath = `${packageName}/${path}`;
-      // Rename the executable file
+
+      // On Windows and Linux, make an inner folder inside the zip. Zip extraction tools will sometimes make
+      // a mess if you don't make an inner folder.
+      // On macOS, the .app is already itself a folder already and macOS will always make a folder for the
+      // extracted files if there's multiple files at the root.
+      let newPath;
+      if (isMac) {
+        newPath = path;
+      } else {
+        newPath = `${packageName}/${path}`;
+      }
+
       if (isWindows) {
         newPath = newPath.replace('electron.exe', `${packageName}.exe`);
       } else if (isMac) {
         newPath = newPath.replace('Electron.app', `${packageName}.app`);
-        // newPath = newPath.replace(/Electron Helper/g, `${packageName} Helper`);
         newPath = newPath.replace(/Electron$/, packageName);
       } else if (isLinux) {
         newPath = newPath.replace(/electron$/, packageName);
       }
+
       setFileFast(zip, newPath, file);
     }
 
-    // This is the path to put things that are meant to be read by end users.
-    // On macOS, looking inside the .app is annoying, so put the files in the root of the zip.
-    const humanReadableFilePrefix = isMac ? '' : packageName;
+    const rootPrefix = isMac ? '' : `${packageName}/`;
 
-    const creditsHtml = await zip.file(`${packageName}/LICENSES.chromium.html`).async('string');
-
-    zip.file(`${humanReadableFilePrefix}/licenses.html`, creditsHtml + generateChromiumLicenseHTML([
+    const creditsHtml = await zip.file(`${rootPrefix}LICENSES.chromium.html`).async('string');
+    zip.file(`${rootPrefix}licenses.html`, creditsHtml + generateChromiumLicenseHTML([
       SELF_LICENSE,
       SCRATCH_LICENSE,
       ELECTRON_LICENSE
     ]));
 
-    zip.remove(`${packageName}/LICENSE.txt`);
-    zip.remove(`${packageName}/LICENSES.chromium.html`);
-    zip.remove(`${packageName}/LICENSE`);
-    zip.remove(`${packageName}/version`);
-    zip.remove(`${packageName}/resources/default_app.asar`);
+    zip.remove(`${rootPrefix}LICENSE.txt`);
+    zip.remove(`${rootPrefix}LICENSES.chromium.html`);
+    zip.remove(`${rootPrefix}LICENSE`);
+    zip.remove(`${rootPrefix}version`);
+    zip.remove(`${rootPrefix}resources/default_app.asar`);
 
-    const contentsPrefix = isMac ? `${packageName}/${packageName}.app/Contents/` : `${packageName}/`;
+    const contentsPrefix = isMac ? `${rootPrefix}${packageName}.app/Contents/` : rootPrefix;
     const resourcesPrefix = isMac ? `${contentsPrefix}Resources/app/` : `${contentsPrefix}resources/app/`;
     const electronMainName = 'electron-main.js';
     const iconName = 'icon.png';
@@ -646,13 +652,13 @@ app.whenReady().then(() => {
 
     if (isWindows) {
       const readme = `Open "${packageName}.exe" to start the app. Open "licenses.html" for information regarding software licenses used by the app.`;
-      zip.file(`${humanReadableFilePrefix}README.txt`, readme);
+      zip.file(`${rootPrefix}README.txt`, readme);
     } else if (isLinux) {
       // Some Linux distributions can't easily open the executable file from the GUI, so we'll add a simple wrapper that people can use instead.
       const startScript = `#!/bin/bash
 cd "$(dirname "$0")"
 ./${packageName}`;
-      zip.file(`${humanReadableFilePrefix}start.sh`, startScript, {
+      zip.file(`${rootPrefix}start.sh`, startScript, {
         unixPermissions: 0o100755
       });
     } else if (isMac) {
