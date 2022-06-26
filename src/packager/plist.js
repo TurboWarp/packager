@@ -5,60 +5,60 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>BuildMachineOSBuild</key>
-	<string>20F71</string>
-	<key>CFBundleDevelopmentRegion</key>
-	<string>en</string>
-	<key>CFBundleExecutable</key>
-	<string>WebView</string>
-	<key>CFBundleIconFile</key>
-	<string>AppIcon</string>
-	<key>CFBundleIconName</key>
-	<string>AppIcon</string>
-	<key>CFBundleIdentifier</key>
-	<string>org.turbowarp.webviews.mac</string>
-	<key>CFBundleInfoDictionaryVersion</key>
-	<string>6.0</string>
-	<key>CFBundleName</key>
-	<string>WebView</string>
-	<key>CFBundlePackageType</key>
-	<string>APPL</string>
-	<key>CFBundleShortVersionString</key>
-	<string>1.0</string>
-	<key>CFBundleSupportedPlatforms</key>
-	<array>
-		<string>MacOSX</string>
-	</array>
-	<key>CFBundleVersion</key>
-	<string>1</string>
-	<key>DTCompiler</key>
-	<string>com.apple.compilers.llvm.clang.1_0</string>
-	<key>DTPlatformBuild</key>
-	<string>12E507</string>
-	<key>DTPlatformName</key>
-	<string>macosx</string>
-	<key>DTPlatformVersion</key>
-	<string>11.3</string>
-	<key>DTSDKBuild</key>
-	<string>20E214</string>
-	<key>DTSDKName</key>
-	<string>macosx11.3</string>
-	<key>DTXcode</key>
-	<string>1251</string>
-	<key>DTXcodeBuild</key>
-	<string>12E507</string>
-	<key>LSApplicationCategoryType</key>
-	<string>public.app-category.games</string>
-	<key>LSMinimumSystemVersion</key>
-	<string>10.12</string>
-	<key>NSMainStoryboardFile</key>
-	<string>Main</string>
-	<key>NSPrincipalClass</key>
-	<string>NSApplication</string>
-	<key>ExampleBooleanTrue</key>
-	<true/>
-	<key>ExampleBooleanFalse</key>
-	<false/>
+  <key>BuildMachineOSBuild</key>
+  <string>20F71</string>
+  <key>CFBundleDevelopmentRegion</key>
+  <string>en</string>
+  <key>CFBundleExecutable</key>
+  <string>WebView</string>
+  <key>CFBundleIconFile</key>
+  <string>AppIcon</string>
+  <key>CFBundleIconName</key>
+  <string>AppIcon</string>
+  <key>CFBundleIdentifier</key>
+  <string>org.turbowarp.webviews.mac</string>
+  <key>CFBundleInfoDictionaryVersion</key>
+  <string>6.0</string>
+  <key>CFBundleName</key>
+  <string>WebView</string>
+  <key>CFBundlePackageType</key>
+  <string>APPL</string>
+  <key>CFBundleShortVersionString</key>
+  <string>1.0</string>
+  <key>CFBundleSupportedPlatforms</key>
+  <array>
+    <string>MacOSX</string>
+  </array>
+  <key>CFBundleVersion</key>
+  <string>1</string>
+  <key>DTCompiler</key>
+  <string>com.apple.compilers.llvm.clang.1_0</string>
+  <key>DTPlatformBuild</key>
+  <string>12E507</string>
+  <key>DTPlatformName</key>
+  <string>macosx</string>
+  <key>DTPlatformVersion</key>
+  <string>11.3</string>
+  <key>DTSDKBuild</key>
+  <string>20E214</string>
+  <key>DTSDKName</key>
+  <string>macosx11.3</string>
+  <key>DTXcode</key>
+  <string>1251</string>
+  <key>DTXcodeBuild</key>
+  <string>12E507</string>
+  <key>LSApplicationCategoryType</key>
+  <string>public.app-category.games</string>
+  <key>LSMinimumSystemVersion</key>
+  <string>10.12</string>
+  <key>NSMainStoryboardFile</key>
+  <string>Main</string>
+  <key>NSPrincipalClass</key>
+  <string>NSApplication</string>
+  <key>ExampleBooleanTrue</key>
+  <true/>
+  <key>ExampleBooleanFalse</key>
+  <false/>
 </dict>
 </plist>
 */
@@ -77,10 +77,10 @@ const xmlToValue = (node) => {
   } else if (node.tagName === 'string') {
     return node.textContent;
   } else if (node.tagName === 'true') {
-		return true;
-	} else if (node.tagName === 'false') {
-		return false;
-	}
+    return true;
+  } else if (node.tagName === 'false') {
+    return false;
+  }
   console.warn('unknown plist xml', node);
   return null;
 };
@@ -107,9 +107,9 @@ const valueToXml = (doc, value) => {
     node.textContent = value;
     return node;
   } else if (typeof value === 'boolean') {
-		const node = doc.createElement(value.toString());
-		return node;
-	}
+    const node = doc.createElement(value.toString());
+    return node;
+  }
   console.warn('unknown plist value', value);
   return valueToXml(doc, `${value}`);
 };
