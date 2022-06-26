@@ -1,7 +1,7 @@
 {
   "p4": {
     "description1": {
-      "string": "Converts Scratch projects into HTML files, zip archives, or executable programs for Windows, macOS, and Linux."
+      "string": "Converts Scratch projects into HTML files, zip archives, or executable programs for Windows, macOS, Linux, and Android."
     },
     "description2": {
       "string": "If you just want an easy way to embed a project into your website, you may be interested in {embedding}."
@@ -460,6 +460,9 @@
     "application-linux64": {
       "string": "{type} Linux application (64-bit only)",
       "context": "type will become something like 'NW.js' or 'Electron'. Do not translate 'Linux'."
+    },
+    "application-android": {
+      "string": "Android app (Highly experimental)"
     },
     "otherEnvironments": {
       "string": "Other environments (Click to open)",
