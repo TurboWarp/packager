@@ -645,6 +645,18 @@ cd "$(dirname "$0")"
     // https://developer.apple.com/documentation/bundleresources/information_property_list/cfbundleexecutable
     plist.CFBundleExecutable = this.options.app.packageName;
 
+    // macOS's "About" screen will display: "Version {CFBundleShortVersionString} ({CFBundleVersion})"
+    // Apple's own apps are inconsistent about what they display here. Some apps set both of these to the same thing
+    // so you see eg. "Version 15.0 (15.0)" while others set CFBundleShortVersionString to a semver-like and
+    // treat CFBundleVersion as a simple build number eg. "Version 1.4.0 (876)"
+    // Apple's documentation says both of these are supposed to be major.minor.patch, but in reality it doesn't
+    // even have to have numbers.
+    // To keep things simple, we'll just set both of these to the same thing.
+    // https://developer.apple.com/documentation/bundleresources/information_property_list/cfbundleversion
+    // https://developer.apple.com/documentation/bundleresources/information_property_list/cfbundleshortversionstring
+    plist.CFBundleVersion = this.options.app.version;
+    plist.CFBundleShortVersionString = this.options.app.version;
+
     zip.file(`${contentsPrefix}Info.plist`, generatePlist(plist));
 
     return zip;
