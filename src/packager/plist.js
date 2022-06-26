@@ -55,6 +55,10 @@
 	<string>Main</string>
 	<key>NSPrincipalClass</key>
 	<string>NSApplication</string>
+	<key>ExampleBooleanTrue</key>
+	<true/>
+	<key>ExampleBooleanFalse</key>
+	<false/>
 </dict>
 </plist>
 */
@@ -72,7 +76,11 @@ const xmlToValue = (node) => {
     return Array.from(node.children).map(xmlToValue);
   } else if (node.tagName === 'string') {
     return node.textContent;
-  }
+  } else if (node.tagName === 'true') {
+		return true;
+	} else if (node.tagName === 'false') {
+		return false;
+	}
   console.warn('unknown plist xml', node);
   return null;
 };
@@ -98,7 +106,10 @@ const valueToXml = (doc, value) => {
     const node = doc.createElement('string');
     node.textContent = value;
     return node;
-  }
+  } else if (typeof value === 'boolean') {
+		const node = doc.createElement(value.toString());
+		return node;
+	}
   console.warn('unknown plist value', value);
   return valueToXml(doc, `${value}`);
 };
