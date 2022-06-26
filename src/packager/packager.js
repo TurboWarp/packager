@@ -629,11 +629,20 @@ cd "$(dirname "$0")"
     zip.file(`${resourcePrefix}application_config.json`, JSON.stringify(applicationConfig));
 
     const plist = parsePlist(await zip.file(`${contentsPrefix}Info.plist`).async('string'));
+
     // If CFBundleIdentifier changes, then things like saved local cloud variables will be reset.
+    // https://developer.apple.com/documentation/bundleresources/information_property_list/cfbundleidentifier
     plist.CFBundleIdentifier = `org.turbowarp.packager.userland.${this.options.app.packageName}`;
+
+    // This string appears in the menu bar
+    // Although the documentation says this can only be up to 15 characters, in reality it accepts much longer.
+    // https://developer.apple.com/documentation/bundleresources/information_property_list/cfbundlename
     plist.CFBundleName = this.options.app.windowTitle;
+
+    // Account for previous step where we renamed the WebView executable.
+    // https://developer.apple.com/documentation/bundleresources/information_property_list/cfbundleexecutable
     plist.CFBundleExecutable = this.options.app.packageName;
-    // TODO: update LSApplicationCategoryType
+
     zip.file(`${contentsPrefix}Info.plist`, generatePlist(plist));
 
     return zip;
