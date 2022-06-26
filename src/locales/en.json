@@ -478,6 +478,14 @@
     "packageNameHelp": {
       "string": "Package name should be a unique name used only by your application. The same project should always have the same package name."
     },
+    "version": {
+      "string": "Version",
+      "context": "Label for application version number input"
+    },
+    "versionHelp": {
+      "string": "Updating the version is completely optional and does not affect your project in any way. The version may appear in places like about screens depending on the operating system.",
+      "context": "Additional information about the version number option"
+    },
     "startWindow": {
       "string": "Start as window"
     },

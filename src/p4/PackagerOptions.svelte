@@ -769,6 +769,12 @@
           </label>
           <p>{$_('options.packageNameHelp')}</p>
 
+          <label class="option">
+            {$_('options.version')}
+            <input type="text" bind:value={$options.app.version} pattern="\d+\.\d+\.\d+" minlength="1">
+          </label>
+          <p>{$_('options.versionHelp')}</p>
+
           {#if $options.target.includes('electron')}
             <div class="group">
               <label class="option">

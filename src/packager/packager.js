@@ -1343,7 +1343,8 @@ Packager.DEFAULT_OPTIONS = () => ({
     icon: null,
     packageName: Packager.getDefaultPackageNameFromFileName(''),
     windowTitle: Packager.getWindowTitleFromFileName(''),
-    windowMode: 'window'
+    windowMode: 'window',
+    version: '1.0.0'
   },
   chunks: {
     gamepad: false,
