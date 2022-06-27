@@ -495,7 +495,6 @@ if (isMac) {
     { role: 'appMenu' },
     { role: 'fileMenu' },
     { role: 'editMenu' },
-    { role: 'viewMenu' },
     { role: 'windowMenu' },
     { role: 'help' }
   ]));
