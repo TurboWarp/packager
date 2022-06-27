@@ -45,7 +45,8 @@ export default {
     sha256: '64451d98e574d8f78754aeb73258814b4fd1a9ef4266bae5e53cdd09273a0b23'
   },
   'electron-mac': {
-    src: 'electron-v19.0.6-darwin-x64.zip' // TEMPORARY
+    src: externalFile('electron-v19.0.6-macos-universal.zip'),
+    sha256: 'f38e3bc8c452631cf98516e940a3364aaba36e3e028599979f4fbf1d780eaacc'
   },
   'electron-linux64': {
     src: externalFile('electron-v17.2.0-linux-x64.zip'),
