@@ -47,7 +47,7 @@ const compress = (from, to) => new Promise((resolve, reject) => {
   const outStream = fs.createWriteStream(to);
   outStream.on('error', (err) => reject(err));
   outStream.on('close', () => resolve());
-  archive.directory(from, path.basename(from));
+  archive.directory(from, false);
   archive.pipe(outStream);
   archive.finalize();
 });
@@ -66,12 +66,24 @@ const run = async () => {
   const armAppPath = await extract(armZipPath, 'arm');
 
   console.log('Generating Universal');
-  const outputPath = getTempFile('Electron Universal.app');
-  rimraf.sync(outputPath);
+  const outputPath = getTempFile('Output');
+  fs.mkdirSync(outputPath, {recursive: true});
+
+  const EXTRA_FILES_TO_KEEP = [
+    'LICENSE',
+    'LICENSES.chromium.html',
+    'version'
+  ];
+  for (const file of EXTRA_FILES_TO_KEEP) {
+    fs.copyFileSync(path.join(intelAppPath, '..', file), path.join(outputPath, file));
+  }
+
+  const outputAppPath = path.join(outputPath, 'Electron.app');
+  rimraf.sync(outputAppPath);
   await makeUniversalApp({
     x64AppPath: intelAppPath,
     arm64AppPath: armAppPath,
-    outAppPath: outputPath
+    outAppPath: outputAppPath
   });
 
   console.log('Compressing Universal');
