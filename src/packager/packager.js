@@ -111,6 +111,38 @@ const generateChromiumLicenseHTML = (licenses) => {
   return `${style}${pretext}${convertedLicenses.join('\n')}`;
 };
 
+// Unique identifier for the app. If this changes, things like local cloud variables will be lost.
+// This should be in reverse-DNS format.
+// https://developer.apple.com/documentation/bundleresources/information_property_list/cfbundleidentifier
+const CFBundleIdentifier = 'CFBundleIdentifier';
+// Even if you fork the packager, you shouldn't change this string unless you want packaged macOS apps
+// to lose all their data.
+const bundleIdentifierPrefix = 'org.turbowarp.packager.userland.';
+
+// CFBundleName is displayed in the menu bar.
+// I'm not actually sure where CFBundleDisplayName is displayed.
+// Documentation says that CFBundleName is only supposed to be 15 characters and that CFBundleDisplayName
+// should be used for longer names, but in reality CFBundleName seems to not have a length limit.
+// https://developer.apple.com/documentation/bundleresources/information_property_list/cfbundlename
+// https://developer.apple.com/documentation/bundleresources/information_property_list/cfbundledisplayname
+const CFBundleName = 'CFBundleName';
+const CFBundleDisplayName = 'CFBundleDisplayName';
+
+// The name of the executable in the .app/Contents/MacOS folder
+// https://developer.apple.com/documentation/bundleresources/information_property_list/cfbundleexecutable
+const CFBundleExecutable = 'CFBundleExecutable';
+
+// macOS's "About" screen will display: "Version {CFBundleShortVersionString} ({CFBundleVersion})"
+// Apple's own apps are inconsistent about what they display here. Some apps set both of these to the same thing
+// so you see eg. "Version 15.0 (15.0)" while others set CFBundleShortVersionString to a semver-like and
+// treat CFBundleVersion as a simple build number eg. "Version 1.4.0 (876)"
+// Apple's documentation says both of these are supposed to be major.minor.patch, but in reality it doesn't
+// even have to contain numbers and everything seems to work fine.
+// https://developer.apple.com/documentation/bundleresources/information_property_list/cfbundleversion
+// https://developer.apple.com/documentation/bundleresources/information_property_list/cfbundleshortversionstring
+const CFBundleVersion = 'CFBundleVersion';
+const CFBundleShortVersionString = 'CFBundleShortVersionString';
+
 class Packager extends EventTarget {
   constructor () {
     super();
@@ -231,43 +263,28 @@ class Packager extends EventTarget {
     return {width, height};
   }
 
-  updatePlist (source) {
-    const plist = parsePlist(source);
+  getPlistPropertiesForPrimaryExecutable () {
+    return {
+      [CFBundleIdentifier]: `${bundleIdentifierPrefix}${this.options.app.packageName}`,
 
-    // If CFBundleIdentifier changes, then things like saved local cloud variables will be reset.
-    // https://developer.apple.com/documentation/bundleresources/information_property_list/cfbundleidentifier
-    plist.CFBundleIdentifier = `org.turbowarp.packager.userland.${this.options.app.packageName}`;
+      // For simplicity, we'll set these to the same thing
+      [CFBundleName]: this.options.app.windowTitle,
+      [CFBundleDisplayName]: this.options.app.windowTitle,
 
-    // These strings appears in the menu bar.
-    // Documentation says that CFBundleName is only supposed to be 15 characters and that CFBundleDisplayName
-    // should be used for longer names, but in reality CFBundleName seems to not have a length limit.
-    // We'll just set both of these to the same value to remove any old values.
-    // https://developer.apple.com/documentation/bundleresources/information_property_list/cfbundlename
-    // https://developer.apple.com/documentation/bundleresources/information_property_list/cfbundledisplayname
-    plist.CFBundleName = this.options.app.windowTitle;
-    plist.CFBundleDisplayName = this.options.app.windowTitle;
+      // We do rename the executable
+      [CFBundleExecutable]: this.options.app.packageName,
 
-    // Account for previous step where we renamed the WebView executable.
-    // https://developer.apple.com/documentation/bundleresources/information_property_list/cfbundleexecutable
-    plist.CFBundleExecutable = this.options.app.packageName;
-
-    // macOS's "About" screen will display: "Version {CFBundleShortVersionString} ({CFBundleVersion})"
-    // Apple's own apps are inconsistent about what they display here. Some apps set both of these to the same thing
-    // so you see eg. "Version 15.0 (15.0)" while others set CFBundleShortVersionString to a semver-like and
-    // treat CFBundleVersion as a simple build number eg. "Version 1.4.0 (876)"
-    // Apple's documentation says both of these are supposed to be major.minor.patch, but in reality it doesn't
-    // even have to have numbers.
-    // To keep things simple, we'll just set both of these to the same thing.
-    // https://developer.apple.com/documentation/bundleresources/information_property_list/cfbundleversion
-    // https://developer.apple.com/documentation/bundleresources/information_property_list/cfbundleshortversionstring
-    plist.CFBundleVersion = this.options.app.version;
-    plist.CFBundleShortVersionString = this.options.app.version;
-
-    return generatePlist(plist);
+      // For simplicity, we'll set these to the same thing
+      [CFBundleVersion]: this.options.app.version,
+      [CFBundleShortVersionString]: this.options.app.version,  
+    };
   }
 
-  async updatePlistInZip (zip, name) {
-    zip.file(name, this.updatePlist(await zip.file(name).async('string')));
+  async updatePlist (zip, name, newProperties) {
+    const contents = await zip.file(name).async('string');
+    const plist = parsePlist(contents);
+    Object.assign(plist, newProperties);
+    zip.file(name, generatePlist(plist));
   }
 
   async addNwJS (projectZip) {
@@ -656,15 +673,30 @@ app.whenReady().then(() => {
       const readme = `Open "${packageName}.exe" to start the app. Open "licenses.html" for information regarding software licenses used by the app.`;
       zip.file(`${rootPrefix}README.txt`, readme);
     } else if (isMac) {
-      await this.updatePlistInZip(zip, `${contentsPrefix}Info.plist`);
+      const plist = this.getPlistPropertiesForPrimaryExecutable();
+      await this.updatePlist(zip, `${contentsPrefix}Info.plist`, plist);
+
+      // macOS Electron apps also contain several helper apps that we should update.
       const HELPERS = [
-        '',
-        ' (GPU)',
-        ' (Renderer)',
-        ' (Plugin)',
+        'Electron Helper',
+        'Electron Helper (GPU)',
+        'Electron Helper (Renderer)',
+        'Electron Helper (Plugin)',
       ];
-      for (const type of HELPERS) {
-        await this.updatePlistInZip(zip, `${contentsPrefix}Frameworks/Electron Helper${type}.app/Contents/Info.plist`);
+      for (const name of HELPERS) {
+        await this.updatePlist(zip, `${contentsPrefix}Frameworks/${name}.app/Contents/Info.plist`, {
+          // In the prebuilt Electron binaries on GitHub, the original app has a CFBundleIdentifier of
+          // com.github.Electron and all the helpers have com.github.Electron.helper
+          [CFBundleIdentifier]: `${plist[CFBundleIdentifier]}.helper`,
+
+          // We shouldn't change the actual name of the helpers because we don't actually rename their .app
+          // We also don't rename the executable
+          [CFBundleDisplayName]: name.replace('Electron', this.options.app.packageName),
+
+          // electron-builder always updates the helpers to use the same version as the app itself
+          [CFBundleVersion]: this.options.app.version,
+          [CFBundleShortVersionString]: this.options.app.version,
+        });
       }
 
       const icns = await pngToAppleICNS(icon);
@@ -734,7 +766,7 @@ cd "$(dirname "$0")"
     };
     zip.file(`${resourcesPrefix}application_config.json`, JSON.stringify(applicationConfig));
 
-    await this.updatePlistInZip(zip, `${contentsPrefix}Info.plist`);
+    await this.updatePlist(zip, `${contentsPrefix}Info.plist`, this.getPlistPropertiesForPrimaryExecutable());
 
     return zip;
   }
