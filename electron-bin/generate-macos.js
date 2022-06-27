@@ -75,7 +75,7 @@ const run = async () => {
   });
 
   console.log('Compressing Universal');
-  const compressedPath = getTempFile(`electron-macos-universal-${electronVersion}.zip`);
+  const compressedPath = getTempFile(`electron-v${electronVersion}-macos-universal.zip`);
   rimraf.sync(compressedPath);
   await compress(outputPath, compressedPath);
   console.log(`Output: ${compressedPath}`);
