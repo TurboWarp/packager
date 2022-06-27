@@ -507,14 +507,13 @@ const resourcesURL = Object.assign(new URL('file://'), {
 }).href;
 const defaultProjectURL = new URL('./index.html', resourcesURL).href;
 
-app.enableSandbox();
-
 const createWindow = (windowOptions) => {
   const options = {
     title: ${JSON.stringify(this.options.app.windowTitle)},
     icon: path.resolve(__dirname, ${JSON.stringify(iconName)}),
     useContentSize: true,
     webPreferences: {
+      sandbox: true,
       contextIsolation: true,
       nodeIntegration: false,
     },
