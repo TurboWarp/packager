@@ -2,6 +2,7 @@ const {downloadArtifact} = require('@electron/get');
 const {makeUniversalApp} = require('@electron/universal');
 const path = require('path');
 const fs = require('fs');
+const zlib = require('zlib');
 const rimraf = require('rimraf');
 const extractZip = require('extract-zip');
 const archiver = require('archiver');
@@ -37,7 +38,11 @@ const extract = async (from, name) => {
 };
 
 const compress = (from, to) => new Promise((resolve, reject) => {
-  const archive = archiver('zip');
+  const archive = archiver('zip', {
+    zlib: {
+      level: zlib.constants.Z_BEST_COMPRESSION
+    }
+  });
   const outStream = fs.createWriteStream(to);
   outStream.on('error', (err) => reject(err));
   outStream.on('close', () => resolve());
