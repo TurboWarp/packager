@@ -3,15 +3,13 @@ const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const merge = require('webpack-merge').merge;
 const AddBuildIDToOutputPlugin = require('./src/build/add-build-id-to-output-plugin');
 const GenerateServiceWorkerPlugin = require('./src/build/generate-service-worker-plugin');
 const EagerDynamicImportPlugin = require('./src/build/eager-dynamic-import-plugin');
 
 const isProduction = process.env.NODE_ENV === 'production';
 const isStandalone = !!process.env.STANDALONE;
-const base = {
-  mode: isProduction ? 'production' : 'development'
-};
 const dist = path.resolve(__dirname, 'dist');
 const buildId = isProduction ? require('./src/build/generate-scaffolding-build-id') : null;
 
@@ -30,8 +28,32 @@ const getVersion = () => {
 };
 const version = getVersion();
 
-const makeScaffolding = ({full}) => ({
-  ...base,
+const globalBase = {
+  mode: isProduction ? 'production' : 'development',
+  resolve: {
+    extensions: ['.ts', '.js']
+  },
+  module: {
+    rules: [
+      {
+        test: /\.tsx?$/,
+        use: 'ts-loader',
+        exclude: /node_modules/
+      }
+    ]
+  }
+};
+
+const frontendBase = {
+  plugins: [
+    new webpack.DefinePlugin({
+      'process.env.SCAFFOLDING_BUILD_ID': buildId ? JSON.stringify(buildId) : 'Math.random().toString()',
+      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development')
+    })
+  ]
+};
+
+const makeScaffolding = ({full}) => merge(globalBase, frontendBase, {
   devtool: isProduction ? '' : 'source-map',
   output: {
     filename: 'scaffolding/[name].js',
@@ -121,15 +143,7 @@ const makeScaffolding = ({full}) => ({
   ]
 });
 
-const commonFrontendPlugins = () => [
-  new webpack.DefinePlugin({
-    'process.env.SCAFFOLDING_BUILD_ID': buildId ? JSON.stringify(buildId) : 'Math.random().toString()',
-    'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development')
-  })
-];
-
-const makeWebsite = () => ({
-  ...base,
+const makeWebsite = () => merge(globalBase, frontendBase, {
   devtool: isStandalone ? '' : 'source-map',
   output: {
     filename: isProduction ? 'js/[name].[contenthash].js' : 'js/[name].js',
@@ -142,7 +156,7 @@ const makeWebsite = () => ({
     alias: {
       svelte: path.resolve('node_modules', 'svelte')
     },
-    extensions: ['.mjs', '.js', '.svelte'],
+    extensions: ['.svelte'],
     mainFields: ['svelte', 'browser', 'module', 'main']
   },
   optimization: {
@@ -171,7 +185,6 @@ const makeWebsite = () => ({
     ]
   },
   plugins: [
-    ...commonFrontendPlugins(),
     new CopyWebpackPlugin({
       patterns: [
         {
@@ -205,8 +218,7 @@ const makeWebsite = () => ({
   },
 });
 
-const makeNode = () => ({
-  ...base,
+const makeNode = () => merge(globalBase, {
   devtool: '',
   target: 'node',
   output: {
@@ -236,7 +248,6 @@ const makeNode = () => ({
     ]
   },
   plugins: [
-    ...commonFrontendPlugins(),
     ...(process.env.BUNDLE_ANALYZER === 'node' ? [new BundleAnalyzerPlugin()] : [])
   ],
 });
