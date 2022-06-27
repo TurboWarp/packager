@@ -6,6 +6,7 @@ const zlib = require('zlib');
 const rimraf = require('rimraf');
 const extractZip = require('extract-zip');
 const archiver = require('archiver');
+const crypto = require('crypto');
 
 const {electronVersion} = require('./version.json');
 
@@ -77,8 +78,13 @@ const run = async () => {
   const compressedPath = getTempFile(`electron-macos-universal-${electronVersion}.zip`);
   rimraf.sync(compressedPath);
   await compress(outputPath, compressedPath);
+  console.log(`Output: ${compressedPath}`);
 
-  console.log(`Done. Output is ${compressedPath}`);
+  const compressedFileData = fs.readFileSync(compressedPath);
+  console.log(`Size: ${compressedFileData.length} bytes`)
+
+  const sha256 = crypto.createHash('sha256').update(compressedFileData).digest('hex');
+  console.log(`SHA-256: ${sha256}`);
 };
 
 run().catch((err) => {
