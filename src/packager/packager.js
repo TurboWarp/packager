@@ -536,15 +536,19 @@ const createWindow = (windowOptions) => {
 
 const createProjectWindow = (url) => {
   const windowMode = ${JSON.stringify(this.options.app.windowMode)};
-  const window = createWindow({
+  const options = {
     show: false,
     backgroundColor: ${JSON.stringify(this.options.appearance.background)},
     width: ${this.computeWindowSize().width},
     height: ${this.computeWindowSize().height},
     minWidth: 50,
     minHeight: 50,
-    fullscreen: windowMode === 'fullscreen',
-  });
+  };
+  // fullscreen === false disables fullscreen on macOS so only set this property when it's true
+  if (windowMode === 'fullscreen') {
+    options.fullscreen = true;
+  }
+  const window = createWindow(options);
   if (windowMode === 'maximize') {
     window.maximize();
   }
