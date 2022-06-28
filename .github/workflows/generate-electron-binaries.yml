@@ -1,0 +1,30 @@
+name: Generate Electron Binaries
+
+on:
+  workflow_dispatch:
+
+jobs:
+  generate:
+    runs-on: macos-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - uses: actions/setup-node@v3
+      with:
+        node-version: 14
+    - name: Install dependencies
+      run: |
+        cd electron-bin
+        npm ci
+
+    - name: Generate macOS
+      if: runner.os == 'macOS'
+      run: |
+        cd electron-bin
+        node generate-macos.js
+    - name: Upload macOS
+      if: runner.os == 'macOS'
+      uses: actions/upload-artifact@v3
+      with:
+        name: electron-macos
+        path: electron-bin/temp/macos/*.zip

@@ -704,6 +704,10 @@
         {$_('options.application-mac').replace('{type}', 'WKWebView')}
       </label>
       <label class="option">
+        <input type="radio" name="environment" bind:group={$options.target} value="electron-mac">
+        {$_('options.application-mac').replace('{type}', 'Electron')}
+      </label>
+      <label class="option">
         <input type="radio" name="environment" bind:group={$options.target} value="electron-linux64">
         {$_('options.application-linux64').replace('{type}', 'Electron')}
       </label>
