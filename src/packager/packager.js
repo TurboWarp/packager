@@ -685,7 +685,11 @@ app.whenReady().then(() => {
     }
 
     if (isWindows) {
-      const readme = `Open "${packageName}.exe" to start the app. Open "licenses.html" for information regarding software licenses used by the app.`;
+      const readme = [
+        '1) Extract the whole zip',
+        `2) Open "${packageName}.exe" to start the app.`,
+        'Open "licenses.html" for information regarding open source software used by the app.',
+      ].join('\n\n');
       zip.file(`${rootPrefix}README.txt`, readme);
     } else if (isMac) {
       const plist = this.getPlistPropertiesForPrimaryExecutable();
