@@ -638,6 +638,14 @@ app.on('render-process-gone', (event, webContents, details) => {
   });
 });
 
+app.on('child-process-gone', (event, details) => {
+  dialog.showMessageBoxSync({
+    type: 'error',
+    title: 'Error',
+    message: details.type + ' child process crashed: ' + details.reason + ' (' + details.exitCode + ')'
+  });
+});
+
 app.on('web-contents-created', (event, contents) => {
   contents.setWindowOpenHandler((details) => {
     setImmediate(() => {
