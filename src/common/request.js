@@ -2,6 +2,13 @@ import {HTTPError, UnknownNetworkError} from './errors';
 
 const clampProgress = (n) => Math.max(0, Math.min(1, n));
 
+const DO_NOT_RETRY_ERRORS = [
+  // If we make a request with eg. an invalid project ID, do not use fallback URLs
+  400,
+  // If we make a request with eg. an unshared project ID, do not use fallback URLs
+  404,
+];
+
 const request = async (options) => {
   const {
     type,
@@ -81,6 +88,9 @@ const request = async (options) => {
     try {
       return await requestURL(url);
     } catch (e) {
+      if (e instanceof HTTPError && DO_NOT_RETRY_ERRORS.includes(e.status)) {
+        throw e;
+      }
       // We'll record this error if this is the first error, or if the current error provides more information than
       // the old error. This is useful because:
       //  trampoline.turbowarp.org/... -> blocked by filter (appears to us as generic network error)
