@@ -109,6 +109,8 @@
         "unsafeCloudBehaviorsWarning": "Onveilig cloudgedrag geeft het gepackagete project de mogelijkheid om arbitraire code uit te voeren buiten de \"sandbox\" waarin projecten normaliter worden uitgevoerd. Afhankelijk van de omgeving waarvoor je packaget, dit geeft projecten volledige controle over je computer, inclusief de mogelijkheid om virussen te installeren. Als je het project dat je packaget niet vertrouwt, schakel deze optie dan alsjeblieft uit.",
         "username": "Gebruikersnaam (elke \"#\" wordt vervangen door een willekeurig getal)",
         "variableColor": "Variabelekleur",
+        "version": "Versie",
+        "versionHelp": "De versie updaten is volledig optioneel en heeft geen effect op het gedrag van je projecten. Het kan in plekken zoals \"over\"-schermen plaatsvinden, afhankelijk van de omgeving.",
         "warpTimer": "Warp-Stopwatch",
         "zip": "Zip (ideaal voor websites)",
         "zip-one-asset": "Zip, combineer onderdelen in een enkel bestand (niet aanbevolen)"

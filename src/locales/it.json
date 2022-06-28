@@ -106,6 +106,8 @@
         "unsafeCloudBehaviorsWarning": "Comportanti non sicuri del cloud permettono ai progetti pacchettizzati di eseguire codice al di fuori della \"sandbox\" al cui interno i progetti sono tipicamente eseguiti. A seconda dell'ambiente per cui stai creando il pacchetto. questo garantisce ai progetti pieno controllo sul suo computer, inclusa la possibilità di installare virus. Se non ti fidi del progetto che stai pacchettizzando, disabilita questa opzione. ",
         "username": "Username (ogni \"#\" viene rimpiazzato da un numero casuale)",
         "variableColor": "Colore delle variabili",
+        "version": "Versione",
+        "versionHelp": "Aggionare la versione è del tutto opzionale e non interferisce con il comportamento del progetto. Può comparire in punti come le schermate informative a seconda del proprio ambiente.",
         "zip": "Zip (ideale Per i siti web)",
         "zip-one-asset": "Zip, le risorse vengono combinate in un singolo file (non raccomandato)"
     },
