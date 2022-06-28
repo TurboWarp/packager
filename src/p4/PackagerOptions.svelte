@@ -826,6 +826,7 @@
             <div>
               <h2>Linux</h2>
               <p>Linux support is still experimental.</p>
+              <p>Linux support in the packager is limited to 64-bit x86 apps (which will run on most desktops and laptops). 32-bit systems and ARM devices such as Raspberry Pis unfortunately are not supported yet.</p>
             </div>
           {/if}
 
