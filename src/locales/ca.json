@@ -119,7 +119,7 @@
         "cannotAccessProjectCaching": "Si el projecte s'ha compartit recentment, aquest missatge pot trigar fins a una hora a desaparèixer.",
         "close": "Tanca",
         "description1": "Converteix projectes del Scratch en fitxers HTML, arxius zip o programes executables per el Windows, macOS i Linux.",
-        "description2": "Si només busques una manera fàcil d'incorporar un projecte al teu lloc web, potser t'interessa{embedding}.",
+        "description2": "Si només busques una manera fàcil d'incorporar un projecte al teu lloc web, potser t'interessa {embedding}.",
         "description2-embedding": "Incrustació web",
         "description3": "Informa d'errors, doneu-nos comentaris i suggereix idees {onScratch} o {onGitHub}.",
         "description3-on": "a {brand}",
