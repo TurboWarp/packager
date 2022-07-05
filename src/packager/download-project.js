@@ -97,7 +97,7 @@ const mutateScratch3InPlace = (projectData) => {
       }
     }
   };
-  
+
   makeImpliedCloudVariables(projectData);
   optimizeSb3Json(projectData);
 
@@ -187,35 +187,17 @@ const loadScratch2 = (projectData, progressTarget) => {
     });
 };
 
-const loadScratch3 = (projectData, progressTarget) => {
+const loadScratch3 = async (projectData, progressTarget) => {
   /**
    * @typedef SB3Asset Raw costume or sound data from an sb3 project.json.
    * @property {string} assetId md5 checksum of the asset (eg. b7b7898cfcd9ba13e89a4e74dd56a1ff)
    * @property {string} dataFormat file extension of the asset (eg. svg, wav)
    * @property {string|undefined} md5ext dataFormat (eg. b7b7898cfcd9ba13e89a4e74dd56a1ff.svg)
+   * md5ext is not guaranteed to exist.
    * There are additional properties that we don't care about.
    */
 
   const zip = new JSZip();
-
-  /**
-   * @param {SB3Asset} data
-   * @returns {Promise<void>}
-   */
-  const addFile = (data) => {
-    // md5ext is guaranteed to exist in prepareAssets
-    const md5ext = data.md5ext;
-    progressTarget.dispatchEvent(new CustomEvent('asset-fetch', {
-      detail: md5ext
-    }));
-    return fetchAsArrayBuffer(ASSET_HOST.replace('$path', md5ext))
-      .then((buffer) => {
-        zip.file(md5ext, buffer);
-        progressTarget.dispatchEvent(new CustomEvent('asset-fetched', {
-          detail: md5ext
-        }));
-      });
-  };
 
   /**
    * @param {SB3Asset[]} assets
@@ -230,7 +212,7 @@ const loadScratch3 = (projectData, progressTarget) => {
       // See the "Cake" costume of https://projects.scratch.mit.edu/630358355 for an example.
       // https://github.com/forkphorus/forkphorus/issues/504
       if (!data.md5ext) {
-        data.md5ext = data.assetId + '.' + data.dataFormat;
+        data.md5ext = `${data.assetId}.${data.dataFormat}`;
       }
 
       // Deduplicate assets so we don't make unnecessary requests later.
@@ -247,20 +229,37 @@ const loadScratch3 = (projectData, progressTarget) => {
     return result;
   };
 
+  /**
+   * @param {SB3Asset} data
+   * @returns {Promise<void>}
+   */
+  const addFile = async (data) => {
+    // prepareAssets will guarantee md5ext exists
+    const md5ext = data.md5ext;
+    progressTarget.dispatchEvent(new CustomEvent('asset-fetch', {
+      detail: md5ext
+    }));
+
+    const buffer = await fetchAsArrayBuffer(ASSET_HOST.replace('$path', md5ext));
+
+    zip.file(md5ext, buffer);
+    progressTarget.dispatchEvent(new CustomEvent('asset-fetched', {
+      detail: md5ext
+    }));
+  };
+
   zip.file('project.json', JSON.stringify(mutateScratch3InPlace(projectData)));
 
   const targets = projectData.targets;
   const costumes = flat(targets.map((t) => t.costumes || []));
   const sounds = flat(targets.map((t) => t.sounds || []));
   const assets = prepareAssets([...costumes, ...sounds]);
+  await Promise.all(assets.map(addFile));
 
-  return Promise.all(assets.map((a) => addFile(a)))
-    .then(() => {
-      return {
-        zip,
-        analysis: analyzeScratch3(projectData)
-      };
-    });
+  return {
+    zip,
+    analysis: analyzeScratch3(projectData)
+  };
 };
 
 const downloadJSONProject = (json, progressTarget) => {
