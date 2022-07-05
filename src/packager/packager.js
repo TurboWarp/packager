@@ -147,6 +147,21 @@ const CFBundleShortVersionString = 'CFBundleShortVersionString';
 // https://developer.apple.com/documentation/bundleresources/information_property_list/lsapplicationcategorytype
 const LSApplicationCategoryType = 'LSApplicationCategoryType';
 
+const generateMacReadme = (options) => `When you try to double click on the app to run it, you will probably see this warning:
+"${options.app.packageName} cannot be opened because the developer cannot be verified."
+This is normal. Press cancel.
+
+To run the app:
+1) Right click on the app file (${options.app.packageName} in the same folder as this document) and select "Open".
+2) If a warning appears, select "Open" if it's an option.
+3) If a warning appears but "Open" isn't an option, press "Cancel" and repeat from step 1.
+   The open button will appear the second time the warning appears.
+
+After completing these steps, the app should run without any further warnings.
+
+Feel free to drag the app into your Applications folder.
+`;
+
 class Packager extends EventTarget {
   constructor () {
     super();
@@ -364,6 +379,8 @@ class Packager extends EventTarget {
     if (isWindows) {
       dataPrefix = `${packageName}/`;
     } else if (isMac) {
+      zip.file(`${packageName}/How to run ${packageName}.txt`, generateMacReadme(this.options));
+
       const icnsData = await pngToAppleICNS(icon);
       zip.file(`${packageName}/${packageName}.app/Contents/Resources/app.icns`, icnsData);
       dataPrefix = `${packageName}/${packageName}.app/Contents/Resources/app.nw/`;
@@ -692,6 +709,8 @@ app.whenReady().then(() => {
       ].join('\n\n');
       zip.file(`${rootPrefix}README.txt`, readme);
     } else if (isMac) {
+      zip.file(`How to run ${this.options.app.packageName}.txt`, generateMacReadme(this.options));
+
       const plist = this.getPlistPropertiesForPrimaryExecutable();
       await this.updatePlist(zip, `${contentsPrefix}Info.plist`, plist);
 
@@ -786,6 +805,8 @@ cd "$(dirname "$0")"
     zip.file(`${resourcesPrefix}application_config.json`, JSON.stringify(applicationConfig));
 
     await this.updatePlist(zip, `${contentsPrefix}Info.plist`, this.getPlistPropertiesForPrimaryExecutable());
+
+    zip.file(`How to run ${this.options.app.packageName}.txt`, generateMacReadme(this.options));
 
     return zip;
   }
