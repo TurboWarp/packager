@@ -188,36 +188,60 @@ const loadScratch2 = (projectData, progressTarget) => {
 };
 
 const loadScratch3 = (projectData, progressTarget) => {
+  /**
+   * @typedef SB3Asset Raw costume or sound data from an sb3 project.json.
+   * @property {string} assetId md5 checksum of the asset (eg. b7b7898cfcd9ba13e89a4e74dd56a1ff)
+   * @property {string} dataFormat file extension of the asset (eg. svg, wav)
+   * @property {string|undefined} md5ext dataFormat (eg. b7b7898cfcd9ba13e89a4e74dd56a1ff.svg)
+   * There are additional properties that we don't care about.
+   */
+
   const zip = new JSZip();
 
+  /**
+   * @param {SB3Asset} data
+   * @returns {Promise<void>}
+   */
   const addFile = (data) => {
-    const path = data.md5ext || data.assetId + '.' + data.dataFormat;
+    // md5ext is guaranteed to exist in prepareAssets
+    const md5ext = data.md5ext;
     progressTarget.dispatchEvent(new CustomEvent('asset-fetch', {
-      detail: path
+      detail: md5ext
     }));
-    return fetchAsArrayBuffer(ASSET_HOST.replace('$path', path))
+    return fetchAsArrayBuffer(ASSET_HOST.replace('$path', md5ext))
       .then((buffer) => {
-        zip.file(path, buffer);
+        zip.file(md5ext, buffer);
         progressTarget.dispatchEvent(new CustomEvent('asset-fetched', {
-          detail: path
+          detail: md5ext
         }));
       });
   };
 
-  // Removes assets with the same ID
-  const dedupeAssets = (assets) => {
+  /**
+   * @param {SB3Asset[]} assets
+   * @returns {SB3Asset[]}
+   */
+  const prepareAssets = (assets) => {
     const result = [];
     const knownIds = new Set();
 
-    for (const i of assets) {
+    for (const data of assets) {
+      // Make sure md5ext always exists.
+      // See the "Cake" costume of https://projects.scratch.mit.edu/630358355 for an example.
+      // https://github.com/forkphorus/forkphorus/issues/504
+      if (!data.md5ext) {
+        data.md5ext = data.assetId + '.' + data.dataFormat;
+      }
+
+      // Deduplicate assets so we don't make unnecessary requests later.
       // Use md5ext instead of assetId because there are a few projects that have assets with the same
       // assetId but different md5ext. (eg. https://scratch.mit.edu/projects/531881458)
-      const id = i.md5ext;
-      if (knownIds.has(id)) {
+      const md5ext = data.md5ext;
+      if (knownIds.has(md5ext)) {
         continue;
       }
-      knownIds.add(id);
-      result.push(i);
+      knownIds.add(md5ext);
+      result.push(data);
     }
 
     return result;
@@ -228,7 +252,7 @@ const loadScratch3 = (projectData, progressTarget) => {
   const targets = projectData.targets;
   const costumes = flat(targets.map((t) => t.costumes || []));
   const sounds = flat(targets.map((t) => t.sounds || []));
-  const assets = dedupeAssets([...costumes, ...sounds]);
+  const assets = prepareAssets([...costumes, ...sounds]);
 
   return Promise.all(assets.map((a) => addFile(a)))
     .then(() => {
