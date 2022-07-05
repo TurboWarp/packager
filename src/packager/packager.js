@@ -924,9 +924,16 @@ cd "$(dirname "$0")"
         };
         ${isZip ? `
         storage.addHelper({
-          load: (assetType, assetId, dataFormat) => zip.file(assetId + '.' + dataFormat)
-            .async('uint8array')
-            .then((data) => new storage.Asset(assetType, assetId, dataFormat, data))
+          load: (assetType, assetId, dataFormat) => {
+            const path = assetId + '.' + dataFormat;
+            const file = zip.file(path);
+            if (!file) {
+              throw new Error('Asset is not in zip: ' + path)
+            }
+            return file
+              .async('uint8array')
+              .then((data) => new storage.Asset(assetType, assetId, dataFormat, data));
+          }
         });
         return () => (${getProjectDataFunction})().then(async (data) => {
           zip = await Scaffolding.JSZip.loadAsync(data);
