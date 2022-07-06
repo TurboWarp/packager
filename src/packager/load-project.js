@@ -41,8 +41,7 @@ const fromURL = async (url, progressCallback) => {
 
 const fromID = (id, token, progressCallback) => {
   const tokenPart = token ? `?token=${token}` : '';
-  // TODO: enable tokens when we're pretty sure nothing will break
-  let url = `https://projects.scratch.mit.edu/${id}`;
+  const url = `https://projects.scratch.mit.edu/${id}${tokenPart}`;
   return fromURL(url, progressCallback);
 };
 
