@@ -23,6 +23,8 @@
     <div id="app"></div>
     <script>
       (function() {
+        // This logic is only for the "splash" screen.
+        // It's used to prevent a momentary white screen while the page is loading in dark mode.
         var theme = 'system';
         try {
           var local = localStorage.getItem('P4.theme')
