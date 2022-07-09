@@ -247,14 +247,14 @@
   min-width: 40px;
   height: 22px;
   border: 1px solid hsla(0, 0%, 0%, 0.15);
-  background-color: rgb(252, 102, 44);
+  background-color: #fc662c;
   color: white;
   margin: 0 3px;
   border-radius: calc(0.5rem / 2);
   flex-grow: 1;
 }
 .monitor-row-value-editing .monitor-row-value-outer {
-  background-color: rgb(226, 92, 40);
+  background-color: #e25c28;
 }
 .monitor-row-value-inner {
   padding: 3px 5px;
