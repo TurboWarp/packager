@@ -465,6 +465,11 @@
       <ColorPicker bind:value={$options.monitors.variableColor} />
       {$_('options.variableColor')}
     </label>
+    <!-- svelte-ignore a11y-label-has-associated-control -->
+    <label class="option">
+      <ColorPicker bind:value={$options.monitors.listColor} />
+      {$_('options.listColor')}
+    </label>
   </div>
 </Section>
 
