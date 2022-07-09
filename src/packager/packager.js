@@ -9,6 +9,7 @@ import {encode, decode} from './base85';
 import {parsePlist, generatePlist} from './plist';
 import {APP_NAME, WEBSITE, COPYRIGHT_NOTICE, ACCENT_COLOR} from './brand';
 import {OutdatedPackagerError} from '../common/errors';
+import {darken} from './colors';
 import {Adapter} from './adapter';
 
 const PROGRESS_LOADED_SCRIPTS = 0.1;
@@ -1122,6 +1123,12 @@ cd "$(dirname "$0")"
     .sc-monitor-root[opcode^="data_"] .sc-monitor-value-color {
       background-color: ${this.options.monitors.variableColor};
     }
+    .sc-monitor-row-value-outer {
+      background-color: ${this.options.monitors.listColor};
+    }
+    .sc-monitor-row-value-editing .sc-monitor-row-value-outer {
+      background-color: ${darken(this.options.monitors.listColor)};
+    }
     ${this.options.custom.css}
   </style>
   <meta name="theme-color" content="${this.options.appearance.background}">
@@ -1502,7 +1509,8 @@ Packager.DEFAULT_OPTIONS = () => ({
   },
   monitors: {
     editableLists: false,
-    variableColor: '#ff8c1a'
+    variableColor: '#ff8c1a',
+    listColor: '#fc662c'
   },
   compiler: {
     enabled: true,
