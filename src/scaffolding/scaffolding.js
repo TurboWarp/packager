@@ -166,7 +166,7 @@ class Scaffolding extends EventTarget {
       e.preventDefault();
       if (document.activeElement && document.activeElement.blur) {
         document.activeElement.blur();
-      }  
+      }
     }
     this._mousedownPosition = {
       x: data.x,
@@ -224,7 +224,7 @@ class Scaffolding extends EventTarget {
   _onkeydown (e) {
     if (e.target !== document && e.target !== document.body) {
       return;
-    }  
+    }
     const data = {
       key: e.key,
       keyCode: e.keyCode,
@@ -245,7 +245,7 @@ class Scaffolding extends EventTarget {
     this.vm.postIOData('keyboard', data);
     if (e.target !== document && e.target !== document.body) {
       e.preventDefault();
-    }  
+    }
   }
 
   _onresize () {
