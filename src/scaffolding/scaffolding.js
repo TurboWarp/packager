@@ -32,6 +32,7 @@ class Scaffolding extends EventTarget {
     this.height = 360;
     this.resizeMode = 'preserve-ratio';
     this.editableLists = false;
+    this.shouldConnectPeripherals = true;
 
     this.messages = defaultMessages;
 
@@ -360,6 +361,41 @@ class Scaffolding extends EventTarget {
     this.vm.setVideoProvider(this.videoProvider);
   }
 
+  async _connectPeripherals () {
+    const scanExtension = (extensionId) => new Promise((resolve) => {
+      const onListUpdate = (peripherals) => {
+        const peripheralArray = Object.keys(peripherals).map((id) => peripherals[id]);
+        if (peripheralArray.length > 0) {
+          const peripheral = peripheralArray[0];
+          console.log('Connecting to peripheral', peripheral);
+          this.vm.connectPeripheral(extensionId, peripheral.peripheralId);
+        } else {
+          console.error('No peripherals found for', extensionId);
+        }
+        done();
+      };
+
+      const onScanTimeout = () => {
+        console.error('Peripheral scan timed out for', extensionId);
+        done();
+      };
+
+      const done = () => {
+        this.vm.removeListener('PERIPHERAL_LIST_UPDATE', onListUpdate);
+        this.vm.removeListener('PERIPHERAL_SCAN_TIMEOUT', onScanTimeout);
+        resolve();
+      };
+
+      this.vm.on('PERIPHERAL_LIST_UPDATE', onListUpdate);
+      this.vm.on('PERIPHERAL_SCAN_TIMEOUT', onScanTimeout);
+      this.vm.scanForPeripheral(extensionId);
+    });
+
+    for (const extensionId of Object.keys(this.vm.runtime.peripheralExtensions)) {
+      await scanExtension(extensionId);
+    }
+  }
+
   _onmonitorsupdate (monitors) {
     for (const monitorData of monitors.valueSeq()) {
       const id = monitorData.get('id');
@@ -409,6 +445,10 @@ class Scaffolding extends EventTarget {
         setTimeout(() => {
           this.renderer.draw();
         });
+
+        if (this.shouldConnectPeripherals) {
+          this._connectPeripherals();
+        }
       });
   }
 
