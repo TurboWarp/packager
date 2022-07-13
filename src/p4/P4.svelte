@@ -228,6 +228,9 @@
       <a href="https://fosshost.org/">{$_('p4.fosshost')}</a>
     </div>
     <div>
+      <a href="https://fosshost.org/">{$_('p4.export')}</a>
+    </div>
+    <div>
       <SelectTheme />
     </div>
     <div>
