@@ -113,7 +113,10 @@
         "error": "Erreur",
         "errorMessage": "Message : {error}",
         "feedback": "Envoyer des commentaires",
+        "networkError": "Impossible de télécharger {url}. Assurez-vous d'être connecté à Internet et essayez de désactiver toutes les extensions de navigateur.",
+        "outdated": "Cette version du conditionneur semble obsolète. Veuillez actualiser et réessayer.",
         "privacy": "Politique de Confidentialité",
+        "refresh": "Rafraîchir",
         "reportBug": "Rapporter des bugs",
         "sourceCode": "Code source"
     },
@@ -122,6 +125,10 @@
     },
     "progress": {
         "compressingProject": "Compression du projet",
+        "loadingAssets": "Téléchargement de ressources ({complete}/{total})",
+        "loadingLargeAsset": "Téléchargement{thing}",
+        "loadingProjectData": "Téléchargement des données du projet",
+        "loadingScripts": "Téléchargement de scripts",
         "packagingProject": "Compilation du projet"
     },
     "reset": {

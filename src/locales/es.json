@@ -1,7 +1,7 @@
 {
     "downloads": {
         "link": "Descargar {filename} ({size})",
-        "useWorkaround": "Haz click aquí si el enlace de descarga no funciona"
+        "useWorkaround": "Haga click aquí si el enlace de descarga no funciona"
     },
     "fileInput": {
         "clear": "Borrar selección",
@@ -10,6 +10,7 @@
     },
     "import": {
         "cancel": "Cancelar",
+        "description": "Esto puede tomar un tiempo si el proyecto es largo.",
         "header": "Importando proyecto..."
     },
     "options": {
@@ -25,21 +26,21 @@
         "autoplay": "Empezar proyecto automáticamente en vez de mostrar una bandera verde grande",
         "autoplayHint": "Nota: muchos navegadores no le permiten a las páginas web automáticamente reproducir sonido, por lo que los sonidos podrían no reproducirse hasta que el usuario interactúa con el proyecto.",
         "backgroundColor": "Color del fondo",
-        "closeWhenStopped": "Cerrar ventana cuando el proyecto se para",
+        "closeWhenStopped": "Cerrar ventana cuando el proyecto se detiene",
         "cloudVariables": "Variables en la Nube",
         "cloudVariables-custom": "Avanzado",
-        "cloudVariables-custom-help": "\"Avanzado\" usa un modo diferente para cada variable, por lo que algunas variables se pueden sincronizar con otros usuarios pero otras pueden guardarse localmente, por ejemplo.",
+        "cloudVariables-custom-help": "«Avanzado» usa un modo diferente para cada variable, por lo que algunas variables se pueden sincronizar con otros usuarios pero otras pueden guardarse localmente, por ejemplo.",
         "cloudVariables-ignore": "Ignorar",
-        "cloudVariables-ignore-help": "\"Ignorar\" trata variables en la nube como variables normales.",
+        "cloudVariables-ignore-help": "«Ignorar» trata variables en la nube como variables normales.",
         "cloudVariables-local": "Guardar en almacenamiento local",
-        "cloudVariables-local-help": "\"Guardar en almacenamiento local\" guarda variables en la computadora del usuario y las recupera cuando el archivo es abierto. Si un usuario tiene muchas ventanas/pestañas abiertas con el proyectos, los cambios se sincronizarán entre esas ventanas.",
+        "cloudVariables-local-help": "«Guardar en almacenamiento local» guarda variables en la computadora del usuario y las recupera cuando el archivo es abierto. Si un usuario tiene muchas ventanas/pestañas abiertas con el proyectos, los cambios se sincronizarán entre esas ventanas.",
         "cloudVariables-ws": "Conectar a servidor de variables en la nube",
-        "cloudVariables-ws-help": "\"Conectar a servidor de variables en la nube\" sincroniza las variables con otros usuarios.",
+        "cloudVariables-ws-help": "«Conectar a servidor de variables en la nube» sincroniza las variables con otros usuarios.",
         "cloudVariablesHost": "Hosteo de nube",
         "colors": "Colores",
         "controls": "Controles",
         "controlsHelp": "Si todos los controles están desactivados, la barra de controles se remueve totalmente. Si solo se activa el botón de pantalla completa, siempre estará ubicado en la esquina superior izquierda, en vez de en la barra de controles.",
-        "cursorCenter": "Centro del cursor",
+        "cursorCenter": "Centro del cursor:",
         "cursorHelp": "Imágenes de hasta 32x32 píxeles funcionan mejor. Imágenes más grandes no funcionarán.",
         "customCSS": "CSS Personalizado (¡No cambie esto si no sabe lo que esta haciendo!)",
         "customCursor": "Puntero del ratón personalizado",
@@ -54,15 +55,16 @@
         "foregroundColor": "Color en primer plano (barra de progreso, algunos íconos, algunos textos)",
         "framerate": "FPS",
         "gamepad": "Soporte para mandos/controles USB o Bluetooth",
-        "gamepadHelp": "Basado en el addon de \"Soporte para mandos\"",
+        "gamepadHelp": "Basado en el addon de «Soporte para mandos»",
         "highQualityPen": "Lápiz de Alta Calidad",
         "html": "HTML plano (autónomo, funciona en todos lados)",
         "icon": "Ícono de la página",
-        "implicitCloudHint": "Consejo: cualquier variable con un nombre empezando con \"{cloud}\" será convertida a una variable en la nube sin importar si ha sido marcada como una.",
+        "implicitCloudHint": "Consejo: cualquier variable con un nombre empezando con «{cloud}» será convertida a una variable en la nube sin importar si ha sido marcada como una.",
         "infiniteClones": "Clones Infinitos",
         "interaction": "Entrada",
         "interpolation": "Interpolación",
         "learnMore": "Ver más",
+        "listColor": "Color de lista",
         "loadingScreen": "Pantalla de carga",
         "loadingScreenImage": "Imagen de la pantalla de carga",
         "loadingScreenText": "Cargando texto en pantalla",
@@ -107,15 +109,17 @@
         "turbo": "Modo Turbo",
         "unsafeCloudBehaviors": "Comportamientos inseguros adicionales de variables en la nube",
         "unsafeCloudBehaviorsWarning": "Comportamientos inseguros de nube le permite al proyecto empaquetado ejecutar código arbitrario por fuera del \"sandbox\" donde suelen ejecutarse los proyectos. Dependiendo del entorno para donde está empaquetando, esto concede control completo a su computadora al proyecto, incluyendo la habilidad de instalar virus. Si no confía en el proyecto que esta empaquetando, por favor desactive esta opción.",
-        "username": "Nombre de usuario (cada \"#\" se reemplaza con un número aleatorio)",
+        "username": "Nombre de usuario (cada «#» se reemplaza con un número aleatorio)",
         "variableColor": "Color de variable",
+        "version": "Versión",
+        "versionHelp": "Actualizar la versión es opcional y no afecta el comportamiento de su proyecto. Puede aparecer en lugares como las pantallas de Acerca De dependiendo del ambiente.",
         "zip": "Zip (ideal para sitios web)",
         "zip-one-asset": "Zip, combinar assets a un solo archivo (no recomendado)"
     },
     "p4": {
         "browserNotSupported": "Navegador no compatible",
-        "browserNotSupportedDescription": "Por favor actualiza tu navegador.",
-        "cannotAccessProject": "No se puede acceder a los metadatos del proyecto. Esto probeblemente significa que el proyecto no está compartido, nunca existió, o la ID es inválida.",
+        "browserNotSupportedDescription": "Por favor actualice su navegador.",
+        "cannotAccessProject": "No se puede acceder a los metadatos del proyecto. Esto probablemente significa que el proyecto no está compartido, nunca existió, o la ID es inválida.",
         "cannotAccessProjectCaching": "Si el proyecto fue compartido recientemente, este mensaje puede tardar hasta una hora en irse.",
         "close": "Cerrar",
         "description1": "Convierte proyectos de Scratch a archivos HTML, zip o programas ejecutables para Windows, macOS y Linux.",
@@ -131,12 +135,12 @@
         "fosshost": "Gracias a Fosshost por proveer servidores usados por el convertidor",
         "importingInterface": "Cargando opciones...",
         "networkError": "No se ha podido descargar {url}. Asegúrate de estar conectado a Internet e intenta deshabilitar cualquier extensión de navegador.",
-        "outdated": "La versión del convertidor parece estar desactualizada. Por favor, actualiza la página e inténtalo de nuevo.",
+        "outdated": "Esta versión del convertidor parece estar desactualizada. Por favor, actualice la página e inténtelo de nuevo.",
         "privacy": "Política de Privacidad",
         "refresh": "Actualizar",
         "reportBug": "Reportar Bug",
         "sourceCode": "Código Fuente",
-        "unknownImportError": "Algo salió mal. Por favor actualiza e intenta de nuevo."
+        "unknownImportError": "Algo salió mal. Por favor actualice e intente otra vez."
     },
     "preview": {
         "loading": "Cargando Previsualización"
@@ -152,7 +156,7 @@
     },
     "reset": {
         "confirm": "¿Está seguro de que quiere reiniciar estos ajustes? Esto no se puede deshacer.",
-        "confirmAll": "Estás seguro de que quieres reestablecer TODOS los ajustes? Esta acción es irreversible",
+        "confirmAll": "¿Está seguro de que quiere reestablecer TODOS los ajustes? Esta acción es irreversible",
         "reset": "Reiniciar"
     },
     "select": {
@@ -166,7 +170,9 @@
         "select": "Seleccionar proyecto",
         "selectHelp": "Seleccione el proyecto que quiere empacar copiando y pegando el enlace de proyecto de Scratch o usando alguno de los otros modos. Si usa un proyecto que no creó, asegúrese de dar créditos al creador.",
         "unsharedProjects": "Proyectos no compartidos ya no son accesibles usando su ID debido a cambios en el API de Scratch.",
-        "unsharedProjectsMore": "Para más información, visita: {link}",
+        "unsharedProjectsMore": "Para más información, visite: {link}",
+        "unsharedProjectsTemporary": "Proyectos no compartidos no serán accesibles usando solamente su ID en algún punto debido a cambios en el API de Scratch por venir.",
+        "unsharedProjectsWorkaround": "En cambio, puedes compartir o guardar el proyecto en tu computadora (Archivo > Guardar en tu ordenador) y cargar el archivo en el convertidor. Los archivos generados por el convertidor son totalmente autónomos y no son afectados por estos cambios.",
         "url": "Otra URL"
     },
     "theme": {
