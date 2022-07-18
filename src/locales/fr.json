@@ -1,11 +1,17 @@
 {
+    "downloads": {
+        "link": "Télécharger {filename} ({size})",
+        "useWorkaround": "Si le lien ne fonctionne pas, cliquez ici"
+    },
     "fileInput": {
         "clear": "Effacer la sélection",
         "select": "Sélectionne ou dépose un fichier",
         "selected": "Sélectionné {file}"
     },
     "import": {
-        "cancel": "Annuler"
+        "cancel": "Annuler",
+        "description": "Cela peut prendre un moment car le projet est lourd.",
+        "header": "Imporation du projet..."
     },
     "options": {
         "accentColor": "Couleur d'accentuation (contrôles actifs/survolés, invite de demande, menus contextuels)",
@@ -16,9 +22,11 @@
         "application-win32": "{type}Application Windows (32 bits ou 64 bits)",
         "application-win64": "{type}Application Windows (64 bits uniquement, non recommandé)",
         "applicationSettings": "Paramètres de l'application",
+        "automaticallyCenter": "Centrer automatiquement",
         "autoplay": "Démarrer le projet automatiquement au lieu d'afficher un grand drapeau vert",
         "autoplayHint": "Remarque : De nombreux navigateurs n'autorisent pas les sites Web à lire automatiquement le son. Par conséquent, les sons peuvent ne pas être lus tant que l'utilisateur n'interagit pas avec le projet.",
         "backgroundColor": "Couleur d'arrière-plan",
+        "closeWhenStopped": "Fermer la fenêtre quand le projet s'arrête",
         "cloudVariables": "Variables globales (Cloud)",
         "cloudVariables-custom": "Avancé",
         "cloudVariables-custom-help": "\"Avancé\" utilise un mode différent pour chaque variable, ainsi certaines variables peuvent se synchroniser avec d'autres utilisateurs mais d'autres peuvent être stockées localement, par exemple.",
@@ -32,6 +40,7 @@
         "colors": "Couleurs",
         "controls": "Commandes",
         "controlsHelp": "Si toutes les commandes sont désactivées, la barre de commandes est entièrement supprimée. Si seul le plein écran est activé, il sera toujours situé dans le coin supérieur gauche, pas dans l'en-tête des contrôles.",
+        "cursorCenter": "Centre du curseur : ",
         "cursorHelp": "Les images jusqu'à 32x32 fonctionnent mieux. Les images plus grandes peuvent ne pas fonctionner de manière fiable.",
         "customCSS": "CSS personnalisé (ne changez pas si vous ne savez pas ce que vous faites !)",
         "customCursor": "Curseur personnalisé",
@@ -54,6 +63,7 @@
         "infiniteClones": "Clones Infinis",
         "interaction": "Entrée",
         "learnMore": "En savoir plus",
+        "listColor": "Couleur des listes",
         "loadingScreen": "Écran de chargement",
         "loadingScreenImage": "Image de l'écran de chargement",
         "loadingScreenText": "Texte de chargement",
@@ -77,6 +87,7 @@
         "projectIdHelp": "L'ID de projet est utilisé lors de la connexion à un serveur de variables cloud et du stockage des variables cloud locales. Il peut contenir plus que des chiffres.",
         "removeFencing": "Supprimer les limites",
         "removeMiscLimits": "Supprimer diverses limites",
+        "resetAll": "Tout Réinitialiser",
         "runtimeOptions": "Options d'exécution",
         "showFlag": "Afficher le drapeau vert",
         "showFullscreen": "Afficher le bouton de plein écran",
@@ -86,22 +97,28 @@
         "sizeNormal": "Afficher en taille normale",
         "sizeStretch": "Remplir l'écran",
         "specialCloudBehaviors": "Comportements spéciaux des variables cloud comme HTMLifier",
-        "stage": "Étape",
+        "stage": "Scène",
         "stageSize": "Taille de scène personnalisée",
         "startFullscreen": "Démarrer en plein écran",
         "startMaximized": "Commencer en tant que fenêtre agrandie",
         "startWindow": "Démarrer en tant que fenêtre",
         "storedWarning": "Remarque : Ce projet contient des paramètres qui peuvent remplacer ces paramètres.",
-        "stretch": "Étirer l'étape pour remplir l'écran sans changer la taille réelle (expérimental)",
+        "stretch": "Étirer la scène pour remplir l'écran sans changer la taille réelle (expérimental)",
         "turbo": "Mode Turbo",
         "unsafeCloudBehaviors": "Comportements cloud spéciaux non sécurisés supplémentaires",
         "unsafeCloudBehaviorsWarning": "Les comportements cloud non sécurisés permettent au projet empaqueté d'exécuter du code arbitraire en dehors de la \"bac à sable\" dans laquelle les projets sont généralement exécutés. Selon l'environnement pour lequel vous empaquetez, cela accorde aux projets un contrôle total sur votre ordinateur, y compris la possibilité d'installer des virus. Si vous ne faites pas confiance au projet que vous empaquetez, veuillez désactiver cette option.",
         "username": "Nom d'utilisateur (chaque \"#\" est remplacé par un chiffre aléatoire entre 0 et 9)",
+        "variableColor": "Couleur des variables",
+        "versionHelp": "Mettre à jour la version est complètement optionnel et n'affecte pas le fonctionnement de votre projet. Cela peut apparaitre dans des endroits comme des pages \" A propos\",  en fonction de l'environnement.",
         "warpTimer": "Vérificateur de boucles infinies.",
         "zip": "Zip (idéal pour les sites Web)",
         "zip-one-asset": "Compressez, combinez les actifs dans un seul fichier (non recommandé)"
     },
     "p4": {
+        "browserNotSupported": "Navigateur non supporté",
+        "browserNotSupportedDescription": "Mettez à jour votre navigateur.",
+        "cannotAccessProject": "Impossible d'acceder aux métadonnées du projet. Cela signifie probablement que le projet n'est pas partagé, n'a jamais existé ou que son ID est invalide.",
+        "cannotAccessProjectCaching": "Si ce projet a été partagé récemment, cela peut prendre jusqu'a une heure pour que ce message disparaisse.",
         "close": "Fermer",
         "description1": "Convertit les projets Scratch en fichiers HTML, archives zip ou programmes exécutables pour Windows, macOS et Linux.",
         "description2": "Si vous souhaitez simplement intégrer un projet à votre site Web, vous serez peut-être intéressé par{embedding}.",
@@ -110,15 +127,19 @@
         "description3-on": "au{brand}",
         "disclaimer": "Ce site n'est pas affilié à Scratch, à la Scratch Team ou à la Scratch Foundation.",
         "documentation": "Ressources et aide supplémentaires",
+        "donate": "Faire un don",
         "error": "Erreur",
         "errorMessage": "Message : {error}",
         "feedback": "Envoyer des commentaires",
-        "networkError": "Impossible de télécharger {url}. Assurez-vous d'être connecté à Internet et essayez de désactiver toutes les extensions de navigateur.",
+        "fosshost": "Merci à Fosshost pour fournir les serveurs utilisés par ce packager",
+        "importingInterface": "Chargement des options...",
+        "networkError": "Impossible de télécharger {url}. Assurez-vous d'être connecté à Internet et essayez de désactiver toutes les extensions de votre navigateur.",
         "outdated": "Cette version du conditionneur semble obsolète. Veuillez actualiser et réessayer.",
         "privacy": "Politique de Confidentialité",
         "refresh": "Rafraîchir",
         "reportBug": "Rapporter des bugs",
-        "sourceCode": "Code source"
+        "sourceCode": "Code source",
+        "unknownImportError": "Quelque chose s'est mal passé. Rafraîchissez la page et réessayez."
     },
     "preview": {
         "loading": "Chargement de l'aperçu"
@@ -126,13 +147,15 @@
     "progress": {
         "compressingProject": "Compression du projet",
         "loadingAssets": "Téléchargement de ressources ({complete}/{total})",
-        "loadingLargeAsset": "Téléchargement{thing}",
+        "loadingLargeAsset": "Téléchargement {thing}",
         "loadingProjectData": "Téléchargement des données du projet",
+        "loadingProjectMetadata": "Téléchargement des metadonnées du projet",
         "loadingScripts": "Téléchargement de scripts",
         "packagingProject": "Compilation du projet"
     },
     "reset": {
         "confirm": "Voulez-vous vraiment réinitialiser ces paramètres ? Ça ne peut pas être annulé.",
+        "confirmAll": "Êtes vous sûr de vouloir reinitialiser TOUS les paramètres ? Cela ne peut pas être annulé.",
         "reset": "Réinitialiser"
     },
     "select": {
@@ -145,6 +168,10 @@
         "noFileSelected": "Aucun fichier sélectionné",
         "select": "Choix du projet",
         "selectHelp": "Choisissez le projet que vous souhaitez compiler en copiant-collant le lien du projet Scratch, ou utilisez l'un de nos autre modes d'importation. Si vous choisissez un projet que vous n'avez pas créé, vous êtes tenu de créditer le créateur.",
+        "unsharedProjects": "Les projets non partagés ne sont plus accesibles via leur ID en raison des changements de l'API de Scratch.",
+        "unsharedProjectsMore": "Pour plus d'informations, visitez : {link}",
+        "unsharedProjectsTemporary": "Les projets non partagés ne seront plus accessibles en utilisant uniquement leur ID a cause de futurs changements de l' API de Scratch.",
+        "unsharedProjectsWorkaround": "A la place, vous pouvez soit partager le projet, soit le sauvegarder sur votre ordinateur (Fichier > Sauvegarder sur votre ordinateur) et importer le projet dans le conditionneur.\nLes fichiers générés par le conditionneur sont totalement indépendants et ne seront pas affectés par ces changements.",
         "url": "Autre URL"
     },
     "theme": {

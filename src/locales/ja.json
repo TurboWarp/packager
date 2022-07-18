@@ -1,11 +1,17 @@
 {
+    "downloads": {
+        "link": "{filename}をダウンロード({size})",
+        "useWorkaround": "リンクが機能していない場合はこちらをクリックしてください"
+    },
     "fileInput": {
         "clear": "明確な選択",
         "select": "選ぶかファイルをドロップする",
         "selected": "{file}を選ぶ"
     },
     "import": {
-        "cancel": "キャンセル"
+        "cancel": "キャンセル",
+        "description": "プロジェクトが大きいと、時間がかかる場合があります。",
+        "header": "プロジェクトをインポート中…"
     },
     "options": {
         "accentColor": "アクセントカラー(アクティブ/ホバリングコントロール、質問バー、コンテキストメニュー)",
@@ -16,6 +22,7 @@
         "application-win32": "{type} Windowsのアプリケーション(32bitまたは64bit)",
         "application-win64": "{type} Windowsのアプリケーション（64bitのみ、非推奨)",
         "applicationSettings": "アプリケーションの設定",
+        "automaticallyCenter": "自動で中心を決める",
         "autoplay": "大きな緑の旗を表示せずに自動でプロジェクトを始める",
         "autoplayHint": "注意：多くのブラウザでは、ウェブサイトが自動で音を再生することができません。そのため、ユーザーがプロジェクトに参加するまで音が再生されない場合があります。",
         "backgroundColor": "背景の色",
@@ -33,6 +40,7 @@
         "colors": "色",
         "controls": "コントロール",
         "controlsHelp": "すべてのコントロールが無効の場合、コントロールバーは完全に削除されます。フルスクリーンのみを有効にすると、コントロールのヘッダーではなく、左上にボタンが配置されます。",
+        "cursorCenter": "カーソルの中心:",
         "cursorHelp": "32x32以下の大きさの画像が最適です。それ以上の大きさの画像は、確実に動作しないことがあります。",
         "customCSS": "カスタム CSS(何をするのか分からない場合は変更しないでください)",
         "customCursor": "カスタムカーソル",
@@ -56,6 +64,7 @@
         "interaction": "入力",
         "interpolation": "補完機能",
         "learnMore": "もっと知る",
+        "listColor": "リストの色",
         "loadingScreen": "スクリーンをロードする",
         "loadingScreenImage": "ロード時の画面の絵",
         "loadingScreenText": "ロード時の画面の文字",
@@ -102,11 +111,16 @@
         "unsafeCloudBehaviorsWarning": "安全でないクラウド変数の動作により、パッケージ化されたプロジェクトは、プロジェクトが通常実行される「サンドボックス」の外で任意のコードを実行することができます。パッケージをする環境によっては、ウイルスをインストールする機能など、コンピュータを完全に制御する機能をプロジェクトに付与することになります。パッケージングするプロジェクトが信頼できない場合は、このオプションをオフにしてください。",
         "username": "ユーザー名(#はそれぞれランダムな数に入れ替わります。)",
         "variableColor": "変数モニターの色",
+        "version": "バージョン",
         "warpTimer": "Warpタイマー",
         "zip": "Zip(ウェブサイトに最適)",
         "zip-one-asset": "Zip、アセットを1つのファイルにまとめる（非推奨)"
     },
     "p4": {
+        "browserNotSupported": "ブラウザはサポートしていません",
+        "browserNotSupportedDescription": "お使いのブラウザをアップデートしてください。",
+        "cannotAccessProject": "プロジェクトのメタデータにアクセスできません。これは、プロジェクトが共有されていない、存在しなかった、またはIDが無効であることを意味します。",
+        "cannotAccessProjectCaching": "プロジェクトが最近共有された場合、このメッセージが消えるまで1時間程度かかることがあります。",
         "close": "閉じる",
         "description1": "Scratchプロジェクトを、HTMLファイル、ZIPファイルや、Windows、macOS、Linux用の実行形式プログラムに変換します。",
         "description2": "プロジェクトをあなたのウェブサイトに埋め込む簡単な方法は、{embedding}をご覧ください。",
@@ -119,12 +133,15 @@
         "error": "エラー",
         "errorMessage": "メッセージ: {error}",
         "feedback": "フィードバック",
-        "networkError": "{url}をダウンロードできませんでした。インターネットに接続されていることを確認したり、ブラウザの拡張機能を無効にしたりしてみてください。",
+        "fosshost": "パッケージャーが使用するサーバーを提供してくださったFosshostに感謝します。",
+        "importingInterface": "オプションを読み込み中…",
+        "networkError": "{url}をダウンロードできませんでした。インターネットに接続されていることを確認し、ブラウザの拡張機能を無効にしてください。",
         "outdated": "このバージョンのパッケージャーは古くなったようです。再読み込みして再度お試しください。",
         "privacy": "プライバシーポリシー",
         "refresh": "再読み込み",
         "reportBug": "バグを報告する",
-        "sourceCode": "ソースコード"
+        "sourceCode": "ソースコード",
+        "unknownImportError": "問題が発生しました。再読み込みをして、やり直してください。"
     },
     "preview": {
         "loading": "プレビューをロードする"
@@ -134,6 +151,7 @@
         "loadingAssets": "アッセットの読み込み中({complete}/{total})",
         "loadingLargeAsset": "{thing}をダウンロードしています",
         "loadingProjectData": "プロジェクトのデータを読み込んでいます",
+        "loadingProjectMetadata": "プロジェクトのメタデータを読み込んでいます",
         "loadingScripts": "スクリプトをダウンロード中",
         "packagingProject": "プロジェクトをパッケージ化する"
     },
@@ -152,6 +170,10 @@
         "noFileSelected": "ファイルを選んでいません",
         "select": "プロジェクトの選択",
         "selectHelp": "Scratchプロジェクトのリンクをコピー＆ペーストするか、その他の方法で、パッケージ化したいプロジェクトを選びます。自分が作ったものではないプロジェクトを使用する場合は、必ず制作者のクレジットを明記してください。",
+        "unsharedProjects": "Scratch API の変更に伴い、非共有プロジェクトはプロジェクト ID でアクセスできなくなりました。",
+        "unsharedProjectsMore": "詳しくはこちらをご覧ください: {link}",
+        "unsharedProjectsTemporary": "Scratch API の変更に伴い、非共有プロジェクトは将来的にプロジェクト ID でアクセスできなくなる予定です。",
+        "unsharedProjectsWorkaround": "その代わりに、プロジェクトを共有するか、コンピュータに保存して(ファイル > コンピュータに保存)、そのファイルを読み込むことができます。パッケージャーによって生成されたファイルは、完全に自己完結しており、これらの変更の影響を受けません。",
         "url": "他のURL"
     },
     "theme": {
