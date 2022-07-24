@@ -218,6 +218,10 @@
   {/if}
 
   <footer>
+    <div id="row12">
+       <a class="column12" href="https://fosshost.org/">{$_('p4.import')}</a>
+       <a class="column12" href="https://fosshost.org/">{$_('p4.export')}</a>
+      </div>
     <div>
       {#if !isStandalone}
         <a href="privacy.html">{$_('p4.privacy')}</a>
@@ -239,10 +243,7 @@
     <div>
       <a href="https://fosshost.org/">{$_('p4.fosshost')}</a>
     </div>
-    <div id="row12">
-       <a class="column12" href="https://fosshost.org/">{$_('p4.import')}</a>
-       <a class="column12" href="https://fosshost.org/">{$_('p4.export')}</a>
-      </div>
+    
     <div>
       <SelectTheme />
     </div>
