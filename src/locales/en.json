@@ -87,6 +87,14 @@
     "fosshost": {
       "string": "Thank you to Fosshost for providing servers used by the packager",
       "context": "Link in the site's footer thanking Fosshost.org"
+    },
+    "import": {
+      "string": "Import Packager Options",
+      "context": "Button in footer for importing all packager options"
+    },
+    "export": {
+      "string": "Export Packager Options",
+      "context": "Button in footer for exporting all packager options"
     }
   },
   "progress": {
