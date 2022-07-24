@@ -147,7 +147,8 @@
     resetResult();
     previewer = new Preview();
     const task = new Task();
-    const optionsClone = deepClone($options);
+    const optionsClo
+    ne = deepClone($options);
     optionsClone.target = 'html';
     try {
       result = await task.do(runPackager(task, optionsClone));
@@ -886,6 +887,17 @@
     </div>
     <div clas="button">
       <Button on:click={preview} secondary text={$_('options.preview')} />
+    </div>
+  </div>
+</Section>
+
+<Section>
+  <div class="buttons">
+    <div class="button">
+      <Button on:click={pack} text={$_('options.export')} />
+    </div>
+    <div clas="button">
+      <Button on:click={preview} secondary text={$_('options.import')} />
     </div>
     <div class="reset-button">
       <Button on:click={resetAll} dangerous text={$_('options.resetAll')} />
