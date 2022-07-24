@@ -115,6 +115,18 @@
   .version a {
     color: inherit;
   }
+  #row12 {
+    display:flex;
+    flex-direction:row;
+    justify-content:center;
+}
+
+.column12 {
+    display:flex;
+    margin-right:10px;
+    margin-left:10px;
+    flex-direction:column;
+}
 </style>
 
 <Modals bind:modalVisible={modalVisible} />
@@ -227,8 +239,10 @@
     <div>
       <a href="https://fosshost.org/">{$_('p4.fosshost')}</a>
     </div>
-    <div>
-      <a href="https://fosshost.org/">{$_('p4.fosshost')}</a>
+    <div id="row12">
+       <a class="column12" href="https://fosshost.org/">{$_('p4.import')}</a>
+       <a class="column12" href="https://fosshost.org/">{$_('p4.export')}</a>
+      </div>
     </div>
     <div>
       <SelectTheme />
