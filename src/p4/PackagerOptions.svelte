@@ -147,8 +147,7 @@
     resetResult();
     previewer = new Preview();
     const task = new Task();
-    const optionsClo
-    ne = deepClone($options);
+    const optionsClone = deepClone($options);
     optionsClone.target = 'html';
     try {
       result = await task.do(runPackager(task, optionsClone));
