@@ -145,6 +145,9 @@
   
   const exportOptions = async () => {
     console.log($options);
+    console.log($customCursorIcon);
+    console.log($loadingScreenImage);
+    console.log($icon);
     var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify($options));
     var dlAnchorElem = document.getElementById('downloadAnchorElem');
     dlAnchorElem.setAttribute("href",     dataStr     );
