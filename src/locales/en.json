@@ -590,6 +590,10 @@
       "string": "Reset",
       "context": "Hover text of button to reset settings within a section"
     },
+    "confirmImport": {
+      "string": "Are you sure you want to re-import ALL these settings? This cannot be undone.",
+      "context": "Prompt to confirm user wants to reset a specific subsection's settings"
+    },
     "confirm": {
       "string": "Are you sure you want to reset these settings? This cannot be undone.",
       "context": "Prompt to confirm user wants to reset a specific subsection's settings"
