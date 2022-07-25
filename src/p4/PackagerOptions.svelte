@@ -163,8 +163,8 @@
       "loadingScreenImage": encodeImageAsBase64($loadingScreenImage),
       "customCursorIcon": encodeImageAsBase64($customCursorIcon)
     };
-    console.log("dataObj", dataObj.images);
-    var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(dataObj));
+    console.log("dataObj", await dataObj.images);
+    var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(await dataObj));
     var dlAnchorElem = document.getElementById('downloadAnchorElem');
     dlAnchorElem.setAttribute("href", dataStr);
     dlAnchorElem.setAttribute("download", "turbowarp-packager-settings.json");
