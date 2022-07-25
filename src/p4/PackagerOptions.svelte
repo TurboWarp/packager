@@ -909,8 +909,10 @@
   </Section>
 {/if}
 
-<Section>
-  <div class="buttons">
+<Section
+  accent="#FF6680">  <div class="buttons">
+    <h2>{$_('options.exportOptionsLabel')}</h2>
+
     <div class="button">
       <Button on:click={exportOptions} text={$_('options.export')} />
     </div>
