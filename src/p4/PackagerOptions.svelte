@@ -916,7 +916,7 @@
     <div class="button">
       <Button on:click={exportOptions} text={$_('options.export')} />
     </div>
-    <div clas="button">
+    <div clas="button2">
       <Button on:click={importOptions} secondary text={$_('options.import')} />
     </div>
     <div class="reset-button">
