@@ -911,7 +911,7 @@
 
 <Section
   accent="#FF6680">     <h2>{$_('options.exportOptionsLabel')}</h2>
- <div class="buttons">
+ <div class="buttons" style="margin-top:16px">
 
     <div class="button">
       <Button on:click={exportOptions} text={$_('options.export')} />
