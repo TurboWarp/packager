@@ -145,6 +145,11 @@
   
   const exportOptions = async () => {
     console.log($options);
+    var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify($options));
+    var dlAnchorElem = document.getElementById('downloadAnchorElem');
+    dlAnchorElem.setAttribute("href",     dataStr     );
+    dlAnchorElem.setAttribute("download", "scene.json");
+    dlAnchorElem.click();
   };
     
   const importOptions = async () => {
@@ -910,7 +915,7 @@
 {/if}
 
 <Section
-  accent="#FF6680">     <h2>{$_('options.exportOptionsLabel')}</h2>
+  accent="#FF6680">     <h2>{$_('options.exportOptionsLabel')}</h2><a id="downloadAnchorElem" style="display:none"></a>
  <div class="buttons" style="margin-top:16px">
 
     <div class="button">
