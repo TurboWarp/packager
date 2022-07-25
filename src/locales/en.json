@@ -179,12 +179,12 @@
   },
   "options": {]
     "export": {
-      "string": "Export Options",
-      "context": "Hover text for '(?)' link to learn more about an option"
+      "string": "Export Settings",
+      "context": "Button to export packager settings"
     },
     "import": {
-      "string": "Import Options",
-      "context": "Hover text for '(?)' link to learn more about an option"
+      "string": "Import Settings",
+      "context": "Button to import packager settings"
     },
     "learnMore": {
       "string": "Learn more",
