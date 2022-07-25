@@ -153,6 +153,7 @@
   };
     
   const importOptions = async () => {
+    if (confirm($_('reset.importAll'))) {
         const inputElem = Object.assign(document.createElement("input"), {
           hidden: true,
           type: "file",
@@ -181,6 +182,7 @@
         );
         document.body.appendChild(inputElem);
         inputElem.click();
+    }
   };
 
   const preview = async () => {
