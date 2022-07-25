@@ -177,7 +177,7 @@
       "context": "Link to learn more about the state of unshared projects."
     }
   },
-  "options": {]
+  "options": {
     "export": {
       "string": "Export Settings",
       "context": "Button to export packager settings"
