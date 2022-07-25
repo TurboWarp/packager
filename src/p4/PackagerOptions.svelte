@@ -144,10 +144,10 @@
   };
   
   const exportOptions = async () => {
-    async function encodeImageAsBase64(blob) {
+    function encodeImageAsBase64(blob) {
       var reader = new FileReader();
       reader.readAsDataURL(blob); 
-      reader.onloadend = await function() {
+      reader.onloadend = function() {
         var base64data = reader.result;                
         console.log("base64 generated!", base64data);
         return base64data;
@@ -163,8 +163,8 @@
       "loadingScreenImage": encodeImageAsBase64($loadingScreenImage),
       "customCursorIcon": encodeImageAsBase64($customCursorIcon)
     };
-    console.log("dataObj", await dataObj.images);
-    var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(await dataObj));
+    console.log("dataObj", dataObj.images);
+    var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(dataObj));
     var dlAnchorElem = document.getElementById('downloadAnchorElem');
     dlAnchorElem.setAttribute("href", dataStr);
     dlAnchorElem.setAttribute("download", "turbowarp-packager-settings.json");
