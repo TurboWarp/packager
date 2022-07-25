@@ -177,7 +177,15 @@
       "context": "Link to learn more about the state of unshared projects."
     }
   },
-  "options": {
+  "options": {]
+    "export": {
+      "string": "Export Options",
+      "context": "Hover text for '(?)' link to learn more about an option"
+    },
+    "import": {
+      "string": "Import Options",
+      "context": "Hover text for '(?)' link to learn more about an option"
+    },
     "learnMore": {
       "string": "Learn more",
       "context": "Hover text for '(?)' link to learn more about an option"
