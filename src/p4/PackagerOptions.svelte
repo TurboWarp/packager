@@ -170,7 +170,7 @@
             const text = await file.text();
             inputElem.remove();
             try {
-              $;
+              $options = JSON.parse(text);
             } catch (e) {
               console.warn("Error when importing settings:", e);
               alert($_('options.importFailed'));
