@@ -181,7 +181,7 @@
     "exportOptionsLabel": {
       "string": "Export Packager Options",
       "context": "Button to export packager settings"
-    }
+    },
     "export": {
       "string": "Export Settings",
       "context": "Button to export packager settings"
