@@ -26,7 +26,7 @@
     font-family: inherit;
     font-weight: bold;
   }
-  button2 {
+  .button2 {
     position: relative;
     font-family: inherit;
     font-size: 14px;
