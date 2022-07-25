@@ -178,6 +178,18 @@
     }
   },
   "options": {
+    "importSuccess": {
+      "string": "Successfully Imported Packager Settings JSON!",
+      "context": "Import Success Message"
+    },
+     "importFailed": {
+      "string": "Packager Settings Import Failed!",
+      "context": "Error Message"
+    },
+     "noFileSelected": {
+      "string": "No Files Selected",
+      "context": "Error Message"
+    },
     "exportOptionsLabel": {
       "string": "Export Packager Options",
       "context": "Button to export packager settings"
