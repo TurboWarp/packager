@@ -158,11 +158,12 @@
     console.log($loadingScreenImage);
     console.log($icon);
     var dataObj = $options;
-    dataObj.images = await {
+    dataObj.images = {
       "icon": encodeImageAsBase64($icon),
       "loadingScreenImage": encodeImageAsBase64($loadingScreenImage),
       "customCursorIcon": encodeImageAsBase64($customCursorIcon)
     };
+    console.log("dataObj", dataObj.images);
     var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(dataObj));
     var dlAnchorElem = document.getElementById('downloadAnchorElem');
     dlAnchorElem.setAttribute("href", dataStr);
