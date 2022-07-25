@@ -142,6 +142,13 @@
     task.done();
     downloadURL(result.filename, result.url);
   };
+  
+  const exportOptions = async () => {
+    console.log($options);
+  };
+    
+  const importOptions = async () => {
+  };
 
   const preview = async () => {
     resetResult();
@@ -905,10 +912,10 @@
 <Section>
   <div class="buttons">
     <div class="button">
-      <Button on:click={pack} text={$_('options.export')} />
+      <Button on:click={exportOptions} text={$_('options.export')} />
     </div>
     <div clas="button">
-      <Button on:click={preview} secondary text={$_('options.import')} />
+      <Button on:click={importOptions} secondary text={$_('options.import')} />
     </div>
     <div class="reset-button">
       <Button on:click={resetAll} dangerous text={$_('options.resetAll')} />
