@@ -144,26 +144,27 @@
   };
   
   const exportOptions = async () => {
-    function encodeImageAsBase64(blob) {
+    async function encodeImageAsBase64(blob) {
       var reader = new FileReader();
       reader.readAsDataURL(blob); 
-      reader.onloadend = function() {
-        var base64data = reader.result;                
+      reader.onloadend = async function() {
+        var base64data = await reader.result;                
         console.log("base64 generated!", base64data);
         return base64data;
       }
     }
 //     console.log($options);
-    console.log($customCursorIcon);
-    console.log($loadingScreenImage);
-    console.log($icon);
+//     console.log($customCursorIcon);
+//     console.log($loadingScreenImage);
+//     console.log($icon);
+    console.log()
     var dataObj = $options;
     dataObj.images = {
-      "icon": await encodeImageAsBase64($icon),
-      "loadingScreenImage": await encodeImageAsBase64($loadingScreenImage),
-      "customCursorIcon": await encodeImageAsBase64($customCursorIcon)
+      "icon": encodeImageAsBase64($icon),
+      "loadingScreenImage": encodeImageAsBase64($loadingScreenImage),
+      "customCursorIcon": encodeImageAsBase64($customCursorIcon)
     };
-    console.log("dataObj", dataObj.images);
+    console.log("dataObj", await dataObj.images);
     var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(dataObj));
     var dlAnchorElem = document.getElementById('downloadAnchorElem');
     dlAnchorElem.setAttribute("href", dataStr);
