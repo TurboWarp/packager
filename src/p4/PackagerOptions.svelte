@@ -144,10 +144,10 @@
   };
   
   const exportOptions = async () => {
-    function encodeImageAsBase64() {
+    async function encodeImageAsBase64(blob) {
       var reader = new FileReader();
       reader.readAsDataURL(blob); 
-      reader.onloadend = function() {
+      reader.onloadend = await function() {
         var base64data = reader.result;                
         console.log("base64 generated!", base64data);
         return base64data;
@@ -158,7 +158,7 @@
     console.log($loadingScreenImage);
     console.log($icon);
     var dataObj = $options;
-    dataObj.images = {
+    dataObj.images = await {
       "icon": encodeImageAsBase64($icon),
       "loadingScreenImage": encodeImageAsBase64($loadingScreenImage),
       "customCursorIcon": encodeImageAsBase64($customCursorIcon)
