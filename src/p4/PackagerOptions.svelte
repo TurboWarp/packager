@@ -144,13 +144,28 @@
   };
   
   const exportOptions = async () => {
-    console.log($options);
+    function encodeImageAsBase64() {
+      var reader = new FileReader();
+      reader.readAsDataURL(blob); 
+      reader.onloadend = function() {
+        var base64data = reader.result;                
+        console.log("base64 generated!", base64data);
+        return base64data;
+      }
+    }
+//     console.log($options);
     console.log($customCursorIcon);
     console.log($loadingScreenImage);
     console.log($icon);
-    var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify($options));
+    var dataObj = $options;
+    dataObj.images = {
+      "icon": encodeImageAsBase64($icon),
+      "loadingScreenImage": encodeImageAsBase64($loadingScreenImage),
+      "customCursorIcon": encodeImageAsBase64($customCursorIcon)
+    };
+    var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(dataObj));
     var dlAnchorElem = document.getElementById('downloadAnchorElem');
-    dlAnchorElem.setAttribute("href",     dataStr     );
+    dlAnchorElem.setAttribute("href", dataStr);
     dlAnchorElem.setAttribute("download", "turbowarp-packager-settings.json");
     dlAnchorElem.click();
   };
