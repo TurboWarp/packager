@@ -26,6 +26,21 @@
     font-family: inherit;
     font-weight: bold;
   }
+  button2 {
+    position: relative;
+    font-family: inherit;
+    font-size: 14px;
+    color: black;
+    border: 1px solid #cecece;
+    padding: 0.5rem 1rem;
+    margin: 0;
+    border-radius: 4px;
+    overflow: hidden;
+    cursor: pointer;
+    font-family: inherit;
+    font-weight: normal;
+    background-color: #f0f0f0;
+  }
   .text {
     display: flex;
     align-items: center;
