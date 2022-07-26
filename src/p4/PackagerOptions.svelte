@@ -159,7 +159,7 @@
 //     console.log($icon);
     console.log()
     var dataObj = $options;
-    dataObj.images.icon = encodeImageAsBase64($icon);
+    dataObj.icon = encodeImageAsBase64($icon);
     console.log("dataObj", await dataObj.images.icon);
     var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(dataObj));
     var dlAnchorElem = document.getElementById('downloadAnchorElem');
