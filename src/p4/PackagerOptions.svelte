@@ -144,11 +144,11 @@
   };
   
   const exportOptions = async () => {
-    async function encodeImageAsBase64(blob) {
+    function encodeImageAsBase64(blob) {
       var reader = new FileReader();
       reader.readAsDataURL(blob); 
-      reader.onloadend = async function() {
-        var base64data = await reader.result;                
+      reader.onloadend = function() {
+        var base64data = reader.result;                
         console.log("base64 generated!", base64data);
         return base64data;
       }
@@ -159,7 +159,7 @@
 //     console.log($icon);
     console.log()
     var dataObj = $options;
-    dataObj.images.icon = encodeImageAsBase64(icon);
+    dataObj.images.icon = encodeImageAsBase64($icon);
     console.log("dataObj", await dataObj.images.icon);
     var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(dataObj));
     var dlAnchorElem = document.getElementById('downloadAnchorElem');
