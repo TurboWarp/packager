@@ -159,12 +159,8 @@
 //     console.log($icon);
     console.log()
     var dataObj = $options;
-    dataObj.images = {
-      "icon": encodeImageAsBase64($icon),
-      "loadingScreenImage": encodeImageAsBase64($loadingScreenImage),
-      "customCursorIcon": encodeImageAsBase64($customCursorIcon)
-    };
-    console.log("dataObj", await dataObj.images);
+    dataObj.images.icon = encodeImageAsBase64(icon);
+    console.log("dataObj", await dataObj.images.icon);
     var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(dataObj));
     var dlAnchorElem = document.getElementById('downloadAnchorElem');
     dlAnchorElem.setAttribute("href", dataStr);
