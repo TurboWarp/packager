@@ -27,13 +27,13 @@ jobs:
         node-version: 14.x
     - name: Install dependencies
       run: npm ci
-    - name: Test
-      run: npm test
     - name: Build
       run: npm run build
       env:
         NODE_ENV: production
         ENABLE_SERVICE_WORKER: 1
+    - name: Test
+      run: npm test
     - name: Upload artifact
       uses: actions/upload-pages-artifact@v1
       with:
