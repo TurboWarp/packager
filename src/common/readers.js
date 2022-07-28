@@ -1,3 +1,7 @@
+/**
+ * @param {Blob} o
+ * @returns {Promise<ArrayBuffer>}
+ */
 export const readAsArrayBuffer = (o) => new Promise((resolve, reject) => {
   const fr = new FileReader();
   fr.onload = () => resolve(fr.result);
@@ -5,6 +9,10 @@ export const readAsArrayBuffer = (o) => new Promise((resolve, reject) => {
   fr.readAsArrayBuffer(o);
 });
 
+/**
+ * @param {Blob} o
+ * @returns {Promise<string>}
+ */
 export const readAsURL = (o) => new Promise((resolve, reject) => {
   const fr = new FileReader();
   fr.onload = () => resolve(fr.result);
@@ -12,6 +20,10 @@ export const readAsURL = (o) => new Promise((resolve, reject) => {
   fr.readAsDataURL(o);
 });
 
+/**
+ * @param {Blob} o
+ * @returns {Promise<string>}
+ */
 export const readAsText = (o) => new Promise((resolve, reject) => {
   const fr = new FileReader();
   fr.onload = () => resolve(fr.result);
