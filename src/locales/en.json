@@ -90,11 +90,11 @@
     },
     "import": {
       "string": "Import Settings",
-      "context": "Button for importing all packager options"
+      "developer_comment": "Button for importing all packager options"
     },
     "export": {
       "string": "Export Settings",
-      "context": "Button for exporting all packager options"
+      "developer_comment": "Button for exporting all packager options"
     }
   },
   "progress": {
@@ -180,27 +180,27 @@
   "options": {
     "importSuccess": {
       "string": "Successfully Imported Packager Settings JSON!",
-      "context": "Import Success Message"
+      "developer_comment": "Import Success Message"
     },
      "importFailed": {
       "string": "Packager Settings Import Failed!",
-      "context": "Error Message"
+      "developer_comment": "Error Message"
     },
      "noFileSelected": {
       "string": "No Files Selected",
-      "context": "Error Message"
+      "developer_comment": "Error Message"
     },
     "exportOptionsLabel": {
       "string": "Export Packager Options",
-      "context": "Button to export packager settings"
+      "developer_comment": "Button to export packager settings"
     },
     "export": {
       "string": "Export Settings",
-      "context": "Button to export packager settings"
+      "developer_comment": "Button to export packager settings"
     },
     "import": {
       "string": "Import Settings",
-      "context": "Button to import packager settings"
+      "developer_comment": "Button to import packager settings"
     },
     "learnMore": {
       "string": "Learn more",
@@ -592,7 +592,7 @@
     },
     "confirmImport": {
       "string": "Are you sure you want to re-import ALL these settings? This cannot be undone.",
-      "context": "Prompt to confirm user wants to reset a specific subsection's settings"
+      "developer_comment": "Prompt to confirm user wants to reset a specific subsection's settings"
     },
     "confirm": {
       "string": "Are you sure you want to reset these settings? This cannot be undone.",
