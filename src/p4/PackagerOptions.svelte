@@ -216,7 +216,7 @@
         const mergedWithDefaults = merge(deserialized, copiedDefaultOptions);
         setOptions(mergedWithDefaults);
       } catch (e) {
-        alert(e);
+        $error = e;
       }
     });
     document.body.appendChild(input);
