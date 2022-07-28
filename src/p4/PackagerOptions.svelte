@@ -68,6 +68,13 @@
 
   $: title = $options.app.windowTitle;
 
+  const setOptions = (newOptions) => {
+    $options = newOptions;
+    $icon = $options.app.icon;
+    $customCursorIcon = $options.cursor.custom;
+    $loadingScreenImage = $options.loadingScreen.image;
+  };
+
   const otherEnvironmentsInitiallyOpen = ![
     'html',
     'zip',
@@ -190,38 +197,28 @@
   };
     
   const importOptions = async () => {
-    const inputElem = Object.assign(document.createElement("input"), {
-      hidden: true,
-      type: "file",
-      accept: "application/json",
-    });
-    inputElem.addEventListener(
-      "change",
-      async () => {
-        const file = inputElem.files[0];
-        if (!file) {
-          inputElem.remove();
-          alert($_('options.noFileSelected'));
-          return;
-        }
-        const text = await file.text();
-        inputElem.remove();
-        try {
-          const parsed = await JSON.parse(text);
-          const deserialized = recursivelyDeserializeBlobs(parsed);
-          $options = deserialized;
-        } catch (e) {
-          console.warn("Error when importing settings:", e);
-          alert($_('options.importFailed'));
-        }
-        alert($_('options.importSuccess'));
-      },
-      {
-        once: true
+    const input = document.createElement("input");
+    input.type = 'file';
+    input.accept = '.json';
+    input.addEventListener('change', async () => {
+      const file = input.files[0];
+      if (!file) {
+        alert($_('options.noFileSelected'));
+        return;
       }
-    );
-    document.body.appendChild(inputElem);
-    inputElem.click();
+      const text = await file.text();
+      try {
+        const parsed = JSON.parse(text);
+        const deserialized = recursivelyDeserializeBlobs(parsed);
+        setOptions(deserialized);
+      } catch (e) {
+        console.warn('Error when importing settings:', e);
+        alert($_('options.importFailed'));
+      }
+    });
+    document.body.appendChild(input);
+    input.click();
+    input.remove();
   };
 
   onDestroy(() => {
