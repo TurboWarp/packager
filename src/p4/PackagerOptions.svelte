@@ -20,6 +20,7 @@
   import {recursivelySerializeBlobs, recursivelyDeserializeBlobs} from './blob-serializer';
   import {readAsText} from '../common/readers';
   import merge from './merge';
+  import {APP_NAME} from '../packager/brand';
 
   export let projectData;
   export let title;
@@ -195,7 +196,11 @@
   const exportOptions = async () => {
     const exported = await recursivelySerializeBlobs($options);
     const downloadLink = `data:text/json;charset=utf-8,${encodeURIComponent(JSON.stringify(exported))}`;
-    downloadURL('turbowarp-packager-settings.json', downloadLink);
+    const formattedAppName = APP_NAME
+      .replace(/[^a-z0-9 ]/gi, '')
+      .replace(/ /g, '-')
+      .toLowerCase();
+    downloadURL(`${formattedAppName}-settings.json`, downloadLink);
   };
     
   const importOptions = async () => {
