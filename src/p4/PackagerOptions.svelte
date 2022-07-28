@@ -203,7 +203,7 @@
     input.addEventListener('change', async () => {
       const file = input.files[0];
       if (!file) {
-        alert($_('options.noFileSelected'));
+        // Should never happen.
         return;
       }
       const text = await file.text();
