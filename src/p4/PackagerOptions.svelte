@@ -190,40 +190,38 @@
   };
     
   const importOptions = async () => {
-    if (confirm($_('reset.importAll'))) {
-      const inputElem = Object.assign(document.createElement("input"), {
-        hidden: true,
-        type: "file",
-        accept: "application/json",
-      });
-      inputElem.addEventListener(
-        "change",
-        async (e) => {
-          const file = inputElem.files[0];
-          if (!file) {
-            inputElem.remove();
-            alert($_('options.noFileSelected'));
-            return;
-          }
-          const text = await file.text();
+    const inputElem = Object.assign(document.createElement("input"), {
+      hidden: true,
+      type: "file",
+      accept: "application/json",
+    });
+    inputElem.addEventListener(
+      "change",
+      async () => {
+        const file = inputElem.files[0];
+        if (!file) {
           inputElem.remove();
-          try {
-            const parsed = await JSON.parse(text);
-            const deserialized = recursivelyDeserializeBlobs(parsed);
-            $options = deserialized;
-          } catch (e) {
-            console.warn("Error when importing settings:", e);
-            alert($_('options.importFailed'));
-          }
-          alert($_('options.importSuccess'));
-        },
-        {
-          once: true
+          alert($_('options.noFileSelected'));
+          return;
         }
-      );
-      document.body.appendChild(inputElem);
-      inputElem.click();
-    }
+        const text = await file.text();
+        inputElem.remove();
+        try {
+          const parsed = await JSON.parse(text);
+          const deserialized = recursivelyDeserializeBlobs(parsed);
+          $options = deserialized;
+        } catch (e) {
+          console.warn("Error when importing settings:", e);
+          alert($_('options.importFailed'));
+        }
+        alert($_('options.importSuccess'));
+      },
+      {
+        once: true
+      }
+    );
+    document.body.appendChild(inputElem);
+    inputElem.click();
   };
 
   onDestroy(() => {
