@@ -212,8 +212,7 @@
         const deserialized = recursivelyDeserializeBlobs(parsed);
         setOptions(deserialized);
       } catch (e) {
-        console.warn('Error when importing settings:', e);
-        alert($_('options.importFailed'));
+        alert(e);
       }
     });
     document.body.appendChild(input);
