@@ -34,15 +34,15 @@ const recursivelySerializeBlobs = async (object) => {
  * Generate an object where any child properties inlined by recursivelySerializeBlobs will be converted
  * back to a blob.
  * @param {unknown} object
- * @returns {Promise<unknown>}
+ * @returns {unknown}
  */
-const recursivelyDeserializeBlobs = async (object) => {
+const recursivelyDeserializeBlobs = (object) => {
   const result = {};
   for (const key of Object.keys(object)) {
     const value = object[key];
     if (isObject(value)) {
       if (value[BLOB_IDENTIFIER]) {
-        const blob = new Blob([new Uint8Array(value)], {
+        const blob = new Blob([new Uint8Array(value.data)], {
           type: value.type
         });
         blob.name = value.name;
