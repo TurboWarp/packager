@@ -207,8 +207,8 @@
         // Should never happen.
         return;
       }
-      const text = await readAsText(file);
       try {
+        const text = await readAsText(file);
         const parsed = JSON.parse(text);
         const deserialized = recursivelyDeserializeBlobs(parsed);
         setOptions(deserialized);
