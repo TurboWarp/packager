@@ -152,7 +152,7 @@
     task.done();
     downloadURL(result.filename, result.url);
   };
-  
+
   const preview = async () => {
     resetResult();
     previewer = new Preview();
