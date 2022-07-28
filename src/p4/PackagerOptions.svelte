@@ -294,9 +294,6 @@
   .button {
     margin-right: 4px;
   }
-  .reset-button {
-    margin-left: auto;
-  }
 </style>
 
 <Section
@@ -950,6 +947,20 @@
   </div>
 </Section>
 
+<Section>
+  <div class="buttons">
+    <div class="button">
+      <Button on:click={resetAll} dangerous text={$_('options.resetAll')} />
+    </div>
+    <div class="button">
+      <Button on:click={exportOptions} text={$_('options.export')} />
+    </div>
+    <div class="button">
+      <Button on:click={importOptions} text={$_('options.import')} />
+    </div>
+  </div>
+</Section>
+
 {#if result}
   <Downloads
     name={result ? result.filename : null}
@@ -961,21 +972,3 @@
     <p>{$_('options.downloadsWillAppearHere')}</p>
   </Section>
 {/if}
-
-<Section accent="#FF6680">
-  <div>
-    <h2>{$_('options.exportOptionsLabel')}</h2>
-    <a id="downloadAnchorElem" style="display:none"></a>
-    <div class="buttons" style="margin-top:16px">
-      <div class="button">
-        <Button on:click={exportOptions} text={$_('options.export')} />
-      </div>
-      <div class="button">
-        <Button on:click={importOptions} secondary text={$_('options.import')} />
-      </div>
-      <div class="reset-button">
-        <Button on:click={resetAll} dangerous text={$_('options.resetAll')} />
-      </div>
-    </div>
-  </div>
-</Section>

@@ -190,10 +190,6 @@
       "string": "No Files Selected",
       "developer_comment": "Error Message"
     },
-    "exportOptionsLabel": {
-      "string": "Export Packager Options",
-      "developer_comment": "Button to export packager settings"
-    },
     "export": {
       "string": "Export Settings",
       "developer_comment": "Button to export packager settings"
