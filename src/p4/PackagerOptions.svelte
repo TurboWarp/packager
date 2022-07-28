@@ -143,6 +143,45 @@
     downloadURL(result.filename, result.url);
   };
   
+  const preview = async () => {
+    resetResult();
+    previewer = new Preview();
+    const task = new Task();
+    const optionsClone = deepClone($options);
+    optionsClone.target = 'html';
+    try {
+      result = await task.do(runPackager(task, optionsClone));
+      task.done();
+      previewer.setContent(result.blob);
+    } catch (e) {
+      previewer.close();
+    }
+  };
+
+  const resetOptions = (properties) => {
+    for (const key of properties) {
+      let current = $options;
+      let defaults = defaultOptions;
+      const parts = key.split('.');
+      const lastPart = parts.pop();
+      for (const i of parts) {
+        current = current[i];
+        defaults = defaults[i];
+      }
+      current[lastPart] = deepClone(defaults[lastPart]);
+    }
+    $options = $options;
+  };
+
+  const resetAll = () => {
+    if (confirm($_('reset.confirmAll'))) {
+      resetOptions(Object.keys($options));
+      $icon = null;
+      $customCursorIcon = null;
+      $loadingScreenImage = null;
+    }
+  };
+
   const exportOptions = async () => {
     function encodeImageAsBase64(blob) {
       var reader = new FileReader();
@@ -153,10 +192,10 @@
         return base64data;
       }
     }
-//     console.log($options);
-//     console.log($customCursorIcon);
-//     console.log($loadingScreenImage);
-//     console.log($icon);
+    // console.log($options);
+    // console.log($customCursorIcon);
+    // console.log($loadingScreenImage);
+    // console.log($icon);
     console.log()
     var dataObj = $options;
     dataObj.icon = await encodeImageAsBase64($icon);
@@ -200,45 +239,6 @@
       );
       document.body.appendChild(inputElem);
       inputElem.click();
-    }
-  };
-
-  const preview = async () => {
-    resetResult();
-    previewer = new Preview();
-    const task = new Task();
-    const optionsClone = deepClone($options);
-    optionsClone.target = 'html';
-    try {
-      result = await task.do(runPackager(task, optionsClone));
-      task.done();
-      previewer.setContent(result.blob);
-    } catch (e) {
-      previewer.close();
-    }
-  };
-
-  const resetOptions = (properties) => {
-    for (const key of properties) {
-      let current = $options;
-      let defaults = defaultOptions;
-      const parts = key.split('.');
-      const lastPart = parts.pop();
-      for (const i of parts) {
-        current = current[i];
-        defaults = defaults[i];
-      }
-      current[lastPart] = deepClone(defaults[lastPart]);
-    }
-    $options = $options;
-  };
-
-  const resetAll = () => {
-    if (confirm($_('reset.confirmAll'))) {
-      resetOptions(Object.keys($options));
-      $icon = null;
-      $customCursorIcon = null;
-      $loadingScreenImage = null;
     }
   };
 
