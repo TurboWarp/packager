@@ -170,34 +170,36 @@
     
   const importOptions = async () => {
     if (confirm($_('reset.importAll'))) {
-        const inputElem = Object.assign(document.createElement("input"), {
-          hidden: true,
-          type: "file",
-          accept: "application/json",
-        });
-        inputElem.addEventListener(
-          "change",
-          async (e) => {
-            const file = inputElem.files[0];
-            if (!file) {
-              inputElem.remove();
-              alert($_('options.noFileSelected'));
-              return;
-            }
-            const text = await file.text();
+      const inputElem = Object.assign(document.createElement("input"), {
+        hidden: true,
+        type: "file",
+        accept: "application/json",
+      });
+      inputElem.addEventListener(
+        "change",
+        async (e) => {
+          const file = inputElem.files[0];
+          if (!file) {
             inputElem.remove();
-            try {
-              $options = await JSON.parse(text);
-            } catch (e) {
-              console.warn("Error when importing settings:", e);
-              alert($_('options.importFailed'));
-            }
-            alert($_('options.importSuccess'));
-          },
-          { once: true }
-        );
-        document.body.appendChild(inputElem);
-        inputElem.click();
+            alert($_('options.noFileSelected'));
+            return;
+          }
+          const text = await file.text();
+          inputElem.remove();
+          try {
+            $options = await JSON.parse(text);
+          } catch (e) {
+            console.warn("Error when importing settings:", e);
+            alert($_('options.importFailed'));
+          }
+          alert($_('options.importSuccess'));
+        },
+        {
+          once: true
+        }
+      );
+      document.body.appendChild(inputElem);
+      inputElem.click();
     }
   };
 
@@ -960,18 +962,20 @@
   </Section>
 {/if}
 
-<Section
-  accent="#FF6680">     <h2>{$_('options.exportOptionsLabel')}</h2><a id="downloadAnchorElem" style="display:none"></a>
- <div class="buttons" style="margin-top:16px">
-
-    <div class="button">
-      <Button on:click={exportOptions} text={$_('options.export')} />
-    </div>
-    <div class="button">
-      <Button on:click={importOptions} secondary text={$_('options.import')} />
-    </div>
-    <div class="reset-button">
-      <Button on:click={resetAll} dangerous text={$_('options.resetAll')} />
+<Section accent="#FF6680">
+  <div>
+    <h2>{$_('options.exportOptionsLabel')}</h2>
+    <a id="downloadAnchorElem" style="display:none"></a>
+    <div class="buttons" style="margin-top:16px">
+      <div class="button">
+        <Button on:click={exportOptions} text={$_('options.export')} />
+      </div>
+      <div class="button">
+        <Button on:click={importOptions} secondary text={$_('options.import')} />
+      </div>
+      <div class="reset-button">
+        <Button on:click={resetAll} dangerous text={$_('options.resetAll')} />
+      </div>
     </div>
   </div>
 </Section>
