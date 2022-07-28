@@ -17,7 +17,7 @@
   import Packager from '../packager/web/export';
   import Task from './task';
   import downloadURL from './download-url';
-  import {readAsURL} from '../common/readers';
+  import {recursivelySerializeBlobs, recursivelyDeserializeBlobs} from './blob-serializer';
 
   export let projectData;
   export let title;
@@ -184,10 +184,9 @@
   };
 
   const exportOptions = async () => {
-    var dataObj = $options;
-    dataObj.icon = await readAsURL($icon);
-    var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(dataObj));
-    downloadURL('turbowarp-packager-settings.json', dataStr);
+    const exported = await recursivelySerializeBlobs($options);
+    const downloadLink = `data:text/json;charset=utf-8,${encodeURIComponent(JSON.stringify(exported))}`;
+    downloadURL('turbowarp-packager-settings.json', downloadLink);
   };
     
   const importOptions = async () => {
@@ -209,7 +208,9 @@
           const text = await file.text();
           inputElem.remove();
           try {
-            $options = await JSON.parse(text);
+            const parsed = await JSON.parse(text);
+            const deserialized = recursivelyDeserializeBlobs(parsed);
+            $options = deserialized;
           } catch (e) {
             console.warn("Error when importing settings:", e);
             alert($_('options.importFailed'));
