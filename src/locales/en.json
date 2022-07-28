@@ -87,14 +87,6 @@
     "fosshost": {
       "string": "Thank you to Fosshost for providing servers used by the packager",
       "context": "Link in the site's footer thanking Fosshost.org"
-    },
-    "import": {
-      "string": "Import Settings",
-      "developer_comment": "Button for importing all packager options"
-    },
-    "export": {
-      "string": "Export Settings",
-      "developer_comment": "Button for exporting all packager options"
     }
   },
   "progress": {
@@ -178,26 +170,6 @@
     }
   },
   "options": {
-    "importSuccess": {
-      "string": "Successfully Imported Packager Settings JSON!",
-      "developer_comment": "Import Success Message"
-    },
-     "importFailed": {
-      "string": "Packager Settings Import Failed!",
-      "developer_comment": "Error Message"
-    },
-     "noFileSelected": {
-      "string": "No Files Selected",
-      "developer_comment": "Error Message"
-    },
-    "export": {
-      "string": "Export Settings",
-      "developer_comment": "Button to export packager settings"
-    },
-    "import": {
-      "string": "Import Settings",
-      "developer_comment": "Button to import packager settings"
-    },
     "learnMore": {
       "string": "Learn more",
       "context": "Hover text for '(?)' link to learn more about an option"
@@ -538,6 +510,14 @@
     "resetAll": {
       "string": "Reset All",
       "context": "Button that resets all settings"
+    },
+    "export": {
+      "string": "Export Settings",
+      "developer_comment": "Button to export packager settings"
+    },
+    "import": {
+      "string": "Import Settings",
+      "developer_comment": "Button to import packager settings"
     },
     "downloadsWillAppearHere": {
       "string": "Downloads will appear here",
