@@ -17,6 +17,7 @@
   import Packager from '../packager/web/export';
   import Task from './task';
   import downloadURL from './download-url';
+  import {readAsURL} from '../common/readers';
 
   export let projectData;
   export let title;
@@ -183,23 +184,8 @@
   };
 
   const exportOptions = async () => {
-    function encodeImageAsBase64(blob) {
-      var reader = new FileReader();
-      reader.readAsDataURL(blob); 
-      reader.onloadend = function() {
-        var base64data = reader.result;                
-        console.log("base64 generated!", base64data);
-        return base64data;
-      }
-    }
-    // console.log($options);
-    // console.log($customCursorIcon);
-    // console.log($loadingScreenImage);
-    // console.log($icon);
-    console.log()
     var dataObj = $options;
-    dataObj.icon = await encodeImageAsBase64($icon);
-    console.log("dataObj", dataObj.icon);
+    dataObj.icon = await readAsURL($icon);
     var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(dataObj));
     var dlAnchorElem = document.getElementById('downloadAnchorElem');
     dlAnchorElem.setAttribute("href", dataStr);
