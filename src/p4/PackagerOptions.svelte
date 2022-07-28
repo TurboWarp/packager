@@ -18,6 +18,7 @@
   import Task from './task';
   import downloadURL from './download-url';
   import {recursivelySerializeBlobs, recursivelyDeserializeBlobs} from './blob-serializer';
+  import {readAsText} from '../common/readers';
 
   export let projectData;
   export let title;
@@ -206,7 +207,7 @@
         // Should never happen.
         return;
       }
-      const text = await file.text();
+      const text = await readAsText(file);
       try {
         const parsed = JSON.parse(text);
         const deserialized = recursivelyDeserializeBlobs(parsed);
