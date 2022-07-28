@@ -2,7 +2,7 @@ import {readAsArrayBuffer} from '../common/readers';
 
 const BLOB_IDENTIFIER = '__isBlob';
 
-const isObject = (value) => value !== null && typeof value === 'object';
+const isObjectOrArray = (value) => value !== null && typeof value === 'object';
 
 /**
  * Generate an object where any child properties of type Blob will have their data inlined.
@@ -10,6 +10,9 @@ const isObject = (value) => value !== null && typeof value === 'object';
  * @returns {Promise<unknown>}
  */
 const recursivelySerializeBlobs = async (object) => {
+  if (Array.isArray(object)) {
+    return Promise.all(object.map(recursivelySerializeBlobs));
+  }
   const result = {};
   for (const key of Object.keys(object)) {
     const value = object[key];
@@ -21,7 +24,7 @@ const recursivelySerializeBlobs = async (object) => {
         name: value.name || '',
         data: Array.from(new Uint8Array(binaryData))
       };
-    } else if (isObject(value)) {
+    } else if (isObjectOrArray(value)) {
       result[key] = await recursivelySerializeBlobs(value);
     } else {
       result[key] = value;
@@ -37,10 +40,13 @@ const recursivelySerializeBlobs = async (object) => {
  * @returns {unknown}
  */
 const recursivelyDeserializeBlobs = (object) => {
+  if (Array.isArray(object)) {
+    return object.map(recursivelyDeserializeBlobs);
+  }
   const result = {};
   for (const key of Object.keys(object)) {
     const value = object[key];
-    if (isObject(value)) {
+    if (isObjectOrArray(value)) {
       if (value[BLOB_IDENTIFIER]) {
         const blob = new Blob([new Uint8Array(value.data)], {
           type: value.type
