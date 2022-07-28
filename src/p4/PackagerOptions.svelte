@@ -19,6 +19,7 @@
   import downloadURL from './download-url';
   import {recursivelySerializeBlobs, recursivelyDeserializeBlobs} from './blob-serializer';
   import {readAsText} from '../common/readers';
+  import merge from './merge';
 
   export let projectData;
   export let title;
@@ -211,7 +212,9 @@
         const text = await readAsText(file);
         const parsed = JSON.parse(text);
         const deserialized = recursivelyDeserializeBlobs(parsed);
-        setOptions(deserialized);
+        const copiedDefaultOptions = deepClone(defaultOptions);
+        const mergedWithDefaults = merge(deserialized, copiedDefaultOptions);
+        setOptions(mergedWithDefaults);
       } catch (e) {
         alert(e);
       }
