@@ -187,10 +187,7 @@
     var dataObj = $options;
     dataObj.icon = await readAsURL($icon);
     var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(dataObj));
-    var dlAnchorElem = document.getElementById('downloadAnchorElem');
-    dlAnchorElem.setAttribute("href", dataStr);
-    dlAnchorElem.setAttribute("download", "turbowarp-packager-settings.json");
-    dlAnchorElem.click();
+    downloadURL('turbowarp-packager-settings.json', dataStr);
   };
     
   const importOptions = async () => {
