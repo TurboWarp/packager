@@ -219,7 +219,11 @@
         const deserialized = recursivelyDeserializeBlobs(parsed);
         const copiedDefaultOptions = deepClone(defaultOptions);
         const mergedWithDefaults = merge(deserialized, copiedDefaultOptions);
-        setOptions(mergedWithDefaults);
+
+        const isUnsafe = Packager.usesUnsafeOptions(mergedWithDefaults);
+        if (!isUnsafe || confirm($_('options.confirmImportUnsafe'))) {
+          setOptions(mergedWithDefaults);
+        }
       } catch (e) {
         $error = e;
       }

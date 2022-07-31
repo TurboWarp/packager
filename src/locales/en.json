@@ -519,6 +519,10 @@
       "string": "Import Settings",
       "developer_comment": "Button to import packager settings"
     },
+    "confirmImportUnsafe": {
+      "string": "These exported settings use features such as custom JS which can run unknown and possibly malicious code on your computer. Only import this file if you trust the person who created it.",
+      "developer_comment": "Confirmation prompt that appears when importing packager settings that use 'unsafe' features."
+    },
     "downloadsWillAppearHere": {
       "string": "Downloads will appear here",
       "context": "Placeholder that appears when no project has been packaged yet so there is nothing to download"
