@@ -15,6 +15,12 @@ const recursivelySerializeBlobs = async (object) => {
   }
   const result = {};
   for (const key of Object.keys(object)) {
+    if (key === BLOB_IDENTIFIER) {
+      // We could add special handling for this property, but nothing we export should actually
+      // use this property anyways so this is fine for now.
+      throw new Error(`Can't serialize special key: ${BLOB_IDENTIFIER}`);
+    }
+
     const value = object[key];
     if (value instanceof Blob) {
       const binaryData = await readAsArrayBuffer(value);
