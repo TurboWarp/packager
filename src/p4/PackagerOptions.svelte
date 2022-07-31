@@ -196,12 +196,16 @@
 
   const exportOptions = async () => {
     const exported = await recursivelySerializeBlobs($options);
-    const downloadLink = `data:text/json;charset=utf-8,${encodeURIComponent(JSON.stringify(exported))}`;
+    const blob = new Blob([JSON.stringify(exported)], {
+      type: 'application/json'
+    });
+    const url = URL.createObjectURL(blob);
     const formattedAppName = APP_NAME
       .replace(/[^a-z0-9 ]/gi, '')
       .replace(/ /g, '-')
       .toLowerCase();
-    downloadURL(`${formattedAppName}-settings.json`, downloadLink);
+    downloadURL(`${formattedAppName}-settings.json`, url);
+    URL.revokeObjectURL(url);
   };
     
   const importOptions = async () => {
