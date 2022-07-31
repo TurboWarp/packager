@@ -1,4 +1,5 @@
 import {readAsArrayBuffer} from '../common/readers';
+import {encode, decode} from './base64';
 
 const BLOB_IDENTIFIER = '__isBlob';
 
@@ -23,12 +24,12 @@ const recursivelySerializeBlobs = async (object) => {
 
     const value = object[key];
     if (value instanceof Blob) {
-      const binaryData = await readAsArrayBuffer(value);
+      const arrayBuffer = await readAsArrayBuffer(value);
       result[key] = {
         [BLOB_IDENTIFIER]: true,
         type: value.type,
         name: value.name || '',
-        data: Array.from(new Uint8Array(binaryData))
+        data: encode(arrayBuffer)
       };
     } else if (isObjectOrArray(value)) {
       result[key] = await recursivelySerializeBlobs(value);
@@ -54,7 +55,7 @@ const recursivelyDeserializeBlobs = (object) => {
     const value = object[key];
     if (isObjectOrArray(value)) {
       if (value[BLOB_IDENTIFIER]) {
-        const blob = new Blob([new Uint8Array(value.data)], {
+        const blob = new Blob([decode(value.data)], {
           type: value.type
         });
         blob.name = value.name;
