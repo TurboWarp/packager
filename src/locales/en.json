@@ -509,7 +509,7 @@
     },
     "resetAll": {
       "string": "Reset All Settings",
-      "context": "Button that resets all settings"
+      "developer_comment": "Button that resets all settings"
     },
     "export": {
       "string": "Export Settings",
