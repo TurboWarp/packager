@@ -285,6 +285,10 @@
   .button {
     margin-right: 4px;
   }
+  .side-buttons {
+    display: flex;
+    margin-left: auto;
+  }
 </style>
 
 <Section
@@ -930,10 +934,13 @@
 <Section>
   <div class="buttons">
     <div class="button">
-      <Button on:click={pack} text={$_('options.package')} />
+      <Button on:click={exportOptions} secondary text={$_('options.export')} />
     </div>
-    <div clas="button">
-      <Button on:click={preview} secondary text={$_('options.preview')} />
+    <div class="button">
+      <Button on:click={importOptions} secondary text={$_('options.import')} />
+    </div>
+    <div class="side-buttons">
+      <Button on:click={resetAll} dangerous text={$_('options.resetAll')} />
     </div>
   </div>
 </Section>
@@ -941,13 +948,10 @@
 <Section>
   <div class="buttons">
     <div class="button">
-      <Button on:click={resetAll} dangerous text={$_('options.resetAll')} />
+      <Button on:click={pack} text={$_('options.package')} />
     </div>
-    <div class="button">
-      <Button on:click={exportOptions} text={$_('options.export')} />
-    </div>
-    <div class="button">
-      <Button on:click={importOptions} text={$_('options.import')} />
+    <div clas="button">
+      <Button on:click={preview} secondary text={$_('options.preview')} />
     </div>
   </div>
 </Section>

@@ -508,7 +508,7 @@
       "context": "Button to preview the project"
     },
     "resetAll": {
-      "string": "Reset All",
+      "string": "Reset All Settings",
       "context": "Button that resets all settings"
     },
     "export": {
