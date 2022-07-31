@@ -1463,6 +1463,16 @@ Packager.getWindowTitleFromFileName = (title) => {
   return title || 'Packaged Project';
 };
 
+Packager.usesUnsafeOptions = (options) => {
+  const defaultOptions = Packager.DEFAULT_OPTIONS();
+  const getUnsafeOptions = (options) => [
+    options.custom,
+    options.extensions,
+    options.cloudVariables.unsafeCloudBehaviors
+  ];
+  return JSON.stringify(getUnsafeOptions(defaultOptions)) !== JSON.stringify(getUnsafeOptions(options));
+};
+
 Packager.DEFAULT_OPTIONS = () => ({
   turbo: false,
   interpolation: false,

@@ -17,6 +17,11 @@
   import Packager from '../packager/web/export';
   import Task from './task';
   import downloadURL from './download-url';
+  import {recursivelySerializeBlobs, recursivelyDeserializeBlobs} from './blob-serializer';
+  import {readAsText} from '../common/readers';
+  import merge from './merge';
+  import DropArea from './DropArea.svelte';
+  import {APP_NAME} from '../packager/brand';
 
   export let projectData;
   export let title;
@@ -66,6 +71,13 @@
   $: $options.loadingScreen.image = $loadingScreenImage;
 
   $: title = $options.app.windowTitle;
+
+  const setOptions = (newOptions) => {
+    $options = newOptions;
+    $icon = $options.app.icon;
+    $customCursorIcon = $options.cursor.custom;
+    $loadingScreenImage = $options.loadingScreen.image;
+  };
 
   const otherEnvironmentsInitiallyOpen = ![
     'html',
@@ -182,6 +194,54 @@
     }
   };
 
+  const exportOptions = async () => {
+    const exported = await recursivelySerializeBlobs($options);
+    const blob = new Blob([JSON.stringify(exported)], {
+      type: 'application/json'
+    });
+    const url = URL.createObjectURL(blob);
+    const formattedAppName = APP_NAME
+      .replace(/[^a-z0-9 ]/gi, '')
+      .replace(/ /g, '-')
+      .toLowerCase();
+    downloadURL(`${formattedAppName}-settings.json`, url);
+    URL.revokeObjectURL(url);
+  };
+    
+  const importOptions = async () => {
+    const input = document.createElement("input");
+    input.type = 'file';
+    input.accept = '.json';
+    input.addEventListener('change', (e) => {
+      importOptionsFromDataTransfer(e.target);
+    });
+    document.body.appendChild(input);
+    input.click();
+    input.remove();
+  };
+
+  const importOptionsFromDataTransfer = async (dataTransfer) => {
+    const file = dataTransfer.files[0];
+    if (!file) {
+      // Should never happen.
+      return;
+    }
+    try {
+      const text = await readAsText(file);
+      const parsed = JSON.parse(text);
+      const deserialized = recursivelyDeserializeBlobs(parsed);
+      const copiedDefaultOptions = deepClone(defaultOptions);
+      const mergedWithDefaults = merge(deserialized, copiedDefaultOptions);
+
+      const isUnsafe = Packager.usesUnsafeOptions(mergedWithDefaults);
+      if (!isUnsafe || confirm($_('options.confirmImportUnsafe'))) {
+        setOptions(mergedWithDefaults);
+      }
+    } catch (e) {
+      $error = e;
+    }
+  };
+
   onDestroy(() => {
     if (result) {
       URL.revokeObjectURL(result.url);
@@ -234,7 +294,8 @@
   .button {
     margin-right: 4px;
   }
-  .reset-button {
+  .side-buttons {
+    display: flex;
     margin-left: auto;
   }
 </style>
@@ -880,15 +941,28 @@
 {/if}
 
 <Section>
+  <DropArea on:drop={(e) => importOptionsFromDataTransfer(e.detail)}>
+    <div class="buttons">
+      <div class="button">
+        <Button on:click={exportOptions} secondary text={$_('options.export')} />
+      </div>
+      <div class="button">
+        <Button on:click={importOptions} secondary text={$_('options.import')} />
+      </div>
+      <div class="side-buttons">
+        <Button on:click={resetAll} dangerous text={$_('options.resetAll')} />
+      </div>
+    </div>
+  </DropArea>
+</Section>
+
+<Section>
   <div class="buttons">
     <div class="button">
       <Button on:click={pack} text={$_('options.package')} />
     </div>
     <div clas="button">
       <Button on:click={preview} secondary text={$_('options.preview')} />
-    </div>
-    <div class="reset-button">
-      <Button on:click={resetAll} dangerous text={$_('options.resetAll')} />
     </div>
   </div>
 </Section>

@@ -508,8 +508,20 @@
       "context": "Button to preview the project"
     },
     "resetAll": {
-      "string": "Reset All",
-      "context": "Button that resets all settings"
+      "string": "Reset All Settings",
+      "developer_comment": "Button that resets all settings"
+    },
+    "export": {
+      "string": "Export Settings",
+      "developer_comment": "Button to export packager settings"
+    },
+    "import": {
+      "string": "Import Settings",
+      "developer_comment": "Button to import packager settings"
+    },
+    "confirmImportUnsafe": {
+      "string": "These settings use advanced features such as custom JS that run unknown and possibly malicious code on your computer. Only import this file if you trust the person who created it. If you're not sure what this means, you probably shouldn't import these settings.",
+      "developer_comment": "Confirmation prompt that appears when importing packager settings that use 'unsafe' features."
     },
     "downloadsWillAppearHere": {
       "string": "Downloads will appear here",
