@@ -20,6 +20,7 @@
   import {recursivelySerializeBlobs, recursivelyDeserializeBlobs} from './blob-serializer';
   import {readAsText} from '../common/readers';
   import merge from './merge';
+  import DropArea from './DropArea.svelte';
   import {APP_NAME} from '../packager/brand';
 
   export let projectData;
@@ -207,30 +208,34 @@
     const input = document.createElement("input");
     input.type = 'file';
     input.accept = '.json';
-    input.addEventListener('change', async () => {
-      const file = input.files[0];
-      if (!file) {
-        // Should never happen.
-        return;
-      }
-      try {
-        const text = await readAsText(file);
-        const parsed = JSON.parse(text);
-        const deserialized = recursivelyDeserializeBlobs(parsed);
-        const copiedDefaultOptions = deepClone(defaultOptions);
-        const mergedWithDefaults = merge(deserialized, copiedDefaultOptions);
-
-        const isUnsafe = Packager.usesUnsafeOptions(mergedWithDefaults);
-        if (!isUnsafe || confirm($_('options.confirmImportUnsafe'))) {
-          setOptions(mergedWithDefaults);
-        }
-      } catch (e) {
-        $error = e;
-      }
+    input.addEventListener('change', (e) => {
+      importOptionsFromDataTransfer(e.target);
     });
     document.body.appendChild(input);
     input.click();
     input.remove();
+  };
+
+  const importOptionsFromDataTransfer = async (dataTransfer) => {
+    const file = dataTransfer.files[0];
+    if (!file) {
+      // Should never happen.
+      return;
+    }
+    try {
+      const text = await readAsText(file);
+      const parsed = JSON.parse(text);
+      const deserialized = recursivelyDeserializeBlobs(parsed);
+      const copiedDefaultOptions = deepClone(defaultOptions);
+      const mergedWithDefaults = merge(deserialized, copiedDefaultOptions);
+
+      const isUnsafe = Packager.usesUnsafeOptions(mergedWithDefaults);
+      if (!isUnsafe || confirm($_('options.confirmImportUnsafe'))) {
+        setOptions(mergedWithDefaults);
+      }
+    } catch (e) {
+      $error = e;
+    }
   };
 
   onDestroy(() => {
@@ -932,17 +937,19 @@
 {/if}
 
 <Section>
-  <div class="buttons">
-    <div class="button">
-      <Button on:click={exportOptions} secondary text={$_('options.export')} />
+  <DropArea on:drop={(e) => importOptionsFromDataTransfer(e.detail)}>
+    <div class="buttons">
+      <div class="button">
+        <Button on:click={exportOptions} secondary text={$_('options.export')} />
+      </div>
+      <div class="button">
+        <Button on:click={importOptions} secondary text={$_('options.import')} />
+      </div>
+      <div class="side-buttons">
+        <Button on:click={resetAll} dangerous text={$_('options.resetAll')} />
+      </div>
     </div>
-    <div class="button">
-      <Button on:click={importOptions} secondary text={$_('options.import')} />
-    </div>
-    <div class="side-buttons">
-      <Button on:click={resetAll} dangerous text={$_('options.resetAll')} />
-    </div>
-  </div>
+  </DropArea>
 </Section>
 
 <Section>
