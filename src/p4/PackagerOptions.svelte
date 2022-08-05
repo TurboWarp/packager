@@ -734,6 +734,12 @@
         <input type="text" bind:value={$options.projectId}>
       </label>
       <p>{$_('options.projectIdHelp')}</p>
+
+      <label class="option">
+        <input type="checkbox" bind:checked={$options.packagedRuntime} />
+        <!-- This option is temporary, so don't translate. -->
+        Use "packaged runtime" mode (experimental)
+      </label>
     </details>
   </div>
 </Section>

@@ -1194,6 +1194,7 @@ cd "$(dirname "$0")"
       scaffolding.height = ${this.options.stageHeight};
       scaffolding.resizeMode = ${JSON.stringify(this.options.resizeMode)};
       scaffolding.editableLists = ${this.options.monitors.editableLists};
+      scaffolding.usePackagedRuntime = ${this.options.packagedRuntime};
       scaffolding.setup();
       scaffolding.appendTo(appElement);
 
@@ -1526,6 +1527,7 @@ Packager.DEFAULT_OPTIONS = () => ({
     enabled: true,
     warpTimer: false
   },
+  packagedRuntime: false,
   target: 'html',
   app: {
     icon: null,
