@@ -925,8 +925,13 @@ cd "$(dirname "$0")"
         };
         ${isZip ? `
         let zip;
+        // Allow VM to be GC'd after project loads
+        vm.runtime.on('PROJECT_LOADED', () => (zip = null));
         storage.addHelper({
           load: (assetType, assetId, dataFormat) => {
+            if (!zip) {
+              throw new Error('Zip is not loaded or has been closed');
+            }
             const path = assetId + '.' + dataFormat;
             const file = zip.file(path);
             if (!file) {
