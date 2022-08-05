@@ -924,6 +924,7 @@ cd "$(dirname "$0")"
           setProgress(interpolate(${storageProgressStart}, ${storageProgressEnd}, loaded / total));
         };
         ${isZip ? `
+        let zip;
         storage.addHelper({
           load: (assetType, assetId, dataFormat) => {
             const path = assetId + '.' + dataFormat;
