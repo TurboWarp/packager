@@ -925,7 +925,7 @@ cd "$(dirname "$0")"
         };
         ${isZip ? `
         let zip;
-        // Allow VM to be GC'd after project loads
+        // Allow zip to be GC'd after project loads
         vm.runtime.on('PROJECT_LOADED', () => (zip = null));
         storage.addHelper({
           load: (assetType, assetId, dataFormat) => {
