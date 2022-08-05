@@ -939,7 +939,7 @@ cd "$(dirname "$0")"
             }
             return file
               .async('uint8array')
-              .then((data) => new storage.Asset(assetType, assetId, dataFormat, data));
+              .then((data) => storage.createAsset(assetType, dataFormat, data, assetId));
           }
         });
         return () => (${getProjectDataFunction})().then(async (data) => {
