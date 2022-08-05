@@ -33,6 +33,7 @@ class Scaffolding extends EventTarget {
     this.resizeMode = 'preserve-ratio';
     this.editableLists = false;
     this.shouldConnectPeripherals = true;
+    this.usePackagedRuntime = false;
 
     this.messages = defaultMessages;
 
@@ -315,7 +316,7 @@ class Scaffolding extends EventTarget {
     this.vm.on('PROJECT_RUN_STOP', () => this.dispatchEvent(new Event('PROJECT_RUN_STOP')));
 
     // TurboWarp-specific VM extensions
-    if (this.vm.convertToPackagedRuntime) {
+    if (this.usePackagedRuntime && this.vm.convertToPackagedRuntime) {
       this.vm.convertToPackagedRuntime();
     }
     if (this.vm.setStageSize) {
