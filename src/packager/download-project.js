@@ -284,14 +284,15 @@ export const downloadProject = async (data, progressCallback = () => {}) => {
     const progressTarget = new EventTarget();
 
     let isDoneLoadingProject = false;
-    let timeout;
+    let timeout = null;
     let loadedAssets = 0;
     let totalAssets = 0;
     const sendThrottledAssetProgressUpdate = () => {
       if (timeout) {
         return;
       }
-      setTimeout(() => {
+      timeout = setTimeout(() => {
+        timeout = null;
         if (!isDoneLoadingProject) {
           progressCallback('assets', loadedAssets, totalAssets);
         }
