@@ -225,7 +225,8 @@ const makeNode = () => ({
     jszip: 'jszip',
     'cross-fetch': 'cross-fetch',
     'sha.js': 'sha.js',
-    '@fiahfy/icns': '@fiahfy/icns'
+    '@fiahfy/icns': '@fiahfy/icns',
+    '@turbowarp/sbdl': '@turbowarp/sbdl'
   },
   module: {
     rules: [

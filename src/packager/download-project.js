@@ -1,43 +1,5 @@
-import JSZip from 'jszip';
-import {EventTarget, CustomEvent} from '../common/event-target';
 import optimizeSb3Json from './minify/sb3';
-import fetchAsArrayBuffer from './safer-fetch';
-
-const ASSET_HOST = 'https://assets.scratch.mit.edu/internalapi/asset/$path/get/';
-
-// Browser support for Array.prototype.flat is not good enough yet
-const flat = (array) => {
-  const result = [];
-  for (const i of array) {
-    if (Array.isArray(i)) {
-      for (const j of i) {
-        result.push(j);
-      }
-    } else {
-      result.push(i);
-    }
-  }
-  return result;
-};
-
-const identifyProjectType = (projectData) => {
-  if ('targets' in projectData) {
-    return 'sb3';
-  } else if ('objName' in projectData) {
-    return 'sb2';
-  }
-  return null;
-};
-
-const isScratch1Project = (uint8array) => {
-  const MAGIC = 'ScratchV';
-  for (let i = 0; i < MAGIC.length; i++) {
-    if (uint8array[i] !== MAGIC.charCodeAt(i)) {
-      return false;
-    }
-  }
-  return true;
-};
+import {downloadProjectFromBuffer} from '@turbowarp/sbdl';
 
 const unknownAnalysis = () => ({
   stageVariables: [],
@@ -100,275 +62,32 @@ const mutateScratch3InPlace = (projectData) => {
 
   makeImpliedCloudVariables(projectData);
   optimizeSb3Json(projectData);
-
-  return projectData;
 };
 
-const loadScratch2 = (projectData, progressTarget) => {
-  const IMAGE_EXTENSIONS = ['svg', 'png', 'jpg', 'jpeg', 'bmp'];
-  const SOUND_EXTENSIONS = ['wav', 'mp3'];
+export const downloadProject = async (projectData, progressCallback) => {
+  let analysis = unknownAnalysis();
 
-  const zip = new JSZip();
+  const options = {
+    onProgress(type, loaded, total) {
+      progressCallback(type, loaded, total);
+    },
 
-  // sb2 files have two ways of storing references to files.
-  // In the online editor they use md5 hashes ("md5ext" because they also have an extension).
-  // In the offline editor they use separate integer file IDs for images and sounds.
-  // We need the sb2 to use those integer file IDs, but the ones from the Scratch API don't have those, so we create them ourselves
-
-  let soundAccumulator = 0;
-  let imageAccumulator = 0;
-
-  const getExtension = (md5ext) => md5ext.split('.')[1] || '';
-
-  const nextId = (md5) => {
-    const extension = getExtension(md5);
-    if (IMAGE_EXTENSIONS.includes(extension)) {
-      return imageAccumulator++;
-    } else if (SOUND_EXTENSIONS.includes(extension)) {
-      return soundAccumulator++;
-    }
-    console.warn('unknown extension: ' + extension);
-    return imageAccumulator++;
-  };
-
-  const fetchAndStoreAsset = (md5ext, id) => {
-    progressTarget.dispatchEvent(new CustomEvent('asset-fetch', {
-      detail: md5ext
-    }));
-    return fetchAsArrayBuffer(ASSET_HOST.replace('$path', md5ext))
-      .then((arrayBuffer) => {
-        const path = `${id}.${getExtension(md5ext)}`;
-        zip.file(path, arrayBuffer);
-        progressTarget.dispatchEvent(new CustomEvent('asset-fetched', {
-          detail: md5ext
-        }));
-      });
-  };
-
-  const downloadAssets = (assets) => {
-    const md5extToId = new Map();
-
-    const handleAsset = (md5ext) => {
-      if (!md5extToId.has(md5ext)) {
-        md5extToId.set(md5ext, nextId(md5ext));
-      }
-      return md5extToId.get(md5ext);
-    };
-
-    for (const asset of assets) {
-      if (asset.md5) {
-        asset.soundID = handleAsset(asset.md5);
-      }
-      if (asset.baseLayerMD5) {
-        asset.baseLayerID = handleAsset(asset.baseLayerMD5);
-      }
-      if (asset.textLayerMD5) {
-        asset.textLayerID = handleAsset(asset.textLayerMD5);
-      }
-    }
-
-    return Promise.all(Array.from(md5extToId.entries()).map(([md5ext, id]) => fetchAndStoreAsset(md5ext, id)));
-  };
-
-  const targets = [
-    projectData,
-    ...projectData.children.filter((c) => !c.listName && !c.target)
-  ];
-  const costumes = flat(targets.map((i) => i.costumes || []));
-  const sounds = flat(targets.map((i) => i.sounds || []));
-  return downloadAssets([...costumes, ...sounds])
-    .then(() => {
-      // Project JSON is mutated during loading, so add it at the e nd.
-      zip.file('project.json', JSON.stringify(projectData));
-      return {
-        zip,
-        analysis: analyzeScratch2(projectData)
-      };
-    });
-};
-
-const loadScratch3 = async (projectData, progressTarget) => {
-  /**
-   * @typedef SB3Asset Raw costume or sound data from an sb3 project.json.
-   * @property {string} assetId md5 checksum of the asset (eg. b7b7898cfcd9ba13e89a4e74dd56a1ff)
-   * @property {string} dataFormat file extension of the asset (eg. svg, wav)
-   * @property {string|undefined} md5ext dataFormat (eg. b7b7898cfcd9ba13e89a4e74dd56a1ff.svg)
-   * md5ext is not guaranteed to exist.
-   * There are additional properties that we don't care about.
-   */
-
-  const zip = new JSZip();
-
-  /**
-   * @param {SB3Asset[]} assets
-   * @returns {SB3Asset[]}
-   */
-  const prepareAssets = (assets) => {
-    const result = [];
-    const knownIds = new Set();
-
-    for (const data of assets) {
-      // Make sure md5ext always exists.
-      // See the "Cake" costume of https://projects.scratch.mit.edu/630358355 for an example.
-      // https://github.com/forkphorus/forkphorus/issues/504
-      if (!data.md5ext) {
-        data.md5ext = `${data.assetId}.${data.dataFormat}`;
-      }
-
-      // Deduplicate assets so we don't make unnecessary requests later.
-      // Use md5ext instead of assetId because there are a few projects that have assets with the same
-      // assetId but different md5ext. (eg. https://scratch.mit.edu/projects/531881458)
-      const md5ext = data.md5ext;
-      if (knownIds.has(md5ext)) {
-        continue;
-      }
-      knownIds.add(md5ext);
-      result.push(data);
-    }
-
-    return result;
-  };
-
-  /**
-   * @param {SB3Asset} data
-   * @returns {Promise<void>}
-   */
-  const addFile = async (data) => {
-    // prepareAssets will guarantee md5ext exists
-    const md5ext = data.md5ext;
-    progressTarget.dispatchEvent(new CustomEvent('asset-fetch', {
-      detail: md5ext
-    }));
-
-    const buffer = await fetchAsArrayBuffer(ASSET_HOST.replace('$path', md5ext));
-
-    zip.file(md5ext, buffer);
-    progressTarget.dispatchEvent(new CustomEvent('asset-fetched', {
-      detail: md5ext
-    }));
-  };
-
-  zip.file('project.json', JSON.stringify(mutateScratch3InPlace(projectData)));
-
-  const targets = projectData.targets;
-  const costumes = flat(targets.map((t) => t.costumes || []));
-  const sounds = flat(targets.map((t) => t.sounds || []));
-  const assets = prepareAssets([...costumes, ...sounds]);
-  await Promise.all(assets.map(addFile));
-
-  return {
-    zip,
-    analysis: analyzeScratch3(projectData)
-  };
-};
-
-const downloadJSONProject = (json, progressTarget) => {
-  const type = identifyProjectType(json);
-  if (type === 'sb3') {
-    return loadScratch3(json, progressTarget);
-  } else if (type === 'sb2') {
-    return loadScratch2(json, progressTarget);
-  } else {
-    throw new Error('Unknown project type');
-  }
-};
-
-export const downloadProject = async (data, progressCallback = () => {}) => {
-  let type;
-  let arrayBuffer;
-  let analysis;
-
-  const bufferView = new Uint8Array(data);
-  if (bufferView[0] === '{'.charCodeAt(0)) {
-    // JSON project, we have to download all the assets
-    const progressTarget = new EventTarget();
-
-    let isDoneLoadingProject = false;
-    let timeout = null;
-    let loadedAssets = 0;
-    let totalAssets = 0;
-    const sendThrottledAssetProgressUpdate = () => {
-      if (timeout) {
-        return;
-      }
-      timeout = setTimeout(() => {
-        timeout = null;
-        if (!isDoneLoadingProject) {
-          progressCallback('assets', loadedAssets, totalAssets);
-        }
-      });
-    };
-    progressTarget.addEventListener('asset-fetch', () => {
-      totalAssets++;
-      sendThrottledAssetProgressUpdate();
-    });
-    progressTarget.addEventListener('asset-fetched', () => {
-      loadedAssets++;
-      sendThrottledAssetProgressUpdate();
-    });
-
-    const text = new TextDecoder().decode(data);
-    const json = JSON.parse(text);
-    type = identifyProjectType(json);
-    const downloaded = await downloadJSONProject(json, progressTarget);
-    progressCallback('assets', totalAssets, totalAssets);
-    isDoneLoadingProject = true;
-
-    arrayBuffer = await downloaded.zip.generateAsync({
-      type: 'arraybuffer',
-      compression: 'DEFLATE'
-    }, (meta) => {
-      progressCallback('compress', meta.percent / 100);
-    });
-    analysis = downloaded.analysis;
-  } else {
-    if (isScratch1Project(bufferView)) {
-      arrayBuffer = data;
-      analysis = unknownAnalysis();
-    } else {
-      let zip;
-      try {
-        zip = await JSZip.loadAsync(data);
-      } catch (e) {
-        throw new Error('Cannot parse project: not a zip or sb');
-      }
-      const projectDataFile = zip.file(/^([^/]*\/)?project\.json$/)[0];
-      if (!projectDataFile) {
-        throw new Error('project.json is missing');
-      }
-      const pathPrefix = projectDataFile.name.substr(0, projectDataFile.name.indexOf('project.json'));
-      if (pathPrefix !== '') {
-        zip = zip.folder(pathPrefix);
-      }
-      const projectDataText = await projectDataFile.async('text');
-      const projectData = JSON.parse(projectDataText);
-      type = identifyProjectType(projectData);
+    processJSON(type, projectData) {
       if (type === 'sb3') {
-        zip.file('project.json', JSON.stringify(mutateScratch3InPlace(projectData)));
-        arrayBuffer = await zip.generateAsync({
-          type: 'arraybuffer',
-          compression: 'DEFLATE'
-        }, (meta) => {
-          progressCallback('compress', meta.percent / 100);
-        });
+        mutateScratch3InPlace(projectData);
         analysis = analyzeScratch3(projectData);
-      } else {
-        arrayBuffer = data;
+        return projectData;
+      }
+      if (type === 'sb2') {
         analysis = analyzeScratch2(projectData);
       }
     }
-  }
-
-  if (type === 'sb3') {
-    return {
-      type: 'sb3',
-      arrayBuffer,
-      analysis
-    }
-  }
-  return {
-    type: 'blob',
-    arrayBuffer,
-    analysis
   };
+
+  const project = await downloadProjectFromBuffer(projectData, options);
+  if (project.type !== 'sb3') {
+    project.type = 'blob';
+  }
+  project.analysis = analysis;
+  return project;
 };
