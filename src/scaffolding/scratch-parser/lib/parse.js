@@ -1,3 +1,5 @@
+const ExtendedJSON = require('@turbowarp/json');
+
 /**
  * Converts string from unpack method into a project object. Note: this method
  * will be expanded greatly in the future in order to support the Scratch 1.4
@@ -16,7 +18,7 @@ module.exports = function (input, callback) {
         // so remove that specific one before continuing.
         // SB2 JSONs and SB3 JSONs have different versions of the
         // character serialized (e.g. \u0008 and \b), strip out both versions
-        result = JSON.parse(input.replace(
+        result = ExtendedJSON.parse(input.replace(
             /(\\+)(b|u0008)/g,
             (match, backslash, code) => {
                 // If the number is odd, there is an actual backspace.
