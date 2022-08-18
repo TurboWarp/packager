@@ -927,13 +927,14 @@ cd "$(dirname "$0")"
         let zip;
         // Allow zip to be GC'd after project loads
         vm.runtime.on('PROJECT_LOADED', () => (zip = null));
+        const findFileInZip = (path) => zip.file(path) || zip.file(new RegExp("^([^/]*/)?" + path + "$"))[0];
         storage.addHelper({
           load: (assetType, assetId, dataFormat) => {
             if (!zip) {
               throw new Error('Zip is not loaded or has been closed');
             }
             const path = assetId + '.' + dataFormat;
-            const file = zip.file(path);
+            const file = findFileInZip(path);
             if (!file) {
               throw new Error('Asset is not in zip: ' + path)
             }
@@ -944,7 +945,7 @@ cd "$(dirname "$0")"
         });
         return () => (${getProjectDataFunction})().then(async (data) => {
           zip = await Scaffolding.JSZip.loadAsync(data);
-          const file = zip.file('project.json');
+          const file = findFileInZip('project.json');
           if (!file) {
             throw new Error('project.json is not in zip');
           }
