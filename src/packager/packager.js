@@ -944,7 +944,11 @@ cd "$(dirname "$0")"
         });
         return () => (${getProjectDataFunction})().then(async (data) => {
           zip = await Scaffolding.JSZip.loadAsync(data);
-          return zip.file('project.json').async('arraybuffer');
+          const file = zip.file('project.json');
+          if (!file) {
+            throw new Error('project.json is not in zip');
+          }
+          return file.async('arraybuffer');
         });` : `
         storage.addWebStore(
           [storage.AssetType.ImageVector, storage.AssetType.ImageBitmap, storage.AssetType.Sound],
