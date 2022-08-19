@@ -1538,7 +1538,7 @@ Packager.DEFAULT_OPTIONS = () => ({
     enabled: true,
     warpTimer: false
   },
-  packagedRuntime: false,
+  packagedRuntime: true,
   target: 'html',
   app: {
     icon: null,
