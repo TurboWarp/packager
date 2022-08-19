@@ -27,7 +27,7 @@ module.exports = function (input, isSprite, callback) {
             return callback(msg + 'missing project or sprite json');
         })
         .catch(function (err) {
-            return callback(msg + JSON.stringify(err));
+            return callback(msg + err);
         });
 
 };
