@@ -38,6 +38,7 @@
         "cloudVariables-ws-help": "“连接到云变量服务器”与其他用户同步变量。",
         "cloudVariablesHost": "云变量服务器地址",
         "colors": "颜色",
+        "confirmImportUnsafe": "这些设置使用JavaScript，而JavaScript可能会运行病毒。请务必不要导入未知来源或来自外人的文件。",
         "controls": "控制按钮",
         "controlsHelp": "如果此处的所有选项都不勾选，将会删除控制栏。如果只有全屏按钮被选中，则它会放在网页的左上角，而不是控制栏上。",
         "cursorCenter": "鼠标中心：",
