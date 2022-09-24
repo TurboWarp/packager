@@ -97,7 +97,7 @@ class ViewController: NSViewController, WKNavigationDelegate, WKUIDelegate, WKSc
             }
         }
     }
-
+    
     func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
         if message.name == "download",
            let body = message.body as? NSDictionary,
@@ -114,5 +114,12 @@ class ViewController: NSViewController, WKNavigationDelegate, WKUIDelegate, WKSc
                 }
             }
         }
+    }
+
+    @available(macOS 12.0, *)
+    func webView(_ webView: WKWebView, requestMediaCapturePermissionFor origin: WKSecurityOrigin, initiatedByFrame frame: WKFrameInfo, type: WKMediaCaptureType, decisionHandler: @escaping (WKPermissionDecision) -> Void) {
+//        macOS will already show its a permission prompt.
+//        This prevents WKWebView from showing an additional permission prompt each time.
+        decisionHandler(WKPermissionDecision.grant)
     }
 }
