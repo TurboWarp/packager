@@ -61,6 +61,9 @@ class ViewController: NSViewController, WKNavigationDelegate, WKUIDelegate, WKSc
     }
 
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+//        The packager will use window.ExternalDownloadHelper instead of native JS file downloads.
+//        We use this because older versions of macOS's WKWebView do not handle file downloads
+//        properly or at all.
         webView.evaluateJavaScript("""
         window.ExternalDownloadHelper = {
             download: (filename, blob) => {
@@ -83,6 +86,7 @@ class ViewController: NSViewController, WKNavigationDelegate, WKUIDelegate, WKSc
     }
 
     func webView(_ webView: WKWebView, runOpenPanelWith parameters: WKOpenPanelParameters, initiatedByFrame frame: WKFrameInfo, completionHandler: @escaping ([URL]?) -> Void) {
+//        Used by list import.
         let panel = NSOpenPanel()
         panel.canChooseFiles = true
         panel.canChooseDirectories = false
@@ -99,6 +103,7 @@ class ViewController: NSViewController, WKNavigationDelegate, WKUIDelegate, WKSc
     }
     
     func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
+//        Used by window.ExternalDownloadHelper which is used by list export.
         if message.name == "download",
            let body = message.body as? NSDictionary,
            let name = body["name"] as? NSString,
@@ -118,8 +123,8 @@ class ViewController: NSViewController, WKNavigationDelegate, WKUIDelegate, WKSc
 
     @available(macOS 12.0, *)
     func webView(_ webView: WKWebView, requestMediaCapturePermissionFor origin: WKSecurityOrigin, initiatedByFrame frame: WKFrameInfo, type: WKMediaCaptureType, decisionHandler: @escaping (WKPermissionDecision) -> Void) {
-//        macOS will already show its a permission prompt.
-//        This prevents WKWebView from showing an additional permission prompt each time.
+//        macOS will already show a permission prompt.
+//        This code prevents WKWebView from showing an additional permission prompt each time.
         decisionHandler(WKPermissionDecision.grant)
     }
 }
