@@ -851,6 +851,10 @@ cd "$(dirname "$0")"
   }
 
   async generateGetProjectData () {
+    if (this.project.arrayBuffer.byteLength === 0) {
+      throw new Error('Project data has 0 bytes');
+    }
+
     let result = '';
     let getProjectDataFunction = '';
     let isZip = false;
