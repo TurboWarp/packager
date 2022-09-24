@@ -7,15 +7,39 @@
     </head>
     <body>
         <h1>It works!</h1>
-        <button onclick="download()">Test file download</button>
+        <button onclick="testDownload()">Test file download</button>
+        <button onclick="testCamera()">Test camera</button>
+        <button onclick="testMicrophone()">Test microphone</button>
         <script>
-            const download = async () => {
+            const testDownload = async () => {
                 const blob = new Blob([
                     new Uint8Array("Hello, world!".split("").map(i => i.charCodeAt(0)))
                 ], {
                     type: "text/plain"
                 });
                 ExternalDownloadHelper.download("test.txt", blob);
+            };
+            
+            const testCamera = async () => {
+                const stream = await navigator.mediaDevices.getUserMedia({
+                    video: true
+                });
+                const video = document.createElement("video");
+                video.srcObject = stream;
+                video.autoplay = true;
+                video.controls = true;
+                document.body.appendChild(video);
+            };
+            
+            const testMicrophone = async () => {
+                const stream = await navigator.mediaDevices.getUserMedia({
+                    audio: true
+                });
+                const audio = document.createElement("audio");
+                audio.srcObject = stream;
+                audio.autoplay = true;
+                audio.controls = true;
+                document.body.appendChild(audio);
             };
         </script>
     </body>
