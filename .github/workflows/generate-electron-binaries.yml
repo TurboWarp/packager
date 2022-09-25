@@ -5,7 +5,11 @@ on:
 
 jobs:
   generate:
-    runs-on: macos-latest
+    strategy:
+      matrix:
+        os: [macos-latest, windows-latest]
+
+    runs-on: ${{ matrix.os }}
 
     steps:
     - uses: actions/checkout@v3
@@ -28,3 +32,15 @@ jobs:
       with:
         name: electron-macos
         path: electron-bin/temp/macos/*.zip
+
+    - name: Generate Windows
+      if: runner.os == 'Windows'
+      run: |
+        cd electron-bin
+        node generate-windows.js
+    - name: Upload Windows
+      if: runner.os == 'Windows'
+      uses: actions/upload-artifact@v3
+      with:
+        name: electron-windows
+        path: electron-bin/temp/windows/*.zip
