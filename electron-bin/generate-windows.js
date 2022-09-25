@@ -53,7 +53,11 @@ const run = async (arch) => {
   console.log('Running rcedit');
   const executablePath = path.join(extractedPath, 'electron.exe');
   await rcedit(executablePath, {
-    icon: newIconPath
+    icon: newIconPath,
+    // Replace Electron's version with something generic
+    'version-string': '1.0.0',
+    'file-version': '1.0.0',
+    'product-version': '1.0.0'
   });
 
   console.log('Compressing');
