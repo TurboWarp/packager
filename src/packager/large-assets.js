@@ -6,7 +6,8 @@
 // network filter.
 
 // estimatedSize is used for the download progress bar if the server or browser does not tell us
-// automatically. It's size in bytes after decoding Content-Encoding.
+// automatically. It's size in bytes after decoding Content-Encoding. If the real size of the file
+// does not exactly match, that's fine. This is just for the progress bar.
 // If you change these, use numbers from a production build, not a development build.
 
 // useBuildId is used for various cache related things. It shouldn't be changed.
