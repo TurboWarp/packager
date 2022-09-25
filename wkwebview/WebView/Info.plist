@@ -5,7 +5,7 @@
 	<key>NSMicrophoneUsageDescription</key>
 	<string>This app uses the microphone to detect loudness.</string>
 	<key>NSCameraUsageDescription</key>
-	<string>This app uses the camera to show your camera and implement interactive elements.</string>
+	<string>This app uses the camera to show a video of your camera or detect motion.</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleExecutable</key>
