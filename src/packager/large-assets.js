@@ -53,8 +53,8 @@ export default {
     sha256: '2d56903d91635ca7117723b5a2bc926d7f5b391c989da4233c8babf73e6e6584'
   },
   'webview-mac': {
-    src: externalFile('WebView-macos-3.zip'),
-    sha256: '5d4086894f10549c61c20e5f770c808afc25c2e4793da75b5b1cede294449fac'
+    src: externalFile('WebView-macos-4.zip'),
+    sha256: '580489b789b020e900417fabbe192abe24974555923c9d9280a723d2ad104314'
   },
   scaffolding: {
     src: relativeScaffolding('scaffolding-full.js'),

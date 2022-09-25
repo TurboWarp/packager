@@ -930,14 +930,15 @@
           {:else if $options.target.includes('webview-mac')}
             <div>
               <h2>WKWebView</h2>
-              <p>WKWebView is the preferred way to package for macOS. It will be hundreds of MB smaller than the other macOS environments and typically run the fastest.</p>
+              <p>WKWebView is the preferred way to package for macOS. It will be hundreds of MB smaller than the other macOS-specific environments and typically run the fastest.</p>
               <p>The app will run natively on both Intel and Apple silicon Macs running macOS 10.12 or later.</p>
               <p>Note that:</p>
               <ul>
-                <li>Video sensing and loudness blocks will not work</li>
-                <li>Extremely large projects might cause crashes</li>
+                <li>Video sensing and loudness blocks will only work in macOS 12 or later.</li>
+                <li>Pointer lock will not work.</li>
+                <li>Extremely large projects might not work properly.</li>
               </ul>
-              <p>Use "Electron macOS Application" or "Plain HTML" if you encounter these issues.</p>
+              <p>Use the "Electron macOS Application" (inside Other environments) or "Plain HTML" environments instead if you encounter these issues.</p>
             </div>
           {/if}
         {/if}
