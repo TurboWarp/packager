@@ -5,10 +5,10 @@
 // will be tried in succession if the previous one fails, perhaps because it's blocked by a school
 // network filter.
 
-// estimatedSize is used for the download progress bar if the server or browser does not tell us
-// automatically. It's size in bytes after decoding Content-Encoding. If the real size of the file
-// does not exactly match, that's fine. This is just for the progress bar.
-// If you change these, use numbers from a production build, not a development build.
+// estimatedSize is used for the asset download progress bar if the server doesn't specify a
+// Content-Length. It's size in bytes after decoding Content-Encoding. Real size does not need to
+// match; this is just for the progress bar. estimatedSize is optional and can be omitted.
+// Make sure to use size estimates from production builds, not development ones.
 
 // useBuildId is used for various cache related things. It shouldn't be changed.
 
@@ -63,7 +63,8 @@ export default {
   },
   'webview-mac': {
     src: externalFile('WebView-macos-4.zip'),
-    sha256: '580489b789b020e900417fabbe192abe24974555923c9d9280a723d2ad104314'
+    sha256: '580489b789b020e900417fabbe192abe24974555923c9d9280a723d2ad104314',
+    estimatedSize: 3537286
   },
   scaffolding: {
     src: relativeScaffolding('scaffolding-full.js'),
