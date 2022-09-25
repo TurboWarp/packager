@@ -123,7 +123,7 @@ const makeScaffolding = ({full}) => ({
 
 const commonFrontendPlugins = () => [
   new webpack.DefinePlugin({
-    'process.env.SCAFFOLDING_BUILD_ID': buildId ? JSON.stringify(buildId) : 'Math.random().toString()',
+    'process.env.SCAFFOLDING_BUILD_ID': buildId ? JSON.stringify(buildId) : '("development-" + Math.random().toString().substring(2))',
     'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development')
   })
 ];
