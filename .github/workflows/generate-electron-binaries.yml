@@ -7,7 +7,10 @@ jobs:
   generate:
     strategy:
       matrix:
-        os: [macos-latest, windows-latest]
+        os:
+        - macos-latest
+        - windows-latest
+        # - ubuntu-latest
 
     runs-on: ${{ matrix.os }}
 
@@ -33,8 +36,11 @@ jobs:
         name: electron-macos
         path: electron-bin/temp/macos/*.zip
 
+    - name: Install wine
+      if: runner.os == 'Linux'
+      run: sudo apt install wine
     - name: Generate Windows
-      if: runner.os == 'Windows'
+      if: runner.os == 'Windows' || runner.os == 'Linux'
       run: |
         cd electron-bin
         node generate-windows.js
@@ -43,4 +49,10 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: electron-windows
+        path: electron-bin/temp/windows/*.zip
+    - name: Upload Windows Crossbuild
+      if: runner.os == 'Linux'
+      uses: actions/upload-artifact@v3
+      with:
+        name: electron-windows-crossbuild
         path: electron-bin/temp/windows/*.zip
