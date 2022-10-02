@@ -1,10 +1,10 @@
 name: WKWebView Build
 
 on:
+  workflow_dispatch:
   push:
-    branches: ["master"]
-  pull_request:
-    branches: ["master"]
+    paths:
+    - wkwebview/**
 
 jobs:
   build:
