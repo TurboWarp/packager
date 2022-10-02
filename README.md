@@ -77,13 +77,15 @@ Set the environment variable `ENABLE_SERVICE_WORKER` to `1` to enable service wo
 
 ## Standalone builds
 
-To make a production standalone build:
+The packager supports generating "standalone builds" that are single HTML files containing the entire packager. Large files such as Electron binaries will still be downloaded from a remote server as needed. You can download prebuilt standalone builds from [our GitHub releases](https://github.com/TurboWarp/packager/releases). These can be useful if our website is blocked or you don't have a reliable internet connection. Note that standalone builds do not contain an update checker, so do check on your own occasionally.
+
+To make a production standalone build locally:
 
 ```
 npm run build-standalone-prod
 ```
 
-Output will be located in `dist/standalone.html`.
+The build outputs to `dist/standalone.html`.
 
 ## Node.js module and API
 
