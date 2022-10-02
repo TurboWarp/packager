@@ -7,3 +7,5 @@ babel.config.js
 .github
 .packager-cache
 demo_output*
+electron-bin
+wkwebview
