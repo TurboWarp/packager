@@ -127,7 +127,7 @@
         "description1": "Konverterar Scratch projekt till HTML filer, zip arkiv eller program som kan köras på Windows, MacOS och Linux.",
         "description2": "Om du vill ha det lätt att bifoga ett projekt till don webbsida så kommer du kanske vara intresserad i {embedding}",
         "description2-embedding": "Inbäddning",
-        "description3": "Rapportera buggar, ge feedback och idéer {onScratch}eller {onGitHub}",
+        "description3": "Rapportera buggar, ge feedback och idéer {onScratch} eller {onGitHub}",
         "description3-on": "på {brand}",
         "disclaimer": "Denna sida är inte ansluten med Scratch, Scratch teamet eller Scratchstiftelsen.",
         "documentation": "Ytterligare resurser och hjälp",
