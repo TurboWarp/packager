@@ -225,9 +225,6 @@
       <a href="https://docs.turbowarp.org/packager">{$_('p4.documentation')}</a>
     </div>
     <div>
-      <a href="https://fosshost.org/">{$_('p4.fosshost')}</a>
-    </div>
-    <div>
       <SelectTheme />
     </div>
     <div>

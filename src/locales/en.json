@@ -83,10 +83,6 @@
     "documentation": {
       "string": "Additional resources and help",
       "context": "Link to a place with additional information describing advanced topics"
-    },
-    "fosshost": {
-      "string": "Thank you to Fosshost for providing servers used by the packager",
-      "context": "Link in the site's footer thanking Fosshost.org"
     }
   },
   "progress": {
