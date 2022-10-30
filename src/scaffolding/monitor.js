@@ -75,7 +75,12 @@ class Monitor {
         label = this.parent.getMessage('var-second');
       }
     } else {
-      label = this.parent.vm.runtime.getLabelForOpcode(this.opcode).label;
+      const vmLabel = this.parent.vm.runtime.getLabelForOpcode(this.opcode);
+      if (vmLabel) {
+        label = vmLabel.label;
+      } else {
+        label = this.opcode;
+      }
     }
 
     if (this.spriteName) {
