@@ -718,6 +718,7 @@
         <!-- TODO: use the user-facing documentation when that becomes available -->
         <LearnMore slug="development/custom-extensions" />
         <CustomExtensions bind:extensions={$options.extensions} />
+        <p class="warning">{$_('options.customExtensionsSecurity')}</p>
       </label>
 
       <label class="option">

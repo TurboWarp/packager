@@ -1348,6 +1348,9 @@ cd "$(dirname "$0")"
         ScaffoldingAddons.run(scaffolding, ${JSON.stringify(this.getAddonOptions())});
       }
 
+      scaffolding.setExtensionSecurityManager({
+        getSandboxMode: 'unsandboxed'
+      });
       for (const extension of ${JSON.stringify(this.options.extensions.map(i => i.url))}) {
         vm.extensionManager.loadExtensionURL(extension);
       }
