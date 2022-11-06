@@ -584,7 +584,7 @@
         <input type="checkbox" bind:checked={$options.chunks.pointerlock}>
         {$_('options.pointerlock')}
       </label>
-      <a href="https://experiments.turbowarp.org/pointerlock/" target="_blank" rel="noopener">
+      <a href="https://experiments.turbowarp.org/pointerlock/" target="_blank" rel="noopener noreferrer">
         {$_('options.pointerlockHelp')}
       </a>
     </div>
@@ -594,7 +594,7 @@
         <input type="checkbox" bind:checked={$options.chunks.gamepad}>
         {$_('options.gamepad')}
       </label>
-      <a href="https://turbowarp.org/addons#gamepad" target="_blank" rel="noopener">
+      <a href="https://turbowarp.org/addons#gamepad" target="_blank" rel="noopener noreferrer">
         {$_('options.gamepadHelp')}
       </a>
     </div>
