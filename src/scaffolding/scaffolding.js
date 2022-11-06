@@ -24,6 +24,13 @@ const getEventXY = (e) => {
   return {x: e.clientX, y: e.clientY};
 };
 
+const wrapAsFunctionIfNotFunction = (value) => {
+  if (typeof value === 'function') {
+    return value;
+  }
+  return () => value;
+};
+
 class Scaffolding extends EventTarget {
   constructor () {
     super();
@@ -509,6 +516,22 @@ class Scaffolding extends EventTarget {
     const variable = this.vm.runtime.getTargetForStage().lookupVariableByNameAndType(name, type);
     if (!variable) throw new Error(`Global ${type || 'variable'} does not exist: ${name}`);
     return variable;
+  }
+
+  setExtensionSecurityManager ({getSandboxMode, canLoadExtensionFromProject}) {
+    const securityManager = this.vm.extensionManager.securityManager;
+    if (!securityManager) {
+      console.warn('setExtensionSecurityManager not supported: there is no security manager');
+      return;
+    }
+
+    if (typeof getSandboxMode !== 'undefined') {
+      securityManager.getSandboxMode = wrapAsFunctionIfNotFunction(getSandboxMode);
+    }
+
+    if (typeof canLoadExtensionFromProject !== 'undefined') {
+      securityManager.canLoadExtensionFromProject = wrapAsFunctionIfNotFunction(canLoadExtensionFromProject);
+    }
   }
 
   getVariable (name) {
