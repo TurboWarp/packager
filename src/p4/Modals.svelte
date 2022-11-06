@@ -82,6 +82,8 @@
 <svelte:window on:keydown={onKeyDown} />
 
 {#if modalVisible}
+  <!-- All prompts can be closed using buttons in the modal, so we can ignore this warning -->
+  <!-- svelte-ignore a11y-click-events-have-key-events -->
   <div class="modal" on:click|self={closeModal} bind:this={modalElement}>
     <Section modal>
       <h2>{$_('p4.error')}</h2>
