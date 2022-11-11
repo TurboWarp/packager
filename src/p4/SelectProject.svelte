@@ -158,17 +158,10 @@
       uniqueId = `#${id}`;
 
       task.setProgressText($_('progress.loadingProjectMetadata'));
-      let metadata;
-      try {
-        metadata = await getProjectMetadata(id);
-      } catch (e) {
-        // For now, we'll treat this as non-critical.
-        // In the future, this will probably be a critical error.
-        console.error(e);
-      }
+      const metadata = await getProjectMetadata(id);
 
-      const token = metadata ? metadata.token : null;
-      projectTitle = metadata ? metadata.title : '';
+      const token = metadata.token;
+      projectTitle = metadata.title;
 
       task.setProgressText($_('progress.loadingProjectData'));
       const {promise: loadProjectPromise, terminate} = await loadProject.fromID(id, token, progressCallback);
@@ -273,7 +266,7 @@
 
     {#if $type === "id"}
       <p>
-        {$_('select.unsharedProjectsTemporary')}
+        {$_('select.unsharedProjects')}
       </p>
       <p>
         {$_('select.unsharedProjectsWorkaround')}
