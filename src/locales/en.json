@@ -157,7 +157,7 @@
       "context": "Suggested alternatives to continue accessing unshared projects."
     },
     "unsharedProjectsMore": {
-      "string": "For more information, visit: {link}",
+      "string": "For more information and workarounds, visit: {link}",
       "context": "Link to learn more about the state of unshared projects."
     }
   },
