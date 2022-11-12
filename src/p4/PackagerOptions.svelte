@@ -87,6 +87,17 @@
     'electron-linux64'
   ].includes($options.target);
 
+  const advancedOptionsInitiallyOpen = (
+    $options.compiler.enabled !== defaultOptions.compiler.enabled ||
+    $options.compiler.warpTimer !== defaultOptions.compiler.warpTimer ||
+    $options.extensions.length !== 0 ||
+    $options.bakeExtensions !== defaultOptions.bakeExtensions ||
+    $options.custom.css !== '' ||
+    $options.custom.js !== '' ||
+    $options.projectId !== defaultOptions.projectId ||
+    $options.packagedRuntime !== defaultOptions.packagedRuntime
+  );
+
   const automaticallyCenterCursor = () => {
     const icon = $customCursorIcon;
     const url = URL.createObjectURL(icon)
@@ -693,7 +704,7 @@
 >
   <div>
     <h2>{$_('options.advancedOptions')}</h2>
-    <details>
+    <details open={advancedOptionsInitiallyOpen}>
       <summary>{$_('options.advancedSummary')}</summary>
 
       <div class="option">
