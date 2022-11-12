@@ -423,6 +423,10 @@
     "customExtensionsSecurity": {
       "string": "Custom extensions are always run unsandboxed in the packager. Depending on the environment you're packaging for, this grants extensions full control over your computer, including the ability to install viruses. Don't use extensions you don't trust."
     },
+    "bakeExtensions": {
+      "string": "Try to embed cached copy of custom extensions instead of downloading them each time the project is run",
+      "context": "Option that tries to store "
+    },
     "customCSS": {
       "string": "Custom CSS (Don't change if you don't know what you're doing!)",
       "context": "Do not translate 'CSS'"

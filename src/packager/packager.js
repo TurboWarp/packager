@@ -981,6 +981,22 @@ cd "$(dirname "$0")"
     return `url(${data}) ${this.options.cursor.center.x} ${this.options.cursor.center.y}, auto`;
   }
 
+  async generateExtensionURLs () {
+    if (!this.options.bakeExtensions) {
+      return this.options.extensions.map(i => i.url);
+    }
+    const urls = [];
+    for (const {url} of this.options.extensions) {
+      try {
+        const source = await Adapter.fetchExtensionScript(url);
+        urls.push(`data:text/javascript;,${encodeURIComponent(source)}`);
+      } catch (e) {
+        urls.push(url);
+      }
+    }
+    return urls;
+  }
+
   async package () {
     if (!Adapter) {
       throw new Error('Missing adapter');
@@ -1355,7 +1371,7 @@ cd "$(dirname "$0")"
           return Promise.resolve(false);
         }
       });
-      for (const extension of ${JSON.stringify(this.options.extensions.map(i => i.url))}) {
+      for (const extension of ${JSON.stringify(await this.generateExtensionURLs())}) {
         vm.extensionManager.loadExtensionURL(extension);
       }
 
@@ -1573,7 +1589,8 @@ Packager.DEFAULT_OPTIONS = () => ({
       y: 0
     }
   },
-  extensions: []
+  extensions: [],
+  bakeExtensions: false
 });
 
 export default Packager;

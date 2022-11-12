@@ -722,6 +722,11 @@
       </label>
 
       <label class="option">
+        <input type="checkbox" bind:checked={$options.bakeExtensions}>
+        {$_('options.bakeExtensions')}
+      </label>
+
+      <label class="option">
         {$_('options.customCSS')}
         <textarea bind:value={$options.custom.css}></textarea>
       </label>
