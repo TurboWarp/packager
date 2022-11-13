@@ -1,6 +1,5 @@
 <script>
-  import {onMount} from 'svelte';
-  import {writable} from 'svelte/store';
+  import {onMount, tick} from 'svelte';
   import {_} from '../locales';
   import Section from './Section.svelte';
   import Button from './Button.svelte';
@@ -114,7 +113,9 @@
       inputForRememberingProjectFile.files = copyFileList(files);
     }
     if (files.length && $type === 'file') {
-      load();
+      // if $type was updated before calling this function, wait for the current task to get
+      // cancelled before we start the next one
+      tick().then(load);
     }
   };
   const handleDrop = ({detail: dataTransfer}) => {
