@@ -421,6 +421,10 @@
     "projectIdHelp": {
       "string": "Project ID is used when connecting to a cloud variable server and storing local cloud variables. It can contain more than just numbers."
     },
+    "packagedRuntime": {
+      "string": "Remove raw asset data after loading to save RAM",
+      "context": "An option in advanced options. RAM refers to computer memory."
+    },
     "customExtensions": {
       "string": "Custom extensions (one URL per line)"
     },
