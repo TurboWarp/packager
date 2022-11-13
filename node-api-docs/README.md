@@ -48,18 +48,23 @@ const Packager = require('@turbowarp/packager');
 
 ### Load a project
 
-Next you have to get a project file from somewhere. It can be a project.json or a full sb, sb2, or sb3 file. The packager doesn't provide any API for this, you have to find it on your own. The easiest way to get a project is probably to fetch one from https://projects.scratch.mit.edu/1.
-
-Then, convert your project data to an ArrayBuffer, Uint8Array, or Node.js Buffer.
+Next you have to get a project file from somewhere. It can be a project.json or a full sb, sb2, or sb3 file. The packager doesn't provide any API for this, you have to find it on your own. Your data must be an ArrayBuffer, Uint8Array, or Node.js Buffer.
 
 ```js
+// Fetch a remote URL:
 const fetch = require('cross-fetch').default; // or whatever your favorite HTTP library is
-const projectData = await (await fetch('https://projects.scratch.mit.edu/1')).arrayBuffer();
+const projectData = await (await fetch('https://packager.turbowarp.org/example.sb3')).arrayBuffer();
 
-// or:
-
+// or use a local file:
 const fs = require('fs');
 const projectData = fs.readFileSync('project.sb3');
+
+// or fetch a shared Scratch project:
+const fetch = require('cross-fetch').default; // or whatever your favorite HTTP library is
+const id = '437419376';
+const projectMetadata = await (await fetch(`https://trampoline.turbowarp.org/proxy/projects/${id}`)).json();
+const token = projectMetadata.project_token;
+const projectData = await (await fetch(`https://projects.scratch.mit.edu/${id}?token=${token}`)).arrayBuffer();
 ```
 
 Now you have to tell the packager to load the project. The packager will parse it, do some analysis, and download any needed assets if the input was just a project.json. This must be done once for every project. The result of this processes can be reused as many times as you want.

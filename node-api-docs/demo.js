@@ -7,7 +7,11 @@ const fetch = require('cross-fetch').default;
 const Packager = require('../dist/packager');
 
 const run = async () => {
-  const projectData = await (await fetch('https://projects.scratch.mit.edu/1')).arrayBuffer();
+  // Example of how to fetch() a project from Scratch:
+  const id = '437419376';
+  const projectMetadata = await (await fetch(`https://trampoline.turbowarp.org/proxy/projects/${id}`)).json();
+  const token = projectMetadata.project_token;
+  const projectData = await (await fetch(`https://projects.scratch.mit.edu/${id}?token=${token}`)).arrayBuffer();
 
   const progressCallback = (type, a, b) => {
     console.log('Progress', type, a, b);
