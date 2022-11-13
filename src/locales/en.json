@@ -108,6 +108,10 @@
     "loadingScripts": {
       "string": "Downloading scripts",
       "context": "Loading message used when loading the Scratch runtime"
+    },
+    "downloadingExtensions": {
+      "string": "Downloading custom extensions",
+      "context": "Loading message that appears while downloading custom extensions"
     }
   },
   "select": {

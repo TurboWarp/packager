@@ -132,6 +132,10 @@
 
     task.setProgressText($_('progress.loadingScripts'));
 
+    packager.addEventListener('fetch-extensions', ({detail}) => {
+      task.setProgressText($_('progress.downloadingExtensions'));
+      task.setProgress(detail.progress);
+    });
     packager.addEventListener('large-asset-fetch', ({detail}) => {
       let thing;
       if (detail.asset.startsWith('nwjs-')) {

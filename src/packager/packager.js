@@ -982,19 +982,46 @@ cd "$(dirname "$0")"
   }
 
   async generateExtensionURLs () {
-    if (!this.options.bakeExtensions) {
-      return this.options.extensions.map(i => i.url);
-    }
-    const urls = [];
-    for (const {url} of this.options.extensions) {
-      try {
-        const source = await Adapter.fetchExtensionScript(url);
-        urls.push(`data:text/javascript;,${encodeURIComponent(source)}`);
-      } catch (e) {
-        urls.push(url);
+    const dispatchProgress = (progress) => this.dispatchEvent(new CustomEvent('fetch-extensions', {
+      detail: {
+        progress
       }
+    }));
+
+    const shouldTryToFetch = (url) => {
+      if (!this.options.bakeExtensions) {
+        return false;
+      }
+      try {
+        const parsed = new URL(url);
+        return parsed.protocol === 'http:' || parsed.protocol === 'https:';
+      } catch (e) {
+        return false;
+      }
+    };
+
+    /** @type {string[]} */
+    const allURLs = this.options.extensions.map(i => i.url);
+    const unfetchableURLs = allURLs.filter((url) => !shouldTryToFetch(url));
+    const urlsToFetch = allURLs.filter((url) => shouldTryToFetch(url));
+    const finalURLs = [...unfetchableURLs];
+
+    if (urlsToFetch.length !== 0) {
+      for (let i = 0; i < urlsToFetch.length; i++) {
+        dispatchProgress(i / urlsToFetch.length);
+        const url = urlsToFetch[i];
+        try {
+          const source = await Adapter.fetchExtensionScript(url);
+          const dataURI = `data:text/javascript;,${encodeURIComponent(source)}`;
+          finalURLs.push(dataURI);
+        } catch (e) {
+          finalURLs.push(url);
+        }
+      }
+      dispatchProgress(1);
     }
-    return urls;
+
+    return finalURLs;
   }
 
   async package () {
