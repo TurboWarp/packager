@@ -1617,7 +1617,7 @@ Packager.DEFAULT_OPTIONS = () => ({
     }
   },
   extensions: [],
-  bakeExtensions: false
+  bakeExtensions: true
 });
 
 export default Packager;
