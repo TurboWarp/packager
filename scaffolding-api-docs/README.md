@@ -154,13 +154,18 @@ You have to manually configure scratch-storage to know where to fetch files from
 ```js
 const storage = scaffolding.storage;
 storage.addWebStore(
-  [storage.AssetType.Project],
-  (asset) => `https://projects.scratch.mit.edu/${asset.assetId}`
-);
-storage.addWebStore(
   [storage.AssetType.ImageVector, storage.AssetType.ImageBitmap, storage.AssetType.Sound],
   (asset) => `https://assets.scratch.mit.edu/internalapi/asset/${asset.assetId}.${asset.dataFormat}/get/`
 );
+```
+
+Downloading shared Scratch projects can be done manually with something like this:
+
+```js
+const id = '437419376';
+const projectMetadata = await (await fetch(`https://trampoline.turbowarp.org/proxy/projects/${id}`)).json();
+const token = projectMetadata.project_token;
+const projectData = await (await fetch(`https://projects.scratch.mit.edu/${id}?token=${token}`)).arrayBuffer();
 ```
 
 ### Configure cloud variables
