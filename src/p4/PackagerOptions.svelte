@@ -759,8 +759,7 @@
 
       <label class="option">
         <input type="checkbox" bind:checked={$options.packagedRuntime} />
-        <!-- This option is temporary, so don't translate. -->
-        Use "packaged runtime" mode (experimental)
+        {$_('options.packagedRuntime')}
       </label>
     </details>
   </div>
