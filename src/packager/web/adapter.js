@@ -58,6 +58,13 @@ class WebAdapter {
         throw new Error(`${debugInfo}: ${err}`);
       });
   }
+
+  fetchExtensionScript (url) {
+    return request({
+      type: 'text',
+      url: url
+    });
+  }
 }
 
 export default WebAdapter;
