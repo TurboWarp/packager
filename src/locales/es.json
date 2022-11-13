@@ -122,8 +122,6 @@
     "p4": {
         "browserNotSupported": "Navegador no compatible",
         "browserNotSupportedDescription": "Por favor actualice su navegador.",
-        "cannotAccessProject": "No se puede acceder a los metadatos del proyecto. Esto probablemente significa que el proyecto no está compartido, nunca existió, o la ID es inválida.",
-        "cannotAccessProjectCaching": "Si el proyecto fue compartido recientemente, este mensaje puede tardar hasta una hora en irse.",
         "close": "Cerrar",
         "description1": "Convierte proyectos de Scratch a archivos HTML, zip o programas ejecutables para Windows, macOS y Linux.",
         "description2": "Si simplemente quiere una manera fácil de incrustar un proyecto en una página web, podría estar interesado en {embedding}.",
@@ -135,7 +133,6 @@
         "donate": "Donar",
         "errorMessage": "Mensaje: {error}",
         "feedback": "Comentarios",
-        "fosshost": "Gracias a Fosshost por proveer servidores usados por el convertidor",
         "importingInterface": "Cargando opciones...",
         "networkError": "No se ha podido descargar {url}. Asegúrese de estar conectado a Internet e intente deshabilitar cualquier extensión de navegador.",
         "outdated": "Esta versión del convertidor parece estar desactualizada. Por favor, actualice la página e inténtelo de nuevo.",
@@ -173,8 +170,6 @@
         "select": "Seleccionar proyecto",
         "selectHelp": "Seleccione el proyecto que quiere empacar copiando y pegando el enlace de proyecto de Scratch o usando alguno de los otros modos. Si usa un proyecto que no creó, asegúrese de dar créditos al creador.",
         "unsharedProjects": "Proyectos no compartidos ya no son accesibles usando su ID debido a cambios en el API de Scratch.",
-        "unsharedProjectsMore": "Para más información, visite: {link}",
-        "unsharedProjectsTemporary": "Proyectos no compartidos no serán accesibles usando solamente su ID en algún punto debido a cambios en el API de Scratch por venir.",
         "unsharedProjectsWorkaround": "En cambio, puedes compartir o guardar el proyecto en tu computadora (Archivo > Guardar en tu ordenador) y cargar el archivo en el convertidor. Los archivos generados por el convertidor son totalmente autónomos y no son afectados por estos cambios.",
         "url": "Otra URL"
     },

@@ -88,7 +88,6 @@
         "projectIdHelp": "Projekto ID naudojamas jungiantis prie debesies kintamųjų serverio ir saugant vietinius debesies kintamuosius. Jame gali būti ne tik skaičiai.",
         "removeFencing": "Panaikinti scenos aptvarus",
         "removeMiscLimits": "Pašalinti įvairius limitus.",
-        "resetAll": "nustatyti viską iš naujo",
         "runtimeOptions": "Paleidimo laiko parinktys",
         "showFlag": "Rodyti žalios vėliavėlės mygtuką valdymo skiltyje",
         "showFullscreen": "Rodyti viso ekrano mygtuką valdikliuose",
@@ -117,8 +116,6 @@
     "p4": {
         "browserNotSupported": "Nepalaikoma naršyklė",
         "browserNotSupportedDescription": "Atnaujinkite jūsų naršyklę",
-        "cannotAccessProject": "Negalima pasiekti projekto metaduomenų. Tai greičiausiai reiškia, kad projektas yra nepasidalytas, niekada neegzistavo arba jo ID yra negaliojantis.",
-        "cannotAccessProjectCaching": "Jei projektas buvo bendrinamas neseniai, gali prireikti iki valandos, kol šis pranešimas išnyks.",
         "close": "Uždaryti",
         "description1": "Konvertuoja Scratch Projektus į HTML failus, zip archyvus, vykdomasias programas skirtas Windows, macOS, ir Linux.",
         "description2": "Jei ieškote lengvo projekto įterpimo į jūsų svetainę, tikriausiai jums bus įdomus {embedding}.",
@@ -131,7 +128,6 @@
         "error": "Klaida",
         "errorMessage": "Žinutė: {error}",
         "feedback": "Atsiliepimas",
-        "fosshost": "Dėkojame Fosshost dėl pakuotojo naudojamų serverių",
         "importingInterface": "Užkraunami pasirinkimai...",
         "networkError": "Nepavyksta atsisiųsti {url}. Įsitikinkite kad jūs esate prisijungę prie interneto ir pabandykite išjungti visus naršyklės papildinius.",
         "outdated": "Atrodo kad ši pakuotojo versija pasenusi. Prašau perkrauti ir bandyti vėl.",
@@ -169,8 +165,6 @@
         "select": "Pasirinkti Projektą",
         "selectHelp": "Pasirinkite projektą, kurį norite supakuoti, nukopijuodami ir įklijuodami Scratch projekto nuorodą arba naudodami vieną iš kitų režimų. Jei naudojate ne savo sukurtą projektą, būtinai padėkokite jo kūrėjui.",
         "unsharedProjects": "Dėl Scratch API pakeitimų nesidalijami projektai nebėra pasiekiami naudojant jų projekto ID.",
-        "unsharedProjectsMore": "Dėl daugiau informacijos, aplankykite: {link}",
-        "unsharedProjectsTemporary": "Dėl būsimų Scratch API pakeitimų ateityje nebegalėsite pasiekti nesidalijamų projektų naudodami tik jų projekto ID.",
         "unsharedProjectsWorkaround": "Vietoj to galite bendrinti projektą arba įrašyti projektą į kompiuterį (Failas > Įrašyti į kompiuterį) ir įkelti failą į pakuotoją. Pakuotojo sukurti failai yra visiškai savarankiški ir šie pakeitimai jiems įtakos neturi.",
         "url": "Kitas URL"
     },

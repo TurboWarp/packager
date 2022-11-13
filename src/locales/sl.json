@@ -112,8 +112,6 @@
     "p4": {
         "browserNotSupported": "Brskalnik ni podprt",
         "browserNotSupportedDescription": "Prosimo, da posodobite svoj brskalnik.",
-        "cannotAccessProject": "Dostop do podatkov o projektu ni mogoč. To verjetno pomeni, da projekt ni deljen, ne obstaja ali pa da ID ni veljaven.",
-        "cannotAccessProjectCaching": "Če je bil projekt deljen pred kratkim, lahko traja do eno uro, preden se to sporočilo neha prikazovati.",
         "close": "Zapri",
         "description1": "Spremeni Scratcheve projekte v datoteke HTML, zip ali izvedljive programe za Windows, macOS in Linux.",
         "description2": "Če potrebujete samo enostaven način vgradnje projekta v svojo spletno stran, lahko preberete dokumentacijo o {embedding}.",
@@ -126,7 +124,6 @@
         "error": "Napaka",
         "errorMessage": "Sporočilo: {error}",
         "feedback": "Povratne informacije",
-        "fosshost": "Hvala Fosshostu, da skrbi za strežnike, ki jih Packager uporablja",
         "networkError": "Prenašanje {url} ni uspelo. Prepričajte se, da ste povezani z internetom, in poskusite izključiti vse razširitve brskalnika.",
         "outdated": "Ta različica Packagerja je zastarela. Prosimo, da ponovno naložite stran in poskusite znova.",
         "privacy": "Politika zasebnosti",
@@ -163,8 +160,6 @@
         "select": "Izberite projekt",
         "selectHelp": "Izberite projekt, ki bi ga radi zapakirali. Lahko prilepite povezavo na projekt na Scratchu ali uporabite enega od ostalih načinov. Če uporabite projekt, ki ga niste naredili, ne pozabite navesti avtorja.",
         "unsharedProjects": "Dostop do nedeljenih projektov z njihovim ID-jem ni več mogoč zaradi sprememb v Scratchevem programskem vmesniku.",
-        "unsharedProjectsMore": "Za več informacij obiščite: {link}",
-        "unsharedProjectsTemporary": "Dostop do nedeljenih projektov z njihovim ID-jem nekoč v prihodnosti ne bo več mogoč zaradi načrtovanih sprememb v Scratchevem programskem vmesniku.",
         "url": "Drug URL"
     },
     "theme": {

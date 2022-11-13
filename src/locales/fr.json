@@ -120,8 +120,6 @@
     "p4": {
         "browserNotSupported": "Navigateur non supporté",
         "browserNotSupportedDescription": "Mettez à jour votre navigateur.",
-        "cannotAccessProject": "Impossible d'acceder aux métadonnées du projet. Cela signifie probablement que le projet n'est pas partagé, n'a jamais existé ou que son ID est invalide.",
-        "cannotAccessProjectCaching": "Si ce projet a été partagé récemment, cela peut prendre jusqu'a une heure pour que ce message disparaisse.",
         "close": "Fermer",
         "description1": "Convertit les projets Scratch en fichiers HTML, archives zip ou programmes exécutables pour Windows, macOS et Linux.",
         "description2": "Si vous souhaitez simplement intégrer un projet à votre site Web, vous serez peut-être intéressé par{embedding}.",
@@ -134,7 +132,6 @@
         "error": "Erreur",
         "errorMessage": "Message : {error}",
         "feedback": "Envoyer des commentaires",
-        "fosshost": "Merci à Fosshost pour fournir les serveurs utilisés par ce packager",
         "importingInterface": "Chargement des options...",
         "networkError": "Impossible de télécharger {url}. Assurez-vous d'être connecté à Internet et essayez de désactiver toutes les extensions de votre navigateur.",
         "outdated": "Cette version du conditionneur semble obsolète. Veuillez actualiser et réessayer.",
@@ -172,8 +169,6 @@
         "select": "Choix du projet",
         "selectHelp": "Choisissez le projet que vous souhaitez compiler en copiant-collant le lien du projet Scratch, ou utilisez l'un de nos autre modes d'importation. Si vous choisissez un projet que vous n'avez pas créé, vous êtes tenu de créditer le créateur.",
         "unsharedProjects": "Les projets non partagés ne sont plus accesibles via leur ID en raison des changements de l'API de Scratch.",
-        "unsharedProjectsMore": "Pour plus d'informations, visitez : {link}",
-        "unsharedProjectsTemporary": "Les projets non partagés ne seront plus accessibles en utilisant uniquement leur ID a cause de futurs changements de l' API de Scratch.",
         "unsharedProjectsWorkaround": "A la place, vous pouvez soit partager le projet, soit le sauvegarder sur votre ordinateur (Fichier > Sauvegarder sur votre ordinateur) et importer le projet dans le conditionneur.\nLes fichiers générés par le conditionneur sont totalement indépendants et ne seront pas affectés par ces changements.",
         "url": "Autre URL"
     },

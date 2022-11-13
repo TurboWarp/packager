@@ -123,8 +123,6 @@
     "p4": {
         "browserNotSupported": "不支持浏览器",
         "browserNotSupportedDescription": "请更新您的浏览器。",
-        "cannotAccessProject": "无法访问作品数据。这可能意味着此作品未共享、不存在或 ID 无效。",
-        "cannotAccessProjectCaching": "最近分享的作品可能需要一个小时才能显示。",
         "close": "关闭",
         "description1": "将 Scratch 作品转换为 HTML 文件、ZIP 压缩包或 Windows、MacOS 和 Linux 的可执行文件。",
         "description2": "如果您只是想以一种简单的方式将 Scratch 官网作品嵌入您的网站，您可能会对 {embedding} 感兴趣。 ",
@@ -137,7 +135,6 @@
         "error": "错误",
         "errorMessage": "错误：{error}",
         "feedback": "反馈",
-        "fosshost": "感谢 Fosshost 提供 TurboWarp Packager 使用的服务器",
         "importingInterface": "正在加载选项...",
         "networkError": "无法下载 {url}。请确保你已连接到互联网，并尝试禁用浏览器扩展。",
         "outdated": "这个版本的 TurboWarp Packager 似乎已经过期。请刷新并重试。",
@@ -175,8 +172,6 @@
         "select": "选择作品",
         "selectHelp": "您可以通过复制粘贴 Scratch 作品链接，或使用其他模式来选择要打包的作品。 如果您打包的作品并非原创，请做好署名。",
         "unsharedProjects": "未分享的作品将不会显示。",
-        "unsharedProjectsMore": "详见 {link}",
-        "unsharedProjectsTemporary": "由于未来 Scratch API 的变化，未共享的作品将不再能只使用其作品 ID 访问。",
         "unsharedProjectsWorkaround": "您可以尝试分享作品或者将作品保存到设备（文件 > 保存到电脑）并在打包机中打开。打包程序生成的文件是完全独立的，不受 Scratch API 更新的影响。",
         "url": "其他网站的直接链接"
     },

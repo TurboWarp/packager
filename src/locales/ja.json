@@ -123,8 +123,6 @@
     "p4": {
         "browserNotSupported": "ブラウザはサポートしていません",
         "browserNotSupportedDescription": "お使いのブラウザをアップデートしてください。",
-        "cannotAccessProject": "プロジェクトのメタデータにアクセスできません。これは、プロジェクトが共有されていない、存在しなかった、またはIDが無効であることを意味します。",
-        "cannotAccessProjectCaching": "プロジェクトが最近共有された場合、このメッセージが消えるまで1時間程度かかることがあります。",
         "close": "閉じる",
         "description1": "Scratchプロジェクトを、HTMLファイル、ZIPファイルや、Windows、macOS、Linux用の実行形式プログラムに変換します。",
         "description2": "プロジェクトをあなたのウェブサイトに埋め込む簡単な方法は、{embedding}をご覧ください。",
@@ -137,7 +135,6 @@
         "error": "エラー",
         "errorMessage": "メッセージ: {error}",
         "feedback": "フィードバック",
-        "fosshost": "パッケージャーが使用するサーバーを提供してくださったFosshostに感謝します。",
         "importingInterface": "オプションを読み込み中…",
         "networkError": "{url}をダウンロードできませんでした。インターネットに接続されていることを確認し、ブラウザの拡張機能を無効にしてください。",
         "outdated": "このバージョンのパッケージャーは古くなったようです。再読み込みして再度お試しください。",
@@ -175,8 +172,6 @@
         "select": "プロジェクトの選択",
         "selectHelp": "Scratchプロジェクトのリンクをコピー＆ペーストするか、その他の方法で、パッケージ化したいプロジェクトを選びます。自分が作ったものではないプロジェクトを使用する場合は、必ず制作者のクレジットを明記してください。",
         "unsharedProjects": "Scratch API の変更に伴い、非共有プロジェクトはプロジェクト ID でアクセスできなくなりました。",
-        "unsharedProjectsMore": "詳しくはこちらをご覧ください: {link}",
-        "unsharedProjectsTemporary": "Scratch API の変更に伴い、非共有プロジェクトは将来的にプロジェクト ID でアクセスできなくなる予定です。",
         "unsharedProjectsWorkaround": "その代わりに、プロジェクトを共有するか、コンピュータに保存して(ファイル > コンピュータに保存)、そのファイルを読み込むことができます。パッケージャーによって生成されたファイルは、完全に自己完結しており、これらの変更の影響を受けません。",
         "url": "他のURL"
     },

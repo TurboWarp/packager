@@ -45,6 +45,7 @@
         "customCSS": "CSS personalizzato (Non cambiare se non sai cosa stai facendo!)",
         "customCursor": "Puntatore del mouse personalizzato",
         "customExtensions": "Estensioni personalizzate (un URL per riga)",
+        "customExtensionsSecurity": "Le estensioni custom sono sempre eseguite senza sandbox nel packager. A seconda dell'ambiente per il quale stai creando il pacchetto, questo garantisce alle estensioni completo controllo del tuo computer, inclusa la possibilità di installare virus. Non usare estensioni di cui non ti fidi del tutto. ",
         "customJS": "JS personalizzato (Non cambiare se non sai cosa stai facendo!)",
         "customUsernameWarning": "Fai attenzione quando cambi il nome utente predefinito perché può causare il blocco delle connessioni al server predefinito delle variabili cloud. Solo il nome utente predefinito è garantito funzionare.",
         "downloadsWillAppearHere": "I download appariranno qui",
@@ -118,8 +119,6 @@
     "p4": {
         "browserNotSupported": "Browser non supportato",
         "browserNotSupportedDescription": "Ti preghiamo di aggiornare il tuo browser.",
-        "cannotAccessProject": "Impossibile accedere ai metadati del progetto. Il progetto potrebbe non essere condiviso, non esistere o l'ID potrebbe essere non corretto.",
-        "cannotAccessProjectCaching": "Se il progetto è stato condiviso da poco, potrebbe essere necessaria un'ora prima che questo messaggio scompaia.",
         "close": "Chiudi",
         "description1": "Converte i progetti Scratch in file HTML, archivi zip o programmi eseguibili per Windows, macOS e Linux.",
         "description2": "Se cerchi un modo semplice di includere un progetto nel tuo sito web puoi essere interessato all' {embedding}.",
@@ -131,7 +130,6 @@
         "donate": "Dona",
         "error": "Errore",
         "errorMessage": "Messaggio: {error}",
-        "fosshost": "Grazie a Fosshost per aver fornito i server usati da questo packager",
         "importingInterface": "Caricamento opzioni in corso...",
         "networkError": "Impossibile scaricare {url}. Assicurati di essere collegato a internet e prova a disabilitare le estensioni del browser.",
         "outdated": "Questa versione del packager è scaduta. Aggiorna la pagina e prova di nuovo.",
@@ -168,8 +166,6 @@
         "select": "Seleziona il Progetto",
         "selectHelp": "Seleziona il progetto che vuoi pacchettizzare copiando e incollando il link del progetto Scratch o usando uno degli altri metodi. Se usi un progetto che non hai creato tu stesso assicurati di dare il giusto credito.",
         "unsharedProjects": "I progetti non convidisi, a causa di cambiamenti alla API di Scratch, non sono più accessibili.",
-        "unsharedProjectsMore": "Per ulteriori informazioni vai a {link}",
-        "unsharedProjectsTemporary": "I progetti non convidisi non saranno più accessibili in futuro tramite il loro ID a causa di cambiamenti alla API di Scratch.",
         "unsharedProjectsWorkaround": "Per ovviare al problema, puoi condividere il progetto o salvarlo sul tuo computer (File > Salva sul tuo computer) e caricare il file nel packager. I file generati dal packager sono autosufficienti e non risentono di queste modifiche alla API di Scratch.",
         "url": "Altro URL"
     },

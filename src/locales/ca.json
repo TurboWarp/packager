@@ -84,7 +84,6 @@
         "projectIdHelp": "L'ID del projecte s'utilitza quan es connecta a un servidor de variables al núvol i s'emmagatzemen variables al núvol locasl. Pot contenir més que números.",
         "removeFencing": "Eliminar les limitacions de pantalla",
         "removeMiscLimits": "Treure límits miscel·lanis",
-        "resetAll": "Restableix tot",
         "runtimeOptions": "Opcions d'execució",
         "showFlag": "Mostra la bandera verda als controls",
         "showFullscreen": "Mostra el botó de pantalla completa",
@@ -115,8 +114,6 @@
     "p4": {
         "browserNotSupported": "Explorador no compatible",
         "browserNotSupportedDescription": "Si us plau, actualitza el teu navegador.",
-        "cannotAccessProject": "No podem accedir a les metadades del projecte. Això probablement vol dir que el projecte no s'ha publicat, no ha existit mai o que l'identificador no és correcte.",
-        "cannotAccessProjectCaching": "Si el projecte s'ha compartit recentment, aquest missatge pot trigar fins a una hora a desaparèixer.",
         "close": "Tanca",
         "description1": "Converteix projectes del Scratch en fitxers HTML, arxius zip o programes executables per el Windows, macOS i Linux.",
         "description2": "Si només busques una manera fàcil d'incorporar un projecte al teu lloc web, potser t'interessa {embedding}.",
@@ -128,7 +125,6 @@
         "donate": "Fes una donació",
         "errorMessage": "Missatge: {error}",
         "feedback": "Comentaris",
-        "fosshost": "Gràcies a Fosshost per proporcionar servidors utilitzats per el empaquetador",
         "importingInterface": "S'estan carregant les opcions...",
         "networkError": "No s'ha pogut baixar {url}. Assegura't que tens connectivitat a internet i prova de desactivar les extensions del explorador.",
         "outdated": "Aquesta versió del packager sembla estar obsoleta. Actualitza i torna-ho a intentar.",
@@ -166,8 +162,6 @@
         "select": "Selecciona projecte",
         "selectHelp": "Seleccioneu el projecte que voleu empaquetar copiant i enganxant l'enllaç del projecte Scratch o utilitzant un dels altres modes. Si utilitzeu un projecte que no heu fet, assegureu-vos de donar crèdit al creador.",
         "unsharedProjects": "Els projectes no compartits ja no són accessibles amb el seu ID a causa dels canvis de l'API de Scratch.",
-        "unsharedProjectsMore": "Per a més informació, visita: {link}",
-        "unsharedProjectsTemporary": "Els projectes no compartits ja no seran accessibles amb el seu ID en algun moment a causa dels propers canvis a l'API de Scratch.",
         "unsharedProjectsWorkaround": "En lloc d'això, pots compartir el projecte o desar-lo al teu ordinador (Fitxer > Desa a l'ordinador) i carregar el fitxer al empaquetador. Els fitxers generats pel empaquetador són totalment autònoms i no estan afectats per aquests canvis.",
         "url": "Un altre URL"
     },

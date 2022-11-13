@@ -46,6 +46,7 @@
         "customCSS": "Benutzerdefiniertes CSS (Nur ändern, wenn man weiß, was man tut!)",
         "customCursor": "Benutzerdefinierter Cursor",
         "customExtensions": "Benutzerdefinierte Erweiterungen (eine URL pro Zeile)",
+        "customExtensionsSecurity": "Benutzerdefinierte Erweiterungen werden immer außerhalb der Packager-Sandbox ausgeführt. Je nachdem, für welche Umgebung du paketisierst, ermöglicht dies Erweiterungen die volle Steuerung über deinen Computer, einschließlich der Möglichkeit, Viren zu installieren. Benutze keine Erweiterungen, denen du nicht vertraust.",
         "customJS": "Benutzerdefiniertes JS (Nur ändern, wenn man weiß, was man tut!)",
         "customUsernameWarning": "Sei beim Ändern des Standard-Benutzernamens vorsichtig, da dadurch Verbindungen mit dem Standardmäßigen Server blockiert werden könnten. Nur der standardmäßige Benutzername wird garantiert funktionieren.",
         "downloadsWillAppearHere": "Downloads weren hier erscheinen",
@@ -120,8 +121,6 @@
     "p4": {
         "browserNotSupported": "Dein Browser wird nicht unterstützt.",
         "browserNotSupportedDescription": "Bitte aktualisiere deinen Brower.",
-        "cannotAccessProject": "Kein Zugriff auf Projekt-Metadaten. Dies bedeutet wahrscheinlich, dass das Projekt nicht veröffentlicht, nicht existiert oder die ID ungültig ist.",
-        "cannotAccessProjectCaching": "Falls das Projekt erst vor Kurzem veröffentlicht wurde, könnte es bis zu einer Stunde dauern, bis diese Nachricht verschwindet.",
         "close": "Schließen",
         "description1": "Wandelt Scratch-Projekte in alleinstehende Dateien oder ausführbare Programme um.",
         "description2": "Falls du einfach ein Projekt in deine Website einbetten willst, könntest du in {embedding} interessiert sein.",
@@ -133,7 +132,6 @@
         "donate": "Spenden",
         "error": "Fehler",
         "errorMessage": "Nachricht: {error}",
-        "fosshost": "Danke an Fosshost für die vom Packager verwendeten Server.",
         "importingInterface": "Einstellungen werden geladen...",
         "networkError": "Fehler beim Herunterladen von {url}. Stelle sicher, dass du mit dem Internet verbunden bist und versuche, jegliche Browsererweiterungen auszuschalten.",
         "outdated": "Diese Packagerversion scheint veraltet zu sein. Bitte aktualisiere die Seite und versuche es erneut.",
@@ -171,8 +169,6 @@
         "select": "Projekt auswählen",
         "selectHelp": "Wähle das Projekt, das du paketisieren willst, indem du den Link dazu kopierst und einfügst oder einen der anderen Modi verwendest. Falls das Projekt jemand anderem gehört, vergewissere dich, dass du dich dafür bedankst.",
         "unsharedProjects": "Der Zugriff auf nicht veröffentlichte Projekte ist aufgrund von Änderungen in der Scratch-API nicht mehr möglich.",
-        "unsharedProjectsMore": "Mehr Informationen unter: {link}",
-        "unsharedProjectsTemporary": "Der Zugriff auf nicht veröffentlichte Projekte wird in Zukunft aufgrund von kommenden Änderungen in der Scratch-API nicht mehr möglich sein.",
         "unsharedProjectsWorkaround": "Du kannst stattdessen entweder das Projekt veröffentlichen oder es auf deinem Computer speichern (Datei > Auf deinem Computer speichern) und die Datei dann im Packager laden. Vom Packager generierte Dateien sind vollkommen selbstenthalten und nicht von diesen Änderungen betroffen.",
         "url": "Andere URL"
     },

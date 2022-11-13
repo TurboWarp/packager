@@ -85,7 +85,6 @@
         "projectIdHelp": "O ID do Projeto é usado ao conectar a um servidor de variáveis na nuvem e ao guardar variáveis na nuvem localmente. Ele não precisa ser um número.",
         "removeFencing": "Remover Borda",
         "removeMiscLimits": "Remover Outros Limites",
-        "resetAll": "Redefinir Todos",
         "runtimeOptions": "Opções de Execução",
         "showFlag": "Mostrar bandeira verde nos controles",
         "showFullscreen": "Mostrar botão de tela cheia nos controles",
@@ -113,8 +112,6 @@
     "p4": {
         "browserNotSupported": "Navegador incompatível",
         "browserNotSupportedDescription": "Por favor, atualize o seu navegador.",
-        "cannotAccessProject": "Não foi possível acessar os dados do projeto. Isto significa que o projeto está descompartilhado, nunca existiu, ou o ID é inválido.",
-        "cannotAccessProjectCaching": "Se o projeto foi compartilhado recentemente, demorará até uma hora para esta mensagem sumir.",
         "close": "Fechar",
         "description1": "Converte projetos do Scratch para arquivos HTML, ZIP, ou programas executáveis para Windows, macOS e Linux.",
         "description2": "Se você apenas quer um jeito fácil de colocar um projeto do TurboWarp no seu site, {embedding} pode ser de seu interesse. ",
@@ -125,7 +122,6 @@
         "documentation": "Recursos e ajuda adicionais",
         "error": "Erro",
         "errorMessage": "Mensagem: {error}",
-        "fosshost": "Agradecemos ao Fosshost por providenciar servidores usados pelo exportador.",
         "importingInterface": "Carregando opções...",
         "networkError": "Não foi possível baixar {url}. Verifique se está conectado a internet e tente desativar quaisquer extensão de navegador.",
         "outdated": "Esta versão do exportador aparenta estar desatualizada. Por favor, renicie a página e tente novamente.",
@@ -163,7 +159,6 @@
         "select": "Selecionar Projeto",
         "selectHelp": "Selecione o projeto que você quer exportar copiando e colando o link do projeto no Scratch ou usando um dos outros meios. Se você usar um projeto criado por outra pessoa, lembre-se de dar créditos ao autor.",
         "unsharedProjects": "Projetos não compartilhados não serão mais acessíveis através do ID do projeto devido a mudanças da API do Scratch.",
-        "unsharedProjectsMore": "Para mais informações, visite: {link}",
         "url": "Outro URL"
     },
     "theme": {

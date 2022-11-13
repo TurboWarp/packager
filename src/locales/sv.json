@@ -121,8 +121,6 @@
     "p4": {
         "browserNotSupported": "Webbläsaren stöds inte",
         "browserNotSupportedDescription": "Uppdatera din webbläsare.",
-        "cannotAccessProject": "Kan inte åtkomma projektets metadata. Det troligt betyder att projektet är inte delat, aldrig funnits eller att ID:et är fel.",
-        "cannotAccessProjectCaching": "Om projektet var delat nyligen så kommer det ta upp till en timme för detta meddelande att gå bort.",
         "close": "Stäng",
         "description1": "Konverterar Scratch projekt till HTML filer, zip arkiv eller program som kan köras på Windows, MacOS och Linux.",
         "description2": "Om du vill ha det lätt att bifoga ett projekt till don webbsida så kommer du kanske vara intresserad i {embedding}",
@@ -135,7 +133,6 @@
         "error": "Fel",
         "errorMessage": "Meddelande: {error}",
         "feedback": "Respons",
-        "fosshost": "Tack till Fosshost för tillhandahållande av servrar som används av paketeraren",
         "importingInterface": "Laddar alternativ...",
         "networkError": "Kunde inte ladda ned {url}. Titta om du har internet och försök att avaktivera tillägg i webbläsaren.",
         "outdated": "Denna version av paketeraren ser ut som vara gammal. Ladda om och försök igen.",
@@ -173,8 +170,6 @@
         "select": "Välj Projekt",
         "selectHelp": "Välj projektet du vill paketera genom att kopiera och klistra in projektets Scratch link eller att använda ett annat läge. Om du använder ett projekt du inte gjorde, se till att kreditera skaparen.",
         "unsharedProjects": "Odelade projekt kommer inte vara tillgängliga med deras ID på grund av Scratch API ändringar.",
-        "unsharedProjectsMore": "För mer information se: {link}",
-        "unsharedProjectsTemporary": "Odelade projekt kommer inte vara tillgängliga med deras ID på grund av Scratch API ändringar någon gång i framtiden.",
         "unsharedProjectsWorkaround": "Istället kan du dela projektet eller spara projektet till din dator (Filer > Spara till din dator) och ladda file i paketeraren. Filer genererade från paketeraren är helt fristående och påverkas inte av dessa förändringar.",
         "url": "Annan URL"
     },
