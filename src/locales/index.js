@@ -31,6 +31,8 @@ const allMessages = {
   /*===*/
 };
 
+const KNOWN_GOOD_LANGUAGES = ['en', 'es', 'ja', 'nl', 'it', 'sl'];
+
 const supportedLocales = {};
 // Iterate over localeNames to preserve order
 for (const key of Object.keys(localeNames)) {
@@ -42,7 +44,7 @@ for (const key of Object.keys(localeNames)) {
 const getInitialLocale = () => [
   navigator.language.toLowerCase(),
   navigator.language.toLowerCase().split('-')[0]
-].find(i => allMessages[i]) || 'en';
+].find(i => KNOWN_GOOD_LANGUAGES.includes(i) && allMessages[i]) || 'en';
 
 const locale = writablePersistentStore('P4.locale', getInitialLocale());
 locale.subscribe((lang) => {
