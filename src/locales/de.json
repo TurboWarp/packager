@@ -26,6 +26,7 @@
         "autoplay": "Projekt automatisch starten, anstatt eine große grüne Flagge zu zeigen",
         "autoplayHint": "Anmerkung: Viele Browser lassen das automatische Abspielen von Ton nicht zu, deshalb könnten Klänge nicht abgespielt werden, bis der Nutzer mit dem Projekt interagiert.",
         "backgroundColor": "Hintergrundfarbe",
+        "bakeExtensions": "Versuche, gecachte Kopien von benutzerdefinierten Erweiterungen einzubetten, anstatt sie bei jeder Ausführung des Projekts neu herunterzuladen",
         "closeWhenStopped": "Fenster schließen, wenn das Projekt gestoppt wird",
         "cloudVariables": "Cloudvariablen",
         "cloudVariables-custom": "Erweitert",
@@ -38,7 +39,7 @@
         "cloudVariables-ws-help": "\"Mit Cloudvariablenserver verbinden\" synchronisiert Variablen mit anderen Benutzern.",
         "cloudVariablesHost": "Cloud-Host",
         "colors": "Farben",
-        "confirmImportUnsafe": "Diese Einstellungen benutzen fortgeschrittene Funktion wie den einstellbaren JS, der möglicherweise unbekannt schädlichen Code auf deinem Computer ausführt. Importiere diese Datei nur, wenn du der Person, die diese Datei erstellt hat vertraut",
+        "confirmImportUnsafe": "Diese Einstellungen benutzen fortgeschrittene Funktionen wie benutzerdefiniertes JS, der unbekannten und möglicherweise schädlichen Code auf deinem Computer ausführt. Importiere diese Datei nur, wenn du der Person, die diese Datei erstellt hat, vertraust.",
         "controls": "Steuerelemente",
         "controlsHelp": "Falls alle Steuerelemente deaktiviert sind, wird die Steuerungsleiste komplett entfernt. Falls nur der Vollbildknopf aktiviert ist, wird er nicht im Steuerungsheader, sondern oben links platziert.",
         "cursorCenter": "Cursormitte:",
@@ -82,6 +83,7 @@
         "package": "Paketisieren",
         "packageName": "Paketname",
         "packageNameHelp": "Der Paketname sollte ein Name sein, der nur für deine Anwendung verwendet wird. Das Paket sollte immer denselben Namen haben wie das Projekt.",
+        "packagedRuntime": "Ressourcendaten nach Laden löschen, um RAM zu sparen",
         "pageTitle": "Seitentitel",
         "playerOptions": "Player-Optionen",
         "pointerlock": "Mauscursor blockieren",
@@ -113,7 +115,7 @@
         "unsafeCloudBehaviors": "Zusätzliche unsichere Cloud-Verhaltensweisen",
         "unsafeCloudBehaviorsWarning": "Unsichere Cloud-Verhaltensweisen ermöglichen es dem paketisierten Projekt, beliebigen Code außerhalb der \"Sandbox\" auszuführen, in der Projekte normalerweise ausgeführt werden. Abhängig von der Umgebung, für die du paketisierst, bietet dies die volle Kontrolle über deinen Computer, einschließlich der Möglichkeit, Viren zu installieren. Wenn du dem paketisierten Projekt nicht vertraust, deaktiviere diese Option.",
         "username": "Benutzername (alle \"#\" werden mit einer zufälligen Zahl ersetzt)",
-        "variableColor": "Variablenfarbe#",
+        "variableColor": "Variablenfarbe",
         "versionHelp": "Die Version zu aktualisieren ist vollkommen optional und hat keinen Einfluss auf das Verhalten des Projekts. Sie könnte je nach Umgebung auf Orten wie Informationsfenstern erscheinen.",
         "zip": "Zip (ideal für Websites)",
         "zip-one-asset": "Zip, Ressourcen in einer einzelnen Datei kombinieren (nicht empfohlen)"
@@ -121,6 +123,8 @@
     "p4": {
         "browserNotSupported": "Dein Browser wird nicht unterstützt.",
         "browserNotSupportedDescription": "Bitte aktualisiere deinen Brower.",
+        "cannotAccessProject": "Kein Zugriff auf Projekt-Token. Dies bedeutet normalerweise, dass das Projekt nicht veröffentlicht ist, nicht existiert, die ID ungültig ist oder dein Netzwerk turbowarp.org blockiert.",
+        "cannotAccessProjectCaching": "Falls das Projekt erst vor kurzem veröffentlicht wurde, könnte es ein paar Minuten dauern, bis diese Nachricht nicht mehr erscheint.",
         "close": "Schließen",
         "description1": "Wandelt Scratch-Projekte in alleinstehende Dateien oder ausführbare Programme um.",
         "description2": "Falls du einfach ein Projekt in deine Website einbetten willst, könntest du in {embedding} interessiert sein.",
@@ -146,6 +150,7 @@
     },
     "progress": {
         "compressingProject": "Projekt wird komprimiert",
+        "downloadingExtensions": "Benutzerdefinierte Erweiterungen werden heruntergeladen",
         "loadingAssets": "Ressourcen werden heruntergeladen ({complete}/{total})",
         "loadingLargeAsset": "{thing} wird heruntergeladen",
         "loadingProjectData": "Projektdaten werden heruntergeladen",
@@ -169,6 +174,7 @@
         "select": "Projekt auswählen",
         "selectHelp": "Wähle das Projekt, das du paketisieren willst, indem du den Link dazu kopierst und einfügst oder einen der anderen Modi verwendest. Falls das Projekt jemand anderem gehört, vergewissere dich, dass du dich dafür bedankst.",
         "unsharedProjects": "Der Zugriff auf nicht veröffentlichte Projekte ist aufgrund von Änderungen in der Scratch-API nicht mehr möglich.",
+        "unsharedProjectsMore": "Mehr Infos und Alternativen auf {link}.",
         "unsharedProjectsWorkaround": "Du kannst stattdessen entweder das Projekt veröffentlichen oder es auf deinem Computer speichern (Datei > Auf deinem Computer speichern) und die Datei dann im Packager laden. Vom Packager generierte Dateien sind vollkommen selbstenthalten und nicht von diesen Änderungen betroffen.",
         "url": "Andere URL"
     },

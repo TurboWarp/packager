@@ -26,6 +26,7 @@
         "autoplay": "Inizia il progetto automaticamente, senza mostrare la bandiera verde al centro",
         "autoplayHint": "Nota: Alcuni browser non permettono ai siti web di riprodurre automaticamente suoni, quindi i suoni non verranno riprodotti fino a che l'utente non interagirà con il progetto.",
         "backgroundColor": "Colore sfondo",
+        "bakeExtensions": "Prova a includere una copia cache delle estensioni personali invece di scaricarle ogni volta che il progetto viene eseguito",
         "closeWhenStopped": "Chiudi la finestra quando il progetto termina",
         "cloudVariables": "Variabili Cloud",
         "cloudVariables-custom": "Impostazioni Avanzate",
@@ -80,6 +81,7 @@
         "package": "Pacchetto",
         "packageName": "Nome pacchetto",
         "packageNameHelp": "Il nome del pacchetto deve essere un nome unico usato solo dalla tua applicazione. Lo stesso progetto dovrebbe avere sempre lo stesso nome per il pacchetto.",
+        "packagedRuntime": "Rimuovi i dati grezzi delle risorse dopo il caricamento per risparmiare RAM",
         "pageTitle": "Titolo della pagina",
         "playerOptions": "Opzioni Player",
         "pointerlock": "Blocca puntatore del mouse",
@@ -119,6 +121,8 @@
     "p4": {
         "browserNotSupported": "Browser non supportato",
         "browserNotSupportedDescription": "Ti preghiamo di aggiornare il tuo browser.",
+        "cannotAccessProject": "Impossibile accedere al token del progetto. Il progetto potrebbe non essere condiviso, non esistere, l'ID potrebbe non essere corretto o la tua rete potrebbe bloccare l'indirizzo turbowarp.org.",
+        "cannotAccessProjectCaching": "Se il progetto è stato condiviso da poco, potrebbero essere necessari alcuni minuti prima che questo messaggio scompaia.",
         "close": "Chiudi",
         "description1": "Converte i progetti Scratch in file HTML, archivi zip o programmi eseguibili per Windows, macOS e Linux.",
         "description2": "Se cerchi un modo semplice di includere un progetto nel tuo sito web puoi essere interessato all' {embedding}.",
@@ -144,6 +148,7 @@
     },
     "progress": {
         "compressingProject": "Compressione progetto",
+        "downloadingExtensions": "Scaricamento delle estensioni personali",
         "loadingAssets": "Scaricamento risorse ({complete}/{total})",
         "loadingLargeAsset": "Scaricamento di {thing}",
         "loadingProjectData": "Scaricamento dei dati del progetto",
@@ -166,6 +171,7 @@
         "select": "Seleziona il Progetto",
         "selectHelp": "Seleziona il progetto che vuoi pacchettizzare copiando e incollando il link del progetto Scratch o usando uno degli altri metodi. Se usi un progetto che non hai creato tu stesso assicurati di dare il giusto credito.",
         "unsharedProjects": "I progetti non convidisi, a causa di cambiamenti alla API di Scratch, non sono più accessibili.",
+        "unsharedProjectsMore": "Per ulteriori informazioni e soluzioni vai a {link}",
         "unsharedProjectsWorkaround": "Per ovviare al problema, puoi condividere il progetto o salvarlo sul tuo computer (File > Salva sul tuo computer) e caricare il file nel packager. I file generati dal packager sono autosufficienti e non risentono di queste modifiche alla API di Scratch.",
         "url": "Altro URL"
     },

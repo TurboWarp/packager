@@ -26,6 +26,7 @@
         "autoplay": "Project automatisch starten in plaats van een grote groene vlag laten zien",
         "autoplayHint": "Opmerking: Veel browsers laten websites niet automatisch geluid afspelen, dus geluiden spelen soms niet af totdat de gebruiker iets doet met het project.",
         "backgroundColor": "Achtergrondkleur",
+        "bakeExtensions": "Proberen om gecachte kopie van aangepaste extensies in te voegen in plaats van ze elke keer dat het project wordt uitgevoerd te downloaden",
         "closeWhenStopped": "Venster sluiten wanneer project stopt",
         "cloudVariables": "Cloudvariabelen",
         "cloudVariables-custom": "Geavanceerd",
@@ -82,6 +83,7 @@
         "otherEnvironmentsHelp": "De meeste nieuwe projecten zouden in plaats daarvan de opties hierboven vermeld moeten gebruiken.",
         "packageName": "Packagenaam",
         "packageNameHelp": "Packagenaam moet een unieke naam zijn die alleen wordt gebruikt door jouw applicatie. Hetzelfde project moet altijd hetzelfde packagenaam hebben.",
+        "packagedRuntime": "Onbewerkte onderdelendata verwijderen na het laden om RAM te besparen",
         "pageTitle": "Paginatitel",
         "playerOptions": "Speleropties",
         "pointerlock": "Muisaanwijzer vergrendelen",
@@ -149,6 +151,7 @@
     },
     "progress": {
         "compressingProject": "Project aan het comprimeren",
+        "downloadingExtensions": "Aangepaste extensies downloaden",
         "loadingAssets": "Onderdelen downloaden ({complete}/{total})",
         "loadingLargeAsset": "{thing} aan het downloaden",
         "loadingProjectData": "Projectgegevens aan het downloaden",

@@ -122,6 +122,7 @@
     "p4": {
         "browserNotSupported": "Navegador no compatible",
         "browserNotSupportedDescription": "Por favor actualice su navegador.",
+        "cannotAccessProjectCaching": "Si el proyecto ha sido compartido recientemente, podría tardar algunos minutos para que se vaya este mensaje.",
         "close": "Cerrar",
         "description1": "Convierte proyectos de Scratch a archivos HTML, zip o programas ejecutables para Windows, macOS y Linux.",
         "description2": "Si simplemente quiere una manera fácil de incrustar un proyecto en una página web, podría estar interesado en {embedding}.",
