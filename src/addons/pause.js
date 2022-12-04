@@ -10,11 +10,15 @@ export default function ({ scaffolding }) {
   let paused = false;
   let pausedThreadState = new WeakMap();
 
+  let audioContextStateChange = Promise.resolve();
+
   const setPaused = (_paused) => {
     paused = _paused;
 
     if (paused) {
-      vm.runtime.audioEngine.audioContext.suspend();
+      audioContextStateChange = audioContextStateChange.then(() => {
+        return vm.runtime.audioEngine.audioContext.suspend();
+      });
       if (!vm.runtime.ioDevices.clock._paused) {
         vm.runtime.ioDevices.clock.pause();
       }
@@ -34,7 +38,9 @@ export default function ({ scaffolding }) {
       // Scratch will do this automatically, but there may be a slight delay.
       vm.runtime.emit("PROJECT_RUN_STOP");
     } else {
-      vm.runtime.audioEngine.audioContext.resume();
+      audioContextStateChange = audioContextStateChange.then(() => {
+        return vm.runtime.audioEngine.audioContext.resume();
+      });
       vm.runtime.ioDevices.clock.resume();
 
       const now = Date.now();
