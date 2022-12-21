@@ -26,6 +26,7 @@
         "autoplay": "Starta projektet automatiskt istället för att visa en stor grön flagga",
         "autoplayHint": "Observera: Många webbläsare kommer inte att tillåta webbsidor att spela ljud, så ljud kanske inte spelas upp förrän användaren interagerar med projektet.",
         "backgroundColor": "Bakgrundsfärg",
+        "bakeExtensions": "Försök att bädda in kopian av anpassade tillägg istället för att ladda ner dem varje gång projektet körs",
         "closeWhenStopped": "Stäng fönstret när projektet stoppar",
         "cloudVariables": "Molnvariabler",
         "cloudVariables-custom": "Avancerat",
@@ -46,6 +47,7 @@
         "customCSS": "Anpassad CSS (Ändra inte om du inte vet vad du gör)",
         "customCursor": "Anpassad muspekare",
         "customExtensions": "Anpassade tillägg (ett URL per linje)",
+        "customExtensionsSecurity": "Anpassade tillägg är alltid körda utan sandlåda i paketeraren. Beroende på miljön som du packar för kommer detta garantera full kotroll över din dator, även förmågan att installera virus. Använd inte tillägg som du inte litar på.",
         "customJS": "Anpassad JS (Ändra inte om du inte vet vad du gör)",
         "customUsernameWarning": "Var försiktig när du ändrar standardanvändarnamnet eftersom det kan göra att anslutningar till standardmolnvariabelservern blockeras. Endast standardanvändarnamnet är garanterat att fungera.",
         "downloadsWillAppearHere": "Nedladdningar visas här",
@@ -82,6 +84,7 @@
         "package": "Paket",
         "packageName": "Paketets namn",
         "packageNameHelp": "Paketets namn ska vara ett unikt namn använt bara av din applikation. Samma projekt ska ha samma namn på paketet.",
+        "packagedRuntime": "Ta bort rå tillgångsdata efter laddning för att spara RAM",
         "pageTitle": "Sidans namn",
         "playerOptions": "Spelaralternativ",
         "pointerlock": "Lås muspekaren",
@@ -121,6 +124,8 @@
     "p4": {
         "browserNotSupported": "Webbläsaren stöds inte",
         "browserNotSupportedDescription": "Uppdatera din webbläsare.",
+        "cannotAccessProject": "Kan inte åtkomma projektens token. Detta betyder främst att projektet är odelat, aldrig existerade, eller är ID:et felaktigt, eller blockerar ditt nätverk turbowarp.org.",
+        "cannotAccessProjectCaching": "Om projektet har varigt delat nyligen så kommer det ta några minuter för detta meddelande att gå bort",
         "close": "Stäng",
         "description1": "Konverterar Scratch projekt till HTML filer, zip arkiv eller program som kan köras på Windows, MacOS och Linux.",
         "description2": "Om du vill ha det lätt att bifoga ett projekt till don webbsida så kommer du kanske vara intresserad i {embedding}",
@@ -147,6 +152,7 @@
     },
     "progress": {
         "compressingProject": "Kompressar projekt",
+        "downloadingExtensions": "Laddar ned anpassade tillägg",
         "loadingAssets": "Hämtar tillgångar({complete}/{total})",
         "loadingLargeAsset": "Laddar ned {thing}",
         "loadingProjectData": "Hämtar projektdata",
@@ -170,6 +176,7 @@
         "select": "Välj Projekt",
         "selectHelp": "Välj projektet du vill paketera genom att kopiera och klistra in projektets Scratch link eller att använda ett annat läge. Om du använder ett projekt du inte gjorde, se till att kreditera skaparen.",
         "unsharedProjects": "Odelade projekt kommer inte vara tillgängliga med deras ID på grund av Scratch API ändringar.",
+        "unsharedProjectsMore": "För mer information och omvägar, besök: {link}",
         "unsharedProjectsWorkaround": "Istället kan du dela projektet eller spara projektet till din dator (Filer > Spara till din dator) och ladda file i paketeraren. Filer genererade från paketeraren är helt fristående och påverkas inte av dessa förändringar.",
         "url": "Annan URL"
     },
