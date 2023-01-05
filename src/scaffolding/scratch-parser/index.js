@@ -1,8 +1,21 @@
-var pify = require('pify');
+const promisify = (functionWithCallback) => (...args) => new Promise((resolve, reject) => {
+    functionWithCallback(...args, (err, result) => {
+        if (err) {
+            if (typeof err === 'string') {
+                // This will at least give a partial error stack.
+                reject(new Error(err));
+            } else {
+                reject(err);
+            }
+        } else {
+            resolve(result);
+        }
+    });
+});
 
-var unpack = pify(require('./lib/unpack'));
-var parse = pify(require('./lib/parse'));
-var validate = pify(require('./lib/validate'));
+var unpack = promisify(require('./lib/unpack'));
+var parse = promisify(require('./lib/parse'));
+var validate = promisify(require('./lib/validate'));
 
 module.exports = function (input, isSprite, callback) {
     unpack(input, isSprite)
