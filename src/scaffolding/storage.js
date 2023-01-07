@@ -1,6 +1,6 @@
 import ScratchStorage from 'scratch-storage';
 
-class Storage extends ScratchStorage {
+class StorageWithProgress extends ScratchStorage {
   constructor () {
     super();
 
@@ -16,22 +16,22 @@ class Storage extends ScratchStorage {
 
   load (assetType, asset, assetFormat) {
     const isAsset = (
-      assetType === ScratchStorage.AssetType.ImageBitmap ||
-      assetType === ScratchStorage.AssetType.ImageVector ||
-      assetType === ScratchStorage.AssetType.Sound
+      assetType === this.AssetType.ImageBitmap ||
+      assetType === this.AssetType.ImageVector ||
+      assetType === this.AssetType.Sound
     );
     if (isAsset) {
       this._totalAssets++;
       this._updateProgress();
       return super.load(assetType, asset, assetFormat)
-        .then((asset) => {
+        .then((loadedAsset) => {
           this._loadedAssets++;
           this._updateProgress();
-          return asset;
+          return loadedAsset;
         });
     }
     return super.load(assetType, asset, assetFormat);
   }
 }
 
-export default Storage;
+export default StorageWithProgress;
