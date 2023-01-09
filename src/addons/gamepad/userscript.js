@@ -100,7 +100,7 @@ export default async function (scaffolding, pointerlock) {
   const gamepad = new GamepadLib();
 
   const parsedOptions = parseOptionsComment();
-  gamepad.getHintsLazily = () => {
+  gamepad.getUserHints = () => {
     if (parsedOptions) {
       return {
         importedSettings: parsedOptions,
