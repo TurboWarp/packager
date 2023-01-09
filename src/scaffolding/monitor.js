@@ -174,6 +174,10 @@ class VariableMonitor extends Monitor {
   setVariableValue (value) {
     const variable = this.getVmVariable();
     variable.value = value;
+    if (variable.isCloud) {
+      const runtime = this.parent.vm.runtime;
+      runtime.ioDevices.cloud.requestUpdateVariable(variable.name, variable.value);
+    }
     this._value = value;
     this.valueElement.textContent = value;
   }
