@@ -1,9 +1,9 @@
 <script>
-  import {locale, supportedLocales} from '../locales/index';
+  import {locale, localeNames} from '../locales/index';
 </script>
 
 <select bind:value={$locale}>
-  {#each Object.entries(supportedLocales) as [locale, name]}
-    <option value={locale}>{name}</option>
+  {#each Object.entries(localeNames) as [locale, name]}
+    <option value={locale}>{name || locale}</option>
   {/each}
 </select>

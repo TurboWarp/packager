@@ -32,15 +32,6 @@ const allMessages = {
 };
 
 const KNOWN_GOOD_LANGUAGES = ['en', 'es', 'ja', 'nl', 'it', 'sl'];
-
-const supportedLocales = {};
-// Iterate over localeNames to preserve order
-for (const key of Object.keys(localeNames)) {
-  if (allMessages[key]) {
-    supportedLocales[key] = localeNames[key];
-  }
-}
-
 const getInitialLocale = () => [
   navigator.language.toLowerCase(),
   navigator.language.toLowerCase().split('-')[0]
@@ -80,6 +71,6 @@ const translate = derived(locale, (locale) => {
 
 export {
   locale,
-  supportedLocales,
+  localeNames,
   translate as _
 };
