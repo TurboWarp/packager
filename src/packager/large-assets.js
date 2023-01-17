@@ -62,9 +62,9 @@ export default {
     estimatedSize: 90635371
   },
   'webview-mac': {
-    src: externalFile('WebView-macos-4.zip'),
-    sha256: '580489b789b020e900417fabbe192abe24974555923c9d9280a723d2ad104314',
-    estimatedSize: 3537286
+    src: externalFile('WebView-macos-5.zip'),
+    sha256: 'b5636571cd9be2aae2f6dac1ab090fdf829c8fdfe91f462cc2feb2d324705f9f',
+    estimatedSize: 3425601
   },
   scaffolding: {
     src: relativeScaffolding('scaffolding-full.js'),
