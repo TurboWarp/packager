@@ -127,4 +127,9 @@ class ViewController: NSViewController, WKNavigationDelegate, WKUIDelegate, WKSc
 //        This code prevents WKWebView from showing an additional permission prompt each time.
         decisionHandler(WKPermissionDecision.grant)
     }
+    
+    func webViewDidClose(_ webView: WKWebView) {
+//        Implements window.close()
+        self.view.window?.close();
+    }
 }
