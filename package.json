@@ -52,7 +52,7 @@
     "file-loader": "^6.2.0",
     "html-webpack-plugin": "^4.5.2",
     "jest": "^27.4.5",
-    "rimraf": "^2.7.1",
+    "rimraf": "^4.1.0",
     "scratch-audio": "git+https://github.com/TurboWarp/scratch-audio.git",
     "scratch-render": "git+https://github.com/TurboWarp/scratch-render.git#develop",
     "scratch-render-fonts": "^1.0.0-prerelease.20210401210003",
