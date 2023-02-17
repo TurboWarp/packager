@@ -1,11 +1,10 @@
-// Currently, the optimization here is intentionally not optimal
-// We had some corruption problems in the past that we are trying to avoid
+// TODO: Extract this and TurboWarp/scratch-vm's compression to a shared module
 
-const SOUP = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!#%()*+,-./:;=?@[]^_`{|}~';
+// We don't generate new IDs using numbers at this time because their enumeration
+// order can affect script execution order as they always come first.
+// https://tc39.es/ecma262/#sec-ordinaryownpropertykeys
+const SOUP = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!#%()*+,-./:;=?@[]^_`{|}~';
 const generateId = i => {
-  // IDs in Object.keys(vm.runtime.monitorBlocks._blocks) already have meaning, so make sure to skip those
-  // We don't bother listing many here because most would take more than ten million items to be used
-  if (i > 1309) i++; // of
   let str = '';
   while (i >= 0) {
     str = SOUP[i % SOUP.length] + str;
@@ -18,6 +17,13 @@ class Pool {
   constructor() {
     this.generatedIds = new Map();
     this.references = new Map();
+    this.skippedIds = new Set();
+    // IDs in Object.keys(vm.runtime.monitorBlocks._blocks) already have meaning, so make sure to skip those
+    // We don't bother listing many here because most would take more than ten million items to be used
+    this.skippedIds.add('of');
+  }
+  skip (id) {
+    this.skippedIds.add(id);
   }
   addReference(id) {
     const currentCount = this.references.get(id) || 0;
@@ -27,15 +33,26 @@ class Pool {
     const entries = Array.from(this.references.entries());
     // The most used original IDs should get the shortest new IDs.
     entries.sort((a, b) => b[1] - a[1]);
-    for (let i = 0; i < entries.length; i++) {
-      this.generatedIds.set(entries[i][0], generateId(i));
+
+    let i = 0;
+    for (const entry of entries) {
+      const oldId = entry[0];
+
+      let newId = generateId(i);
+      while (this.skippedIds.has(newId)) {
+        i++;
+        newId = generateId(i);
+      }
+
+      this.generatedIds.set(oldId, newId);
+      i++;
     }
   }
   getNewId(originalId) {
     if (this.generatedIds.has(originalId)) {
       return this.generatedIds.get(originalId);
     }
-    throw new Error(`getNewId called with unknown ID ${originalId}`);
+    return originalId;
   }
 }
 
