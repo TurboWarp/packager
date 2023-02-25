@@ -518,19 +518,14 @@ class Scaffolding extends EventTarget {
     return variable;
   }
 
-  setExtensionSecurityManager ({getSandboxMode, canLoadExtensionFromProject}) {
+  setExtensionSecurityManager (newManager) {
     const securityManager = this.vm.extensionManager.securityManager;
     if (!securityManager) {
       console.warn('setExtensionSecurityManager not supported: there is no security manager');
       return;
     }
-
-    if (typeof getSandboxMode !== 'undefined') {
-      securityManager.getSandboxMode = wrapAsFunctionIfNotFunction(getSandboxMode);
-    }
-
-    if (typeof canLoadExtensionFromProject !== 'undefined') {
-      securityManager.canLoadExtensionFromProject = wrapAsFunctionIfNotFunction(canLoadExtensionFromProject);
+    for (const [methodName, fn] of Object.entries(newManager)) {
+      securityManager[methodName] = wrapAsFunctionIfNotFunction(fn);
     }
   }
 
