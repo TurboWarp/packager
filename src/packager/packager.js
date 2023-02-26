@@ -1012,7 +1012,11 @@ cd "$(dirname "$0")"
         const url = urlsToFetch[i];
         try {
           const source = await Adapter.fetchExtensionScript(url);
-          const dataURI = `data:text/javascript;,${encodeURIComponent(source)}`;
+          // Wrap the extension in an IIFE so that extensions written for the sandbox are less
+          // likely to cause issues in an unsandboxed environment due to global pollution or
+          // overriding Scratch.*
+          const wrappedSource = `(function(Scratch) { ${source} })(Scratch);`
+          const dataURI = `data:text/javascript;,${encodeURIComponent(wrappedSource)}`;
           finalURLs.push(dataURI);
         } catch (e) {
           finalURLs.push(url);
