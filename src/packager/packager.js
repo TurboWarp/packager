@@ -1148,7 +1148,6 @@ cd "$(dirname "$0")"
       width: 2rem;
       height: 2rem;
       padding: 0.375rem;
-      border-radius: 0.25rem;
       margin-top: 0.5rem;
       margin-bottom: 0.5rem;
       user-select: none;
