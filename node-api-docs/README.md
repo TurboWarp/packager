@@ -62,7 +62,7 @@ const projectData = fs.readFileSync('project.sb3');
 // or fetch a shared Scratch project:
 const fetch = require('cross-fetch').default; // or whatever your favorite HTTP library is
 const id = '437419376';
-const projectMetadata = await (await fetch(`https://trampoline.turbowarp.org/proxy/projects/${id}`)).json();
+const projectMetadata = await (await fetch(`https://trampoline.turbowarp.org/api/projects/${id}`)).json();
 const token = projectMetadata.project_token;
 const projectData = await (await fetch(`https://projects.scratch.mit.edu/${id}?token=${token}`)).arrayBuffer();
 ```
