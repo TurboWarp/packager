@@ -60,7 +60,7 @@ module.exports.pitch = function (request) {
         };
         const onError = () => {
           cleanup();
-          reject(new Error(${JSON.stringify(`Worker ${file} failed to load.`)}));
+          reject(new Error(${JSON.stringify(`Worker ${file} failed to load. Usually this will be fixed after refreshing.`)}));
         };
         const cleanup = () => {
           worker.removeEventListener('message', onMessage);
