@@ -1,6 +1,7 @@
 {
     "downloads": {
-        "link": "Pobierz {filename} ({size})"
+        "link": "Pobierz {filename} ({size})",
+        "useWorkaround": "Kliknij tutaj, jeśli link pobierania nie działa"
     },
     "fileInput": {
         "clear": "Wyczyść Zaznaczenie",
@@ -143,6 +144,8 @@
         "packagingProject": "Pakowanie projektu"
     },
     "reset": {
+        "confirm": "Jesteś pewien, że chcesz zresetować te ustawienia? Tej czynności nie można cofnąć.",
+        "confirmAll": "Jesteś pewien, że chcesz zresetować WSZYSTKIE ustawienia? Tej czynności nie można cofnąć.",
         "reset": "Resetuj"
     },
     "select": {

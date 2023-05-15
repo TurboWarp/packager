@@ -9,7 +9,9 @@
         "selected": "Selecionado {file}"
     },
     "import": {
-        "cancel": "Cancelar"
+        "cancel": "Cancelar",
+        "description": "Talvez levará um tempo se o projeto for grande.",
+        "header": "Importando projeto..."
     },
     "options": {
         "accentColor": "Cor de destaque (controles ativos/em foco, caixa de pergunta, menus de contexto)",
@@ -24,6 +26,7 @@
         "autoplay": "Começar projeto automaticamente ao invés de mostrar a bandeira verde",
         "autoplayHint": "Nota: Muitos navegadores não permitem que websites toquem sons automaticamente, então pode ser que os sons não toquem até que o usuário interaja com o projeto.",
         "backgroundColor": "Cor de fundo",
+        "bakeExtensions": "Tente incorporar uma cópia em cache de extensões personalizadas em vez de baixá-las toda vez que o projeto for executado",
         "closeWhenStopped": "Fechar a janela quando projeto parar",
         "cloudVariables": "Variáveis na nuvem",
         "cloudVariables-custom": "Avançado",
@@ -36,6 +39,7 @@
         "cloudVariables-ws-help": "\"Conectar a servidor de variáveis na nuvem\" sincroniza as variáveis com outros usuários.",
         "cloudVariablesHost": "Hospedagem Cloud",
         "colors": "Cores",
+        "confirmImportUnsafe": "Essas configurações usam recursos avançados, como JavaScript personalizado, que executa códigos desconhecidos e possivelmente maliciosos em seu computador. Importe este arquivo somente se você confia na pessoa que o criou. Se você não tem certeza do que isso significa, provavelmente não deverá importar essas configurações.",
         "controls": "Controles",
         "controlsHelp": "Se todos os controles forem desativados, a barra de controle é completamente removida. Se só o botão de tela cheia for ativado, ele aparecerá no canto superior esquerdo ao invés na barra de controles.",
         "cursorCenter": "Centro do cursor:",
@@ -43,6 +47,7 @@
         "customCSS": "CSS customizado (Não mude caso não souber o que está fazendo!)",
         "customCursor": "Cursor customizado",
         "customExtensions": "Extensões customizadas (um URL por linha)",
+        "customExtensionsSecurity": "As extensões personalizadas são sempre executadas fora do sandbox no exportador. Dependendo do dispositivo para o qual você está o exportando, isso concede às extensões controle total sobre o seu computador, incluindo a capacidade de instalar vírus. Não use extensões nas quais você não confia.",
         "customJS": "JS customizado (Não mude caso não souber o que está fazendo!)",
         "customUsernameWarning": "Seja cuidadoso ao trocar o nome de usuário padrão pois ele pode ser bloqueado de se conectar ao servidor de nuvem padrão. Apenas o nome de usuário padrão é garantido de funcionar.",
         "downloadsWillAppearHere": "Downloads aparecerão aqui",
@@ -50,6 +55,7 @@
         "editableLists": "Listas editáveis",
         "enableCompiler": "Ativar Compilador",
         "environment": "Ambiente",
+        "export": "Exportar Configurações",
         "foregroundColor": "Cor principal (barra de carregamento, alguns ícones e textos)",
         "gamepad": "Suporte a controles de videogame USB ou Bluetooth",
         "gamepadHelp": "Baseado no addon \"Suporte para controle\".",
@@ -57,10 +63,12 @@
         "html": "Arquivo HTML (pode ser rodado localmente ou na web)",
         "icon": "Ícone da página",
         "implicitCloudHint": "Atenção: Toda variável com o nome que começa com \"{cloud}\" será convertida em variável na nuvem, não importando se ela estiver marcada como tal.",
+        "import": "Importar Configurações",
         "infiniteClones": "Clones Infinitos",
         "interaction": "Controles",
         "interpolation": "Interpolação",
         "learnMore": "Saiba mais",
+        "listColor": "Cor da lista",
         "loadingScreen": "Tela de Carregamento",
         "loadingScreenImage": "Imagem da tela de carregamento",
         "loadingScreenText": "Texto da tela de carregamento",
@@ -75,6 +83,7 @@
         "package": "Exportar",
         "packageName": "Nome de pacote",
         "packageNameHelp": "O nome de pacote deve ser um nome único usado exclusivamente para o seu aplicativo. O mesmo projeto deve sempre ter o mesmo nome de pacote.",
+        "packagedRuntime": "Remova os dados de arquivos brutos após o carregamento para economizar RAM",
         "pageTitle": "Título da página",
         "playerOptions": "Opções do Player",
         "pointerlock": "Bloquear o cursor",
@@ -85,6 +94,7 @@
         "projectIdHelp": "O ID do Projeto é usado ao conectar a um servidor de variáveis na nuvem e ao guardar variáveis na nuvem localmente. Ele não precisa ser um número.",
         "removeFencing": "Remover Borda",
         "removeMiscLimits": "Remover Outros Limites",
+        "resetAll": "Redefinir Todas Configurações",
         "runtimeOptions": "Opções de Execução",
         "showFlag": "Mostrar bandeira verde nos controles",
         "showFullscreen": "Mostrar botão de tela cheia nos controles",
@@ -106,12 +116,16 @@
         "unsafeCloudBehaviorsWarning": "Comportamentos inseguros de variáveis na nuvem permitem que o projeto exportado execute código arbitrário fora da \"caixa de areia\" na qual os projetos normalmente rodam. Dependendo do dispositivo para o qual você está exportando, isto concede aos projetos controle total sobre o mesmo, incluindo a capacidade de instalar vírus. Se você não confiar no projeto que está empacotando, por favor, desligue esta opção.",
         "username": "Nome de usuário (cada \"#\" torna-se num número aleatório)",
         "variableColor": "Cor da variável",
+        "version": "Versão",
+        "versionHelp": "A atualização da versão é completamente opcional e não afeta o comportamento de seu projeto. Ela pode aparecer em lugares como sobre telas, dependendo do ambiente.",
         "zip": "Zip (ideal para websites)",
         "zip-one-asset": "Zip, juntar todos os recursos em um único arquivo (não recomendado)"
     },
     "p4": {
         "browserNotSupported": "Navegador incompatível",
         "browserNotSupportedDescription": "Por favor, atualize o seu navegador.",
+        "cannotAccessProject": "Não foi possível acessar o token do projeto. Normalmente isto significa que o projeto não está compartilhado, nunca existiu, o ID é inválido, ou a sua rede está bloqueando acesso ao turbowarp.org.",
+        "cannotAccessProjectCaching": "Se o projeto foi compartilhado recentemente, talvez irá levar algum tempo para esta mensagem sumir.",
         "close": "Fechar",
         "description1": "Converte projetos do Scratch para arquivos HTML, ZIP, ou programas executáveis para Windows, macOS e Linux.",
         "description2": "Se você apenas quer um jeito fácil de colocar um projeto do TurboWarp no seu site, {embedding} pode ser de seu interesse. ",
@@ -120,6 +134,7 @@
         "description3-on": "no {brand}",
         "disclaimer": "Este site não é afiliado com o Scratch, nem com a Equipe do Scratch ou a Fundação Scratch.",
         "documentation": "Recursos e ajuda adicionais",
+        "donate": "Doar",
         "error": "Erro",
         "errorMessage": "Mensagem: {error}",
         "importingInterface": "Carregando opções...",
@@ -136,6 +151,7 @@
     },
     "progress": {
         "compressingProject": "Comprimindo projeto",
+        "downloadingExtensions": "Baixando extensões personalizadas",
         "loadingAssets": "Baixando recursos ({complete}/{total})",
         "loadingLargeAsset": "Baixando {thing}",
         "loadingProjectData": "Baixando conteúdo do projeto",
@@ -159,6 +175,8 @@
         "select": "Selecionar Projeto",
         "selectHelp": "Selecione o projeto que você quer exportar copiando e colando o link do projeto no Scratch ou usando um dos outros meios. Se você usar um projeto criado por outra pessoa, lembre-se de dar créditos ao autor.",
         "unsharedProjects": "Projetos não compartilhados não serão mais acessíveis através do ID do projeto devido a mudanças da API do Scratch.",
+        "unsharedProjectsMore": "Para mais informações e maneiras de solução de problemas, visite: {link}",
+        "unsharedProjectsWorkaround": "Em vez disso, você pode compartilhar o projeto ou salvá-lo em seu computador (Arquivo > Baixar para o seu computador) e importar o arquivo no exportador. Os arquivos gerados pelo exportador são totalmente independentes e não são afetados por essas alterações.",
         "url": "Outro URL"
     },
     "theme": {
