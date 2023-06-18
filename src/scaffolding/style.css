@@ -154,19 +154,19 @@
   white-space: pre-wrap;
   background-color: #0fbd8c;
 }
-.monitor-root[opcode^="motion_"] .monitor-value-color {
+.monitor-root[data-opcode^="motion_"] .monitor-value-color {
   background-color: #4c97ff;
 }
-.monitor-root[opcode^="sensing_"] .monitor-value-color {
+.monitor-root[data-opcode^="sensing_"] .monitor-value-color {
   background-color: #5cb1d6;
 }
-.monitor-root[opcode^="data_"] .monitor-value-color {
+.monitor-root[data-opcode^="data_"] .monitor-value-color {
   background-color: #ff8c1a;
 }
-.monitor-root[opcode^="looks_"] .monitor-value-color {
+.monitor-root[data-opcode^="looks_"] .monitor-value-color {
   background-color: #9966ff;
 }
-.monitor-root[opcode^="sound_"] .monitor-value-color {
+.monitor-root[data-opcode^="sound_"] .monitor-value-color {
   background-color: #cf63cf;
 }
 .monitor-large-value {

@@ -16,8 +16,8 @@ class Monitor {
 
     this.root = document.createElement('div');
     this.root.className = styles.monitorRoot;
-    this.root.setAttribute('opcode', this.opcode);
     this.root.dataset.id = this.id;
+    this.root.dataset.opcode = this.opcode;
 
     this.parent._monitorOverlay.appendChild(this.root);
   }

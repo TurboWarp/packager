@@ -1177,7 +1177,7 @@ cd "$(dirname "$0")"
     .sc-canvas {
       cursor: ${await this.generateCursor()};
     }
-    .sc-monitor-root[opcode^="data_"] .sc-monitor-value-color {
+    .sc-monitor-root[data-opcode^="data_"] .sc-monitor-value-color {
       background-color: ${this.options.monitors.variableColor};
     }
     .sc-monitor-row-value-outer {
