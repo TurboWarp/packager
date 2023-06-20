@@ -1001,7 +1001,7 @@ cd "$(dirname "$0")"
     };
 
     /** @type {string[]} */
-    const allURLs = this.options.extensions.map(i => i.url);
+    const allURLs = this.options.extensions;
     const unfetchableURLs = allURLs.filter((url) => !shouldTryToFetch(url));
     const urlsToFetch = allURLs.filter((url) => shouldTryToFetch(url));
     const finalURLs = [...unfetchableURLs];

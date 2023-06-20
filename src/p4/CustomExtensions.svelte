@@ -12,8 +12,8 @@
 </style>
 
 <textarea
-  value={extensions.map(i => i.url).join('\n')}
+  value={extensions.join('\n')}
   on:change={(e) => {
-    extensions = e.target.value.split('\n').filter(i => i).map(i => ({url: i}));
+    extensions = e.target.value.split('\n').filter(i => i);
   }}
 ></textarea>

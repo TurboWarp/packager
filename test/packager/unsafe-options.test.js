@@ -18,9 +18,7 @@ test('custom CSS', () => {
 
 test('custom extensions', () => {
   const options = Packager.DEFAULT_OPTIONS();
-  options.extensions.push({
-    url: 'https://example.com/'
-  });
+  options.extensions.push('https://example.com/');
   expect(Packager.usesUnsafeOptions(options)).toBe(true);
 });
 
