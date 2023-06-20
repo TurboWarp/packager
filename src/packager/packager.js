@@ -1019,6 +1019,7 @@ cd "$(dirname "$0")"
           const dataURI = `data:text/javascript;,${encodeURIComponent(wrappedSource)}`;
           finalURLs.push(dataURI);
         } catch (e) {
+          console.warn('Could not bake extension', url, e);
           finalURLs.push(url);
         }
       }
