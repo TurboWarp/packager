@@ -61,7 +61,7 @@
     "scratch-svg-renderer": "git+https://github.com/TurboWarp/scratch-svg-renderer.git#develop",
     "scratch-vm": "git+https://github.com/TurboWarp/scratch-vm.git#develop",
     "style-loader": "^2.0.0",
-    "svelte": "^3.44.3",
+    "svelte": "^4.0.0",
     "svelte-loader": "^3.1.2",
     "url-loader": "^4.1.1",
     "webpack": "^4.46.0",
