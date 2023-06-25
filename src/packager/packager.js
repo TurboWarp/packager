@@ -1394,6 +1394,7 @@ cd "$(dirname "$0")"
         enabled: ${this.options.compiler.enabled},
         warpTimer: ${this.options.compiler.warpTimer}
       });
+      if (vm.renderer.setMaxTextureDimension) vm.renderer.setMaxTextureDimension(${this.options.maxTextureDimension});
 
       if (typeof ScaffoldingAddons !== 'undefined') {
         ScaffoldingAddons.run(scaffolding, ${JSON.stringify(this.getAddonOptions())});
@@ -1625,7 +1626,8 @@ Packager.DEFAULT_OPTIONS = () => ({
     }
   },
   extensions: [],
-  bakeExtensions: true
+  bakeExtensions: true,
+  maxTextureDimension: 2048
 });
 
 export default Packager;

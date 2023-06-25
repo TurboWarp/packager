@@ -102,7 +102,8 @@
     $options.custom.css !== '' ||
     $options.custom.js !== '' ||
     $options.projectId !== defaultOptions.projectId ||
-    $options.packagedRuntime !== defaultOptions.packagedRuntime
+    $options.packagedRuntime !== defaultOptions.packagedRuntime ||
+    $options.maxTextureDimension !== defaultOptions.maxTextureDimension
   );
 
   const automaticallyCenterCursor = () => {
@@ -710,7 +711,8 @@
       'extensions',
       'bakeExtensions',
       'custom',
-      'projectId'
+      'projectId',
+      'maxTextureDimension'
     ]);
   }}
 >
@@ -767,6 +769,13 @@
       <label class="option">
         <input type="checkbox" bind:checked={$options.packagedRuntime} />
         {$_('options.packagedRuntime')}
+      </label>
+
+      <label class="option">
+        <input type="checkbox" checked={$options.maxTextureDimension !== defaultOptions.maxTextureDimension} on:change={(e) => {
+          $options.maxTextureDimension = defaultOptions.maxTextureDimension * (e.target.checked ? 2 : 1);
+        }} />
+        {$_('options.maxTextureDimension')}
       </label>
     </details>
   </div>

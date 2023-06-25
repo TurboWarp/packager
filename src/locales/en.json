@@ -506,6 +506,9 @@
     "startFullscreen": {
       "string": "Start in fullscreen"
     },
+    "maxTextureDimension": {
+      "string": "Increase max vector costume resolution to make large costumes look better. May increase memory use and cause crashes."
+    },
     "package": {
       "string": "Package",
       "context": "Button to package the project"
