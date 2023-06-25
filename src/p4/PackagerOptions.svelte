@@ -708,6 +708,7 @@
     resetOptions([
       'compiler',
       'extensions',
+      'bakeExtensions',
       'custom',
       'projectId'
     ]);
