@@ -11,6 +11,7 @@ import {APP_NAME, WEBSITE, COPYRIGHT_NOTICE, ACCENT_COLOR} from './brand';
 import {OutdatedPackagerError} from '../common/errors';
 import {darken} from './colors';
 import {Adapter} from './adapter';
+import electronPreloadJS from '!raw-loader!./electron-preload.js';
 
 const PROGRESS_LOADED_SCRIPTS = 0.1;
 
@@ -512,6 +513,7 @@ cd "$(dirname "$0")"
     const contentsPrefix = isMac ? `${rootPrefix}${packageName}.app/Contents/` : rootPrefix;
     const resourcesPrefix = isMac ? `${contentsPrefix}Resources/app/` : `${contentsPrefix}resources/app/`;
     const electronMainName = 'electron-main.js';
+    const electronPreloadName = 'electron-preload.js';
     const iconName = 'icon.png';
 
     const icon = await Adapter.getAppIcon(this.options.app.icon);
@@ -558,6 +560,7 @@ const createWindow = (windowOptions) => {
       sandbox: true,
       contextIsolation: true,
       nodeIntegration: false,
+      preload: path.resolve(__dirname, ${JSON.stringify(electronPreloadName)}),
     },
     show: true,
     width: 480,
@@ -697,6 +700,7 @@ app.whenReady().then(() => {
 });
 `;
     zip.file(`${resourcesPrefix}${electronMainName}`, mainJS);
+    zip.file(`${resourcesPrefix}${electronPreloadName}`, electronPreloadJS);
 
     for (const [path, data] of Object.entries(projectZip.files)) {
       setFileFast(zip, `${resourcesPrefix}${path}`, data);
