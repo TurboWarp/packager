@@ -71,6 +71,7 @@
         "loadingScreenImage": "Immagine della schermata di caricamento",
         "loadingScreenText": "Testo della schermata di caricamento",
         "loadingScreenTextPlaceholder": "(Nulla)",
+        "maxTextureDimension": "Aumenta la massima risoluzione dei costumi vettoriali permettendo ai costumi di grandi dimensioni di avere un aspetto migliore. Può aumentare il consumo di memoria e causare blocchi.",
         "mode": "Modalità",
         "monitors": "Monitor",
         "noCloudVariables": "Questo progetto non contiene variabili cloud.",

@@ -74,6 +74,7 @@
         "loadingScreenImage": "Laadscherm-afbeelding",
         "loadingScreenText": "Laadscherm-tekst",
         "loadingScreenTextPlaceholder": "(Niets)",
+        "maxTextureDimension": "Maximale resolutie van vectoruiterlijken verhogen om grote uiterlijken er beter uit te laten zien. Kan geheugengebruik verhogen en crashes veroorzaken.",
         "mode": "Modus",
         "monitors": "Monitoren",
         "noCloudVariables": "Dit project bevat geen cloudvariabelen.",

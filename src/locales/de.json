@@ -73,6 +73,7 @@
         "loadingScreenImage": "Bild am Ladebildschirm",
         "loadingScreenText": "Text am Ladebildschirm",
         "loadingScreenTextPlaceholder": "(Nichts)",
+        "maxTextureDimension": "Erhöhe die maximale Vektorkostümauflösung, um große Kostüme besser aussehen zu lassen. Könnte den benötigten Speicher erhöhen und Abstürze verursachen.",
         "mode": "Modus",
         "monitors": "Daten",
         "noCloudVariables": "Dieses Projekt enthält keine Cloudvariablen",

@@ -72,6 +72,7 @@
         "loadingScreenImage": "Imatge de fons de la pantalla de càrrega:",
         "loadingScreenText": "Text de la pantalla de càrrega:",
         "loadingScreenTextPlaceholder": "(Res)",
+        "maxTextureDimension": "Augmenta la resolució màxima dels vestits vectorials per fer que els més grans es vegin millor. Podria augmentar l'ús de la memòria i provocar errors.",
         "noCloudVariables": "Aquest projecte no té variables al núvol.",
         "noCursor": "Sense cursor",
         "normalCursor": "Cursor normal",
