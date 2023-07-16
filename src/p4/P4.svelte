@@ -11,7 +11,16 @@
   import News from './News.svelte';
   import {progress, theme, error} from './stores';
   import {isSupported, isSafari, isStandalone, version} from './environment';
-  import {APP_NAME, FEEDBACK_PRIMARY, FEEDBACK_SECONDARY, ACCENT_COLOR, SOURCE_CODE, WEBSITE, DONATE} from '../packager/brand';
+  import {
+    APP_NAME,
+    FEEDBACK_PRIMARY,
+    FEEDBACK_SECONDARY,
+    ACCENT_COLOR,
+    SOURCE_CODE,
+    WEBSITE,
+    DONATE,
+    PRIVACY_POLICY
+  } from '../packager/brand';
 
   let projectData;
 
@@ -207,8 +216,8 @@
 
   <footer>
     <div>
-      {#if !isStandalone}
-        <a href="privacy.html">{$_('p4.privacy')}</a>
+      {#if PRIVACY_POLICY && !isStandalone}
+        <a href={PRIVACY_POLICY}>{$_('p4.privacy')}</a>
         <span> - </span>
       {/if}
       <a href={FEEDBACK_PRIMARY.link}>{$_('p4.feedback')}</a>

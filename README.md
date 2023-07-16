@@ -62,10 +62,7 @@ We use GitHub Actions and GitHub Pages to manage our deployment. If you want to 
 
 ### Branding
 
-We ask that you at least take a moment to rename the website.
-
- - Update the brand strings (`src/packager/brand.js`) to use your own app name, links, etc.
- - Update the privacy policy (`static/privacy.html`) to reflect your privacy practices.
+We ask that you at least take a moment to rename the website by editting `src/packager/brand.js` with your own app name, links, etc.
 
 ### Large files
 
