@@ -1411,7 +1411,12 @@ cd "$(dirname "$0")"
         vm.extensionManager.loadExtensionURL(extension);
       }
 
-      ${this.options.closeWhenStopped ? `vm.runtime.on('PROJECT_RUN_STOP', () => window.close());` : ''}
+      ${this.options.closeWhenStopped ? `
+      vm.runtime.on('PROJECT_RUN_STOP', () => {
+        if (!vm.isPaused || !vm.isPaused()) {
+          window.close();
+        }
+      });` : ''}
 
       ${this.options.target.startsWith('nwjs-') ? `
       if (typeof nw !== 'undefined') {

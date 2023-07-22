@@ -120,4 +120,5 @@ export default function ({ scaffolding }) {
   };
 
   vm.setPaused = setPaused;
+  vm.isPaused = () => paused;
 }
