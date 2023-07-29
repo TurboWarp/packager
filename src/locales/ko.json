@@ -74,6 +74,7 @@
         "loadingScreenImage": "로딩 스크린에 표시할 이미지",
         "loadingScreenText": "로딩 스크린에 표시 텍스트",
         "loadingScreenTextPlaceholder": "텍스트 입력",
+        "maxTextureDimension": "벡터 이미지의 최대 해상도를 높여 커다란 이미지를 더 보기 좋게 만듭니다. 메모리 사용량이 증가하거나 충돌이 발생할 수 있습니다.",
         "mode": "모드",
         "monitors": "화면",
         "noCloudVariables": "이 프로젝트는 클라우드 변수를 포함하고 있지 않습니다.",

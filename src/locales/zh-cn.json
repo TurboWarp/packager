@@ -74,6 +74,7 @@
         "loadingScreenImage": "加载页面图片",
         "loadingScreenText": "加载提示文本",
         "loadingScreenTextPlaceholder": "（无）",
+        "maxTextureDimension": "增大分辨率让作品看起来更好，可能会增加内存使用并导致崩溃。",
         "mode": "模式",
         "monitors": "查看",
         "noCloudVariables": "该作品不含云变量。",
