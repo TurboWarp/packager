@@ -19,19 +19,22 @@ const removeExtraneous = async () => {
   const {transaction, store} = await db.createTransaction('readwrite');
   return new Promise((resolve, reject) => {
     Database.setTransactionErrorHandler(transaction, reject);
-    const allValidAssetIds = Object.values(largeAssets).map(getAssetId);
-    const request = store.openCursor();
-    request.onsuccess = e => {
-      const cursor = e.target.result;
-      if (cursor) {
-        const key = cursor.key;
-        if (!allValidAssetIds.includes(key)) {
-          cursor.delete();
-        }
-        cursor.continue();
-      } else {
-        resolve();
+    const keyRequest = store.getAllKeys();
+    keyRequest.onsuccess = async e => {
+      const keys = e.target.result;
+      const allValidAssetIds = Object.values(largeAssets).map(getAssetId);
+      const keysToDelete = keys.filter(i => !allValidAssetIds.includes(i));
+
+      for (const key of keysToDelete) {
+        await new Promise(resolveDelete => {
+          const deleteRequest = store.delete(key);
+          deleteRequest.onsuccess = () => {
+            resolveDelete();
+          };
+        });
       }
+
+      resolve();
     };
   });
 };
