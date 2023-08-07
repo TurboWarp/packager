@@ -74,6 +74,7 @@
         "loadingScreenImage": "Imagen de la pantalla de carga",
         "loadingScreenText": "Cargando texto en pantalla",
         "loadingScreenTextPlaceholder": "(Nada)",
+        "maxTextureDimension": "Aumentar resolución máxima de disfraces en vectores para hacer disfraces largos verse mejor. Puede aumentar el uso de la memoria y causar accidentes.",
         "mode": "Modo",
         "monitors": "Monitores",
         "noCloudVariables": "Este proyecto no contiene variables en la nube.",
@@ -153,7 +154,7 @@
     "progress": {
         "compressingProject": "Comprimiendo proyecto",
         "downloadingExtensions": "Descargar extensiones personalizadas",
-        "loadingAssets": "Descargando recursos ({complete}/{total})",
+        "loadingAssets": "Descargando assets ({complete}/{total})",
         "loadingLargeAsset": "Descargando {thing}",
         "loadingProjectData": "Descargando la información del proyecto",
         "loadingProjectMetadata": "Descargando los metadatos del proyecto",
