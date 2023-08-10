@@ -155,7 +155,7 @@ You have to manually configure scratch-storage to know where to fetch files from
 const storage = scaffolding.storage;
 storage.addWebStore(
   [storage.AssetType.ImageVector, storage.AssetType.ImageBitmap, storage.AssetType.Sound],
-  (asset) => `https://assets.scratch.mit.edu/internalapi/asset/${asset.assetId}.${asset.dataFormat}/get/`
+  (asset) => `https://scratch-assets.scratch.org/internalapi/asset/${asset.assetId}.${asset.dataFormat}/get/`
 );
 ```
 
