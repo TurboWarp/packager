@@ -64,7 +64,7 @@ const fetch = require('cross-fetch').default; // or whatever your favorite HTTP 
 const id = '437419376';
 const projectMetadata = await (await fetch(`https://trampoline.turbowarp.org/api/projects/${id}`)).json();
 const token = projectMetadata.project_token;
-const projectData = await (await fetch(`https://projects.scratch.mit.edu/${id}?token=${token}`)).arrayBuffer();
+const projectData = await (await fetch(`https://scratch-projects.scratch.org/${id}?token=${token}`)).arrayBuffer();
 ```
 
 Now you have to tell the packager to load the project. The packager will parse it, do some analysis, and download any needed assets if the input was just a project.json. This must be done once for every project. The result of this processes can be reused as many times as you want.

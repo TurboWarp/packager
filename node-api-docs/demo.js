@@ -11,7 +11,7 @@ const run = async () => {
   const id = '437419376';
   const projectMetadata = await (await fetch(`https://trampoline.turbowarp.org/api/projects/${id}`)).json();
   const token = projectMetadata.project_token;
-  const projectData = await (await fetch(`https://projects.scratch.mit.edu/${id}?token=${token}`)).arrayBuffer();
+  const projectData = await (await fetch(`https://scratch-projects.scratch.org/${id}?token=${token}`)).arrayBuffer();
 
   const progressCallback = (type, a, b) => {
     console.log('Progress', type, a, b);
