@@ -65,7 +65,7 @@
   // just incase some non-number string was stored from older versions
   $projectId = extractProjectId($projectId);
 
-  const getDisplayedProjectURL = () => `https://scratch.mit.edu/projects/${$projectId}`;
+  const getDisplayedProjectURL = () => `https://scratch.org/projects/${$projectId}`;
 
   const submitOnEnter = (e) => {
     if (e.key === 'Enter') {

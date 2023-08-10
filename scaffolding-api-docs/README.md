@@ -149,7 +149,7 @@ Scaffolding will automatically resize the project player to fit inside the space
 
 ### Tell it where to fetch projects and assets from
 
-You have to manually configure scratch-storage to know where to fetch files from. If you want to load projects from scratch.mit.edu, you would do:
+You have to manually configure scratch-storage to know where to fetch files from. If you want to load projects from scratch.org, you would do:
 
 ```js
 const storage = scaffolding.storage;
@@ -231,7 +231,7 @@ This returns a Promise that resolves when the project has finished loading or re
 
 The project is not automatically started when loadProject completes.
 
-If you configured scratch-storage to load projects from scratch.mit.edu, you can use:
+If you configured scratch-storage to load projects from scratch.org, you can use:
 
 ```js
 scaffolding.storage.load(Scaffolding.Storage.AssetType.Project, "PROJECT ID HERE eg. 104")
