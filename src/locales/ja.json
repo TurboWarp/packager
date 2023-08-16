@@ -74,6 +74,7 @@
         "loadingScreenImage": "ロード時の画面の絵",
         "loadingScreenText": "ロード時の画面の文字",
         "loadingScreenTextPlaceholder": "(なし)",
+        "maxTextureDimension": "ベクターのコスチュームの最大解像度を上げて、大きなコスチュームを見えやすくします。メモリ使用量を増やし、クラッシュを引き起こすことがあります。",
         "mode": "モード",
         "monitors": "モニター",
         "noCloudVariables": "このプロジェクトはクラウド変数を使っていません。",
