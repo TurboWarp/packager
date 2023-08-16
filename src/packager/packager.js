@@ -952,7 +952,12 @@ cd "$(dirname "$0")"
           return file.async('arraybuffer');
         });` : `
         storage.addWebStore(
-          [storage.AssetType.ImageVector, storage.AssetType.ImageBitmap, storage.AssetType.Sound],
+          [
+            storage.AssetType.ImageVector,
+            storage.AssetType.ImageBitmap,
+            storage.AssetType.Sound,
+            storage.AssetType.Font
+          ].filter(i => i),
           (asset) => new URL('./assets/' + asset.assetId + '.' + asset.dataFormat, location).href
         );
         return ${getProjectDataFunction};`}
