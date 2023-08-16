@@ -18,7 +18,8 @@ class StorageWithProgress extends ScratchStorage {
     const isAsset = (
       assetType === this.AssetType.ImageBitmap ||
       assetType === this.AssetType.ImageVector ||
-      assetType === this.AssetType.Sound
+      assetType === this.AssetType.Sound ||
+      assetType === this.AssetType.Font
     );
     if (isAsset) {
       this._totalAssets++;
