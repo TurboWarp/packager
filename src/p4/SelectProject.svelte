@@ -13,7 +13,7 @@
   import loadProject from '../packager/load-project';
   import {extractProjectId, isValidURL, getTitleFromURL} from './url-utils';
   import Task from './task';
-  import importProjectFromOpener from './import-project-from-opener';
+  import importExternalProject from './import-external-project';
 
   const defaultProjectId = '60917032';
 
@@ -21,37 +21,31 @@
   const projectId = writablePersistentStore('SelectProject.id', defaultProjectId);
   const projectUrl = writablePersistentStore('SelectProject.url', '');
 
-  let isImportingProject = false;
-
-  const searchParams = new URLSearchParams(location.search);
-  if (searchParams.has('import_from')) {
-    $type = 'file';
-    const origin = searchParams.get('import_from');
-    importProjectFromOpener({
-      origin,
-      onStartImporting: () => {
-        isImportingProject = true;
-      },
-      onCancelImporting: () => {
-        isImportingProject = false;
-      },
-      onFinishImporting: (files) => {
-        if (!isImportingProject) {
-          // Import was cancelled.
-          return;
-        }
-        isImportingProject = false;
-        fileInputElement.files = files;
-        setFiles(files);
-      }
-    });
-  } else {
-    const projectIdInURL = /^#\d+$/.test(location.hash) ? location.hash.substring(1) : null;
-    if (projectIdInURL) {
-      $type = 'id';
-      $projectId = projectIdInURL;
-    }
+  const projectIdInURL = /^#\d+$/.test(location.hash) ? location.hash.substring(1) : null;
+  if (projectIdInURL) {
+    $type = 'id';
+    $projectId = projectIdInURL;
   }
+
+  let isImportingProject = false;
+  importExternalProject({
+    onStartImporting: () => {
+      isImportingProject = true;
+    },
+    onCancelImporting: () => {
+      isImportingProject = false;
+    },
+    onFinishImporting: (files) => {
+      if (!isImportingProject) {
+        // Import was cancelled.
+        return;
+      }
+      $type = 'file';
+      isImportingProject = false;
+      fileInputElement.files = files;
+      setFiles(files);
+    }
+  });
 
   export let projectData = null;
   const resetProjectAndCancelTask = () => {
