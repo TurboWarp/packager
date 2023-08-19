@@ -104,7 +104,8 @@ class Preview {
     const preview = getPreviewSource();
 
     // Safari does not let file: URIs used by standalone version to open blob: URIs
-    const canUseBlobWindow = !(isStandalone && isSafari);
+    // The desktop app just doesn't support windows loaded from blobs
+    const canUseBlobWindow = !(isStandalone && isSafari) && typeof IsDesktop === 'undefined';
     if (canUseBlobWindow) {
       const url = URL.createObjectURL(new Blob([preview], {
         type: 'text/html'
