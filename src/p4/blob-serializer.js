@@ -12,7 +12,7 @@ const isObjectOrArray = (value) => value !== null && typeof value === 'object';
  */
 const recursivelySerializeBlobs = async (object) => {
   if (Array.isArray(object)) {
-    return Promise.all(object.map(recursivelySerializeBlobs));
+    return object;
   }
   const result = {};
   for (const key of Object.keys(object)) {
@@ -48,7 +48,7 @@ const recursivelySerializeBlobs = async (object) => {
  */
 const recursivelyDeserializeBlobs = (object) => {
   if (Array.isArray(object)) {
-    return object.map(recursivelyDeserializeBlobs);
+    return object;
   }
   const result = {};
   for (const key of Object.keys(object)) {

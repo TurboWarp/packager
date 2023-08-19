@@ -10,6 +10,9 @@ test('basic cloning functionality', async () => {
           c: 3,
           d: "test"
         }
+      ],
+      z: [
+        'abcdef'
       ]
     },
     e: true
