@@ -53,6 +53,8 @@
 <style>
   :root {
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    background: white;
+    color: black;
   }
   :global([theme="dark"]) {
     background: #111;
