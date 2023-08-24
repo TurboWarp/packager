@@ -688,6 +688,16 @@ app.on('web-contents-created', (event, contents) => {
   });
 });
 
+app.on('session-created', (session) => {
+  session.webRequest.onBeforeRequest({
+    urls: ["file://*"]
+  }, (details, callback) => {
+    callback({
+      cancel: !details.url.startsWith(resourcesURL)
+    });
+  });
+});
+
 app.on('window-all-closed', () => {
   app.quit();
 });
