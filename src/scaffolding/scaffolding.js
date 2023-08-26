@@ -351,6 +351,10 @@ class Scaffolding extends EventTarget {
       this.height / 2
     );
     this.vm.attachRenderer(this.renderer);
+    // TurboWarp-specific renderer extensions
+    if (this.renderer.overlayContainer) {
+      this._layers.insertBefore(this.renderer.overlayContainer, this._overlaysOuter);
+    }
 
     this.storage = new Storage();
     this.vm.attachStorage(this.storage);
