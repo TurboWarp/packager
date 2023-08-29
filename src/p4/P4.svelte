@@ -228,8 +228,11 @@
         <a href={SOURCE_CODE}>{$_('p4.sourceCode')}</a>
       {/if}
       {#if DONATE}
-        <span> - </span>
-        <a href={DONATE}>{$_('p4.donate')}</a>
+        <!-- Donation link needs to be wrapped in another element so we can hide it in the Mac App Store -->
+        <span class="donate-link">
+          <span> - </span>
+          <a href={DONATE}>{$_('p4.donate')}</a>
+        </span>
       {/if}
     </div>
     <div>
