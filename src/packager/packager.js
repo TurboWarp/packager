@@ -163,6 +163,17 @@ After completing these steps, the app should run without any further warnings.
 Feel free to drag the app into your Applications folder.
 `;
 
+/**
+ * @param {string} packageName
+ */
+const validatePackageName = (packageName) => {
+  // Characters considered unsafe filenames on Windows
+  const BLOCKLIST = ['/', '\\', ':', '*', '?', '<', '>', '|'];
+  if (BLOCKLIST.some((i) => packageName.includes(i))) {
+    throw new Error(`Invalid package name: ${packageName}. It must not use the characters: ${BLOCKLIST.join(' ')}`)
+  }
+};
+
 class Packager extends EventTarget {
   constructor () {
     super();
@@ -311,6 +322,9 @@ class Packager extends EventTarget {
   }
 
   async addNwJS (projectZip) {
+    const packageName = this.options.app.packageName;
+    validatePackageName(packageName);
+
     const nwjsBuffer = await this.fetchLargeAsset(this.options.target, 'arraybuffer');
     const nwjsZip = await (await getJSZip()).loadAsync(nwjsBuffer);
 
@@ -344,8 +358,6 @@ class Packager extends EventTarget {
     const nwjsPrefix = Object.keys(nwjsZip.files)[0].split('/')[0];
 
     const zip = new (await getJSZip());
-
-    const packageName = this.options.app.packageName;
 
     // Copy NW.js files to the right place
     for (const path of Object.keys(nwjsZip.files)) {
@@ -420,6 +432,9 @@ cd "$(dirname "$0")"
   }
 
   async addElectron (projectZip) {
+    const packageName = this.options.app.packageName;
+    validatePackageName(packageName);
+
     const buffer = await this.fetchLargeAsset(this.options.target, 'arraybuffer');
     const electronZip = await (await getJSZip()).loadAsync(buffer);
 
@@ -467,7 +482,6 @@ cd "$(dirname "$0")"
     // +-- LICENSES.chromium.html and other license files
 
     const zip = new (await getJSZip());
-    const packageName = this.options.app.packageName;
     for (const path of Object.keys(electronZip.files)) {
       const file = electronZip.files[path];
 
@@ -764,6 +778,8 @@ cd "$(dirname "$0")"
   }
 
   async addWebViewMac (projectZip) {
+    validatePackageName(this.options.app.packageName);
+
     const buffer = await this.fetchLargeAsset(this.options.target, 'arraybuffer');
     const appZip = await (await getJSZip()).loadAsync(buffer);
 
