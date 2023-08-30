@@ -878,7 +878,7 @@
           <h2>{$_('options.applicationSettings')}</h2>
           <label class="option">
             {$_('options.packageName')}
-            <input type="text" bind:value={$options.app.packageName} pattern="[a-zA-Z -]+" minlength="1">
+            <input type="text" bind:value={$options.app.packageName} pattern="[\w \-]+" minlength="1">
           </label>
           <p>{$_('options.packageNameHelp')}</p>
 
