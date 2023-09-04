@@ -1,11 +1,17 @@
 {
+    "downloads": {
+        "link": "İndir{filename}({size})",
+        "useWorkaround": "İndirme bağlantısı çalışmazsa buraya tıklayın"
+    },
     "fileInput": {
         "clear": "Seçimi Temizle",
         "select": "Dosyayı şeçin yada buraya bırakın",
         "selected": "{file}seçilmiştir"
     },
     "import": {
-        "cancel": "İptal"
+        "cancel": "İptal",
+        "description": "Proje büyükse biraz zaman alabilir",
+        "header": "Proje İçe Aktarılıyor"
     },
     "options": {
         "accentColor": "Vurgu rengi (etkin/gezintili kontroller, soru istemi, bağlam menüleri)",
@@ -16,9 +22,12 @@
         "application-win32": "{type} Windows uygulaması (32-bit yada 64-bit)",
         "application-win64": "{type} Windows uygulaması (yalnızca 64 bit, önerilmez)",
         "applicationSettings": "Uygulama ayarları",
+        "automaticallyCenter": "Otomatik merkez",
         "autoplay": "Projeyi otomatik olarak başlatın",
         "autoplayHint": "Not: Çoğu tarayıcılar websitelerin otomatik olarak ses çalmasına izin vermez, dolayısıyla sesler kullanıcı projeyle etkileşime geçinceye kadar çalmayabilir.",
         "backgroundColor": "Arka-plan rengi",
+        "bakeExtensions": "Proje her çalıştırıldığında bunları indirmek yerine, özel uzantıların önbelleğe alınmış kopyasını yerleştirmeyi deneyin",
+        "closeWhenStopped": "Proje durduğunda pencereyi de kapat",
         "cloudVariables": "Bulut değişkenleri",
         "cloudVariables-custom": "Gelişmiş",
         "cloudVariables-custom-help": "\"Gelişmiş\" her değişken için farklı modu kullanıyor, yanı bazı değişkenler başka kullanacılarla senkronize edebilir ancak diğerleri örneğin yerel olarak depolanabilir.",
@@ -30,12 +39,15 @@
         "cloudVariables-ws-help": "\"Bulut değişkenler sunucuya bağlanın\" değişkenleri diğer kullanıcılarla senkronize eder.",
         "cloudVariablesHost": "Bulut ana bilgisayarı",
         "colors": "Renkler",
+        "confirmImportUnsafe": "Bu ayarlar, bilgisayarınızda bilinmeyen ve muhtemelen kötü amaçlı kod çalıştıran özel JS gibi gelişmiş özellikleri kullanır. Bu dosyayı yalnızca onu oluşturan kişiye güveniyorsanız içe aktarın. Bunun ne anlama geldiğinden emin değilseniz muhtemelen bu ayarları içe aktarmamalısınız.",
         "controls": "Kontroller",
         "controlsHelp": "Eğer bütün kontroller devre dışı bırakılırsa kontrol çubuğu artık gösterilemez. Yalnızca tam ekran etkinleştirilirse, kontroller başlığında değil, her zaman sol üst köşede bulunur.",
+        "cursorCenter": "İmleç merkezi",
         "cursorHelp": "32x32'ye kadar olan resimler en iyi görünebilir. Daha büyük resimler doğru düzgün bir şekilde çalışmayabilir. ",
         "customCSS": "Özel CSS (Eğer ne yaptığınızı bilmiyorsanız değiştirmeyin!)",
         "customCursor": "Değişik kürsör",
         "customExtensions": "Öze eklentiler (satır başına bir URL)",
+        "customExtensionsSecurity": "Özel eklentiler sandbox'lanmadan çalıştırılır. Virüs içermelerine karşın güvenmediğiniz eklentileri kullanmayın.",
         "customJS": "Özel JS (Eğer sen ne yapmayı bilmiyorsan burada hiç bir şey yapma)",
         "customUsernameWarning": "Varsayılan bulut değişken sunucusuna olan bağlantıları engelleyebileceğinden dolayı, lütfen varsayılan kullanıcı adını değiştirirken dikkatli olun. Sadece varsayılan kullanıcı adının çalışacağı garanti edilmiştir.",
         "downloadsWillAppearHere": "İndirilenler burada görünecek",
@@ -43,6 +55,7 @@
         "editableLists": "Düzenlenebilen listeler",
         "enableCompiler": "Derlemeyi aç",
         "environment": "Çevre",
+        "export": "Ayarları dışa aktar",
         "foregroundColor": "Ön-plan rengi (ilerleme çubuğu, bazı simgeler, bazı metinler)",
         "framerate": "Karehızı",
         "gamepad": "USB yada Bluetooth oyun kumandaları kullanabilirsin",
@@ -51,14 +64,17 @@
         "html": "Sade HTML (bağımsız, her yerde çalışır)",
         "icon": "Sayfa simgesi",
         "implicitCloudHint": "İpucu: Any variable with a name starting with \"{cloud}\" ile başlayan bir ad taşıyan tüm değişkenler bulut olarak işaretlendiğinden bağımsız olarak bulut değişkenine dönüştürülecektir.",
+        "import": "Ayarları içe aktar",
         "infiniteClones": "Sonsuz klonlar",
         "interaction": "Giriş",
         "interpolation": "Enterpolasyon",
         "learnMore": "Daha fazla bilgi edin",
+        "listColor": "Liste rengi",
         "loadingScreen": "Yükleme ekranı",
         "loadingScreenImage": "Yükleme ekran resimi",
         "loadingScreenText": "Yükleme ekran metini",
         "loadingScreenTextPlaceholder": "(Hiç birşey)",
+        "maxTextureDimension": "Büyük kostümlerin daha iyi görünmesini sağlamak için maksimum vektör kostüm çözünürlüğünü artırın. Bellek kullanımını artırabilir ve çökmelere neden olabilir.",
         "mode": "Modu",
         "monitors": "Monitörlar",
         "noCloudVariables": "Bu proje bulut değişkenleri içermez.",
@@ -69,6 +85,7 @@
         "package": "Paketle",
         "packageName": "Paket Adı",
         "packageNameHelp": "Paket adı, yalnızca uygulamanız tarafından kullanılan benzersiz bir ad olmalıdır. Aynı proje hep aynı paket adı olmalıdır. ",
+        "packagedRuntime": "Ham varlıkları RAM'den tasarruf etmek için sil",
         "pageTitle": "Sayfa başlığı",
         "playerOptions": "Oynatıcı ayarları",
         "pointerlock": "Fare kürsörü kilitle",
@@ -79,6 +96,7 @@
         "projectIdHelp": "Project ID'si bir bulut değişken sunucusuna bağlanırken ve yerel bulut değişkenlerini saklarken kullanılır. Sadece rakamlardan daha fazlasını içerebilir.",
         "removeFencing": "Eskirimi çıkart",
         "removeMiscLimits": "Çeşitli Limitleri Kaldır",
+        "resetAll": "Tüm ayarları sıfırla",
         "runtimeOptions": "Çalışma Zamanı Seçenekleri",
         "showFlag": "Yeşil bayrağı kontrollerde gösterin.",
         "showFullscreen": "Büyük ekranı tuşunu kontrollerde gösterin.",
@@ -99,34 +117,55 @@
         "unsafeCloudBehaviors": "Ek tehlikeli özel bulut davranışları",
         "unsafeCloudBehaviorsWarning": "Tehlikeli bulut davranışları projelerin genellikle çalıştırıldığı \"sandbox\"un dışında paketlenmiş projenin keyfi kod çalıştırmasına olanak sağlar. Paketlemek istediğiniz ortama bağlı olarak, bu projelere bilgisayarınız üzerinde, virüs yüklemek dahil olmak üzere, tam yetki verir. Eğer paketledğiniz projeye güvenmiyorsanız, lütfen bu seçeneği devre dışı bırakın.",
         "username": "Kullanıcı Adı (her \"#\" rastgele bir sayı ile değiştirililecek)",
+        "variableColor": "Değişken rengi",
+        "version": "Sürüm",
+        "versionHelp": "Sürümün güncellenmesi tamamen isteğe bağlıdır ve projenizin davranışını etkilemez. Ortama bağlı olarak ekranlar gibi yerlerde görünebilir.",
         "warpTimer": "Warp zamanlayıcı",
         "zip": "Zip (web siteleri için iyidir)",
         "zip-one-asset": "Zip, varlıkları tek bir dosyada birleştirin (hiç önerilmez)"
     },
     "p4": {
+        "browserNotSupported": "Tarayıcı desteklenmiyor",
+        "browserNotSupportedDescription": "Lütfen tarayıcınızı güncelleyin.",
+        "cannotAccessProject": "Proje belirtecine erişilemiyor. Bu genellikle projenin paylaşılmadığı, hiçbir zaman var olmadığı, kimliğin geçersiz olduğu veya ağınızın turbowarp.org'u engellediği anlamına gelir.",
+        "cannotAccessProjectCaching": "Proje yakın zamanda paylaşıldıysa bu mesajın kaybolması birkaç dakika sürebilir.",
         "close": "Kapat",
         "description1": "Scratch Projeleri Windows, macOS, ve Linux ile HTML dosyalara, zip arçivelere yada uygulamaya dönüştürebilir.",
         "description2": "Bir projeyi web sitenize yerleştirmenin kolay bir yolunu istiyorsanız, {embedding} ilginizi çekebilir.",
         "description2-embedding": "Gömmek",
         "description3": "Hataları bildirin, geri bildirimde ve yeni fikirleri göstermek için {onScratch} veya {onGitHub} ile yapınız. ",
         "description3-on": "{brand}'de",
+        "disclaimer": "Bu site Scratch, Scratch Takımı veya Vakfı tarafından desteklenmemektedir.",
         "documentation": "Ek kaynaklar ve yardım",
+        "donate": "Bağış Yapın",
         "error": "Hata",
         "errorMessage": "Mesaj: {error}",
         "feedback": "Geribildirim",
+        "importingInterface": "Seçenekler yükleniyor...",
+        "networkError": "İndirilemedi {url}. İnternete bağlı olduğunuzdan emin olun ve tüm tarayıcı uzantılarını devre dışı bırakmayı deneyin.",
+        "outdated": "Paketleyicinin bu sürümü eski görünüyor. Lütfen yenileyin ve tekrar deneyin.",
         "privacy": "Gizillik Politikası",
+        "refresh": "Yenile",
         "reportBug": "Hata Bildirin",
-        "sourceCode": "Kaynak Kodu"
+        "sourceCode": "Kaynak Kodu",
+        "unknownImportError": "Birşeyler yanlış gitti. Sayfayı yenileyip tekrar deneyin."
     },
     "preview": {
         "loading": "Önizleme Yüklemesi"
     },
     "progress": {
         "compressingProject": "Projeyi sıkıştıryor",
+        "downloadingExtensions": "Eklentiler yükleniyor",
+        "loadingAssets": "Varlıklar indiriliyor ({complete}/{total}) ...",
+        "loadingLargeAsset": "Yükleniyor{thing}",
+        "loadingProjectData": "Proje verisi yükleniyor...",
+        "loadingProjectMetadata": "Proje meta verilerini yükleniyor...",
+        "loadingScripts": "Bloklar yükleniyor",
         "packagingProject": "Proje paketleniyor"
     },
     "reset": {
         "confirm": "Ayarları sıfırlamak istediğinizden emin misiniz? Bu işlem geri alınamaz.",
+        "confirmAll": "TÜM ayarları sıfırlamak istediğinizden emin misiniz? Bu geri alınamaz.",
         "reset": "Sıfırla"
     },
     "select": {
@@ -139,6 +178,9 @@
         "noFileSelected": "Dosya şeçilmemiştir",
         "select": "Projeyi şeç",
         "selectHelp": "Scratch proje bağlantısını kopyalayıp yapıştırarak veya diğer modlardan birini kullanarak paketlemek istediğiniz projeyi seçin. Eğer senin yapmadığın bir projeyi kullanırsanız lütfen yaratıcıya saygı gösterin. ",
+        "unsharedProjects": "Scratch API değişiklikleri nedeniyle, paylaşılmayan projelere artık proje kimlikleri kullanılarak erişilemiyor.",
+        "unsharedProjectsMore": "Daha fazla bilgi için siteyi ziyaret edin: {link}",
+        "unsharedProjectsWorkaround": "Bunun yerine projeyi paylaşabilir veya projeyi bilgisayarınıza kaydedebilir (Dosya > Bilgisayarınıza kaydet) ve dosyayı paketleyiciye yükleyebilirsiniz. Paketleyici tarafından oluşturulan dosyalar tamamen bağımsızdır ve bu değişikliklerden etkilenmez.",
         "url": "Başka URL"
     },
     "theme": {
