@@ -51,7 +51,7 @@
     "css-loader": "^5.2.7",
     "fastestsmallesttextencoderdecoder": "^1.0.22",
     "file-loader": "^6.2.0",
-    "html-webpack-plugin": "^4.5.2",
+    "html-webpack-plugin": "^5.5.3",
     "jest": "^27.4.5",
     "rimraf": "^2.7.1",
     "scratch-audio": "git+https://github.com/TurboWarp/scratch-audio.git",
