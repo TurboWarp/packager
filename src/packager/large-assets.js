@@ -53,8 +53,8 @@ export default {
   },
   'electron-mac': {
     src: externalFile('electron-v22.3.25-macos-universal.zip'),
-    sha256: '12febebaf468f48a9ce5d7f6a516e79c3a10b84b7eadb375eeb91320a8023acc',
-    estimatedSize: 160584431
+    sha256: '948a2e195add755c366bd759ebd6c0521d7f34936edd9c353bc9148e8380d8b4',
+    estimatedSize: 160882083
   },
   'electron-linux64': {
     src: externalFile('electron-v22.3.25-linux-x64.zip'),
