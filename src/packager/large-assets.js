@@ -42,24 +42,24 @@ export default {
     estimatedSize: 153808583
   },
   'electron-win32': {
-    src: externalFile('electron-v21.2.3-win32-ia32.zip'),
-    sha256: 'ee813a8dc4050c7d3a3cc80233bf5f4ddd0483e1c934eb69d735a3b3563ce3bf',
-    estimatedSize: 89317110
+    src: externalFile('electron-v22.3.25-win32-ia32.zip'),
+    sha256: 'a0fa8192e8d33f8876bb3867bf58f72fdafb1d106a68eab3b04aef0fed91fb4a',
+    estimatedSize: 90856612
   },
   'electron-win64': {
-    src: externalFile('electron-v21.2.3-win32-x64.zip'),
-    sha256: 'b1695f0528567ecc1f7e667520c7770321df35d058841e24c4e9793f4e43e56a',
-    estimatedSize: 95073928
+    src: externalFile('electron-v22.3.25-win32-x64.zip'),
+    sha256: '2b77e0ef8974517b6add666630f8c425adec1861402099da0f9a63abb6c0721b',
+    estimatedSize: 96605498
   },
   'electron-mac': {
-    src: externalFile('electron-v21.0.1-macos-universal.zip'),
-    sha256: 'c31d1ef26f7b6230881a11308ebf8f4487a1a3fb7a151da0972fad77bc9e6acf',
-    estimatedSize: 154789837
+    src: externalFile('electron-v22.3.25-macos-universal.zip'),
+    sha256: '12febebaf468f48a9ce5d7f6a516e79c3a10b84b7eadb375eeb91320a8023acc',
+    estimatedSize: 160584431
   },
   'electron-linux64': {
-    src: externalFile('electron-v21.0.1-linux-x64.zip'),
-    sha256: '4fd6d7b5a65f44a43165ae77d0484db992b30d6efba478a192e984506fbd52b6',
-    estimatedSize: 90635371
+    src: externalFile('electron-v22.3.25-linux-x64.zip'),
+    sha256: 'f1d0f66b13d5b7b9e3f7d9b22891bf0b5b6f87e45c46054cd3fa74636c19e921',
+    estimatedSize: 93426892
   },
   'webview-mac': {
     src: externalFile('WebView-macos-5.zip'),
