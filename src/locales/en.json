@@ -472,6 +472,14 @@
       "string": "{type} Linux application (64-bit only)",
       "context": "type will become something like 'NW.js' or 'Electron'. Do not translate 'Linux'."
     },
+    "application-linux-arm32": {
+      "string": "{type} Linux application for ARM (32-bit)",
+      "context": "type will become something like 'NW.js' or 'Electron'. Do not translate 'Linux' or 'ARM'."
+    },
+    "application-linux-arm64": {
+      "string": "{type} Linux application for ARM (64-bit)",
+      "context": "type will become something like 'NW.js' or 'Electron'. Do not translate 'Linux' or 'ARM'."
+    },
     "otherEnvironments": {
       "string": "Other environments (Click to open)",
       "context": "Text that can be clicked to expand list of environments to include some unrecommended ones."

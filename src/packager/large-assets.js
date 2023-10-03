@@ -61,6 +61,16 @@ export default {
     sha256: 'f1d0f66b13d5b7b9e3f7d9b22891bf0b5b6f87e45c46054cd3fa74636c19e921',
     estimatedSize: 93426892
   },
+  'electron-linux-arm32': {
+    src: externalFile('electron-v22.3.25-linux-armv7l.zip'),
+    sha256: 'd90184e22f9d57fa4f207d5e5006bbfb6df1b9e10760333c3f72353ffa5ef3d1',
+    estimatedSize: 82722572
+  },
+  'electron-linux-arm64': {
+    src: externalFile('electron-v22.3.25-linux-arm64.zip'),
+    sha256: '08c4e127d06d73ad91fa308c811ace9d4f8607fe15ba0b2694261d32a2127a8c',
+    estimatedSize: 93932512
+  },
   'webview-mac': {
     src: externalFile('WebView-macos-5.zip'),
     sha256: 'b5636571cd9be2aae2f6dac1ab090fdf829c8fdfe91f462cc2feb2d324705f9f',
