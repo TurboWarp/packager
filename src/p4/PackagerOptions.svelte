@@ -91,9 +91,7 @@
     'zip',
     'electron-win32',
     'webview-mac',
-    'electron-linux64',
-    'electron-arm32',
-    'electron-arm64'
+    'electron-linux64'
   ].includes($options.target);
 
   const advancedOptionsInitiallyOpen = (
