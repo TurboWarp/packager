@@ -38,7 +38,7 @@ export default {
   },
   'nwjs-linux-x64': {
     src: externalFile('nwjs-v0.80.0-linux-x64.zip'),
-    sha256: 'fa4fb50b9fcf4cb357e61a6c5454b525ca042d9081a9bc0829a113582d29c9f0',
+    sha256: 'b10571ed0ef776006d037a0d183dc51b1ece20a629d25d9119162c0c30863526',
     estimatedSize: 153808583
   },
   'electron-win32': {
