@@ -42,33 +42,33 @@ export default {
     estimatedSize: 153808583
   },
   'electron-win32': {
-    src: externalFile('electron-v22.3.25-win32-ia32.zip'),
-    sha256: 'a0fa8192e8d33f8876bb3867bf58f72fdafb1d106a68eab3b04aef0fed91fb4a',
+    src: externalFile('electron-v22.3.27-win32-ia32.zip'),
+    sha256: '47bd498e5513529c5e141394fc9fd610cba1dcdea9e6dbb165edf929cbfd9af2',
     estimatedSize: 90856612
   },
   'electron-win64': {
-    src: externalFile('electron-v22.3.25-win32-x64.zip'),
-    sha256: '2b77e0ef8974517b6add666630f8c425adec1861402099da0f9a63abb6c0721b',
+    src: externalFile('electron-v22.3.27-win32-x64.zip'),
+    sha256: '1a02c0f7af9664696f790dcce05948f0458a2f4f2d48c685f911d2eb99a4c9da',
     estimatedSize: 96605498
   },
   'electron-mac': {
-    src: externalFile('electron-v22.3.25-macos-universal.zip'),
-    sha256: '948a2e195add755c366bd759ebd6c0521d7f34936edd9c353bc9148e8380d8b4',
+    src: externalFile('electron-v22.3.27-macos-universal.zip'),
+    sha256: '598b35f9030fe30f81b4041be048cd0374f675bd1bc0f172c26cf2808e80a3d9',
     estimatedSize: 160882083
   },
   'electron-linux64': {
-    src: externalFile('electron-v22.3.25-linux-x64.zip'),
-    sha256: 'f1d0f66b13d5b7b9e3f7d9b22891bf0b5b6f87e45c46054cd3fa74636c19e921',
+    src: externalFile('electron-v22.3.27-linux-x64.zip'),
+    sha256: '631d8eb08098c48ce2b29421e74c69ac0312b1e42f445d8a805414ba1242bf3a',
     estimatedSize: 93426892
   },
   'electron-linux-arm32': {
-    src: externalFile('electron-v22.3.25-linux-armv7l.zip'),
-    sha256: 'd90184e22f9d57fa4f207d5e5006bbfb6df1b9e10760333c3f72353ffa5ef3d1',
+    src: externalFile('electron-v22.3.27-linux-armv7l.zip'),
+    sha256: '9f8372606e5ede83cf1c73a3d8ff07047e4e3ef614aa89a76cd497dc06cf119d',
     estimatedSize: 82722572
   },
   'electron-linux-arm64': {
-    src: externalFile('electron-v22.3.25-linux-arm64.zip'),
-    sha256: '08c4e127d06d73ad91fa308c811ace9d4f8607fe15ba0b2694261d32a2127a8c',
+    src: externalFile('electron-v22.3.27-linux-arm64.zip'),
+    sha256: '60279395a5ce4eaf3c08f1e717771b203830902d3fe3a7c311bc37deb1a0e15e',
     estimatedSize: 93932512
   },
   'webview-mac': {
