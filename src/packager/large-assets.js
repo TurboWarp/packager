@@ -51,6 +51,11 @@ export default {
     sha256: '1a02c0f7af9664696f790dcce05948f0458a2f4f2d48c685f911d2eb99a4c9da',
     estimatedSize: 96605498
   },
+  'electron-win-arm': {
+    src: externalFile('electron-v22.3.27-win32-arm64.zip'),
+    sha256: '0e4ad218018c0881ef4de363107a94dd2ced40367a0e18ca7d0dde1f40da0531',
+    estimatedSize: 94065344
+  },
   'electron-mac': {
     src: externalFile('electron-v22.3.27-macos-universal.zip'),
     sha256: '598b35f9030fe30f81b4041be048cd0374f675bd1bc0f172c26cf2808e80a3d9',

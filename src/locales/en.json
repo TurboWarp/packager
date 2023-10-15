@@ -464,6 +464,10 @@
       "string": "{type} Windows application (64-bit only, not recommended)",
       "context": "type will become something like 'NW.js' or 'Electron'. Do not translate 'Windows'."
     },
+    "application-win-arm": {
+      "string": "{type} Windows application for ARM",
+      "context": "type will become something like 'NW.js' or 'Electron'. Do not translate 'Windows' or 'ARM'."
+    },
     "application-mac": {
       "string": "{type} macOS application",
       "context": "type will become something like 'NW.js' or 'Electron'. Do not translate 'macOS'."
