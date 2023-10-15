@@ -22,24 +22,24 @@ const relativeScaffolding = (name) => `scaffolding/${name}`;
 
 export default {
   'nwjs-win64': {
-    src: externalFile('nwjs-v0.80.0-win-x64.zip'),
-    sha256: '447492c16573684f58656e6418d0794cea5e3c111fa2680bf2b4f2307d79eb91',
-    estimatedSize: 133532391
+    src: externalFile('nwjs-v0.68.1-win-x64.zip'),
+    sha256: '82527d29f060bad7ec041f7c0536b1376f8bad5e5584adf7e3cf7205755a106c',
+    estimatedSize: 119821598
   },
   'nwjs-win32': {
-    src: externalFile('nwjs-v0.80.0-win-ia32.zip'),
-    sha256: '641eeffe2b77cefe9b9636ec042285c7905d453f56aedaa55adde0e3f630e0a7',
-    estimatedSize: 124391320
+    src: externalFile('nwjs-v0.68.1-win-ia32.zip'),
+    sha256: '7dd3104c2726082a8acd8973af2b2b223bc97960b722ec141b9bf07d84a0281b',
+    estimatedSize: 112613344
   },
   'nwjs-mac': {
-    src: externalFile('nwjs-v0.80.0-osx-x64.zip'),
-    sha256: '9c3170f03f63f97b2739e7e03140b1742fc52b3e5c91ec7d000e71bd83a43329',
-    estimatedSize: 120496868
+    src: externalFile('nwjs-v0.68.1-osx-x64.zip'),
+    sha256: '4b1356302738a45f7ee212f6ecb997eb5d31403bfc45a7dd58429c968a1f581a',
+    estimatedSize: 119091132
   },
   'nwjs-linux-x64': {
-    src: externalFile('nwjs-v0.80.0-linux-x64.zip'),
-    sha256: 'b10571ed0ef776006d037a0d183dc51b1ece20a629d25d9119162c0c30863526',
-    estimatedSize: 153808583
+    src: externalFile('nwjs-v0.68.1-linux-x64.zip'),
+    sha256: '5f597add1a2b6f13592117cc955111cea8211c13b21165e29c6616f385df5b94',
+    estimatedSize: 135854818
   },
   'electron-win32': {
     src: externalFile('electron-v22.3.27-win32-ia32.zip'),
