@@ -10,7 +10,7 @@ const crypto = require('crypto');
 
 const {electronVersion} = require('./version.json');
 
-const newIconPath = path.join(__dirname, '..', 'src', 'packager', 'images', 'default-icon.ico');
+const newIconPath = path.join(__dirname, '../src/packager/images/default-icon.ico');
 
 const download = (arch) => downloadArtifact({
   version: electronVersion,
@@ -19,7 +19,7 @@ const download = (arch) => downloadArtifact({
   arch
 });
 
-const getTempFile = (name) => path.join(__dirname, 'temp', 'windows', name);
+const getTempFile = (name) => path.join(__dirname, 'temp/windows', name);
 
 const extract = async (from, name) => {
   const to = getTempFile(name);
@@ -74,6 +74,7 @@ const run = async (arch) => {
 
 run('ia32')
   .then(() => run('x64'))
+  .then(() => run('arm64'))
   .catch((err) => {
     console.error(err);
     process.exit(1);

@@ -833,10 +833,23 @@
           {$_('options.application-win64').replace('{type}', 'Electron')}
         </label>
         <label class="option">
+          <input type="radio" name="environment" bind:group={$options.target} value="electron-win-arm">
+          {$_('options.application-win-arm').replace('{type}', 'Electron')}
+        </label>
+        <label class="option">
           <input type="radio" name="environment" bind:group={$options.target} value="electron-mac">
           {$_('options.application-mac').replace('{type}', 'Electron')}
         </label>
+        <label class="option">
+          <input type="radio" name="environment" bind:group={$options.target} value="electron-linux-arm32">
+          {$_('options.application-linux-arm32').replace('{type}', 'Electron')}
+        </label>
+        <label class="option">
+          <input type="radio" name="environment" bind:group={$options.target} value="electron-linux-arm64">
+          {$_('options.application-linux-arm64').replace('{type}', 'Electron')}
+        </label>  
       </div>
+
       <div class="group">
         <label class="option">
           <input type="radio" name="environment" bind:group={$options.target} value="nwjs-win32">
@@ -935,7 +948,6 @@
             <div>
               <h2>Linux</h2>
               <p>Linux support is still experimental.</p>
-              <p>Linux support in the packager is limited to 64-bit x86 apps (which will run on most desktops and laptops). 32-bit systems and ARM devices such as Raspberry Pis unfortunately are not supported yet.</p>
             </div>
           {/if}
 
@@ -944,14 +956,14 @@
               <h2>Electron</h2>
               <p>The Electron environment works by embedding a copy of Chromium (the open source part of Google Chrome) along with your project, which means the app will be very large.</p>
 
-              {#if $options.target.includes('mac')}
+              {#if $options.target.includes('win')}
+                {#if $options.target.includes('32')}
+                  <p>Note: You have selected the 32-bit or 64-bit mode. This maximizes device compatibility but limits the amount of memory the app can use. If you encounter crashes, try going into "Other environments" and using the 64-bit only mode instead.</p>
+                {/if}
+              {:else if $options.target.includes('mac')}
                 <p>On macOS, the app will run natively on both Intel Silicon and Apple Silicon Macs.</p>
               {:else if $options.target.includes('linux')}
                 <p>On Linux, the application can be started by running <code>start.sh</code></p>
-              {/if}
-
-              {#if $options.target.includes('32')}
-                <p>Note: You have selected the 32-bit or 64-bit mode. This maximizes device compatibility but limits the amount of memory the app can use. If you encounter crashes, try going into "Other environments" and using the 64-bit only mode instead.</p>
               {/if}
             </div>
           {:else if $options.target.includes('nwjs')}

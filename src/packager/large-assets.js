@@ -42,24 +42,39 @@ export default {
     estimatedSize: 135854818
   },
   'electron-win32': {
-    src: externalFile('electron-v21.2.3-win32-ia32.zip'),
-    sha256: 'ee813a8dc4050c7d3a3cc80233bf5f4ddd0483e1c934eb69d735a3b3563ce3bf',
-    estimatedSize: 89317110
+    src: externalFile('electron-v22.3.27-win32-ia32.zip'),
+    sha256: '47bd498e5513529c5e141394fc9fd610cba1dcdea9e6dbb165edf929cbfd9af2',
+    estimatedSize: 90856612
   },
   'electron-win64': {
-    src: externalFile('electron-v21.2.3-win32-x64.zip'),
-    sha256: 'b1695f0528567ecc1f7e667520c7770321df35d058841e24c4e9793f4e43e56a',
-    estimatedSize: 95073928
+    src: externalFile('electron-v22.3.27-win32-x64.zip'),
+    sha256: '1a02c0f7af9664696f790dcce05948f0458a2f4f2d48c685f911d2eb99a4c9da',
+    estimatedSize: 96605498
+  },
+  'electron-win-arm': {
+    src: externalFile('electron-v22.3.27-win32-arm64.zip'),
+    sha256: '0e4ad218018c0881ef4de363107a94dd2ced40367a0e18ca7d0dde1f40da0531',
+    estimatedSize: 94065344
   },
   'electron-mac': {
-    src: externalFile('electron-v21.0.1-macos-universal.zip'),
-    sha256: 'c31d1ef26f7b6230881a11308ebf8f4487a1a3fb7a151da0972fad77bc9e6acf',
-    estimatedSize: 154789837
+    src: externalFile('electron-v22.3.27-macos-universal.zip'),
+    sha256: '598b35f9030fe30f81b4041be048cd0374f675bd1bc0f172c26cf2808e80a3d9',
+    estimatedSize: 160882083
   },
   'electron-linux64': {
-    src: externalFile('electron-v21.0.1-linux-x64.zip'),
-    sha256: '4fd6d7b5a65f44a43165ae77d0484db992b30d6efba478a192e984506fbd52b6',
-    estimatedSize: 90635371
+    src: externalFile('electron-v22.3.27-linux-x64.zip'),
+    sha256: '631d8eb08098c48ce2b29421e74c69ac0312b1e42f445d8a805414ba1242bf3a',
+    estimatedSize: 93426892
+  },
+  'electron-linux-arm32': {
+    src: externalFile('electron-v22.3.27-linux-armv7l.zip'),
+    sha256: '9f8372606e5ede83cf1c73a3d8ff07047e4e3ef614aa89a76cd497dc06cf119d',
+    estimatedSize: 82722572
+  },
+  'electron-linux-arm64': {
+    src: externalFile('electron-v22.3.27-linux-arm64.zip'),
+    sha256: '60279395a5ce4eaf3c08f1e717771b203830902d3fe3a7c311bc37deb1a0e15e',
+    estimatedSize: 93932512
   },
   'webview-mac': {
     src: externalFile('WebView-macos-5.zip'),

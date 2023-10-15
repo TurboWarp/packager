@@ -464,6 +464,10 @@
       "string": "{type} Windows application (64-bit only, not recommended)",
       "context": "type will become something like 'NW.js' or 'Electron'. Do not translate 'Windows'."
     },
+    "application-win-arm": {
+      "string": "{type} Windows application for ARM",
+      "context": "type will become something like 'NW.js' or 'Electron'. Do not translate 'Windows' or 'ARM'."
+    },
     "application-mac": {
       "string": "{type} macOS application",
       "context": "type will become something like 'NW.js' or 'Electron'. Do not translate 'macOS'."
@@ -471,6 +475,14 @@
     "application-linux64": {
       "string": "{type} Linux application (64-bit only)",
       "context": "type will become something like 'NW.js' or 'Electron'. Do not translate 'Linux'."
+    },
+    "application-linux-arm32": {
+      "string": "{type} Linux application for ARM (32-bit)",
+      "context": "type will become something like 'NW.js' or 'Electron'. Do not translate 'Linux' or 'ARM'."
+    },
+    "application-linux-arm64": {
+      "string": "{type} Linux application for ARM (64-bit)",
+      "context": "type will become something like 'NW.js' or 'Electron'. Do not translate 'Linux' or 'ARM'."
     },
     "otherEnvironments": {
       "string": "Other environments (Click to open)",
