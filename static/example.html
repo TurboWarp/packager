@@ -138,11 +138,11 @@
       const {storage, vm} = scaffolding;
       storage.addWebStore(
         [storage.AssetType.Project],
-        (asset) => `https://projects.scratch.mit.edu/${asset.assetId}`
+        (asset) => `https://scratch-projects.scratch.org/${asset.assetId}`
       );
       storage.addWebStore(
         [storage.AssetType.ImageVector, storage.AssetType.ImageBitmap, storage.AssetType.Sound],
-        (asset) => `https://assets.scratch.mit.edu/internalapi/asset/${asset.assetId}.${asset.dataFormat}/get/`
+        (asset) => `https://scratch-assets.scratch.org/internalapi/asset/${asset.assetId}.${asset.dataFormat}/get/`
       );
       const setProgress = (progress) => {
         loadingInner.style.width = `${progress * 100}%`;

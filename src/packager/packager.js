@@ -46,7 +46,7 @@ const SELF_LICENSE = {
 
 const SCRATCH_LICENSE = {
   title: 'Scratch',
-  homepage: 'https://scratch.mit.edu/',
+  homepage: 'https://scratch.org/',
   license: `Copyright (c) 2016, Massachusetts Institute of Technology
 All rights reserved.
 
@@ -91,7 +91,7 @@ const COPYRIGHT_HEADER = `/*!
 Parts of this script are from the ${APP_NAME} <${WEBSITE}>, licensed as follows:
 ${SELF_LICENSE.license}
 
-Parts of this script are from Scratch <https://scratch.mit.edu/>, licensed as follows:
+Parts of this script are from Scratch <https://scratch.org/>, licensed as follows:
 ${SCRATCH_LICENSE.license}
 */\n`;
 

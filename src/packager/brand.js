@@ -49,7 +49,7 @@ limitations under the License.`,
   SOURCE_CODE: 'https://github.com/TurboWarp/packager',
   FEEDBACK_PRIMARY: {
     name: 'Scratch',
-    link: 'https://scratch.mit.edu/users/GarboMuffin/#comments'
+    link: 'https://scratch.org/users/GarboMuffin/#comments'
   },
   FEEDBACK_SECONDARY: {
     name: 'GitHub',
