@@ -92,6 +92,9 @@
       .fullscreen-button {
         background: white !important;
       }
+      #error-information {
+        font-family: monospace;
+      }
     </style>
   </head>
   <body>
@@ -115,7 +118,7 @@
 
     <div id="error" class="screen" hidden>
       <h1>Error</h1>
-      <p>See console for more information</p>
+      <p id="error-information"></p>
     </div>
 
     <!-- If using Scaffolding as a library, update this path to where your scaffolding-[full|min].js is located. -->
@@ -130,16 +133,13 @@
       const loadingScreen = document.getElementById('loading');
       const loadingInner = document.getElementById('loading-inner');
       const errorScreen = document.getElementById('error');
+      const errorInformation = document.getElementById('error-information');
 
       const scaffolding = new Scaffolding.Scaffolding();
       scaffolding.setup();
       scaffolding.appendTo(appElement);
 
       const {storage, vm} = scaffolding;
-      storage.addWebStore(
-        [storage.AssetType.Project],
-        (asset) => `https://projects.scratch.mit.edu/${asset.assetId}`
-      );
       storage.addWebStore(
         [storage.AssetType.ImageVector, storage.AssetType.ImageBitmap, storage.AssetType.Sound],
         (asset) => `https://assets.scratch.mit.edu/internalapi/asset/${asset.assetId}.${asset.dataFormat}/get/`
@@ -219,8 +219,17 @@
       scaffolding.addCloudProvider(new Scaffolding.Cloud.WebSocketProvider('wss://clouddata.turbowarp.org', PROJECT_ID));
 
       const getProjectData = async () => {
-        const asset = await storage.load(Scaffolding.Storage.AssetType.Project, PROJECT_ID);
-        return asset.data;
+        const metadataResponse = await fetch(`https://trampoline.turbowarp.org/api/projects/${PROJECT_ID}`);
+        if (!metadataResponse.ok) {
+          throw new Error('Failed to load project metadata. It is probably unshared.');
+        }
+        const projectMetadata = await metadataResponse.json();
+        const token = projectMetadata.project_token;
+        const dataResponse = await fetch(`https://projects.scratch.mit.edu/${PROJECT_ID}?token=${token}`);
+        if (!dataResponse.ok) {
+          throw new Error('Failed to load project data.');
+        }
+        return dataResponse.arrayBuffer();
       };
 
       const run = async () => {
@@ -240,7 +249,8 @@
 
       const handleError = (error) => {
         console.error(error);
-        errorScreen.hidden = false;  
+        errorScreen.hidden = false;
+        errorInformation.textContent = `${error}`;
       };
 
       run().catch(handleError);
