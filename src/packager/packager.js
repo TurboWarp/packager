@@ -1301,14 +1301,18 @@ cd "$(dirname "$0")"
       scaffolding.setUsername(${JSON.stringify(this.options.username)}.replace(/#/g, () => Math.floor(Math.random() * 10)));
       scaffolding.setAccentColor(${JSON.stringify(this.options.appearance.accent)});
 
-      ${this.options.cloudVariables.mode === 'ws' ?
-        `scaffolding.addCloudProvider(${this.makeWebSocketProvider()})` :
-        this.options.cloudVariables.mode === 'local' ?
-        `scaffolding.addCloudProvider(${this.makeLocalStorageProvider()})` :
-        this.options.cloudVariables.mode === 'custom' ?
-        this.makeCustomProvider() :
-        ''
-      };
+      try {
+        ${this.options.cloudVariables.mode === 'ws' ?
+          `scaffolding.addCloudProvider(${this.makeWebSocketProvider()})` :
+          this.options.cloudVariables.mode === 'local' ?
+          `scaffolding.addCloudProvider(${this.makeLocalStorageProvider()})` :
+          this.options.cloudVariables.mode === 'custom' ?
+          this.makeCustomProvider() :
+          ''
+        };
+      } catch (error) {
+        console.error(error);
+      }
 
       ${this.options.controls.greenFlag.enabled ? `
       const greenFlagButton = document.createElement('img');
