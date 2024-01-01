@@ -15,10 +15,10 @@ jobs:
     runs-on: ${{ matrix.os }}
 
     steps:
-    - uses: actions/checkout@v3
-    - uses: actions/setup-node@v3
+    - uses: actions/checkout@v4
+    - uses: actions/setup-node@v4
       with:
-        node-version: 14
+        node-version: 20.x
     - name: Install dependencies
       run: |
         cd electron-bin
@@ -31,7 +31,7 @@ jobs:
         node generate-macos.js
     - name: Upload macOS
       if: runner.os == 'macOS'
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: electron-macos
         path: electron-bin/temp/macos/*.zip
@@ -46,13 +46,13 @@ jobs:
         node generate-windows.js
     - name: Upload Windows
       if: runner.os == 'Windows'
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: electron-windows
         path: electron-bin/temp/windows/*.zip
     - name: Upload Windows Crossbuild
       if: runner.os == 'Linux'
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: electron-windows-crossbuild
         path: electron-bin/temp/windows/*.zip
