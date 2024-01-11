@@ -44,9 +44,14 @@ We strive to make the packager easy to fork, even for mods that aren't based on 
 
 ### Packages
 
-If you want to change the VM/renderer/etc. used, just `npm install` or `npm link` a different scratch-vm/scratch-render/etc. and rebuild. You can even install a vanilla scratch-vm and all core functionality will still work (but optional features such as interpolation, high quality pen, stage size, etc. may not work)
+If you want to change the scratch-vm/scratch-render/scratch-audio/scratch-storage/etc. used, this is simple:
 
-If you encounter errors about dependencies missing, usually these will be fixed after running another `npm install`.
+ - `npm install` or `npm link` your package. The package name does not matter.
+ - Update src/scaffolding/scratch-libraries.js to import the packages with the name you have. (some of our packages are prefixed with `@turbowarp/` while others are still just `scratch-vm` -- just make sure they match yours)
+
+Then just rebuild. You can even install a vanilla scratch-vm and all core functionality will still work (but optional features such as interpolation, high quality pen, stage size, etc. may not work)
+
+Note that npm is a very buggy piece of software and our dependency tree is very large. Occasionally you might get errors about missing dependencies, which should go away if you run `npm install`.
 
 ### Deployment
 
