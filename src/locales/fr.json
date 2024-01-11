@@ -93,6 +93,7 @@
         "packagingProject": "Compilation du projet"
     },
     "reset": {
+        "confirm": "Voulez-vous vraiment réinitialiser ces paramètres ? Ça ne peut pas être annulé.",
         "confirmAll": "Êtes vous sûr de vouloir reinitialiser TOUS les paramètres ? Cela ne peut pas être annulé.",
         "reset": "Réinitialiser"
     },
