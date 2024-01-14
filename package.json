@@ -58,7 +58,6 @@
     "rimraf": "^2.7.1",
     "scratch-audio": "github:TurboWarp/scratch-audio#develop",
     "scratch-render": "github:TurboWarp/scratch-render#develop",
-    "scratch-render-fonts": "^1.0.0-prerelease.20231017225105",
     "scratch-vm": "github:TurboWarp/scratch-vm#develop",
     "style-loader": "^2.0.0",
     "svelte": "^3.44.3",
