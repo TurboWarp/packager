@@ -73,6 +73,7 @@
         "loadingScreenImage": "Imagem da tela de carregamento",
         "loadingScreenText": "Texto da tela de carregamento",
         "loadingScreenTextPlaceholder": "(Nada)",
+        "maxTextureDimension": "Aumentará o limite da resolução máxima da fantasia em vetor para tornar as fantasias gigantes mais nítidas. Esta opção pode aumentar consideravelmente o uso da memória e causar instabilidades.",
         "mode": "Modo",
         "monitors": "Monitores",
         "noCloudVariables": "Esse projeto não contém variáveis na nuvem.",
