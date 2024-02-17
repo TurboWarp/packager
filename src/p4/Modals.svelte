@@ -11,7 +11,7 @@
   let modalElement;
   let initiallyFocusedElement;
 
-  const getAllFocusableElements = () => Array.from(document.querySelectorAll('a, button, input, select'))
+  const getAllFocusableElements = () => Array.from(document.querySelectorAll('a, button, input, select, summary, textarea'))
     .filter((i) => !modalElement || !modalElement.contains(i));
 
   $: {
