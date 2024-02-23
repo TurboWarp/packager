@@ -31,7 +31,7 @@
     "url": "https://github.com/TurboWarp/packager.git"
   },
   "funding": "https://github.com/sponsors/GarboMuffin",
-  "license": "Apache-2.0",
+  "license": "LGPL-3.0-only",
   "dependencies": {
     "@fiahfy/icns": "0.0.7",
     "@turbowarp/json": "^0.1.1",
