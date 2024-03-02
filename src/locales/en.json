@@ -509,6 +509,10 @@
       "string": "Updating the version is completely optional and doesn't affect your project's behavior. It may appear in places like about screens depending on the environment. Should be formatted as X.Y.Z.",
       "context": "Additional information about the version number option"
     },
+    "initalWindowSize": {
+      "string": "Initial window size",
+      "context": "Name of setting to change the size of the window when the app first opens"
+    },
     "startWindow": {
       "string": "Start as window"
     },
@@ -517,6 +521,26 @@
     },
     "startFullscreen": {
       "string": "Start in fullscreen"
+    },
+    "escapeBehavior": {
+      "string": "When escape key pressed",
+      "context": "Name of setting to change what happens when someone presses escape"
+    },
+    "unFullscreenOnly": {
+      "string": "Leave fullscreen only",
+      "context": "When escape key pressed, leave fullscreen if in fullscreen, otherwise do nothing."
+    },
+    "exitOnly": {
+      "string": "Exit only",
+      "context": "When escape key pressed, always exit the app regardless of fullscreen mode."
+    },
+    "unFullscreenOrExit": {
+      "string": "Leave fullscreen or exit",
+      "context": "When escape key pressed, leave fullscreen if in fullscreen, otherwise exit."
+    },
+    "doNothing": {
+      "string": "Do nothing",
+      "context": "When escape key pressed, do nothing."
     },
     "maxTextureDimension": {
       "string": "Increase max vector costume resolution to make large costumes look better. May increase memory use and cause crashes."

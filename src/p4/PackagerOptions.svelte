@@ -879,7 +879,8 @@
       reset={$options.target.startsWith('zip') ? null : () => {
         resetOptions([
           'app.packageName',
-          'app.windowMode'
+          'app.windowMode',
+          'app.escapeBehavior'
         ]);
       }}
     >
@@ -902,20 +903,24 @@
           <p>{$_('options.versionHelp')}</p>
 
           {#if $options.target.includes('electron')}
-            <div class="group">
-              <label class="option">
-                <input type="radio" name="app-window-mode" bind:group={$options.app.windowMode} value="window">
-                {$_('options.startWindow')}
-              </label>
-              <label class="option">
-                <input type="radio" name="app-window-mode" bind:group={$options.app.windowMode} value="maximize">
-                {$_('options.startMaximized')}
-              </label>
-              <label class="option">
-                <input type="radio" name="app-window-mode" bind:group={$options.app.windowMode} value="fullscreen">
-                {$_('options.startFullscreen')}
-              </label>
-            </div>
+            <label class="option">
+              {$_('options.initalWindowSize')}
+              <select bind:value={$options.app.windowMode}>
+                <option value="window">{$_('options.startWindow')}</option>
+                <option value="maximize">{$_('options.startMaximized')}</option>
+                <option value="fullscreen">{$_('options.startFullscreen')}</option>
+              </select>
+            </label>
+
+            <label class="option">
+              {$_('options.escapeBehavior')}
+              <select bind:value={$options.app.escapeBehavior}>
+                <option value="unfullscreen-only">{$_('options.unFullscreenOnly')}</option>
+                <option value="exit-only">{$_('options.exitOnly')}</option>
+                <option value="unfullscreen-or-exit">{$_('options.unFullscreenOrExit')}</option>
+                <option value="nothing">{$_('options.doNothing')}</option>
+              </select>
+            </label>
           {/if}
 
           <div class="warning">

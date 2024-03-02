@@ -696,8 +696,13 @@ app.on('web-contents-created', (event, contents) => {
     if (!window || input.type !== "keyDown") return;
     if (input.key === 'F11' || (input.key === 'Enter' && input.alt)) {
       window.setFullScreen(!window.isFullScreen());
-    } else if (input.key === 'Escape' && window.isFullScreen()) {
-      window.setFullScreen(false);
+    } else if (input.key === 'Escape') {
+      const behavior = ${JSON.stringify(this.options.app.escapeBehavior)};
+      if (window.isFullScreen() && (behavior === 'unfullscreen-only' || behavior === 'unfullscreen-or-exit')) {
+        window.setFullScreen(false);
+      } else if (behavior === 'unfullscreen-or-exit' || behavior === 'exit-only') {
+        window.close();
+      }
     }
   });
 });
@@ -1641,7 +1646,8 @@ Packager.DEFAULT_OPTIONS = () => ({
     packageName: Packager.getDefaultPackageNameFromFileName(''),
     windowTitle: Packager.getWindowTitleFromFileName(''),
     windowMode: 'window',
-    version: '1.0.0'
+    version: '1.0.0',
+    escapeBehavior: 'unfullscreen-only'
   },
   chunks: {
     gamepad: false,
