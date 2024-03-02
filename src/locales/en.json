@@ -506,7 +506,7 @@
       "context": "Label for application version number input"
     },
     "versionHelp": {
-      "string": "Updating the version is completely optional and doesn't affect your project's behavior. It may appear in places like about screens depending on the environment.",
+      "string": "Updating the version is completely optional and doesn't affect your project's behavior. It may appear in places like about screens depending on the environment. Should be formatted as X.Y.Z.",
       "context": "Additional information about the version number option"
     },
     "startWindow": {

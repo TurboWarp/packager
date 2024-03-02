@@ -301,7 +301,7 @@
   input[type="number"] {
     width: 50px;
   }
-  input:invalid {
+  input:invalid, .version:placeholder-shown {
     outline: 2px solid red;
   }
   .warning {
@@ -897,7 +897,7 @@
 
           <label class="option">
             {$_('options.version')}
-            <input type="text" bind:value={$options.app.version} pattern="\d+\.\d+\.\d+" minlength="1">
+            <input type="text" class="version" bind:value={$options.app.version} pattern="\d+\.\d+\.\d+" placeholder="1.0.0" minlength="1">
           </label>
           <p>{$_('options.versionHelp')}</p>
 
