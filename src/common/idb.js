@@ -105,9 +105,16 @@ class Database {
   }
 }
 
+/**
+ * @param {IDBTransaction} transaction
+ * @param {function} reject
+ */
 Database.setTransactionErrorHandler = (transaction, reject) => {
   transaction.onerror = () => {
     reject(new Error(`Transaction error: ${transaction.error}`))
+  };
+  transaction.onabort = () => {
+    reject(new Error(`Transaction aborted: ${transaction.error}`));
   };
 };
 
