@@ -105,7 +105,6 @@
         "username": "Uporabniško ime (vsak \"#\" bo zamenjan z naključno številko)",
         "variableColor": "Barva spremenljivk",
         "version": "Različica",
-        "versionHelp": "Nastavitev različice ni nujna in ne vpliva na delovanje projekta. Odvisno od okolja je lahko prikazana na različnih mestih, kot so okna z lastnostmi.",
         "zip": "Zip (priporočeno za spletne strani)",
         "zip-one-asset": "Stisnjena mapa, vse slike in zvoki v eni datoteki (ni priporočeno)"
     },

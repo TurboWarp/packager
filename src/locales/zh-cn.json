@@ -66,6 +66,7 @@
         "implicitCloudHint": "提示：任何名称以“{cloud}”开头的变量都将被转换为云变量，无论它们创建时是否是云变量。",
         "import": "导入设置",
         "infiniteClones": "无限克隆",
+        "initalWindowSize": "原始窗口大小",
         "interaction": "输入",
         "interpolation": "补帧",
         "learnMore": "查看更多",
@@ -119,7 +120,6 @@
         "username": "用户名（每个“#”号代表一位随机数字）",
         "variableColor": "变量颜色",
         "version": "版本",
-        "versionHelp": "更新版本是完全可选的，不会影响你的作品的行为。根据环境的不同，它可能会出现在关于屏幕等地方。",
         "warpTimer": "循环计时器",
         "zip": "Zip 压缩包（适合嵌入网站）",
         "zip-one-asset": "Zip 压缩包，把所有素材打包在一个文件中（不推荐）"

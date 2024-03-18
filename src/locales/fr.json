@@ -65,7 +65,6 @@
         "turbo": "Mode Turbo",
         "username": "Nom d'utilisateur (chaque \"#\" est remplacé par un chiffre aléatoire entre 0 et 9)",
         "variableColor": "Couleur des variables",
-        "versionHelp": "Mettre à jour la version est complètement optionnel et n'affecte pas le fonctionnement de votre projet. Cela peut apparaitre dans des endroits comme des pages \" A propos\",  en fonction de l'environnement.",
         "warpTimer": "Vérificateur de boucles infinies."
     },
     "p4": {

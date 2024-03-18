@@ -118,7 +118,6 @@
         "unsafeCloudBehaviorsWarning": "Osäkra moln beteenden tillåter det packade projektet att köra slumpmässig kod utanför \"sandboxen\" som projekt vanligtvis körs i. Beroende på miljön som du packar för, detta garanterar full kontroll över din dator, inklusive förmågan att installera virus. Om du inte litar på projektet du packar, stäng av detta alternativ. ",
         "username": "Användarnamn (varje \"#\" blir utbyten mot en slumpmässigt nummer)",
         "variableColor": "Variabel färg",
-        "versionHelp": "Att uppdatera versionen är frivilligt och kommer inte påverka dina projekts beteende. Det kan förekomma på plaster som skärmar beroende på miljön.",
         "zip": "Zip (idealisk för webbsidor)",
         "zip-one-asset": "Zip, kombinera tillgångar till en enda fil (inte rekomenderat)"
     },

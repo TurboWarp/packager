@@ -115,7 +115,6 @@
         "username": "Nom d'usuari (cada \"#\" es reemplaça per un numero aleatori)",
         "variableColor": "Color de les variables",
         "version": "Versió",
-        "versionHelp": "L'actualització de la versió és completament opcional i no afecta el comportament del vostre projecte. Pot aparèixer en llocs com a les pantalles de \"Quant a\" segons l'entorn.",
         "warpTimer": "Temporitzador Warp",
         "zip": "Zip (ideal per a webs)",
         "zip-one-asset": "Zip, combinant els recursos en un sol arxiu (no recomanat)"

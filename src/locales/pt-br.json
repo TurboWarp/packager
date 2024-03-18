@@ -118,7 +118,6 @@
         "username": "Nome de usuário (cada \"#\" torna-se num número aleatório)",
         "variableColor": "Cor da variável",
         "version": "Versão",
-        "versionHelp": "A atualização da versão é completamente opcional e não afeta o comportamento de seu projeto. Ela pode aparecer em lugares como sobre telas, dependendo do ambiente.",
         "zip": "Zip (ideal para websites)",
         "zip-one-asset": "Zip, juntar todos os recursos em um único arquivo (não recomendado)"
     },
