@@ -39,14 +39,18 @@ class ViewController: NSViewController, WKNavigationDelegate, WKUIDelegate, WKSc
         view.layer?.backgroundColor = background
         view.frame = CGRect(x: 0, y: 0, width: width, height: height)
 
+        webView.isHidden = true
         webView.navigationDelegate = self
         webView.uiDelegate = self
         webView.configuration.userContentController.add(self, name: "download")
         webView.configuration.preferences.setValue(true, forKey: "allowFileAccessFromFileURLs")
+
         #if DEBUG
+        if #available(macOS 13.3, *) {
+            webView.isInspectable = true
+        }
         webView.configuration.preferences.setValue(true, forKey: "developerExtrasEnabled")
         #endif
-        webView.isHidden = true
     }
 
     override func viewDidLoad() {
