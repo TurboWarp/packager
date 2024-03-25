@@ -3,7 +3,8 @@
     <head>
         <title>Page title in index.html</title>
         <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="color-scheme" content="light dark">
     </head>
     <body>
         <h1>It works!</h1>
@@ -11,6 +12,8 @@
         <button onclick="testCamera()">Test camera</button>
         <button onclick="testMicrophone()">Test microphone</button>
         <button onclick="window.close()">window.close()</button>
+        <button onclick="testLocalFetchFromMain()">Test local fetch from main</button>
+        <button onclick="testLocalFetchFromBlobWorker()">Test local fetch from blob: worker</button>
         <script>
             const testDownload = async () => {
                 const blob = new Blob([
@@ -20,7 +23,7 @@
                 });
                 ExternalDownloadHelper.download("test.txt", blob);
             };
-            
+
             const testCamera = async () => {
                 const stream = await navigator.mediaDevices.getUserMedia({
                     video: true
@@ -31,7 +34,7 @@
                 video.controls = true;
                 document.body.appendChild(video);
             };
-            
+
             const testMicrophone = async () => {
                 const stream = await navigator.mediaDevices.getUserMedia({
                     audio: true
@@ -41,6 +44,41 @@
                 audio.autoplay = true;
                 audio.controls = true;
                 document.body.appendChild(audio);
+            };
+
+            let testFetchURL = new URL('', location.href).href;
+
+            const testLocalFetchFromMain = async () => {
+                fetch(testFetchURL)
+                    .then(res => res.text())
+                    .catch(err => {
+                        return `${err}`;
+                    })
+                    .then(text => {
+                        const el = document.createElement("pre");
+                        el.textContent = text;
+                        document.body.appendChild(el);
+                    });
+            };
+
+            const testLocalFetchFromBlobWorker = async () => {
+                const source = `
+                console.log("Inside worker...");
+                fetch(${JSON.stringify(testFetchURL)})
+                    .then(res => res.text())
+                    .then(text => postMessage(text))
+                    .catch(err => postMessage('' + err));
+                `;
+                const blob = new Blob([source], {
+                    type: 'application/javascript'
+                });
+                const url = URL.createObjectURL(blob);
+                const worker = new Worker(url);
+                worker.addEventListener('message', (e) => {
+                    const el = document.createElement("pre");
+                    el.textContent = e.data;
+                    document.body.appendChild(el);
+                });
             };
         </script>
     </body>
