@@ -82,6 +82,8 @@ class SpecialCloudBehaviorsProvider {
       navigator.clipboard.writeText(value);
     } else if (name === '☁ room id') {
       if (this.webSocketProvider) {
+        // convert to string to fix room ID 0/false
+        value = '' + value;
         const newId = this.initialProjectId + (value ? `-${value}` : '');
         this.webSocketProvider.setProjectId(newId);
       }
