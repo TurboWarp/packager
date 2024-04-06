@@ -62,7 +62,7 @@ We use GitHub Actions and GitHub Pages to manage our deployment. If you want to 
  - Fork the repository on GitHub and push your changes.
  - Go to your fork's settings on GitHub and enable GitHub Pages with the source set to GitHub Actions.
  - Go to the "Actions" tab and enable GitHub Actions if it isn't already enabled.
- - Go to your fork > Actions > Deploy > Manually run the action on the branch of your choice (probably master).
+ - Push commits to the "master" branch.
  - In a few minutes, your site will automatically be built and deployed to GitHub Pages.
 
 ### Branding
