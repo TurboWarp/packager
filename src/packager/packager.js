@@ -575,8 +575,8 @@ const createWindow = (windowOptions) => {
     },
     frame: ${this.options.app.windowControls !== 'frameless'},
     show: true,
-    width: 480,
-    height: 360,
+    width: ${this.options.stageWidth},
+    height: ${this.options.stageHeight},
     ...windowOptions,
   };
 
