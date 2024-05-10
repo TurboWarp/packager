@@ -573,6 +573,7 @@ const createWindow = (windowOptions) => {
       contextIsolation: true,
       nodeIntegration: false,
     },
+    frame: ${this.options.app.windowControls !== 'frameless'},
     show: true,
     width: 480,
     height: 360,
@@ -1647,7 +1648,8 @@ Packager.DEFAULT_OPTIONS = () => ({
     windowTitle: Packager.getWindowTitleFromFileName(''),
     windowMode: 'window',
     version: '1.0.0',
-    escapeBehavior: 'unfullscreen-only'
+    escapeBehavior: 'unfullscreen-only',
+    windowControls: 'default'
   },
   chunks: {
     gamepad: false,

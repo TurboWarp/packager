@@ -542,6 +542,18 @@
       "string": "Do nothing",
       "context": "When escape key pressed, do nothing."
     },
+    "windowControls": {
+      "string": "Window controls",
+      "context": "Name of setting to change whether the generated app has the window control bar (window title, close, minimize, maximize, etc.) provided by the OS."
+    },
+    "defaultControls": {
+      "string": "Default",
+      "context": "Uses the default window control bar (window title, close, minimize, maximize, etc.) provided by OS"
+    },
+    "noControls": {
+      "string": "Hidden (frameless)",
+      "context": "Do not show the window control bar (window title, close, minimize, maximize, etc.) provided by OS. Some people call this 'frameless' mode."
+    },
     "maxTextureDimension": {
       "string": "Increase max vector costume resolution to make large costumes look better. May increase memory use and cause crashes."
     },

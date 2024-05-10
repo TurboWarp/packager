@@ -921,6 +921,14 @@
                 <option value="nothing">{$_('options.doNothing')}</option>
               </select>
             </label>
+
+            <label class="option">
+              {$_('options.windowControls')}
+              <select bind:value={$options.app.windowControls}>
+                <option value="default">{$_('options.defaultControls')}</option>
+                <option value="frameless">{$_('options.noControls')}</option>
+              </select>
+            </label>
           {/if}
 
           <div class="warning">
