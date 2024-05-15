@@ -11,6 +11,7 @@ import {APP_NAME, WEBSITE, COPYRIGHT_NOTICE, ACCENT_COLOR} from './brand';
 import {OutdatedPackagerError} from '../common/errors';
 import {darken} from './colors';
 import {Adapter} from './adapter';
+import electronSuperpowerScripts from './electron-superpowers';
 
 const PROGRESS_LOADED_SCRIPTS = 0.1;
 
@@ -526,6 +527,8 @@ cd "$(dirname "$0")"
     const contentsPrefix = isMac ? `${rootPrefix}${packageName}.app/Contents/` : rootPrefix;
     const resourcesPrefix = isMac ? `${contentsPrefix}Resources/app/` : `${contentsPrefix}resources/app/`;
     const electronMainName = 'electron-main.js';
+    const electronSuperpowersMainName = 'electron-superpowers.js';
+    const electronSuperpowersPreloadName = 'electron-preload.js';
     const iconName = 'icon.png';
 
     const icon = await Adapter.getAppIcon(this.options.app.icon);
@@ -539,7 +542,7 @@ cd "$(dirname "$0")"
     zip.file(`${resourcesPrefix}package.json`, JSON.stringify(manifest, null, 4));
 
     const mainJS = `'use strict';
-const {app, BrowserWindow, Menu, shell, screen, dialog} = require('electron');
+const {app, BrowserWindow, Menu, shell, screen, dialog, ipcMain} = require('electron');
 const path = require('path');
 
 const isWindows = process.platform === 'win32';
@@ -572,6 +575,7 @@ const createWindow = (windowOptions) => {
       sandbox: true,
       contextIsolation: true,
       nodeIntegration: false,
+      preload: path.resolve(__dirname, ${JSON.stringify(electronSuperpowersPreloadName)}),
     },
     frame: ${this.options.app.windowControls !== 'frameless'},
     show: true,
@@ -725,8 +729,12 @@ app.on('window-all-closed', () => {
 app.whenReady().then(() => {
   createProjectWindow(defaultProjectURL);
 });
+
+require('./' + ${JSON.stringify(electronSuperpowersMainName)});
 `;
     zip.file(`${resourcesPrefix}${electronMainName}`, mainJS);
+    zip.file(`${resourcesPrefix}${electronSuperpowersMainName}`, electronSuperpowerScripts.main)
+    zip.file(`${resourcesPrefix}${electronSuperpowersPreloadName}`, electronSuperpowerScripts.preload);
 
     for (const [path, data] of Object.entries(projectZip.files)) {
       setFileFast(zip, `${resourcesPrefix}${path}`, data);
