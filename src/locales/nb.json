@@ -53,6 +53,7 @@
         "customExtensionsSecurity": "Tilpassede utvidelser kjøres alltid usandboxed i pakkeren. Avhengig av miljøet du pakker for, gir dette utvidelser full kontroll over datamaskinen din, inkludert evnen til å installere virus. Ikke bruk utvidelser du ikke stoler på.",
         "customJS": "Custom JS (Ikke endre hvis du ikke vet hva du gjør!)",
         "customUsernameWarning": "Vær forsiktig når du endrer standardbrukernavnet, da det kan føre til at tilkoblinger til standard skyvariabelserver blir blokkert. Bare standardbrukernavnet er garantert å fungere.",
+        "defaultControls": "Vanlig",
         "doNothing": "Ikke gjør noe",
         "downloadsWillAppearHere": "Nedlastinger vil vises her",
         "dynamicResize": "Dynamisk endre størrelsen for å tilpasse vindusstørrelsen (eksperimentell)",
@@ -84,6 +85,7 @@
         "mode": "Modus",
         "monitors": "Skjermer",
         "noCloudVariables": "Dette prosjektet inneholder ikke skyvariabler.",
+        "noControls": "Skjult (frameless)",
         "noCursor": "Ingen markør",
         "normalCursor": "Normal markør",
         "otherEnvironments": "Andre miljøer (Klikk for å åpne)",
@@ -128,6 +130,7 @@
         "variableColor": "Variabel farge",
         "version": "Versjon",
         "versionHelp": "Oppdatering av versjonen er helt valgfritt og påvirker ikke prosjektets oppførsel. Det kan vises på steder som \"om\" skjermer, avhengig av miljøet. Skal formateres som X.Y.Z.",
+        "windowControls": "Vinduskontroller",
         "zip": "Zip (ideell for nettsteder)",
         "zip-one-asset": "Zip, kombiner ressurser til én fil (ikke anbefalt)"
     },

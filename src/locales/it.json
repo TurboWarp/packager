@@ -52,6 +52,7 @@
         "customExtensionsSecurity": "Le estensioni custom sono sempre eseguite senza sandbox nel packager. A seconda dell'ambiente per il quale stai creando il pacchetto, questo garantisce alle estensioni completo controllo del tuo computer, inclusa la possibilità di installare virus. Non usare estensioni di cui non ti fidi del tutto. ",
         "customJS": "JS personalizzato (Non cambiare se non sai cosa stai facendo!)",
         "customUsernameWarning": "Fai attenzione quando cambi il nome utente predefinito perché può causare il blocco delle connessioni al server predefinito delle variabili cloud. Solo il nome utente predefinito è garantito funzionare.",
+        "defaultControls": "Standard",
         "doNothing": "Non fare nulla",
         "downloadsWillAppearHere": "I download appariranno qui",
         "dynamicResize": "Aggiusta le dimensioni dinamicamente per adattarsi alle dimensioni della finestra (sperimentale)",
@@ -82,6 +83,7 @@
         "mode": "Modalità",
         "monitors": "Monitor",
         "noCloudVariables": "Questo progetto non contiene variabili cloud.",
+        "noControls": "Senza bordo",
         "noCursor": "Nessun puntatore del mouse",
         "normalCursor": "Puntatore del mouse normale",
         "otherEnvironments": "Altri ambienti (Cliccare per aprire)",
@@ -125,6 +127,7 @@
         "variableColor": "Colore delle variabili",
         "version": "Versione",
         "versionHelp": "Aggiornare la versione è del tutto opzionale e non influenza il funzionamento dei tuoi progetti. Il numero di versione può apparire ad esempio nella schermata info a seconda dell'ambiente. Dovrebbe avere il formato X.Y.Z.",
+        "windowControls": "Controlli finestra",
         "zip": "Zip (ideale Per i siti web)",
         "zip-one-asset": "Zip, le risorse vengono combinate in un singolo file (non raccomandato)"
     },

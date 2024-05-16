@@ -53,6 +53,7 @@
         "customExtensionsSecurity": "Benutzerdefinierte Erweiterungen werden immer außerhalb der Packager-Sandbox ausgeführt. Je nachdem, für welche Umgebung du paketisierst, ermöglicht dies Erweiterungen die volle Steuerung über deinen Computer, einschließlich der Möglichkeit, Viren zu installieren. Benutze keine Erweiterungen, denen du nicht vertraust.",
         "customJS": "Benutzerdefiniertes JS (Nur ändern, wenn man weiß, was man tut!)",
         "customUsernameWarning": "Sei beim Ändern des Standard-Benutzernamens vorsichtig, da dadurch Verbindungen mit dem Standardmäßigen Server blockiert werden könnten. Nur der standardmäßige Benutzername wird garantiert funktionieren.",
+        "defaultControls": "Standard",
         "doNothing": "Nichts tun",
         "downloadsWillAppearHere": "Downloads weren hier erscheinen",
         "dynamicResize": "Bühne dynamisch anpassen (experimentell)",
@@ -84,6 +85,7 @@
         "mode": "Modus",
         "monitors": "Daten",
         "noCloudVariables": "Dieses Projekt enthält keine Cloudvariablen",
+        "noControls": "Versteckt (ohne Rand)",
         "noCursor": "Kein Cursor",
         "normalCursor": "Normaler Cursor",
         "otherEnvironments": "Weitere Umgebungen (Zum Öffnen klicken)",
@@ -127,6 +129,7 @@
         "username": "Benutzername (alle \"#\" werden mit einer zufälligen Zahl ersetzt)",
         "variableColor": "Variablenfarbe",
         "versionHelp": "Das Aktualisieren der Version ist vollkommen optional und betrifft das Verhalten deines Projektes nicht. Die Versionsnummer könnte je nach Umgebung auf Informationsseiten erscheinen. Sollte als X.Y.Z formatiert sein.",
+        "windowControls": "Fenstersteuerelemente",
         "zip": "Zip (ideal für Websites)",
         "zip-one-asset": "Zip, Ressourcen in einer einzelnen Datei kombinieren (nicht empfohlen)"
     },
