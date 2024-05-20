@@ -1,4 +1,4 @@
-var JSZip = require('jszip');
+var JSZip = require('@turbowarp/jszip');
 
 /**
  * Unpacks a zip file.

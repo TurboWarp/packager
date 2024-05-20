@@ -1,4 +1,4 @@
-import JSZip from 'jszip';
+import JSZip from '@turbowarp/jszip';
 
 import {VM, Renderer, AudioEngine, BitmapAdapter} from './scratch-libraries';
 import Storage from './storage';

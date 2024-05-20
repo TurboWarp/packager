@@ -30,7 +30,7 @@ const removeUnnecessaryEmptyLines = (string) => string.split('\n')
   })
   .join('\n');
 
-export const getJSZip = async () => (await import(/* webpackChunkName: "jszip" */ 'jszip')).default;
+export const getJSZip = async () => (await import(/* webpackChunkName: "jszip" */ '@turbowarp/jszip')).default;
 
 const setFileFast = (zip, path, data) => {
   zip.files[path] = data;

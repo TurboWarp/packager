@@ -222,11 +222,11 @@ const makeNode = () => ({
     packager: './src/packager/node/export.js'
   },
   externals: {
-    jszip: 'jszip',
+    '@turbowarp/jszip': '@turbowarp/jszip',
+    '@turbowarp/sbdl': '@turbowarp/sbdl',
+    '@fiahfy/icns': '@fiahfy/icns',
     'cross-fetch': 'cross-fetch',
     'sha.js': 'sha.js',
-    '@fiahfy/icns': '@fiahfy/icns',
-    '@turbowarp/sbdl': '@turbowarp/sbdl'
   },
   module: {
     rules: [

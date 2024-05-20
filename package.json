@@ -35,9 +35,9 @@
   "dependencies": {
     "@fiahfy/icns": "0.0.7",
     "@turbowarp/json": "^0.1.1",
+    "@turbowarp/jszip": "^3.11.0",
     "@turbowarp/sbdl": "^3.0.0",
     "cross-fetch": "^4.0.0",
-    "jszip": "^3.7.1",
     "sha.js": "^2.4.11"
   },
   "devDependencies": {
