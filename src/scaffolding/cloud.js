@@ -105,6 +105,11 @@ class WebSocketProvider {
   }
 
   openConnection () {
+    // clouddata.turbowarp.org will refuse, but other servers might allow it, so let it through anyways
+    if (!this.projectId) {
+      console.warn('Project ID is empty. Cloud variable connection is unlikely to work.');
+    }
+
     this.currentCloudHost = this.cloudHosts[this.attemptedConnections % this.cloudHosts.length];
     this.attemptedConnections++;
     console.log(`Connecting to ${this.currentCloudHost} with ID ${this.projectId}, username ${this.manager.getUsername()}`);
