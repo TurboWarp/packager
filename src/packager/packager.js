@@ -903,15 +903,15 @@ cd "$(dirname "$0")"
         return code - 0x2a;
       };
       const base85decode = (str, outBuffer, outOffset) => {
-        const uint32 = new Uint32Array(outBuffer, outOffset, Math.floor(str.length / 5 * 4) / 4);
-        for (let i = 0, j = 0; i < str.length; i += 5, j++) {
-          uint32[j] = (
+        const view = new DataView(outBuffer, outOffset, Math.floor(str.length / 5 * 4));
+        for (let i = 0, j = 0; i < str.length; i += 5, j += 4) {
+          view.setUint32(j, (
             getBase85DecodeValue(str.charCodeAt(i + 4)) * 85 * 85 * 85 * 85 +
             getBase85DecodeValue(str.charCodeAt(i + 3)) * 85 * 85 * 85 +
             getBase85DecodeValue(str.charCodeAt(i + 2)) * 85 * 85 +
             getBase85DecodeValue(str.charCodeAt(i + 1)) * 85 +
             getBase85DecodeValue(str.charCodeAt(i))
-          );
+          ), true);
         }
       };
       let projectDecodeBuffer = new ArrayBuffer(${Math.ceil(projectData.length / 4) * 4});

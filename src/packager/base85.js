@@ -1,5 +1,5 @@
 // This implements a custom base85 encoding for improved efficiency compared to base64.
-// The character set used is 0x2a - 0x7e of ASCII.
+// The character set used is 0x2a - 0x7e of ASCII. Little endian.
 
 // 0x3c (<) is replaced with 0x28 (opening parenthesis) and 0x3e (>) is replaced with 0x29 (closing parenthesis),
 // which makes the encoded data safe to include in any HTML context without escapes.
@@ -18,17 +18,17 @@ const getBase85EncodeCharacter = (n) => {
 export const encode = (uint8) => {
   const originalLength = uint8.length;
 
-  // Data length needs to be a multiple of 4 so we can use Uint32Array. If it's not,
-  // we'll have to make a copy.
-  let uint32;
+  // Data length needs to be a multiple of 4 so we can use getUint32.
+  // If it's not, we'll have to make a copy and pad with zeros.
+  let dataView;
   if (originalLength % 4 !== 0) {
     const newUint8 = new Uint8Array(Math.ceil(originalLength / 4) * 4);
     for (let i = 0; i < originalLength; i++) {
       newUint8[i] = uint8[i];
     }
-    uint32 = new Uint32Array(newUint8.buffer);
+    dataView = new DataView(newUint8.buffer);
   } else {
-    uint32 = new Uint32Array(uint8.buffer, uint8.byteOffset, originalLength / 4);
+    dataView = new DataView(uint8.buffer, uint8.byteOffset, uint8.byteLength);
   }
 
   // Pre-allocating buffer and using TextDecoder at the end is faster than string concatenation
@@ -36,8 +36,8 @@ export const encode = (uint8) => {
   const result = new Uint8Array(Math.ceil(originalLength / 4) * 5);
   let resultIndex = 0;
 
-  for (let i = 0; i < uint32.length; i++) {
-    let n = uint32[i];
+  for (let i = 0; i < dataView.byteLength; i += 4) {
+    let n = dataView.getUint32(i, true);
     result[resultIndex++] = getBase85EncodeCharacter(n % 85);
     n = Math.floor(n / 85);
     result[resultIndex++] = getBase85EncodeCharacter(n % 85);
@@ -66,14 +66,14 @@ const getBase85DecodeValue = (code) => {
  * @param {number} outOffset Assumed to have be a multiple of 4
  */
 export const decode = (str, outBuffer, outOffset) => {
-  const uint32 = new Uint32Array(outBuffer, outOffset, Math.floor(str.length / 5 * 4) / 4);
-  for (let i = 0, j = 0; i < str.length; i += 5, j++) {
-    uint32[j] = (
+  const view = new DataView(outBuffer, outOffset, Math.floor(str.length / 5 * 4));
+  for (let i = 0, j = 0; i < str.length; i += 5, j += 4) {
+    view.setUint32(j, (
       getBase85DecodeValue(str.charCodeAt(i + 4)) * 85 * 85 * 85 * 85 +
       getBase85DecodeValue(str.charCodeAt(i + 3)) * 85 * 85 * 85 +
       getBase85DecodeValue(str.charCodeAt(i + 2)) * 85 * 85 +
       getBase85DecodeValue(str.charCodeAt(i + 1)) * 85 +
       getBase85DecodeValue(str.charCodeAt(i))
-    );
+    ), true);
   }
 };
