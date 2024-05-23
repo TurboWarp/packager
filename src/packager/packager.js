@@ -917,10 +917,14 @@ cd "$(dirname "$0")"
       let projectDecodeBuffer = new ArrayBuffer(${Math.ceil(projectData.length / 4) * 4});
       let projectDecodeIndex = 0;
       const decodeChunk = (size) => {
-        base85decode(document.currentScript.getAttribute("data"), projectDecodeBuffer, projectDecodeIndex);
-        document.currentScript.remove();
-        projectDecodeIndex += size;
-        setProgress(interpolate(${PROGRESS_LOADED_SCRIPTS}, ${PROGRESS_FETCHED_COMPRESSED}, projectDecodeIndex / ${projectData.length}));
+        try {
+          base85decode(document.currentScript.getAttribute("data"), projectDecodeBuffer, projectDecodeIndex);
+          document.currentScript.remove();
+          projectDecodeIndex += size;
+          setProgress(interpolate(${PROGRESS_LOADED_SCRIPTS}, ${PROGRESS_FETCHED_COMPRESSED}, projectDecodeIndex / ${projectData.length}));
+        } catch (e) {
+          handleError(e);
+        }
       };
       </script>`;
 
