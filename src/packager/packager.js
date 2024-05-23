@@ -930,7 +930,7 @@ cd "$(dirname "$0")"
       for (let i = 0; i < projectData.length; i += CHUNK_SIZE) {
         const projectChunk = projectData.subarray(i, i + CHUNK_SIZE);
         const base85 = encode(projectChunk);
-        result += `<script data="${base85}">decodeChunk(${projectChunk.length})</script>`;
+        result += `<script data="${base85}">decodeChunk(${projectChunk.length})</script>\n`;
       }
 
       getProjectDataFunction = `() => {
