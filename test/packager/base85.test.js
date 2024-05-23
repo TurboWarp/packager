@@ -1,17 +1,15 @@
 import {encode, decode} from '../../src/packager/base85';
-import {TextEncoder, TextDecoder} from 'fastestsmallesttextencoderdecoder';
-
-global.TextEncoder = TextEncoder;
-global.TextDecoder = TextDecoder;
 
 test('base85 encode and decode', () => {
   for (let i = 0; i < 10; i++) {
-    const view = new Uint8Array(Math.random() * 10000);
-    for (let i = 0; i < view.length; i++) {
-      view[i] = Math.random() * 255;
+    const uint8 = new Uint8Array(Math.random() * 10000);
+    for (let i = 0; i < uint8.length; i++) {
+      uint8[i] = Math.random() * 255;
     }
-    const encoded = encode(view.buffer.slice(view.byteOffset, view.byteLength));
-    const decoded = decode(encoded);
-    expect(decoded).toEqual(view);
+
+    const encoded = encode(uint8);
+    const outBuffer = new ArrayBuffer(Math.ceil(uint8.byteLength / 4) * 4);
+    decode(encoded, outBuffer, 0);
+    expect(new Uint8Array(outBuffer, 0, uint8.byteLength)).toEqual(uint8);
   }
 });
