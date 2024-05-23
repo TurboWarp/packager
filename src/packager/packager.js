@@ -5,7 +5,7 @@ import largeAssets from './large-assets';
 import request from '../common/request';
 import pngToAppleICNS from './icns';
 import {buildId, verifyBuildId} from './build-id';
-import {encode, decode} from './base85';
+import {encode} from './base85';
 import {parsePlist, generatePlist} from './plist';
 import {APP_NAME, WEBSITE, COPYRIGHT_NOTICE, ACCENT_COLOR} from './brand';
 import {OutdatedPackagerError} from '../common/errors';
@@ -35,8 +35,6 @@ export const getJSZip = async () => (await import(/* webpackChunkName: "jszip" *
 const setFileFast = (zip, path, data) => {
   zip.files[path] = data;
 };
-
-const interpolate = (a, b, t) => a + t * (b - a);
 
 const SELF_LICENSE = {
   title: APP_NAME,
@@ -894,23 +892,55 @@ cd "$(dirname "$0")"
       storageProgressStart = PROGRESS_FETCHED_COMPRESSED;
       storageProgressEnd = PROGRESS_EXTRACTED_COMPRESSED;
 
-      // We break the project into a bunch of small segments to be able to show a good progress bar.
-      const SEGMENT_LENGTH = 100000;
-      const encoded = encode(this.project.arrayBuffer);
-      for (let i = 0; i < encoded.length; i += SEGMENT_LENGTH) {
-        const segment = encoded.substr(i, SEGMENT_LENGTH);
-        const progress = interpolate(PROGRESS_LOADED_SCRIPTS, PROGRESS_FETCHED_COMPRESSED, i / encoded.length);
-        // Progress will always be a number between 0 and 1. We can remove the leading 0 and unnecessary decimals to save space.
-        const shortenedProgress = progress.toString().substr(1, 4);
-        result += `<script type="p4-project">${segment}</script><script>setProgress(${shortenedProgress})</script>`;
+      const projectData = new Uint8Array(this.project.arrayBuffer);
+
+      // keep this up-to-date with base85.js
+      result += `
+      <script>
+      const getBase85DecodeValue = (code) => {
+        if (code === 0x28) code = 0x3c;
+        if (code === 0x29) code = 0x3e;
+        return code - 0x2a;
+      };
+      const base85decode = (str, outBuffer, outOffset) => {
+        const view = new DataView(outBuffer, outOffset, Math.floor(str.length / 5 * 4));
+        for (let i = 0, j = 0; i < str.length; i += 5, j += 4) {
+          view.setUint32(j, (
+            getBase85DecodeValue(str.charCodeAt(i + 4)) * 85 * 85 * 85 * 85 +
+            getBase85DecodeValue(str.charCodeAt(i + 3)) * 85 * 85 * 85 +
+            getBase85DecodeValue(str.charCodeAt(i + 2)) * 85 * 85 +
+            getBase85DecodeValue(str.charCodeAt(i + 1)) * 85 +
+            getBase85DecodeValue(str.charCodeAt(i))
+          ), true);
+        }
+      };
+      let projectDecodeBuffer = new ArrayBuffer(${Math.ceil(projectData.length / 4) * 4});
+      let projectDecodeIndex = 0;
+      const decodeChunk = (size) => {
+        try {
+          base85decode(document.currentScript.getAttribute("data"), projectDecodeBuffer, projectDecodeIndex);
+          document.currentScript.remove();
+          projectDecodeIndex += size;
+          setProgress(interpolate(${PROGRESS_LOADED_SCRIPTS}, ${PROGRESS_FETCHED_COMPRESSED}, projectDecodeIndex / ${projectData.length}));
+        } catch (e) {
+          handleError(e);
+        }
+      };
+      </script>`;
+
+      // To avoid unnecessary padding, this should be a multiple of 4.
+      const CHUNK_SIZE = 1024 * 64;
+
+      for (let i = 0; i < projectData.length; i += CHUNK_SIZE) {
+        const projectChunk = projectData.subarray(i, i + CHUNK_SIZE);
+        const base85 = encode(projectChunk);
+        result += `<script data="${base85}">decodeChunk(${projectChunk.length})</script>\n`;
       }
 
-      getProjectDataFunction = `async () => {
-        const base85decode = ${decode};
-        const dataElements = Array.from(document.querySelectorAll('script[type="p4-project"]'));
-        const result = base85decode(dataElements.map(i => i.textContent).join(''));
-        dataElements.forEach(i => i.remove());
-        return result;
+      getProjectDataFunction = `() => {
+        const buffer = projectDecodeBuffer;
+        projectDecodeBuffer = null; // Allow GC
+        return Promise.resolve(new Uint8Array(buffer, 0, ${projectData.length}));
       }`;
     } else {
       let src;
