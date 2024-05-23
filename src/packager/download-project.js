@@ -56,7 +56,7 @@ const mutateScratch3InPlace = (projectData) => {
     if (stage) {
       for (const variable of Object.values(stage.variables)) {
         const name = variable[0];
-        if (name.startsWith('☁')) {
+        if (typeof name === 'string' && name.startsWith('☁')) {
           variable[2] = true;
         }
       }
