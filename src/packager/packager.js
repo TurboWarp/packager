@@ -924,7 +924,7 @@ cd "$(dirname "$0")"
       };
       </script>`;
 
-      // Must be multiple of 4
+      // To avoid unnecessary padding, this should be a multiple of 4.
       const CHUNK_SIZE = 1024 * 64;
 
       for (let i = 0; i < projectData.length; i += CHUNK_SIZE) {
