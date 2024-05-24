@@ -126,7 +126,7 @@ const filename = result.filename;
 // MIME type of the packaged project. Either "text/html" or "application/zip"
 const type = result.type;
 
-// The packaged project's data. Will be either a string (for type text/html) or ArrayBuffer (for type application/zip).
+// The packaged project's data. Will always be a Uint8Array.
 const data = result.data;
 ```
 

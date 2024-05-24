@@ -11,6 +11,7 @@ import {APP_NAME, WEBSITE, COPYRIGHT_NOTICE, ACCENT_COLOR} from './brand';
 import {OutdatedPackagerError} from '../common/errors';
 import {darken} from './colors';
 import {Adapter} from './adapter';
+import encodeBigString from './encode-big-string';
 
 const PROGRESS_LOADED_SCRIPTS = 0.1;
 
@@ -881,7 +882,7 @@ cd "$(dirname "$0")"
   }
 
   async generateGetProjectData () {
-    let result = '';
+    const result = [];
     let getProjectDataFunction = '';
     let isZip = false;
     let storageProgressStart;
@@ -895,7 +896,7 @@ cd "$(dirname "$0")"
       const projectData = new Uint8Array(this.project.arrayBuffer);
 
       // keep this up-to-date with base85.js
-      result += `
+      result.push(`
       <script>
       const getBase85DecodeValue = (code) => {
         if (code === 0x28) code = 0x3c;
@@ -926,7 +927,7 @@ cd "$(dirname "$0")"
           handleError(e);
         }
       };
-      </script>`;
+      </script>`);
 
       // To avoid unnecessary padding, this should be a multiple of 4.
       const CHUNK_SIZE = 1024 * 64;
@@ -934,7 +935,7 @@ cd "$(dirname "$0")"
       for (let i = 0; i < projectData.length; i += CHUNK_SIZE) {
         const projectChunk = projectData.subarray(i, i + CHUNK_SIZE);
         const base85 = encode(projectChunk);
-        result += `<script data="${base85}">decodeChunk(${projectChunk.length})</script>\n`;
+        result.push(`<script data="${base85}">decodeChunk(${projectChunk.length})</script>\n`);
       }
 
       getProjectDataFunction = `() => {
@@ -978,7 +979,7 @@ cd "$(dirname "$0")"
       })`;
     }
 
-    result += `
+    result.push(`
     <script>
       const getProjectData = (function() {
         const storage = scaffolding.storage;
@@ -1024,7 +1025,8 @@ cd "$(dirname "$0")"
         );
         return ${getProjectDataFunction};`}
       })();
-    </script>`;
+    </script>`);
+
     return result;
   }
 
@@ -1107,7 +1109,7 @@ cd "$(dirname "$0")"
     this.ensureNotAborted();
     await this.loadResources();
     this.ensureNotAborted();
-    const html = `<!DOCTYPE html>
+    const html = encodeBigString`<!DOCTYPE html>
 <!-- Created with ${WEBSITE} -->
 <html>
 <head>
@@ -1565,7 +1567,7 @@ cd "$(dirname "$0")"
       this.ensureNotAborted();
       return {
         data: await zip.generateAsync({
-          type: 'arraybuffer',
+          type: 'uint8array',
           compression: 'DEFLATE',
           // Use UNIX permissions so that executable bits are properly set for macOS and Linux
           platform: 'UNIX'
