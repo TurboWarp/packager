@@ -1110,6 +1110,7 @@ cd "$(dirname "$0")"
     await this.loadResources();
     this.ensureNotAborted();
     const html = encodeBigString`<!DOCTYPE html>
+<!-- Created with ${WEBSITE} -->
 <html>
 <head>
   <meta charset="utf-8">
