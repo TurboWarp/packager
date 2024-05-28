@@ -53,6 +53,7 @@
         "customExtensionsSecurity": "自定义扩展总是在打包程序中未被隔离地运行。根据您打包的环境，这将授予扩展对计算机的完全控制权，包括安装病毒的能力。不要使用不信任的扩展。",
         "customJS": "自定义 JS（如果你不确定你在做什么，别动它）",
         "customUsernameWarning": "如果您修改了默认用户名，请小心，因为它能造成默认云变量服务器被断开。只有默认用户名保证可以用。",
+        "defaultControls": "默认",
         "doNothing": "什么都不做",
         "downloadsWillAppearHere": "下载进度将显示在这里",
         "dynamicResize": "动态匹配窗口大小（实验性）",
@@ -85,6 +86,7 @@
         "mode": "模式",
         "monitors": "查看",
         "noCloudVariables": "该作品不含云变量。",
+        "noControls": "隐藏（无边框）",
         "noCursor": "无指针",
         "normalCursor": "正常指针",
         "otherEnvironments": "其它平台（点击打开）",
@@ -130,6 +132,7 @@
         "version": "版本",
         "versionHelp": "更新作品版本是完全可选的，不会影响作品的。根据环境的不同，它可能会出现在关于页面等地方。格式应该像 X.Y.Z 这样",
         "warpTimer": "循环计时器",
+        "windowControls": "窗口控制栏",
         "zip": "Zip 压缩包（适合嵌入网站）",
         "zip-one-asset": "Zip 压缩包，把所有素材打包在一个文件中（不推荐）"
     },
