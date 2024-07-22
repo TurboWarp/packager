@@ -76,11 +76,13 @@ const optimizeSb3Json = (projectData) => {
         blockPool.addReference(block.next);
       }
 
-      for (const input of Object.values(block.inputs)) {
-        for (let i = 1; i < input.length; i++) {
-          const inputValue = input[i];
-          if (typeof inputValue === 'string') {
-            blockPool.addReference(inputValue);
+      if (block.inputs) {
+        for (const input of Object.values(block.inputs)) {
+          for (let i = 1; i < input.length; i++) {
+            const inputValue = input[i];
+            if (typeof inputValue === 'string') {
+              blockPool.addReference(inputValue);
+            }
           }
         }
       }
@@ -114,11 +116,13 @@ const optimizeSb3Json = (projectData) => {
         block.next = blockPool.getNewId(block.next);
       }
 
-      for (const input of Object.values(block.inputs)) {
-        for (let i = 1; i < input.length; i++) {
-          const inputValue = input[i];
-          if (typeof inputValue === 'string') {
-            input[i] = blockPool.getNewId(inputValue);
+      if (block.inputs) {
+        for (const input of Object.values(block.inputs)) {
+          for (let i = 1; i < input.length; i++) {
+            const inputValue = input[i];
+            if (typeof inputValue === 'string') {
+              input[i] = blockPool.getNewId(inputValue);
+            }
           }
         }
       }
@@ -132,11 +136,13 @@ const optimizeSb3Json = (projectData) => {
       delete block.y;
       delete block.comment;
     }
-    for (const [commentId, comment] of Object.entries(target.comments)) {
-      const text = comment.text;
-      const isSpecial = text.includes(' // _twconfig_') || text.includes(' // _gamepad_');
-      if (isSpecial) {
-        newComments[commentId] = comment;
+    if (target.comments) {
+      for (const [commentId, comment] of Object.entries(target.comments)) {
+        const text = comment.text;
+        const isSpecial = text.includes(' // _twconfig_') || text.includes(' // _gamepad_');
+        if (isSpecial) {
+          newComments[commentId] = comment;
+        }
       }
     }
 
