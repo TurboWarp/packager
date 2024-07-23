@@ -525,6 +525,7 @@ cd "$(dirname "$0")"
     const contentsPrefix = isMac ? `${rootPrefix}${packageName}.app/Contents/` : rootPrefix;
     const resourcesPrefix = isMac ? `${contentsPrefix}Resources/app/` : `${contentsPrefix}resources/app/`;
     const electronMainName = 'electron-main.js';
+    const electronPreloadName = 'electron-preload.js';
     const iconName = 'icon.png';
 
     const icon = await Adapter.getAppIcon(this.options.app.icon);
@@ -537,8 +538,8 @@ cd "$(dirname "$0")"
     };
     zip.file(`${resourcesPrefix}package.json`, JSON.stringify(manifest, null, 4));
 
-    const mainJS = `'use strict';
-const {app, BrowserWindow, Menu, shell, screen, dialog} = require('electron');
+    let mainJS = `'use strict';
+const {app, BrowserWindow, Menu, shell, screen, dialog, ipcMain} = require('electron');
 const path = require('path');
 
 const isWindows = process.platform === 'win32';
@@ -571,6 +572,7 @@ const createWindow = (windowOptions) => {
       sandbox: true,
       contextIsolation: true,
       nodeIntegration: false,
+      preload: path.resolve(__dirname, ${JSON.stringify(electronPreloadName)}),
     },
     frame: ${this.options.app.windowControls !== 'frameless'},
     show: true,
@@ -725,7 +727,106 @@ app.whenReady().then(() => {
   createProjectWindow(defaultProjectURL);
 });
 `;
+
+    let preloadJS = `'use strict';
+const {contextBridge, ipcRenderer} = require('electron');
+`;
+
+    if (this.project.analysis.usesSteamworks) {
+      mainJS += `
+      const enableSteamworks = () => {
+        const APP_ID = +${JSON.stringify(this.options.steamworks.appId)};
+        const steamworks = require('./steamworks.js/');
+
+        const client = steamworks.init(APP_ID);
+
+        const async = (event, callback) => ipcMain.handle(event, (e, ...args) => {
+          return callback(...args);
+        });
+        const sync = (event, callback) => ipcMain.on(event, (e, ...args) => {
+          e.returnValue = callback(...args);
+        });
+
+        async('Steamworks.achievement.activate', (achievement) => client.achievement.activate(achievement));
+        async('Steamworks.achievement.clear', (achievement) => client.achievement.clear(achievement));
+        sync('Steamworks.achievement.isActivated', (achievement) => client.achievement.isActivated(achievement));
+        sync('Steamworks.apps.isDlcInstalled', (dlc) => client.apps.isDlcInstalled(dlc));
+        sync('Steamworks.localplayer.getName', () => client.localplayer.getName());
+        sync('Steamworks.localplayer.getLevel', () => client.localplayer.getLevel());
+        sync('Steamworks.localplayer.getIpCountry', () => client.localplayer.getIpCountry());
+        sync('Steamworks.localplayer.getSteamId', () => client.localplayer.getSteamId());
+        async('Steamworks.overlay.activateToWebPage', (url) => client.overlay.activateToWebPage(url));
+
+        steamworks.electronEnableSteamOverlay();
+        sync('Steamworks.ok', () => true);
+      };
+
+      try {
+        enableSteamworks();
+      } catch (e) {
+        console.error(e);
+        ipcMain.on('Steamworks.ok', (e) => {
+          e.returnValue = false;
+        });
+        app.whenReady().then(() => {
+          const ON_ERROR = ${JSON.stringify(this.options.steamworks.onError)};
+          const window = BrowserWindow.getAllWindows()[0];
+          if (ON_ERROR === 'warning') {
+            dialog.showMessageBox(window, {
+              type: 'error',
+              message: 'Error initializing Steamworks: ' + e,
+            });
+          } else if (ON_ERROR === 'error') {
+            dialog.showMessageBoxSync(window, {
+              type: 'error',
+              message: 'Error initializing Steamworks: ' + e,
+            });
+            app.quit();
+          }
+        });
+      }`;
+
+      preloadJS += `
+      const enableSteamworks = () => {
+        const sync = (event) => (...args) => ipcRenderer.sendSync(event, ...args);
+        const async = (event) => (...args) => ipcRenderer.invoke(event, ...args);
+
+        contextBridge.exposeInMainWorld('Steamworks', {
+          ok: sync('Steamworks.ok'),
+          achievement: {
+            activate: async('Steamworks.achievement.activate'),
+            clear: async('Steamworks.achievement.clear'),
+            isActivated: sync('Steamworks.achievement.isActivated'),
+          },
+          apps: {
+            isDlcInstalled: async('Steamworks.apps.isDlcInstalled'),
+          },
+          leaderboard: {
+            uploadScore: async('Steamworks.leaderboard.uploadScore'),
+          },
+          localplayer: {
+            getName: sync('Steamworks.localplayer.getName'),
+            getLevel: sync('Steamworks.localplayer.getLevel'),
+            getIpCountry: sync('Steamworks.localplayer.getIpCountry'),
+            getSteamId: sync('Steamworks.localplayer.getSteamId'),
+          },
+          overlay: {
+            activateToWebPage: async('Steamworks.overlay.activateToWebPage'),
+          },
+        });
+      };
+      enableSteamworks();`;
+
+      const steamworksBuffer = await this.fetchLargeAsset('steamworks.js', 'arraybuffer');
+      const steamworksZip = await (await getJSZip()).loadAsync(steamworksBuffer);
+      for (const [path, file] of Object.entries(steamworksZip.files)) {
+        const newPath = path.replace(/^package\//, 'steamworks.js/');
+        setFileFast(zip, `${resourcesPrefix}${newPath}`, file);
+      }
+    }
+
     zip.file(`${resourcesPrefix}${electronMainName}`, mainJS);
+    zip.file(`${resourcesPrefix}${electronPreloadName}`, preloadJS);
 
     for (const [path, data] of Object.entries(projectZip.files)) {
       setFileFast(zip, `${resourcesPrefix}${path}`, data);
@@ -1701,6 +1802,12 @@ Packager.DEFAULT_OPTIONS = () => ({
       x: 0,
       y: 0
     }
+  },
+  steamworks: {
+    // 480 is Spacewar, the Steamworks demo game
+    appId: '480',
+    // 'ignore' (no alert), 'warning' (alert and continue), or 'error' (alert and exit)
+    onError: 'warning'
   },
   extensions: [],
   bakeExtensions: true,

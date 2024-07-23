@@ -151,6 +151,8 @@
         thing = 'Electron';
       } else if (detail.asset === 'webview-mac') {
         thing = 'WKWebView';
+      } else if (detail.asset === 'steamworks.js') {
+        thing = 'Steamworks.js';
       }
       if (thing) {
         task.setProgressText($_('progress.loadingLargeAsset').replace('{thing}', thing));
@@ -1007,6 +1009,36 @@
       </div>
     </Section>
   </div>
+{/if}
+
+{#if projectData.project.analysis.usesSteamworks}
+  <Section
+    accent="#136C9F"
+    reset={() => {
+      resetOptions([
+        'steamworks'
+      ]);
+    }}
+  >
+    <h2>Steamworks</h2>
+    {#if $options.target.startsWith('electron-')}
+      <p>{$_('options.steamworksAvailable')}</p>
+      <label class="option">
+        {$_('options.steamworksAppId')}
+        <input pattern="\d+" minlength="1" bind:value={$options.steamworks.appId}>
+      </label>
+      <label class="option">
+        {$_('options.steamworksOnError')}
+        <select bind:value={$options.steamworks.onError}>
+          <option value="ignore">{$_('options.steamworksIgnore')}</option>
+          <option value="warning">{$_('options.steamworksWarning')}</option>
+          <option value="error">{$_('options.steamworksError')}</option>
+        </select>
+      </label>
+    {:else}
+      <p>{$_('options.steamworksUnavailable')}</p>
+    {/if}
+  </Section>
 {/if}
 
 <Section>

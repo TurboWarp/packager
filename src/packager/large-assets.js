@@ -81,6 +81,11 @@ export default {
     sha256: 'b5636571cd9be2aae2f6dac1ab090fdf829c8fdfe91f462cc2feb2d324705f9f',
     estimatedSize: 3425601
   },
+  'steamworks.js': {
+    src: externalFile('steamworks.js-0.3.2.zip'),
+    sha256: 'fd8bc80a97cd880d71113dfc5f81b124b6e212335393db73e3df168c5c546fbc',
+    estimatedSize: 3279554,
+  },
   scaffolding: {
     src: relativeScaffolding('scaffolding-full.js'),
     estimatedSize: 4564032,

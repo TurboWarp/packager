@@ -557,6 +557,27 @@
     "maxTextureDimension": {
       "string": "Increase max vector costume resolution to make large costumes look better. May increase memory use and cause crashes."
     },
+    "steamworksUnavailable": {
+      "string": "To enable the Steamworks extension, you must use one of the Electron environments."
+    },
+    "steamworksAvailable": {
+      "string": "This project is using the Steamworks extension. You can find your game's app ID in Steamworks. 480 is the ID of the Steamworks demo game (Spacewar)."
+    },
+    "steamworksAppId": {
+      "string": "App ID"
+    },
+    "steamworksOnError": {
+      "string": "If there is an error initializing Steamworks"
+    },
+    "steamworksIgnore": {
+      "string": "Do nothing"
+    },
+    "steamworksWarning": {
+      "string": "Show a warning but continue"
+    },
+    "steamworksError": {
+      "string": "Show an error and exit"
+    },
     "package": {
       "string": "Package",
       "context": "Button to package the project"
