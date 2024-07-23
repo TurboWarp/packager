@@ -1022,13 +1022,21 @@
   >
     <h2>Steamworks</h2>
     {#if $options.target.startsWith('electron-')}
-      <p>This project is using the Steamworks extension. You can find your game's app ID in Steamworks. 480 is the ID of the Steamworks demo game (Spacewar).</p>
+      <p>{$_('options.steamworksAvailable')}</p>
       <label class="option">
-        App ID
+        {$_('options.steamworksAppId')}
         <input pattern="\d+" minlength="1" bind:value={$options.steamworks.appId}>
       </label>
+      <label class="option">
+        {$_('options.steamworksOnError')}
+        <select bind:value={$options.steamworks.onError}>
+          <option value="ignore">{$_('options.steamworksIgnore')}</option>
+          <option value="warning">{$_('options.steamworksWarning')}</option>
+          <option value="error">{$_('options.steamworksError')}</option>
+        </select>
+      </label>
     {:else}
-      <p>To enable the Steamworks extension, you must use one of the Electron environments.</p>
+      <p>{$_('options.steamworksUnavailable')}</p>
     {/if}
   </Section>
 {/if}

@@ -572,7 +572,7 @@ const createWindow = (windowOptions) => {
       sandbox: true,
       contextIsolation: true,
       nodeIntegration: false,
-      preload: path.resolve(__dirname, ${JSON.stringify(electronPreloadName)})
+      preload: path.resolve(__dirname, ${JSON.stringify(electronPreloadName)}),
     },
     frame: ${this.options.app.windowControls !== 'frameless'},
     show: true,
@@ -747,7 +747,6 @@ const {contextBridge, ipcRenderer} = require('electron');
           e.returnValue = callback(...args);
         });
 
-        sync('Steamworks.ok', () => true);
         async('Steamworks.achievement.activate', (achievement) => client.achievement.activate(achievement));
         async('Steamworks.achievement.clear', (achievement) => client.achievement.clear(achievement));
         sync('Steamworks.achievement.isActivated', (achievement) => client.achievement.isActivated(achievement));
@@ -759,20 +758,31 @@ const {contextBridge, ipcRenderer} = require('electron');
         async('Steamworks.overlay.activateToWebPage', (url) => client.overlay.activateToWebPage(url));
 
         steamworks.electronEnableSteamOverlay();
+        sync('Steamworks.ok', () => true);
       };
 
       try {
         enableSteamworks();
       } catch (e) {
+        console.error(e);
         ipcMain.on('Steamworks.ok', (e) => {
           e.returnValue = false;
         });
-
         app.whenReady().then(() => {
-          dialog.showMessageBoxSync({
-            type: 'error',
-            message: 'Error initializing Steamworks: ' + e,
-          });
+          const ON_ERROR = ${JSON.stringify(this.options.steamworks.onError)};
+          const window = BrowserWindow.getAllWindows()[0];
+          if (ON_ERROR === 'warning') {
+            dialog.showMessageBox(window, {
+              type: 'error',
+              message: 'Error initializing Steamworks: ' + e,
+            });
+          } else if (ON_ERROR === 'error') {
+            dialog.showMessageBoxSync(window, {
+              type: 'error',
+              message: 'Error initializing Steamworks: ' + e,
+            });
+            app.quit();
+          }
         });
       }`;
 
@@ -1796,6 +1806,8 @@ Packager.DEFAULT_OPTIONS = () => ({
   steamworks: {
     // 480 is Spacewar, the Steamworks demo game
     appId: '480',
+    // 'ignore' (no alert), 'warning' (alert and continue), or 'error' (alert and exit)
+    onError: 'warning'
   },
   extensions: [],
   bakeExtensions: true,
