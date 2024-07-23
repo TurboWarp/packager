@@ -151,6 +151,8 @@
         thing = 'Electron';
       } else if (detail.asset === 'webview-mac') {
         thing = 'WKWebView';
+      } else if (detail.asset === 'steamworks.js') {
+        thing = 'Steamworks.js';
       }
       if (thing) {
         task.setProgressText($_('progress.loadingLargeAsset').replace('{thing}', thing));
@@ -1007,6 +1009,28 @@
       </div>
     </Section>
   </div>
+{/if}
+
+{#if projectData.project.analysis.usesSteamworks}
+  <Section
+    accent="#136C9F"
+    reset={() => {
+      resetOptions([
+        'steamworks'
+      ]);
+    }}
+  >
+    <h2>Steamworks</h2>
+    {#if $options.target.startsWith('electron-')}
+      <p>This project is using the Steamworks extension. You can find your game's app ID in Steamworks. 480 is the ID of the Steamworks demo game (Spacewar).</p>
+      <label class="option">
+        App ID
+        <input pattern="\d+" minlength="1" bind:value={$options.steamworks.appId}>
+      </label>
+    {:else}
+      <p>To enable the Steamworks extension, you must use one of the Electron environments.</p>
+    {/if}
+  </Section>
 {/if}
 
 <Section>
