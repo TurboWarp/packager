@@ -663,12 +663,23 @@ const openLink = (url) => {
   }
 };
 
+const createProcessCrashMessage = (details) => {
+  let message = details.type ? details.type + ' child process' : 'Renderer process';
+  message += ' crashed: ' + details.reason + ' (' + details.exitCode + ')\\n\\n';
+  if (process.arch === 'ia32') {
+    message += 'Usually this means the project was too big for the 32-bit Electron environment or your computer is out of memory. Ask the creator to use the 64-bit environment instead.';
+  } else {
+    message += 'Usually this means your computer is out of memory.';
+  }
+  return message;
+};
+
 app.on('render-process-gone', (event, webContents, details) => {
   const window = BrowserWindow.fromWebContents(webContents);
   dialog.showMessageBoxSync(window, {
     type: 'error',
     title: 'Error',
-    message: 'Renderer process crashed: ' + details.reason + ' (' + details.exitCode + ')'
+    message: createProcessCrashMessage(details)
   });
 });
 
@@ -676,7 +687,7 @@ app.on('child-process-gone', (event, details) => {
   dialog.showMessageBoxSync({
     type: 'error',
     title: 'Error',
-    message: details.type + ' child process crashed: ' + details.reason + ' (' + details.exitCode + ')'
+    message: createProcessCrashMessage(details)
   });
 });
 
