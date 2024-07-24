@@ -1021,7 +1021,7 @@
     }}
   >
     <h2>Steamworks</h2>
-    {#if $options.target.startsWith('electron-')}
+    {#if ['electron-win64', 'electron-linux64', 'electron-mac'].includes($options.target)}
       <p>{$_('options.steamworksAvailable')}</p>
       <label class="option">
         {$_('options.steamworksAppId')}
@@ -1037,6 +1037,11 @@
       </label>
     {:else}
       <p>{$_('options.steamworksUnavailable')}</p>
+      <ul>
+        <li>{$_('options.application-win64').replace('{type}', 'Electron')}</li>
+        <li>{$_('options.application-mac').replace('{type}', 'Electron')}</li>
+        <li>{$_('options.application-linux64').replace('{type}', 'Electron')}</li>
+      </ul>
     {/if}
   </Section>
 {/if}

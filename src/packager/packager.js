@@ -732,7 +732,10 @@ app.whenReady().then(() => {
 const {contextBridge, ipcRenderer} = require('electron');
 `;
 
-    if (this.project.analysis.usesSteamworks) {
+    if (
+      this.project.analysis.usesSteamworks &&
+      ['electron-win64', 'electron-linux64', 'electron-mac'].includes(this.options.target)
+    ) {
       mainJS += `
       const enableSteamworks = () => {
         const APP_ID = +${JSON.stringify(this.options.steamworks.appId)};

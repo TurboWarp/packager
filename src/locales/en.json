@@ -457,11 +457,11 @@
       "string": "Zip, combine assets into single file (not recommended)"
     },
     "application-win32": {
-      "string": "{type} Windows application (32-bit or 64-bit)",
+      "string": "{type} Windows application (32-bit)",
       "context": "type will become something like 'NW.js' or 'Electron'. Do not translate 'Windows'."
     },
     "application-win64": {
-      "string": "{type} Windows application (64-bit only, not recommended)",
+      "string": "{type} Windows application (64-bit)",
       "context": "type will become something like 'NW.js' or 'Electron'. Do not translate 'Windows'."
     },
     "application-win-arm": {
@@ -558,7 +558,7 @@
       "string": "Increase max vector costume resolution to make large costumes look better. May increase memory use and cause crashes."
     },
     "steamworksUnavailable": {
-      "string": "To enable the Steamworks extension, you must use one of the Electron environments."
+      "string": "To enable the Steamworks extension, you must use one of these environments:"
     },
     "steamworksAvailable": {
       "string": "This project is using the Steamworks extension. You can find your game's app ID in Steamworks. 480 is the ID of the Steamworks demo game (Spacewar)."
