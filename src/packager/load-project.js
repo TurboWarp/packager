@@ -1,30 +1,26 @@
-import {transfer, proxy} from 'comlink';
-import createDownloadWorker from '../build/p4-worker-loader!./download-project';
 import {readAsArrayBuffer} from '../common/readers';
 import request from '../common/request';
 import {AbortError} from '../common/errors';
 
 const downloadProject = async (buffer, progressCallback) => {
-  const {worker, terminate} = await createDownloadWorker();
-  let terminateAndReject;
-  const downloadPromise = new Promise((resolve, reject) => {
-    worker.downloadProject(transfer(buffer, [buffer]), proxy(progressCallback))
-      .then((res) => {
-        terminate();
-        resolve(res);
-      })
-      .catch((err) => {
-        terminate();
-        reject(err)
-      });
-    terminateAndReject = () => {
-      terminate();
-      reject(new AbortError());
-    };
-  });
+  const controller = typeof AbortController === 'function' && new AbortController();
+  const downloadProject = await import(/* webpackChunkName: "downloader" */ './download-project.js');
+  let reject;
   return {
-    promise: downloadPromise,
-    terminate: terminateAndReject
+    promise: new Promise((_resolve, _reject) => {
+      reject = _reject;
+
+      downloadProject.downloadProject(buffer, progressCallback, controller && controller.signal)
+        .then(result => _resolve(result))
+        .catch(err => _reject(err));
+    }),
+
+    terminate: () => {
+      reject(new AbortError());
+      if (controller) {
+        controller.abort();
+      }
+    }
   };
 };
 
