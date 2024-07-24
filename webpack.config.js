@@ -183,8 +183,6 @@ const makeWebsite = () => ({
       'process.env.ENABLE_SERVICE_WORKER': JSON.stringify(process.env.ENABLE_SERVICE_WORKER),
       'process.env.STANDALONE': JSON.stringify(isStandalone ? true : false),
       'process.env.VERSION': JSON.stringify(version),
-      'process.env.PLAUSIBLE_API': JSON.stringify(process.env.PLAUSIBLE_API),
-      'process.env.PLAUSIBLE_DOMAIN': JSON.stringify(process.env.PLAUSIBLE_DOMAIN),
     }),
     new HtmlWebpackPlugin({
       filename: 'index.html',
