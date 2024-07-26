@@ -17,7 +17,7 @@
     },
     "description3-on": {
       "string": "on {brand}",
-      "context": "Used in the context 'Report bugs on Scratch'."
+      "developer_comment": "Used in the context 'Report bugs on Scratch'."
     },
     "error": {
       "string": "Error"
@@ -27,42 +27,42 @@
     },
     "networkError": {
       "string": "Couldn't download {url}. Make sure you're connected to the internet and try disabling any browser extensions.",
-      "context": "Error displayed when an attempt to download a file failed for an unknown reason."
+      "developer_comment": "Error displayed when an attempt to download a file failed for an unknown reason."
     },
     "outdated": {
       "string": "This version of the packager appears to be outdated. Please refresh and try again.",
-      "context": "Error displayed when the packager detects that you are using an old version and that you must refresh to continue."
+      "developer_comment": "Error displayed when the packager detects that you are using an old version and that you must refresh to continue."
     },
     "cannotAccessProject": {
       "string": "Can't access project token. This usually means the project is unshared, never existed, the ID is invalid, or your network is blocking turbowarp.org.",
-      "context": "Part of the error modal when loading an unshared project."
+      "developer_comment": "Part of the error modal when loading an unshared project."
     },
     "cannotAccessProjectCaching": {
       "string": "If the project was shared recently, it may take a few minutes for this message to go away.",
-      "context": "Part of the error modal when loading an unshared project."
+      "developer_comment": "Part of the error modal when loading an unshared project."
     },
     "close": {
       "string": "Close"
     },
     "refresh": {
       "string": "Refresh",
-      "context": "Button in some error messages that refreshes/reloads the page"
+      "developer_comment": "Button in some error messages that refreshes/reloads the page"
     },
     "browserNotSupported": {
       "string": "Browser not supported",
-      "description": "Message that appears when the user's browser does not support required features."
+      "developer_comment": "Message that appears when the user's browser does not support required features."
     },
     "browserNotSupportedDescription": {
       "string": "Please update your browser.",
-      "description": "Additional text that appears when the user's browser does not support required features."
+      "developer_comment": "Additional text that appears when the user's browser does not support required features."
     },
     "importingInterface": {
       "string": "Loading options...",
-      "description": "Can appear when downloading additional UI scripts. Typically never seen."
+      "developer_comment": "Can appear when downloading additional UI scripts. Typically never seen."
     },
     "unknownImportError": {
       "string": "Something went wrong. Please refresh and try again.",
-      "description": "Appears when an unknown error happens while downloading additional UI scripts."
+      "developer_comment": "Appears when an unknown error happens while downloading additional UI scripts."
     },
     "reportBug": {
       "string": "Report Bug"
@@ -78,11 +78,11 @@
     },
     "donate": {
       "string": "Donate",
-      "context": "Link to donation page"
+      "developer_comment": "Link to donation page"
     },
     "documentation": {
       "string": "Additional resources and help",
-      "context": "Link to a place with additional information describing advanced topics"
+      "developer_comment": "Link to a place with additional information describing advanced topics"
     }
   },
   "progress": {
@@ -103,15 +103,15 @@
     },
     "loadingLargeAsset": {
       "string": "Downloading {thing}",
-      "context": "Generic loading message used when loading a 'brand name' file such as NW.js or Electron."
+      "developer_comment": "Generic loading message used when loading a 'brand name' file such as NW.js or Electron."
     },
     "loadingScripts": {
       "string": "Downloading scripts",
-      "context": "Loading message used when loading the Scratch runtime"
+      "developer_comment": "Loading message used when loading the Scratch runtime"
     },
     "downloadingExtensions": {
       "string": "Downloading custom extensions",
-      "context": "Loading message that appears while downloading custom extensions"
+      "developer_comment": "Loading message that appears while downloading custom extensions"
     }
   },
   "select": {
@@ -123,52 +123,52 @@
     },
     "id": {
       "string": "Scratch Project ID or URL",
-      "context": "Radio option to select a project from the Scratch website"
+      "developer_comment": "Radio option to select a project from the Scratch website"
     },
     "file": {
       "string": "File",
-      "context": "Radio option to upload a project from file"
+      "developer_comment": "Radio option to upload a project from file"
     },
     "url": {
       "string": "Other URL",
-      "context": "Radio option to choose a project from a non-Scratch URL"
+      "developer_comment": "Radio option to choose a project from a non-Scratch URL"
     },
     "loadProject": {
       "string": "Load Project",
-      "context": "Button to load a project"
+      "developer_comment": "Button to load a project"
     },
     "loadToContinue": {
       "string": "Load a project to continue"
     },
     "invalidId": {
       "string": "Invalid project ID",
-      "context": "Error message"
+      "developer_comment": "Error message"
     },
     "invalidUrl": {
       "string": "Invalid URL",
-      "context": "Error message"
+      "developer_comment": "Error message"
     },
     "noFileSelected": {
       "string": "No file selected",
-      "context": "Error message"
+      "developer_comment": "Error message"
     },
     "unsharedProjects": {
       "string": "Unshared projects are no longer accessible using their project ID due to Scratch API changes.",
-      "context": "Warning message about unshared projects no longer being accessible."
+      "developer_comment": "Warning message about unshared projects no longer being accessible."
     },
     "unsharedProjectsWorkaround": {
       "string": "Instead, you can either share the project or save the project to your computer (File > Save to your computer) and load the file in the packager. Files generated by the packager are fully self contained and not affected by these changes.",
-      "context": "Suggested alternatives to continue accessing unshared projects."
+      "developer_comment": "Suggested alternatives to continue accessing unshared projects."
     },
     "unsharedProjectsMore": {
       "string": "For more information and workarounds, visit: {link}",
-      "context": "Link to learn more about the state of unshared projects."
+      "developer_comment": "Link to learn more about the state of unshared projects."
     }
   },
   "options": {
     "learnMore": {
       "string": "Learn more",
-      "context": "Hover text for '(?)' link to learn more about an option"
+      "developer_comment": "Hover text for '(?)' link to learn more about an option"
     },
     "runtimeOptions": {
       "string": "Runtime Options"
@@ -199,11 +199,11 @@
     },
     "stage": {
       "string": "Stage",
-      "context": "Header of option group related to the stage, its size, etc."
+      "developer_comment": "Header of option group related to the stage, its size, etc."
     },
     "stageSize": {
       "string": "Custom Stage Size",
-      "context": "Custom stage size option"
+      "developer_comment": "Custom stage size option"
     },
     "preserveRatio": {
       "string": "Preserve aspect ratio when resized (recommended)"
@@ -219,11 +219,11 @@
     },
     "customUsernameWarning": {
       "string": "Be careful when changing the default username as it can cause connections to the default cloud variable server to be blocked. Only the default username is guaranteed to work.",
-      "context": "Warning that appears when using custom username and cloud variables at the same time."
+      "developer_comment": "Warning that appears when using custom username and cloud variables at the same time."
     },
     "closeWhenStopped": {
       "string": "Close window when project stops",
-      "context": "Option to close the window containing the packaged project when all the scripts within a project have stopped running."
+      "developer_comment": "Option to close the window containing the packaged project when all the scripts within a project have stopped running."
     },
     "autoplay": {
       "string": "Start project automatically instead of showing a big green flag"
@@ -233,14 +233,14 @@
     },
     "playerOptions": {
       "string": "Player Options",
-      "context": "Player options section header"
+      "developer_comment": "Player options section header"
     },
     "pageTitle": {
       "string": "Page title"
     },
     "loadingScreen": {
       "string": "Loading Screen",
-      "context": "Header of loading screen settings section"
+      "developer_comment": "Header of loading screen settings section"
     },
     "showProgressBar": {
       "string": "Show progress bar"
@@ -259,14 +259,14 @@
     },
     "loadingScreenTextPlaceholder": {
       "string": "(Nothing)",
-      "context": "Placeholder text for the 'Loading Screen Text' option"
+      "developer_comment": "Placeholder text for the 'Loading Screen Text' option"
     },
     "icon": {
       "string": "Page icon"
     },
     "controls": {
       "string": "Controls",
-      "context": "Controls section header"
+      "developer_comment": "Controls section header"
     },
     "showFlag": {
       "string": "Show green flag button in controls"
@@ -288,7 +288,7 @@
     },
     "colors": {
       "string": "Colors",
-      "context": "Colors section header"
+      "developer_comment": "Colors section header"
     },
     "backgroundColor": {
       "string": "Background color"
@@ -298,22 +298,22 @@
     },
     "monitors": {
       "string": "Monitors",
-      "context": "Monitors refers to variable and list monitors/watchers/displays that display on the stage"
+      "developer_comment": "Monitors refers to variable and list monitors/watchers/displays that display on the stage"
     },
     "editableLists": {
       "string": "Editable lists"
     },
     "variableColor": {
       "string": "Variable color",
-      "context": "Name of option that controls the color of variable monitors that appear over the stage"
+      "developer_comment": "Name of option that controls the color of variable monitors that appear over the stage"
     },
     "listColor": {
       "string": "List color",
-      "context": "Name of option that controls background color of rows in list monitors that appear over the stage"
+      "developer_comment": "Name of option that controls background color of rows in list monitors that appear over the stage"
     },
     "interaction": {
       "string": "Input",
-      "context": "Input settings header"
+      "developer_comment": "Input settings header"
     },
     "normalCursor": {
       "string": "Normal cursor"
@@ -326,18 +326,18 @@
     },
     "cursorCenter": {
       "string": "Cursor center:",
-      "context": "Option to configure the center of a custom cursor. Followed by 'X: (input) Y: (input)'"
+      "developer_comment": "Option to configure the center of a custom cursor. Followed by 'X: (input) Y: (input)'"
     },
     "automaticallyCenter": {
       "string": "Automatically center",
-      "context": "Button that automatically centers a custom cursor"
+      "developer_comment": "Button that automatically centers a custom cursor"
     },
     "cursorHelp": {
       "string": "Images up to 32x32 work best. Larger images may not work reliably."
     },
     "pointerlock": {
       "string": "Lock mouse cursor",
-      "context": "Option to enable pointerlock"
+      "developer_comment": "Option to enable pointerlock"
     },
     "pointerlockHelp": {
       "string": "Based on a TurboWarp Experiment."
@@ -350,19 +350,19 @@
     },
     "cloudVariables": {
       "string": "Cloud Variables",
-      "context": "Cloud variables section header"
+      "developer_comment": "Cloud variables section header"
     },
     "noCloudVariables": {
       "string": "This project does not contain cloud variables.",
-      "context": "Message that appears when the project contain no cloud variables."
+      "developer_comment": "Message that appears when the project contain no cloud variables."
     },
     "mode": {
       "string": "Mode",
-      "context": "Label to choose how to handle cloud variables"
+      "developer_comment": "Label to choose how to handle cloud variables"
     },
     "cloudVariablesHost": {
       "string": "Cloud host",
-      "context": "Option to use configure which cloud variable server to connect to"
+      "developer_comment": "Option to use configure which cloud variable server to connect to"
     },
     "cloudVariables-ws": {
       "string": "Connect to cloud variable server"
@@ -393,18 +393,18 @@
     },
     "advancedSummary": {
       "string": "You probably don't want to change these. (Click to open)",
-      "context": "Text that can be clicked to expand the advanced options section."
+      "developer_comment": "Text that can be clicked to expand the advanced options section."
     },
     "specialCloudBehaviors": {
       "string": "Special cloud variable behaviors like HTMLifier",
-      "context": "Do not translate 'HTMLifier'"
+      "developer_comment": "Do not translate 'HTMLifier'"
     },
     "unsafeCloudBehaviors": {
       "string": "Additional unsafe special cloud behaviors"
     },
     "unsafeCloudBehaviorsWarning": {
       "string": "Unsafe cloud behaviors allows the packaged project to execute arbitrary code outside of the \"sandbox\" that projects are typically executed in. Depending on the environment you're packaging for, this grants projects full control over your computer, including the ability to install viruses. If you do not trust the project you're packaging, please turn off this option.",
-      "context": "Warning that appears when unsafe cloud behaviors is enabled."
+      "developer_comment": "Warning that appears when unsafe cloud behaviors is enabled."
     },
     "implicitCloudHint": {
       "string": "Tip: Any variable with a name starting with \"{cloud}\" will be converted to a cloud variable regardless of whether it was marked as one."
@@ -423,7 +423,7 @@
     },
     "packagedRuntime": {
       "string": "Remove raw asset data after loading to save RAM",
-      "context": "An option in advanced options. RAM refers to computer memory."
+      "developer_comment": "An option in advanced options. RAM refers to computer memory."
     },
     "customExtensions": {
       "string": "Custom extensions (one URL per line)"
@@ -433,19 +433,19 @@
     },
     "bakeExtensions": {
       "string": "Try to embed cached copy of custom extensions instead of downloading them each time the project is run",
-      "context": "Option that tries to store "
+      "developer_comment": "Option that tries to store "
     },
     "customCSS": {
       "string": "Custom CSS (Don't change if you don't know what you're doing!)",
-      "context": "Do not translate 'CSS'"
+      "developer_comment": "Do not translate 'CSS'"
     },
     "customJS": {
       "string": "Custom JS (Don't change if you don't know what you're doing!)",
-      "context": "Do not translate 'JS'"
+      "developer_comment": "Do not translate 'JS'"
     },
     "environment": {
       "string": "Environment",
-      "context": "Label to select which environment to package the project for"
+      "developer_comment": "Label to select which environment to package the project for"
     },
     "html": {
       "string": "Plain HTML (standalone, works anywhere)"
@@ -458,19 +458,19 @@
     },
     "application-win32": {
       "string": "{type} Windows application (32-bit)",
-      "context": "type will become something like 'NW.js' or 'Electron'. Do not translate 'Windows'."
+      "developer_comment": "type will become something like 'NW.js' or 'Electron'. Do not translate 'Windows'."
     },
     "application-win64": {
       "string": "{type} Windows application (64-bit)",
-      "context": "type will become something like 'NW.js' or 'Electron'. Do not translate 'Windows'."
+      "developer_comment": "type will become something like 'NW.js' or 'Electron'. Do not translate 'Windows'."
     },
     "application-win-arm": {
       "string": "{type} Windows application for ARM",
-      "context": "type will become something like 'NW.js' or 'Electron'. Do not translate 'Windows' or 'ARM'."
+      "developer_comment": "type will become something like 'NW.js' or 'Electron'. Do not translate 'Windows' or 'ARM'."
     },
     "application-mac": {
       "string": "{type} macOS application",
-      "context": "type will become something like 'NW.js' or 'Electron'. Do not translate 'macOS'."
+      "developer_comment": "type will become something like 'NW.js' or 'Electron'. Do not translate 'macOS'."
     },
     "application-linux64": {
       "string": "{type} Linux application (64-bit)",
@@ -478,19 +478,19 @@
     },
     "application-linux-arm32": {
       "string": "{type} Linux application for ARM (32-bit)",
-      "context": "type will become something like 'NW.js' or 'Electron'. Do not translate 'Linux' or 'ARM'."
+      "developer_comment": "type will become something like 'NW.js' or 'Electron'. Do not translate 'Linux' or 'ARM'."
     },
     "application-linux-arm64": {
       "string": "{type} Linux application for ARM (64-bit)",
-      "context": "type will become something like 'NW.js' or 'Electron'. Do not translate 'Linux' or 'ARM'."
+      "developer_comment": "type will become something like 'NW.js' or 'Electron'. Do not translate 'Linux' or 'ARM'."
     },
     "otherEnvironments": {
       "string": "Other environments (Click to open)",
-      "context": "Text that can be clicked to expand list of environments to include some unrecommended ones."
+      "developer_comment": "Text that can be clicked to expand list of environments to include some unrecommended ones."
     },
     "otherEnvironmentsHelp": {
       "string": "Most new projects should use the options listed above instead.",
-      "context": "Text describing the 'Other environments' section."
+      "developer_comment": "Text describing the 'Other environments' section."
     },
     "applicationSettings": {
       "string": "Application Settings"
@@ -503,15 +503,15 @@
     },
     "version": {
       "string": "Version",
-      "context": "Label for application version number input"
+      "developer_comment": "Label for application version number input"
     },
     "versionHelp": {
       "string": "Updating the version is completely optional and doesn't affect your project's behavior. It may appear in places like about screens depending on the environment. Should be formatted as X.Y.Z.",
-      "context": "Additional information about the version number option"
+      "developer_comment": "Additional information about the version number option"
     },
     "initalWindowSize": {
       "string": "Initial window size",
-      "context": "Name of setting to change the size of the window when the app first opens"
+      "developer_comment": "Name of setting to change the size of the window when the app first opens"
     },
     "startWindow": {
       "string": "Start as window"
@@ -524,35 +524,35 @@
     },
     "escapeBehavior": {
       "string": "When escape key pressed",
-      "context": "Name of setting to change what happens when someone presses escape"
+      "developer_comment": "Name of setting to change what happens when someone presses escape"
     },
     "unFullscreenOnly": {
       "string": "Leave fullscreen only",
-      "context": "When escape key pressed, leave fullscreen if in fullscreen, otherwise do nothing."
+      "developer_comment": "When escape key pressed, leave fullscreen if in fullscreen, otherwise do nothing."
     },
     "exitOnly": {
       "string": "Exit only",
-      "context": "When escape key pressed, always exit the app regardless of fullscreen mode."
+      "developer_comment": "When escape key pressed, always exit the app regardless of fullscreen mode."
     },
     "unFullscreenOrExit": {
       "string": "Leave fullscreen or exit",
-      "context": "When escape key pressed, leave fullscreen if in fullscreen, otherwise exit."
+      "developer_comment": "When escape key pressed, leave fullscreen if in fullscreen, otherwise exit."
     },
     "doNothing": {
       "string": "Do nothing",
-      "context": "When escape key pressed, do nothing."
+      "developer_comment": "When escape key pressed, do nothing."
     },
     "windowControls": {
       "string": "Window controls",
-      "context": "Name of setting to change whether the generated app has the window control bar (window title, close, minimize, maximize, etc.) provided by the OS."
+      "developer_comment": "Name of setting to change whether the generated app has the window control bar (window title, close, minimize, maximize, etc.) provided by the OS."
     },
     "defaultControls": {
       "string": "Default",
-      "context": "Uses the default window control bar (window title, close, minimize, maximize, etc.) provided by OS"
+      "developer_comment": "Uses the default window control bar (window title, close, minimize, maximize, etc.) provided by OS"
     },
     "noControls": {
       "string": "Hidden (frameless)",
-      "context": "Do not show the window control bar (window title, close, minimize, maximize, etc.) provided by OS. Some people call this 'frameless' mode."
+      "developer_comment": "Do not show the window control bar (window title, close, minimize, maximize, etc.) provided by OS. Some people call this 'frameless' mode."
     },
     "maxTextureDimension": {
       "string": "Increase max vector costume resolution to make large costumes look better. May increase memory use and cause crashes."
@@ -595,11 +595,11 @@
     },
     "package": {
       "string": "Package",
-      "context": "Button to package the project"
+      "developer_comment": "Button to package the project"
     },
     "preview": {
       "string": "Preview",
-      "context": "Button to preview the project"
+      "developer_comment": "Button to preview the project"
     },
     "resetAll": {
       "string": "Reset All Settings",
@@ -619,17 +619,17 @@
     },
     "downloadsWillAppearHere": {
       "string": "Downloads will appear here",
-      "context": "Placeholder that appears when no project has been packaged yet so there is nothing to download"
+      "developer_comment": "Placeholder that appears when no project has been packaged yet so there is nothing to download"
     }
   },
   "downloads": {
     "link": {
       "string": "Download {filename} ({size})",
-      "context": "Link to download project after it has been packaged. filename might be \"Packaged Project.html\" and size might be \"6.2MB\""
+      "developer_comment": "Link to download project after it has been packaged. filename might be \"Packaged Project.html\" and size might be \"6.2MB\""
     },
     "useWorkaround": {
       "string": "Click here if download link doesn't work",
-      "context": "Buttons that appears when downloading certain file types on certain systems to work around system bugs that prevent downloading files."
+      "developer_comment": "Buttons that appears when downloading certain file types on certain systems to work around system bugs that prevent downloading files."
     }
   },
   "fileInput": {
@@ -638,39 +638,39 @@
     },
     "clear": {
       "string": "Clear Selection",
-      "context": "Button to unselect a file"
+      "developer_comment": "Button to unselect a file"
     },
     "selected": {
       "string": "Selected {file}",
-      "context": "Message indicating the name of the selected file"
+      "developer_comment": "Message indicating the name of the selected file"
     }
   },
   "theme": {
     "system": {
       "string": "Use system theme",
-      "context": "Option to choose dark/light mode based on whatever the global system theme is"
+      "developer_comment": "Option to choose dark/light mode based on whatever the global system theme is"
     },
     "dark": {
       "string": "Dark",
-      "context": "Dark mode option"
+      "developer_comment": "Dark mode option"
     },
     "light": {
       "string": "Light",
-      "context": "Light mode option"
+      "developer_comment": "Light mode option"
     }
   },
   "reset": {
     "reset": {
       "string": "Reset",
-      "context": "Hover text of button to reset settings within a section"
+      "developer_comment": "Hover text of button to reset settings within a section"
     },
     "confirm": {
       "string": "Are you sure you want to reset these settings? This cannot be undone.",
-      "context": "Prompt to confirm user wants to reset a specific subsection's settings"
+      "developer_comment": "Prompt to confirm user wants to reset a specific subsection's settings"
     },
     "confirmAll": {
       "string": "Are you sure you want to reset ALL settings? This cannot be undone.",
-      "context": "Prompt to confirm user wants to reset ALL settings for the current project"
+      "developer_comment": "Prompt to confirm user wants to reset ALL settings for the current project"
     }
   },
   "preview": {
