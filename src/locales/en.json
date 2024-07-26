@@ -557,26 +557,41 @@
     "maxTextureDimension": {
       "string": "Increase max vector costume resolution to make large costumes look better. May increase memory use and cause crashes."
     },
+    "steamworksExtension": {
+      "string": "Steamworks Extension",
+      "developer_comment": "Title of section that appears when using the Steamworks extension"
+    },
+    "steamworksDocumentation": {
+      "string": "See the extension's documentation for more details.",
+      "developer_comment": "Link to more documentation about the Steamworks extension"
+    },
     "steamworksUnavailable": {
-      "string": "To enable the Steamworks extension, you must use one of these environments:"
+      "string": "To enable the Steamworks extension, you must use one of these environments:",
+      "developer_comment": "Followed by a list of environments"
     },
     "steamworksAvailable": {
-      "string": "This project is using the Steamworks extension. You can find your game's app ID in Steamworks. 480 is the ID of the Steamworks demo game (Spacewar)."
+      "string": "This project is using the Steamworks extension. You can find your game's App ID in Steamworks, or use {n} for testing with the Steamworks demo game.",
+      "developer_comment": "{n} is 480."
     },
     "steamworksAppId": {
-      "string": "App ID"
+      "string": "App ID",
+      "developer_comment": "Steamworks App ID"
     },
     "steamworksOnError": {
-      "string": "If there is an error initializing Steamworks"
+      "string": "If there is an error initializing Steamworks",
+      "developer_comment": "Followed by a drop down: 'do nothing', 'show a warning ...', 'show an error ...'"
     },
     "steamworksIgnore": {
-      "string": "Do nothing"
+      "string": "Do nothing",
+      "developer_comment": "Part of dropdown for what to do if Steamworks has an error"
     },
     "steamworksWarning": {
-      "string": "Show a warning but continue"
+      "string": "Show a warning but continue",
+      "developer_comment": "Part of dropdown for what to do if Steamworks has an error"
     },
     "steamworksError": {
-      "string": "Show an error and exit"
+      "string": "Show an error and exit",
+      "developer_comment": "Part of dropdown for what to do if Steamworks has an error"
     },
     "package": {
       "string": "Package",
