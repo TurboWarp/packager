@@ -561,6 +561,10 @@
       "string": "Steamworks Extension",
       "developer_comment": "Title of section that appears when using the Steamworks extension"
     },
+    "steamworksMacWarning": {
+      "string": "Warning: macOS games published on Steam need to be notarized by Apple, which the packager doesn't support. You can still test your game on a Mac, but you won't be able to publish it for macOS yet.",
+      "developer_comment": "When using the Steamworks extension, warning that appears whenever macOS support is used or mentioned."
+    },
     "steamworksDocumentation": {
       "string": "See the extension's documentation for more details.",
       "developer_comment": "Link to more documentation about the Steamworks extension"

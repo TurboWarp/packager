@@ -1035,11 +1035,21 @@
           <option value="error">{$_('options.steamworksError')}</option>
         </select>
       </label>
+
+      {#if $options.target === 'electron-mac'}
+        <p class="warning">
+          {$_('options.steamworksMacWarning')}
+        </p>
+      {/if}
     {:else}
       <p>{$_('options.steamworksUnavailable')}</p>
       <ul>
         <li>{$_('options.application-win64').replace('{type}', 'Electron')}</li>
-        <li>{$_('options.application-mac').replace('{type}', 'Electron')}</li>
+        <li>
+          {$_('options.application-mac').replace('{type}', 'Electron')}
+          <br>
+          {$_('options.steamworksMacWarning')}
+        </li>
         <li>{$_('options.application-linux64').replace('{type}', 'Electron')}</li>
       </ul>
     {/if}
