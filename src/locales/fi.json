@@ -19,11 +19,8 @@
         "advancedSummary": "Et todennäköisesti halua muuttaa näitä. (avaa napauttamalla)",
         "application-linux-arm32": "{type} Linux -sovellus ARM:lle (32-bittinen)",
         "application-linux-arm64": "{type} Linux -sovellus ARM:lle (64-bittinen)",
-        "application-linux64": "{type} Linux -sovellus (vain 64-bittinen)",
         "application-mac": "{type} macOS -sovellus",
         "application-win-arm": "{type} Windows -sovellus ARM:lle",
-        "application-win32": "{type} Windows -sovellus (32-bittinen tai 64-bittinen)",
-        "application-win64": "{type} Windows -sovellus (vain 64-bittinen, ei-suositeltava)",
         "applicationSettings": "Sovelluksen asetukset",
         "automaticallyCenter": "Keskitä automaattisesti",
         "autoplay": "Käynnistä projekti automaattisesti suuren vihreän lipun näyttämisen sijaan",
@@ -76,7 +73,7 @@
         "initalWindowSize": "Alustava ikkunan koko",
         "interaction": "Syöte",
         "interpolation": "Interpolaatio",
-        "learnMore": "Lue lisää",
+        "learnMore": "Lisätietoa",
         "listColor": "Listojen väri",
         "loadingScreen": "Latausnäkymä",
         "loadingScreenImage": "Latausnäkymän kuva",
@@ -120,6 +117,7 @@
         "startFullscreen": "Käynnisty koko näytön tilassa",
         "startMaximized": "Käynnisty suurennettu ikkunana",
         "startWindow": "Käynnisty ikkunana",
+        "steamworksIgnore": "Älä tee mitään",
         "storedWarning": "Huomaa: Tässä projektissa on sisäisiä asetuksia, jotka saattavat kumota nämä asetukset.",
         "stretch": "Venytä esiintymislava täyttämään näyttö ilman kohteiden todellisen koon muuttamista (kokeellinen)",
         "turbo": "Turbotila",
@@ -178,7 +176,7 @@
     "reset": {
         "confirm": "Haluatko varmasti palauttaa nämä asetukset? Tätä ei voida perua.",
         "confirmAll": "Haluatko varmasti palauttaa KAIKKI asetukset? Tätä ei voida perua.",
-        "reset": "Palauta"
+        "reset": "Nollaa"
     },
     "select": {
         "file": "Tiedosto",
