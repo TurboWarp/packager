@@ -1034,6 +1034,7 @@ cd "$(dirname "$0")"
       let projectDecodeIndex = 0;
       const decodeChunk = (size) => {
         try {
+          if (document.currentScript.tagName.toUpperCase() !== 'SCRIPT') throw new Error('document.currentScript is not a script');
           base85decode(document.currentScript.getAttribute("data"), projectDecodeBuffer, projectDecodeIndex);
           document.currentScript.remove();
           projectDecodeIndex += size;
