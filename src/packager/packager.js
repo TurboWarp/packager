@@ -813,7 +813,7 @@ const {contextBridge, ipcRenderer} = require('electron');
             isActivated: sync('Steamworks.achievement.isActivated'),
           },
           apps: {
-            isDlcInstalled: async('Steamworks.apps.isDlcInstalled'),
+            isDlcInstalled: sync('Steamworks.apps.isDlcInstalled'),
           },
           leaderboard: {
             uploadScore: async('Steamworks.leaderboard.uploadScore'),
