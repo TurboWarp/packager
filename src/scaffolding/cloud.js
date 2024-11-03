@@ -158,6 +158,10 @@ class WebSocketProvider {
       console.log('Username is invalid; not reconnecting.');
       return;
     }
+    if (e && e.code === 4003) {
+      console.log('Cloud variable server is full; not reconnecting.');
+      return;
+    }
     if (e && e.code === 4004) {
       console.log('Project is blocked; not reconnecting.');
       return;
