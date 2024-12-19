@@ -120,7 +120,7 @@
         "startFullscreen": "以全屏模式启动",
         "startMaximized": "以最大化窗口模式启动",
         "startWindow": "以窗口模式启动",
-        "steamworksAvailable": "此作品使用了 Steamworks 扩展。您可以在 Steamworks 找到您游戏的 App ID，或者使用 {n} 来通过 Steamworks demo 测试。",
+        "steamworksAvailable": "此作品使用了 Steamworks 扩展。您可以在 Steamworks 找到您游戏的 App ID，或者使用 {n} 来测试 Steamworks 测试版游戏。",
         "steamworksDocumentation": "查看扩展文档以了解详情",
         "steamworksError": "展示错误并退出",
         "steamworksExtension": "Steamworks 扩展",
