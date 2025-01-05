@@ -66,7 +66,33 @@ const mutateScratch3InPlace = (projectData) => {
     }
   };
 
+  const disableNonsenseCloudVariables = (projectData) => {
+    const DISABLE_CLOUD_VARIABLES = [
+      // The "original" Sprunki project includes a cloud variable presumably used to detect who
+      // clicked on the report button. That seems like a Scratch community guidelines violation but
+      // that's not our job to enforce. This affects us because these games are very popular and
+      // create thousands of unnecessary concurrent cloud variable connections for a feature that
+      // can't work because there is no report button to click on.
+      '☁ potential reporters'
+    ];
+
+    // I want a more general solution here that automatically disables all unused cloud variables,
+    // but making that work in the presence of various unknown extensions seems non-trivial.
+
+    const stage = projectData.targets.find((i) => i.isStage);
+    if (stage) {
+      for (const variable of Object.values(stage.variables)) {
+        // variable is [name, value, isCloud]
+        if (variable[2] && DISABLE_CLOUD_VARIABLES.includes(variable[0])) {
+          variable[2] = false;
+        }
+      }
+    }
+  };
+
+  // Order matters -- check for implied cloud variables before disabling some of them.
   makeImpliedCloudVariables(projectData);
+  disableNonsenseCloudVariables(projectData);
   optimizeSb3Json(projectData);
 };
 
