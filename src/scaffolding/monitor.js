@@ -211,7 +211,9 @@ class VariableMonitor extends Monitor {
 const ROW_HEIGHT = 24;
 
 class Row {
+  /** @param {ListMonitor} monitor */
   constructor (monitor) {
+    /** @type {ListMonitor} */
     this.monitor = monitor;
 
     this.index = -1;
@@ -390,7 +392,9 @@ class ListMonitor extends Monitor {
     super(parent, monitor);
 
     this.editable = parent.editableLists;
+    /** @type {Map<number, Row>} */
     this.rows = new Map();
+    /** @type {Row[]} */
     this.cachedRows = [];
     this.scrollTop = 0;
     this.oldLength = -1;
