@@ -279,6 +279,11 @@ class Row {
       return;
     }
 
+    // Store our new cached value, otherwise if we get reused for a different row with
+    // the same value that the old row had before editing, setValue() will keep
+    // displaying the incorrect edited value instead of the actual value.
+    this.value = this.valueInner.value;
+
     this.unfocus();
 
     if (this.deleteValue) {
