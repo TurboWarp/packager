@@ -218,7 +218,7 @@ class Row {
 
     this.index = -1;
     this.value = '';
-    this.locked = false;
+    this.isFocused = false;
 
     this.root = document.createElement('label');
     this.root.className = styles.monitorRowRoot;
@@ -232,14 +232,15 @@ class Row {
     this.editable = this.monitor.editable;
     if (this.editable) {
       this.valueInner = document.createElement('input');
-      this.valueInner.tabIndex = -1;
       this.valueInner.className = styles.monitorRowValueInner;
-      this.valueInner.readOnly = true;
-      this.valueInner.addEventListener('click', this._onclickinput.bind(this));
-      this.valueInner.addEventListener('blur', this._onblurinput.bind(this));
-      this.valueInner.addEventListener('keypress', this._onkeypressinput.bind(this));
-      this.valueInner.addEventListener('keydown', this._onkeypressdown.bind(this));
-      this.valueInner.addEventListener('contextmenu', this._oncontextmenu.bind(this));
+      // We can't mark the input as readonly by default and then allow editing only
+      // when clicking on it as iOS will not show the keyboard. Thus we need the input
+      // to be always editable, so we need to handle focus events as generally as
+      // possible.
+      this.valueInner.addEventListener('focusin', this._onfocusin.bind(this));
+      this.valueInner.addEventListener('focusout', this._onfocusout.bind(this));
+      this.valueInner.addEventListener('keypress', this._onkeypress.bind(this));
+      this.valueInner.addEventListener('keydown', this._onkeydown.bind(this));
       this.valueInner.addEventListener('input', this._oninput.bind(this));
       this.valueOuter.appendChild(this.valueInner);
 
@@ -252,21 +253,25 @@ class Row {
       this.valueInner = document.createElement('div');
       this.valueInner.className = styles.monitorRowValueInner;
       this.valueOuter.appendChild(this.valueInner);
-      this.valueInner.addEventListener('contextmenu', this._oncontextmenuuneditable.bind(this));
     }
+
+    this.valueInner.addEventListener('contextmenu', this._oncontextmenu.bind(this));
 
     this.root.appendChild(this.indexEl);
     this.root.appendChild(this.valueOuter);
   }
 
-  _onclickinput () {
-    this.valueInner.focus();
-    if (this.locked) {
+  isLocked () {
+    return this.isFocused;
+  }
+
+  _onfocusin () {
+    if (this.isFocused) {
       return;
     }
+
+    this.isFocused = true;
     this.valueInner.select();
-    this.valueInner.readOnly = false;
-    this.locked = true;
     this.root.classList.add(styles.monitorRowValueEditing);
 
     this.addNewValue = false;
@@ -274,8 +279,8 @@ class Row {
     this.valueWasChanged = false;
   }
 
-  _onblurinput () {
-    if (!this.locked) {
+  _onfocusout () {
+    if (!this.isFocused) {
       return;
     }
 
@@ -284,16 +289,17 @@ class Row {
     // displaying the incorrect edited value instead of the actual value.
     this.value = this.valueInner.value;
 
-    this.unfocus();
+    this.isFocused = false;
+    this.root.classList.remove(styles.monitorRowValueEditing);
 
     if (this.deleteValue) {
       const value = [...this.monitor.value];
       value.splice(this.index, 1);
       this.monitor.setValue(value);
-      this.monitor.tryToFocusRow(Math.min(value.length - 1, this.index))
+      this.monitor.tryToFocusRow(Math.min(value.length - 1, this.index));
     } else if (this.valueWasChanged || this.addNewValue) {
       const value = [...this.monitor.value];
-      value[this.index] = this.valueInner.value;
+      value[this.index] = this.value;
       if (this.addNewValue) {
         value.splice(this.index + 1, 0, '');
       }
@@ -308,14 +314,14 @@ class Row {
     this.valueWasChanged = true;
   }
 
-  _onkeypressinput (e) {
+  _onkeypress (e) {
     if (e.key === 'Enter') {
       this.addNewValue = true;
       this.valueInner.blur();
     }
   }
 
-  _onkeypressdown (e) {
+  _onkeydown (e) {
     if (e.key === 'Escape') {
       this.valueInner.blur();
     } else if (e.key === 'ArrowUp' || e.key === 'ArrowDown' || e.key === 'Tab') {
@@ -339,20 +345,16 @@ class Row {
   }
 
   _oncontextmenu (e) {
-    if (this.locked) {
-      // Open native context menu instead of custom list one when editing
+    if (this.editable) {
+      // Show the native text editing context menu instead of our custom one.
       e.stopPropagation();
     } else {
-      // Right clicking should not focus and highlight input
-      e.preventDefault();
-    }
-  }
-
-  _oncontextmenuuneditable (e) {
-    // When row has been highlighted, eg. by triple click, open native context menu instead of custom
-    const selection = getSelection();
-    if (this.valueInner.contains(selection.anchorNode) && !selection.isCollapsed) {
-      e.stopPropagation();
+      // When row has been highlighted, eg. by triple click, open native context menu instead of custom
+      // This allows people to copy and paste without needing to know ctrl+c.
+      const selection = getSelection();
+      if (this.valueInner.contains(selection.anchorNode) && !selection.isCollapsed) {
+        e.stopPropagation();
+      }
     }
   }
 
@@ -366,7 +368,7 @@ class Row {
   }
 
   setValue (value) {
-    if (this.value !== value && !this.locked) {
+    if (this.value !== value && !this.isFocused) {
       this.value = value;
       if (this.editable) {
         this.valueInner.value = value;
@@ -377,17 +379,14 @@ class Row {
   }
 
   focus () {
-    this.valueInner.click();
-    if (document.activeElement !== this.valueInner) {
-      setTimeout(() => this.valueInner.click());
+    if (!this.isFocused) {
+      this.valueInner.focus();
     }
   }
 
   unfocus () {
-    if (this.locked) {
-      this.locked = false;
-      this.valueInner.readOnly = true;
-      this.root.classList.remove(styles.monitorRowValueEditing);
+    if (this.isFocused) {
+      this.valueInner.blur();
     }
   }
 }
@@ -595,7 +594,7 @@ class ListMonitor extends Monitor {
     for (const index of this.rows.keys()) {
       if (index < startIndex || index > endIndex) {
         const row = this.rows.get(index);
-        if (!row.locked || index >= value.length) {
+        if (!row.isLocked() || index >= value.length) {
           row.unfocus();
           row.root.remove();
           this.rows.delete(index);
