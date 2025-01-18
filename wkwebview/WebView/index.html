@@ -5,15 +5,25 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="color-scheme" content="light dark">
+        <style>
+            textarea {
+                width: 100%;
+                box-sizing: border-box;
+                min-height: 100px;
+            }
+        </style>
     </head>
     <body>
         <h1>It works!</h1>
+
         <button onclick="testDownload()">Test file download</button>
         <button onclick="testCamera()">Test camera</button>
         <button onclick="testMicrophone()">Test microphone</button>
         <button onclick="window.close()">window.close()</button>
         <button onclick="testLocalFetchFromMain()">Test local fetch from main</button>
         <button onclick="testLocalFetchFromBlobWorker()">Test local fetch from blob: worker</button>
+        <button onclick="testTextInput()">Test text input</button>
+
         <script>
             const testDownload = async () => {
                 const blob = new Blob([
@@ -78,6 +88,22 @@
                     const el = document.createElement("pre");
                     el.textContent = e.data;
                     document.body.appendChild(el);
+                });
+            };
+
+            const testTextInput = () => {
+                const textarea = document.createElement("textarea");
+                textarea.placeholder = "Type here...";
+                document.body.appendChild(textarea);
+                document.addEventListener("keydown", (e) => {
+                    if (e.target !== textarea) {
+                        textarea.value = `keydown ${e.key}\n${textarea.value}`;
+                    }
+                });
+                document.addEventListener("keyup", (e) => {
+                    if (e.target !== textarea) {
+                        textarea.value = `keyup ${e.key}\n${textarea.value}`;
+                    }
                 });
             };
         </script>
