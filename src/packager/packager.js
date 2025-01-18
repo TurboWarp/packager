@@ -147,11 +147,17 @@ const CFBundleShortVersionString = 'CFBundleShortVersionString';
 // https://developer.apple.com/documentation/bundleresources/information_property_list/lsapplicationcategorytype
 const LSApplicationCategoryType = 'LSApplicationCategoryType';
 
-const generateMacReadme = (options) => `When you try to double click on the app to run it, you will probably see this warning:
-"${options.app.packageName} cannot be opened because the developer cannot be verified."
-This is normal. Press cancel.
+const generateMacReadme = (options) => `Due to macOS restrictions, running this app requires a few manual steps.
 
-To run the app:
+To run the app on macOS 15 and later:
+1) Double click on the app file (${options.app.packageName} in the same folder as this document), then press "Done" when the warning appears
+2) Open macOS System Settings
+3) Go to the "Privacy & Security" section
+4) Scroll to the bottom
+5) By "${options.app.packageName} was blocked to protect your Mac", press "Open Anyway"
+6) In the prompt that appears, press "Open Anyway"
+
+To run the app on macOS 14 and earlier:
 1) Control+click on the app file (${options.app.packageName} in the same folder as this document) and select "Open".
 2) If a warning appears, select "Open" if it's an option.
 3) If a warning appears but "Open" isn't an option, press "Cancel" and repeat from step 1.
