@@ -1,5 +1,5 @@
 import Cocoa
-import WebKit
+@preconcurrency import WebKit
 
 class ViewController: NSViewController, WKNavigationDelegate, WKUIDelegate, WKScriptMessageHandler {
     @IBOutlet var webView: WKWebView!
