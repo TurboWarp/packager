@@ -136,8 +136,4 @@ class ViewController: NSViewController, WKNavigationDelegate, WKUIDelegate, WKSc
 //        Implements window.close()
         self.view.window?.close();
     }
-
-    override func keyDown(with event: NSEvent) {
-//        Don't call super.keyDown so that it won't play the beeping noise.
-    }
 }
