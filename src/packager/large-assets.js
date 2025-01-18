@@ -77,9 +77,9 @@ export default {
     estimatedSize: 93932512
   },
   'webview-mac': {
-    src: externalFile('WebView-macos-5.zip'),
-    sha256: 'b5636571cd9be2aae2f6dac1ab090fdf829c8fdfe91f462cc2feb2d324705f9f',
-    estimatedSize: 3425601
+    src: externalFile('WebView-macos-7.zip'),
+    sha256: 'fef0603a17df6dd976eb2aeb704aaec6d2666455089fbf3398becfaf5b29448b',
+    estimatedSize: 3530149
   },
   'steamworks.js': {
     src: externalFile('steamworks.js-0.3.2.zip'),
