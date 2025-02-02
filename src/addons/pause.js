@@ -54,6 +54,9 @@ export default function ({ scaffolding }) {
             stackFrame.executionContext.timer.startTime += dt;
           }
           // Compiler state is stored differently
+          if (thread.compatibilityStackFrame && thread.compatibilityStackFrame.timer) {
+            thread.compatibilityStackFrame.timer.startTime += now - pauseState.pauseTime;
+          }
           if (thread.timer) {
             const dt = now - pauseState.pauseTime;
             thread.timer.startTime += dt;
