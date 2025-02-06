@@ -1085,7 +1085,7 @@ cd "$(dirname "$0")"
         };
         xhr.onerror = () => {
           if (location.protocol === 'file:') {
-            reject(new Error('Zip environment must be used from a website, not from a file URL.'));
+            reject(new Error('Zip environment must be used on a website, not on a local file. To fix this error, use the "Plain HTML" environment instead.'));
           } else {
             reject(new Error('Request to load project data failed.'));
           }
