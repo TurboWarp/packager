@@ -43,6 +43,7 @@
         "customCSS": "Egyéni CSS (Ne változtasd meg, ha nem tudod, hogy mit csinálsz!)",
         "customCursor": "Egyéni egérmutató",
         "customExtensions": "Egyéni bővítmények (egy URL soronként)",
+        "customExtensionsSecurity": "Az egyedi bővítmények mindig sandbox nélkül futnak le a csomagkészítőben. Az adott környezettől függően, amibe csomagolni szeretnél, ez teljes fennhatóságot biztosít a bővítménynek a számítógéped fölött, beleértve vírusok letöltését is. Ezért ne használj olyan bővítményeket, amelyekben nem bízol meg.",
         "customJS": "Egyéni JS (Ne változtasd meg, ha nem tudod, hogy mit csinálsz!)",
         "defaultControls": "Alapértelmezett",
         "doNothing": "Semmi történjen",
@@ -134,6 +135,7 @@
         "errorMessage": "Üzenet: {error}",
         "feedback": "Visszajelzés",
         "importingInterface": "Beállítások betöltése...",
+        "outdated": "A csomagkészítő ezen verziója elavultnak tűnik. Kérjük, frissíts és próbálkozz újra.",
         "privacy": "Adatvédelmi Irányelvek",
         "refresh": "Újratöltés",
         "reportBug": "Hiba jelentése",
@@ -162,6 +164,7 @@
         "noFileSelected": "Nincs kiválasztva fájl",
         "select": "Projekt kiválasztása",
         "selectHelp": "Válassza ki a projektet, amit be szeretne csomagolni, az által, hogy kimásolj, majd beilleszti a Scratch projekt linkjét, vagy az egyéb módok egyikét használva. ha egy olyan projektet használna, ami nem saját-készítésű, akkor ne felejtse el megjelölni az eredeti alkotót.",
+        "unsharedProjectsWorkaround": "Azonban továbbra is megoszthatod a projektet vagy letöltheted a számítógépedre (Fájl > Letöltés saját gépre), majd betöltheted a fájlt a csomagkészítőbe. A csomagkészítő által eddig is létrehozott fájlok függetlenek minden mástól és nincsenek hatással rájuk ezek a változások.",
         "url": "Egyéb URL"
     },
     "theme": {
