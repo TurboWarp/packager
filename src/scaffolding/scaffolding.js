@@ -134,7 +134,7 @@ class Scaffolding extends EventTarget {
   _startDragging (x, y) {
     if (this._draggingId) return;
     const drawableId = this.renderer.pick(x, y);
-    if (drawableId === null) return;
+    if (drawableId === -1 || drawableId === false) return;
     const targetId = this.vm.getTargetIdForDrawableId(drawableId);
     if (targetId === null) return;
     const target = this.vm.runtime.getTargetById(targetId);
