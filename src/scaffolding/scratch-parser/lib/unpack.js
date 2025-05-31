@@ -40,7 +40,10 @@ module.exports = function (input, isSprite, callback) {
 
     // If not legacy or zip, convert buffer to UTF-8 string and return
     if (!isZip && !isLegacy) {
-        return callback(null, [input.toString('utf-8'), null]);
+        // In browsers, the native TextDecoder can handle much larger values than the JavaScript polyfill for
+        // Buffer.toString('utf-8'), particularly in Chrome.
+        const decoder = new TextDecoder();
+        return callback(null, [decoder.decode(input), null]);
     }
 
     // Return error if legacy encoding detected
