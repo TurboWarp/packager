@@ -43,7 +43,7 @@
   "devDependencies": {
     "@babel/core": "^7.16.5",
     "@babel/preset-env": "^7.16.5",
-    "@turbowarp/scratch-storage": "^0.0.202502192258",
+    "@turbowarp/scratch-storage": "^0.0.202505311821",
     "@turbowarp/scratch-svg-renderer": "^1.0.0-202401111326-62c0f26",
     "babel-jest": "^27.4.5",
     "babel-loader": "^8.2.3",
