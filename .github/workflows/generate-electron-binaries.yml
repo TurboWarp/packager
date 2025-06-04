@@ -15,10 +15,10 @@ jobs:
     runs-on: ${{ matrix.os }}
 
     steps:
-    - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+    - uses: actions/checkout@v4
       with:
         persist-credentials: false
-    - uses: actions/setup-node@39370e3970a6d050c480ffad4ff0ed4d3fdee5af
+    - uses: actions/setup-node@v4
       with:
         node-version: 22
     - name: Install dependencies
@@ -33,7 +33,7 @@ jobs:
         node generate-macos.js
     - name: Upload macOS
       if: runner.os == 'macOS'
-      uses: actions/upload-artifact@6f51ac03b9356f520e9adb1b1b7802705f340c2b
+      uses: actions/upload-artifact@v4
       with:
         name: electron-macos
         path: electron-bin/temp/macos/*.zip
@@ -48,13 +48,13 @@ jobs:
         node generate-windows.js
     - name: Upload Windows
       if: runner.os == 'Windows'
-      uses: actions/upload-artifact@6f51ac03b9356f520e9adb1b1b7802705f340c2b
+      uses: actions/upload-artifact@v4
       with:
         name: electron-windows
         path: electron-bin/temp/windows/*.zip
     - name: Upload Windows Crossbuild
       if: runner.os == 'Linux'
-      uses: actions/upload-artifact@6f51ac03b9356f520e9adb1b1b7802705f340c2b
+      uses: actions/upload-artifact@v4
       with:
         name: electron-windows-crossbuild
         path: electron-bin/temp/windows/*.zip
