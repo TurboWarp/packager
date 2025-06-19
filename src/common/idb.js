@@ -28,6 +28,9 @@ class Database {
     allDatabases.push(this);
   }
 
+  /**
+   * @returns {IDBDatabase|Promise<IDBDatabase>}
+   */
   open () {
     if (this.db) {
       return this.db;
@@ -110,11 +113,11 @@ class Database {
  * @param {function} reject
  */
 Database.setTransactionErrorHandler = (transaction, reject) => {
-  transaction.onerror = () => {
-    reject(new Error(`Transaction error: ${transaction.error}`))
+  transaction.onerror = (e) => {
+    reject(new Error(`Transaction error: ${e.target.error}`))
   };
   transaction.onabort = () => {
-    reject(new Error(`Transaction aborted: ${transaction.error}`));
+    reject(new Error('Transaction aborted'));
   };
 };
 
