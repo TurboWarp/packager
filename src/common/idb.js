@@ -1,3 +1,5 @@
+const TRANSACTION_TIMEOUT_MS = 10 * 1000;
+
 // https://github.com/jakearchibald/safari-14-idb-fix/blob/582bbdc7230891113bfb5743391550cbf29d21f2/src/index.ts
 const idbReady = () => {
   const isSafari =
@@ -113,10 +115,20 @@ class Database {
  * @param {function} reject
  */
 Database.setTransactionErrorHandler = (transaction, reject) => {
+  const timeoutId = setTimeout(() => {
+    reject(new Error('Transaction timed out'));
+    transaction.abort();
+  }, TRANSACTION_TIMEOUT_MS);
+
+  transaction.oncomplete = () => {
+    clearTimeout(timeoutId);
+  };
   transaction.onerror = (e) => {
+    clearTimeout(timeoutId);
     reject(new Error(`Transaction error: ${e.target.error}`))
   };
   transaction.onabort = () => {
+    clearTimeout(timeoutId);
     reject(new Error('Transaction aborted'));
   };
 };
