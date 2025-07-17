@@ -47,6 +47,6 @@ https://www.mozilla.org/en-US/MPL/2.0/.`,
     name: 'GitHub',
     link: 'https://github.com/TurboWarp/packager/issues'
   },
-  DONATE: 'https://github.com/sponsors/GarboMuffin',
+  DONATE: '',
   PRIVACY_POLICY: 'https://turbowarp.org/privacy.html',
 };
