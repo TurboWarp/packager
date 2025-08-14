@@ -47,7 +47,7 @@
     "babel-jest": "^27.4.5",
     "babel-loader": "^8.2.3",
     "copy-webpack-plugin": "^6.4.1",
-    "cross-env": "^7.0.3",
+    "cross-env": "^10.0.0",
     "css-loader": "^5.2.7",
     "fastestsmallesttextencoderdecoder": "^1.0.22",
     "file-loader": "^6.2.0",
