@@ -19,10 +19,8 @@
       <span class="badge">New!</span>
     </p>
     <p>
-      We've updated the packager to use the <a href="https://docs.turbowarp.org/new-compiler">new compiler</a> to make projects run even faster.
-    </p>
-    <p>
-      If your project relies on extensions that require the old compiler, a version of the packager using the old compiler will be available on <a href="https://packager-legacy.turbowarp.org/">packager-legacy.turbowarp.org</a> indefinitely.
+      By default, Electron apps will no longer be throttled when minimized or hidden.
+      There is an option to restore the old behavior.
     </p>
   </div>
 </Section>
