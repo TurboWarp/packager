@@ -554,6 +554,9 @@
       "string": "Hidden (frameless)",
       "developer_comment": "Do not show the window control bar (window title, close, minimize, maximize, etc.) provided by OS. Some people call this 'frameless' mode."
     },
+    "backgroundThrottling": {
+      "string": "Allow project to be throttled when minimized or hidden"
+    },
     "maxTextureDimension": {
       "string": "Increase max vector costume resolution to make large costumes look better. May increase memory use and cause crashes."
     },

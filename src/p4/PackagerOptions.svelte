@@ -882,7 +882,8 @@
         resetOptions([
           'app.packageName',
           'app.windowMode',
-          'app.escapeBehavior'
+          'app.escapeBehavior',
+          'app.backgroundThrottling'
         ]);
       }}
     >
@@ -930,6 +931,11 @@
                 <option value="default">{$_('options.defaultControls')}</option>
                 <option value="frameless">{$_('options.noControls')}</option>
               </select>
+            </label>
+
+            <label class="option">
+              <input type="checkbox" bind:checked={$options.app.backgroundThrottling}>
+              {$_('options.backgroundThrottling')}
             </label>
           {/if}
 

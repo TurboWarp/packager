@@ -579,6 +579,7 @@ const createWindow = (windowOptions) => {
       contextIsolation: true,
       nodeIntegration: false,
       preload: path.resolve(__dirname, ${JSON.stringify(electronPreloadName)}),
+      backgroundThrottling: ${this.options.app.backgroundThrottling},
     },
     frame: ${this.options.app.windowControls !== 'frameless'},
     show: true,
@@ -1813,7 +1814,8 @@ Packager.DEFAULT_OPTIONS = () => ({
     windowMode: 'window',
     version: '1.0.0',
     escapeBehavior: 'unfullscreen-only',
-    windowControls: 'default'
+    windowControls: 'default',
+    backgroundThrottling: false
   },
   chunks: {
     gamepad: false,
