@@ -4,6 +4,8 @@ import styles from './style.css';
 import {readAsText} from '../common/readers';
 import downloadBlob from './download';
 
+import sanitizeVariableType from '../common/safe-stringify';
+
 class Monitor {
   constructor (parent, monitor) {
     this.parent = parent;
@@ -194,7 +196,7 @@ class VariableMonitor extends Monitor {
       return;
     }
 
-    let value = monitor.get('value');
+    let value = sanitizeVariableType(monitor.get('value'), '');
     if (typeof value === 'number') {
       value = Number(value.toFixed(6));
     }
@@ -547,7 +549,7 @@ class ListMonitor extends Monitor {
     this.root.style.width = `${this.width}px`;
     this.root.style.height = `${this.height}px`;
 
-    this.updateValue(monitor.get('value'));
+    this.updateValue(sanitizeVariableType(monitor.get('value'), 'list'));
   }
 
   createRow (index) {
