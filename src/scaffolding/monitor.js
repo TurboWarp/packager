@@ -3,6 +3,7 @@ import DropArea from './drop-area';
 import styles from './style.css';
 import {readAsText} from '../common/readers';
 import downloadBlob from './download';
+import {safeStringify} from './safe-stringify';
 
 class Monitor {
   constructor (parent, monitor) {
@@ -195,9 +196,11 @@ class VariableMonitor extends Monitor {
     }
 
     let value = monitor.get('value');
-    if (typeof value === 'number') {
+    if (typeof value === 'number' && !Object.is(value, -0)) {
       value = Number(value.toFixed(6));
     }
+    value = safeStringify(value);
+
     if (this._value !== value) {
       this._value = value;
       this.valueElement.textContent = value;
@@ -217,6 +220,7 @@ class Row {
     this.monitor = monitor;
 
     this.index = -1;
+    /** @type {string} Stringified value. */
     this.value = '';
     this.isFocused = false;
 
@@ -368,6 +372,8 @@ class Row {
   }
 
   setValue (value) {
+    value = safeStringify(value);
+
     if (this.value !== value && !this.isFocused) {
       this.value = value;
       if (this.editable) {
