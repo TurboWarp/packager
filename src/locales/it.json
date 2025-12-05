@@ -29,6 +29,7 @@
         "autoplay": "Inizia il progetto automaticamente, senza mostrare la bandiera verde al centro",
         "autoplayHint": "Nota: Alcuni browser non permettono ai siti web di riprodurre automaticamente suoni, quindi i suoni non verranno riprodotti fino a che l'utente non interagirà con il progetto.",
         "backgroundColor": "Colore sfondo",
+        "backgroundThrottling": "Permetti di rallentare il progetto quando è minimizzato o nascosto",
         "bakeExtensions": "Prova a includere una copia cache delle estensioni personali invece di scaricarle ogni volta che il progetto viene eseguito",
         "closeWhenStopped": "Chiudi la finestra quando il progetto termina",
         "cloudVariables": "Variabili Cloud",

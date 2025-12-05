@@ -29,6 +29,7 @@
         "autoplay": "Projekt automatisch starten, anstatt eine große grüne Flagge zu zeigen",
         "autoplayHint": "Anmerkung: Viele Browser lassen das automatische Abspielen von Ton nicht zu, deshalb könnten Klänge nicht abgespielt werden, bis der Nutzer mit dem Projekt interagiert.",
         "backgroundColor": "Hintergrundfarbe",
+        "backgroundThrottling": "Erlaube, dass das Projekt gedrosselt wird, wenn es minimiert oder ausgeblendet wird",
         "bakeExtensions": "Versuche, gecachte Kopien von benutzerdefinierten Erweiterungen einzubetten, anstatt sie bei jeder Ausführung des Projekts neu herunterzuladen",
         "closeWhenStopped": "Fenster schließen, wenn das Projekt gestoppt wird",
         "cloudVariables": "Cloudvariablen",

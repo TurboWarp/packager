@@ -29,6 +29,7 @@
         "autoplay": "加载完成时自动开始运行而不是显示一个大绿旗",
         "autoplayHint": "注意：很多浏览器不允许网站自动播放声音，因此在用户与作品交互前，声音可能不会播放。",
         "backgroundColor": "背景色",
+        "backgroundThrottling": "允许在最小化或隐藏时限制项目",
         "bakeExtensions": "尝试嵌入自定义扩展的缓存副本，而不是每次运行作品时下载它们",
         "closeWhenStopped": "当作品停止时关闭窗口",
         "cloudVariables": "云变量",
