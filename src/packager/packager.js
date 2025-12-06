@@ -735,6 +735,15 @@ app.on('session-created', (session) => {
       cancel: !details.url.startsWith(resourcesURL)
     });
   });
+
+  const referer = 'https://packager.turbowarp.org/referer.html#' + app.getName();
+  session.webRequest.onBeforeSendHeaders((details, callback) => {
+    callback({
+      requestHeaders: {
+        referer
+      }
+    });
+  });
 });
 
 app.on('window-all-closed', () => {
