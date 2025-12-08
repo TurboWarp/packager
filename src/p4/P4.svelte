@@ -53,11 +53,13 @@
 <style>
   :root {
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-    background: white;
+    background: linear-gradient(135deg, #f7f9ff 0%, #f1f5ff 35%, #e9f5ff 100%);
     color: black;
   }
   :global([theme="dark"]) {
-    background: #111;
+    background: radial-gradient(circle at 20% 20%, rgba(86, 148, 255, 0.05), transparent 35%),
+      radial-gradient(circle at 80% 0%, rgba(86, 178, 255, 0.08), transparent 45%),
+      #0c0d13;
     color: #eee;
     color-scheme: dark;
   }
@@ -107,17 +109,84 @@
   :global(input) {
     font-size: 0.8em;
   }
+  :global(body) {
+    margin: 0;
+    min-height: 100vh;
+    background: inherit;
+  }
   main {
-    padding-bottom: 10px;
+    padding: 28px 16px 26px;
+    max-width: 1140px;
+    margin: 0 auto;
+  }
+  .hero-intro {
+    display: grid;
+    gap: 6px;
+  }
+  .hero-meta {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    color: #3c4a66;
+  }
+  :global([theme="dark"]) .hero-meta {
+    color: #c7d3f1;
+  }
+  .hero-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 10px;
+    border-radius: 999px;
+    font-size: 0.9em;
+    background: linear-gradient(90deg, rgba(76, 151, 255, 0.2), rgba(76, 151, 255, 0.08));
+    color: #1b2a44;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    font-weight: 700;
+  }
+  :global([theme="dark"]) .hero-pill {
+    background: linear-gradient(90deg, rgba(86, 178, 255, 0.25), rgba(86, 178, 255, 0.12));
+    color: #e9f3ff;
+  }
+  h1 {
+    margin: 0;
+    font-size: 2rem;
+    letter-spacing: -0.02em;
+  }
+  .description-stack {
+    display: grid;
+    gap: 8px;
+    margin-top: 8px;
+    color: #26334d;
+  }
+  :global([theme="dark"]) .description-stack {
+    color: #dce6ff;
   }
   footer {
     text-align: center;
+    margin-top: 16px;
+    padding-bottom: 20px;
+    display: grid;
+    gap: 8px;
   }
   footer > div {
-    margin-top: 12px;
+    margin-top: 6px;
+  }
+  .footer-row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 6px;
   }
   .disclaimer {
     font-style: italic;
+    color: #556280;
+  }
+  :global([theme="dark"]) .disclaimer {
+    color: #c1cee8;
   }
   .version {
     font-size: small;
@@ -133,46 +202,53 @@
 <main aria-hidden={modalVisible} class:is-not-safari={!isSafari}>
   <Section accent={ACCENT_COLOR}>
     <div>
-      <h1>{APP_NAME}</h1>
-      {#if version}
-        <p class="version">
-          {version}
-          {#if isStandalone}
-            - <a href={WEBSITE}>{WEBSITE}</a>
+      <div class="hero-intro">
+        <div class="hero-pill">{$_('p4.feedback')}</div>
+        <div class="hero-meta">
+          <h1>{APP_NAME}</h1>
+          {#if version}
+            <p class="version">
+              {version}
+              {#if isStandalone}
+                - <a href={WEBSITE}>{WEBSITE}</a>
+              {/if}
+            </p>
           {/if}
+        </div>
+        <div class="description-stack">
+          <p>{$_('p4.description1')}</p>
+          <p>
+            <ComplexMessage
+              message={$_('p4.description2')}
+              values={{
+                embedding: {
+                  text: $_('p4.description2-embedding'),
+                  href: 'https://docs.turbowarp.org/embedding'
+                }
+              }}
+            />
+          </p>
+          <p>
+            <ComplexMessage
+              message={$_('p4.description3')}
+              values={{
+                // These placeholders are named this way for legacy reasons.
+                onScratch: {
+                  text: $_('p4.description3-on').replace('{brand}', FEEDBACK_PRIMARY.name),
+                  href: FEEDBACK_PRIMARY.link
+                },
+                onGitHub: {
+                  text: $_('p4.description3-on').replace('{brand}', FEEDBACK_SECONDARY.name),
+                  href: FEEDBACK_SECONDARY.link
+                }
+              }}
+            />
+          </p>
+        </div>
+        <p class="disclaimer">
+          {$_('p4.disclaimer')}
         </p>
-      {/if}
-      <p>{$_('p4.description1')}</p>
-      <p>
-        <ComplexMessage
-          message={$_('p4.description2')}
-          values={{
-            embedding: {
-              text: $_('p4.description2-embedding'),
-              href: 'https://docs.turbowarp.org/embedding'
-            }
-          }}
-        />
-      </p>
-      <p>
-        <ComplexMessage
-          message={$_('p4.description3')}
-          values={{
-            // These placeholders are named this way for legacy reasons.
-            onScratch: {
-              text: $_('p4.description3-on').replace('{brand}', FEEDBACK_PRIMARY.name),
-              href: FEEDBACK_PRIMARY.link
-            },
-            onGitHub: {
-              text: $_('p4.description3-on').replace('{brand}', FEEDBACK_SECONDARY.name),
-              href: FEEDBACK_SECONDARY.link
-            }
-          }}
-        />
-      </p>
-      <p class="disclaimer">
-        {$_('p4.disclaimer')}
-      </p>
+      </div>
     </div>
   </Section>
 
@@ -217,20 +293,20 @@
   {/if}
 
   <footer>
-    <div>
+    <div class="footer-row">
       {#if PRIVACY_POLICY && !isStandalone}
         <a href={PRIVACY_POLICY}>{$_('p4.privacy')}</a>
-        <span> - </span>
+        <span>•</span>
       {/if}
       <a href={FEEDBACK_PRIMARY.link}>{$_('p4.feedback')}</a>
       {#if SOURCE_CODE}
-        <span> - </span>
+        <span>•</span>
         <a href={SOURCE_CODE}>{$_('p4.sourceCode')}</a>
       {/if}
       {#if DONATE}
         <!-- Donation link needs to be wrapped in another element so we can hide it in the Mac App Store -->
         <span class="donate-link">
-          <span> - </span>
+          <span>•</span>
           <a href={DONATE}>{$_('p4.donate')}</a>
         </span>
       {/if}
