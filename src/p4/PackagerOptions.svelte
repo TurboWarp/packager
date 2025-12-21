@@ -990,7 +990,6 @@
           {:else if $options.target.includes('nwjs')}
             <div>
               <h2>NW.js</h2>
-              <p class="warning">NW.js support is deprecated and may be removed in the future. Use the Electron environments instead. They're better in every way.</p>
               <p>The NW.js environment works by embedding a copy of Chromium (the open source part of Google Chrome) along with your project, which means the app will be very large.</p>
               <p>For further help and steps, see <a href="https://docs.nwjs.io/en/latest/For%20Users/Package%20and%20Distribute/#linux">NW.js Documentation</a>.</p>
               {#if $options.target.includes('mac')}
