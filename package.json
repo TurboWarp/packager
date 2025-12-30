@@ -35,7 +35,7 @@
     "@fiahfy/icns": "^0.0.7",
     "@turbowarp/json": "^0.1.1",
     "@turbowarp/jszip": "^3.11.0",
-    "@turbowarp/sbdl": "^6.0.0",
+    "@turbowarp/sbdl": "^7.0.0",
     "cross-fetch": "^4.1.0",
     "sha.js": "^2.4.11"
   },
