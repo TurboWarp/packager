@@ -15,12 +15,12 @@ jobs:
     runs-on: ${{ matrix.os }}
 
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v6
       with:
         persist-credentials: false
-    - uses: actions/setup-node@v4
+    - uses: actions/setup-node@v6
       with:
-        node-version: 22
+        node-version: 24
     - name: Install dependencies
       run: |
         cd electron-bin
@@ -48,13 +48,13 @@ jobs:
         node generate-windows.js
     - name: Upload Windows
       if: runner.os == 'Windows'
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v6
       with:
         name: electron-windows
         path: electron-bin/temp/windows/*.zip
     - name: Upload Windows Crossbuild
       if: runner.os == 'Linux'
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v6
       with:
         name: electron-windows-crossbuild
         path: electron-bin/temp/windows/*.zip
