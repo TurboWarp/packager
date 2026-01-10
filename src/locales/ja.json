@@ -19,7 +19,7 @@
         "advancedSummary": "これらの設定はおそらく変更不要です。(クリックで開く)",
         "application-linux-arm32": "{type}ARM版Linuxアプリケーション(32ビット)",
         "application-linux-arm64": "{type}ARM版Linuxアプリケーション(64ビット)",
-        "application-linux64": "{type}Windows アプリケーション(64bit)",
+        "application-linux64": "{type}Linux アプリケーション(64bit)",
         "application-mac": "{type} macOSのアプリケーション",
         "application-win-arm": "{type}ARM版Windowsアプリケーション",
         "application-win32": "{type} Windowsアプリケーション(32bit)",
