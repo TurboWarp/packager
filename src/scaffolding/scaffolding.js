@@ -291,6 +291,11 @@ class Scaffolding extends EventTarget {
       }
     }
 
+    // Prevent blurriness due to decimal dimensions. The canvas can only take integer dimensions, but CSS lets us apply decimal
+    // dimensions. If we do that, the browser will try to stretch the canvas a tiny bit, resulting in the blur.
+    width = Math.round(width);
+    height = Math.round(height);
+
     const distanceFromTop = totalHeight - height;
     const distanceFromLeft = totalWidth - width;
     const translateY = (distanceFromLeft - offsetFromLeft - offsetFromRight) / 2 + offsetFromLeft - (distanceFromLeft / 2);
