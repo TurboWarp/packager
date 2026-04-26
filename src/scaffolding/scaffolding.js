@@ -259,8 +259,9 @@ class Scaffolding extends EventTarget {
   }
 
   relayout () {
-    const totalWidth = Math.max(1, this._root.offsetWidth);
-    const totalHeight = Math.max(1, this._root.offsetHeight);
+    const rootRect = this._root.getBoundingClientRect();
+    const totalWidth = Math.max(1, rootRect.width);
+    const totalHeight = Math.max(1, rootRect.height);
 
     const offsetFromTop = this._offsetFromTop + this._topControls.computeHeight();
     const offsetFromBottom = this._offsetFromBottom;
