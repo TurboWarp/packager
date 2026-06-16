@@ -40,7 +40,7 @@
     "sha.js": "^2.4.11"
   },
   "devDependencies": {
-    "@babel/core": "^7.16.5",
+    "@babel/core": "^8.0.0",
     "@babel/preset-env": "^7.16.5",
     "@turbowarp/scratch-storage": "^2.0.0",
     "@turbowarp/scratch-svg-renderer": "^1.1.0",
