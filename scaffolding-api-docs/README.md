@@ -111,7 +111,7 @@ Certain Scaffolding options must be configured before you can finish setting up 
 ```js
 scaffolding.width = 480; // Custom stage width
 scaffolding.height = 360; // Custom stage height
-scaffolding.resizeMode = 'preserve-ratio'; // or 'dynamic-resize' or 'stretch'
+scaffolding.resizeMode = 'preserve-ratio'; // or 'dynamic-resize' or 'stretch' or 'keep-height' or 'keep-width'
 scaffolding.editableLists = false; // Affects list monitors
 ```
 

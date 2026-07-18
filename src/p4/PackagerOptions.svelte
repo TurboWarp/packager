@@ -440,6 +440,16 @@
         {$_('options.dynamicResize')}
         <LearnMore slug="packager/dynamic-stage-resize" />
       </label>
+      <label class="option">
+        <input type="radio" name="resize-mode" value="keep-height" bind:group={$options.resizeMode}>
+        {$_('options.keepHeight')}
+        <LearnMore slug="packager/dynamic-stage-resize" />
+      </label>
+      <label class="option">
+        <input type="radio" name="resize-mode" value="keep-width" bind:group={$options.resizeMode}>
+        {$_('options.keepWidth')}
+        <LearnMore slug="packager/dynamic-stage-resize" />
+      </label>
     </div>
   </div>
 </Section>
