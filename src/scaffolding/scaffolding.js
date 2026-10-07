@@ -284,7 +284,35 @@ class Scaffolding extends EventTarget {
 
     let width = projectAreaWidth;
     let height = projectAreaHeight;
-    if (this.resizeMode !== 'stretch') {
+    if (this.resizeMode === 'keep-height') {
+      // setStageSize is a TurboWarp-specific method
+      if (this.vm.setStageSize) {
+        if(width / height * this.height > 8640) {// clamp this.width to a size that doesn't break the project
+          this.width = 8640;
+        } else{
+          this.width = width / height * this.height;
+        }
+        this.vm.setStageSize(this.width, this.height);
+      } else {
+        console.warn('keep-height not supported: vm does not implement setStageSize');
+      }
+    }
+
+    if (this.resizeMode === 'keep-width') {
+      // setStageSize is a TurboWarp-specific method
+      if (this.vm.setStageSize) {
+        if(height / width * this.width > 8640) {// clamp this.height to a size that doesn't break the project
+          this.height = 8640
+        } else{
+          this.height = height / width * this.width;
+        }
+        this.vm.setStageSize(this.width, this.height);
+      } else {
+        console.warn('keep-width not supported: vm does not implement setStageSize');
+      }
+    }
+
+    if (this.resizeMode !== 'stretch' && this.resizeMode !== 'keep_width' && this.resizeMode !== 'keep_height') {
       width = height / this.height * this.width;
       if (width > projectAreaWidth) {
         height = projectAreaWidth / this.width * this.height;
