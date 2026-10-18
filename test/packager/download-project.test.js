@@ -1,5 +1,6 @@
 import fs from 'fs';
 import path from 'path';
+import JSZip from '@turbowarp/jszip';
 import {downloadProject} from '../../src/packager/download-project'
 
 const readTestProject = (name) => {
@@ -33,6 +34,25 @@ test('sb3 with implied cloud variables', async () => {
       isCloud: true
     }
   ]);
+});
+
+test('sb3 with disabled cloud variables', async () => {
+  const project = await downloadProject(readTestProject('disabled-cloud-variables.sb3'), () => {});
+  expect(project.type).toBe('sb3');
+  expect(project.analysis.stageVariables).toEqual([
+    {
+      name: '☁ potential reporters',
+      isCloud: false
+    },
+    {
+      name: '☁ Implied',
+      isCloud: true
+    }
+  ]);
+  const zip = await JSZip.loadAsync(project.arrayBuffer);
+  const json = JSON.parse(await zip.file('project.json').async('text'));
+  expect(json.targets[0].variables['QqN3g5B}a/kJ6O`XZQUd']).toStrictEqual(['☁ potential reporters', '']);
+  expect(json.targets[0].variables['m/1@VP1Ko9amvO.`R4{d']).toStrictEqual(['☁ Implied', 0, true]);
 });
 
 test('sb3 with comments', async () => {

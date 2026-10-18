@@ -82,9 +82,10 @@ const mutateScratch3InPlace = (projectData) => {
     const stage = projectData.targets.find((i) => i.isStage);
     if (stage) {
       for (const variable of Object.values(stage.variables)) {
-        // variable is [name, value, isCloud]
+        // variable is [name, value, isCloud?]
+        // isCloud's only allowed values are "not defined" or "true". scratch-parser rejects "false".
         if (variable[2] && DISABLE_CLOUD_VARIABLES.includes(variable[0])) {
-          variable[2] = false;
+          variable.length = 2;
         }
       }
     }
