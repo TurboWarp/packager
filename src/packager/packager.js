@@ -30,6 +30,18 @@ const PROGRESS_FETCHED_ASSETS = 0.98;
  */
 const stringifyForInlineScript = (value) => JSON.stringify(value).replace(/</g, '\\u003c');
 
+/**
+ * Escape for safe use in shell script.
+ * @param {string} value
+ * @returns {string}
+ */
+const escapeShellArgument = (value) => {
+  if (/^[\w.-]+$/.test(value)) {
+    return value;
+  }
+  return `'${value.replace(/'/g, `'\\''`)}'`;
+};
+
 const removeUnnecessaryEmptyLines = (string) => string.split('\n')
   .filter((line, index, array) => {
     if (index === 0 || index === array.length - 1) return true;
@@ -412,7 +424,7 @@ class Packager extends EventTarget {
     } else if (isLinux) {
       const startScript = `#!/bin/bash
 cd "$(dirname "$0")"
-./${packageName}`;
+./${escapeShellArgument(packageName)}`;
       zip.file(`${packageName}/start.sh`, startScript, {
         unixPermissions: 0o100755
       });
@@ -912,7 +924,7 @@ const {contextBridge, ipcRenderer} = require('electron');
       // Some Linux distributions can't easily open the executable file from the GUI, so we'll add a simple wrapper that people can use instead.
       const startScript = `#!/bin/bash
 cd "$(dirname "$0")"
-./${packageName}`;
+./${escapeShellArgument(packageName)}`;
       zip.file(`${rootPrefix}start.sh`, startScript, {
         unixPermissions: 0o100755
       });
