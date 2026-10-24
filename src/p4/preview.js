@@ -44,6 +44,14 @@ const getPreviewSource = () => `<!DOCTYPE html>
   [hidden] {
     display: none;
   }
+  .preview-frame {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+  }
   </style>
 </head>
 <body>
@@ -55,6 +63,12 @@ const getPreviewSource = () => `<!DOCTYPE html>
     <div class="preview-error-message"></div>
     <div>Go back to the original tab and try again</div>
   </div>
+  <iframe
+    class="preview-frame"
+    sandbox="allow-scripts allow-pointer-lock allow-popups allow-modals allow-forms allow-downloads"
+    allow="fullscreen; autoplay; camera; microphone; gamepad; clipboard-write"
+    hidden
+  ></iframe>
   <script>
   (function() {
     const origin = ${JSON.stringify(origin)};
@@ -74,16 +88,13 @@ const getPreviewSource = () => `<!DOCTYPE html>
       if (hasRun) return;
       if (e.data.blob) {
         hasRun = true;
-        const fr = new FileReader();
-        fr.onload = () => {
-          document.open();
-          document.write(fr.result);
-          document.close(); // fixes poor performance in firefox
-        };
-        fr.onerror = () => {
-          err("Something went wrong reading the file: " + fr.error);
-        };
-        fr.readAsText(e.data.blob);
+        if (typeof e.data.title === "string") {
+          document.title = e.data.title;
+        }
+        const frame = document.querySelector(".preview-frame");
+        frame.src = URL.createObjectURL(e.data.blob);
+        frame.hidden = false;
+        frame.focus();
       }
       if (typeof e.data.progress === "number") {
         progressBar.style.width = (e.data.progress * 100) + "%";
@@ -97,7 +108,7 @@ const getPreviewSource = () => `<!DOCTYPE html>
 </body>
 </html>
 `;
-const windowToBlobMap = new WeakMap();
+const windowToMetadataMap = new WeakMap();
 
 class Preview {
   constructor () {
@@ -122,11 +133,13 @@ class Preview {
     }
   }
 
-  setContent (content) {
-    windowToBlobMap.set(this.window, content);
-    this.window.postMessage({
-      blob: content
-    }, origin);
+  setContent (content, title) {
+    const metadata = {
+      blob: content,
+      title
+    };
+    windowToMetadataMap.set(this.window, metadata);
+    this.window.postMessage(metadata, origin);
   }
 
   setProgress (progress, text) {
@@ -148,11 +161,9 @@ window.addEventListener('message', (e) => {
   const data = e.data;
   if (data && data.preview === 'hello') {
     const source = e.source;
-    const blob = windowToBlobMap.get(source);
-    if (blob) {
-      source.postMessage({
-        blob
-      }, origin);
+    const metadata = windowToMetadataMap.get(source);
+    if (metadata) {
+      source.postMessage(metadata, origin);
     }
   }
 });
