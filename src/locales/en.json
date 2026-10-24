@@ -425,12 +425,6 @@
       "string": "Remove raw asset data after loading to save RAM",
       "developer_comment": "An option in advanced options. RAM refers to computer memory."
     },
-    "customExtensions": {
-      "string": "Custom extensions (one URL per line)"
-    },
-    "customExtensionsSecurity": {
-      "string": "Custom extensions are always run unsandboxed in the packager. Depending on the environment you're packaging for, this grants extensions full control over your computer, including the ability to install viruses. Don't use extensions you don't trust."
-    },
     "bakeExtensions": {
       "string": "Try to embed cached copy of custom extensions instead of downloading them each time the project is run",
       "developer_comment": "Option that tries to store "

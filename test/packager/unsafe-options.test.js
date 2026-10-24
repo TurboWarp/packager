@@ -16,12 +16,6 @@ test('custom CSS', () => {
   expect(Packager.usesUnsafeOptions(options)).toBe(true);
 });
 
-test('custom extensions', () => {
-  const options = Packager.DEFAULT_OPTIONS();
-  options.extensions.push('https://example.com/');
-  expect(Packager.usesUnsafeOptions(options)).toBe(true);
-});
-
 test('unsafe cloud behaviors', () => {
   const options = Packager.DEFAULT_OPTIONS();
   options.cloudVariables.unsafeCloudBehaviors = true;

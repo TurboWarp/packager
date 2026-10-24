@@ -1204,7 +1204,7 @@ cd "$(dirname "$0")"
     };
 
     /** @type {string[]} */
-    const allURLs = this.options.extensions;
+    const allURLs = this.project.analysis.extensions;
     const unfetchableURLs = allURLs.filter((url) => !shouldTryToFetch(url));
     const urlsToFetch = allURLs.filter((url) => shouldTryToFetch(url));
     const finalURLs = [...unfetchableURLs];
@@ -1756,7 +1756,6 @@ Packager.usesUnsafeOptions = (options) => {
   const defaultOptions = Packager.DEFAULT_OPTIONS();
   const getUnsafeOptions = (options) => [
     options.custom,
-    options.extensions,
     options.cloudVariables.unsafeCloudBehaviors
   ];
   return JSON.stringify(getUnsafeOptions(defaultOptions)) !== JSON.stringify(getUnsafeOptions(options));
@@ -1852,7 +1851,6 @@ Packager.DEFAULT_OPTIONS = () => ({
     // 'ignore' (no alert), 'warning' (alert and continue), or 'error' (alert and exit)
     onError: 'warning'
   },
-  extensions: [],
   bakeExtensions: true,
   maxTextureDimension: 2048
 });
