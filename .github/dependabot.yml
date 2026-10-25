@@ -4,3 +4,6 @@ updates:
     directory: "/"
     schedule:
       interval: "daily"
+    allow:
+      - dependency-name: "@turbowarp/*"
+      - dependency-name: "scratch-*"
