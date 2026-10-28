@@ -4,7 +4,6 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const AddBuildIDToOutputPlugin = require('./src/build/add-build-id-to-output-plugin');
-const GenerateServiceWorkerPlugin = require('./src/build/generate-service-worker-plugin');
 const EagerDynamicImportPlugin = require('./src/build/eager-dynamic-import-plugin');
 
 const isProduction = process.env.NODE_ENV === 'production';
@@ -180,7 +179,6 @@ const makeWebsite = () => ({
       ]
     }),
     new webpack.DefinePlugin({
-      'process.env.ENABLE_SERVICE_WORKER': JSON.stringify(process.env.ENABLE_SERVICE_WORKER),
       'process.env.STANDALONE': JSON.stringify(isStandalone ? true : false),
       'process.env.VERSION': JSON.stringify(version),
     }),
@@ -189,7 +187,6 @@ const makeWebsite = () => ({
       template: './src/p4/template.ejs',
       chunks: ['p4']
     }),
-    new GenerateServiceWorkerPlugin(),
     ...(isStandalone ? [new EagerDynamicImportPlugin()] : []),
     ...(process.env.BUNDLE_ANALYZER === 'p4' ? [new BundleAnalyzerPlugin()] : [])
   ],
