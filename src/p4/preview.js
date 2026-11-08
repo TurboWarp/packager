@@ -4,6 +4,19 @@ import {_} from '../locales';
 
 const origin = isStandalone ? '*' : location.origin;
 
+const loaderURL = `data:text/html;charset=utf-8,${encodeURIComponent(`<script>
+window.addEventListener("message", (e) => {
+  e.data.text().then((html) => {
+    document.open();
+    document.write(html);
+    document.close();
+  });
+}, {
+  once: true
+});
+parent.postMessage("ready", "*");
+</script>`)}`;
+
 const getPreviewSource = () => `<!DOCTYPE html>
 <html>
 <head>
@@ -65,7 +78,7 @@ const getPreviewSource = () => `<!DOCTYPE html>
   </div>
   <iframe
     class="preview-frame"
-    sandbox="allow-scripts allow-pointer-lock allow-popups allow-modals allow-forms allow-downloads"
+    sandbox="allow-scripts allow-same-origin allow-pointer-lock allow-popups allow-modals allow-forms allow-downloads"
     allow="fullscreen; autoplay; camera; microphone; gamepad; clipboard-write"
     hidden
   ></iframe>
@@ -81,9 +94,15 @@ const getPreviewSource = () => `<!DOCTYPE html>
       return;
     }
     let hasRun = false;
+    let blob = null;
     const progressBar = document.querySelector(".preview-progress-inner");
     const progressText = document.querySelector(".preview-progress-text");
+    const frame = document.querySelector(".preview-frame");
     window.addEventListener("message", (e) => {
+      if (e.source === frame.contentWindow && e.data === "ready" && blob) {
+        frame.contentWindow.postMessage(blob, "*");
+        return;
+      }
       if (origin !== "*" && e.origin !== location.origin) return;
       if (hasRun) return;
       if (e.data.blob) {
@@ -91,8 +110,8 @@ const getPreviewSource = () => `<!DOCTYPE html>
         if (typeof e.data.title === "string") {
           document.title = e.data.title;
         }
-        const frame = document.querySelector(".preview-frame");
-        frame.src = URL.createObjectURL(e.data.blob);
+        blob = e.data.blob;
+        frame.src = ${JSON.stringify(loaderURL)};
         frame.hidden = false;
         frame.focus();
       }
