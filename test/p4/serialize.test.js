@@ -1,65 +1,67 @@
-import serialize from '../../src/p4/serialize';
+import {test} from 'node:test';
+import assert from 'node:assert';
+import serialize from '../../src/p4/serialize.js';
 
 global.Blob = class Blob {};
 
 test('no changes returns null', () => {
-  expect(serialize({
+  assert.strictEqual(serialize({
     a: 2
   }, {
     a: 2
-  })).toBe(null);
+  }), null);
 });
 
 test('does not serialize missing keys', () => {
-  expect(serialize({
+  assert.deepStrictEqual(serialize({
     a: 1,
     b: 2
   }, {
     a: 2
-  })).toStrictEqual({
+  }), {
     a: 1
   })
 });
 
 test('does not care about types', () => {
-  expect(serialize({
+  assert.deepStrictEqual(serialize({
     a: '1'
   }, {
     a: []
-  })).toStrictEqual({
+  }), {
     a: '1'
   })
 });
 
 test('arrays', () => {
-  expect(serialize({
+  assert.deepStrictEqual(serialize({
     a: [1]
   }, {
     a: [1]
-  })).toStrictEqual(null);
-  expect(serialize({
+  }), null);
+  assert.deepStrictEqual(serialize({
     a: [2]
   }, {
     a: [1]
-  })).toStrictEqual({
+  }), {
     a: [2]
   });
 });
 
 test('does not serialize blobs', () => {
-  expect(serialize({
+  assert.deepStrictEqual(serialize({
     a: new Blob(['Hello world']),
     b: 2
   }, {
     a: null,
     b: 0
-  })).toStrictEqual({
+  }), {
     b: 2
   });
 });
 
 test('deep', () => {
-  expect(serialize({
+  assert.deepStrictEqual(serialize({
     cloud: {
       test: {
         a: 2
@@ -74,7 +76,7 @@ test('deep', () => {
         z: 9
       }
     }
-  })).toStrictEqual({
+  }), {
     cloud: {
       test: {
         a: 2
@@ -84,9 +86,9 @@ test('deep', () => {
 });
 
 test('unexpected array', () => {
-  expect(serialize({
+  assert.strictEqual(serialize({
     a: [1]
   }, {
     a: 1
-  })).toBe(null);
+  }), null);
 });

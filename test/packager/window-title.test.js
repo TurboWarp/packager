@@ -1,14 +1,16 @@
-import Packager from '../../src/packager/packager';
+import {test} from 'node:test';
+import assert from 'node:assert';
+import Packager from '../../src/packager/packager.js';
 
 test('getWindowTitleFromFileName', () => {
-  expect(Packager.getWindowTitleFromFileName('Test123.sb')).toBe('Test123');
-  expect(Packager.getWindowTitleFromFileName('Test 123.sb2')).toBe('Test 123');
-  expect(Packager.getWindowTitleFromFileName('Test123  .sb3')).toBe('Test123');
-  expect(Packager.getWindowTitleFromFileName(' Test123.zip')).toBe('Test123');
-  expect(Packager.getWindowTitleFromFileName('Test123 ')).toBe('Test123');
-  expect(Packager.getWindowTitleFromFileName('.sb3')).toBe('Packaged Project');
-  expect(Packager.getWindowTitleFromFileName('.sb2')).toBe('Packaged Project');
-  expect(Packager.getWindowTitleFromFileName('.')).toBe('Packaged Project');
-  expect(Packager.getWindowTitleFromFileName('')).toBe('Packaged Project');
-  expect(Packager.getWindowTitleFromFileName('Appel v1.4.sb3')).toBe('Appel v1.4');
+  assert.strictEqual(Packager.getWindowTitleFromFileName('Test123.sb'), 'Test123');
+  assert.strictEqual(Packager.getWindowTitleFromFileName('Test 123.sb2'), 'Test 123');
+  assert.strictEqual(Packager.getWindowTitleFromFileName('Test123  .sb3'), 'Test123');
+  assert.strictEqual(Packager.getWindowTitleFromFileName(' Test123.zip'), 'Test123');
+  assert.strictEqual(Packager.getWindowTitleFromFileName('Test123 '), 'Test123');
+  assert.strictEqual(Packager.getWindowTitleFromFileName('.sb3'), 'Packaged Project');
+  assert.strictEqual(Packager.getWindowTitleFromFileName('.sb2'), 'Packaged Project');
+  assert.strictEqual(Packager.getWindowTitleFromFileName('.'), 'Packaged Project');
+  assert.strictEqual(Packager.getWindowTitleFromFileName(''), 'Packaged Project');
+  assert.strictEqual(Packager.getWindowTitleFromFileName('Appel v1.4.sb3'), 'Appel v1.4');
 });

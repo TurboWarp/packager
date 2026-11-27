@@ -1,4 +1,6 @@
-import {encode, decode} from '../../src/packager/base85';
+import {test} from 'node:test';
+import assert from 'node:assert';
+import {encode, decode} from '../../src/packager/base85.js';
 
 test('base85 encode and decode', () => {
   for (let i = 0; i < 10; i++) {
@@ -10,6 +12,6 @@ test('base85 encode and decode', () => {
     const encoded = encode(uint8);
     const outBuffer = new ArrayBuffer(Math.ceil(uint8.byteLength / 4) * 4);
     decode(encoded, outBuffer, 0);
-    expect(new Uint8Array(outBuffer, 0, uint8.byteLength)).toEqual(uint8);
+    assert.deepStrictEqual(new Uint8Array(outBuffer, 0, uint8.byteLength), uint8);
   }
 });

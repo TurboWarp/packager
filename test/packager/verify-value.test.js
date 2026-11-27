@@ -1,35 +1,37 @@
-import {isValidListValue, isValidVariableValue} from "../../src/scaffolding/verify-value"
+import {test} from 'node:test';
+import assert from 'node:assert';
+import {isValidListValue, isValidVariableValue} from "../../src/scaffolding/verify-value.js"
 
 test('isValidVariableValue', () => {
-  expect(isValidVariableValue('')).toBe(true);
-  expect(isValidVariableValue('d')).toBe(true);
-  expect(isValidVariableValue(0)).toBe(true);
-  expect(isValidVariableValue(NaN)).toBe(true);
-  expect(isValidVariableValue(Infinity)).toBe(true);
-  expect(isValidVariableValue(true)).toBe(true);
-  expect(isValidVariableValue(false)).toBe(true);
-  expect(isValidVariableValue(null)).toBe(false);
-  expect(isValidVariableValue(undefined)).toBe(false);
-  expect(isValidVariableValue([])).toBe(false);
-  expect(isValidVariableValue({})).toBe(false);
+  assert.strictEqual(isValidVariableValue(''), true);
+  assert.strictEqual(isValidVariableValue('d'), true);
+  assert.strictEqual(isValidVariableValue(0), true);
+  assert.strictEqual(isValidVariableValue(NaN), true);
+  assert.strictEqual(isValidVariableValue(Infinity), true);
+  assert.strictEqual(isValidVariableValue(true), true);
+  assert.strictEqual(isValidVariableValue(false), true);
+  assert.strictEqual(isValidVariableValue(null), false);
+  assert.strictEqual(isValidVariableValue(undefined), false);
+  assert.strictEqual(isValidVariableValue([]), false);
+  assert.strictEqual(isValidVariableValue({}), false);
 });
 
 test('isValidListValue', () => {
-  expect(isValidListValue('')).toBe(false);
-  expect(isValidListValue('d')).toBe(false);
-  expect(isValidListValue(0)).toBe(false);
-  expect(isValidListValue(NaN)).toBe(false);
-  expect(isValidListValue(Infinity)).toBe(false);
-  expect(isValidListValue(true)).toBe(false);
-  expect(isValidListValue(false)).toBe(false);
-  expect(isValidListValue(null)).toBe(false);
-  expect(isValidListValue(undefined)).toBe(false);
-  expect(isValidListValue({})).toBe(false);
-  expect(isValidListValue([])).toBe(true);
-  expect(isValidListValue([1, 2, NaN, Infinity, '', 'a', false, true])).toBe(true);
-  expect(isValidListValue([{}])).toBe(false);
-  expect(isValidListValue([null])).toBe(false);
-  expect(isValidListValue([undefined])).toBe(false);
-  expect(isValidListValue(new Array(1))).toBe(false); // array with hole
-  expect(isValidListValue(new Set())).toBe(false);
+  assert.strictEqual(isValidListValue(''), false);
+  assert.strictEqual(isValidListValue('d'), false);
+  assert.strictEqual(isValidListValue(0), false);
+  assert.strictEqual(isValidListValue(NaN), false);
+  assert.strictEqual(isValidListValue(Infinity), false);
+  assert.strictEqual(isValidListValue(true), false);
+  assert.strictEqual(isValidListValue(false), false);
+  assert.strictEqual(isValidListValue(null), false);
+  assert.strictEqual(isValidListValue(undefined), false);
+  assert.strictEqual(isValidListValue({}), false);
+  assert.strictEqual(isValidListValue([]), true);
+  assert.strictEqual(isValidListValue([1, 2, NaN, Infinity, '', 'a', false, true]), true);
+  assert.strictEqual(isValidListValue([{}]), false);
+  assert.strictEqual(isValidListValue([null]), false);
+  assert.strictEqual(isValidListValue([undefined]), false);
+  assert.strictEqual(isValidListValue(new Array(1)), false); // array with hole
+  assert.strictEqual(isValidListValue(new Set()), false);
 });

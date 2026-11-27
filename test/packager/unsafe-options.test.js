@@ -1,23 +1,25 @@
-import Packager from "../../src/packager/packager";
+import {test} from 'node:test';
+import assert from 'node:assert';
+import Packager from "../../src/packager/packager.js";
 
 test('DEFAULT_OPTIONS', () => {
-  expect(Packager.usesUnsafeOptions(Packager.DEFAULT_OPTIONS())).toBe(false);
+  assert.strictEqual(Packager.usesUnsafeOptions(Packager.DEFAULT_OPTIONS()), false);
 });
 
 test('custom JS', () => {
   const options = Packager.DEFAULT_OPTIONS();
   options.custom.js = 'alert(1)';
-  expect(Packager.usesUnsafeOptions(options)).toBe(true);
+  assert.strictEqual(Packager.usesUnsafeOptions(options), true);
 });
 
 test('custom CSS', () => {
   const options = Packager.DEFAULT_OPTIONS();
   options.custom.css = 'body { display: none; }';
-  expect(Packager.usesUnsafeOptions(options)).toBe(true);
+  assert.strictEqual(Packager.usesUnsafeOptions(options), true);
 });
 
 test('unsafe cloud behaviors', () => {
   const options = Packager.DEFAULT_OPTIONS();
   options.cloudVariables.unsafeCloudBehaviors = true;
-  expect(Packager.usesUnsafeOptions(options)).toBe(true);
+  assert.strictEqual(Packager.usesUnsafeOptions(options), true);
 });

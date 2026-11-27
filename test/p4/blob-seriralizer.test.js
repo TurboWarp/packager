@@ -1,4 +1,6 @@
-import {recursivelyDeserializeBlobs, recursivelySerializeBlobs} from "../../src/p4/blob-serializer";
+import {test} from 'node:test';
+import assert from 'node:assert';
+import {recursivelyDeserializeBlobs, recursivelySerializeBlobs} from "../../src/p4/blob-serializer.js";
 
 global.Blob = class {};
 
@@ -19,12 +21,12 @@ test('basic cloning functionality', async () => {
   };
   const serialized = await recursivelySerializeBlobs(object);
   const deserialized = recursivelyDeserializeBlobs(serialized);
-  expect(serialized).toEqual(object);
-  expect(deserialized).toEqual(object);
+  assert.deepStrictEqual(serialized, object);
+  assert.deepStrictEqual(deserialized, object);
 });
 
 test('cant serialize __isBlob', async () => {
-  await expect(recursivelySerializeBlobs({
+  await assert.rejects(recursivelySerializeBlobs({
     __isBlob: true
-  })).rejects.toEqual(new Error(`Can't serialize special key: __isBlob`));
+  }), new Error(`Can't serialize special key: __isBlob`));
 });

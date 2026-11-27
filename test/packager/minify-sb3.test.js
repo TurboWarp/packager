@@ -1,4 +1,6 @@
-import optimizeSb3 from '../../src/packager/minify/sb3';
+import {test} from 'node:test';
+import assert from 'node:assert';
+import optimizeSb3 from '../../src/packager/minify/sb3.js';
 
 const clone = (obj) => JSON.parse(JSON.stringify(obj));
 
@@ -39,7 +41,7 @@ test('removes comments', () => {
     ]
   };
   const optimized = optimizeSb3(clone(data));
-  expect(Object.values(optimized.targets[0].comments)).toEqual([
+  assert.deepStrictEqual(Object.values(optimized.targets[0].comments), [
     {
       "text": "Configuration for https://turbowarp.org/\nDo not edit by hand\n{\"framerate\":30,\"runtimeOptions\":{\"maxClones\":300,\"miscLimits\":false,\"fencing\":true},\"interpolation\":false,\"turbo\":false,\"hq\":true} // _twconfig_"
     },
