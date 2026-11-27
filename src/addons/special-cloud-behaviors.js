@@ -59,6 +59,15 @@ class SpecialCloudBehaviorsProvider {
     this.initialProjectId = this.webSocketProvider ? this.webSocketProvider.projectId : null;
   }
 
+  reload () {
+    this.manager.setVariable(this, '☁ url', location.href);
+
+    // Reset room ID back to the original project
+    if (this.webSocketProvider && this.webSocketProvider.projectId !== this.initialProjectId) {
+      this.webSocketProvider.setProjectId(this.initialProjectId);
+    }
+  }
+
   handleUpdateVariable (name, value) {
     if (name === '☁ redirect') {
       if (isSafeURL(value)) {

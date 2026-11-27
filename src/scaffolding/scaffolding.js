@@ -345,7 +345,13 @@ class Scaffolding extends EventTarget {
       }
     });
 
+    // VM resets cloud provider on each project load, which is reachable via extensions.
+    // So we have to do this on every load.
     this.cloudManager = new Cloud.CloudManager(this);
+    this.vm.runtime.on('PROJECT_LOADED', () => {
+      this.vm.setCloudProvider(this.cloudManager);
+      this.cloudManager.projectReady();
+    });
 
     this.renderer = new Renderer(
       this._canvas,
@@ -454,8 +460,6 @@ class Scaffolding extends EventTarget {
   loadProject (data) {
     return this.vm.loadProject(data)
       .then(() => {
-        this.vm.setCloudProvider(this.cloudManager);
-        this.cloudManager.projectReady();
         this.renderer.draw();
         // Render again after a short delay because some costumes are loaded async
         setTimeout(() => {

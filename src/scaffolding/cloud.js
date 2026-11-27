@@ -3,6 +3,7 @@ class CloudManager {
     this.parent = parent;
     this.providers = [];
     this.overrides = new Map();
+    this.previouslyEnabled = false;
   }
 
   hasCloudData () {
@@ -10,7 +11,17 @@ class CloudManager {
   }
 
   projectReady () {
-    if (this.hasCloudData()) {
+    if (!this.hasCloudData()) {
+      return;
+    }
+    if (this.previouslyEnabled) {
+      for (const provider of this.providers) {
+        if (typeof provider.reload === 'function') {
+          provider.reload();
+        }
+      }
+    } else {
+      this.previouslyEnabled = true;
       for (const provider of this.providers) {
         provider.enable();
       }
@@ -35,10 +46,10 @@ class CloudManager {
 
   addProvider (provider) {
     provider.manager = this;
-    if (this.hasCloudData()) {
+    this.providers.push(provider);
+    if (this.previouslyEnabled) {
       provider.enable();
     }
-    this.providers.push(provider);
   }
 
   requestCloseConnection () {
@@ -97,6 +108,10 @@ class WebSocketProvider {
 
   enable () {
     this.openConnection();
+  }
+
+  reload () {
+    this.closeAndReconnect();
   }
 
   setProjectId (id) {
@@ -276,6 +291,10 @@ class LocalStorageProvider {
   enable () {
     this.readFromLocalStorage();
     window.addEventListener('storage', this.handleStorageEvent);
+  }
+
+  reload () {
+    this.readFromLocalStorage();
   }
 
   handleUpdateVariable (name, value) {
