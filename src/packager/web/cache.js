@@ -1,6 +1,6 @@
-import largeAssets from '../large-assets';
-import {buildId} from '../build-id';
-import Database from '../../common/idb';
+import largeAssets from '../large-assets.js';
+import {buildId} from '../build-id.js';
+import Database from '../../common/idb.js';
 
 const DATABASE_NAME = 'p4-large-assets';
 const DATABASE_VERSION = 1;

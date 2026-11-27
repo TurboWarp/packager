@@ -1,5 +1,5 @@
 <script>
-  import {ACCENT_COLOR} from '../packager/brand';
+  import {ACCENT_COLOR} from '../packager/brand.js';
   export let secondary;
   export let dangerous;
   export let text;

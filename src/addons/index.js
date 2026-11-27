@@ -1,8 +1,8 @@
-import gamepad from './gamepad';
-import pointerlock from './pointerlock';
-import specialCloudBehaviors from './special-cloud-behaviors';
-import unsafeCloudBehaviors from './unsafe-cloud-behaviors';
-import pause from './pause';
+import gamepad from './gamepad/index.js';
+import pointerlock from './pointerlock.js';
+import specialCloudBehaviors from './special-cloud-behaviors.js';
+import unsafeCloudBehaviors from './unsafe-cloud-behaviors.js';
+import pause from './pause.js';
 
 const run = (scaffolding, options) => {
   const api = {

@@ -1,5 +1,5 @@
 <script>
-  import {_} from '../locales/';
+  import {_} from '../locales/index.js';
   import {fade} from 'svelte/transition';
   import ComplexMessage from './ComplexMessage.svelte';
   import Section from './Section.svelte';
@@ -9,8 +9,8 @@
   import Progress from './Progress.svelte';
   import Modals from './Modals.svelte';
   import News from './News.svelte';
-  import {progress, theme, error} from './stores';
-  import {isSupported, isSafari, isStandalone, version} from './environment';
+  import {progress, theme, error} from './stores.js';
+  import {isSupported, isSafari, isStandalone, version} from './environment.js';
   import {
     APP_NAME,
     FEEDBACK_PRIMARY,
@@ -20,7 +20,7 @@
     WEBSITE,
     DONATE,
     PRIVACY_POLICY
-  } from '../packager/brand';
+  } from '../packager/brand.js';
 
   let projectData;
 

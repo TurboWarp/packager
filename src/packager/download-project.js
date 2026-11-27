@@ -1,4 +1,4 @@
-import optimizeSb3Json from './minify/sb3';
+import optimizeSb3Json from './minify/sb3.js';
 import {downloadProjectFromBuffer} from '@turbowarp/sbdl';
 
 const unknownAnalysis = () => ({

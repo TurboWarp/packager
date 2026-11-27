@@ -1,5 +1,5 @@
 <script>
-  import {_} from '../locales/';
+  import {_} from '../locales/index.js';
 
   export let slug;
   export let href;

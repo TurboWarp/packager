@@ -1,4 +1,4 @@
-import {readAsArrayBuffer} from '../common/readers';
+import {readAsArrayBuffer} from '../common/readers.js';
 
 const loadImage = (src) => new Promise((resolve, reject) => {
   const image = new Image();

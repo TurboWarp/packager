@@ -1,10 +1,10 @@
 <script>
   import Section from './Section.svelte';
   import Button from './Button.svelte';
-  import {CannotAccessProjectError, OutdatedPackagerError, UnknownNetworkError, UserError} from '../common/errors';
-  import {error} from './stores';
-  import {FEEDBACK_PRIMARY} from '../packager/brand';
-  import {_} from '../locales/';
+  import {CannotAccessProjectError, OutdatedPackagerError, UnknownNetworkError, UserError} from '../common/errors.js';
+  import {error} from './stores.js';
+  import {FEEDBACK_PRIMARY} from '../packager/brand.js';
+  import {_} from '../locales/index.js';
   import ComplexMessage from './ComplexMessage.svelte';
 
   export let modalVisible;

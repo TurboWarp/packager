@@ -1,6 +1,6 @@
-import {readAsArrayBuffer} from '../common/readers';
-import request from '../common/request';
-import {AbortError} from '../common/errors';
+import {readAsArrayBuffer} from '../common/readers.js';
+import request from '../common/request.js';
+import {AbortError} from '../common/errors.js';
 
 const downloadProject = async (buffer, progressCallback) => {
   const controller = typeof AbortController === 'function' && new AbortController();

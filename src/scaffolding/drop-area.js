@@ -1,5 +1,5 @@
 import styles from './style.css';
-import {readAsText} from '../common/readers';
+import {readAsText} from '../common/readers.js';
 
 class DropArea {
   constructor (el, callback) {

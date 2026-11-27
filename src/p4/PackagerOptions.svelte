@@ -2,7 +2,7 @@
   import {onDestroy} from 'svelte';
   // Standard JSON can't represent values such as Infinity, which some options use.
   import * as ExtendedJSON from '@turbowarp/json';
-  import {_} from '../locales/';
+  import {_} from '../locales/index.js';
   import {slide, fade} from 'svelte/transition';
   import Section from './Section.svelte';
   import Button from '../p4/Button.svelte';
@@ -10,19 +10,19 @@
   import LearnMore from './LearnMore.svelte';
   import ColorPicker from './ColorPicker.svelte';
   import Downloads from './Downloads.svelte';
-  import writablePersistentStore from './persistent-store';
-  import fileStore from './file-store';
-  import {progress, currentTask, error} from './stores';
-  import Preview from './preview';
-  import deepClone from './deep-clone';
-  import Packager from '../packager/web/export';
-  import Task from './task';
-  import downloadURL from './download-url';
-  import {recursivelySerializeBlobs, recursivelyDeserializeBlobs} from './blob-serializer';
-  import {readAsText} from '../common/readers';
-  import merge from './merge';
+  import writablePersistentStore from './persistent-store.js';
+  import fileStore from './file-store.js';
+  import {progress, currentTask, error} from './stores.js';
+  import Preview from './preview.js';
+  import deepClone from './deep-clone.js';
+  import Packager from '../packager/web/export.js';
+  import Task from './task.js';
+  import downloadURL from './download-url.js';
+  import {recursivelySerializeBlobs, recursivelyDeserializeBlobs} from './blob-serializer.js';
+  import {readAsText} from '../common/readers.js';
+  import merge from './merge.js';
   import DropArea from './DropArea.svelte';
-  import {APP_NAME} from '../packager/brand';
+  import {APP_NAME} from '../packager/brand.js';
 
   export let projectData;
   export let title;

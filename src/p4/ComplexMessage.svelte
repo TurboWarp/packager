@@ -1,6 +1,6 @@
 <script>
   import {onMount, onDestroy, tick} from 'svelte';
-  import {_} from '../locales/index';
+  import {_} from '../locales/index.js';
 
   export let message;
   export let values;

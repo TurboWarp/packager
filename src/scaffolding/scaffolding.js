@@ -1,14 +1,14 @@
 import JSZip from '@turbowarp/jszip';
 
-import {VM, Renderer, AudioEngine, BitmapAdapter} from './scratch-libraries';
-import Storage from './storage';
-import {EventTarget} from '../common/event-target';
-import VideoProvider from './video';
-import Cloud from './cloud';
-import Question from './question';
-import {ListMonitor, VariableMonitor} from './monitor';
-import ControlBar from './control-bar';
-import {isValidListValue, isValidVariableValue} from './verify-value';
+import {VM, Renderer, AudioEngine, BitmapAdapter} from './scratch-libraries.js';
+import Storage from './storage.js';
+import {EventTarget} from '../common/event-target.js';
+import VideoProvider from './video.js';
+import Cloud from './cloud.js';
+import Question from './question.js';
+import {ListMonitor, VariableMonitor} from './monitor.js';
+import ControlBar from './control-bar.js';
+import {isValidListValue, isValidVariableValue} from './verify-value.js';
 import defaultMessages from './messages.json';
 import styles from './style.css';
 

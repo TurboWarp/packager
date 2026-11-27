@@ -4,7 +4,7 @@ import {promisify} from 'util';
 import fetch from 'cross-fetch';
 import {name} from '../../../package.json';
 import defaultIcon from '../images/default-icon.png';
-import Image from './image';
+import Image from './image.js';
 
 const readFile = promisify(fs.readFile);
 const writeFile = promisify(fs.writeFile);

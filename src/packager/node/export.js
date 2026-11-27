@@ -1,8 +1,8 @@
-import Packager from '../packager';
-import {downloadProject} from '../download-project';
-import NodeAdapter from './adapter';
-import Image from './image';
-import {setAdapter} from '../adapter';
+import Packager from '../packager.js';
+import {downloadProject} from '../download-project.js';
+import NodeAdapter from './adapter.js';
+import Image from './image.js';
+import {setAdapter} from '../adapter.js';
 
 setAdapter(new NodeAdapter());
 

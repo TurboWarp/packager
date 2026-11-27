@@ -1,6 +1,6 @@
-import {isSafari, isStandalone} from './environment';
-import escapeXML from '../common/escape-xml';
-import {_} from '../locales';
+import {isSafari, isStandalone} from './environment.js';
+import escapeXML from '../common/escape-xml.js';
+import {_} from '../locales/index.js';
 
 const origin = isStandalone ? '*' : location.origin;
 

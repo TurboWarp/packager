@@ -1,9 +1,9 @@
 <script>
   import Section from './Section.svelte';
-  import {_} from '../locales';
-  import {getJSZip} from '../packager/packager';
-  import downloadURL from './download-url';
-  import {isChromeOS} from './environment';
+  import {_} from '../locales/index.js';
+  import {getJSZip} from '../packager/packager.js';
+  import downloadURL from './download-url.js';
+  import {isChromeOS} from './environment.js';
 
   export let name;
   export let url;

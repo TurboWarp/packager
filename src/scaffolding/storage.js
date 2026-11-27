@@ -1,4 +1,4 @@
-import {ScratchStorage} from './scratch-libraries';
+import {ScratchStorage} from './scratch-libraries.js';
 
 class StorageWithProgress extends ScratchStorage {
   constructor () {

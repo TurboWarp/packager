@@ -1,4 +1,4 @@
-import DropArea from './drop-area';
+import DropArea from './drop-area.js';
 import styles from './style.css';
 
 class Question {

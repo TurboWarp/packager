@@ -1,5 +1,5 @@
 <script>
-  import {locale, localeNames} from '../locales/index';
+  import {locale, localeNames} from '../locales/index.js';
 </script>
 
 <select bind:value={$locale}>

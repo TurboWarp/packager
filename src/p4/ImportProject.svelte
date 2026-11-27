@@ -1,7 +1,7 @@
 <script>
   import {createEventDispatcher} from 'svelte';
   import {fade} from 'svelte/transition';
-  import {_} from '../locales/';
+  import {_} from '../locales/index.js';
 
   const dispatch = createEventDispatcher();
 

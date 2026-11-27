@@ -1,6 +1,6 @@
 <script>
-  import {theme} from './stores';
-  import {_} from '../locales';
+  import {theme} from './stores.js';
+  import {_} from '../locales/index.js';
 </script>
 
 <select bind:value={$theme}>

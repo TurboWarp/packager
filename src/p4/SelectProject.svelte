@@ -1,19 +1,19 @@
 <script>
   import {onMount, tick} from 'svelte';
-  import {_} from '../locales';
+  import {_} from '../locales/index.js';
   import Section from './Section.svelte';
   import Button from './Button.svelte';
   import DropArea from './DropArea.svelte';
   import ComplexMessage from './ComplexMessage.svelte';
   import ImportingProject from './ImportProject.svelte';
-  import writablePersistentStore from './persistent-store';
-  import {progress, currentTask} from './stores';
-  import {UserError} from '../common/errors';
-  import getProjectMetadata from './get-project-metadata';
-  import loadProject from '../packager/load-project';
-  import {extractProjectId, isValidURL, getTitleFromURL} from './url-utils';
-  import Task from './task';
-  import importExternalProject from './import-external-project';
+  import writablePersistentStore from './persistent-store.js';
+  import {progress, currentTask} from './stores.js';
+  import {UserError} from '../common/errors.js';
+  import getProjectMetadata from './get-project-metadata.js';
+  import loadProject from '../packager/load-project.js';
+  import {extractProjectId, isValidURL, getTitleFromURL} from './url-utils.js';
+  import Task from './task.js';
+  import importExternalProject from './import-external-project.js';
 
   const defaultProjectId = '60917032';
 

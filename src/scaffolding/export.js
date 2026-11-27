@@ -1,4 +1,4 @@
-import * as Scaffolding from './scaffolding';
+import * as Scaffolding from './scaffolding.js';
 
 if (window.Scaffolding) {
   throw new Error('Scaffolding already exists on this page');

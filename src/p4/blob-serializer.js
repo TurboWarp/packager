@@ -1,5 +1,5 @@
-import {readAsArrayBuffer} from '../common/readers';
-import {encode, decode} from './base64';
+import {readAsArrayBuffer} from '../common/readers.js';
+import {encode, decode} from './base64.js';
 
 const BLOB_IDENTIFIER = '__isBlob';
 

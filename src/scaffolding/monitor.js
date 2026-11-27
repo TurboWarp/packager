@@ -1,9 +1,9 @@
-import ContextMenu from './context-menu';
-import DropArea from './drop-area';
+import ContextMenu from './context-menu.js';
+import DropArea from './drop-area.js';
 import styles from './style.css';
-import {readAsText} from '../common/readers';
-import downloadBlob from './download';
-import {safeStringify} from './safe-stringify';
+import {readAsText} from '../common/readers.js';
+import downloadBlob from './download.js';
+import {safeStringify} from './safe-stringify.js';
 
 class Monitor {
   constructor (parent, monitor) {

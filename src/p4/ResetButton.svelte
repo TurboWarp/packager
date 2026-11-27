@@ -1,6 +1,6 @@
 <script>
   import {createEventDispatcher} from 'svelte';
-  import {_} from '../locales/';
+  import {_} from '../locales/index.js';
   import icon from './reset.svg';
 
   const dispatch = createEventDispatcher();

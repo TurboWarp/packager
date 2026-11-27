@@ -1,6 +1,6 @@
-import {EventTarget} from '../common/event-target';
-import {AbortError} from '../common/errors';
-import {progress, error, currentTask} from './stores';
+import {EventTarget} from '../common/event-target.js';
+import {AbortError} from '../common/errors.js';
+import {progress, error, currentTask} from './stores.js';
 
 class Task extends EventTarget {
   constructor () {

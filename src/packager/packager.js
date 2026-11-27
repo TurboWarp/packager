@@ -1,17 +1,17 @@
-import {EventTarget, CustomEvent} from '../common/event-target';
-import sha256 from './sha256';
-import escapeXML from '../common/escape-xml';
-import largeAssets from './large-assets';
-import request from '../common/request';
-import pngToAppleICNS from './icns';
-import {buildId, verifyBuildId} from './build-id';
-import {encode} from './base85';
-import {parsePlist, generatePlist} from './plist';
-import {APP_NAME, WEBSITE, COPYRIGHT_NOTICE, ACCENT_COLOR} from './brand';
-import {OutdatedPackagerError} from '../common/errors';
-import {darken} from './colors';
-import {Adapter} from './adapter';
-import encodeBigString from './encode-big-string';
+import {EventTarget, CustomEvent} from '../common/event-target.js';
+import sha256 from './sha256.js';
+import escapeXML from '../common/escape-xml.js';
+import largeAssets from './large-assets.js';
+import request from '../common/request.js';
+import pngToAppleICNS from './icns.js';
+import {buildId, verifyBuildId} from './build-id.js';
+import {encode} from './base85.js';
+import {parsePlist, generatePlist} from './plist.js';
+import {APP_NAME, WEBSITE, COPYRIGHT_NOTICE, ACCENT_COLOR} from './brand.js';
+import {OutdatedPackagerError} from '../common/errors.js';
+import {darken} from './colors.js';
+import {Adapter} from './adapter.js';
+import encodeBigString from './encode-big-string.js';
 
 const PROGRESS_LOADED_SCRIPTS = 0.1;
 

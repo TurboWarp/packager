@@ -1,6 +1,6 @@
 import {writable} from 'svelte/store';
-import Database from '../common/idb';
-import {readAsArrayBuffer} from '../common/readers';
+import Database from '../common/idb.js';
+import {readAsArrayBuffer} from '../common/readers.js';
 
 const DATABASE_NAME = 'p4-local-settings';
 const DATABASE_VERSION = 1;

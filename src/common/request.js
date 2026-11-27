@@ -1,4 +1,4 @@
-import {HTTPError, UnknownNetworkError} from './errors';
+import {HTTPError, UnknownNetworkError} from './errors.js';
 
 const clampProgress = (n) => Math.max(0, Math.min(1, n));
 

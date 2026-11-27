@@ -1,6 +1,6 @@
-import assetCache from './cache';
-import request from '../../common/request';
-import {readAsURL, readAsArrayBuffer} from '../../common/readers';
+import assetCache from './cache.js';
+import request from '../../common/request.js';
+import {readAsURL, readAsArrayBuffer} from '../../common/readers.js';
 import defaultIcon from '../images/default-icon.png';
 
 class WebAdapter {
